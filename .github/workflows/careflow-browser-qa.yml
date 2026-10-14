@@ -1,0 +1,39 @@
+name: CareFlow mobile browser QA
+on:
+  push:
+    branches:
+      - qa/careflow-browser-accessibility-2026
+  pull_request:
+    paths:
+      - 'prototype/**'
+      - '.github/workflows/careflow-browser-qa.yml'
+jobs:
+  mobile-browser-tests:
+    name: Mobile browser flows and accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: npm install --prefix prototype --no-audit --no-fund
+      - name: Install Chromium and WebKit
+        run: cd prototype && npx playwright install --with-deps chromium webkit
+      - name: Run deterministic model and browser tests
+        run: npm --prefix prototype run test:all
+      - name: Upload browser test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: careflow-browser-qa-${{ github.run_id }}
+          path: |
+            prototype/test-results/
+            prototype/playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14

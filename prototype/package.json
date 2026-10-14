@@ -1,0 +1,15 @@
+{
+  "name": "careflow-lowfi-qa",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CareFlow prototype browser smoke tests (not a healthcare application)",
+  "scripts": {
+    "test:model": "node tests.cjs",
+    "test:e2e": "playwright test -c playwright.config.cjs",
+    "test:all": "npm run test:model && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@axe-core/playwright": "4.13.0"
+  }
+}

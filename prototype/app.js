@@ -254,7 +254,7 @@
         m.reason=ui.reason;
         {const r=M.screening(m,ui.choice);if(!r.ok)return show("Vui lòng chọn một tình huống mô phỏng.");return nav(r.next);}
       case "chooseMode":m.mode=value;return render();
-      case "chooseSlot":m.slot=value;m.slotUnavailable=false;m.bookingError="";return render();
+      case "chooseSlot":m.slot=value;m.slotUnavailable=false;m.bookingError="";if(ui.bookingOutcome==="slot_unavailable")ui.bookingOutcome="success";return render();
       case "nextSlot":if(!m.slot)return show("Vui lòng chọn giờ khám.");return nav("C5");
       case "confirmBooking":
         {const r=M.attemptBooking(m,ui.bookingOutcome);
@@ -265,7 +265,7 @@
           if(r.code==="NO_BOOK_PERMISSION")return show("Không có quyền đặt lịch cho hồ sơ người thân.");
           return show("Chưa thể xác nhận đặt lịch: "+r.code);}
       case "checkUnknown":
-        {const r=M.resolveUnknown(m,false);if(r.ok)return show("Mô phỏng: máy chủ chưa ghi nhận lịch. Có thể thử gửi lại sau khi kiểm tra.");return show("Không có yêu cầu đang chờ kiểm tra.");}
+        {const r=M.resolveUnknown(m,false);if(r.ok){ui.bookingOutcome="success";return show("Mô phỏng: máy chủ chưa ghi nhận lịch. Có thể thử gửi lại sau khi kiểm tra.");}return show("Không có yêu cầu đang chờ kiểm tra.");}
       case "goBack":
         return nav(({A2:"A1",C1:"B1",C2:"C1",C4:"C2",C5:"C4",F4:ui.lastHelpFrom,D3:"D2"}[ui.current])||"B1");
       case "openHelp":ui.lastHelpFrom=ui.current;return nav("F4");
