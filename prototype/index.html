@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>CareFlow — 23 Mobile Low-Fi Wireframes</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#phone-main">Bỏ qua điều hướng</a>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="Điều hướng bản mẫu">
+      <div class="brand"><span class="brandmark">CF</span><div><strong>CareFlow</strong><small>Patient journey · Low fidelity</small></div></div>
+      <p class="eyebrow">KỊCH BẢN DEMO</p>
+      <div id="scenario-menu" class="scenario-menu"></div>
+      <p class="eyebrow">23 MÀN HÌNH</p>
+      <nav id="screen-menu" aria-label="Danh sách các màn hình"></nav>
+      <p class="small muted">Bản mô phỏng chỉ dùng dữ liệu giả. Không kết nối dịch vụ y tế, OTP, cấp cứu hoặc thanh toán thực.</p>
+    </aside>
+
+    <main class="stage" aria-label="Bản mẫu ứng dụng CareFlow">
+      <div class="stage-header"><div><h1>Patient App · Wireframes</h1><p>iOS / Android · structure before visual design</p></div><span class="stage-chip">23 SCREENS</span></div>
+      <div class="phone" id="phone-frame">
+        <div class="phone-top" aria-hidden="true"><span>9:41</span><span>▮▮▮  ▰</span></div>
+        <div class="phone-header"><div><strong>CareFlow</strong><span id="phone-screen-tag">A1</span></div><button class="icon-button" type="button" data-action="openHelp" aria-label="Liên hệ phòng khám">☎</button></div>
+        <div class="phone-scroll" id="phone-main" tabindex="-1"><div id="phone-content"></div></div>
+        <div id="phone-footer"></div>
+      </div>
+      <p class="foot-caption">DEMO / LOW-FIDELITY / NOT FOR CLINICAL USE — không thu thập hay gửi dữ liệu thật.</p>
+    </main>
+
+    <aside class="inspector" aria-label="Thông tin kiểm thử">
+      <h2>Screen inspector</h2>
+      <div id="inspector-content"></div>
+      <div class="rule"></div>
+      <h3>Mô phỏng lỗi đặt lịch</h3>
+      <label for="demo-outcome" class="field-label">Phản hồi máy chủ giả lập</label>
+      <select id="demo-outcome">
+        <option value="success">Đặt lịch thành công</option>
+        <option value="slot_unavailable">Giờ khám đã hết</option>
+        <option value="network_unknown">Chưa xác định kết quả</option>
+      </select>
+      <p class="small muted">Chỉ thay phản hồi mô phỏng ở C5. Không có API hoặc thanh toán thật.</p>
+      <div class="rule"></div>
+      <h3>Kiểm thử</h3>
+      <button type="button" class="secondary block" data-action="runSmokeTests">Chạy kiểm tra logic nhanh</button>
+      <div id="qa-results" role="status" aria-live="polite"></div>
+      <p class="small muted">Kiểm thử tự động chỉ xác minh các luật mô phỏng. Chưa thử trên người bệnh thực hoặc kiểm định y tế.</p>
+    </aside>
+  </div>
+  <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+  <script src="./model.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

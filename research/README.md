@@ -55,3 +55,12 @@ A1–A2: khởi động; B1: trang chủ; C1–C6: đặt lịch/sàng lọc; D1
 - **10**: backlog 13 câu hỏi có owner và 7 hạng mục đối chiếu nguồn chính thức cập nhật 2026; các blockers P0 Critical phải qua phê duyệt chuyên môn.
 
 **Quyết định:** Chưa thực hiện khảo sát thực địa, chưa kiểm thử ứng dụng đối thủ end-to-end, chưa chốt backend/clinical/legal SOP. Không merge PR trước khi reviewer đồng ý; nhánh chỉ chứa tài liệu, không chứa dữ liệu bệnh nhân.
+
+
+## Low-fidelity wireframe deliverable (design branch)
+- [Bảng trực quan 23 màn hình](../prototype/wireframe-board.svg)
+- [Prototype tương tác + hướng dẫn mở](../prototype/README.md)
+- [Kế hoạch kiểm thử 5 kịch bản](../prototype/USABILITY-TEST-PLAN.md)
+- [Bộ kiểm thử mô phỏng 26 assertions](../prototype/tests.cjs)
+
+> Tất cả các artifact prototype đều dùng dữ liệu giả; chưa có usability testing trên bệnh nhân hay phê duyệt chuyên môn. Chỉ merge thiết kế vào main khi đáp ứng clinical/legal gates.
