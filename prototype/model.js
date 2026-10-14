@@ -9,13 +9,13 @@ const CareFlowModel = (function createModel(){
   }
   function screening(s,answer){
     if(!["normal","warning"].includes(answer))return {ok:false,code:"SCREENING_REQUIRED"};
-    s.screening=answer;s.risk=answer==="warning";return {ok:true,next:s.risk?"C3":"C4"};
+    s.screening=answer;s.risk=s.risk||answer==="warning";return {ok:true,next:s.risk?"C3":"C4"};
   }
   function canBook(s){return s.person==="self"||s.canBookRelative;}
   function mayEnter(s,id){
     if(!SCREENS.includes(id))return false;
     if(["C4","C5","C6"].includes(id)&&s.risk)return false;
-    if(id==="C6"&&!s.appointment)return false;
+    if(id==="C6"&&(!s.appointment||s.appointment.patientId!==(s.person==="self"?"patient-self":"patient-relative")))return false;
     return true;
   }
   function attemptBooking(s,outcome="success"){
