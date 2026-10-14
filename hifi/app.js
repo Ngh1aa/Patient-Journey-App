@@ -41,7 +41,7 @@
   const logo=()=>`<span class="logo-mini"><span>✳</span>CareFlow</span>`;
   const call=()=>`<button type="button" class="icon-btn" aria-label="Gọi phòng khám (chưa có số thực)" data-action="contact">${ico("phone")}</button>`;
   const head=(title,back="B1")=>`<div class="breadcrumb"><button type="button" class="icon-btn" aria-label="Quay lại" data-action="navigate" data-to="${back}">${ico("back")}</button><strong>${clean(title)}</strong>${call()}</div>`;
-  const progress=(n)=>`<div class="steps" aria-label="Bước ${n} trên 4">${[1,2,3,4].map(i=>`<span class="${i<=n?"active":""}"></span>`).join("")}</div>`;
+  const progress=(n)=>`<div class="steps" role="progressbar" aria-label="Tiến độ đặt lịch" aria-valuemin="1" aria-valuemax="4" aria-valuenow="${n}">${[1,2,3,4].map(i=>`<span class="${i<=n?"active":""}"></span>`).join("")}</div>`;
   const person=()=>s.person==="self"?"Nguyễn An (hồ sơ mẫu)":"Trần Hoa (người thân mẫu)";
   const context=()=>`<div class="person-context"><div class="row"><span class="mini-icon">${ico("user")}</span><div><small>Đang đặt lịch cho</small><strong>${person()}</strong></div></div><button type="button" class="link-btn" data-action="navigate" data-to="C1">Đổi</button></div>`;
   const card=(title,inner,klass="")=>`<section class="card ${klass}"><h3 class="card-title">${title}</h3>${inner}</section>`;
