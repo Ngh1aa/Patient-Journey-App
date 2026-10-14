@@ -12,7 +12,7 @@
 
 ## B. Sơ đồ thông tin
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     START([Mở CareFlow]) --> AUTH[A1 Đăng nhập / OTP]
     AUTH -->|Hồ sơ chưa có| A2[A2 Tạo hồ sơ ban đầu]
@@ -50,7 +50,7 @@ flowchart TD
     T4 --> D2
     T4 --> F2
     T3 --> G3[G3 Cài đặt]
-\`\`\`
+```
 
 **Giới hạn của 23 màn:** đây là information architecture của *patient app*, không phải danh sách màn staff. Staff console (tiếp nhận, điều dưỡng, bác sĩ, thu ngân) và backend phải tồn tại bên ngoài 23 màn để phát sinh, cập nhật, ký, bàn giao các trạng thái. Không giả định app bệnh nhân được quyền tự ký/khóa lượt khám.
 
