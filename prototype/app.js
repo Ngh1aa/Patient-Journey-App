@@ -204,6 +204,7 @@
   }
   function renderMenus(){
     $("scenario-menu").innerHTML=scenarioButtons();
+    $("mobile-screen-picker").innerHTML=groups.flatMap(g=>g.items).map(s=>`<option value="${s[0]}" ${ui.current===s[0]?"selected":""}>${s[0]} · ${esc(s[1])}</option>`).join("");
     $("screen-menu").innerHTML=groups.map(g=>`<div class="group-label">${esc(g.name)}</div>${g.items.map(s=>`<button type="button" class="screen-nav ${ui.current===s[0]?"active":""}" data-screen="${s[0]}" ${ui.current===s[0]?'aria-current="page"':""}><span class="code-label">${s[0]}</span>${esc(s[1])}</button>`).join("")}`).join("");
   }
   function render(){
@@ -350,5 +351,6 @@
     }
   });
   $("demo-outcome").addEventListener("change",e=>{ui.bookingOutcome=e.target.value;});
+  $("mobile-screen-picker").addEventListener("change",e=>{nav(e.target.value);});
   resetScenario("self");
 })();
