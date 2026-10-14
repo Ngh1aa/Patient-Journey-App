@@ -20,7 +20,7 @@ test('8-screen primary journey completes with confirmed patient and appointment'
  await completedBooking(page);
  await expect(page.locator('#cf-screen')).toContainText('DEMO-001');
  await page.screenshot({path:testInfo.outputPath('C6-confirmed.png'),fullPage:true});
- await act(page,'navigate').last().click();
+ await page.locator('.device-screen [data-action="navigate"][data-to="D2"]').click();
  await assertScreen(page,'D2');
  await expect(page.locator('#cf-screen')).toContainText('Hành trình buổi khám');
 });
