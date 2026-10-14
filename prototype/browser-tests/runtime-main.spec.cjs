@@ -30,7 +30,7 @@ test('launches latest demo with three panels and live inspector',async({page})=>
 test('login with demo OTP then inspect dashboard and notification center',async({page})=>{
   await inPhone(page,'login').click();
   await expectScreen(page,'B1');
-  await expect(page.locator('#phone-main')).toContainText('Nguyễn Minh Anh');
+  await expect(page.locator('#phone-main')).toContainText('Tôi (hồ sơ mẫu)');
   await page.locator('.phone-header [data-action="goG2"]').click();
   await expectScreen(page,'G2');
   await expect(page.locator('#inspector-content')).toContainText('G2');
@@ -65,7 +65,7 @@ test('proxy mock retains selected patient identity',async({page})=>{
   await expect(page.locator('#phone-main')).toContainText('Trần Thị Mai');
   await inPhone(page,'nextPerson').click();
   await expectScreen(page,'C2');
-  await expect(page.locator('#phone-main')).toContainText('Trần Thị Mai');
+  await expect(page.locator('#phone-main')).toContainText('Mẹ (hồ sơ mẫu)');
 });
 
 test('warning branch routes to C3 and direct C4 navigation is intercepted',async({page})=>{
