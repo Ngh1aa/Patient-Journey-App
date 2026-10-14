@@ -1,56 +1,196 @@
 <!doctype html>
 <html lang="vi">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="light" />
-  <title>CareFlow — 23 Mobile Low-Fi Wireframes</title>
+  <title>CareFlow — Patient Journey & Clinic Care App</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
   <a class="skip-link" href="#phone-main">Bỏ qua điều hướng</a>
+
   <div class="workspace">
+    <!-- Left Sidebar: Scenarios & Screen Directory -->
     <aside class="sidebar" aria-label="Điều hướng bản mẫu">
-      <div class="brand"><span class="brandmark">CF</span><div><strong>CareFlow</strong><small>Patient journey · Low fidelity</small></div></div>
+      <div class="brand">
+        <div class="brandmark">CF</div>
+        <div>
+          <strong>CareFlow</strong>
+          <small>Patient Journey App · MVP</small>
+        </div>
+      </div>
+
       <p class="eyebrow">KỊCH BẢN DEMO</p>
       <div id="scenario-menu" class="scenario-menu"></div>
-      <p class="eyebrow">23 MÀN HÌNH</p>
+
+      <p class="eyebrow">14 MÀN HÌNH CHÍNH (MVP)</p>
       <nav id="screen-menu" aria-label="Danh sách các màn hình"></nav>
-      <p class="small muted">Bản mô phỏng chỉ dùng dữ liệu giả. Không kết nối dịch vụ y tế, OTP, cấp cứu hoặc thanh toán thực.</p>
+
+      <div
+        style="margin-top: 24px; padding: 12px; background: #f8fafc; border: 1px solid var(--color-border); border-radius: 12px;">
+        <p class="field-hint" style="margin: 0;">
+          <strong>Chế độ mô phỏng:</strong> Dữ liệu giả lập hoàn toàn. Không kết nối dịch vụ y tế, cấp cứu hay cổng
+          thanh toán thật.
+        </p>
+      </div>
     </aside>
 
+    <!-- Center Stage: Mobile Phone Container -->
     <main class="stage" aria-label="Bản mẫu ứng dụng CareFlow">
-      <div class="stage-header"><div><h1>Patient App · Wireframes</h1><p>iOS / Android · structure before visual design</p></div><span class="stage-chip">23 SCREENS</span></div>
-      <div class="phone" id="phone-frame">
-        <div class="phone-top" aria-hidden="true"><span>9:41</span><span>▮▮▮  ▰</span></div>
-        <div class="phone-header"><div><strong>CareFlow</strong><span id="phone-screen-tag">A1</span></div><button class="icon-button" type="button" data-action="openHelp" aria-label="Liên hệ phòng khám">☎</button></div>
-        <div class="phone-scroll" id="phone-main" tabindex="-1"><div id="phone-content"></div></div>
-        <div id="phone-footer"></div>
+      <div class="stage-header">
+        <div>
+          <h1>CareFlow Mobile App</h1>
+          <p>Calm Clinical iOS · 390×844px · Patient Journey</p>
+        </div>
+        <span class="stage-chip">14 MVP SCREENS</span>
       </div>
-      <p class="foot-caption">DEMO / LOW-FIDELITY / NOT FOR CLINICAL USE — không thu thập hay gửi dữ liệu thật.</p>
+
+      <div class="phone" id="phone-frame">
+        <!-- iOS Status Bar -->
+        <div class="phone-top" aria-hidden="true">
+          <span id="phone-clock">9:41</span>
+          <div class="phone-notch">
+            <div class="phone-notch-dot"></div>
+          </div>
+          <div class="phone-status-icons">
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor">
+              <path d="M1 9.5h2v-2H1v2zm3.5 0h2v-4h-2v4zm3.5 0h2v-6.5h-2v6.5zm3.5 0h2V0h-2v9.5z" />
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor" style="margin: 0 3px;">
+              <path
+                d="M7.5 2.5C9.7 2.5 11.6 3.4 13 4.8l1.4-1.4C12.6 1.6 10.2.5 7.5.5 4.8.5 2.4 1.6.6 3.4L2 4.8c1.4-1.4 3.3-2.3 5.5-2.3zm0 4c1.2 0 2.3.5 3.1 1.3l1.4-1.4C10.8 5.2 9.2 4.5 7.5 4.5c-1.7 0-3.3.7-4.5 1.9l1.4 1.4c.8-.8 1.9-1.3 3.1-1.3zm0 4c.8 0 1.5-.7 1.5-1.5S8.3 7.5 7.5 7.5 6 8.2 6 9s.7 1.5 1.5 1.5z" />
+            </svg>
+            <svg width="22" height="11" viewBox="0 0 22 11" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="0.5" y="0.5" width="18" height="10" rx="2.5" />
+              <rect x="2" y="2" width="12" height="7" rx="1.5" fill="currentColor" />
+              <path d="M20 3.5v4" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Simulated Offline Banner (hidden by default) -->
+        <div id="offline-bar" class="offline-banner" style="display: none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+          </svg>
+          <span>Bạn đang ở chế độ ngoại tuyến (dữ liệu lưu cục bộ)</span>
+        </div>
+
+        <!-- Top App Bar -->
+        <div class="phone-header">
+          <div class="phone-header-left">
+            <button id="header-back-btn" class="phone-header-back" type="button" data-action="goBack"
+              aria-label="Quay lại" style="display: none;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <div id="header-title-container">
+              <strong class="phone-header-title">CareFlow</strong>
+            </div>
+            <span id="phone-screen-tag">A1</span>
+          </div>
+
+          <div class="phone-header-right">
+            <button class="phone-header-btn" type="button" data-action="goG2" aria-label="Thông báo" title="Thông báo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span id="header-unread-badge" class="phone-header-badge"></span>
+            </button>
+            <button class="phone-header-btn" type="button" data-action="openHelp" aria-label="Liên hệ phòng khám"
+              title="Hỗ trợ & Hotline">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Scrollable Screen Content -->
+        <div class="phone-scroll" id="phone-main" tabindex="-1">
+          <div id="phone-content"></div>
+        </div>
+
+        <!-- Bottom 4-Tab Navigation & iOS Home Indicator -->
+        <div id="phone-footer-container">
+          <div id="phone-footer"></div>
+          <div class="phone-home-indicator"></div>
+        </div>
+      </div>
+
+      <p class="foot-caption">CareFlow Patient Journey Prototype · Calm Clinical iOS · Không dùng cho chẩn đoán y tế
+        thực tế.</p>
     </main>
 
-    <aside class="inspector" aria-label="Thông tin kiểm thử">
-      <h2>Screen inspector</h2>
+    <!-- Right Inspector: State, Scenario Controls & Smoke Tests -->
+    <aside class="inspector" aria-label="Thông tin kiểm thử và trạng thái">
+      <h2>Screen Inspector</h2>
       <div id="inspector-content"></div>
+
       <div class="rule"></div>
-      <h3>Mô phỏng lỗi đặt lịch</h3>
-      <label for="demo-outcome" class="field-label">Phản hồi máy chủ giả lập</label>
-      <select id="demo-outcome">
-        <option value="success">Đặt lịch thành công</option>
-        <option value="slot_unavailable">Giờ khám đã hết</option>
-        <option value="network_unknown">Chưa xác định kết quả</option>
+
+      <h3>Mô phỏng máy chủ đặt lịch</h3>
+      <label for="demo-outcome" class="field-label" style="margin-top: 6px;">Phản hồi giả lập tại C5</label>
+      <select id="demo-outcome" class="input" style="min-height: 42px; padding: 8px 12px; font-size: 13.5px;">
+        <option value="success">Đặt lịch thành công (confirmed)</option>
+        <option value="slot_unavailable">Giờ khám đã hết (slot collision)</option>
+        <option value="network_unknown">Mất mạng / Chưa xác định (timeout)</option>
       </select>
-      <p class="small muted">Chỉ thay phản hồi mô phỏng ở C5. Không có API hoặc thanh toán thật.</p>
+
       <div class="rule"></div>
-      <h3>Kiểm thử</h3>
-      <button type="button" class="secondary block" data-action="runSmokeTests">Chạy kiểm tra logic nhanh</button>
-      <div id="qa-results" role="status" aria-live="polite"></div>
-      <p class="small muted">Kiểm thử tự động chỉ xác minh các luật mô phỏng. Chưa thử trên người bệnh thực hoặc kiểm định y tế.</p>
+
+      <h3>Mô phỏng trạng thái lượt khám</h3>
+      <label for="status-override" class="field-label" style="margin-top: 6px;">Kiểm tra màn D2 với 12 trạng
+        thái:</label>
+      <select id="status-override" class="input" style="min-height: 42px; padding: 8px 12px; font-size: 13px;">
+        <option value="confirmed">Đã xác nhận (confirmed)</option>
+        <option value="pending">Chờ xác nhận (pending)</option>
+        <option value="reminder">Sắp đến giờ khám (reminder)</option>
+        <option value="arrived">Đã đến phòng khám (arrived)</option>
+        <option value="waiting">Đang chờ khám (waiting)</option>
+        <option value="online-waiting">Chờ kết nối online (online-waiting)</option>
+        <option value="delayed">Phòng khám trễ (delayed)</option>
+        <option value="results-pending">Đang xử lý kết quả (results-pending)</option>
+        <option value="results-ready">Kết quả sẵn sàng (results-ready)</option>
+        <option value="reviewed">Bác sĩ đã xem (reviewed)</option>
+        <option value="cancelled">Đã hủy (cancelled)</option>
+        <option value="no-show">Không đến khám (no-show)</option>
+      </select>
+
+      <div class="rule"></div>
+
+      <h3>Kiểm tra & Bật/Tắt tính năng</h3>
+      <div style="display: grid; gap: 8px; margin: 10px 0;">
+        <button type="button" class="btn-secondary btn-sm" data-action="toggleOffline">Mô phỏng Chế độ Offline</button>
+        <button type="button" class="btn-secondary btn-sm" data-action="runSmokeTests">Chạy kiểm tra logic nhanh (15
+          tests)</button>
+      </div>
+
+      <div id="qa-results" role="status" aria-live="polite" style="margin-top: 10px;"></div>
     </aside>
   </div>
+
   <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+
+  <!-- Execution order: model.js MUST precede app.js -->
   <script src="./model.js"></script>
   <script src="./app.js"></script>
 </body>
+
 </html>
