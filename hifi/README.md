@@ -3,6 +3,12 @@
 **Status:** interactive design prototype, synthetic data only • **Scope:** A1 → B1 → C1 → C2 → C4 → C5 → C6 → D2, plus safety fallback C3.  
 **Version:** 0.1 • Date: 15/10/2026 • iOS-style and Android-responsive.
 
+## Visual overview
+
+[View the 8-screen High-Fidelity board](overview.svg) — an illustrative vector overview for side-by-side design review. The interactive HTML browser prototype is the source of truth for actual behavior; CI contains screenshots from Chromium/WebKit.
+
+![CareFlow Wave 01 — 8 High-Fidelity screens](overview.svg)
+
 ## Open
 
 Open [index.html](index.html) in a browser, with the repository cloned so it can load `../prototype/model.js`:
