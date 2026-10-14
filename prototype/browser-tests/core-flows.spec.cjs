@@ -48,6 +48,7 @@ test('S2 proxy booking targets relative, but result requires separate permission
   await choose(page,'chooseScreening','normal').click();
   await action(page,'nextScreening').click();
   await expectScreen(page,'C4');
+  await choose(page,'chooseSlot','09:00').click();
   await action(page,'nextSlot').click();
   await expectScreen(page,'C5');
   await expect(phone(page)).toContainText('Mẹ (hồ sơ mẫu)');
