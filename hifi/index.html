@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F5F8FC">
+<meta name="description" content="CareFlow High-Fidelity mobile patient booking prototype, simulated data only">
+<title>CareFlow — High-Fidelity · Wave 01</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip" href="#cf-screen">Bỏ qua menu và vào nội dung ứng dụng</a>
+<div class="workspace">
+  <aside class="work-panel" aria-label="Điều khiển bản thiết kế">
+    <div class="work-brand"><span class="brand-symbol" aria-hidden="true">✳</span><div><strong>CareFlow</strong><small>Product design workspace</small></div></div>
+    <div class="panel-intro"><span class="overline">HIGH-FIDELITY · WAVE 01</span><h1>Hành trình<br>đặt lịch khám.</h1><p>8 màn hình chính và một màn an toàn bổ sung. Thiết kế dựa trên token CareFlow v0.1.</p></div>
+    <span class="overline">MÀN HÌNH</span>
+    <nav id="screen-list" class="screen-list" aria-label="Chọn màn hình thiết kế"></nav>
+    <span class="overline spacer-top">KỊCH BẢN KIỂM THỬ</span>
+    <div class="scenario-list" aria-label="Kịch bản mẫu">
+      <button data-scenario="normal" type="button">Đặt lịch cho mình</button>
+      <button data-scenario="proxy" type="button">Đặt hộ người thân</button>
+      <button data-scenario="warning" type="button">Mô phỏng cảnh báo</button>
+      <button data-scenario="slot" type="button">Giờ khám vừa hết</button>
+      <button data-scenario="unknown" type="button">Mất phản hồi mạng</button>
+    </div>
+    <p class="panel-disclaimer">Dữ liệu, lịch khám, hotline và nội dung sàng lọc đều là giả lập. Không dùng cho bệnh nhân thật.</p>
+  </aside>
+
+  <main class="preview-area">
+    <div class="preview-top">
+      <div><span class="overline">INTERACTIVE MOBILE DESIGN</span><strong>CareFlow / Patient App</strong></div>
+      <div class="top-actions">
+        <button id="theme-toggle" type="button" aria-label="Chuyển giao diện sáng hoặc tối">☾ <span>Dark mode</span></button>
+        <button id="font-toggle" type="button" aria-label="Thử cỡ chữ lớn">Aa <span>Chữ lớn</span></button>
+      </div>
+    </div>
+    <div class="device">
+      <div class="device-screen">
+        <div class="status-bar" aria-hidden="true"><strong>9:41</strong><div class="dynamic-island"></div><span class="status-icons">◖◖◖ ▰</span></div>
+        <div id="cf-screen" class="app-screen" tabindex="-1" role="main" aria-label="Màn hình ứng dụng"></div>
+        <div id="cf-bottom" class="app-bottom"></div>
+        <div class="home-indicator" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
+    <p class="preview-note">CareFlow Hi-Fi v0.1 · 390 × 844 reference · Simulated content only</p>
+  </main>
+
+  <aside class="detail-panel" aria-label="Bản thiết kế và trạng thái">
+    <span class="overline">DESIGN INSPECTOR</span>
+    <h2 id="inspect-title">Đăng nhập</h2>
+    <p id="inspect-desc">Màn hình A1</p>
+    <div class="detail-card"><span class="overline">COMPONENTS</span><div id="inspect-components"></div></div>
+    <div class="detail-card"><span class="overline">PERSON CONTEXT</span><p id="inspect-person"></p><span class="overline">BOOKING STATE</span><p id="inspect-state"></p></div>
+    <div class="detail-card"><span class="overline">DESIGN TOKENS</span><div class="swatch-line"><i style="background:#155EEF"></i><i style="background:#0B4A9E"></i><i style="background:#F5F8FC"></i><i style="background:#101828"></i></div><p>17pt body · 52pt CTA · R20 cards · 4 tabs</p></div>
+    <a class="detail-link" href="../design/tokens.json">Nguồn token v0.1 ↗</a>
+    <a class="detail-link" href="../prototype/README.md">Low-Fi 23 màn hình ↗</a>
+  </aside>
+</div>
+<div id="live-announcer" class="sr-only" role="status" aria-live="polite"></div>
+<script src="../prototype/model.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
