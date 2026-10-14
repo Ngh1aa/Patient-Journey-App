@@ -1,0 +1,35 @@
+name: CareFlow main runtime validation
+on:
+  push:
+    branches:
+      - test/careflow-main-runtime-validation
+  workflow_dispatch:
+jobs:
+  run-project:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: npm ci --prefix prototype --no-audit --no-fund
+      - name: Set up browser engines
+        run: cd prototype && npx playwright install --with-deps chromium webkit
+      - name: Run 26 model assertions
+        run: node prototype/tests.cjs
+      - name: Launch current project HTTP server and test three-column UI
+        run: cd prototype && npx playwright test -c runtime-main.config.cjs
+      - name: Save runtime screenshots and browser test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: careflow-main-runtime-${{ github.run_id }}
+          path: |
+            prototype/runtime-test-results/
+            prototype/runtime-playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14
