@@ -67,9 +67,9 @@ WCAG mobile guidance: [WCAG 2.2 target size understanding](https://www.w3.org/WA
 |---|---|
 | Existing low-fi 23 screens | Done |
 | Existing model checks | 26 / 26 passed on prior CI |
-| Cross-engine browser QA | **Needs green CI**, see PR #4 |
+| Cross-engine browser QA | **PASS** — 22/22 automated mobile Chromium/WebKit checks, [successful run](https://github.com/Ngh1aa/Patient-Journey-App/actions/runs/38633759469), fix merged in PR #4 |
 | Contrasts for the 8 documented color pairs | Computed, values above |
-| Complete WCAG accessibility testing | NOT DONE |
+| Targeted automated axe scan | **0 violations in A1, C1, C3, C5 across two browser engines; NOT a complete WCAG audit** |
 | Moderated usability with patients | NOT DONE |
 | Medical / legal / clinic sign-off | NOT DONE |
 | High-Fidelity design screens | NOT STARTED |
