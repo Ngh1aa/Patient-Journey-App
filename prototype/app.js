@@ -83,8 +83,9 @@
       case "C3":
         return heading("Cần hỗ trợ từ nhân viên y tế","Màn cảnh báo là bản phác thảo giao diện, không phải công cụ đánh giá sức khỏe.","C3 · CẢNH BÁO")
         +box("⚠️ Quy trình đặt lịch tự động tạm dừng",`<p>Trong tình huống được đánh dấu, hệ thống cần chuyển sang hướng dẫn hỗ trợ do chuyên môn phê duyệt.</p><p class="hint">Không đưa lời khuyên chẩn đoán và không tự xác định bệnh nhân có thể khám trực tuyến.</p>`,"warning")
-        +btn("Xem thông tin liên hệ hỗ trợ","openHelp")
-        +btn("Xem lại thông tin đã nhập","goC2","secondary")
+        +btn("Hỗ trợ khẩn cấp (chưa cấu hình)","emergencyPlaceholder")
+        +btn("Gọi phòng khám (chưa cấu hình)","openHelp","secondary")
+        +btn("Xem lại thông tin đã nhập","goC2","tertiary")
         +box("Yêu cầu phê duyệt",p("Thông điệp cảnh báo, số điện thoại khẩn cấp và quy tắc nhân viên xử lý phải được phòng khám xác nhận.","hint"),"dashed");
       case "C4":
         return heading("Chọn lịch khám","Các ngày giờ dưới đây hoàn toàn giả lập.","C4 · BƯỚC 3/4")
@@ -245,7 +246,7 @@
         return nav("B1");
       case "goA2":return nav("A2");
       case "createProfile":return nav("B1");
-      case "startBooking":m=M.initial();ui.reason="";ui.choice="";return nav("C1");
+      case "startBooking":if(m.risk)return nav("C3");m=M.initial();ui.reason="";ui.choice="";return nav("C1");
       case "selectPerson":M.choosePerson(m,value);ui.reason="";ui.choice="";return show("Đã chọn "+person()+". Thông tin lý do khám trước đó đã được xóa.");
       case "nextPerson":if(!M.canBook(m))return show("Chưa có quyền đặt lịch cho hồ sơ người thân này. Hãy liên hệ phòng khám.");return nav("C2");
       case "chooseScreening":ui.choice=value;return render();
@@ -269,6 +270,7 @@
         return nav(({A2:"A1",C1:"B1",C2:"C1",C4:"C2",C5:"C4",F4:ui.lastHelpFrom,D3:"D2"}[ui.current])||"B1");
       case "openHelp":ui.lastHelpFrom=ui.current;return nav("F4");
       case "callPlaceholder":return show("Bản demo không được cấu hình hotline và không thực hiện cuộc gọi thật.");
+      case "emergencyPlaceholder":return show("Chế độ demo không gọi cấp cứu. Nội dung, địa chỉ và đường liên hệ khẩn cấp thực tế phải được người phụ trách chuyên môn cấu hình, phê duyệt.");
       case "goC1":return nav("C1");
       case "goC2":return nav("C2");
       case "goC4":return nav("C4");
