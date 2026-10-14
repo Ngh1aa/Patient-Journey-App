@@ -6,6 +6,7 @@ const phone=page=>page.locator('#phone-main');
 const action=(page,id)=>page.locator('#phone-main [data-action="'+id+'"]');
 const choose=(page,actionName,value)=>page.locator('#phone-main [data-action="'+actionName+'"][data-value="'+value+'"]');
 const sidebar=(page,screen)=>page.locator('#screen-menu [data-screen="'+screen+'"]');
+const navTo=async(page,screen)=>{await page.locator("#mobile-screen-picker").selectOption(screen);};
 const startScenario=async(page,name)=>{await page.locator('[data-scenario="'+name+'"]').click();};
 const expectScreen=async(page,id)=>await expect(current(page)).toHaveText(id);
 
@@ -55,7 +56,7 @@ test('S2 proxy booking targets relative, but result requires separate permission
   await action(page,'confirmBooking').click();
   await expectScreen(page,'C6');
   await expect(phone(page)).toContainText('Mẹ (hồ sơ mẫu)');
-  await sidebar(page,'F2').click();
+  await navTo(page,'F2');
   await expectScreen(page,'F2');
   await action(page,'viewResult').click();
   await expect(phone(page)).toContainText('chưa có quyền xem kết quả');
@@ -63,10 +64,10 @@ test('S2 proxy booking targets relative, but result requires separate permission
 
 test('S2b revoked proxy BOOK permission prevents booking',async({page})=>{
   await startScenario(page,'proxy');
-  await sidebar(page,'G1').click();
+  await navTo(page,'G1');
   await action(page,'toggleRelativeBook').click();
   await expect(phone(page)).toContainText('Không có quyền đặt hộ');
-  await sidebar(page,'C1').click();
+  await navTo(page,'C1');
   await action(page,'nextPerson').click();
   await expectScreen(page,'C1');
   await expect(phone(page)).toContainText('Chưa có quyền đặt lịch');
@@ -79,13 +80,13 @@ test('S3 high-risk screening stops the flow even if answer is changed',async({pa
   await expectScreen(page,'C3');
   await expect(phone(page)).toContainText('tạm dừng');
   await page.screenshot({path:testInfo.outputPath('warning-screen.png'),fullPage:true});
-  await sidebar(page,'C4').click();
+  await navTo(page,'C4');
   await expectScreen(page,'C3');
   await action(page,'goC2').click();
   await choose(page,'chooseScreening','normal').click();
   await action(page,'nextScreening').click();
   await expectScreen(page,'C3');
-  await sidebar(page,'B1').click();
+  await navTo(page,'B1');
   await action(page,'startBooking').click();
   await expectScreen(page,'C3');
 });
@@ -96,7 +97,7 @@ test('S4 slot collision returns to C4 and safely recovers on another slot',async
   await action(page,'confirmBooking').click();
   await expectScreen(page,'C5');
   await expect(phone(page)).toContainText('Giờ khám không còn trống');
-  await action(page,'goC4').click();
+  await page.getByRole('button',{name:'Chọn giờ khác'}).click();
   await expectScreen(page,'C4');
   await choose(page,'chooseSlot','14:30').click();
   await action(page,'nextSlot').click();
@@ -121,7 +122,7 @@ test('S5 network timeout requires status check and then safe retry',async({page}
 });
 
 test('telehealth lost connection routes to callback without inventing completed visit',async({page})=>{
-  await sidebar(page,'E2').click();
+  await navTo(page,'E2');
   await action(page,'joinVideo').click();
   await expectScreen(page,'E3');
   await action(page,'dropCall').click();
@@ -134,7 +135,7 @@ test('telehealth lost connection routes to callback without inventing completed 
 });
 
 test('QR generated is not equivalent to verified payment',async({page})=>{
-  await sidebar(page,'F1').click();
+  await navTo(page,'F1');
   await action(page,'beginPayment').click();
   await expect(phone(page)).toContainText('Đang xác nhận thanh toán');
   await expect(page.locator('#inspector-content')).toContainText('pending_reconciliation');
@@ -157,7 +158,7 @@ test('small viewport has no horizontal document overflow',async({page})=>{
 test('axe: entry, proxy, warning, and booking review have no serious or critical automated violations',async({page})=>{
   const screenSet=[
     async()=>await expectScreen(page,'A1'),
-    async()=>{await sidebar(page,'C1').click();await expectScreen(page,'C1');},
+    async()=>{await navTo(page,'C1');await expectScreen(page,'C1');},
     async()=>{await startScenario(page,'warning');await action(page,'nextScreening').click();await expectScreen(page,'C3');},
     async()=>{await startScenario(page,'slot');await expectScreen(page,'C5');}
   ];
