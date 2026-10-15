@@ -1,6 +1,6 @@
 # CareFlow — QA và release evidence
 
-Phạm vi: browser prototype, 47 screens/12 flows theo file13. Nguồn baseline8f26983, app source hiện hành3915fb1 (byte hashes trong browser-source-hashes.json). Native, real backend, clinical approval, DIRECT_USER và public deployment tách riêng.
+Phạm vi: browser prototype, 47 screens/12 flows theo file13. Nguồn baseline8f26983, snapshot app trước PR3915fb1 (byte hashes trong browser-source-hashes.json). Native, real backend, clinical approval, DIRECT_USER và public deployment tách riêng.
 
 ## Các gate
 | Gate | Kết quả trước PR | Bằng chứng |
@@ -37,7 +37,7 @@ Phạm vi: browser prototype, 47 screens/12 flows theo file13. Nguồn baseline8
 | F12 | J1→C7→new linked pending visit; giữ patientId và completed history |
 
 ## Kích thước và accessibility
-Chromium141.0.7390.37, WebKit26.0 chạy thật trên Windows bằng Playwright1.56.1.47 routes ở360px,390px và360px chữ200%; đây là browser emulation, không phải iPhone/Android device certification. Kiểm scrollWidth, vùng chạm44px, forms/labels/error/focus, Back/reload, subpath /Patient-Journey-App/prototype/, no unhandled JS/console errors. Axe WCAG A/AA là phạm vi tự động, không là full WCAG conformance hoặc chứng cứ comprehension.
+Chromium141.0.7390.37, WebKit26.0 chạy thật trên Windows bằng Playwright1.56.1 ở vòng đầu; công cụ hiện hành1.57.0.47 routes ở360px,390px và360px chữ200%; đây là browser emulation, không phải iPhone/Android device certification. Kiểm scrollWidth, vùng chạm44px, forms/labels/error/focus, Back/reload, subpath /Patient-Journey-App/prototype/, no unhandled JS/console errors. Axe WCAG A/AA là phạm vi tự động, không là full WCAG conformance hoặc chứng cứ comprehension.
 
 ## Vấn đề đã sửa
 - ID cũ và24-screen contract không khớp47-screen journey; migrate, giữ legacy archive.
@@ -59,3 +59,5 @@ PR: https://github.com/Ngh1aa/Patient-Journey-App/pull/9 . Các bảng phía tr�
 Run38708246815 trên c02d88f:93/94 E2E PASS; WebKit Linux crash ở page.reload sau Back, lặp lại ở retry. Không bỏ test hoặc thêm timeout/catch. Playwright maintainer xác nhận regression1.56/1.56.1 và fix1.57: https://github.com/microsoft/playwright/issues/37766 . Test tooling đã nâng và khóa1.57.0; các dependency tương thích đã dedupe. Đây là sửa môi trường engine kiểm thử, không đổi frontend stack. Kết luận cuối chỉ lấy từ toàn bộ CI trên head mới.
 
 Rà soát chức năng bổ sung: K5 mở I1 đúng context sau khám; tạo người thân trong C1 trả về C1 và chọn đúng hồ sơ mới. Regression tests được thêm; tổng hiện có96 E2E cases. Full suite bắt buộc chạy lại với browser build mới, giữ nguyên kiểm tra Back/reload đã crash trước đó. Windows capture mới và Linux CI mới được ghi ở gói handoff; backend/native/clinical approval vẫn UNKNOWN.
+
+Runtime source hiện hành:627d3ccae3d7bb49c9d70763f48f1f9d13b57a1a; browser-source-hashes.json đã tính lại sau sửa K5/relative. Chromium143/WebKit26 build2227 dùng ở vòng1.57. Full current gate gồm96 E2E; kết quả CI có thẩm quyền ở checks PR9, không suy từ các run lịch sử nêu trên.
