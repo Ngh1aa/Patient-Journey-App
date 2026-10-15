@@ -187,3 +187,100 @@ test('sidebar fills the vertical rail with evenly distributed doctor links',asyn
   await page.locator('.doctor-sidebar').screenshot({path:testInfo.outputPath(`sidebar-${width}x${height}.png`),animations:'disabled'});
  }
 });
+
+const compositionRoutes=[
+  ['/doctor','.doctor-dashboard-grid','dashboard'],
+  ['/doctor/schedule','.doctor-schedule-layout','schedule'],
+  ['/doctor/queue','.doctor-today-list','queue'],
+  ['/patients','.doctor-directory','patients'],
+  ['/patients/p-006','.profile-grid','patient-profile'],
+  ['/visits/a-033','.doctor-results-grid','visit'],
+  ['/encounters/a-033','.consult-grid','clinical-workspace'],
+  ['/results','.doctor-results-grid','results'],
+  ['/clinical/orders','.support-two-col','orders'],
+  ['/clinical/prescription','.support-two-col','prescription'],
+  ['/clinical/review','.support-review-grid','review'],
+  ['/doctor/followups','.doctor-followups-grid','followups']
+];
+
+test('rectangular card-grid geometry and every doctor screen: no horizontal overflow',async({page},testInfo)=>{
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  const width=page.viewportSize().width;
+  for(const [route,selector,name] of compositionRoutes){
+    await page.goto('/staff-prototype/index.html#'+route);
+    await expect(page.locator(selector)).toBeVisible();
+    const geometry=await page.evaluate(selector=>{
+      const el=document.querySelector(selector),main=document.querySelector('.main-content');
+      const rect=el.getBoundingClientRect(),view=document.documentElement.scrollWidth;
+      return {width:innerWidth,documentWidth:view,mainWidth:main.getBoundingClientRect().width,
+        gridColumns:getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length,
+        selectorWidth:rect.width};
+    },selector);
+    expect(geometry.documentWidth,name+' horizontal overflow '+width).toBeLessThanOrEqual(width+1);
+    expect(geometry.mainWidth,name+' exceeds 1440').toBeLessThanOrEqual(1441);
+    if(width>=1181 && selector!=='.doctor-today-list' && selector!=='.doctor-directory'){
+      expect(geometry.gridColumns,name+' is not the shared 12-col desktop grid').toBe(12);
+    }
+    await page.screenshot({path:testInfo.outputPath('grid-'+name+'-'+width+'.png'),fullPage:true,animations:'disabled'});
+  }
+  expect(errors).toEqual([]);
+});
+
+test('desktop paired cards form a single bottom-aligned rectangle',async({page},testInfo)=>{
+  const width=page.viewportSize().width;
+  if(width<1181)return;
+  const pairs=[
+    ['/doctor','.doctor-dashboard-grid>.doctor-today','.doctor-dashboard-grid>.doctor-side-stack'],
+    ['/doctor/schedule','.doctor-schedule-main','.doctor-schedule-aside'],
+    ['/doctor/followups','.doctor-followups-grid>.doctor-surface','.doctor-followups-grid>.doctor-followups-side'],
+    ['/results','.doctor-results-grid>.doctor-surface:first-child','.doctor-result-preview'],
+    ['/patients/p-006','.profile-grid>.profile-main','.profile-grid>.profile-side'],
+    ['/clinical/orders','.support-two-col>.support-panel:first-child','.support-two-col>.support-panel:nth-child(2)'],
+    ['/clinical/prescription','.support-two-col>.support-panel:first-child','.support-two-col>.support-panel:nth-child(2)'],
+    ['/clinical/review','.support-review-grid>.support-panel:first-child','.support-review-grid>.support-panel:nth-child(2)'],
+    ['/encounters/a-033','.consult-grid>.consult-queue','.consult-grid>.consult-editor'],
+    ['/encounters/a-033','.consult-grid>.consult-editor','.consult-grid>.consult-right']
+  ];
+  for(const [route,left,right] of pairs){
+    await page.goto('/staff-prototype/index.html#'+route);
+    const edges=await page.evaluate(([left,right])=>{
+      const a=document.querySelector(left).getBoundingClientRect(),
+        b=document.querySelector(right).getBoundingClientRect();
+      return {aBottom:a.bottom,bBottom:b.bottom,aTop:a.top,bTop:b.top,
+        aWidth:a.width,bWidth:b.width};
+    },[left,right]);
+    expect(Math.abs(edges.aBottom-edges.bBottom),
+      route+' paired card bottom misalignment '+JSON.stringify(edges)).toBeLessThanOrEqual(3);
+    expect(Math.abs(edges.aTop-edges.bTop),route+' paired card top misalignment').toBeLessThanOrEqual(3);
+    expect(edges.aWidth).toBeGreaterThan(120);
+    expect(edges.bWidth).toBeGreaterThan(120);
+  }
+  await page.goto('/staff-prototype/index.html#/doctor');
+  const dashboard=await page.evaluate(()=>{
+    const list=document.querySelector('.doctor-today').getBoundingClientRect();
+    const right=document.querySelector('.doctor-labs-today').getBoundingClientRect();
+    return {listBottom:list.bottom,rightBottom:right.bottom};
+  });
+  expect(Math.abs(dashboard.listBottom-dashboard.rightBottom)).toBeLessThanOrEqual(3);
+});
+
+test('responsive composition: two columns tablet, one column phone',async({page},testInfo)=>{
+  const widths=[900,375];
+  for(const width of widths){
+    await page.setViewportSize({width,height:900});
+    for(const [route,selector,name] of compositionRoutes){
+      await page.goto('/staff-prototype/index.html#'+route);
+      const grid=await page.evaluate(selector=>{
+        const target=document.querySelector(selector);
+        return {cols:getComputedStyle(target).gridTemplateColumns.split(' ').filter(Boolean).length,
+          scroll:document.documentElement.scrollWidth,width:innerWidth};
+      },selector);
+      expect(grid.scroll,route+' '+width+'px overflow').toBeLessThanOrEqual(width+1);
+      if(selector!=='.doctor-today-list' && selector!=='.doctor-directory'){
+        expect(grid.cols,route+' columns at '+width).toBe(width===900?2:1);
+      }
+    }
+    await page.goto('/staff-prototype/index.html#/doctor');
+    await page.screenshot({path:testInfo.outputPath('grid-dashboard-responsive-'+width+'.png'),fullPage:true,animations:'disabled'});
+  }
+});
