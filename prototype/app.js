@@ -7,6 +7,7 @@
     $ = (id) => document.getElementById(id),
     KEY = 'careflow.browser.v3';
   let returnHash = null;
+  let guideEnabled = false;
   let s = M.initial(),
     u = {
       screen: 'A1',
@@ -23,7 +24,7 @@
     },
     lastFocus = null;
   function demo(message = VI.demo.notice) {
-    $('demo-feedback').textContent = message;
+    $('demo-feedback').textContent = guideEnabled ? '' : message;
   }
   try {
     const saved = JSON.parse(sessionStorage.getItem(KEY) || 'null');
@@ -305,6 +306,7 @@
     }
     $('phone-main').scrollTop = 0;
     renderReviewer();
+    if (window.CareFlowJourney && guideEnabled && renderJourney()) return;
     const qr = $('visit-qr');
     if (qr && window.qrcode) {
       const code = window.qrcode(0, 'M');
@@ -321,6 +323,75 @@
     $('announcer').textContent = VI.screen[id]?.heading || VI.feedback.notFound;
     save();
     $('screen-title')?.focus({ preventScroll: true });
+  }
+  function journeyContext() {
+    const v = M.visit(s);
+    return {s,u,v,l:v?.labs[0]};
+  }
+  function startJourney(id, variant) {
+    const flow = window.CareFlowJourney.flows.find(f=>f.id===id) || window.CareFlowJourney.flows[0];
+    const selected = variant || flow.variants?.[0][0] || 'default';
+    guideEnabled = true;
+    s = window.CareFlowJourney.seed(flow, selected);
+    u = {...u, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
+    const params = new URLSearchParams(location.search);
+    params.set('journey', flow.id);
+    params.set('branch', selected);
+    params.delete('scenario');
+    history.replaceState(null,'',location.pathname+'?'+params);
+    $('review-tools').hidden = true;
+    $('review-toggle').setAttribute('aria-expanded','false');
+    go(flow.steps(selected)[0].screen,{},true);
+    const panel = document.querySelector('.journey-panel'), active = panel.querySelector('.journey-item.active');
+    if(active && flow.id!=='F1')panel.scrollTop=Math.max(0,active.offsetTop-panel.offsetTop-150);
+  }
+  function prefillJourney() {
+    const branch=u.journey.variant;
+    let preferredAction=null;
+    if(u.journey.id==='F8' && u.screen==='G5') preferredAction=`[data-purpose="${branch==='online'?'online-retry':'convert-onsite'}"]`;
+    if(u.journey.id==='F9' && u.screen==='H2' && ['counter','pharmacy','refund','later'].includes(branch)) preferredAction=`[data-status="${branch==='pharmacy'?'pharmacy-pending':'counter-pending'}"]`;
+    if(u.journey.id==='F10' && branch==='explain' && u.screen==='H7') preferredAction='[data-purpose="explanation"]';
+    if(preferredAction){
+      const chosen=$('phone-content').querySelector(preferredAction);
+      if(chosen)for(const button of $('phone-content').querySelectorAll('.btn')){
+        button.classList.toggle('primary',button===chosen);
+        if(button!==chosen && !button.classList.contains('text'))button.classList.add('secondary');
+      }
+    }
+    const values = {phone:'0900000000',otp:'123456',name:'Nguyễn Minh Anh',dob:'1994-08-15',contactPhone:'0900000000',medicalHistory:'Chưa có thông tin cần bổ sung.',reason:u.journey.id==='F12'?'Tôi muốn cập nhật tình trạng và trao đổi lại sau lần khám trước.':'Tôi muốn trao đổi với bác sĩ về tình trạng gần đây.',cancelNote:'Tôi cần sắp xếp lại thời gian.',deferReason:'Tôi cần sắp xếp thời gian thanh toán.',report:'Tôi muốn trao đổi thêm với phòng khám sau buổi khám.',tracking:'Tôi gửi cập nhật tình trạng hôm nay để phòng khám theo dõi.',referral:'Tôi đã đến khám chuyên khoa và muốn chuyển thông tin lại cho bác sĩ.',message:'Tôi muốn hỏi thêm về thông tin sau buổi khám.',support:'Tôi cần phòng khám hỗ trợ về lịch hẹn.'};
+    const form = $('phone-content').querySelector('form[data-form]');
+    if (!form) return;
+    for (const el of form.elements) {
+      if (el.type==='file' && !el.files.length) {
+        const transfer = new DataTransfer();
+        transfer.items.add(new File(['%PDF-1.4\n% CareFlow portfolio attachment - no clinical data\n%%EOF'], 'Ket-qua-da-nhan.pdf', {type:'application/pdf'}));
+        el.files = transfer.files;
+      } else if (el.type==='checkbox' && (['consent','ack'].includes(el.name) || (el.name==='urgent' && branch==='urgent'))) el.checked=true;
+      else if (el.type!=='radio' && !el.value && values[el.name]) el.value=values[el.name];
+    }
+    const radios=Array.from(form.querySelectorAll('input[type=radio]'));
+    const preferred=radios.find(el=>el.value===(u.journey.id==='F3'?'warning':'normal'));
+    if(!radios.some(el=>el.checked) && radios.length)(preferred || radios[0]).checked=true;
+  }
+  function renderJourney() {
+    const J = window.CareFlowJourney;
+    const active = J.flows.find(f=>f.id===u.journey?.id);
+    if(!active)return false;
+    const steps = active.steps(u.journey.variant);
+    let moved=false;
+    while(u.journey.index<steps.length && steps[u.journey.index].done(journeyContext())) {u.journey.index++;moved=true;}
+    const current=steps[u.journey.index];
+    if(moved && current && current.screen!==u.screen){go(current.screen);return true;}
+    const count = u.journey.index;
+    u.completedJourneys ??= {};
+    if(count===steps.length)u.completedJourneys[active.id]=true;
+    $('journey-list').innerHTML=J.flows.map((f,i)=>`<li class="journey-item ${f.id===active.id?'active':''}"><button type="button" data-action="journey-select" data-flow="${f.id}" aria-expanded="${f.id===active.id}"><span class="journey-number">${u.completedJourneys[f.id]?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${V.esc(f.title)}</strong>${f.id===active.id?`<small>${V.esc(f.description)}</small>`:''}</span><span class="journey-chevron" aria-hidden="true">${f.id===active.id?'−':'+'}</span></button>${f.id===active.id?`<div class="journey-detail">${f.variants?`<div class="journey-branches" role="group" aria-label="Nhánh hành trình">${f.variants.map(([key,label])=>`<button type="button" data-action="journey-branch" data-branch="${key}" aria-pressed="${key===u.journey.variant}">${V.esc(label)}</button>`).join('')}</div>`:''}<div class="journey-progress"><span>${count===steps.length?'Hành trình đã hoàn tất':`Đã đi qua ${count}/${steps.length} bước`}</span><span>${Math.round(count/steps.length*100)}%</span></div><progress max="${steps.length}" value="${count}" aria-label="Tiến độ hành trình"></progress><ol class="journey-checklist" tabindex="0" aria-label="Các bước trong hành trình">${steps.map((step,n)=>`<li class="${n<count?'done':n===count?'current':''}"${n===count?' aria-current="step"':''}><span class="step-check" aria-hidden="true">${n<count?'✓':n+1}</span><span>${V.esc(step.title)}${n===count?`<small>${step.event?'Phòng khám đang xử lý':'Tiếp tục trong ứng dụng'}</small>`:''}</span></li>`).join('')}</ol><div class="journey-current">${current?`${current.event?`<p>${V.esc(current.title)}</p><button type="button" class="btn primary" data-action="journey-next">Xem cập nhật từ phòng khám</button>`:`<p>Thông tin đã điền sẵn. Bạn có thể chỉnh sửa hoặc tiếp tục bằng nút trong ứng dụng.</p><button type="button" class="btn secondary" data-action="journey-open">${current.screen===u.screen?'Tiếp tục trong ứng dụng':'Mở bước hiện tại'}</button>`}`:`<p>Bạn đã đi hết nhánh này. Chọn một hành trình khác để tiếp tục khám phá.</p><button type="button" class="btn secondary" data-action="journey-restart">Xem lại hành trình</button>`}</div></div>`:''}</li>`).join('');
+    $('journey-mobile-label').textContent=active.title + (current?.event ? ' · Có cập nhật' : ' · Xem các bước');
+    const currentItem=$('journey-list').querySelector('[aria-current=step]');
+    if(currentItem){const list=currentItem.closest('ol');list.scrollTop=Math.max(0,currentItem.offsetTop-list.offsetTop-100);}
+    prefillJourney();
+    save();
+    return false;
   }
   function renderReviewer() {
     $('screen-picker').innerHTML = M.SCREENS.map(
@@ -343,7 +414,7 @@
         );
       }
       if (v.status === 'confirmed')
-        events.push(['lab:pre', 'Thêm chỉ định trước khám']);
+        events.push(['lab:pre', 'Thêm chỉ định trước khám'], ['fee:package', 'Thông báo phí theo gói'], ['fee:not-required', 'Xác nhận không thu phí']);
       if (v.status === 'completed') {
         events.push(
           ['lab:post', 'Thêm chỉ định sau khám'],
@@ -351,7 +422,11 @@
           ['reply', 'Điều phối viên phản hồi'],
           ['care:followup', 'Bác sĩ khuyến nghị tái khám'],
           ['care:emergency', 'Nhân viên yêu cầu hỗ trợ khẩn cấp'],
+          ['summary', 'Bác sĩ chia sẻ kết luận'],
         );
+        const task = v.care.tasks?.find(t => t.status !== 'answered');
+        const careNext = { received: ['coordinating','Điều phối viên tiếp nhận'], coordinating: ['doctor-review','Chuyển bác sĩ xem'], 'doctor-review': ['answered','Phản hồi lại bệnh nhân'] };
+        if (task && careNext[task.status]) events.push(['handoff:' + careNext[task.status][0], careNext[task.status][1]]);
         for (const status of M.PAYMENT_TRANSITIONS[v.payment.status] || [])
           if (
             ['paid', 'refunding', 'refunded', 'not-required'].includes(status)
@@ -429,18 +504,28 @@
     u.deviceReady = false;
     u.urgentAftercare = false;
     if (s.draft.risk) go('C4');
+    else if (purpose === 'followup') go('C2');
     else {
       s.draft.safety = 'normal';
       go('C7');
     }
   }
 
-  function staff() {
-    const event = $('staff-event').value,
+  function staff(requestedEvent) {
+    const event = typeof requestedEvent === 'string' ? requestedEvent : $('staff-event').value,
       parts = event.split(':'),
       v = M.visit(s);
     let result = { ok: false, code: 'TRANSITION' };
     switch (parts[0]) {
+      case 'fee':
+        result = M.setFeePlan(s, v?.id, parts[1]);
+        break;
+      case 'summary':
+        result = M.shareSummary(s, v?.id);
+        break;
+      case 'handoff':
+        result = M.advanceCare(s, v?.id, parts[1]);
+        break;
       case 'visit':
         result = M.transition(s, v?.id, parts[1], 'staff');
         break;
@@ -514,7 +599,7 @@
     if (result.ok) {
       demo(
         'Đã áp dụng cập nhật thử nghiệm: ' +
-          $('staff-event').selectedOptions[0].textContent,
+          (Array.from($('staff-event').options).find(o => o.value === event)?.textContent || 'Thông tin lượt khám'),
       );
       save();
       const id = u.screen;
@@ -541,6 +626,22 @@
     } else demo('Cập nhật bị chặn: ' + (VI.errors[result.code] || result.code));
   }
   const actions = {
+    'journey-select'(el) { startJourney(el.dataset.flow); },
+    'journey-branch'(el) { startJourney(u.journey.id,el.dataset.branch); },
+    'journey-restart'() { startJourney(u.journey.id,u.journey.variant); },
+    'journey-open'() {
+      const flow=window.CareFlowJourney.flows.find(f=>f.id===u.journey.id), step=flow.steps(u.journey.variant)[u.journey.index];
+      if(step.screen!==u.screen)go(step.screen);
+      document.querySelector('.journey-panel').classList.remove('mobile-open');
+      document.querySelector('.journey-mobile-toggle').setAttribute('aria-expanded','false');
+      const target=$('phone-content').querySelector('form [type=submit],.btn.primary,.btn');
+      target?.focus();target?.scrollIntoView({block:'nearest'});
+    },
+    'journey-next'() {
+      const flow=window.CareFlowJourney.flows.find(f=>f.id===u.journey.id), step=flow.steps(u.journey.variant)[u.journey.index];
+      if(step?.event)staff(step.event);
+    },
+    'journey-toggle'(el) { el.setAttribute('aria-expanded',String(document.querySelector('.journey-panel').classList.toggle('mobile-open'))); },
     'skip-content'() {
       $('phone-main').focus();
     },
@@ -675,7 +776,8 @@
       $('dialog').close();
       const v = M.visit(s);
       v.communication.callback = 'pending';
-      go('D2');
+      M.transition(s, v.id, 'online-wait', 'patient', 'connection-interrupted');
+      go('G2');
       demo(VI.screen.G4.disconnect + ' ' + VI.demo.video);
     },
     callback() {
@@ -684,6 +786,7 @@
       v.communication.callback = 'pending';
       save();
       demo();
+      render();
       dialog(VI.common.support, VI.feedback.callback);
     },
     payment(el) {
@@ -820,9 +923,12 @@
         go(result.match ? 'A2' : 'A3');
         break;
       }
-      case 'profile':
-        complete(M.createProfile(s, get('name'), get('dob')), 'B1');
+      case 'profile': {
+        const created = M.createProfile(s, get('name'), get('dob'));
+        if (created.ok) Object.assign(created.profile, { phone: get('contactPhone'), medicalHistory: get('medicalHistory') });
+        complete(created, 'B1');
         break;
+      }
       case 'match': {
         const p = M.accountProfile(s);
         if (
@@ -833,6 +939,8 @@
           return error('PROFILE', 'name');
         p.name = get('name');
         p.dob = get('dob');
+        p.phone = get('contactPhone');
+        p.medicalHistory = get('medicalHistory');
         if (returnHash) {
           const target = returnHash;
           returnHash = null;
@@ -854,6 +962,7 @@
       case 'reason':
         if (!get('reason')) return error('REASON', 'reason');
         s.draft.reason = get('reason');
+        s.draft.medicalHistory = get('medicalHistory');
         complete({ ok: true }, 'C3');
         break;
       case 'safety': {
@@ -1002,24 +1111,11 @@
       }
       case 'tracking':
         if (!get('tracking')) return error('REQUIRED', 'tracking');
-        s.tracking.push({
-          visitId: v.id,
-          patientId: v.patientId,
-          text: get('tracking'),
-          at: new Date().toISOString(),
-        });
-        complete({ ok: true });
+        complete(M.submitCareUpdate(s, v.id, 'tracking', get('tracking')));
         break;
       case 'referral':
         if (!get('referral')) return error('REQUIRED', 'referral');
-        s.messages.push({
-          visitId: v.id,
-          patientId: v.patientId,
-          from: 'patient',
-          text: get('referral'),
-          at: new Date().toISOString(),
-        });
-        complete({ ok: true }, 'I5');
+        complete(M.submitCareUpdate(s, v.id, 'referral', get('referral')), 'I5');
         break;
       case 'message':
         if (!get('message')) return error('REQUIRED', 'message');
@@ -1058,6 +1154,7 @@
     () => lastFocus?.isConnected && lastFocus.focus(),
   );
   $('review-toggle').addEventListener('click', () => {
+    if(guideEnabled){startJourney(u.journey.id,u.journey.variant);return;}
     const expanded =
       $('review-toggle').getAttribute('aria-expanded') === 'true';
     $('review-toggle').setAttribute('aria-expanded', String(!expanded));
@@ -1091,6 +1188,8 @@
   }
   window.addEventListener('hashchange', render);
   const params = new URLSearchParams(location.search);
+  guideEnabled = !params.has('scenario') && (params.has('journey') || !location.hash || !!u.journey);
+  if(guideEnabled && u.journey?.index===1 && ['F1','F2'].includes(u.journey.id) && !s.authenticated) u.otpSent=true;
   if (
     [
       'new',
@@ -1103,6 +1202,7 @@
       'no-show',
     ].includes(params.get('scenario'))
   ) {
+    u.journey = null;
     s =
       params.get('scenario') === 'new'
         ? M.initial()
@@ -1138,5 +1238,9 @@
   });
   sizeObserver.observe(document.querySelector('.demo-bar'));
   sizeObserver.observe($('demo-feedback'));
-  render();
+  document.querySelector('.journey-panel').hidden = !guideEnabled;
+  document.body.classList.toggle('guided',guideEnabled);
+  if(guideEnabled){$('review-toggle').textContent='Bắt đầu lại';$('review-toggle').setAttribute('aria-controls','journey-list');}
+  if(guideEnabled && (!u.journey || (params.has('journey') && params.get('journey')!==u.journey.id) || (params.has('branch') && params.get('branch')!==u.journey.variant))) startJourney(params.get('journey') || 'F1',params.get('branch'));
+  else render();
 })();

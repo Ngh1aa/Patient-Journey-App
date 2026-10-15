@@ -258,7 +258,7 @@ test('F3a warning → emergency exit, no booking and no real external call', asy
   await action(page, 'emergency').click();
   await expect(page.locator('#dialog')).toBeVisible();
   await expect(page.locator('#dialog-body')).toContainText(
-    'Không thực hiện cuộc gọi',
+    /không thực hiện cuộc gọi/i,
   );
   await page.locator('[data-action=stop-emergency]').click();
   await screen(page, 'B1');
@@ -551,7 +551,11 @@ test('F12 follow-up starts a new linked visit without losing the old profile', a
   await nav(page, 'H6');
   await go(page, 'J1');
   await action(page, 'rebook').click();
-  await screen(page, 'C7');
+  await screen(page, 'C2');
+  await page.locator('#reason').fill('Cập nhật tình trạng mới khi tái khám');
+  await submit(page);
+  await screen(page, 'C3');
+  await normal(page);
   await slot(page, '14:00');
   await send(page);
   const s = await state(page);
@@ -728,8 +732,8 @@ test('leaving online call never marks consultation completed', async ({
   await action(page, 'answer').click();
   await action(page, 'leave-call').click();
   await page.locator('[data-action=confirm-leave]').click();
-  await screen(page, 'D2');
-  expect((await current(page)).status).toBe('in-consult');
+  await screen(page, 'G2');
+  expect((await current(page)).status).toBe('online-wait');
   expect((await current(page)).communication.callback).toBe('pending');
 });
 for (const view of [
@@ -1096,7 +1100,7 @@ test('F11 multiple completed visits keep the selected report context', async ({
     const M = window.CareFlowModel,
       s = M.fixture('completed');
     M.beginBooking(s, s.activeVisitId, 'followup');
-    Object.assign(s.draft, { safety: 'normal', slot: '14:00' });
+    Object.assign(s.draft, { reason: 'Tái khám và cập nhật tình trạng', safety: 'normal', slot: '14:00' });
     M.submitBooking(s);
     for (const to of [
       'confirmed',
