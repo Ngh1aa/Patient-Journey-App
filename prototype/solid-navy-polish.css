@@ -151,3 +151,7 @@
 /* Axe-confirmed: selected C1 profile metadata clears 4.5:1 on #eef5ff. */
 #phone-content[data-screen="C1"] .rich-patient-choice .rich-profile-meta,
 #phone-content[data-screen="C1"] .rich-patient-choice.selected .rich-profile-meta { color:#244568!important; }
+
+/* Axe-confirmed K5 captions, on the demo hotline's pale blue surface. */
+#phone-content[data-screen="K5"] .rich-hotline-label small,
+#phone-content[data-screen="K5"] .rich-support-hero > p {color:#314d70!important;}
