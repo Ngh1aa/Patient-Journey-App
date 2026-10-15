@@ -1777,3 +1777,9 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
 
 /* WCAG AA: secondary labels inside chosen/unselected cards must be readable. */
 .phone-scroll .choice small,.phone-scroll .choice.selected small{color:#344F69!important}
+
+/* WCAG AA stable contrast for all review labels and transient notices. */
+.phone-scroll .review-label{color:#344F69}
+.phone-scroll .notice{animation:none!important}
+.phone-scroll .notice.note-error{color:#9F2018}
+.phone-scroll .notice.note-success{color:#14613D}
