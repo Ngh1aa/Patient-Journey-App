@@ -1,4 +1,5 @@
 const { defineConfig } = require('@playwright/test');
+const previewPort = Number(process.env.PORT || 4175);
 module.exports = defineConfig({
   testDir: './browser-tests',
   testMatch: '*.spec.cjs',
@@ -14,7 +15,7 @@ module.exports = defineConfig({
     ['json', { outputFile: 'test-results/results.json' }],
   ],
   use: {
-    baseURL: 'http://127.0.0.1:4175',
+    baseURL: 'http://127.0.0.1:' + previewPort,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     actionTimeout: 8000,
@@ -27,7 +28,7 @@ module.exports = defineConfig({
   ],
   webServer: {
     command: 'node preview-server.cjs',
-    url: 'http://127.0.0.1:4175/prototype/index.html',
+    url: 'http://127.0.0.1:' + previewPort + '/prototype/index.html',
     reuseExistingServer: !process.env.CI,
     timeout: 30000,
   },

@@ -23,13 +23,13 @@
     variant = 'secondary',
     disabled = false,
   ) =>
-    `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${esc(label)}</button>`;
+    `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${['device', 'clinic-call', 'callback', 'rebook', 'arrive', 'directions'].includes(action) ? I(({device:'video','clinic-call':'phone',callback:'phone',rebook:'calendar',arrive:'map-pin',directions:'map-pin'})[action],20) : ''}<span>${esc(label)}</span>${variant.includes('primary') && action === 'go' ? I('arrow-right',20) : ''}</button>`;
   const go = (label, to, variant = 'secondary', extra = {}) =>
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
   const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
   const facilityCard = () => `<section class="facility-card"><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
   const row = (title, hint, to, icon = 'chevron-right', extra = {}) =>
-    `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span>${I('chevron-right', 18)}</button>`;
+    `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`;
   const card = (content, cls = '') =>
     `<section class="card ${cls}">${content}</section>`;
   const note = (text, type = 'info') =>
@@ -42,10 +42,12 @@
     `<div class="field"><label for="${id}">${esc(label)}</label><textarea id="${id}" name="${id}" rows="4"${attrs(extra)}>${esc(value)}</textarea></div>`;
   const check = (id, label, checked = false) =>
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
-  const choices = (name, items, selected) =>
-    `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint]) => `<label class="choice ${v === selected ? 'selected' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}><span><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span></label>`).join('')}</fieldset>`;
+  const choices = (name, items, selected) => {
+    const icons = { onsite: 'map-pin', online: 'video', normal: 'shield', warning: 'warning' };
+    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${I(icons[v] || 'user', 25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span></label>`).join('')}</fieldset>`;
+  };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
-    `<form data-form="${name}" novalidate>${html}<p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit">${esc(cta)}</button></form>`;
+    `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html) =>
@@ -57,9 +59,9 @@
       VI.statuses[v.status][0],
       ['cancelled', 'no-show'].includes(v.status)
         ? 'neutral'
-        : v.status === 'mode-review'
+        : ['mode-review', 'pending', 'unreachable'].includes(v.status)
           ? 'warning'
-          : v.status === 'completed'
+          : ['completed', 'confirmed', 'reminder', 'ready'].includes(v.status)
             ? 'success'
             : 'info',
     );
@@ -78,16 +80,26 @@
   const details = (s, v) =>
     `<dl class="details"><div><dt>${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="eyebrow">${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</span>${I(v.mode === 'online' ? 'video' : 'calendar', 24)}</span><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-person">${I('user', 17)}${esc(M.profile(s, v.patientId)?.name)}</span><span class="visit-bottom">${status(v)}${I('chevron-right', 20)}</span></button>`;
+    const date = new Date(v.date + 'T12:00:00+07:00');
+    const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
+    const month = new Intl.DateTimeFormat('vi-VN', { month: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
+    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${I('user', 20)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
   }
   function slotForm(s, name = 'slot', title = VI.screen.C7) {
     const d = s.draft || {};
+    const selected = d.date || M.localDate(1);
+    const days = Array.from({length: 5}, (_, i) => {
+      const value = M.localDate(i);
+      const date = new Date(value + 'T12:00:00+07:00');
+      const weekday = new Intl.DateTimeFormat('vi-VN', {weekday: 'short', timeZone: 'Asia/Ho_Chi_Minh'}).format(date);
+      return `<button type="button" class="date-option" data-action="quick-date" data-date="${value}" aria-label="${esc(dateText({date: value}))}" aria-pressed="${value === selected}"><span>${esc(weekday)}</span><strong>${date.getDate()}</strong></button>`;
+    }).join('');
     return form(
       name,
-      field('date', title.date || C.date, d.date || M.localDate(1), 'date', {
+      `<div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div>` + field('date', title.date || C.date, selected, 'date', {
         min: M.localDate(),
         required: 'required',
       }) +
@@ -98,7 +110,7 @@
   function context(s, v) {
     const p = M.profile(s, v?.patientId || s.draft?.patientId);
     return p
-      ? `<div class="context">${I('user', 16)}<span>${esc(p.name)}</span>${v ? `<small>${esc(v.id)}</small>` : ''}</div>`
+      ? `<div class="context">${I('user', 16)}<span>${esc(p.name)}</span>${v ? `<small>${esc(v.id)}</small>` : `<button type="button" class="context-edit" data-action="go" data-to="C1" aria-label="${esc(VI.layout.changePatient)}">${I('user',16)}<span>Đổi</span></button>`}</div>`
       : '';
   }
   function careProgress(v) {
@@ -107,9 +119,15 @@
     const labels = { received: ['Đã nhận cập nhật của bạn','Điều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.'], coordinating: ['Điều phối viên đang xử lý','Thông tin của bạn đang được tổng hợp để chuyển bác sĩ.'], 'doctor-review': ['Bác sĩ đang xem','Phòng khám sẽ phản hồi khi bác sĩ có hướng dẫn tiếp theo.'], answered: ['Phòng khám đã phản hồi','Bạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.'] };
     return card(`${chip(labels[task.status][0])}<p class="eyebrow">Ai đang xử lý</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
+  function bookingProgress(id) {
+    const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 4}[id];
+    if (step === undefined) return '';
+    const labels = VI.layout.bookingSteps;
+    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 5</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track"></span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
+  }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
-    '<div class="auth-scene" aria-hidden="true"><span class="auth-scene-circle"></span><span class="auth-scene-ring"></span></div>';
+    `<div class="auth-scene"><span class="auth-scene-circle" aria-hidden="true"></span><span class="auth-scene-ring" aria-hidden="true"></span><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 30)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
@@ -188,29 +206,28 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting"><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><span class="avatar">${esc(
+        intro = `<div class="greeting"><span class="avatar">${esc(
           (p?.name || 'CF')
             .split(' ')
             .slice(-2)
             .map((x) => x[0])
             .join(''),
-        )}</span></div><div class="home-statement"><span class="eyebrow">CHĂM SÓC LIỀN MẠCH</span><h2>Mỗi bước khám, rõ ràng trong tầm tay.</h2><p>${esc(T.lead)}</p></div>`;
+        )}</span><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div></div><div class="home-statement"><h2>${VI.layout.homeTitle.map(esc).join('<br>')}</h2><p>${esc(VI.layout.homeLead)}</p></div>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body =
-          btn(C.book, 'begin', {}, 'primary book-cta') +
           section(
             T.upcoming,
             active.length
-              ? active.map((x) => visitCard(s, x, true)).join('')
+              ? active.slice(0, 1).map((x) => visitCard(s, x, true)).join('') + (active.length > 1 ? nav('Xem tất cả ' + active.length + ' lịch hẹn', 'D1', 'text') : '')
               : empty(T.empty, T.emptyLead),
           );
         if (v) {
           const next = M.nextAction(v);
           body += section(
             T.tasks,
-            row(
+            '<div class="home-tasks">' + row(
               VI.actions[next[1]],
               VI.statuses[v.status][1],
               next[0],
@@ -231,14 +248,11 @@
                 : '') +
               (v.status === 'completed'
                 ? row(VI.payments[v.payment.status], C.fee, 'H2', 'document')
-                : ''),
+                : '') + '</div>',
           );
         }
         body +=
-          section(
-            T.care,
-            row(VI.screen.I1.heading, T.careLead, 'I1', 'heart-pulse'),
-          ) + row(T.help, T.helpLead, 'K5', 'phone');
+          section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`) + row(T.help, T.helpLead, 'K5', 'phone');
         break;
       }
       case 'C1':
@@ -324,7 +338,7 @@
         break;
       case 'C9':
         body = v
-          ? card(status(v) + details(s, v)) + nav(C.viewVisit, 'D2', 'primary')
+          ? `<div class="request-received">${I('document-check', 30)}<div><strong>${esc(VI.layout.requestSent)}</strong><p>${esc(VI.layout.requestPending)}</p></div></div>` + card(status(v) + details(s, v)) + nav(C.viewVisit, 'D2', 'primary')
           : '';
         break;
       case 'D1': {
@@ -799,7 +813,7 @@
             `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>Để lại yêu cầu để phòng khám liên hệ với bạn về lịch hẹn và việc sau khám.</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
           ) +
           row(VI.screen.I1.heading, VI.screen.I1.lead, 'I1', 'heart-pulse') +
-          form('support', textarea('support', T.text), T.message) +
+          form('support', textarea('support', T.text), T.message, 'secondary') +
           section(
             T.faq,
             [1, 2, 3, 4]
@@ -817,15 +831,22 @@
           nav(C.home, 'B1', 'primary'),
         );
     }
-    return (
-      intro +
-      (s.authenticated &&
+    const personContext = (s.authenticated &&
       /[C-J]/.test(id[0]) &&
       !['C1', 'C4', 'I1'].includes(id)
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
-        : '') +
-      body
-    );
+        : '');
+    if (id === 'B1' || id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
+    const groups = {
+      C: ['ĐẶT LỊCH KHÁM', 'calendar'], D: ['LỊCH KHÁM CỦA BẠN', 'calendar'],
+      E: ['ĐẾN PHÒNG KHÁM', 'map-pin'], F: ['XÉT NGHIỆM & KẾT QUẢ', 'document-check'],
+      G: ['KHÁM ONLINE', 'video'], H: ['THÔNG TIN SAU KHÁM', 'document'],
+      I: ['CHĂM SÓC SAU KHÁM', 'heart-pulse'], J: ['HẸN GẶP LẠI BÁC SĨ', 'calendar'],
+      K: [id === 'K5' ? 'PHÒNG KHÁM ĐỒNG HÀNH' : 'THÔNG TIN CỦA BẠN', id === 'K5' ? 'phone' : 'user'],
+    };
+    const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
+    const tip = VI.layout.tips[id];
+    return `<div class="screen-masthead"><div class="masthead-label"><span>${esc(label)}</span><span class="masthead-icon" aria-hidden="true">${I(icon,24)}</span></div>${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
   }
   root.CareFlowViews = {
     external,

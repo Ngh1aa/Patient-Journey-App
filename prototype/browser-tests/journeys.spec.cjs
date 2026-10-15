@@ -204,7 +204,7 @@ test.afterEach(async ({ page }) => {
   expect(page.__errors).toEqual([]);
 });
 
-test('F1 new profile → all booking steps → pending visit, 4 tabs', async ({
+test('F1 new profile → all booking steps → pending visit, 4 tabs and booking action', async ({
   page,
 }) => {
   await load(page, 'new');
@@ -231,6 +231,8 @@ test('F1 new profile → all booking steps → pending visit, 4 tabs', async ({
     'Hồ sơ',
     'Hỗ trợ',
   ]);
+  await expect(page.locator('#bottom-nav > *')).toHaveCount(5);
+  await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');
 });
 test('F2 existing profile is confirmed and can be updated without re-entry', async ({
   page,

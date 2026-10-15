@@ -38,7 +38,10 @@ function getContrast(hex1, hex2) {
 
 const fs = require('node:fs'),
   path = require('node:path');
-const css = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const css = [...html.matchAll(/href="\.\/([^"\s]+\.css)"/g)]
+  .map((match) => fs.readFileSync(path.join(__dirname, match[1]), 'utf8'))
+  .join('\n');
 const tokens = Object.fromEntries(
   [...css.matchAll(/--([a-z0-9-]+):\s*(#[a-f0-9]{3,6})/gi)].map((m) => [
     m[1],

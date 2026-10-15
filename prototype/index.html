@@ -17,6 +17,7 @@
     <a class="skip-link" href="#phone-main" data-action="skip-content"
       >Đến nội dung ứng dụng</a
     >
+    <div id="presentation-bar">
     <div class="presentation-actions">
       <button
         id="review-toggle"
@@ -33,6 +34,7 @@
       role="status"
       aria-live="polite"
     ></div>
+    </div>
     <div class="workspace">
       <aside class="journey-panel" aria-labelledby="journey-heading">
         <div class="journey-heading">
@@ -103,7 +105,11 @@
         <div class="phone" id="phone-frame">
           <div class="phone-top" aria-hidden="true">
             <span>9:41</span><span class="phone-island"></span
-            ><span>▮▮▮ ▰</span>
+            ><span class="phone-status-icons">
+              <svg viewBox="0 0 20 16" width="19" height="15" fill="currentColor"><rect x="1" y="10" width="3" height="5" rx="1"/><rect x="6" y="7" width="3" height="8" rx="1"/><rect x="11" y="4" width="3" height="11" rx="1"/><rect x="16" y="1" width="3" height="14" rx="1"/></svg>
+              <svg viewBox="0 0 20 16" width="19" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 5a12 12 0 0 1 16 0M5 8a7.5 7.5 0 0 1 10 0M8 11a3 3 0 0 1 4 0"/><circle cx="10" cy="14" r="1" fill="currentColor" stroke="none"/></svg>
+              <svg viewBox="0 0 28 16" width="27" height="15" fill="none" stroke="currentColor"><rect x="1" y="2" width="23" height="12" rx="3"/><rect x="3" y="4" width="19" height="8" rx="1.5" fill="currentColor" stroke="none"/><path d="M26 6v4" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
           </div>
           <header class="phone-header">
             <button
