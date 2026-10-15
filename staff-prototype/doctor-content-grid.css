@@ -302,3 +302,40 @@
   .doctor-today .doctor-appointment { flex:0 0 auto; }
   .doctor-appointment { min-width:0; }
 }
+
+
+/* At phone width, preserve the full patient's name and place the row action below.
+   Three-column appointment data otherwise shrinks to unreadable ellipses. */
+@media (max-width:700px) {
+  .doctor-screen .doctor-appointment,
+  .doctor-screen .doctor-appointment.is-compact {
+    display:grid;
+    grid-template-columns:minmax(45px,54px) 34px minmax(0,1fr);
+    align-items:center;
+    column-gap:8px;
+    row-gap:8px;
+  }
+  .doctor-screen .doctor-appointment-time { grid-column:1; grid-row:1; }
+  .doctor-screen .doctor-appointment>.avatar { grid-column:2; grid-row:1; width:32px; height:32px; }
+  .doctor-screen .doctor-appointment-person {
+    grid-column:3;
+    grid-row:1;
+    min-width:0;
+    width:100%;
+  }
+  .doctor-screen .doctor-appointment-person strong {
+    white-space:normal;
+    text-overflow:clip;
+    overflow:visible;
+    overflow-wrap:anywhere;
+    line-height:1.55;
+  }
+  .doctor-screen .doctor-appointment-status { grid-column:3; grid-row:2; }
+  .doctor-screen .doctor-appointment-action {
+    grid-column:1 / -1;
+    grid-row:3;
+    justify-self:end;
+    margin:0;
+  }
+  .doctor-screen .doctor-appointment-action .btn { min-height:40px; }
+}
