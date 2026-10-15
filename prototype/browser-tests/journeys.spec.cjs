@@ -724,7 +724,7 @@ test('deep link authentication resumes the exact visit after matching the profil
   await load(page);
   await nav(page, 'K4');
   await action(page, 'logout').click();
-  await page.goto('/prototype/index.html#/appointments/CF-0001');
+  await page.goto('/prototype/index.html#/appointments/CF-1017-0042');
   await expect(content(page)).toHaveAttribute('data-guarded', 'auth');
   await go(page, 'A1');
   await login(page);
