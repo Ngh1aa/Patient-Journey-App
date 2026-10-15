@@ -10,7 +10,7 @@
     "check": "node --check model.js && node --check strings.vi.js && node --check icons.js && node --check views.js && node --check app.js"
   },
   "devDependencies": {
-    "@playwright/test": "1.56.1",
-    "@axe-core/playwright": "4.13.0"
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.57.0"
   }
 }

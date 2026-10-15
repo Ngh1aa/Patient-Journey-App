@@ -51,3 +51,11 @@ Chromium141.0.7390.37, WebKit26.0 chạy thật trên Windows bằng Playwright1
 - hifi cũ phụ thuộc model thay đổi; pin legacy model, regression20/20.
 
 Ảnh key screens và ngoại lệ được xuất từ browser render thật, không sinh bằng AI. Screenshots/research giả lập không chứng minh dịch vụ y tế thật đã thực hiện. Source services và approvals: clinical-and-service-gates.md.
+
+## CI repair và vòng nghiệm thu cuối
+
+PR: https://github.com/Ngh1aa/Patient-Journey-App/pull/9 . Các bảng phía trên ghi snapshot local trước PR, không là trạng thái CI hiện hành.
+
+Run38708246815 trên c02d88f:93/94 E2E PASS; WebKit Linux crash ở page.reload sau Back, lặp lại ở retry. Không bỏ test hoặc thêm timeout/catch. Playwright maintainer xác nhận regression1.56/1.56.1 và fix1.57: https://github.com/microsoft/playwright/issues/37766 . Test tooling đã nâng và khóa1.57.0; các dependency tương thích đã dedupe. Đây là sửa môi trường engine kiểm thử, không đổi frontend stack. Kết luận cuối chỉ lấy từ toàn bộ CI trên head mới.
+
+Rà soát chức năng bổ sung: K5 mở I1 đúng context sau khám; tạo người thân trong C1 trả về C1 và chọn đúng hồ sơ mới. Regression tests được thêm; tổng hiện có96 E2E cases. Full suite bắt buộc chạy lại với browser build mới, giữ nguyên kiểm tra Back/reload đã crash trước đó. Windows capture mới và Linux CI mới được ghi ở gói handoff; backend/native/clinical approval vẫn UNKNOWN.
