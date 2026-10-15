@@ -420,9 +420,8 @@ textarea { line-height: 1.65; resize: vertical; }
 .phone .selection-reminder, .phone .ux-tip, .phone .note.info { background: var(--child-gradient); }
 .phone .bottom-nav a[aria-current], .phone .bottom-nav .nav-book[aria-current] { background: var(--blue-soft); }
 .phone .section-heading { display: flex; align-items: center; gap: 9px; }
-.section-heading > .cf-icon, .detail-label-icon { flex: none; color: var(--primary); }
+.section-heading > .cf-icon, .details dt > .cf-icon { flex: none; color: var(--primary); }
 .details dt { display: flex; align-items: center; gap: 6px; }
-.detail-label-icon { display: inline-flex; }
 .card-heading { display: flex; align-items: center; gap: 11px; }
 .card-heading > .cf-icon { flex: none; color: var(--primary); }
 .card-heading > span { min-width: 0; overflow-wrap: anywhere; }
