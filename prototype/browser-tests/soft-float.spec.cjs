@@ -48,10 +48,12 @@ test('scheduling reselects day and confirms with retained date',async({page})=>{
  await inPhone(page,'nextPerson').click();
  await patient(page).locator('[data-action="chooseScreening"][data-value="normal"]').click();
  await inPhone(page,'nextScreening').click();await expect(current(page)).toHaveText('C4');
- await patient(page).locator('[data-action="chooseDate"][data-value="2026-10-21"]').click();
+ const day=await patient(page).locator('[data-action="chooseDate"]').nth(1).getAttribute("data-value");
+ await patient(page).locator('[data-action="chooseDate"]').nth(1).click();
  await patient(page).locator('[data-action="chooseSlot"][data-value="14:30"]').click();
  await inPhone(page,'nextSlot').click();await expect(current(page)).toHaveText('C5');
- await expect(patient(page)).toContainText('21/10');
+ const shown=new Intl.DateTimeFormat("vi-VN",{day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(new Date(day+"T12:00:00+07:00"));
+ await expect(patient(page)).toContainText(shown);
  await inPhone(page,'confirmBooking').click();
  await expect(current(page)).toHaveText('C6');
 });
