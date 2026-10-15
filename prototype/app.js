@@ -122,6 +122,7 @@
     },
 
     currentAppointmentStatus: "confirmed",
+    appointmentTab:0,
     lastAppointmentCancelled: false,
     cancelReason: "Tôi bận vào thời gian này",
     cancelNote: "",
@@ -684,6 +685,7 @@
       // =========================================================================
       case "C4": {
         const slots = ["09:00", "09:30", "10:00", "14:30", "15:00", "15:30"];
+        const days = [20,21,22,23];
 
         return `
           <div class="mini-step">C4 · BƯỚC 3/4</div>
@@ -701,6 +703,7 @@
           </div>
 
           <label class="field-label">Ngày khám · ${formatAppointmentDateTime()}</label>
+          <div class="pill-list" aria-label="Chọn ngày khám">${days.map(day=>`<button type="button" class="day-pill ${state.selectedDate.endsWith("-"+day)?"active":""}" data-action="chooseDate" data-value="2026-10-${day}">${day}/10</button>`).join("")}</div>
           <div class="slots-grid">
             ${slots.map(s => `
               <button type="button" class="slot-btn ${m.slot === s ? "selected" : ""}" data-action="chooseSlot" data-value="${s}">
@@ -792,6 +795,7 @@
             </div>
           ` : ""}
 
+          <div class="box"><label class="row-consent"><input type="checkbox" data-action="toggleBookingConsent" ${state.bookingConsent?"checked":""} /><span>${esc(tx("C5","consent"))}</span></label></div>
           <button type="button" class="btn-primary" data-action="confirmBooking" ${m.bookingPending || state.isSubmitting ? "disabled" : ""}>
             ${icon("check", 18)} <span>${state.isSubmitting ? "Đang xử lý..." : "Xác nhận đặt lịch"}</span>
           </button>
@@ -850,6 +854,7 @@
       // =========================================================================
       case "D1":
         return `
+          <div class="segmented-control" aria-label="Lọc lịch hẹn">${["Sắp tới","Đã khám","Đã hủy"].map((label,i)=>`<button class="segmented-btn ${state.appointmentTab===i?"active":""}" type="button" data-action="filterAppointments" data-value="${i}">${label}</button>`).join("")}</div>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
             <h2>${esc(tx("D1","title"))}</h2>
             <button type="button" class="context-bar-btn" data-action="startBooking">＋ Đặt lịch mới</button>
@@ -886,10 +891,10 @@
         const ctaMapping = {
           pending: { label: "Gọi phòng khám", action: "callClinicHotline", icon: "phone" },
           confirmed: { label: "Xem hướng dẫn", action: "openPreparationGuide", icon: "document" },
-          reminder: { label: "Check-in", action: "openFeatureSoonCheckin", icon: "location" },
-          arrived: { label: "Xem số thứ tự", action: "openFeatureSoonQueue", icon: "document" },
-          waiting: { label: "Xem trạng thái", action: "openFeatureSoonWaiting", icon: "clock" },
-          "online-waiting": { label: "Vào phòng chờ", action: "openFeatureSoonWaiting", icon: "video" },
+          reminder: { label: "Check-in", action: "goE1", icon: "location" },
+          arrived: { label: "Xem số thứ tự", action: "goE1", icon: "document" },
+          waiting: { label: "Xem trạng thái", action: "goE1", icon: "clock" },
+          "online-waiting": { label: "Vào phòng chờ", action: "goE2", icon: "video" },
           delayed: { label: "Giữ lịch / Đổi lịch", action: "goD3", icon: "calendar" },
           "results-pending": { label: "Xem tiến độ", action: "goF2", icon: "document-check" },
           "results-ready": { label: "Xem kết quả", action: "goF2", icon: "document-check" },
@@ -1448,6 +1453,15 @@
           </div>
         </div>
       `;
+    } else if (state.activeModal === "cancel-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Hủy lịch khám này?">
+          <div class="sheet-handle"></div><h3>Hủy lịch khám này?</h3>
+          <p class="lead">[Chính sách đổi, hủy của phòng khám]</p>
+          <p class="lead">Lý do: ${esc(state.cancelReason)}</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Giữ lịch</button>
+          <button type="button" class="btn-danger" data-action="confirmCancelAppointment">Hủy lịch</button>
+        </div></div>`;
     } else if (state.activeModal === "feature-soon") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
@@ -1648,6 +1662,7 @@ function handleAction(action, value) {
         return;
 
       case "login":
+        if (!state.termsAccepted) return showNotice("Bạn cần đồng ý với điều khoản để tiếp tục.","error");
         if (!/^0\d{9,10}$/.test(state.phone.trim()) || state.otp.trim() !== "123456") {
           return showNotice("Số điện thoại mẫu hoặc OTP không hợp lệ. Mã demo: 123456.", "error");
         }
@@ -1655,8 +1670,8 @@ function handleAction(action, value) {
         return nav("B1");
 
       case "resendOtp":
-        state.otpCountdown = 60;
-        return showNotice("Đã gửi lại mã OTP qua tin nhắn SMS (mã demo: 123456).", "success");
+        state.otpCountdown = 30;
+        return showNotice("Đây là bản xem thử: mã 123456. Không gửi SMS thật.");
 
       case "goA2":
         return nav("A2");
@@ -1691,6 +1706,10 @@ function handleAction(action, value) {
         logAnalytics("patient_selected", { person: m.person });
         return nav("C2");
 
+      case "chooseGender":
+        state.gender = value;
+        return render();
+
       case "chooseReason":
         state.reasonCategory = value;
         return render();
@@ -1714,8 +1733,8 @@ function handleAction(action, value) {
         return render();
 
       case "nextScreening": {
-        m.reason = state.reasonNote;
-        const r = M.screening(m, state.screeningChoice || "normal");
+        m.reason = state.reasonNote || state.reasonCategory;
+        const r = M.screening(m, state.screeningChoice);
         if (!r.ok) return showNotice("Vui lòng chọn một tình huống mô phỏng.", "error");
         logAnalytics("screening_completed", { choice: state.screeningChoice });
         return nav(r.next);
@@ -1758,6 +1777,8 @@ function handleAction(action, value) {
 
       case "chooseDate":
         state.selectedDate = value;
+        m.slot = "";
+        state.selectedSlot = "";
         return render();
 
       case "chooseSlot":
@@ -1781,17 +1802,20 @@ function handleAction(action, value) {
         return showNotice("Chính sách: Đổi hoặc hủy lịch trước 2 tiếng hoàn toàn miễn phí.");
 
       case "confirmBooking": {
+        if (!state.bookingConsent) return showNotice("Bạn cần đồng ý với điều khoản và chính sách đổi, hủy lịch.","error");
         state.isSubmitting = true;
         render();
         logAnalytics("booking_submitted");
         if (!m.slot) m.slot = "09:00";
-        if (m.screening !== "normal" && m.screening !== "warning") M.screening(m, "normal");
+        if (m.screening !== "normal" && m.screening !== "warning") return showNotice("Bạn cần trả lời câu hỏi an toàn trước khi gửi yêu cầu.","error");
+        if (!state.bookingConsent) return showNotice("Bạn cần đồng ý với điều khoản và chính sách đổi, hủy lịch.","error");
         const r = M.attemptBooking(m, state.bookingOutcome);
         state.isSubmitting = false;
 
         if (r.ok) {
           state.currentAppointmentStatus = "confirmed";
           state.lastAppointmentCancelled = false;
+          state.currentAppointment.startsAt=state.selectedDate+"T"+(m.slot||"09:00")+":00+07:00";
           logAnalytics("booking_confirmed");
           return nav("C6");
         }
@@ -1884,6 +1908,10 @@ function handleAction(action, value) {
       case "goH1":
         return nav("H1");
 
+      case "filterAppointments":
+        state.appointmentTab=Number(value);
+        return render();
+
       case "goG3": return nav("G3");
       case "goScreen": return nav(value);
 
@@ -1892,6 +1920,11 @@ function handleAction(action, value) {
         return render();
 
       case "cancelAppointment":
+        state.activeModal="cancel-confirm";
+        return render();
+
+      case "confirmCancelAppointment":
+        state.activeModal=null;
         state.lastAppointmentCancelled = true;
         state.currentAppointmentStatus = "cancelled";
         if (m.appointment) m.appointment.status = "cancelled";
@@ -2116,6 +2149,7 @@ function handleAction(action, value) {
   });
 
   document.addEventListener("input", (e) => {
+    if(e.target.dataset.field==="otp"){e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);document.querySelectorAll("[data-otp-slot]").forEach((slot,i)=>slot.textContent=e.target.value[i]||"·");}
     if (e.target.dataset.field) {
       const field = e.target.dataset.field;
       if (Object.prototype.hasOwnProperty.call(state, field)) {
