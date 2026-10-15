@@ -78,16 +78,16 @@
       <input type="radio" name="${H(h.C.patient)}" value="${H(p.id)}"${selected?' checked':''}>
       <span class="choice-visual">${root.CareFlowAvatar(p.id,46)}</span>
       <span class="choice-copy"><strong>${H(p.name)}</strong>
-        <small>${H(relation)} · ${H(year)}</small>
+        <small>${H(relation)} · Sinh năm ${H(year)} · Giới tính chưa cập nhật</small>
         <span class="rich-profile-meta">Ngày sinh · ${H(date)}</span>
         <span class="rich-profile-meta">Mã hồ sơ ${p.relation==='self'?DEMO.record:'HS-00012'+(8+i)}</span>
         <span class="rich-profile-meta">${p.canViewResults?'Đã xác thực':'Cần bổ sung quyền xem kết quả'}</span>
-        <span class="rich-profile-meta">${p.relation==='self'?'Lần khám gần nhất '+DEMO.lastVisit+' · BHYT đến 12/2026 (demo)':'Lần khám & BHYT: chờ đối chiếu'}</span>
+        <span class="rich-profile-meta">${p.relation==='self'?'Khám gần nhất '+DEMO.lastVisit+' · BHYT demo':'Lần khám & BHYT: chờ đối chiếu'}</span>
       </span><span class="rich-select-indicator" aria-hidden="true">${selected?'✓':''}</span>
     </label>${selected?`<button class="btn secondary add-relative-inline" type="button" data-action="go" data-to="K2">+ Thêm người khám</button>`:''}`;
   }).join('');
   const selected=h.M.profile(s,d?.patientId);
-  const form=h.form('patient',`<section class="patient-group"><div class="group-heading"><h2>Hồ sơ đã lưu</h2><span>${s.profiles.length}</span></div><fieldset class="choices"><legend class="sr-only">Ai sẽ đi khám?</legend>${choices}</fieldset><div class="rich-profile-hint">${h.I('shield',18)}<p>Phòng khám sẽ đối chiếu thông tin trước khi tạo hồ sơ mới để tránh trùng lặp.</p></div></section>`,selected?'Tiếp tục với '+firstName(selected.name):'Tiếp tục');
+  const form=h.form('patient',`<section class="patient-group"><div class="group-heading"><h2>Hồ sơ đã lưu</h2><span>${s.profiles.length}</span></div><fieldset class="choices"><legend class="sr-only">Ai sẽ đi khám?</legend>${choices}</fieldset><div class="rich-profile-hint">${h.I('info',18)}<p>Phòng khám sẽ đối chiếu thông tin trước khi tạo hồ sơ mới để tránh trùng lặp.</p></div></section>`,selected?'Tiếp tục với '+firstName(selected.name):'Tiếp tục');
   return `<p class="rich-lead">Chọn hồ sơ có sẵn hoặc thêm người mới.</p>${form}<div class="rich-add-person rich-add-person-link"><strong>Thêm người mới</strong><p>Bước 1: họ tên, ngày sinh · Bước 2: thông tin y tế và BHYT khi phòng khám hỗ trợ.</p><button type="button" class="btn secondary" data-action="go" data-to="K2">${h.I('plus',20)} Quản lý và thêm người thân</button><small class="rich-subnote">Hệ thống sẽ kiểm tra thông tin để tránh tạo hồ sơ trùng.</small></div>${s.profiles.some(x=>!x.canViewResults)?`<aside class="rich-warning-note">${pill('Cần bổ sung','warning')} Hồ sơ người thân chưa được cấp quyền xem kết quả. ${action('Liên hệ','K5','text')}</aside>`:''}`;
 }
   function visitExtras(s,v,h) {
@@ -103,18 +103,19 @@
   }
   function profile(s,u,h) {
     const p=h.M.accountProfile(s), c=counts(s), count=s.profiles.length;
-    return `<div class="rich-profile-hero"><div class="rich-profile-account">${root.CareFlowAvatar(p?.id||'account',68)}<div><strong>${H(p?.name||'Chưa có tài khoản')}</strong><small>${H(p?.phone||'Chưa bổ sung số liên hệ')} · ${H('email chưa liên kết')}</small>${pill('Đã đăng nhập','success')}</div></div><div class="rich-progress-label"><strong>Hồ sơ hoàn thiện 80% (demo)</strong><small>Thiếu thông tin BHYT</small></div><div class="rich-progress-bar"><span style="width:80%"></span></div>${action('Nhờ hỗ trợ bổ sung','K5','secondary')}</div>
+    return `<div class="rich-profile-hero"><div class="rich-profile-account">${root.CareFlowAvatar(p?.id||'account',68)}<div><strong>${H(p?.name||'Chưa có tài khoản')}</strong><small>Mã ${H(DEMO.record)} · Hồ sơ chính</small><small>${H(p?.phone ? p.phone.slice(0,3)+'••••'+p.phone.slice(-3) : 'Chưa có số liên hệ')}</small>${pill('Đã xác thực (demo)','success')}</div></div><div class="rich-progress-label"><strong>Hồ sơ hoàn thiện 80% (demo)</strong><small>Thiếu thông tin BHYT</small></div><div class="rich-progress-bar"><span style="width:80%"></span></div>${action('Nhờ hỗ trợ bổ sung','K5','secondary')}</div>
     <section class="profile-bento rich-profile-bento" aria-label="Tiện ích hồ sơ">
-      ${h.row('Người đi khám',count+' hồ sơ','C1','user')}
-      ${h.row('Lịch sử khám',c.done+' lượt đã khám','K3','calendar')}
-      ${h.row('Kết quả và đơn thuốc','Kiểm tra cập nhật','H7','document-check')}
-      <div class="profile-unavailable" aria-label="Bảo hiểm chưa kết nối"><span>${h.I('shield',24)}</span><strong>Bảo hiểm / Biên lai</strong><small>Chưa kết nối · ${c.done} lượt đã hoàn tất</small></div>
+      ${h.row('Người thân',Math.max(0,count-1)+' người thân','C1','user')}
+      ${h.row('Kết quả khám',c.done+' lượt có kết quả','H7','document-check')}
+      ${h.row('Đơn thuốc và lời dặn','2 lời dặn mẫu','H6','pill')}
+      <div class="rich-insurance" aria-label="Bảo hiểm chưa kết nối">${h.I('shield',22)}<strong>Bảo hiểm</strong><small>Chưa kết nối BHYT (demo)</small><button type="button" data-action="go" data-to="K5">Hỏi cách kết nối ↗</button></div>
     </section>
     ${section('Thông tin cá nhân',`<div class="rich-edit-list">${[['Họ và tên',p?.name],['Ngày sinh',p?.dob?.split('-').reverse().join('/')],['Giới tính','Chưa cập nhật'],['CCCD','•••• 4821 (demo)'],['Địa chỉ','Chưa cập nhật'],['Liên hệ khẩn cấp','Chưa cập nhật']].map(([k,v])=>`<div><span><strong>${H(k)}</strong><small>${H(v||'Chưa cập nhật')}</small></span><button type="button" data-action="go" data-to="K5">Yêu cầu sửa</button></div>`).join('')}</div>`)}
     ${section('Tiền sử và lưu ý y tế',`<div class="rich-medical-pills">${['Dị ứng: chưa khai','Bệnh nền: chưa khai','Thuốc đang dùng: chưa khai','Nhóm máu: chưa khai'].map(t=>pill(t,'info')).join('')}</div><p class="rich-subnote">Thông tin này giúp bác sĩ khám an toàn hơn. Hãy xác nhận trực tiếp với phòng khám.</p>`)}
+    ${section('Người thân',`<div class="rich-settings-links">${s.profiles.filter(x=>x.relation!=='self').map(p=>h.row(p.name,'Hồ sơ đã lưu · '+(p.canViewResults?'Có quyền xem kết quả':'Chờ xác minh'),'C1','user')).join('')||'<p>Chưa có người thân.</p>'}</div><details class="rich-add-person add-relative"><summary>${h.I('plus',20)} Thêm người thân</summary>${h.form('relative',h.field('name','Họ và tên')+h.field('dob','Ngày sinh','','date',{max:h.M.localDate()}),'Lưu hồ sơ')}</details>`)}
+    ${section('Lịch sử khám và cài đặt',`${h.row('Lịch sử khám',c.done+' lượt đã hoàn tất','K3','calendar')}${h.row('Cài đặt','Nhắc lịch, quyền riêng tư','K4','settings')}`)}
     ${section('Cài đặt tài khoản',`<div class="rich-settings-links">${h.row('Nhắc lịch khám',s.settings.reminders?'Đang bật':'Đang tắt','K4','bell')}${h.row('Ngôn ngữ','Tiếng Việt','K4','document')}${h.row('Bảo mật & quyền riêng tư',s.settings.privatePreview?'Đang ẩn nội dung nhạy cảm':'Xem nội dung đầy đủ','K4','shield')}</div><small class="rich-subnote">CareFlow+ Demo · v3.0 · Quyền riêng tư và điều khoản: nhờ phòng khám cung cấp.</small>`)}
-    <details class="rich-add-person add-relative"><summary>${h.I('plus',20)} Thêm người thân</summary>${h.form('relative',h.field('name','Họ và tên')+h.field('dob','Ngày sinh','','date',{max:h.M.localDate()}),'Lưu hồ sơ')}</details>
-    <button type="button" class="btn text danger-text" data-action="logout">Đăng xuất</button>`;
+    <button type="button" class="rich-danger-logout" data-action="confirm-logout">${h.I('arrow-right',18)} Đăng xuất</button>`;
   }
   function support(s,u,h) {
     const hour=Number(new Intl.DateTimeFormat('en-GB',{hour:'numeric',hourCycle:'h23',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date()));
