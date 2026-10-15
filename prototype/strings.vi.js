@@ -176,7 +176,7 @@
       },
       C1: {
         heading: 'Bạn đặt lịch cho ai?',
-        lead: 'Mỗi lượt khám gắn với một hồ sơ.',
+        lead: 'Chọn đúng người để phòng khám tiếp nhận thông tin.',
         self: 'Hồ sơ của bạn',
         relative: 'Hồ sơ người thân',
         permission: 'Được đặt lịch · Chưa được xem kết quả',
@@ -447,7 +447,7 @@
       },
       H7: {
         heading: 'Kết quả và việc tiếp theo',
-        lead: 'Phân biệt kết quả có sẵn, bác sĩ đã xem và thông báo cho bạn.',
+        lead: 'Theo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.',
         notification: 'Thông báo kết quả',
         explanation: 'Giải thích kết quả',
         pending: 'Chưa thông báo',

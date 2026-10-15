@@ -213,6 +213,7 @@ button:active:not(:disabled) {
   border-radius: 50%;
 }
 .phone {
+  font-size: calc(16px * var(--font-scale, 1));
   width: 100%;
   height: 844px;
   max-height: calc(100dvh - 170px);
