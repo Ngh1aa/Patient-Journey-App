@@ -418,3 +418,21 @@ textarea { line-height: 1.65; resize: vertical; }
  #phone-content .service-tile{transition:none}
  #phone-content .service-tile:hover:not(:disabled){transform:none}
 }
+
+
+/* Accessibility reflow: scaled text must not collide with patient avatar. */
+.phone.large-text[data-screen='B1'] .greeting {
+  display:grid;grid-template-columns:44px minmax(0,1fr);
+  align-items:start;column-gap:14px;row-gap:7px;
+}
+.phone.large-text[data-screen='B1'] .greeting>.avatar {
+  grid-column:1;grid-row:1;width:44px;height:44px;
+  min-width:44px;min-height:44px;
+  font-size:14px;line-height:1;letter-spacing:0;white-space:nowrap;overflow:hidden;
+}
+.phone.large-text[data-screen='B1'] .greeting>div {grid-column:2;grid-row:1;min-width:0}
+.phone.large-text[data-screen='B1'] .greeting h1 {
+  font-size:calc(22px * var(--font-scale,1));
+  line-height:1.2;letter-spacing:-.045em;overflow-wrap:anywhere;
+}
+.phone.large-text[data-screen='B1'] .greeting p {line-height:1.45}
