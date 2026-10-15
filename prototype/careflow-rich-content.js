@@ -118,20 +118,40 @@
     <button type="button" class="rich-danger-logout" data-action="confirm-logout">${h.I('arrow-right',18)} Đăng xuất</button>`;
   }
   function support(s,u,h) {
-    const hour=Number(new Intl.DateTimeFormat('en-GB',{hour:'numeric',hourCycle:'h23',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date()));
-    const open=(hour*60+Number(new Intl.DateTimeFormat('en-GB',{minute:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date())))>=450 && (hour*60+Number(new Intl.DateTimeFormat('en-GB',{minute:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date())))<1140, request=s.requests.find(x=>x.status==='waiting' && x.type==='callback');
-    return `<div class="rich-support-hero"><div class="rich-hotline-label">${pill(open?'Trong khung giờ hỗ trợ (demo)':'Ngoài khung giờ hỗ trợ (demo)',open?'success':'warning')}<small>7:30–19:00 · kể cả Thứ Bảy (ví dụ)</small></div><strong>Hotline ${H(DEMO.hotline)}</strong><p>Đây là số minh họa, không phải đường dây đang hoạt động.</p><button type="button" class="btn secondary" disabled aria-label="Hotline demo chưa kết nối">Gọi ngay · Chưa kết nối</button></div>
-    ${section('Kênh liên hệ',`<div class="support-grid rich-contact-grid">${h.row('Nhắn tin trong app','Trao đổi với điều phối viên','I5','phone')}${h.row('Hỏi phòng khám','Nhận hướng dẫn cho lịch hẹn','I1','heart-pulse')}</div><div class="rich-mini-grid"><div>${h.I('message-circle',20)}<strong>Zalo</strong><small>Chưa kết nối Zalo demo</small></div><div>${h.I('mail',20)}<strong>Email / Địa chỉ</strong><small>Vui lòng yêu cầu tại quầy</small></div></div>`)}
-    ${section('Gọi lại cho tôi',`<div class="rich-callback">${request?pill('Đang chờ xử lý','warning'):pill('Chưa gửi yêu cầu','info')}<p>Chọn khung giờ tham khảo:</p><div class="rich-callback-slots" role="group" aria-label="Khung giờ mong muốn"><button type="button" data-callback-slot="morning" aria-pressed="true">Sáng · 8–11h</button><button type="button" data-callback-slot="afternoon">Chiều · 13–17h</button><button type="button" data-callback-slot="evening">Tối · sau 17h</button></div><p class="rich-subnote">Khung giờ chưa được gửi tới phòng khám; yêu cầu gọi lại chỉ ghi nhận thông tin liên hệ.</p><button type="button" class="btn primary" data-action="clinic-call">${request?'Xem / gửi lại yêu cầu':'Đề nghị gọi lại'}</button></div>`)}
-    ${section('Hỏi nhanh theo chủ đề',`<div class="rich-topic-grid">${[['Lịch hẹn','D1'],['Thanh toán','K5'],['Kết quả','H7'],['Đơn thuốc','H6'],['Khám online','G1'],['Tài khoản','K2']].map(([label,to])=>action(label,to,'secondary')).join('')}</div>`)}
-    ${section('Gửi yêu cầu hỗ trợ',h.form('support',h.textarea('support','Nội dung cần hỗ trợ'),'Gửi yêu cầu','secondary'))}
+  const clock=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date());
+  const minutes=Number(clock.slice(0,2))*60+Number(clock.slice(-2));
+  const withinDemoHours=minutes>=450 && minutes<1140;
+  const waiting=s.requests.find(x=>x.status==='waiting');
+  const topics=['Lịch hẹn','Thanh toán','Kết quả','Đơn thuốc','Khám online','Khác'];
+  const helpContent=`<div class="rich-support-form">
+    <div class="rich-topic-grid" role="group" aria-label="Chủ đề cần hỗ trợ">${topics.map((topic,i)=>`<button type="button" data-support-topic="${H(topic)}" aria-pressed="${i===0}">${H(topic)}</button>`).join('')}</div>
+    <input type="hidden" name="supportTopic" id="supportTopic" value="Lịch hẹn">
+    ${h.textarea('support','Bạn cần hỗ trợ việc gì?','',{placeholder:'Mô tả ngắn điều bạn cần, ví dụ: tôi muốn đổi lịch sang tuần sau.',maxlength:'500'})}
+    <div class="rich-counter" aria-live="polite"><span id="support-count">0</span>/500 ký tự</div>
+    <fieldset class="rich-contact-methods"><legend>Phòng khám nên liên hệ qua</legend>
+      <label><input type="radio" name="contactMode" value="call" checked> Gọi điện</label>
+      <label><input type="radio" name="contactMode" value="zalo"> Zalo (demo)</label>
+      <label><input type="radio" name="contactMode" value="message"> Tin nhắn</label>
+    </fieldset></div>`;
+  return `<div class="rich-support-hero">
+      <div class="rich-hotline-label">${pill(withinDemoHours?'Trong khung giờ hỗ trợ (demo)':'Ngoài giờ hỗ trợ (demo)',withinDemoHours?'success':'warning')}<small>7:30–19:00 · giờ minh họa</small></div>
+      <strong>Hotline ${H(DEMO.hotline)}</strong>
+      <p>Số minh họa, chưa kết nối tổng đài. Không dùng số này để liên hệ thật.</p>
+      <button type="button" class="btn secondary" disabled aria-label="Hotline demo chưa kết nối">${h.I('phone',18)} Gọi ngay · Chưa kết nối</button>
+    </div>
+    ${section('Kênh liên hệ',`<div class="support-grid rich-contact-grid">
+      <button type="button" data-action="go" data-to="I5">${h.I('message-circle',25)}<strong>Nhắn tin</strong><small>Trong ứng dụng</small></button>
+      <button type="button" disabled aria-label="Zalo chưa kết nối">${h.I('message-circle',25)}<strong>Zalo</strong><small>Chưa kết nối</small></button>
+      <button type="button" data-action="clinic-call">${h.I('phone',25)}<strong>Gọi lại</strong><small>Gửi yêu cầu demo</small></button></div>`)}
+    ${section('Gửi yêu cầu hỗ trợ',h.form('support',helpContent,'Gửi yêu cầu','primary'))}
+    ${waiting?`<aside class="rich-support-request">${pill('Đang xử lý (demo)','warning')}<p>${H(waiting.type==='callback'?'Yêu cầu gọi lại':'Yêu cầu hỗ trợ')} · Phòng khám chưa phản hồi</p></aside>`:''}
     ${section('Câu hỏi thường gặp',`<div class="rich-faqs">${[
-      ['Làm sao đổi lịch?','Lịch chỉ được xác nhận sau khi phòng khám kiểm tra. Mở Lịch hẹn → Chi tiết → Đổi lịch nếu trạng thái cho phép.'],
-      ['Vào phòng khám online thế nào?','Chọn lịch trực tuyến, kiểm tra thiết bị và làm theo thông báo phòng khám.'],
-      ['Mất bao lâu có kết quả?','Thời gian tùy từng xét nghiệm. Theo dõi tại mục Kết quả hoặc hỏi phòng khám.'],
-      ['Hoàn tiền khi nào?','Liên hệ phòng khám để được kiểm tra điều kiện và thời gian hoàn tiền.'],
+      ['Làm sao đổi lịch?','Lịch chỉ được xác nhận sau khi phòng khám kiểm tra. Mở Lịch hẹn → Chi tiết để xem lựa chọn phù hợp.'],
+      ['Vào phòng khám online thế nào?','Mở lịch trực tuyến, kiểm tra thiết bị và làm theo hướng dẫn trên màn hình.'],
+      ['Khi nào có kết quả?','Thời gian tùy từng xét nghiệm. Theo dõi mục Kết quả hoặc hỏi phòng khám.'],
+      ['Cần hỗ trợ thanh toán?','Gửi yêu cầu ở mục trên để được hướng dẫn theo tình trạng lượt khám.']
     ].map(([q,a])=>`<details class="faq"><summary>${H(q)}</summary><p>${H(a)}</p></details>`).join('')}</div>`)}
-    <aside class="rich-emergency"><strong>${h.I('warning',20)} Có dấu hiệu nguy hiểm?</strong><p>Gọi cấp cứu <strong>115</strong> hoặc đến cơ sở y tế gần nhất. Đừng chờ phản hồi trong ứng dụng.</p><button type="button" data-action="emergency" class="btn secondary">Hướng dẫn cấp cứu</button></aside>`;
-  }
+    <aside class="rich-emergency"><strong>${h.I('warning',20)} Có dấu hiệu nguy hiểm?</strong><p>Gọi cấp cứu <strong>115</strong> hoặc đến cơ sở y tế gần nhất. Đừng chờ phản hồi qua ứng dụng.</p><button class="btn secondary" type="button" data-action="emergency">${h.I('phone',17)} Gọi 115 / Xem hướng dẫn</button></aside>`;
+}
   root.CareFlowRich = {homeHeader,home,appointments,patient,visitExtras,profile,support,DEMO};
 })(window);
