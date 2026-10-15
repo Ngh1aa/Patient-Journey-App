@@ -120,7 +120,7 @@
     switch (id) {
       case 'A1':
         intro =
-          `<div class="welcome-mark" aria-hidden="true">${I('heart-pulse', 44)}</div>` +
+          `<div class="auth-hero"><strong class="auth-brand">CareFlow</strong><span class="auth-orb" aria-hidden="true">${I('heart-pulse', 48)}</span><p>Chăm sóc, liền mạch.</p></div><div class="auth-panel">` +
           head(T.heading, T.lead);
         body =
           form(
@@ -141,7 +141,7 @@
             u.otpSent ? T.verify : T.getCode,
           ) +
           (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
-          nav(C.support, 'K5', 'text');
+          nav(C.support, 'K5', 'text') + '</div>';
         break;
       case 'A2':
         body =
@@ -168,13 +168,13 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting dashboard-greeting"><span class="avatar">${esc(
+        intro = `<div class="dashboard-top"><div class="greeting dashboard-greeting"><span class="avatar">${esc(
           (p?.name || 'CF')
             .split(' ')
             .slice(-2)
             .map((x) => x[0])
             .join(''),
-        )}</span><div><p>Good Morning,</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><button class="icon-btn notification-orb" type="button" data-action="go" data-to="K1" aria-label="Thông báo">${I('bell', 22)}</button></div><div class="dashboard-hero"><h1>Sức khoẻ của bạn<br>hôm nay thế nào</h1><div class="dashboard-search" role="search"><span>${I('search', 20)}<span>Tìm kiếm</span></span>${I('chevron-right', 18)}</div><div class="quick-actions"><button type="button" data-action="go" data-to="K5">${I('heart-pulse', 20)}<strong>Sức khoẻ</strong></button><button type="button" data-action="go" data-to="K5">${I('message', 20)}<strong>Tư vấn</strong></button><button type="button" class="quick-call" data-action="go" data-to="K5" aria-label="Gọi hỗ trợ">${I('phone', 20)}</button></div></div><p class="greeting-lead">${esc(T.lead)}</p>`;
+        )}</span><div><p>Xin chào,</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><button class="icon-btn notification-orb" type="button" data-action="go" data-to="K1" aria-label="Thông báo">${I('bell', 22)}</button></div><div class="dashboard-hero"><h1>Sức khoẻ của bạn<br>hôm nay thế nào</h1><button type="button" class="dashboard-search" data-action="go" data-to="D1" aria-label="Xem lịch hẹn"><span>${I('search', 20)}<span>Xem lịch hẹn</span></span>${I('chevron-right', 18)}</button><div class="quick-actions"><button type="button" data-action="go" data-to="K3">${I('heart-pulse', 20)}<strong>Lịch sử</strong></button><button type="button" data-action="go" data-to="I1">${I('message', 20)}<strong>Trao đổi</strong></button><button type="button" class="quick-call" data-action="go" data-to="K5" aria-label="Gọi hỗ trợ">${I('phone', 20)}</button></div></div><p class="greeting-lead">${esc(T.lead)}</p></div>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
