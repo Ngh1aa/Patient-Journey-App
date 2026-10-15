@@ -4,6 +4,7 @@
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Color Tokens */
@@ -1639,7 +1640,7 @@ body.large-text .btn-primary, body.large-text .btn-secondary {
    SOFT FLOAT iOS — source: 11-visual-style-and-layouts.md
    Scoped to the phone where possible: the left demo and right inspector remain.
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
 :root{
   --color-surface-50:#F2F6FB;
   --color-chip-ink:#245A93;
