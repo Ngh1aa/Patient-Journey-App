@@ -5,7 +5,7 @@ async function load(page, scenario) {
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'A1');
 }
 
-test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', async ({ page }) => {
+test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', async ({ page }, info) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await load(page, 'new');
   const phone = page.locator('#phone-frame');
@@ -18,12 +18,14 @@ test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', a
   await page.locator('.auth-panel [type=submit]').click();
   await expect(phone).toHaveAttribute('data-auth-step', '2');
   await expect(page.locator('.auth-panel form[data-form=verify]')).toBeVisible();
+  await page.locator('.phone').screenshot({ path: info.outputPath('A1-otp.png') });
   await page.locator('#otp').fill('123456');
   await page.locator('#consent').check();
   await page.locator('.auth-panel [type=submit]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'A3');
   await expect(phone).toHaveAttribute('data-auth-step', '3');
   await expect(page.locator('.auth-panel form[data-form=profile]')).toBeVisible();
+  await page.locator('.phone').screenshot({ path: info.outputPath('A3-profile.png') });
   await page.locator('#name').fill('Nguyễn An');
   await page.locator('#dob').fill('1995-02-15');
   await page.locator('.auth-panel [type=submit]').click();
@@ -32,7 +34,7 @@ test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', a
   await expect(page.locator('#auth-progress')).toBeHidden();
 });
 
-test('Blue editorial auth: returning patient sees A2 with editable existing identity', async ({ page }) => {
+test('Blue editorial auth: returning patient sees A2 with editable existing identity', async ({ page }, info) => {
   await page.setViewportSize({ width: 360, height: 760 });
   await load(page, 'returning');
   await page.locator('#phone').fill('0900000000');
@@ -46,6 +48,7 @@ test('Blue editorial auth: returning patient sees A2 with editable existing iden
   await page.locator('#auth-jump').click();
   await expect(page.locator('#name')).toBeFocused();
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
+  await page.locator('.phone').screenshot({ path: info.outputPath('A2-existing-profile.png') });
   await page.locator('.auth-panel [type=submit]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'B1');
 });
