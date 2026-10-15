@@ -32,12 +32,18 @@ test('reschedule requires reason and reconfirmation; cancellation is final',asyn
   await page.locator('[data-action="wave-commit"]').click();
   await expect(page.locator('.wave-schedule-main')).toContainText('13:30');
   await expect(page.locator('.wave-history')).toContainText('Bệnh nhân đề nghị chuyển giờ');
+  await page.goto('/staff-prototype/index.html#/calendar');
+  await expect(page.locator('.calendar-event[data-id="a-018"]')).toContainText('13:30');
+  await page.goto('/staff-prototype/index.html#/schedule/a-018');
   await page.locator('#wave-cancel-reason').selectOption('Bệnh nhân yêu cầu hủy');
   await page.locator('[data-action="wave-propose-cancel"]').click();
   await expect(page.locator('.wave-confirm')).toContainText('Hủy lịch khám này?');
   await page.locator('[data-action="wave-commit"]').click();
   await expect(page.locator('.wave-schedule-main')).toContainText('Đã hủy');
   await expect(page.locator('.wave-form-layout')).toHaveCount(0);
+  await page.goto('/staff-prototype/index.html#/calendar');
+  await expect(page.locator('.calendar-event[data-id="a-018"]')).toHaveCount(0);
+  await page.goto('/staff-prototype/index.html#/schedule/a-018');
   await page.reload();
   await expect(page.locator('.wave-history')).toContainText('Đã hủy lịch');
 });
