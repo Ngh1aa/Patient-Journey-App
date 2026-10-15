@@ -1,73 +1,40 @@
-# CareFlow Clinic — 20-surface desktop portfolio prototype
+# CareFlow Doctor — Desktop Portfolio
 
-This is a standalone, buildless HTML/CSS/JS **synthetic interactive prototype** added alongside (not instead of) the existing 47-screen patient mobile browser prototype.
+**Purpose:** A polished single-role desktop UI/UX prototype for a physician, created as a design portfolio showcase, not a deployed medical system. The user-facing site is **doctor-only**; reception, nursing, role picker and related routes redirect to the doctor's homepage. The patient mobile prototype is unchanged.
 
-## Preview
+## Design direction
 
-From the repository root:
+**Premium Neo-Minimal Healthcare / Bold Editorial / Selective Soft Glass.** Inspired by the three user-provided mobile screenshots: large typographic contrasts, generous spacing, royal-blue highlights, pill controls and a floating frosted journey visual. Clinical workflows keep opaque reading surfaces and legible controls. It intentionally translates, rather than copies, mobile compositions for desktop.
 
-```sh
-node prototype/preview-server.cjs
-# http://127.0.0.1:4175/staff-prototype/index.html
-```
+Brand source: `../design/tokens.json` (#0A67D1, #F2F6FB, Be Vietnam Pro). Doctor-only presentation layer: `doctor-showcase.js` + `doctor-showcase.css`.
 
-GitHub Pages-compatible project subpath: `/Patient-Journey-App/staff-prototype/index.html`.
+## Active screens
 
-The app has **eight core surfaces and eight supporting surfaces**:
+- `#/doctor` — doctor's personal dashboard (entry)
+- `#/doctor/schedule` — physician appointment agenda
+- `#/doctor/queue` — patient list by visit status
+- `#/patients` and `#/patients/:id` — assigned patient directory and patient record
+- `#/visits/:id` — read-only visit details (no receptionist privileges)
+- `#/encounters/:id` — clinical documentation workspace
+- `#/results` — results inbox, review status, linked patient record
+- `#/clinical/orders` — synthetic draft laboratory orders
+- `#/clinical/prescription` — prescription layout and internal draft, **not medication prescribing**
+- `#/clinical/review` — review/finish synthetic encounter (not real signing)
+- `#/doctor/followups` — internal follow-up tasks, no actual patient contact
 
-| ID | Surface | Entry route |
-|---|---|---|
-| W01 | Reception overview | `#/reception` |
-| W02 | Appointment calendar | `#/calendar` |
-| W03 | Patient directory | `#/patients` |
-| W04 | Patient profile | `#/patients/p-001` |
-| W05 | Appointment detail drawer | `#/appointments/a-018` |
-| W06 | Doctor overview | `#/doctor` |
-| W07 | Consultation workspace | `#/encounters/a-018` |
-| W08 | Lab results | `#/results` |
+All patient/clinical data is fictitious. All save/review/task actions write to sessionStorage only. No real clinic connection, clinical decisions, video, billing, electronic signature or prescription dispensing.
 
-**Portfolio extension (supporting pages, W09/W10/W14/W15/W29/W30/W31/W44):**
-
-| ID | Page | Entry route |
-|---|---|---|
-| W09 | Booking requests | `#/requests` |
-| W10 | Create booking | `#/booking/new` |
-| W14 | Reception check-in | `#/checkin` |
-| W15 | Live queue | `#/queue` |
-| W29 | Lab order draft & tracking | `#/clinical/orders` |
-| W30 | Prescription layout & internal draft | `#/clinical/prescription` |
-| W31 | Review & finish encounter | `#/clinical/review` |
-| W44 | Portfolio role chooser (no real login) | `#/welcome` |
-
-The supporting pages use `supporting.js` and `supporting.css` alongside existing shared state, routing and brand tokens. W10 can create a mock appointment, which W05 can confirm, W14 can check in, and W15 can advance to a doctor. W29 adds mock order metadata. W30 deliberately does **not** suggest medications, doses or valid prescriptions. W31 uses existing guarded encounter-completion demonstration. Only synthetic browser-session data is used.
-
-Interactive demos: appointment confirm/reschedule, directory search/profile details, calendar navigation, doctor consultation draft/sign, result review, notifications, role switching, and reset. State is local to the browser session and **not synchronized to the patient prototype or a server**. Buttons that would imply a clinical, financial, or communication action remain simulated and labelled appropriately. No real patient data, emergency triage, prescription, diagnosis engine, SMS, EHR, signature, or payment service exists.
-
-## Design source and method
-
-- CareFlow `design/tokens.json` light semantics and Be Vietnam Pro installed at `prototype/assets/fonts/` (relative references, no font duplication).
-- [UIUX Factory START-HERE](https://github.com/Ngh1aa/uiux-ai-workspace/blob/main/START-HERE.md), `AGENTS.md`, `docs/CONTRACT-OWNERSHIP.md` and `professional-website-redesign` stage structure.
-- Relevant skills: design-system-and-components, information-architecture, interaction-patterns-and-form-ux, data-tables-and-enterprise-ux, complex-workflow-and-progress-ux, ui-craft-and-visual-qa, accessibility and UX writing.
-
-Goal: present a convincing **portfolio showcase**, not production clinic software. Any clinical workflow, authorization, service integration, and legal/compliance approval remains outside this demo.
-
-## Validation
+## Evidence and QA
 
 ```sh
 node --check staff-prototype/app.js
+node --check staff-prototype/doctor-showcase.js
 node --test staff-prototype/test.cjs
 node prototype/node_modules/@playwright/test/cli.js test --config=staff-prototype/playwright.config.cjs
 ```
 
-If Playwright dependencies are available from the patient prototype, the staff browser test can be run with the repo's Node/Playwright toolchain. Inspect 1280, 1440, and 1920px screenshot compositions and the keyboard-flow evidence as a separate visual QA gate.
+Active Playwright suite: `doctor.spec.cjs` at 1280, 1440, 1920px. Older `browser.spec.cjs`, `visual.spec.cjs`, `supporting.spec.cjs`, and `wave3.spec.cjs` are historical multi-role tests, intentionally excluded because the public showcase is doctor-only.
 
-## Wave 03: W07 + appointment changes + Nursing Desk
+## Design handoff
 
-Visual polish focuses on W07 Clinical Workspace with a three-stage journey header, stronger clinical typography, denser patient queue and better data grouping. No clinical decision support is created.
-
-- `#/schedule/a-018`: change or cancel an eligible appointment with a mandatory reason, conflict guard and explicit confirmation; status moves to pending after rescheduling, cancellation is final in the session; history is recorded in mock session state.
-- `#/nursing`: nurse dashboard (demo role).
-- `#/nursing/prepare`: prepare arrived patients and hand over to a doctor.
-- `#/nursing/followups`: mark internal coordination tasks handled/unhandled.
-
-The role switch in the sidebar offers Reception, Doctor, Nurse. All data is synthetic and no real communication, consultation, medication order, prescription or patient-data access occurs. Shared state persists only inside the browser session. The test file `wave3.spec.cjs` covers schedule safeguards, nurse handoff and W07 screenshot captures in Chromium at 1280 and 1440 pixels.
+Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting its Flow OS, design-system contracts and screenshot-based visual QA. The existing HTML/CSS/JS stack remains intentionally unchanged. The standalone prototype deploys under GitHub Pages at `staff-prototype/`.
