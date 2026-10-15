@@ -613,8 +613,8 @@
         logout: 'Đăng xuất',
       },
       K5: {
-        heading: 'Phòng khám luôn sẵn sàng lắng nghe',
-        lead: 'Chọn cách để được hỗ trợ về lịch hẹn và việc sau khám.',
+        heading: 'Hỗ trợ',
+        lead: 'Chúng tôi phản hồi trong giờ làm việc.',
         call: 'Nhờ phòng khám gọi lại',
         message: 'Gửi yêu cầu hỗ trợ',
         text: 'Bạn cần hỗ trợ việc gì?',
