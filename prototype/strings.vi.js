@@ -152,8 +152,8 @@
     },
     screen: {
       A1: {
-        heading: 'Chăm sóc sức khỏe, từng bước an tâm.',
-        lead: 'Đăng nhập để đặt lịch và theo dõi việc khám của bạn.',
+        heading: 'Sức khỏe của bạn luôn là ưu tiên hàng đầu.',
+        lead: 'Đăng nhập bằng số điện thoại để đặt lịch, xem hướng dẫn và theo dõi hành trình khám.',
         phone: 'Số điện thoại',
         otp: 'Mã xác nhận',
         getCode: 'Nhận mã xác nhận',

@@ -263,8 +263,13 @@
     );
     $('back').innerHTML = window.CareFlowIcon('chevron-left', 23);
     $('notifications').innerHTML = window.CareFlowIcon('bell', 22);
+    const isAuth = ['A1', 'A2', 'A3'].includes(id);
+    $('auth-progress').hidden = !isAuth;
+    $('auth-jump').hidden = !isAuth;
+    $('auth-jump').innerHTML = isAuth ? window.CareFlowIcon('arrow-right', 28) : '';
+    $('phone-frame').dataset.authStep = id === 'A1' ? (u.otpSent ? '2' : '1') : '3';
     $('back').hidden = ['A1', 'B1', 'D1', 'K2', 'K5'].includes(id);
-    $('notifications').hidden = !s.authenticated;
+    $('notifications').hidden = !s.authenticated || isAuth;
     $('phone-content').dataset.screen = id;
     $('phone-content').dataset.guarded = g ? g[0] : '';
     $('phone-content').innerHTML = g
@@ -691,6 +696,13 @@
         if (found) s.activeVisitId = found.id;
       }
       go(to);
+    },
+    'auth-jump'() {
+      const id = u.screen === 'A1' ? (u.otpSent ? 'otp' : 'phone') : 'name';
+      const field = $(id);
+      if (!field) return;
+      field.scrollIntoView({ block: 'center', behavior: 'instant' });
+      field.focus({ preventScroll: true });
     },
     back() {
       if (history.state?.careflow) history.back();
