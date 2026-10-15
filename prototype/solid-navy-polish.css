@@ -35,6 +35,17 @@
   min-height:clamp(210px, 30vh, 276px);padding:18px 20px 74px!important;
   border-radius:0 0 32px 32px!important;
 }
+/* Home navy panel sits exactly 8px inside the device on both sides.
+   Preserve brand/bell positions by compensating header's internal padding. */
+.phone[data-screen="B1"]:not(.video-mode) .phone-top,
+.phone[data-screen="B1"]:not(.video-mode) .phone-header {margin-inline:8px;}
+.phone[data-screen="B1"]:not(.video-mode) .phone-header {
+  padding-inline:12px;
+  box-shadow:none;
+}
+.phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
+  margin-inline:-12px!important;
+}
 #phone-content[data-screen="B1"] .rich-home-head{padding:0!important;}
 #phone-content[data-screen="B1"] .rich-eyebrow{color:#d2e2ff;font-size:10px;}
 #phone-content[data-screen="B1"] .rich-greeting h1 {
@@ -43,17 +54,20 @@
 #phone-content[data-screen="B1"] .rich-greeting p{max-width:26ch;font-size:calc(13px * var(--font-scale,1));line-height:1.5;color:#F0F5FF!important;}
 #phone-content[data-screen="B1"] .rich-head-meta{margin-top:15px;}
 #phone-content[data-screen="B1"] .rich-head-meta>span:last-child{color:#F0F5FF;}
+/* Keep Home layout and overlap; restore the appointment card's previous visual
+   contract (25px radius, 18px inset and softer 16/32 shadow). */
 #phone-content[data-screen="B1"] > .rich-hero,
 #phone-content[data-screen="B1"] > .rich-hero.rich-hero-empty {
-  position:relative;z-index:2;margin-top:-52px!important;padding:20px!important;
-  border:1px solid #dde8f6;background:#fff!important;
-  box-shadow:0 15px 30px #12264b24!important;border-radius:27px!important;
+  position:relative;z-index:2;margin-top:-52px!important;padding:18px!important;
+  border:1px solid #edf2f8!important;background:#fff!important;
+  box-shadow:0 16px 32px #12264b25!important;border-radius:25px!important;
 }
 #phone-content[data-screen="B1"] .rich-hero-visit{width:100%;text-align:left;}
 #phone-content[data-screen="B1"] .rich-hero-actions{margin-top:10px;}
+/* The quick-action group begins immediately after the appointment card. */
 #phone-content[data-screen="B1"] .rich-shortcuts {
-  position:relative;z-index:1;background:#F3F6FB;margin:15px 0 0!important;
-  padding:12px 0 5px!important;
+  position:relative;z-index:1;background:#F3F6FB;margin:0!important;
+  padding:0 0 5px!important;
 }
 #phone-content[data-screen="B1"] .home-quick-actions button{
   color:#132947!important;min-height:94px;
@@ -155,3 +169,10 @@
 /* Axe-confirmed K5 captions, on the demo hotline's pale blue surface. */
 #phone-content[data-screen="K5"] .rich-hotline-label small,
 #phone-content[data-screen="K5"] .rich-support-hero > p {color:#314d70!important;}
+
+/* Narrow-phone content switches to 16px padding; keep the navy at 8px inset. */
+@media (max-width:374px) {
+  .phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
+    margin-inline:-8px!important;
+  }
+}
