@@ -70,15 +70,27 @@
     return `<div class="segments rich-appt-tabs" role="group" aria-label="Trạng thái lịch">${filters.map(([key,label,count])=>`<button type="button" class="btn ${u.filter===key?'selected':'text'}" data-action="filter" data-filter="${key}">${H(label)} (${count})</button>`).join('')}</div><div class="rich-filter-chips" role="group" aria-label="Lọc hình thức"><button type="button" data-visit-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-visit-filter="onsite">Trực tiếp</button><button type="button" data-visit-filter="online">Trực tuyến</button><button type="button" data-visit-filter="person">Theo người khám</button></div><div class="rich-appointment-list">${visits.length?visits.map(v=>`<div class="rich-filterable" data-mode="${v.mode}" data-person="${H(v.patientId)}">${appointmentCard(s,v,h)}</div>`).join(''):empty(u.filter==='upcoming'?'Chưa có lịch sắp tới':u.filter==='past'?'Chưa có lượt khám đã hoàn tất':'Chưa có lịch đã hủy','Khi có cập nhật, lịch hẹn sẽ được hiển thị ở đây.')}</div><div class="rich-filter-empty" hidden>Không có lịch nào theo bộ lọc này. Thử chọn “Tất cả”.</div>${u.filter==='upcoming'?`<div class="rich-rebook-tip"><strong>Đặt lại với bác sĩ quen</strong><small>${H(DEMO.doctor)} · ${H(DEMO.specialty)} (thông tin demo)</small><button data-action="begin" type="button">Đặt lịch mới ↗</button></div>`:''}`;
   }
   function patient(s,d,h) {
-    const choices=s.profiles.map((p,i)=>{
-      const selected=d?.patientId===p.id;
-      const relation=p.relation==='self'?'Bản thân':p.relation==='mother'?'Mẹ':'Người thân';
-      return `<label class="choice patient-choice rich-patient-choice ${selected?'selected':''}"><input type="radio" name="${H(h.C.patient)}" value="${H(p.id)}"${selected?' checked':''}><span class="choice-visual">${root.CareFlowAvatar(p.id,46)}</span><span class="choice-copy"><strong>${H(p.name)}</strong><small>${H(relation)} · ${p.dob?new Date(p.dob+'T12:00:00Z').getUTCFullYear()+' · '+(p.relation==='self'?'Nữ':'Chưa cung cấp giới tính'):'Chưa có ngày sinh'}</small><span class="rich-profile-meta">Mã hồ sơ ${p.relation==='self'?DEMO.record:'HS-00012'+(8+i)}</span><span class="rich-profile-meta">${p.canViewResults?'Đã xác thực':'Cần bổ sung quyền xem kết quả'}</span><span class="rich-profile-meta">${p.relation==='self'?'Lần khám gần nhất '+DEMO.lastVisit+' · BHYT đến 12/2026 (demo)':'Lần khám & BHYT: chờ đối chiếu'}</span></span><span class="rich-select-indicator" aria-hidden="true">${selected?'✓':''}</span></label>`;
-    }).join('');
-    const selected=h.M.profile(s,d?.patientId);
-    const form=h.form('patient',`<div class="rich-patient-options"><fieldset class="choices"><legend class="sr-only">Ai sẽ đi khám?</legend>${choices}</fieldset></div><div class="rich-profile-hint">${h.I('shield',18)}<p>Hệ thống sẽ đối chiếu thông tin để tránh tạo hồ sơ trùng khi kết nối dữ liệu phòng khám.</p></div>`,selected?'Tiếp tục với '+firstName(selected.name):'Tiếp tục');
-    return `<p class="rich-lead">Chọn hồ sơ có sẵn hoặc thêm người mới.</p>${form}<details class="rich-add-person"><summary>${h.I('plus',23)}<strong>Thêm người mới</strong><small>Kiểm tra thông tin để tránh hồ sơ trùng</small></summary><div class="rich-new-profile"><p><strong>Bước 1/2 · Thông tin cơ bản</strong></p>${h.form('relative',h.field('name','Họ và tên')+h.field('dob','Ngày sinh','','date',{max:h.M.localDate()})+'<p class="rich-subnote">Hồ sơ được tạo với quyền đặt lịch. Sau đó phòng khám sẽ đối chiếu dữ liệu.</p>','Tạo hồ sơ')}<div class="rich-new-step"><strong>Bước 2/2 · Thông tin bổ sung</strong><p>Số liên hệ, giới tính, quan hệ, BHYT và tiền sử y tế cần được kiểm tra khi phòng khám hỗ trợ. Chưa lưu tại đây.</p>${action('Nhờ phòng khám hỗ trợ','K5','text')}</div></div></details>${s.profiles.some(x=>!x.canViewResults)?`<aside class="rich-warning-note">${pill('Cần bổ sung','warning')} Hồ sơ người thân chưa được cấp quyền xem kết quả. ${action('Liên hệ','K5','text')}</aside>`:''}`;
-  }
+  const choices = s.profiles.map((p,i) => {
+    const selected=d?.patientId===p.id;
+    const relation=p.relation==='self'?'Bản thân':p.relation==='mother'?'Mẹ':'Người thân';
+    const date=p.dob?p.dob.split('-').reverse().join('/'):'Chưa cập nhật';
+    const year=p.dob?p.dob.slice(0,4):'—';
+    return `<label class="choice patient-choice rich-patient-choice ${selected?'selected':''}">
+      <input type="radio" name="${H(h.C.patient)}" value="${H(p.id)}"${selected?' checked':''}>
+      <span class="choice-visual">${root.CareFlowAvatar(p.id,46)}</span>
+      <span class="choice-copy"><strong>${H(p.name)}</strong>
+        <small>${H(relation)} · ${H(year)}</small>
+        <span class="rich-profile-meta">Ngày sinh · ${H(date)}</span>
+        <span class="rich-profile-meta">Mã hồ sơ ${p.relation==='self'?DEMO.record:'HS-00012'+(8+i)}</span>
+        <span class="rich-profile-meta">${p.canViewResults?'Đã xác thực':'Cần bổ sung quyền xem kết quả'}</span>
+        <span class="rich-profile-meta">${p.relation==='self'?'Lần khám gần nhất '+DEMO.lastVisit+' · BHYT đến 12/2026 (demo)':'Lần khám & BHYT: chờ đối chiếu'}</span>
+      </span><span class="rich-select-indicator" aria-hidden="true">${selected?'✓':''}</span>
+    </label>`;
+  }).join('');
+  const selected=h.M.profile(s,d?.patientId);
+  const form=h.form('patient',`<section class="patient-group"><div class="group-heading"><h2>Hồ sơ đã lưu</h2><span>${s.profiles.length}</span></div><fieldset class="choices"><legend class="sr-only">Ai sẽ đi khám?</legend>${choices}</fieldset><div class="rich-profile-hint">${h.I('shield',18)}<p>Phòng khám sẽ đối chiếu thông tin trước khi tạo hồ sơ mới để tránh trùng lặp.</p></div></section>`,selected?'Tiếp tục với '+firstName(selected.name):'Tiếp tục');
+  return `<p class="rich-lead">Chọn hồ sơ có sẵn hoặc thêm người mới.</p>${form}<div class="rich-add-person rich-add-person-link"><strong>Thêm người mới</strong><p>Bước 1: họ tên, ngày sinh · Bước 2: thông tin y tế và BHYT khi phòng khám hỗ trợ.</p><button type="button" class="btn secondary" data-action="go" data-to="K2">${h.I('plus',20)} Quản lý và thêm người thân</button><small class="rich-subnote">Hệ thống sẽ kiểm tra thông tin để tránh tạo hồ sơ trùng.</small></div>${s.profiles.some(x=>!x.canViewResults)?`<aside class="rich-warning-note">${pill('Cần bổ sung','warning')} Hồ sơ người thân chưa được cấp quyền xem kết quả. ${action('Liên hệ','K5','text')}</aside>`:''}`;
+}
   function visitExtras(s,v,h) {
     const steps=[['pending','Đã đặt'],['confirmed','Phòng khám xác nhận'],['arrived','Đến phòng khám'],['received','Tiếp nhận'],['ready','Sẵn sàng khám'],['in-consult','Đang khám'],['completed','Hoàn tất']];
     let idx=steps.findIndex(z=>z[0]===v.status);
@@ -108,13 +120,13 @@
   function support(s,u,h) {
     const hour=Number(new Intl.DateTimeFormat('en-GB',{hour:'numeric',hourCycle:'h23',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date()));
     const open=(hour*60+Number(new Intl.DateTimeFormat('en-GB',{minute:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date())))>=450 && (hour*60+Number(new Intl.DateTimeFormat('en-GB',{minute:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date())))<1140, request=s.requests.find(x=>x.status==='waiting' && x.type==='callback');
-    return `<div class="rich-support-hero"><div class="rich-hotline-label">${pill(open?'Trong khung giờ hỗ trợ (demo)':'Ngoài khung giờ hỗ trợ (demo)',open?'success':'warning')}<small>7:30–19:00 · kể cả Thứ Bảy (ví dụ)</small></div><strong>Hotline ${H(DEMO.hotline)}</strong><p>Đây là số minh họa, không phải đường dây đang hoạt động.</p><button type="button" class="btn primary" data-action="clinic-call">Yêu cầu phòng khám gọi lại</button></div>
+    return `<div class="rich-support-hero"><div class="rich-hotline-label">${pill(open?'Trong khung giờ hỗ trợ (demo)':'Ngoài khung giờ hỗ trợ (demo)',open?'success':'warning')}<small>7:30–19:00 · kể cả Thứ Bảy (ví dụ)</small></div><strong>Hotline ${H(DEMO.hotline)}</strong><p>Đây là số minh họa, không phải đường dây đang hoạt động.</p><button type="button" class="btn secondary" disabled aria-label="Hotline demo chưa kết nối">Gọi ngay · Chưa kết nối</button></div>
     ${section('Kênh liên hệ',`<div class="support-grid rich-contact-grid">${h.row('Nhắn tin trong app','Trao đổi với điều phối viên','I5','phone')}${h.row('Hỏi phòng khám','Nhận hướng dẫn cho lịch hẹn','I1','heart-pulse')}</div><div class="rich-mini-grid"><div>${h.I('message-circle',20)}<strong>Zalo</strong><small>Chưa kết nối Zalo demo</small></div><div>${h.I('mail',20)}<strong>Email / Địa chỉ</strong><small>Vui lòng yêu cầu tại quầy</small></div></div>`)}
     ${section('Gọi lại cho tôi',`<div class="rich-callback">${request?pill('Đang chờ xử lý','warning'):pill('Chưa gửi yêu cầu','info')}<p>Chọn khung giờ tham khảo:</p><div class="rich-callback-slots" role="group" aria-label="Khung giờ mong muốn"><button type="button" data-callback-slot="morning" aria-pressed="true">Sáng · 8–11h</button><button type="button" data-callback-slot="afternoon">Chiều · 13–17h</button><button type="button" data-callback-slot="evening">Tối · sau 17h</button></div><p class="rich-subnote">Khung giờ chưa được gửi tới phòng khám; yêu cầu gọi lại chỉ ghi nhận thông tin liên hệ.</p><button type="button" class="btn primary" data-action="clinic-call">${request?'Xem / gửi lại yêu cầu':'Đề nghị gọi lại'}</button></div>`)}
     ${section('Hỏi nhanh theo chủ đề',`<div class="rich-topic-grid">${[['Lịch hẹn','D1'],['Thanh toán','K5'],['Kết quả','H7'],['Đơn thuốc','H6'],['Khám online','G1'],['Tài khoản','K2']].map(([label,to])=>action(label,to,'secondary')).join('')}</div>`)}
     ${section('Gửi yêu cầu hỗ trợ',h.form('support',h.textarea('support','Nội dung cần hỗ trợ'),'Gửi yêu cầu','secondary'))}
     ${section('Câu hỏi thường gặp',`<div class="rich-faqs">${[
-      ['Làm sao đổi lịch?','Mở Lịch hẹn → Chi tiết → Đổi lịch nếu trạng thái hiện tại cho phép.'],
+      ['Làm sao đổi lịch?','Lịch chỉ được xác nhận sau khi phòng khám kiểm tra. Mở Lịch hẹn → Chi tiết → Đổi lịch nếu trạng thái cho phép.'],
       ['Vào phòng khám online thế nào?','Chọn lịch trực tuyến, kiểm tra thiết bị và làm theo thông báo phòng khám.'],
       ['Mất bao lâu có kết quả?','Thời gian tùy từng xét nghiệm. Theo dõi tại mục Kết quả hoặc hỏi phòng khám.'],
       ['Hoàn tiền khi nào?','Liên hệ phòng khám để được kiểm tra điều kiện và thời gian hoàn tiền.'],
