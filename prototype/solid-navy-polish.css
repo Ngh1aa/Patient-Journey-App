@@ -117,7 +117,7 @@
 #phone-content .rich-support-form .rich-contact-methods{border:0;display:flex;flex-wrap:wrap;gap:9px;padding:0;margin:0;}
 #phone-content .rich-contact-methods legend{width:100%;font-weight:750;font-size:12px;color:#244367;margin-bottom:8px;}
 #phone-content .rich-contact-methods label{display:flex;align-items:center;gap:7px;min-height:44px;padding:8px 10px;border:1px solid #cddbea;border-radius:12px;background:#fff;color:#223e60;font-size:12px;}
-#phone-content .rich-support-form button[type="submit"]{background:var(--careflow-navy)!important;color:white!important;min-height:50px;width:100%;}
+#phone-content[data-screen="K5"] form[data-form="support"] .form-actions button[type="submit"]{background:var(--careflow-navy)!important;color:white!important;min-height:50px;width:100%;}
 #phone-content .rich-support-request{margin:10px 0;padding:13px;background:#fff7e9;border:1px solid #f0dcab;border-radius:16px;color:#664a16;font-size:12px;}
 #phone-content .rich-emergency{margin-bottom:34px;}
 .phone[data-screen^="C"]:not(.video-mode) #phone-content form[data-form] .form-actions{position:sticky;bottom:0;z-index:4;}
