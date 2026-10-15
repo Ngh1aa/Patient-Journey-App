@@ -1,6 +1,6 @@
 /* CareFlow low-fidelity DEMO model — simulated states only, NO medical decision engine. */
 const CareFlowModel = (function createModel(){
-  const SCREENS=["A1","A2","B1","C1","C2","C3","C4","C5","C6","D1","D2","D3","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3"];
+  const SCREENS=["A1","A2","B1","C1","C2","C3","C4","C5","C6","D1","D2","D3","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","H1"];
   function initial(){return {actorId:"actor-demo",person:"self",reason:"",screening:"",risk:false,mode:"onsite",slot:"09:00",appointment:null,bookingPending:false,requestKey:null,bookingError:"",slotUnavailable:false,payment:"unpaid",result:"awaiting_doctor_review",communication:"pending",callback:"none",canBookRelative:true,canViewRelativeResults:false,video:"waiting",queue:"not_checked_in",lastAppointmentCancelled:false};}
   function choosePerson(s,person){
     if(!["self","relative"].includes(person)) return {ok:false,code:"INVALID_PERSON"};
