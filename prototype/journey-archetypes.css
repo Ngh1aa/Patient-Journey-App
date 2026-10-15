@@ -1,0 +1,326 @@
+/* Journey archetypes • 2026-10-16
+   Source: uiux-ai-workspace mobile app design/navigation/handoff.
+   CSS layer follows styles.css, editorial-soft-glass.css and auth-editorial.css.
+   One fixed navy canvas, many task-specific compositions. No synthetic clinical data.
+*/
+:root {
+  --bg: #f3f6fb;
+  --navy: #001d57;
+  --navy-deep: #00143b;
+  --navy-fade: #53739f;
+  --layout-gutter: 20px;
+  --layout-gap: 12px;
+}
+.phone {
+  position: relative;
+  isolation: isolate;
+  background: var(--bg) !important;
+}
+/* Full-bleed fixed canvas belongs to the device, NOT the scroll content.
+   Its lower edge has no border/radius and fades into the page background. */
+.phone::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 54%;
+  z-index: 0;
+  pointer-events: none;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg,
+    var(--navy-deep) 0%,
+    var(--navy) 31%,
+    rgba(0,29,87,.96) 52%,
+    rgba(41,73,122,.65) 73%,
+    rgba(117,146,186,.19) 89%,
+    rgba(243,246,251,0) 100%);
+}
+.phone > .phone-top,
+.phone > .phone-header,
+.phone > .offline-banner,
+.phone > .phone-scroll,
+.phone > .bottom-nav,
+.phone > .home-indicator { position: relative; z-index: 1; }
+.phone:not(.video-mode) .phone-top,
+.phone:not(.video-mode) .phone-header { background: transparent !important; }
+.phone:not(.video-mode) .phone-top { color: #fff !important; }
+.phone:not([data-screen^="A"]):not(.video-mode) .phone-header .app-wordmark,
+.phone:not([data-screen^="A"]):not(.video-mode) .phone-header .app-wordmark span { color: #fff; }
+.phone:not([data-screen^="A"]):not(.video-mode) .phone-header .icon-btn {
+  color: #fff; background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.32);
+}
+.phone .phone-scroll { background: transparent !important; }
+.phone :is(.phone-scroll,.home-tasks,.date-strip,.symptom-chips,.support-reasons,.lab-stage-strip) {
+  scrollbar-width: none !important; -ms-overflow-style: none;
+}
+.phone :is(.phone-scroll,.home-tasks,.date-strip,.symptom-chips,.support-reasons,.lab-stage-strip)::-webkit-scrollbar { display: none !important; width: 0; height: 0; }
+.phone .screen-masthead {
+  background: transparent !important; border-radius: 0 !important;
+  border: 0 !important;
+  padding-bottom: 25px;
+}
+.phone .home-masthead { background: transparent !important; border-radius: 0 !important; }
+#phone-content { position: relative; padding-bottom: 32px; }
+.phone .screen-masthead .screen-intro h1,
+.phone .screen-masthead .screen-intro p { color: white; }
+.phone .card { background: #fff; }
+.phone .section { min-width: 0; }
+.phone .section-heading { min-width: 0; }
+.phone .section-heading span { min-width: 0; }
+.phone .btn, .phone .choice, .phone .service-tile { transition: background-color .15s ease, border-color .15s ease; }
+/* Home: overlapping appointment hero, four same-row quick tasks, horizontal peek and bento. */
+#phone-content[data-screen="B1"] > .section:first-of-type {
+  position: relative; z-index: 1;
+  margin-top: -8px !important; padding: 16px;
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(255,255,255,.85); border-radius: 28px;
+  box-shadow: 0 14px 28px rgba(0,29,87,.12);
+}
+#phone-content[data-screen="B1"] > .section:first-of-type .visit-card {
+  background: linear-gradient(145deg,#eff4ff,#fff 75%);
+  border: 1px solid #d8e6f7; box-shadow: none;
+}
+#phone-content[data-screen="B1"] .home-quick-actions {
+  display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 6px; padding: 4px 0 2px;
+}
+.home-quick-actions button { display: flex; flex-direction: column; gap: 8px; align-items: center;
+  min-width: 0; min-height: 88px; padding: 8px 2px; border: 0; background: transparent; color: var(--navy); }
+.home-quick-actions button span {
+  display: grid; place-items: center; width: 54px; height: 54px;
+  border-radius: 19px; background: white;
+  box-shadow: 0 4px 14px rgba(17,47,94,.10);
+}
+.home-quick-actions button small { font-size: calc(10px * var(--font-scale,1)); font-weight: 600; line-height: 1.35; text-align: center; }
+#phone-content[data-screen="B1"] .section:has(.home-tasks) { overflow: hidden; }
+#phone-content[data-screen="B1"] .home-tasks {
+  display: flex; gap: 10px; overflow-x: auto; padding: 5px 20px 10px 1px;
+  margin-right: -20px; background: none; border: none; border-radius: 0;
+  scroll-snap-type: x proximity;
+}
+#phone-content[data-screen="B1"] .home-tasks .row {
+  display: flex; flex: 0 0 79%; min-width: 0; min-height: 116px; padding: 15px;
+  background: white; border: 1px solid #e0e8f3; border-radius: 23px;
+  scroll-snap-align: start;
+}
+#phone-content[data-screen="B1"] .service-section { background: transparent; border: 0; padding: 0; }
+#phone-content[data-screen="B1"] .service-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+#phone-content[data-screen="B1"] .service-tile { background: #fff; border: 1px solid #e4eaf2; min-height: 146px; }
+#phone-content[data-screen="B1"] > .row { margin-top: 8px; }
+.phone.large-text .home-quick-actions { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+.phone.large-text #phone-content[data-screen="B1"] .home-tasks .row { flex-basis: 90%; }
+/* Four dots, one question per step, bottom-visible action region. */
+.phone .booking-progress ol { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.phone .booking-progress li { min-width: 0; align-items: center; text-align: center; }
+.phone .booking-progress .step-track { height: 8px; width: 8px; border-radius: 50%; }
+.phone .booking-progress li[aria-current] .step-track { box-shadow: 0 0 0 4px rgba(255,255,255,.27); }
+.phone[data-screen^="C"] #phone-content form[data-form] .form-actions {
+  position: sticky; bottom: 0; z-index: 3; padding: 12px 0 6px;
+  background: linear-gradient(180deg,rgba(243,246,251,.0),#f3f6fb 34%);
+}
+.phone[data-screen^="C"] #phone-content form[data-form] .form-actions .btn { width: 100%; }
+.phone[data-screen="C1"] .patient-group { background: transparent; border: 0; padding: 0; }
+.phone[data-screen="C1"] .patient-group .choice {
+  border-radius: 21px; background: #fff; border: 1px solid #dfe7f2;
+}
+.phone[data-screen="C1"] .patient-group .add-relative-inline { border: 2px dashed #9baed0; background: #f8faff; min-height: 60px; }
+#phone-content[data-screen="C2"] #reason { min-height: 152px; height: auto; }
+#phone-content[data-screen="C2"] .symptom-chips {
+  display: flex; gap: 8px; overflow-x: auto; padding: 3px 1px 9px;
+  scroll-snap-type: x proximity;
+}
+.symptom-chip { flex: none; min-width: 48px; min-height: 48px; border: 1px solid #bccce3; border-radius: 999px;
+  background: #fff; padding: 9px 14px; color: var(--navy); font-weight: 600;
+  font-size: calc(12px * var(--font-scale,1)); scroll-snap-align: start; }
+.symptom-chip[aria-pressed="true"] { background: #e7efff; border-color: var(--navy); }
+#phone-content[data-screen="C6"] .choices { display: grid; grid-template-columns: 1fr; gap: 14px; }
+#phone-content[data-screen="C6"] .choice {
+  align-items: center; background: #fff; min-height: 148px; padding: 20px;
+  border-radius: 28px; border: 1px solid #dbe6f5;
+}
+#phone-content[data-screen="C6"] .choice .choice-visual {
+  width: 70px; height: 70px; display: grid; place-items: center; border-radius: 23px;
+}
+#phone-content[data-screen="C6"] .choice .choice-copy strong { font-size: calc(18px * var(--font-scale,1)); }
+#phone-content[data-screen="C7"] .date-strip { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 9px; }
+#phone-content[data-screen="C7"] .date-option { min-width: 62px; flex: 0 0 62px; }
+#phone-content[data-screen="C7"] .slots { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+#phone-content[data-screen="C8"] > .card {
+  position: relative; background: #fff; border-radius: 25px;
+  border-bottom: 2px dashed #b8c7de; padding-bottom: 28px;
+}
+#phone-content[data-screen="C8"] > .card::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -9px; height: 17px;
+  background: radial-gradient(circle at 9px 9px,#f3f6fb 8px,transparent 9px) repeat-x;
+  background-size: 18px 18px; pointer-events: none;
+}
+/* Urgent branch intentionally replaces the ordinary navy shell. */
+.phone[data-screen="C4"] { background: #fff0ec !important; }
+.phone[data-screen="C4"]::before {
+  height: 100%; background: linear-gradient(180deg,#a82c23 0%,#f8ccc6 42%,#fff0ec 82%);
+}
+.phone[data-screen="C4"] .phone-scroll { background: transparent !important; }
+.phone[data-screen="C4"] #phone-content { min-height: 100%; }
+.phone[data-screen="C4"] .screen-masthead { padding-bottom: 16px; }
+.phone[data-screen="C4"] .note.danger {
+  padding: 35px 22px; border: 1px solid #dcaaa3; border-radius: 30px;
+  font-size: calc(17px * var(--font-scale,1)); line-height: 1.65;
+  background: #fff9f6; box-shadow: 0 20px 40px #9e302824;
+}
+.phone[data-screen="C4"] #phone-content > .btn.danger {
+  width: 100%; min-height: 62px; font-weight: 700; border-radius: 19px;
+}
+.phone[data-screen="C4"] #phone-content > .btn:not(.danger) { width: 100%; }
+/* Tabbed appointments with a status stripe, not repeated nested cards. */
+#phone-content[data-screen="D1"] .segments { position: sticky; top: 0; z-index: 4; }
+#phone-content[data-screen="D1"] .visit-card,
+#phone-content[data-screen="K3"] .visit-card { position: relative; overflow: hidden; padding-left: 22px; }
+#phone-content[data-screen="D1"] .visit-card::before,
+#phone-content[data-screen="K3"] .visit-card::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: #446bb4;
+}
+#phone-content[data-screen="D1"] .visit-card:has(.chip.success)::before,
+#phone-content[data-screen="K3"] .visit-card:has(.chip.success)::before { background: #24966b; }
+#phone-content[data-screen="D1"] .visit-card:has(.chip.warning)::before { background: #c4942f; }
+#phone-content[data-screen="D1"] .visit-card:has(.chip.neutral)::before { background: #8c9aac; }
+#phone-content[data-screen="D2"] .next-step { background: #fff; border-left: 5px solid #2d68b8; }
+#phone-content[data-screen="D2"] .ticket { border-radius: 27px; }
+#phone-content[data-screen="D2"] .timeline { padding: 10px 0 0 8px; }
+#phone-content[data-screen="D2"] .facility-card { margin-top: 16px; }
+#phone-content[data-screen="D3"],
+#phone-content[data-screen="D4"] { min-height: 100%; }
+#phone-content[data-screen="D3"] > .card,
+#phone-content[data-screen="D4"] > form {
+  background: #fff; padding: 22px; border-radius: 30px 30px 12px 12px;
+  box-shadow: 0 -10px 35px rgba(10,37,81,.13);
+}
+#phone-content[data-screen="D4"] .choices { display: flex; flex-wrap: wrap; gap: 9px; }
+#phone-content[data-screen="D4"] .choice { flex: 1 1 45%; min-height: 65px; }
+/* Investigations: progress ribbon and individual status rows. */
+.lab-stage-strip { display: flex; gap: 5px; padding: 8px 0 12px; margin: 0 0 16px;
+  overflow-x: auto; list-style: none; scroll-snap-type: x proximity; }
+.lab-stage-strip li { flex: 0 0 70px; display: flex; flex-direction: column;
+  align-items: center; gap: 6px; text-align: center; color: var(--muted); }
+.lab-stage-strip li span { width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 50%; background: #e7edf7; border: 1px solid #ccd7e7; }
+.lab-stage-strip li.reached span { background: var(--navy); color: #fff; }
+.lab-stage-strip li small { font-size: calc(10px * var(--font-scale,1)); line-height: 1.35; }
+#phone-content[data-screen="F1"] > .row { border-left: 4px solid #809bcc; margin-bottom: 9px; }
+/* Check-in, queue, remote consultation and recovery. */
+#phone-content[data-screen="E2"] .ticket-code { display: grid; place-items: center; }
+#phone-content[data-screen="E2"] #visit-qr { width: 210px; }
+#phone-content[data-screen="E3"] .card.center { background: linear-gradient(160deg,#e7f1ff,#fff); padding-block: 34px; }
+.phone.video-mode::before { display: none; }
+.phone.video-mode { background: #0b203b !important; }
+.phone.video-mode .phone-scroll { background: transparent !important; }
+#phone-content[data-screen="G4"] .call-stage { min-height: 100%; display: flex; flex-direction: column; }
+#phone-content[data-screen="G4"] .remote-person { flex: 1; min-height: 240px; }
+#phone-content[data-screen="G4"] .call-controls { margin-top: auto; justify-content: space-around; }
+#phone-content[data-screen="G5"] .recovery-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+#phone-content[data-screen="G5"] .recovery-options .btn { min-width: 0; min-height: 82px;
+  display: flex; align-items: center; justify-content: center; padding: 12px; white-space: normal; border-radius: 18px; }
+/* Aftercare dashboard and navigation. */
+.care-stat-strip { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px;
+  border-radius: 25px; padding: 14px 8px; background: white;
+  border: 1px solid #e0e9f4; box-shadow: 0 7px 20px #173b620b; }
+.care-stat-strip div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.care-stat-strip div + div { border-left: 1px solid #e6edf5; }
+.care-stat-strip strong { font-size: calc(24px * var(--font-scale,1)); color: var(--navy); }
+.care-stat-strip small { font-size: calc(10px * var(--font-scale,1)); color: var(--muted); }
+#phone-content[data-screen="H1"] .list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; border: 0; background: transparent; }
+#phone-content[data-screen="H1"] .list .row { border: 1px solid #e1e8f3; background: #fff; }
+#phone-content[data-screen="H2"] > .card:first-of-type { background: linear-gradient(145deg,#fff,#ebf2ff); }
+#phone-content[data-screen="H2"] > .btn { display: flex; width: 100%; justify-content: center; margin-top: 10px; }
+#phone-content[data-screen="H7"] > .row { border-left: 4px solid #7d9dd5; margin-block: 8px; }
+#phone-content[data-screen="H6"] > .section { padding: 16px; background: #fff; border-radius: 23px; }
+#phone-content[data-screen="H6"] .section .card { border: 0; box-shadow: none; padding: 8px; }
+/* Context first, then chat: three reasons horizontally, monitoring cards vertically. */
+.support-reasons { display: flex; gap: 9px; overflow-x: auto; padding: 3px 0 12px; }
+.support-reasons .row { flex: 0 0 68%; min-height: 100px; background: #fff;
+  border: 1px solid #dce7f3; scroll-snap-align: start; }
+#phone-content[data-screen="I1"] .care-links { grid-template-columns: repeat(2,minmax(0,1fr)); }
+#phone-content[data-screen="I3"] > .section .card {
+  position: relative; padding-left: 27px; border-left: 3px solid #7d9dc8; margin-top: 12px;
+}
+#phone-content[data-screen="I3"] > .section .card::before { content: ""; position: absolute; left: -8px; top: 24px;
+  width: 12px; height: 12px; border-radius: 50%; background: var(--navy); border: 3px solid #f3f6fb; }
+.referral-steps { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px;
+  list-style: none; padding: 16px 8px; margin: 0; background: #fff; border-radius: 22px; }
+.referral-steps li { text-align: center; font-size: calc(11px * var(--font-scale,1)); padding: 10px 4px;
+  background: #f1f4f9; border-radius: 13px; color: #69768a; }
+.referral-steps li.reached { color: var(--navy); background: #dceafe; font-weight: 700; }
+/* Notifications: compact day-list rows with independent read affordance. */
+#phone-content[data-screen="K1"] .notification { position: relative; width: 100%;
+  background: white; border-radius: 17px; min-height: 80px; margin-top: 8px; }
+#phone-content[data-screen="K1"] .notification .read-dot { width: 8px; height: 8px;
+  background: #276ad3; border-radius: 50%; flex: none; }
+#phone-content[data-screen="K1"] .notification.read .read-dot { background: transparent; }
+/* Profile: account hero first, distinct service tiles and settings list. */
+#phone-content[data-screen="K2"] > .card:first-of-type { background: linear-gradient(150deg,#e7f0ff,#fff 75%);
+  border-color: #d2e2f6; padding: 24px; }
+.profile-bento,.support-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.profile-bento .row,.support-grid .row { min-height: 125px; display: flex; flex-direction: column;
+  align-items: flex-start; padding: 15px 12px; background: #fff; border: 1px solid #dee7f2;
+  border-radius: 23px; }
+.profile-bento .row .row-arrow,.support-grid .row .row-arrow { align-self: flex-end; margin-top: auto; }
+#phone-content[data-screen="K5"] > .card:first-of-type { background: linear-gradient(150deg,#e5efff,#fff); padding: 24px; }
+#phone-content[data-screen="K5"] > form { background: white; border-radius: 24px; padding: 16px; }
+#phone-content[data-screen="K5"] .faq { background: white; }
+/* 200% text: transform multi-column layouts instead of truncating content. */
+.phone.large-text :is(.profile-bento,.support-grid,.recovery-options,.care-stat-strip) {
+  grid-template-columns: minmax(0,1fr) !important;
+}
+.phone.large-text .lab-stage-strip li { flex-basis: 105px; }
+.phone.large-text .support-reasons .row { flex-basis: 92%; }
+.phone.large-text .care-stat-strip div + div { border-left: 0; border-top: 1px solid #e6edf5; padding-top: 8px; }
+@media (max-width:374px) {
+  :root { --layout-gutter: 16px; }
+  #phone-content[data-screen="B1"] .home-quick-actions button span { width: 46px; height: 46px; }
+  .profile-bento .row,.support-grid .row { padding: 12px 10px; }
+}
+@media (prefers-reduced-motion:reduce) { .phone .btn, .phone .choice, .phone .service-tile { transition: none; } }
+
+/* Milestone details: clear live appointment and QR anchors. */
+.online-appointment-status { display: grid; gap: 10px; background: white; border: 1px solid #dce6f3;
+  border-radius: 25px; padding: 22px; }
+.online-appointment-status > strong { font-size: calc(13px * var(--font-scale,1)); color: var(--muted); }
+.online-appointment-status time { display: block; font-size: calc(28px * var(--font-scale,1));
+  line-height: 1.3; font-weight: 700; color: var(--navy); }
+.online-appointment-status p { font-size: calc(12px * var(--font-scale,1)); color: var(--muted); }
+.checkin-qr-panel { display: flex; align-items: center; flex-direction: column; gap: 12px;
+  padding: 26px 18px; background: white; border-radius: 28px; border: 1px solid #dce6f3; }
+.checkin-qr-panel #visit-qr { width: min(220px,75%); height: auto; aspect-ratio: 1; margin: 0; }
+.checkin-qr-panel #visit-qr svg { width: 100%; height: auto; display: block; }
+.checkin-qr-panel > strong { font-size: calc(22px * var(--font-scale,1)); color: var(--navy); }
+.checkin-qr-panel > p { font-size: calc(12px * var(--font-scale,1)); text-align: center; color: var(--muted); }
+.online-prepare-list { display: grid; gap: 8px; }
+.online-prepare-list > div { display: flex; align-items: center; gap: 12px;
+  min-height: 57px; padding: 12px 15px; background: white; border: 1px solid #dfe7f2;
+  border-radius: 19px; color: var(--navy); font-weight: 600; }
+.online-prepare-list > div > span { color: var(--heading); font-size: calc(13px * var(--font-scale,1)); }
+.notification-day { margin: 20px 0 9px; color: var(--heading); font-size: calc(15px * var(--font-scale,1)); }
+#phone-content[data-screen="G4"] .call-notes { background: #fff; border-radius: 24px 24px 0 0;
+  padding: 14px; color: var(--navy); }
+#phone-content[data-screen="G4"] .call-notes summary { min-height: 44px; cursor: pointer; }
+#phone-content[data-screen="G4"] .call-notes label { display: block; font-size: calc(12px * var(--font-scale,1)); }
+
+/* Self-rated severity never replaces explicit safety screening. */
+.severity-set { display: grid; gap: 10px; margin: 8px 0 2px; padding: 0; border: 0; min-width: 0; }
+.severity-set legend { font-size: calc(13px * var(--font-scale,1)); font-weight: 700; color: var(--heading);
+  padding: 0; margin-bottom: 10px; }
+.severity-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; }
+.severity-grid label { position: relative; min-width: 0; }
+.severity-grid label input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.severity-grid label span { display: grid; place-items: center; padding: 12px 5px; min-height: 54px;
+  border: 1px solid #cad7ea; background: #fff; border-radius: 17px;
+  font-size: calc(13px * var(--font-scale,1)); font-weight: 700; color: var(--navy); }
+.severity-grid label input:checked + span { background: #e0ebff; border: 2px solid var(--navy); }
+.severity-grid label input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 3px; }
+.severity-set > small { color: var(--muted); font-size: calc(11px * var(--font-scale,1)); }
+.profile-unavailable { min-height: 125px; padding: 15px; border-radius: 23px; background: #edf1f7;
+  display: flex; flex-direction: column; gap: 9px; border: 1px dashed #bdc8d8; color: #62738b; }
+.profile-unavailable strong { font-size: calc(14px * var(--font-scale,1)); }
+.profile-unavailable small { font-size: calc(11px * var(--font-scale,1)); }
+.phone.large-text .severity-grid { grid-template-columns: minmax(0,1fr); }

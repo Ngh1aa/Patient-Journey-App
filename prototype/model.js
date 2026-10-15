@@ -610,6 +610,7 @@
       screen,
       title: 'Có cập nhật về lượt khám',
       body: 'Mở ứng dụng để xem chi tiết.',
+      at: stamp(),
       read: false,
     });
   }

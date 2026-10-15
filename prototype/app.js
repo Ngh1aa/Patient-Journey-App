@@ -1081,6 +1081,7 @@
         if (!get('reason')) return error('REASON', 'reason');
         s.draft.reason = get('reason');
         s.draft.medicalHistory = get('medicalHistory');
+        s.draft.severity = get('severity') || '';
         complete({ ok: true }, 'C3');
         break;
       case 'safety': {
@@ -1221,9 +1222,9 @@
           v.id,
           u.reportReason,
           get('report'),
-          data.has('urgent'),
+          data.has('urgent') || get('severity') === 'high',
         );
-        u.urgentAftercare = data.has('urgent');
+        u.urgentAftercare = data.has('urgent') || get('severity') === 'high';
         complete(result, result.next);
         break;
       }
