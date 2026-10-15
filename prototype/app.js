@@ -826,7 +826,7 @@
         complete(M.createProfile(s, get('name'), get('dob')), 'B1');
         break;
       case 'match': {
-        const p = M.profile(s);
+        const p = M.accountProfile(s);
         if (
           !get('name') ||
           !M.validDate(get('dob')) ||

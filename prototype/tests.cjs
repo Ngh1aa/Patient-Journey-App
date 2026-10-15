@@ -461,3 +461,17 @@ regression(
     assert.equal(s.notifications.length, count);
   },
 );
+test('account profile remains separate from the patient booked on behalf of', () => {
+  const s = draft();
+  M.choosePatient(s, 'p2');
+  Object.assign(s.draft, { reason: 'Đặt hộ', safety: 'normal', slot: '09:00' });
+  M.submitBooking(s);
+  assert.equal(s.activePatientId, 'p2');
+  assert.equal(M.accountProfile(s).id, 'p1');
+  assert.equal(M.visit(s).bookedByProfileId, 'p1');
+  assert.equal(M.visit(s).patientId, 'p2');
+  s.authenticated = false;
+  M.authenticate(s, '0900000000', '123456');
+  assert.equal(M.accountProfile(s).name, 'Nguyễn Minh Anh');
+  assert.equal(M.canViewResults(s, M.visit(s)), false);
+});

@@ -978,11 +978,9 @@ test('exception screenshots document cancellation, no-show, offline and transfer
     .screenshot({ path: info.outputPath('offline.png') });
   for (const id of ['C7', 'C9', 'H6', 'I1']) {
     await seed(page, id, id === 'I1');
-    await page
-      .locator('.phone')
-      .screenshot({
-        path: info.outputPath(id + (id === 'I1' ? '-large' : '') + '.png'),
-      });
+    await page.locator('.phone').screenshot({
+      path: info.outputPath(id + (id === 'I1' ? '-large' : '') + '.png'),
+    });
   }
 });
 test('skip content preserves route and direct-link header Back has an in-app exit', async ({
@@ -1141,4 +1139,27 @@ test('adding a relative while booking returns to the correct selected patient', 
   await slot(page);
   await send(page);
   expect((await current(page)).patientId).toBe('p3');
+});
+test('login after proxy booking confirms the account owner, not the selected relative', async ({
+  page,
+}) => {
+  await load(page, 'empty');
+  await action(page, 'begin').first().click();
+  await content(page).locator('input[value=p2]').check();
+  await submit(page);
+  await page.locator('#reason').fill('Đặt lịch cho mẹ');
+  await submit(page);
+  await normal(page);
+  await slot(page);
+  await send(page);
+  await nav(page, 'K4');
+  await action(page, 'logout').click();
+  await login(page);
+  await screen(page, 'A2');
+  await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
+  await submit(page);
+  await screen(page, 'B1');
+  await expect(content(page).locator('h1')).toHaveText('Nguyễn Minh Anh');
+  expect((await current(page)).patientId).toBe('p2');
+  expect((await current(page)).bookedByProfileId).toBe('p1');
 });

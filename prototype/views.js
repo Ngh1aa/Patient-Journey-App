@@ -103,7 +103,7 @@
     const T = VI.screen[id],
       v = M.visit(s),
       d = s.draft,
-      p = M.profile(s),
+      p = M.accountProfile(s),
       l = v?.labs.find((x) => x.id === u.labId) || v?.labs[0];
     let body = '';
     let intro = head(T?.heading || '', T?.lead || '');

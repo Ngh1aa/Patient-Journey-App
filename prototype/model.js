@@ -361,6 +361,7 @@
       authenticated: false,
       profiles: [],
       activePatientId: null,
+      accountProfileId: null,
       visits: [],
       activeVisitId: null,
       draft: null,
@@ -380,7 +381,7 @@
     if (!/^0\d{9}$/.test(phone)) return fail('PHONE');
     if (otp !== '123456') return fail('OTP');
     s.authenticated = true;
-    return pass({ match: s.profiles.length > 0 });
+    return pass({ match: !!accountProfile(s) });
   }
   function createProfile(s, name, dob, relation = 'self') {
     if (!s.authenticated) return fail('AUTH');
@@ -400,12 +401,20 @@
       canViewResults: relation === 'self',
     };
     s.profiles.push(profile);
-    if (!s.activePatientId) s.activePatientId = profile.id;
+    if (relation === 'self') {
+      s.accountProfileId = profile.id;
+      s.activePatientId = profile.id;
+    } else if (!s.activePatientId) s.activePatientId = profile.id;
     return pass({ profile });
   }
   const profile = (s, id = s.activePatientId) =>
       s.profiles.find((p) => p.id === id),
     visit = (s, id = s.activeVisitId) => s.visits.find((v) => v.id === id);
+  const accountProfile = (s) =>
+    profile(
+      s,
+      s.accountProfileId || s.profiles.find((p) => p.relation === 'self')?.id,
+    );
   function beginBooking(s, previousId = null, purpose = 'new', mode = null) {
     if (s.request?.status === 'unknown') return fail('UNKNOWN');
     const previous = previousId ? visit(s, previousId) : null;
@@ -517,6 +526,7 @@
     const v = {
       id,
       patientId: d.patientId,
+      bookedByProfileId: accountProfile(s)?.id,
       reason: d.reason,
       mode: d.mode,
       date: d.date,
@@ -817,6 +827,7 @@
     return s;
   }
   const api = {
+    accountProfile,
     validDate,
     notify,
     SCREENS,
