@@ -46,3 +46,20 @@ Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting it
 - Density: content-height statistics, smaller hero, condensed clinical forms, paired patient cards, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
 - Terminology: bệnh nhân, lượt khám, khám lâm sàng, cận lâm sàng, nhận định lâm sàng, kế hoạch xử trí, hoàn tất hồ sơ. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.
 - Preserve clinical boundaries: no real prescriptions, results release, medical recommendations or EHR integration. 
+
+
+## Clinical Command Center — cross-screen showcase
+
+The desktop dashboard prioritizes `current encounter → ready handoff → physician review → unreviewed result → aftercare`. The view follows the three operating questions: **where is the patient, who owns the work, and what is the next action?**
+
+Demo journeys (synthetic only, stored in sessionStorage):
+
+1. **Pre-visit review**: `a-021` → `#/doctor/review/a-021` → doctor records a routing proposal and note → ownership changes to Coordination; no reception booking confirmation is performed.
+2. **In-person**: `a-027` starts at **ready** (reception and nursing intake represented as an existing handoff) → `#/encounters/a-027` → document symptom, assessment and plan → `#/results` review `r-04` → record a follow-up decision → encounter completion → `#/doctor/followups`.
+3. **Online connected**: `a-040` → `#/doctor/online/a-040` → simulate established connection → start encounter. Without a successful connection, `start-consult` is blocked.
+4. **Online unreachable**: `a-041` → `#/doctor/online/a-041` → select follow-up/callback/reschedule request → Coordination receives a task. No actual call or booking change.
+5. **Aftercare**: `#/doctor/followups` shows patient, owner, deadline, status and next step. Only physician-owned tasks can be marked complete by the doctor.
+
+Safe transitions: only **ready** (or an already in-progress encounter) may open a new consultation; confirmed/arrived do not bypass reception and nursing handoff. Completion requires nonempty clinical symptom/exam, assessment, plan and review of any results currently waiting for the physician. All transitions re-check eligibility in the event handler, not only in the UI.
+
+**Portfolio boundary:** this is a local interaction prototype; it does not triage medical emergencies, prescribe, sign EHR records, send messages, call patients or confirm bookings. The original mobile patient prototype remains unchanged.
