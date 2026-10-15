@@ -77,7 +77,7 @@
   // Local illustrated portraits: varied by profile, stable across navigation/reload.
   window.CareFlowAvatar = function (seed, size = 44) {
     const hash = Array.from(String(seed)).reduce((n,c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
-    const palettes = [['#dceaff','#f3c5aa','#29394f','#3474d8'],['#e8e5fb','#bd886b','#242c3e','#7860aa'],['#dff1eb','#edb798','#473931','#368875'],['#f6e6e1','#d6a27b','#354057','#c07466']];
+    const palettes = [['#dceaff','#f3c5aa','#29394f','#001d57'],['#e8e5fb','#bd886b','#242c3e','#7860aa'],['#dff1eb','#edb798','#473931','#368875'],['#f6e6e1','#d6a27b','#354057','#c07466']];
     const [bg,skin,hair,shirt] = palettes[hash % palettes.length];
     const longerHair = hash % 3 === 0;
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="20" fill="${bg}"/>${longerHair ? `<path d="M15 32c0-23 34-23 34 0v20H15Z" fill="${hair}"/>` : ''}<path d="M8 64c1-20 47-20 48 0" fill="${shirt}"/><path d="M27 42h10v11c-4 3-7 3-10 0" fill="${skin}"/><ellipse cx="32" cy="30" rx="14" ry="18" fill="${skin}"/><path d="M18 29c-5-22 31-27 29 1-7-1-14-9-17-13-1 6-6 10-12 12" fill="${hair}"/><circle cx="26" cy="31" r="1.3" fill="#283448"/><circle cx="38" cy="31" r="1.3" fill="#283448"/><path d="M28 39q4 3 8 0" fill="none" stroke="#875b4b" stroke-width="1.5" stroke-linecap="round"/><path d="M23 51l9 7 9-7" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>`;

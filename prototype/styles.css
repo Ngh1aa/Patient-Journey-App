@@ -19,22 +19,22 @@
 :root {
   --bg: #f2f2f2;
   --surface: #fff;
-  --primary: #075fe8;
-  --primary-hover: #0754ca;
+  --primary: #001d57;
+  --primary-hover: #001640;
   --ink: #242424;
   --heading: #242424;
   --muted: #57575f;
   --subtle: #606066;
   --border: #dcdce0;
   --input-border: #76767b;
-  --blue-soft: #eaf1ff;
+  --blue-soft: #edf1f8;
   --danger: #b42318;
   --danger-soft: #fde9e7;
   --success: #16734b;
   --success-soft: #e4f5ec;
   --warning: #805800;
   --warning-soft: #fff4d6;
-  --focus: #0754ca;
+  --focus: #001640;
   --r-card: 24px;
   --r-button: 26px;
   --r-input: 14px;
@@ -389,7 +389,7 @@ small,
 }
 .btn.secondary {
   background: var(--blue-soft);
-  color: #0756ae;
+  color: #001640;
 }
 .btn.secondary:hover {
   background: #d8eafa;
@@ -540,7 +540,7 @@ small,
 }
 .hero .chip {
   background: #fff;
-  color: #0756ae;
+  color: #001640;
 }
 .chip {
   display: inline-flex;
