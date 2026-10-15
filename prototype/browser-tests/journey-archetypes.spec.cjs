@@ -25,6 +25,37 @@ test('solid navy rounded masthead scrolls under sticky navy app header', async (
   expect(await page.locator('.home-tasks').evaluate(el => getComputedStyle(el).display)).toBe('flex');
 });
 
+test('Home preserves classic card styling, flush next card and an 8px navy inset', async ({page}) => {
+  for (const width of [360,375,430]) {
+    await page.setViewportSize({width,height:852});
+    await page.goto('/prototype/index.html?scenario=upcoming');
+    const metrics = await page.locator('.phone').evaluate(frame => {
+      const header=frame.querySelector('.phone-header').getBoundingClientRect();
+      const masthead=frame.querySelector('.home-masthead').getBoundingClientRect();
+      const card=frame.querySelector('#phone-content > .rich-hero');
+      const shortcuts=frame.querySelector('.rich-shortcuts').getBoundingClientRect();
+      const cardRect=card.getBoundingClientRect();
+      const phone=frame.getBoundingClientRect();
+      return {
+        headerLeft:header.left-phone.left,
+        headerRight:phone.right-header.right,
+        navyLeft:masthead.left-phone.left,
+        navyRight:phone.right-masthead.right,
+        gap:shortcuts.top-cardRect.bottom,
+      };
+    });
+    for (const side of ['headerLeft','headerRight','navyLeft','navyRight']) {
+      expect(metrics[side], width+'px '+side).toBeCloseTo(8,0);
+    }
+    expect(metrics.gap, width+'px card-to-quick-actions gap').toBeCloseTo(0,0);
+    const hero=page.locator('#phone-content > .rich-hero');
+    await expect(hero).toHaveCSS('border-radius','25px');
+    await expect(hero).toHaveCSS('padding-top','18px');
+    await expect(hero).toHaveCSS('border-top-color','rgb(237, 242, 248)');
+    await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
+  }
+});
+
 test('booking preserves the clinical risk branch with a four-dot visual stepper and useful symptom chips', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=empty');
   await page.locator('#bottom-nav .nav-book').click();
