@@ -147,3 +147,7 @@
   color:#fff!important;
 }
 #phone-content .rich-hero-top>span:nth-child(2){color:#354966!important;}
+
+/* Axe-confirmed: selected C1 profile metadata clears 4.5:1 on #eef5ff. */
+#phone-content[data-screen="C1"] .rich-patient-choice .rich-profile-meta,
+#phone-content[data-screen="C1"] .rich-patient-choice.selected .rich-profile-meta { color:#244568!important; }
