@@ -1765,3 +1765,12 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
 /* 24-screen audit: body hints and inspector labels retain AA text contrast */
 .phone-scroll .field-hint,.phone-scroll .hint,.inspector dt{color:#475467}
 .phone-scroll .box.hero .field-hint{color:#FFFFFF}
+
+/* Responsive demo controls: retain scenario actions on handheld instead of hiding the sidebar. */
+@media(max-width:720px){
+  .sidebar{display:block;position:static;width:100%;height:auto;max-height:none;overflow:visible;padding:8px 10px;background:#F2F6FB;border:0}
+  .sidebar>.brand,.sidebar>.eyebrow,.sidebar>#screen-menu,.sidebar>div[style]{display:none}
+  .sidebar .scenario-menu{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:3px 2px 8px}
+  .sidebar .scenario{flex:0 0 auto;min-height:44px;border-radius:999px;padding:8px 13px;background:#fff}
+  .phone{height:calc(100dvh - 156px);min-height:530px}
+}
