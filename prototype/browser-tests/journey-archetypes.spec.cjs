@@ -26,7 +26,8 @@ test('navy canvas is fixed under scrolling content and has no hard rounded lower
   expect(canvas.scrollbar).toBe('none');
   expect(canvas.position).toBe('absolute');
   await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
-  await expect(page.locator('.service-grid .service-tile')).toHaveCount(2);
+  await expect(page.locator('.rich-stat-strip button')).toHaveCount(3);
+  await expect(page.locator('.rich-tips .rich-tip')).toHaveCount(3);
   expect(await page.locator('.home-tasks').evaluate(el => getComputedStyle(el).display)).toBe('flex');
 });
 
