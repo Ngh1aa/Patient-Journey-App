@@ -28,7 +28,7 @@ test('reception creates, confirms and checks in a mock booking',async({page})=>{
   await expect(page.locator('.drawer')).toContainText('Chờ xác nhận');
   await page.locator('.drawer [data-action="confirm-appointment"]').click();
   await expect(page.locator('.drawer')).toContainText('Đã xác nhận');
-  await page.locator('.drawer [data-action="close-drawer"]').click();
+  await page.locator('.drawer [aria-label="Đóng chi tiết lịch"]').click();
   await page.goto('/staff-prototype/index.html#/checkin');
   await expect(page.locator('[data-action="checkin-patient"]')).toHaveCount(1);
   await page.locator('[data-action="checkin-patient"]').click();
