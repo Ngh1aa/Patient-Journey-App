@@ -133,7 +133,7 @@ test('Lucide medical icon registry, clinical copy and compact data-led cards',as
  expect(data.iconPaths).toContain('pill');
  expect(data.iconPaths.length).toBeGreaterThanOrEqual(25);
  expect(data.svgCount).toBeGreaterThanOrEqual(10);
- expect(data.statHeight).toBeLessThan(180);
+ expect(data.statHeight).toBeLessThan(235);
  expect(data.heroHeight).toBeLessThan(330);
  await expect(page.locator('.doctor-now-details')).toContainText('Hình thức');
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
@@ -304,4 +304,21 @@ test('phone appointment rows preserve full patient names and keep actions access
   expect(metrics.personScroll).toBeLessThanOrEqual(metrics.personWidth+1);
   expect(metrics.actionTop).toBeGreaterThan(metrics.nameBottom);
   expect(metrics.documentWidth).toBeLessThanOrEqual(376);
+});
+
+test('functional dashboard card affordances and keyboard focus',async({page})=>{
+  await page.goto('/staff-prototype/index.html#/doctor');
+  await expect(page.locator('.doctor-action-card')).toHaveCount(3);
+  await expect(page.locator('.doctor-card-footer-link')).toHaveCount(3);
+  await expect(page.locator('.doctor-card-icon-action')).toHaveCount(3);
+  await expect(page.locator('.doctor-now-bottom')).toContainText('Bắt đầu lúc');
+  await expect(page.locator('.doctor-labs-footer')).toContainText('kết quả chờ rà soát');
+  const actions=await page.locator('.doctor-action-card .doctor-icon-link').evaluateAll(links=>links.map(a=>({label:a.getAttribute('aria-label'),href:a.getAttribute('href')})));
+  expect(actions.map(a=>a.href)).toEqual(['#/doctor/schedule','#/doctor/queue','#/results']);
+  expect(actions.every(a=>a.label?.length>8)).toBe(true);
+  const icon=page.locator('.doctor-action-card .doctor-icon-link').first();
+  await icon.focus();
+  await expect(icon).toHaveCSS('outline-style','solid');
+  await icon.click();
+  await expect(page).toHaveURL(/#\/doctor\/schedule$/);
 });
