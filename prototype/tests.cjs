@@ -428,8 +428,9 @@ test('script loading order and mobile viewport are intact', () => {
   assert.ok(html.includes('viewport-fit=cover'));
   const appIndex = html.search(/src="\.\/app\.js(?:\?[^"\s]*)?"/);
   assert.ok(appIndex > html.indexOf('src="./model.js"'));
-  assert.ok(html.includes('Trải nghiệm minh họa'));
-  assert.ok(html.includes('Không gửi yêu cầu hoặc thanh toán thực'));
+  assert.ok(!html.includes('demo-warning'));
+  assert.ok(!html.includes('Trải nghiệm minh họa'));
+  assert.ok(html.includes('journey-list'));
 });
 
 test('unknown outcome cannot be reset by restarting booking or changing patient', () => {

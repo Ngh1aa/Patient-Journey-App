@@ -9,7 +9,7 @@ Applied UIUX Workspace: START-HERE → AGENTS → CONTRACT-OWNERSHIP → mobile-
 - The default index URL opens a left-hand list of F1–F12 with ordered checklists and branch choices. Progress comes from actual app state and routes, not manually ticked checkboxes.
 - Patient inputs are prefilled only in guided presentation. Patients still submit forms, accept calls and choose payment actions. Clinic updates use the same guarded state owner, exposed outside the phone as the next relevant update.
 - Mobile collapses the guide into a compact, expandable journey bar. Existing scenario URLs remain an independent inspection mode without autofill.
-- Reload preserves the journey and booking draft; restarting or choosing a flow uses labelled synthetic fixtures. A persistent external notice says “Trải nghiệm minh họa · Không gửi yêu cầu hoặc thanh toán thực.” No “Bản demo”, “kiểm thử” or developer vocabulary appears in patient screens.
+- Reload preserves the journey and booking draft; restarting or choosing a flow uses labelled synthetic fixtures. The external environment banner is removed following the latest explicit presentation request. No “Bản demo”, “kiểm thử” or developer vocabulary appears in patient screens.
 
 ## Repaired paths
 
@@ -25,3 +25,7 @@ Applied UIUX Workspace: START-HERE → AGENTS → CONTRACT-OWNERSHIP → mobile-
 No real SMS, video, upload, payment or clinic backend exists. Prefilled attachment is a synthetic metadata fixture. No diagnosis, prescription, triage criteria, price or refund policy is invented. Summary content demonstrates sharing and provenance without clinical advice. Clinical content and operational policy approval, server-side identity/deduplication, native QA and user validation remain pending. File14/15, original11/12 and Deep Research report remain unavailable.
 
 Verification: model guards, F1–F12 guided branches, existing 47-screen browser/reflow/accessibility suite, desktop/mobile rendered screenshots and critical deployed interactions. Exact results are taken from CI and runtime evidence for the final revision.
+
+## Patient actions
+
+Emergency contact opens the native tel:115 dialer link. Facility directions open Google Maps for the emergency entrance of Bệnh viện Nhân dân 115, 527 Sư Vạn Hạnh, phường Hòa Hưng, TP.HCM; source: https://benhviennhandan115.com/pages/lien-he (verified 2026-10-15). This destination does not imply CareFlow affiliation. No emergency call is placed during QA. Camera/audio preparation uses browser APIs with permission recovery and releases camera tracks when the sheet closes. Clinic contact creates one pending callback request per active visit. These actions do not complete a visit or bypass clinic-owned transitions.

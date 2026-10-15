@@ -26,6 +26,8 @@
     `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${esc(label)}</button>`;
   const go = (label, to, variant = 'secondary', extra = {}) =>
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
+  const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
+  const facilityCard = () => `<section class="facility-card"><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
   const row = (title, hint, to, icon = 'chevron-right', extra = {}) =>
     `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span>${I('chevron-right', 18)}</button>`;
   const card = (content, cls = '') =>
@@ -774,7 +776,7 @@
       case 'K5':
         body =
           card(
-            `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>${esc(C.notProvided)}</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
+            `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>Để lại yêu cầu để phòng khám liên hệ với bạn về lịch hẹn và việc sau khám.</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
           ) +
           row(VI.screen.I1.heading, VI.screen.I1.lead, 'I1', 'heart-pulse') +
           form('support', textarea('support', T.text), T.message) +
@@ -806,6 +808,8 @@
     );
   }
   root.CareFlowViews = {
+    external,
+    facilityCard,
     esc,
     btn,
     go,

@@ -130,42 +130,6 @@ button:active:not(:disabled) {
 .skip-link:focus {
   top: 8px;
 }
-.demo-bar {
-  position: relative;
-  z-index: 5;
-  background: #fff;
-  border-bottom: 1px solid #d4dfec;
-  padding: 12px 28px;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: calc(12px * var(--font-scale, 1));
-  line-height: 1.6;
-}
-.demo-bar > div {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-.demo-bar strong {
-  background: #fff4d6;
-  color: #805800;
-  border: 1px solid #d7bb70;
-  border-radius: 8px;
-  white-space: nowrap;
-  padding: 4px 9px;
-}
-.demo-bar button {
-  background: white;
-  border: 1px solid #718398;
-  border-radius: 12px;
-  color: var(--muted);
-  font-size: calc(12px * var(--font-scale, 1));
-  min-height: 44px;
-  padding: 8px 12px;
-  flex: none;
-}
 .demo-feedback {
   font-size: calc(12px * var(--font-scale, 1));
   text-align: center;
@@ -1461,29 +1425,6 @@ dialog p {
   body {
     background: var(--bg);
   }
-  .demo-bar {
-    padding: 8px 12px;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .demo-bar > div {
-    align-items: flex-start;
-    gap: 7px;
-    flex: 1;
-  }
-  .demo-bar strong {
-    font-size: calc(10px * var(--font-scale, 1));
-    padding: 3px 5px;
-  }
-  .demo-bar span {
-    font-size: calc(10px * var(--font-scale, 1));
-    line-height: 1.5;
-  }
-  .demo-bar button {
-    font-size: calc(10px * var(--font-scale, 1));
-    max-width: 80px;
-    padding: 5px 8px;
-  }
   .demo-feedback {
     font-size: calc(10px * var(--font-scale, 1));
   }
@@ -1503,7 +1444,7 @@ dialog p {
   }
   .phone {
     width: 100%;
-    height: calc(100dvh - var(--demo-height, 82px));
+    height: calc(100dvh - var(--presentation-height, 0px));
     max-height: none;
     min-height: 420px;
     border: 0;
@@ -1645,20 +1586,26 @@ dialog p {
 .journey-mobile-toggle { display:none; }
 .guided .review-tools { position:fixed; z-index:15; right:20px; top:72px; background:white; max-height:calc(100dvh - 100px); overflow:auto; box-shadow:0 16px 70px #123b6333; border-radius:20px; padding:20px; }
 .care-progress > .eyebrow { display:block; margin-top:12px; }
+.presentation-actions { position:absolute; top:18px; right:28px; z-index:8; }
+.presentation-actions button { min-height:44px; padding:8px 14px; border:1px solid var(--border); border-radius:14px; background:var(--surface); color:var(--muted); font-size:12px; }
+#dialog-body { color:var(--muted); font-size:14px; line-height:1.75; margin-block:16px 22px; }
+.facility-card { display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid var(--border); border-radius:18px; background:var(--bg); }
+.facility-icon { color:var(--primary); flex:none; padding-top:3px; }
+.facility-card h3 { color:var(--heading); margin:0 0 8px; font-size:17px; line-height:1.5; }
+.facility-card p { margin:0 0 12px; font-size:14px; }
+#device-preview { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; background:var(--bg); margin-top:16px; }
+@media(min-width:761px) { .phone { max-height:calc(100dvh - 110px); } .journey-panel { max-height:calc(100dvh - 64px); } }
+@media(max-width:760px) { .guided .presentation-actions { display:none; } .presentation-actions { top:8px; right:12px; } }
 @media(max-width:1000px) and (min-width:761px) { .guided .workspace { grid-template-columns:minmax(280px,340px) 390px; gap:28px; padding-inline:20px; } }
 @media(max-width:760px) {
   .guided .workspace { display:block; padding:0; }
   .guided .stage { width:100%; max-width:520px; margin:auto; }
-  .guided .phone { height:calc(100dvh - var(--demo-height,50px) - 54px); }
+  .guided .phone { height:calc(100dvh - var(--presentation-height,0px) - 54px); }
   .journey-panel { position:relative; top:0; max-height:none; padding:0; background:white; border-bottom:1px solid var(--border); }
   .journey-heading,.journey-panel .journey-list,.journey-footnote { display:none; }
   .journey-mobile-toggle { display:flex; width:100%; justify-content:space-between; align-items:center; gap:12px; border:0; background:white; padding:12px 20px; min-height:54px; color:var(--heading); font-size:13px; font-weight:600; }
   #journey-mobile-label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
-  .journey-panel.mobile-open { position:fixed; top:var(--demo-height,50px); inset-inline:0; bottom:0; z-index:12; overflow:auto; padding:0 12px 24px; }
+  .journey-panel.mobile-open { position:fixed; top:var(--presentation-height,0px); inset-inline:0; bottom:0; z-index:12; overflow:auto; padding:0 12px 24px; }
   .journey-panel.mobile-open .journey-list { display:block; }
   .guided .review-tools { inset-inline:12px; width:auto; }
-  .demo-bar { padding:8px 16px; gap:12px; }
-  .demo-bar > div { display:block; }
-  .demo-bar strong { background:transparent; border:0; padding:0; color:var(--heading); }
-  #demo-warning { display:block; font-size:10px; line-height:1.5; }
 }

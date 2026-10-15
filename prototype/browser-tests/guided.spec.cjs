@@ -49,7 +49,17 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
    if(guide.index===step.length)break;
    const screen=await page.locator('#phone-content').getAttribute('data-screen');
    const app=page.locator('#phone-content');
-   if(step.event)await page.locator('[data-action=journey-next]').click();
+   if(flow==='F3' && branch==='emergency'){
+    if(!before.ui.emergencyOpened)await app.locator('[data-action=directions]').click();
+    else {
+     await page.context().route('https://www.google.com/maps/**',route=>route.fulfill({status:200,body:'Map navigation target'}));
+     const opened=page.waitForEvent('popup');
+     await page.locator('#dialog-actions a').first().click();
+     const map=await opened;await expect(map).toHaveURL(/google\.com\/maps\//);await map.close();
+     await page.locator('#dialog [data-action=close-dialog]').click();
+    }
+   }
+   else if(step.event)await page.locator('[data-action=journey-next]').click();
    else if(screen==='G1' && !before.ui.deviceReady){
     await app.locator('[data-action=device]').click();await page.locator('[data-action=device-ready]').click();
     await expect(app.locator('[data-action=join]')).toBeDisabled();
@@ -88,6 +98,8 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
 test('guided shell is accessible, responsive, persistent and uses prefilled fields',async({page},info)=>{
  await page.setViewportSize({width:1440,height:1000});
  await page.goto('/prototype/index.html');
+ await expect(page.locator('.demo-bar, #demo-warning')).toHaveCount(0);
+ await expect(page.locator('body')).not.toContainText('Trải nghiệm minh họa');
  await expect(page.locator('#phone')).toHaveValue('0900000000');
  expect(await page.locator('.journey-item > button').count()).toBe(12);
  const panel=await page.locator('.journey-panel').boundingBox(),phone=await page.locator('.phone').boundingBox();expect(panel.x+panel.width).toBeLessThan(phone.x);
