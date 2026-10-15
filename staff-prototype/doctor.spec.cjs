@@ -284,3 +284,24 @@ test('responsive composition: two columns tablet, one column phone',async({page}
     await page.screenshot({path:testInfo.outputPath('grid-dashboard-responsive-'+width+'.png'),fullPage:true,animations:'disabled'});
   }
 });
+
+test('phone appointment rows preserve full patient names and keep actions accessible',async({page})=>{
+  await page.setViewportSize({width:375,height:820});
+  await page.goto('/staff-prototype/index.html#/doctor');
+  const rows=page.locator('.doctor-today .doctor-appointment');
+  await expect(rows).toHaveCount(4);
+  const metrics=await page.evaluate(()=>{
+    const first=document.querySelector('.doctor-today .doctor-appointment');
+    const name=first.querySelector('.doctor-appointment-person strong');
+    const action=first.querySelector('.doctor-appointment-action .btn');
+    const n=name.getBoundingClientRect(),a=action.getBoundingClientRect();
+    return {display:getComputedStyle(first).display,whiteSpace:getComputedStyle(name).whiteSpace,
+      personWidth:name.clientWidth,personScroll:name.scrollWidth,
+      actionTop:a.top,nameBottom:n.bottom,documentWidth:document.documentElement.scrollWidth};
+  });
+  expect(metrics.display).toBe('grid');
+  expect(metrics.whiteSpace).toBe('normal');
+  expect(metrics.personScroll).toBeLessThanOrEqual(metrics.personWidth+1);
+  expect(metrics.actionTop).toBeGreaterThan(metrics.nameBottom);
+  expect(metrics.documentWidth).toBeLessThanOrEqual(376);
+});
