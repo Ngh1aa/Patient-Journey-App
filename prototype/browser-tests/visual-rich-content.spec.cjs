@@ -9,7 +9,7 @@ const layouts = [
 ];
 for (const width of [375, 430]) {
   test('before-after visual evidence ' + width + 'px', async ({ page }, info) => {
-    test.setTimeout(150000);
+    test.setTimeout(240000);
     await page.setViewportSize({ width, height: 852 });
     for (const [name, navigation, screen] of layouts) {
       for (const variant of ['before', 'after']) {
@@ -18,8 +18,11 @@ for (const width of [375, 430]) {
         if (navigation) await page.locator('#bottom-nav ' + navigation).click();
         await expect(page.locator('#phone-content')).toHaveAttribute('data-screen',screen);
         await expect(page.locator('#screen-title')).toBeVisible();
-        const shot = info.outputPath(variant+'-'+name+'-'+width+'.png');
-        await page.screenshot({path:shot, fullPage:true, animations:'disabled'});
+        for (const scrollY of [0,300]) {
+          await page.locator('#phone-main').evaluate((el,y)=>{el.scrollTop=y;},scrollY);
+          const shot = info.outputPath(variant+'-'+name+'-'+width+'-scroll'+scrollY+'.png');
+          await page.screenshot({path:shot,fullPage:true,animations:'disabled'});
+        }
       }
     }
   });

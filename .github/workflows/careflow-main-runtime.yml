@@ -25,7 +25,7 @@ jobs:
         run: cd prototype && npx playwright install --with-deps chromium webkit
       - name: Serve pre-redesign baseline for before/after screenshots
         run: |
-          git worktree add --detach /tmp/careflow-patient-before 095fda9ae6806d2e57a37faba10d5ab2af01e025
+          git worktree add --detach /tmp/careflow-patient-before 94b283f7a88362b41be370d24208a7fc7ea6ad49
           PORT=4176 node /tmp/careflow-patient-before/prototype/preview-server.cjs > /tmp/careflow-patient-before.log 2>&1 &
           for attempt in $(seq 1 30); do
             curl -fsS http://127.0.0.1:4176/prototype/index.html > /dev/null && break

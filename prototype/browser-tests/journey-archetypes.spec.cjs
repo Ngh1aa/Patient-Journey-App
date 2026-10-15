@@ -1,32 +1,26 @@
 const { test, expect } = require('@playwright/test');
 
-test('navy canvas is fixed under scrolling content and has no hard rounded lower edge', async ({ page }) => {
+test('solid navy rounded masthead scrolls under sticky navy app header', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=upcoming');
-  const canvas = await page.locator('.phone').evaluate(el => {
-    const phone = el.getBoundingClientRect();
-    const pseudo = getComputedStyle(el, '::before');
-    const scroll = el.querySelector('.phone-scroll');
-    return {
-      heightFraction: parseFloat(pseudo.height) / phone.height,
-      width: parseFloat(pseudo.width),
-      phoneWidth: phone.width,
-      bottomRadius: pseudo.borderBottomLeftRadius,
-      gradient: pseudo.backgroundImage,
-      scrollbar: getComputedStyle(scroll).scrollbarWidth,
-      position: pseudo.position,
-      scrollHeight: scroll.scrollHeight,
-      viewportHeight: scroll.clientHeight,
-    };
+  const result = await page.locator('.phone').evaluate(el => {
+    const canvas=getComputedStyle(el,'::before');
+    const head=el.querySelector('.home-masthead');
+    const header=el.querySelector('.phone-header');
+    const scroll=el.querySelector('.phone-scroll');
+    const rect=head.getBoundingClientRect();
+    const radius=getComputedStyle(head).borderBottomLeftRadius;
+    scroll.scrollTop=300;
+    return {canvas:canvas.content, background:getComputedStyle(head).backgroundColor,
+      radius, moved:head.getBoundingClientRect().top-rect.top,
+      headerColor:getComputedStyle(header).backgroundColor};
   });
-  expect(canvas.heightFraction).toBeGreaterThanOrEqual(.5);
-  expect(canvas.heightFraction).toBeLessThanOrEqual(.55);
-  expect(canvas.width).toBeGreaterThanOrEqual(canvas.phoneWidth - 12);
-  expect(canvas.bottomRadius).toBe('0px');
-  expect(canvas.gradient).toContain('linear-gradient');
-  expect(canvas.scrollbar).toBe('none');
-  expect(canvas.position).toBe('absolute');
+  expect(result.canvas).toBe('none');
+  expect(result.background).toBe('rgb(10, 31, 92)');
+  expect(result.radius).toBe('32px');
+  expect(result.headerColor).toBe('rgb(10, 31, 92)');
+  expect(result.moved).toBeLessThan(-180);
   await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
-  await expect(page.locator('.rich-stat-strip button')).toHaveCount(3);
+  await expect(page.locator('.rich-stat-strip button')).toHaveCount(0);
   await expect(page.locator('.rich-tips .rich-tip')).toHaveCount(3);
   expect(await page.locator('.home-tasks').evaluate(el => getComputedStyle(el).display)).toBe('flex');
 });
@@ -58,9 +52,9 @@ test('appointment and support use their own layouts instead of generic stacked c
   await expect(page.locator('.facility-card')).toBeVisible();
   await page.locator('#bottom-nav a').last().click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K5');
-  await expect(page.locator('.support-grid > .row')).toHaveCount(2);
+  await expect(page.locator('.support-grid > button')).toHaveCount(3);
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
   await expect(page.locator('.profile-bento > .row')).toHaveCount(3);
-  await expect(page.locator('.profile-bento > .profile-unavailable')).toHaveCount(1);
+  await expect(page.locator('.profile-bento > .rich-insurance')).toHaveCount(1);
 });

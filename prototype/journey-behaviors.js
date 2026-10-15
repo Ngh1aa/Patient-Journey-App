@@ -22,6 +22,27 @@
       callbackSlot.parentElement.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed',String(button===callbackSlot)));
       return;
     }
+    const topic=event.target.closest('button[data-support-topic]');
+    if (topic) {
+      const group=topic.closest('.rich-topic-grid');
+      group.querySelectorAll('button[data-support-topic]').forEach(button=>button.setAttribute('aria-pressed',String(button===topic)));
+      const input=document.getElementById('supportTopic');
+      if(input){input.value=topic.dataset.supportTopic;input.dispatchEvent(new Event('input',{bubbles:true}));}
+      return;
+    }
+    const person=event.target.closest('button[data-appointment-person]');
+    if(person){
+      const picker=person.closest('.rich-person-picker');
+      const id=person.dataset.appointmentPerson;
+      const cards=[...document.querySelectorAll('.rich-appointment-list .rich-filterable')];
+      cards.forEach(card=>{card.hidden=id!=='all'&&card.dataset.person!==id;});
+      const empty=document.querySelector('.rich-filter-empty');
+      if(empty)empty.hidden=cards.some(card=>!card.hidden)||!cards.length;
+      const selected=picker.querySelector('summary span');
+      if(selected)selected.textContent=id==='all'?'Tất cả hồ sơ':person.textContent.trim();
+      picker.open=false;
+      return;
+    }
     const chip = event.target.closest('button[data-symptom]');
     if (!chip) return;
     const field = document.getElementById('reason');
@@ -35,6 +56,12 @@
     }
     chip.setAttribute('aria-pressed', 'true');
     field.focus({ preventScroll: true });
+  });
+  document.addEventListener('input',(event)=>{
+    if(event.target.id==='support'){
+      const count=document.getElementById('support-count');
+      if(count) count.textContent=String(event.target.value.length);
+    }
   });
   function refreshCountdown() {
     document.querySelectorAll('[data-appointment-countdown]').forEach(node => {

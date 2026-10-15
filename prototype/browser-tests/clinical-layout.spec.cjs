@@ -10,7 +10,8 @@ test('icon navigation is compact, named for screen readers and profile add follo
   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
   for(const caption of await nav.locator('.nav-caption').all()) await expect(caption).toBeHidden();
   await nav.locator('.nav-book').click();
-  await expect(page.locator('.selection-reminder')).toHaveAttribute('role','note');
+  await expect(page.locator('.selection-reminder')).toHaveCount(0);
+  await expect(page.locator('#bottom-nav')).toBeHidden();
   await expect(page.locator('.patient-group')).toContainText('Ngày sinh · 15/08/1994');
   await expect(page.locator('.patient-group .choice-visual svg')).toHaveCount(2);
   const portrait=await page.locator('.patient-choice .choice-visual').first().innerHTML();
@@ -37,7 +38,7 @@ test('appointment management is before the ticket and opens existing change/canc
 test('contextual tips open with keyboard; patient shortcut returns to the existing selection screen', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=empty');
   await page.locator('#bottom-nav .nav-book').click();
-  await expect(page.locator('.selection-reminder')).toContainText('Kiểm tra hồ sơ');
+  await expect(page.locator('.selection-reminder')).toHaveCount(0);
   await submit(page);
   const tip=page.locator('.ux-tip');
   await tip.locator('summary').focus();await page.keyboard.press('Enter');
@@ -48,27 +49,23 @@ test('contextual tips open with keyboard; patient shortcut returns to the existi
   await expect(page.locator('input[value=p1]')).toBeChecked();
 });
 
-test('central booking action preserves unsent fields across tabs, Back and reload', async ({page}) => {
+test('booking hides tab nav and preserves draft through Back, forward and reload', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=empty');
   await page.locator('#bottom-nav .nav-book').click();
   await submit(page);
+  await expect(page.locator('#bottom-nav')).toBeHidden();
   await page.locator('#reason').fill('Nội dung đang nhập chưa gửi');
   await page.locator('#medicalHistory').fill('Thông tin cần giữ lại');
-  const original = (await state(page)).state.draft;
-  await page.locator('#bottom-nav a').first().click();
-  await page.locator('#bottom-nav .nav-book').click();
-  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
-  await expect(page.locator('#reason')).toHaveValue('Nội dung đang nhập chưa gửi');
-  await expect(page.locator('#medicalHistory')).toHaveValue('Thông tin cần giữ lại');
-  expect((await state(page)).state.draft).toEqual(original);
-  await page.locator('#bottom-nav a').first().click();
-  await page.locator('#phone-content [data-action=begin]').click();
-  await expect(page.locator('#reason')).toHaveValue('Nội dung đang nhập chưa gửi');
+  const original=(await state(page)).state.draft;
   await page.reload();
   await expect(page.locator('#reason')).toHaveValue('Nội dung đang nhập chưa gửi');
+  await expect(page.locator('#medicalHistory')).toHaveValue('Thông tin cần giữ lại');
   await page.goBack();
-  await page.locator('#bottom-nav .nav-book').click();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C1');
+  await page.goForward();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
   await expect(page.locator('#reason')).toHaveValue('Nội dung đang nhập chưa gửi');
+  expect((await state(page)).state.draft).toEqual(original);
 });
 
 test('quick dates update the actual booking, custom date selection and reload remain consistent', async ({page}) => {
@@ -85,7 +82,7 @@ test('quick dates update the actual booking, custom date selection and reload re
   await page.reload();
   await expect(date).toHaveAttribute('aria-pressed','true');
   await page.locator('input[name=slot][value="10:30"]').check();await submit(page);
-  await expect(page.locator('.booking-progress [aria-current=step]')).toHaveText('Lịch hẹn');
+  await expect(page.locator('.booking-progress [aria-current=step] > span:last-child')).toHaveText('Lịch hẹn');
   expect((await state(page)).state.draft.date).toBe(value);
   await page.locator('#consent').check();await submit(page);
   await expect(page.locator('.request-received')).toContainText('Đã gửi yêu cầu');

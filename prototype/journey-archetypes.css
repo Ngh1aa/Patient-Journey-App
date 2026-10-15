@@ -1,4 +1,4 @@
-/* Journey archetypes • 2026-10-16
+/* Journey archetypes • solid navy correction 2026-10-16
    Source: uiux-ai-workspace mobile app design/navigation/handoff.
    CSS layer follows styles.css, editorial-soft-glass.css and auth-editorial.css.
    One fixed navy canvas, many task-specific compositions. No synthetic clinical data.
@@ -16,26 +16,9 @@
   isolation: isolate;
   background: var(--bg) !important;
 }
-/* Full-bleed fixed canvas belongs to the device, NOT the scroll content.
-   Its lower edge has no border/radius and fades into the page background. */
-.phone::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  width: 100%;
-  height: 54%;
-  z-index: 0;
-  pointer-events: none;
-  border: 0;
-  border-radius: 0;
-  background: linear-gradient(180deg,
-    var(--navy-deep) 0%,
-    var(--navy) 31%,
-    rgba(0,29,87,.96) 52%,
-    rgba(41,73,122,.65) 73%,
-    rgba(117,146,186,.19) 89%,
-    rgba(243,246,251,0) 100%);
-}
+/* The navy surface now belongs to each scrolling masthead and the compact
+   device header. Never paint a fixed transparent gradient behind content. */
+.phone::before { content: none; }
 .phone > .phone-top,
 .phone > .phone-header,
 .phone > .offline-banner,
