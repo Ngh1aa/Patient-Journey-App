@@ -1,0 +1,46 @@
+name: CareFlow Soft Float 24-screen QA
+on:
+  push:
+    branches:
+      - feature/careflow-soft-float-24-copy
+  pull_request:
+    paths:
+      - 'prototype/**'
+      - '.github/workflows/careflow-soft-float-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax
+        run: |
+          node --check prototype/app.js
+          node --check prototype/model.js
+          node --check prototype/strings.vi.js
+      - name: Install dependencies
+        run: npm ci --prefix prototype --no-audit --no-fund
+      - name: Install Chromium and WebKit
+        run: cd prototype && npx playwright install --with-deps chromium webkit
+      - name: Model and contrast
+        run: |
+          node prototype/tests.cjs
+          node prototype/check-contrast.cjs
+      - name: Desktop/mobile booking, UX and accessibility
+        run: cd prototype && npx playwright test -c playwright.config.cjs
+      - name: Upload screenshots and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: careflow-soft-float-${{ github.run_id }}
+          path: |
+            prototype/test-results
+            prototype/playwright-report
+          if-no-files-found: ignore
+          retention-days: 14
