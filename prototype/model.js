@@ -881,10 +881,18 @@
     Object.assign(s.draft, {
       reason: 'Khám theo lịch hẹn',
       safety: 'normal',
-      slot: '09:00',
+      date: localDate() <= '2026-10-17' ? '2026-10-17' : localDate(1),
+      slot: '08:00',
       mode: name === 'online' ? 'online' : 'onsite',
     });
     submitBooking(s);
+    // Synthetic presentation identifier only; production booking IDs still come from submitBooking.
+    if (s.request?.status === 'done') {
+      const synthetic = visit(s);
+      synthetic.id = 'CF-1017-0042';
+      s.activeVisitId = synthetic.id;
+      s.request.visitId = synthetic.id;
+    }
     transition(s, s.activeVisitId, 'confirmed', 'staff');
     if (name === 'pre-lab') addLab(s, s.activeVisitId, 'pre');
     else if (name === 'completed') {
