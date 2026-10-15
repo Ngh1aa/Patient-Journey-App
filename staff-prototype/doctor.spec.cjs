@@ -365,3 +365,10 @@ test('navy dashboard and clinical controls retain legible contrast across states
  await action.focus();
  await expect(action).toHaveCSS('outline-style','solid');
 });
+
+test('clinical brand statuses and selected tabs inherit navy rather than blue',async({page})=>{
+ await page.goto('/staff-prototype/index.html#/encounters/a-033');
+ await expect(page.locator('.consult-identity .pill-brand')).toHaveCSS('background-color','rgb(0, 29, 87)');
+ await expect(page.locator('.consult-tabs .tab.current')).toHaveCSS('color','rgb(0, 29, 87)');
+ await expect(page.locator('.consult-person.selected .selected-stripe')).toHaveCSS('background-color','rgb(0, 29, 87)');
+});
