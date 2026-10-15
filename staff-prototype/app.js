@@ -96,7 +96,7 @@
   function openAppointment(id){go('/visits/'+id)}
   function closeAppointment(){go('/doctor/schedule')}
   function supportingContext(){return {data,ui,people,person,appt,e,icon,pill,avatar,statePill,resultPill,btn,pageHeading,appointmentsTable,notify,go,openAppointment,save,render}}
-  function activeNav(path){const r=route();if(path==='/encounters/a-033')return r.startsWith('/encounters/')||r==='/clinical/review';if(path==='/patients')return r==='/patients'||r.startsWith('/patients/');if(path==='/doctor/queue')return r.startsWith('/visits/')||r==='/doctor/queue';return r===path}
+  function activeNav(path){const r=route();if(path==='/encounters/a-033')return r.startsWith('/encounters/');if(path==='/patients')return r==='/patients'||r.startsWith('/patients/');if(path==='/doctor/queue')return r.startsWith('/visits/')||r==='/doctor/queue';return r===path}
   function navLink(path,label,glyph){return `<a href="#${path}" data-route="${path}" class="nav-item ${activeNav(path)?'active':''}" aria-label="${e(label)}" title="${e(label)}" ${activeNav(path)?'aria-current="page"':''}>${icon(glyph,19)}<span>${e(label)}</span>${activeNav(path)?'<span class="active-dot"></span>':''}</a>`}
   function sidebar(){return `<aside class="sidebar doctor-sidebar" aria-label="Điều hướng bác sĩ">
     <div class="sidebar-brand-wrap"><div class="brand"><span class="brand-symbol">${icon('heart',22)}</span><span class="brand-name">careflow<span class="brand-tail">clinic</span></span></div><div class="sidebar-product-note">DOCTOR WORKSPACE <span class="doctor-brand-dot"></span> PORTFOLIO</div></div>
