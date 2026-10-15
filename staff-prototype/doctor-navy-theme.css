@@ -176,3 +176,24 @@ html,body,.app-shell{background:#F5F6F8;color:var(--doctor-text)}
  .doctor-appointment-person strong{font-size:13px}
  .doctor-screen .btn{font-size:12px}
 }
+
+
+/* Clinical legacy accent cleanup spotted during rendered QA: semantic "in progress"
+   belongs to the navy brand, not the previous bright-blue token. */
+.pill-brand{background:#001D57;color:#fff}
+.selected-stripe{background:#001D57}
+:where(.wave-consult,.support-screen,.doctor-screen) .tab.current,
+:where(.wave-consult,.support-screen,.doctor-screen) .tab[aria-selected="true"]{color:#001D57;border-bottom-color:#001D57}
+:where(.wave-consult,.support-screen,.doctor-screen) .tab:hover{color:#001D57}
+:where(.wave-consult,.support-screen) .field textarea:focus,
+:where(.wave-consult,.support-screen) .support-field :is(input,textarea,select):focus{
+ border-color:#001D57;box-shadow:0 0 0 3px rgba(0,29,87,.12)
+}
+:where(.wave-consult,.support-screen) .consult-editor-footer svg,
+:where(.wave-consult,.support-screen) .related-item svg{color:#001D57}
+.wave-consult .consult-queue .selected-stripe{background:#001D57}
+.wave-consult .consult-idline{color:#526882}
+/* Keep naturally readable soft semantic fills for real task statuses. */
+.pill-success{background:#E3F3EB;color:#186748}
+.pill-warning{background:#FFF3DA;color:#7A560B}
+.pill-danger{background:#FDE8E6;color:#972A23}
