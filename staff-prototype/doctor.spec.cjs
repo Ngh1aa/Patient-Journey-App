@@ -1,15 +1,15 @@
 const {test,expect}=require('../prototype/node_modules/@playwright/test');
 const cases=[
- ['dashboard','/doctor','Một ngày khám'],
+ ['dashboard','/doctor','Lịch khám'],
  ['schedule','/doctor/schedule','Lịch khám của tôi'],
  ['queue','/doctor/queue','Danh sách khám'],
  ['patients','/patients','Hồ sơ bệnh nhân'],
  ['profile','/patients/p-006','Võ Thanh Tùng'],
- ['encounter','/encounters/a-033','KHÔNG GIAN KHÁM BỆNH'],
- ['results','/results','Kết quả xét nghiệm'],
- ['orders','/clinical/orders','Chỉ định & xét nghiệm'],
+ ['encounter','/encounters/a-033','KHÁM LÂM SÀNG'],
+ ['results','/results','Kết quả cận lâm sàng'],
+ ['orders','/clinical/orders','Chỉ định cận lâm sàng'],
  ['prescription','/clinical/prescription','Đơn thuốc'],
- ['review','/clinical/review','Xem lại & hoàn tất'],
+ ['review','/clinical/review','Rà soát hồ sơ khám'],
  ['followups','/doctor/followups','Theo dõi sau khám'],
  ['visit','/visits/a-033','Thông tin lượt khám']
 ];
@@ -20,7 +20,9 @@ for(const group of [0,1,2]){
    await page.goto('/staff-prototype/index.html#'+path);
    await expect(page.locator('main')).toContainText(title);
    await expect(page.locator('.doctor-sidebar')).toBeVisible();
-   await expect(page.locator('.demo-indicator')).toContainText('Dữ liệu minh họa');
+   await expect(page.locator('.app-footer')).toContainText('Prototype UI/UX');
+   await expect(page.locator('.demo-indicator')).toHaveCount(0);
+   await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
    await expect(page.locator('.sidebar [aria-current="page"]')).toHaveCount(1);
    const navFits=await page.evaluate(()=>{
      const item=document.querySelector('.sidebar-nav a[href="#/doctor/followups"]');
@@ -38,7 +40,7 @@ for(const group of [0,1,2]){
 test('site defaults to doctor and rejects all reception and nursing routes',async({page})=>{
  await page.goto('/staff-prototype/');
  await expect(page).toHaveURL(/#\/doctor$/);
- await expect(page.locator('.doctor-hero h1')).toContainText('Một ngày khám');
+ await expect(page.locator('.doctor-hero h1')).toContainText('Lịch khám');
  await expect(page.locator('.switch-options')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="reception"]')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="nursing"]')).toHaveCount(0);
@@ -110,11 +112,35 @@ test('visual contrast, button focus and 1920px hero',async({page},testInfo)=>{
   const computedText=getComputedStyle(text);
   return {font:getComputedStyle(document.body).fontFamily,hero:computedHero.backgroundColor,color:computedText.color,headline:parseFloat(computedText.fontSize),viewport:innerWidth,scroll:document.documentElement.scrollWidth}
  });
- expect(visual.font).toContain('Be Vietnam Pro');
+ expect(visual.font).toContain('Plus Jakarta Sans');
  expect(visual.headline).toBeGreaterThan(36);
  expect(visual.color).toBe('rgb(255, 255, 255)');
  expect(visual.scroll).toBeLessThanOrEqual(visual.viewport+1);
  await page.locator('.doctor-hero .btn-hero').focus();
  await expect(page.locator('.doctor-hero .btn-hero')).toHaveCSS('outline-style','solid');
  await page.screenshot({path:testInfo.outputPath('doctor-hero-1920.png'),fullPage:true,animations:'disabled'});
+});
+
+test('Lucide medical icon registry, clinical copy and compact data-led cards',async({page})=>{
+ await page.goto('/staff-prototype/index.html#/doctor');
+ await page.evaluate(()=>document.fonts.ready);
+ const data=await page.evaluate(()=>{
+  const stat=document.querySelector('.doctor-stat-card'),hero=document.querySelector('.doctor-hero');
+  return {font:getComputedStyle(document.body).fontFamily,statHeight:Math.round(stat.getBoundingClientRect().height),heroHeight:Math.round(hero.getBoundingClientRect().height),iconPaths:Object.keys(window.CareFlowIcons||{}),svgCount:document.querySelectorAll('.doctor-sidebar svg').length};
+ });
+ expect(data.font).toContain('Plus Jakarta Sans');
+ expect(data.iconPaths).toContain('stethoscope');
+ expect(data.iconPaths).toContain('pill');
+ expect(data.iconPaths.length).toBeGreaterThanOrEqual(25);
+ expect(data.svgCount).toBeGreaterThanOrEqual(10);
+ expect(data.statHeight).toBeLessThan(180);
+ expect(data.heroHeight).toBeLessThan(330);
+ await expect(page.locator('.doctor-now-details')).toContainText('Hình thức');
+ await page.goto('/staff-prototype/index.html#/doctor/schedule');
+ await expect(page.locator('.doctor-next-visit')).toContainText('LƯỢT KHÁM TIẾP THEO');
+ await page.goto('/staff-prototype/index.html#/doctor/followups');
+ await expect(page.locator('.doctor-followups-summary')).toContainText('Kết quả chưa xem');
+ await page.goto('/staff-prototype/index.html#/clinical/prescription');
+ await expect(page.locator('.support-rx-metadata')).toContainText('Lượt khám');
+ await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
 });
