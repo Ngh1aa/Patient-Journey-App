@@ -69,7 +69,7 @@ test('doctor clinical draft, signature simulation, state recovery',async({page})
  await page.locator('textarea[name="symptom"]').fill('Ghi chú khám minh họa phục vụ portfolio.');
  await page.locator('textarea[name="assessment"]').fill('Đã xem các thông tin liên quan trong kịch bản.');
  await page.locator('[data-action="save-draft"]').first().click();
- await expect(page.locator('.toast')).toContainText('Đã lưu bản nháp');
+ await expect(page.locator('.toast')).toContainText('Đã lưu ghi nhận thăm khám');
  await page.reload();
  await expect(page.locator('textarea[name="symptom"]')).toHaveValue('Ghi chú khám minh họa phục vụ portfolio.');
  await page.locator('[data-action="review-sign"]').first().click();
