@@ -230,9 +230,9 @@
               <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('clock',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
               <span class="home-shortcut-copy"><strong>Lịch hẹn</strong><small>Theo dõi lượt khám</small></span>
             </button>
-            <button class="home-shortcut" type="button" data-action="go" data-to="F1" aria-label="Xem kết quả và xét nghiệm">
+            <button class="home-shortcut" type="button" data-action="go" data-to="F1" aria-label="Xem kết quả và xét nghiệm" ${v ? '' : 'disabled aria-disabled="true"'}>
               <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('document-check',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
-              <span class="home-shortcut-copy"><strong>Kết quả</strong><small>Xét nghiệm liên quan</small></span>
+              <span class="home-shortcut-copy"><strong>Kết quả</strong><small>${v ? 'Xét nghiệm liên quan' : 'Có khi có lượt khám'}</small></span>
             </button>
             <button class="home-shortcut" type="button" data-action="go" data-to="K5" aria-label="Mở thông tin hỗ trợ của phòng khám">
               <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('phone',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
