@@ -136,3 +136,14 @@
 #phone-content .rich-patient-choice .rich-profile-meta{line-height:1.5;}
 @media (max-width:374px){.phone:not(.video-mode) #phone-content .screen-masthead{margin-inline:-16px!important;padding-inline:16px!important;}}
 @media (prefers-reduced-motion:reduce){#phone-content .rich-person-picker .cf-icon,#phone-content .rich-faqs summary:after{transition:none;}}
+
+/* A1-A3 retain white authentication chrome text: place it on a real navy surface. */
+.phone[data-screen^="A"]:not(.video-mode) .phone-top,
+.phone[data-screen^="A"]:not(.video-mode) .phone-header{
+  background:var(--careflow-navy)!important;color:#fff!important;
+}
+.phone[data-screen^="A"]:not(.video-mode) .phone-header .app-wordmark,
+.phone[data-screen^="A"]:not(.video-mode) .phone-header .app-wordmark span{
+  color:#fff!important;
+}
+#phone-content .rich-hero-top>span:nth-child(2){color:#354966!important;}
