@@ -280,7 +280,7 @@
       "connection-failed": { label: "Chưa kết nối được", icon: "warning", type: "danger" }
     };
     const s = map[statusKey] || { label: statusKey, icon: "info", type: "neutral" };
-    return `<span class="chip ${s.type}">${icon(s.icon, 14)}<span>${esc(s.label)}</span></span>`;
+    return `<span class="chip ${s.type}">${icon(s.icon, 14)}<span>${esc(sc(statusKey)[0])}</span></span>`;
   }
 
   // Profile Context Bar Component
@@ -1314,6 +1314,23 @@
           <button type="button" class="btn-primary" data-action="closeModal">Giữ lịch</button>
           <button type="button" class="btn-danger" data-action="confirmCancelAppointment">Hủy lịch</button>
         </div></div>`;
+    } else if (state.activeModal === "logout-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Đăng xuất khỏi tài khoản?">
+          <div class="sheet-handle"></div><h3>Đăng xuất khỏi tài khoản?</h3>
+          <p class="lead">Bạn có thể đăng nhập lại bằng OTP.</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Ở lại</button>
+          <button type="button" class="btn-secondary" data-action="confirmLogout">Đăng xuất</button>
+        </div></div>`;
+    } else if (state.activeModal === "delete-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Xóa tài khoản?">
+          <div class="sheet-handle"></div><h3>Xóa tài khoản?</h3>
+          <p class="lead">Thông tin tài khoản sẽ bị xóa. Hồ sơ bệnh án có thể được giữ theo quy định. [Pháp lý duyệt]</p>
+          <p class="field-hint">Bản demo không gửi yêu cầu xóa thật.</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Giữ tài khoản</button>
+          <button type="button" class="btn-secondary" data-action="requestDeletion">Tiếp tục xóa</button>
+        </div></div>`;
     } else if (state.activeModal === "feature-soon") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
@@ -1493,13 +1510,14 @@
     case "promptLogout":state.activeModal="logout-confirm";return render();
     case "promptDelete":state.activeModal="delete-confirm";return render();
     case "confirmLogout":state.activeModal=null;return nav("A1");
+    case "requestDeletion":state.activeModal=null;return showNotice("Để xóa tài khoản, phòng khám cần xác minh yêu cầu và quy định lưu hồ sơ. Demo không xóa dữ liệu.");
     case "faq":return showNotice("Câu hỏi: "+value+". Phòng khám sẽ hướng dẫn chi tiết khi được cấu hình.");
     default:return null;
   }
 }
 
 function handleAction(action, value) {
-    if (["qrCheckin","audioOnly","switchToOnsite","choosePaymentMethod","deferPayment","showReceipt","simulatedSettlePayment","bookLab","uploadLab","contactTab","messageSuggestion","sendMessage","chooseSymptom","chooseSeverity","sendSymptoms","selectFamilyProfile","addFamily","settingsSection","setFontSize","toggleSetting","promptLogout","promptDelete","confirmLogout","faq"].includes(action)) return runExtendedAction(action,value);
+    if (["qrCheckin","audioOnly","switchToOnsite","choosePaymentMethod","deferPayment","showReceipt","simulatedSettlePayment","bookLab","uploadLab","contactTab","messageSuggestion","sendMessage","chooseSymptom","chooseSeverity","sendSymptoms","selectFamilyProfile","addFamily","settingsSection","setFontSize","toggleSetting","promptLogout","promptDelete","confirmLogout","requestDeletion","faq"].includes(action)) return runExtendedAction(action,value);
     switch (action) {
       case "tapHeaderTitle":
         titleTapCount++;
