@@ -52,7 +52,7 @@ test('reschedule requires reason and reconfirmation; cancellation is final',asyn
   await expect(page.locator('.drawer')).toContainText('Đã hủy');
   await expect(page.locator('.drawer [data-action="start-consult"]')).toBeDisabled();
   await page.locator('.drawer [data-action="wave-open-schedule"]').click();
-  await expect(page).toHaveURL(/#\\/schedule\\/a-018/);
+  await expect(page).toHaveURL(new RegExp('#/schedule/a-018$'));
 });
 test('reception cannot reschedule a locked clinical encounter',async({page})=>{
   await page.goto('/staff-prototype/index.html#/schedule/a-033');
