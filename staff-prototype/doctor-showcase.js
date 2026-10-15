@@ -7,7 +7,7 @@
   const clinicalDoctor='Nguyễn Văn An';
   function permitted(path){
     if(allowed.includes(path))return true;
-    if(path.startsWith('/patients/')||path.startsWith('/encounters/')||path.startsWith('/visits/'))return true;
+    if(path.startsWith('/patients/')||path.startsWith('/encounters/')||path.startsWith('/visits/')||path.startsWith('/doctor/review/')||path.startsWith('/doctor/online/'))return true;
     return false;
   }
   const esc=s=>String(s??'');
@@ -19,7 +19,11 @@
   function stepLabel(x,a){const names={'in-consult':'Đang khám',ready:'Sẵn sàng khám',completed:'Đã hoàn tất',review:'Cần xem xét',pending:'Chờ xác nhận',confirmed:'Đã xác nhận',arrived:'Đã đến',unreachable:'Chưa liên hệ được'};return x.pill(names[a.status]||a.status,{'in-consult':'brand',ready:'success',completed:'success',review:'danger',pending:'warning',confirmed:'info',arrived:'info'}[a.status]||'neutral')}
   function actionFor(a,x){
     if(a.status==='in-consult')return x.btn(`Tiếp tục khám ${x.icon('arrow',16)}`,'go','btn-primary',`data-to="/encounters/${x.e(a.id)}"`);
-    if(['ready','arrived','confirmed'].includes(a.status))return x.btn(`Bắt đầu khám ${x.icon('arrow',16)}`,'start-consult','btn-primary',`data-id="${x.e(a.id)}"`);
+    if(a.status==='ready'&&a.mode.toLowerCase().includes('online'))return x.btn('Mở phiên trực tuyến','go','btn-primary',`data-to="/doctor/online/${x.e(a.id)}"`);
+    if(a.status==='ready')return x.btn(`Bắt đầu khám ${x.icon('arrow',16)}`,'start-consult','btn-primary',`data-id="${x.e(a.id)}"`);
+    if(a.status==='review')return x.btn('Xem xét yêu cầu','go','btn-soft',`data-to="/doctor/review/${x.e(a.id)}"`);
+    if(a.status==='unreachable'&&a.mode.toLowerCase().includes('online'))return x.btn('Xem bàn giao','go','btn-soft',`data-to="/doctor/online/${x.e(a.id)}"`);
+    if(['confirmed','arrived'].includes(a.status))return x.btn('Xem trạng thái','go','btn-soft',`data-to="/visits/${x.e(a.id)}"`);
     if(a.status==='completed')return x.btn('Xem lại buổi khám','go','btn-soft',`data-to="/encounters/${x.e(a.id)}"`);
     return x.btn('Xem hồ sơ','open-patient','btn-soft',`data-id="${x.e(a.personId)}"`);
   }
@@ -33,23 +37,25 @@
   }
   function dashboard(x){
     const visits=yours(x),doing=visits.find(a=>a.status==='in-consult'),ready=visits.filter(a=>a.status==='ready'),newResults=results(x).filter(r=>r.status==='ready');
+    const review=visits.filter(a=>a.status==='review'&&a.owner==='Bác sĩ');
     const recent=visits.slice(0,4);
     return `<section class="screen doctor-screen doctor-home">
       <div class="doctor-hero">
         <div class="doctor-hero-content"><div class="doctor-hero-top"><span class="doctor-hero-mark">CAREFLOW / CLINIC</span><span class="doctor-hero-date">Thứ Năm, 15 tháng 10 · Lịch khám</span></div>
-        <div class="doctor-hero-body"><p class="doctor-hero-eyebrow">WORKSPACE / BÁC SĨ</p><h1>Lịch khám<br><em>hôm nay.</em></h1><p class="doctor-hero-sub">Xin chào bác sĩ An. Theo dõi lịch khám, hồ sơ người bệnh và kết quả cận lâm sàng tại một nơi.</p>
+        <div class="doctor-hero-body"><p class="doctor-hero-eyebrow">BẢNG ĐIỀU PHỐI / BÁC SĨ</p><h1>Lịch khám<br><em>hôm nay.</em></h1><p class="doctor-hero-sub">Ưu tiên lượt đang khám, yêu cầu cần quyết định và các kết quả chưa xem. Biết rõ ai phụ trách và bước cần làm tiếp.</p>
         <div class="doctor-hero-ctas">${x.btn(`Vào buổi khám ${x.icon('arrow',17)}`,'go','btn-hero',`data-to="/encounters/${x.e((doing||ready[0]||visits[0]).id)}"`)}${x.btn('Lịch của tôi','go','btn-hero-quiet','data-to="/doctor/schedule"')}</div></div></div>
         <div class="doctor-hero-art" aria-hidden="true"><div class="doctor-art-ring ring-one"></div><div class="doctor-art-ring ring-two"></div><div class="doctor-art-orb"></div><div class="doctor-art-floating"><span>CARE JOURNEY</span><div>01 <b>Tiếp nhận</b></div><div>02 <b>Khám</b></div><div>03 <b>Theo dõi</b></div></div></div>
       </div>
-      <div class="doctor-overview-meta"><span>KHÔNG GIAN LÀM VIỆC</span><span>15/10/2026 · Lịch làm việc của BS. Nguyễn Văn An</span></div>
+      <div class="doctor-overview-meta"><span>ƯU TIÊN TRONG NGÀY</span><span>${review.length} yêu cầu cần bác sĩ xem xét · 15/10/2026</span></div>
       <div class="doctor-stat-grid">
-        ${[['Lượt khám hôm nay',visits.length.toString().padStart(2,'0'),'calendar','Theo lịch bác sĩ','/doctor/schedule','Xem lịch'],['Sẵn sàng khám',ready.length.toString().padStart(2,'0'),'users','Chờ bác sĩ tiếp nhận','/doctor/queue','Mở danh sách'],['Kết quả chưa xem',newResults.length.toString().padStart(2,'0'),'beaker','Chờ bác sĩ rà soát','/results','Xem kết quả']].map(([t,n,i,d,url,action],idx)=>`<article class="doctor-stat-card doctor-action-card ${idx===1?'is-selected':''}"><div class="doctor-stat-card-head">${iconRound(x,i)}<span class="doctor-stat-index" aria-hidden="true">${String(idx+1).padStart(2,'0')}</span></div><div class="doctor-stat-main"><div class="doctor-stat-number">${n}</div><strong>${t}</strong><p>${d}</p></div><a class="doctor-card-footer-link" href="#${url}">${action} ${x.icon('arrow',15)}</a></article>`).join('')}
+        ${[['Lượt khám hôm nay',visits.length.toString().padStart(2,'0'),'calendar','Đã được phân công','/doctor/schedule','Xem lịch'],['Sẵn sàng khám',ready.length.toString().padStart(2,'0'),'users','Đã bàn giao cho bác sĩ','/doctor/queue','Mở danh sách'],['Kết quả chưa xem',newResults.length.toString().padStart(2,'0'),'beaker','Chờ nhận định bước tiếp theo','/results','Xem kết quả']].map(([t,n,i,d,url,action],idx)=>`<article class="doctor-stat-card doctor-action-card ${idx===1?'is-selected':''}"><div class="doctor-stat-card-head">${iconRound(x,i)}<span class="doctor-stat-index" aria-hidden="true">${String(idx+1).padStart(2,'0')}</span></div><div class="doctor-stat-main"><div class="doctor-stat-number">${n}</div><strong>${t}</strong><p>${d}</p></div><a class="doctor-card-footer-link" href="#${url}">${action} ${x.icon('arrow',15)}</a></article>`).join('')}
       </div>
       <div class="doctor-dashboard-grid">
         <section class="doctor-surface doctor-today"><div class="doctor-section-head"><div><span class="doctor-overline">TODAY / AGENDA</span><h2>Lịch khám trong ngày</h2><p>Các lượt khám được sắp xếp theo giờ hẹn</p></div><a href="#/doctor/schedule" class="doctor-card-icon-action" aria-label="Xem toàn bộ lịch khám" title="Xem lịch khám">${x.icon('arrow',17)}</a></div><div class="doctor-today-list">${recent.map(a=>row(x,a,true)).join('')}</div></section>
         <div class="doctor-side-stack"><section class="doctor-surface doctor-now"><div class="doctor-section-head"><div><span class="doctor-overline">IN PROGRESS</span><h2>Buổi khám đang thực hiện</h2></div>${doing?`<button class="doctor-card-icon-action" data-action="open-patient" data-id="${x.e(doing.personId)}" aria-label="Mở hồ sơ bệnh nhân đang khám" title="Mở hồ sơ bệnh nhân">${x.icon('user',17)}</button>`:''}</div>${doing?`<div class="doctor-now-person">${x.avatar(x.person(doing.personId),'large')}<div><strong>${x.e(x.person(doing.personId).name)}</strong><span>${x.e(doing.code)} · ${x.e(doing.time)}</span></div></div><p>${x.e(doing.reason)}</p><div class="doctor-now-details"><div><small>Trạng thái</small><strong>Đang khám</strong></div><div><small>Hình thức</small><strong>${x.e(doing.mode)}</strong></div></div><div class="doctor-now-bottom"><span class="doctor-card-hint">${x.icon('clock',14)} Bắt đầu lúc ${x.e(doing.time)}</span>${actionFor(doing,x)}</div>`:`<div class="doctor-blank">Chưa có buổi khám đang diễn ra.</div>${x.btn('Mở danh sách khám','go','btn-soft',`data-to="/doctor/queue"`)}`}</section>
         <section class="doctor-surface doctor-labs-today"><div class="doctor-section-head"><div><span class="doctor-overline">KẾT QUẢ / CẬN LÂM SÀNG</span><h2>Kết quả cần xem</h2></div><span class="doctor-count" aria-label="${newResults.length} kết quả chưa xem">${newResults.length}</span></div>${newResults.slice(0,2).map(r=>`<button class="doctor-lab-mini" data-action="show-result" data-id="${x.e(r.id)}">${iconRound(x,'beaker')}<span><strong>${x.e(r.title)}</strong><small>${x.e(x.person(r.personId).name)}</small></span>${x.icon('arrow',16)}</button>`).join('')||'<p class="doctor-blank">Không có kết quả cần xem.</p>'}<div class="doctor-labs-footer"><span class="doctor-card-hint">${newResults.length} kết quả chờ rà soát</span><a href="#/results" class="doctor-more-link">Tất cả kết quả ${x.icon('arrow',16)}</a></div></section></div>
       </div>
+      ${root.CareFlowJourneys?.summary(x)||''}
     </section>`;
   }
   function schedule(x){
@@ -96,16 +102,12 @@
       ${[['Bệnh nhân',x.person(selected.personId).name],['Ngày ghi nhận',selected.date],['Bác sĩ phụ trách',selected.doctor],['Trạng thái',({ready:'Chờ bác sĩ xem',waiting:'Chờ thực hiện',reviewed:'Bác sĩ đã xem'})[selected.status]||selected.status]].map(([k,v])=>`<div class="doctor-result-datum"><span>${k}</span><strong>${x.e(v)}</strong></div>`).join('')}
       <div class="doctor-tip">${x.icon('info',17)}<span>Trạng thái đã xem là ghi nhận nội bộ, không đồng nghĩa đã trả kết quả cho người bệnh.</span></div>
       ${x.btn(selected.status==='ready'?`${x.icon('check',17)} Đánh dấu đã xem`:selected.status==='reviewed'?'Đã xem kết quả':'Chờ thực hiện','review-result','btn-primary doctor-result-action',`data-id="${x.e(selected.id)}" ${selected.status==='ready'?'':'disabled'}`)}
+      ${root.CareFlowJourneys?.afterResult(selected,x)||''}
       ${x.btn('Mở hồ sơ bệnh nhân','open-patient','btn-soft doctor-result-action',`data-id="${x.e(selected.personId)}"`)}
       </section></div></section>`;
   }
-  function followups(x){
-    x.data.doctorTasks??=[{id:'t01',title:'Xem kết quả xét nghiệm đang chờ',desc:'Kiểm tra thông tin trước khi quyết định bước tiếp theo',route:'/results',done:false},{id:'t02',title:'Rà soát hồ sơ tái khám',desc:'Chuẩn bị thông tin cho các lượt khám tiếp theo',route:'/patients',done:false},{id:'t03',title:'Đối chiếu ghi nhận cuối buổi',desc:'Kiểm tra bản nháp và trạng thái hoàn tất',route:'/clinical/review',done:false}];
-    const tasks=x.data.doctorTasks;
-    return `<section class="screen doctor-screen">${intro('CÔNG VIỆC / THEO DÕI','Theo dõi sau khám','Một danh sách công việc nội bộ, không thay thế trao đổi chuyên môn hoặc liên hệ bệnh nhân.')}
-    <div class="doctor-followups-grid"><section class="doctor-surface"><div class="doctor-section-head"><div><span class="doctor-overline">CÔNG VIỆC CỦA BÁC SĨ</span><h2>Việc cần theo dõi</h2><p>${tasks.filter(t=>!t.done).length} việc chưa đánh dấu hoàn tất</p></div>${x.pill(tasks.filter(t=>!t.done).length+' việc chưa xử lý','info')}</div>
-    <div class="doctor-task-list">${tasks.map((t,i)=>`<article class="doctor-task ${t.done?'is-done':''}"><span class="doctor-task-count">0${i+1}</span><div><strong>${x.e(t.title)}</strong><span>${x.e(t.desc)}</span></div>${x.pill(t.done?'Đã xử lý':'Cần xem',t.done?'success':'warning')}<div class="doctor-task-actions">${x.btn('Mở nội dung','go','btn-soft',`data-to="${x.e(t.route)}"`)}${x.btn(t.done?'Mở lại':'Đánh dấu đã xử lý','doc-task-toggle','btn-outline',`data-id="${x.e(t.id)}"`)}</div></article>`).join('')}</div></section><aside class="doctor-followups-side"><section class="doctor-surface doctor-followups-summary"><div class="doctor-overline">TÌNH TRẠNG CẦN THEO DÕI</div><div class="doctor-followups-mini"><span>Kết quả chưa xem</span><strong>${results(x).filter(r=>r.status==='ready').length.toString().padStart(2,'0')}</strong></div><div class="doctor-followups-mini"><span>Công việc chưa xử lý</span><strong>${tasks.filter(t=>!t.done).length.toString().padStart(2,'0')}</strong></div><div class="doctor-divider"></div>${x.btn('Mở kết quả cận lâm sàng','go','btn-soft','data-to="/results"')}</section></aside></div></section>`;
-  }
+  function followups(x){return root.CareFlowJourneys?.followups(x)||''}
+
   function visit(path,x){
     const id=path.split('/')[2],a=x.data.appointments.find(v=>v.id===id&&v.doctor.includes('Nguyễn Văn An'));
     if(!a)return `<section class="screen doctor-screen">${intro('CHI TIẾT / LƯỢT KHÁM','Không tìm thấy lượt khám','Chỉ hiển thị các lượt khám thuộc lịch của bác sĩ.')}${x.btn('Về lịch của tôi','go','btn-primary','data-to="/doctor/schedule"')}</section>`;
@@ -122,6 +124,7 @@
      </section></div></section>`;
   }
   function page(path,x){
+    const journey=root.CareFlowJourneys?.page(path,x);if(journey!=null)return journey;
     if(path.startsWith('/visits/'))return visit(path,x);
     if(path==='/doctor')return dashboard(x);
     if(path==='/doctor/schedule')return schedule(x);
@@ -132,12 +135,13 @@
     return null;
   }
   function action(node,x){
+    if(root.CareFlowJourneys?.action(node,x))return true;
     const name=node.dataset.action;
     if(name==='doc-day'){x.ui.docDay=Number(node.dataset.value);x.render();return true}
     if(name==='doc-today'){x.ui.docDay=3;x.ui.dayOffset=0;x.render();return true}
     if(name==='doc-filter-queue'){x.ui.docQueueFilter=node.dataset.value;x.render();return true}
     if(name==='doc-result-filter'){x.ui.docResultFilter=node.dataset.value;x.render();return true}
-    if(name==='doc-task-toggle'){const task=x.data.doctorTasks?.find(t=>t.id===node.dataset.id);if(task){task.done=!task.done;x.save();x.notify(task.done?'Đã đánh dấu công việc đã xử lý.':'Đã đưa công việc về trạng thái cần xử lý.')}return true}
+    if(name==='doc-task-toggle'){const task=x.data.doctorTasks?.find(t=>t.id===node.dataset.id);if(task?.owner==='Bác sĩ'){task.done=!task.done;x.save();x.notify(task.done?'Đã đánh dấu công việc đã xử lý.':'Đã đưa công việc về trạng thái cần xử lý.')}else x.notify('Công việc thuộc bộ phận phụ trách khác.');return true}
     return false;
   }
   root.CareFlowDoctor={page,action,permitted,texts};
