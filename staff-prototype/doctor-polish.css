@@ -1,0 +1,233 @@
+/* Wave 05 — Doctor UI editorial density and typography
+   Plus Jakarta Sans (Vietnamese), Lucide icon registry, content-led card sizing.
+   Scope: staff-prototype only; intentionally loaded last. */
+:root{
+ --doctor-font:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ --doctor-text:#193650;--doctor-secondary:#536b7f;--doctor-border:#dfe8f0;
+ --doctor-space:18px;--doctor-card:20px;
+}
+html,body,.app-shell{font-family:var(--doctor-font);text-rendering:optimizeLegibility}
+button,input,select,textarea{font-family:var(--doctor-font)}
+body{font-size:13px;color:var(--doctor-text)}
+/* Consistent stroke and icon placement, without icons decorating section headings */
+.doctor-sidebar svg,.doctor-topbar svg,.doctor-screen svg,.support-screen svg,.wave-consult svg{stroke-width:1.85;flex-shrink:0}
+.doctor-sidebar .brand-symbol svg{stroke-width:2}
+.doctor-sidebar .nav-item{font-size:11.5px;font-weight:650;letter-spacing:-.018em}
+.doctor-sidebar .nav-item.active{color:#0a59b2}
+.doctor-sidebar .side-overline{font-size:9px;letter-spacing:.14em}
+.doctor-sidebar .profile-mini strong{font-size:11.5px}
+.doctor-topbar{height:70px}
+.doctor-topbar .breadcrumbs strong{font-size:12px;font-weight:700}
+.doctor-topbar .breadcrumbs .topbar-workspace{font-size:11px}
+.doctor-screen .doctor-kicker,.doctor-overline,.doctor-overview-meta{font-size:9px;letter-spacing:.135em}
+.doctor-heading{margin-top:4px;margin-bottom:20px}
+.doctor-heading h1{font-size:clamp(30px,2.8vw,44px);line-height:1.2;letter-spacing:-.05em;font-weight:800;margin-bottom:9px}
+.doctor-heading p{font-size:12px;line-height:1.75}
+.doctor-section-head h2{font-size:15px;font-weight:750;letter-spacing:-.035em;margin:3px 0}
+.doctor-section-head p{font-size:11px}
+.doctor-screen .btn{font-size:11px;font-weight:700;min-height:40px}
+.doctor-screen .doctor-more-link{font-size:11px;font-weight:700}
+.doctor-screen .doctor-more-link svg{width:15px;height:15px}
+/* Hero: smaller art-to-content ratio; no decorative icon in heading */
+.doctor-hero{min-height:278px;grid-template-columns:minmax(0,1.16fr) minmax(250px,.84fr);border-radius:26px}
+.doctor-hero-content{padding:24px clamp(25px,2.9vw,42px) 25px}
+.doctor-hero-top{font-size:10px}
+.doctor-hero-body{padding-top:17px}
+.doctor-hero h1{font-size:clamp(34px,3vw,49px);letter-spacing:-.055em}
+.doctor-hero-sub{font-size:11.5px;line-height:1.75;margin:11px 0 14px;max-width:480px}
+.doctor-hero-ctas .btn{min-height:41px}
+.doctor-hero-art{min-height:278px}
+.doctor-art-orb{width:174px;height:174px;top:24px;right:93px}
+.doctor-art-ring.ring-one{width:360px;right:-37px;top:-40px}
+.doctor-art-ring.ring-two{width:205px;right:40px;top:37px}
+.doctor-art-floating{bottom:24px;width:205px;left:21%;border-radius:18px;padding:10px 16px}
+.doctor-art-floating>div{padding:7px 0}
+.doctor-overview-meta{margin:17px 2px 10px}
+.doctor-stat-grid{gap:13px;margin-bottom:14px}
+.doctor-stat-card{min-height:156px;padding:17px 21px;border-radius:20px}
+.doctor-stat-card .doctor-icon{width:37px;height:37px;border-radius:12px}
+.doctor-stat-card .doctor-icon svg{width:18px;height:18px}
+.doctor-stat-number{font-size:38px;margin:9px 0 1px;line-height:1.18;letter-spacing:-.06em}
+.doctor-stat-card strong{font-size:11.5px}
+.doctor-stat-card p{font-size:10.5px;margin:4px 0 0}
+.doctor-dashboard-grid{gap:14px}
+.doctor-side-stack{gap:14px}
+.doctor-surface{border-radius:20px}
+.doctor-section-head{padding:19px 20px 15px}
+.doctor-today-list{padding:3px 12px 14px}
+.doctor-appointment{padding:14px 10px;gap:12px}
+.doctor-appointment.is-compact{padding:14px 9px;gap:10px}
+.doctor-appointment .avatar{width:36px;height:36px}
+.doctor-appointment-person strong{font-size:11.5px}
+.doctor-appointment-person span{font-size:10px}
+.doctor-appointment-time strong{font-size:13px}
+.doctor-appointment-time small{font-size:9.5px}
+.doctor-appointment .btn{font-size:10px;min-height:35px}
+.doctor-now{padding-bottom:18px}
+.doctor-now .doctor-section-head,.doctor-labs-today .doctor-section-head{padding:18px 19px 14px}
+.doctor-now-person{margin:15px 19px 9px}
+.doctor-now-person .avatar{width:43px;height:43px}
+.doctor-now>p{margin:7px 19px 13px;font-size:11px}
+.doctor-now>.btn{margin:0 19px}
+.doctor-now-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 19px 14px}
+.doctor-now-details>div{background:#f5f9fd;border:1px solid #e3ebf3;border-radius:11px;padding:9px 11px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.doctor-now-details small{font-size:9px;color:#6d859a}
+.doctor-now-details strong{font-size:10.5px;color:#17466b;line-height:1.5}
+.doctor-labs-today{padding-bottom:10px}
+.doctor-lab-mini{margin:7px 13px;padding:10px;border-radius:11px;width:calc(100% - 26px);gap:9px}
+.doctor-lab-mini .doctor-icon{width:32px;height:32px}
+.doctor-labs-today>.doctor-more-link{margin:7px 18px}
+.doctor-count{font-size:11px;padding:5px 10px}
+.doctor-screen .doctor-empty{min-height:137px;padding:18px}
+.doctor-empty strong{font-size:12px}
+.doctor-empty p{font-size:10.5px}
+/* Schedule: compact information next to an actionable next-visit subcard */
+.doctor-schedule-layout{gap:14px}
+.doctor-week-days{padding:17px;gap:7px}
+.doctor-day{min-height:87px;border-radius:14px;gap:5px}
+.doctor-day strong{font-size:20px}
+.doctor-agenda-subhead{padding-top:18px;padding-bottom:8px}
+.doctor-schedule-main .doctor-today-list{padding:0 12px 12px}
+.doctor-schedule-summary{padding-bottom:17px}
+.doctor-schedule-summary>.doctor-overline{padding:19px 18px 0}
+.doctor-schedule-summary h2{margin:6px 18px 4px;font-size:16px}
+.doctor-schedule-summary>p{margin:0 18px 12px;font-size:11px}
+.doctor-schedule-summary .doctor-divider{margin:12px 18px}
+.doctor-sum{margin:10px 18px}
+.doctor-sum strong{font-size:16px}
+.doctor-schedule-aside{display:flex;flex-direction:column;gap:12px}
+.doctor-schedule-aside .doctor-tip{margin:0}
+.doctor-next-visit{padding:18px}
+.doctor-next-patient{display:flex;align-items:center;gap:10px;margin:14px 0 12px}
+.doctor-next-patient .avatar{width:41px;height:41px;flex:none}
+.doctor-next-patient>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.doctor-next-patient strong{font-size:11px;color:#163d60}
+.doctor-next-patient span{font-size:10px;color:#728ca2}
+.doctor-next-action{display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:space-between}
+.doctor-next-action .btn{font-size:10px;min-height:34px}
+.doctor-next-none{font-size:11px;color:#6c869b;margin:12px 0 0}
+/* Patient roster as useful paired cards rather than oversized full-width rows */
+.doctor-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:16px}
+.doctor-directory-row{border:1px solid #e7eef4;border-radius:15px;padding:14px 16px;gap:11px;background:#fcfdff;min-width:0}
+.doctor-directory-row:last-child{border:1px solid #e7eef4}
+.doctor-directory-row:hover{background:#f4f9ff;border-color:#cfe3f5}
+.doctor-directory-row>.avatar{width:43px;height:43px}
+.doctor-directory-row strong{font-size:11.5px}
+.doctor-directory-row div span{font-size:10px}
+.doctor-directory-open{width:35px;height:35px}
+.doctor-search input{font-size:11px}
+/* Compact status/results details */
+.doctor-results-grid{gap:14px}
+.doctor-lab-list{padding:7px 14px 15px}
+.doctor-lab-row{padding:12px 9px;gap:10px}
+.doctor-result-preview{padding:20px 22px 23px}
+.doctor-result-banner{margin:11px 0 17px;padding:16px;border-radius:14px}
+.doctor-result-preview>h2{font-size:21px}
+.doctor-result-preview>p{margin:6px 0 10px}
+.doctor-result-preview .doctor-divider{margin:11px 0}
+.doctor-result-datum{margin:11px 0}
+.doctor-result-preview .doctor-tip{margin:13px 0}
+.doctor-tip{padding:12px 14px;border-radius:13px;font-size:10.5px}
+.doctor-lab-row .doctor-icon{width:34px;height:34px}
+/* Follow-up: checklist alongside small real-state summary */
+.doctor-followups-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(235px,.58fr);gap:14px;align-items:start}
+.doctor-followups-summary{padding:21px}
+.doctor-followups-mini{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:16px;color:#526e83;font-size:11px}
+.doctor-followups-mini strong{font-size:24px;letter-spacing:-.05em;color:#134069;font-variant-numeric:tabular-nums}
+.doctor-followups-summary .doctor-divider{margin:15px 0}
+.doctor-followups-summary .btn{width:100%;justify-content:center}
+.doctor-task-list{padding:8px 16px 17px}
+.doctor-task{gap:11px;padding:15px 6px}
+.doctor-task-count{font-size:17px;min-width:29px}
+.doctor-task strong{font-size:11.5px}
+.doctor-task>div:nth-child(2)>span{font-size:10px}
+.doctor-task-actions .btn{min-height:34px}
+/* Clinical workspace: content defines height, not empty 700px scaffolds */
+.wave-consult .consult-grid{gap:13px}
+.wave-consult .consult-grid .panel{border-radius:18px}
+.wave-consult .consult-top{padding:18px 21px;margin-bottom:12px;border-radius:20px}
+.wave-consult .consult-identity h1{font-size:clamp(22px,2vw,28px)}
+.wave-consult-progress{padding:11px 16px;border-radius:17px;margin-bottom:12px}
+.wave-progress-step strong{font-size:10px}
+.wave-progress-step small{font-size:9px}
+.wave-consult .consult-queue,.wave-consult .consult-editor{min-height:0}
+.wave-consult .consult-grid .consult-right{align-self:start}
+.wave-consult .consult-editor-body{padding:17px 18px}
+.wave-consult .consult-editor textarea{min-height:105px}
+.wave-consult .consult-editor textarea.mid-input{min-height:85px}
+.wave-consult .consult-tabs .tab{padding:13px 8px;font-size:10.5px}
+.wave-consult .field{font-size:11px}
+.wave-consult .consult-person{padding:9px 8px;min-height:52px}
+.wave-consult .consult-person .avatar{width:29px;height:29px}
+.wave-consult .consult-queue .panel-head,.wave-consult .consult-right .panel-head{padding:15px 15px 11px}
+.wave-consult .consult-queue-list{padding:3px 8px 12px}
+.wave-consult .related-item{min-height:50px}
+.wave-consult .consult-right .followup-panel>p{font-size:11px}
+/* Clinical subpages keep reading surfaces opaque and avoid placeholder-only empty space */
+.support-screen .support-hero{margin-bottom:18px}
+.support-screen .support-hero h1{font-size:clamp(27px,2.6vw,38px);line-height:1.22;letter-spacing:-.045em}
+.support-screen .support-hero p{font-size:12px}
+.support-screen .panel-head{padding:17px 19px 12px}
+.support-screen .panel-head h2{font-size:14px}
+.support-screen .support-two-col,.support-screen .support-review-grid{gap:14px}
+.support-screen .support-form{padding:14px 18px}
+.support-screen .support-form input,.support-screen .support-form select,.support-screen .support-form textarea{font-size:12px}
+.support-screen .support-patient-row{min-height:61px}
+.support-screen .support-document{padding:16px;border-radius:16px}
+.support-screen .support-document h2{font-size:18px;letter-spacing:-.03em}
+.support-screen .support-document>p{font-size:11px;line-height:1.7}
+.support-rx-metadata{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:17px}
+.support-rx-metadata>div{display:flex;flex-direction:column;gap:5px;padding:12px;background:#fff;border:1px solid #dfebf5;border-radius:12px}
+.support-rx-metadata span{font-size:10px;color:#71869b}
+.support-rx-metadata strong{font-size:11px;color:#1c486a}
+.support-screen .support-check-list{margin-top:6px}
+/* Patient record */
+.profile-banner{min-height:151px;padding:20px 23px;border-radius:19px}
+.profile-head-details h1{font-size:clamp(24px,2vw,29px)}
+.profile-grid .panel,.profile-side .panel{border-radius:18px}
+.profile-body{padding:18px 23px}
+.profile-body h2{font-size:14px}
+.doctor-screen .pill,.support-screen .pill,.wave-consult .pill{font-size:10px}
+/* Brand preserved, but status badges never compete with content */
+.app-footer{padding-top:13px;padding-bottom:16px;font-size:10px;color:#708599}
+.doctor-hero .doctor-hero-mark{letter-spacing:.145em}
+@media(max-width:1440px){
+ .doctor-hero{min-height:260px}
+ .doctor-hero-content{padding:22px 27px}
+ .doctor-hero-art{min-height:260px}
+ .doctor-dashboard-grid{grid-template-columns:minmax(0,1.4fr) minmax(275px,.9fr)}
+ .doctor-appointment.is-compact .doctor-appointment-person span{font-size:9px}
+ .doctor-appointment.is-compact .doctor-appointment-action .btn{padding-inline:10px}
+ .doctor-appointment.is-compact{gap:8px}
+}
+@media(max-width:1290px){
+ .doctor-dashboard-grid{grid-template-columns:1fr}
+ .doctor-side-stack{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .doctor-schedule-aside{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+ .doctor-schedule-aside .doctor-tip{grid-column:1/-1}
+ .doctor-followups-grid{grid-template-columns:1fr}
+ .doctor-followups-summary{max-width:none}
+}
+@media(max-width:1050px){
+ .doctor-directory{grid-template-columns:1fr}
+ .doctor-stat-card{min-height:150px}
+ .doctor-schedule-aside{grid-template-columns:1fr}
+}
+@media(max-width:690px){
+ .doctor-hero{grid-template-columns:1fr}
+ .doctor-hero-art{display:none}
+ .doctor-hero-content{min-height:290px;padding:20px}
+ .doctor-hero h1{font-size:34px}
+ .doctor-stat-grid,.doctor-side-stack{grid-template-columns:1fr}
+ .doctor-directory{padding:12px}
+ .doctor-directory-row{flex-wrap:wrap}
+ .doctor-directory-status{margin-left:auto}
+ .doctor-today-list{padding:4px 8px 12px}
+ .doctor-appointment{flex-wrap:wrap}
+ .doctor-appointment-action{margin-left:auto}
+ .doctor-followups-summary{padding:17px}
+ .wave-consult .consult-grid,.wave-consult .consult-right{grid-template-columns:1fr}
+ .wave-consult .consult-tabs{overflow-x:auto}
+ .wave-consult .consult-tabs .tab{white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
