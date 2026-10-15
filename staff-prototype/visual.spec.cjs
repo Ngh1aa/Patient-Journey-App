@@ -75,3 +75,19 @@ test('1920px hero and dense-table presentation screenshots',async({page},testInf
     expect(dims.scroll).toBeLessThanOrEqual(dims.width+1);
   }
 });
+
+test('compact sidebar preserves accessible names and all three role journeys',async({page},testInfo)=>{
+  await page.setViewportSize({width:900,height:900});
+  await page.goto('/staff-prototype/index.html#/reception');
+  await expect(page.locator('.sidebar-nav a[aria-label="Bệnh nhân"]')).toBeVisible();
+  await expect(page.locator('.compact-role-link')).toBeVisible();
+  await page.locator('.compact-role-link').click();
+  await expect(page).toHaveURL(new RegExp('#/welcome$'));
+  await expect(page.locator('.support-role-cards button')).toHaveCount(3);
+  await page.locator('.support-role-cards [data-role="nurse"]').click();
+  await expect(page).toHaveURL(new RegExp('#/nursing$'));
+  await expect(page.locator('.sidebar-nav a[aria-label="Chuẩn bị khám"]')).toBeVisible();
+  await page.screenshot({path:testInfo.outputPath('compact-nursing.png'),fullPage:true,animations:'disabled'});
+  const width=await page.evaluate(()=>({v:innerWidth,w:document.documentElement.scrollWidth}));
+  expect(width.w).toBeLessThanOrEqual(width.v+1);
+});
