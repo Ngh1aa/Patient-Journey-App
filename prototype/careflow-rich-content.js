@@ -149,7 +149,7 @@
     ${section('Kênh liên hệ',`<div class="support-grid rich-contact-grid">
       <button type="button" data-action="go" data-to="I5">${h.I('message-circle',25)}<strong>Nhắn tin</strong><small>Trong ứng dụng</small></button>
       <button type="button" disabled aria-label="Zalo chưa kết nối">${h.I('message-circle',25)}<strong>Zalo</strong><small>Chưa kết nối</small></button>
-      <button type="button" data-action="clinic-call">${h.I('phone',25)}<strong>Gọi lại</strong><small>Gửi yêu cầu demo</small></button></div>`)}
+      <button type="button" data-action="clinic-call">${h.I('phone',25)}<strong>Gọi lại</strong><small>Gửi yêu cầu demo</small></button></div><button type="button" class="btn text" data-action="go" data-to="I1">Hỏi phòng khám về chăm sóc sau khám →</button>`)}
     ${section('Gửi yêu cầu hỗ trợ',h.form('support',helpContent,'Gửi yêu cầu','primary'))}
     ${waiting?`<aside class="rich-support-request">${pill('Đang xử lý (demo)','warning')}<p>${H(waiting.type==='callback'?'Yêu cầu gọi lại':'Yêu cầu hỗ trợ')} · Phòng khám chưa phản hồi</p></aside>`:''}
     ${section('Câu hỏi thường gặp',`<div class="rich-faqs">${[
