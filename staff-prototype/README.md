@@ -6,7 +6,7 @@
 
 **Premium Neo-Minimal Healthcare / Bold Editorial / Selective Soft Glass.** Inspired by the three user-provided mobile screenshots: large typographic contrasts, generous spacing, royal-blue highlights, pill controls and a floating frosted journey visual. Clinical workflows keep opaque reading surfaces and legible controls. It intentionally translates, rather than copies, mobile compositions for desktop.
 
-Brand source: `../design/tokens.json` (#0A67D1, #F2F6FB, Be Vietnam Pro). Doctor-only presentation layer: `doctor-showcase.js` + `doctor-showcase.css`.
+Brand source: `../design/tokens.json` (#0A67D1, #F2F6FB, Plus Jakarta Sans). Doctor-only presentation layer: `doctor-showcase.js` + `doctor-showcase.css`.
 
 ## Active screens
 
@@ -38,3 +38,11 @@ Active Playwright suite: `doctor.spec.cjs` at 1280, 1440, 1920px. Older `browser
 ## Design handoff
 
 Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting its Flow OS, design-system contracts and screenshot-based visual QA. The existing HTML/CSS/JS stack remains intentionally unchanged. The standalone prototype deploys under GitHub Pages at `staff-prototype/`.
+
+## Doctor typography & density refresh
+
+- Fonts: Plus Jakarta Sans, Google Fonts Vietnamese subset. System fallback always available; no font binaries committed.
+- Icon system: curated 35 Lucide SVG icons bundled as `doctor-icons.js`, under the Lucide ISC license (`LUCIDE-LICENSE.txt`). Use icons for navigation, actions and operational metrics; no icons attached to page/section headings.
+- Density: content-height statistics, smaller hero, condensed clinical forms, paired patient cards, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
+- Terminology: bệnh nhân, lượt khám, khám lâm sàng, cận lâm sàng, nhận định lâm sàng, kế hoạch xử trí, hoàn tất hồ sơ. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.
+- Preserve clinical boundaries: no real prescriptions, results release, medical recommendations or EHR integration. 
