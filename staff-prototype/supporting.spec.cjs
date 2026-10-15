@@ -35,7 +35,8 @@ test('reception creates, confirms and checks in a mock booking',async({page})=>{
   await expect(page.locator('.toast')).toContainText('Đã ghi nhận bệnh nhân');
   await page.locator('[data-action="ready-patient"]').first().click();
   await page.goto('/staff-prototype/index.html#/queue');
-  await expect(page.locator('.support-queue-card')).toContainText(['Nguyễn Minh Anh','Phạm Gia Huy']);
+  await expect(page.locator('.support-kanban')).toContainText('Nguyễn Minh Anh');
+  await expect(page.locator('.support-kanban')).toContainText('Phạm Gia Huy');
 });
 test('request filters and document mock flows retain state',async({page})=>{
   await page.goto('/staff-prototype/index.html#/requests');
