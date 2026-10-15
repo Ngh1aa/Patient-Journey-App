@@ -55,7 +55,7 @@ test('doctor schedule navigation and patient queue',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
  await expect(page.locator('.doctor-today-list')).toContainText('Võ Thanh Tùng');
  await page.locator('[data-action="next-week"]').click();
- await expect(page.locator('.doctor-empty')).toContainText('Chưa có lịch');
+ await expect(page.locator('.doctor-empty')).toContainText('Không có lịch khám');
  await page.locator('[data-action="doc-today"]').first().click();
  await expect(page.locator('.doctor-today-list')).toContainText('Võ Thanh Tùng');
  await page.goto('/staff-prototype/index.html#/doctor/queue');
