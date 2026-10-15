@@ -1,0 +1,132 @@
+
+/* CareFlow — Clinic Portfolio Wave 03
+   Visual grammar: calm medical editorial, structured workflow, same CareFlow tokens. */
+.wave-screen{min-width:0}
+.wave-heading{margin:4px 0 26px}
+.wave-heading .eyebrow{font-size:11px;letter-spacing:.16em;font-weight:700;color:#467aa9;margin-bottom:9px}
+.wave-heading h1{font-size:clamp(27px,2.4vw,34px);line-height:1.25;letter-spacing:-.045em;color:#123d63;margin:0 0 8px}
+.wave-heading p{color:#526e87;max-width:720px;font-size:13px;margin:0;line-height:1.75}
+.wave-crumb{display:flex;align-items:center;gap:12px;color:#8295a9;font-size:12px;margin:0 0 19px}
+.wave-crumb button{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:#356c9c;font-size:12px;font-weight:700;padding:8px 0}
+.wave-schedule-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(285px,.7fr);gap:20px;align-items:start}
+.wave-panel{min-width:0;overflow:hidden}
+.wave-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:24px 26px 19px;border-bottom:1px solid #e7eef6}
+.wave-panel-head h2{font-size:18px;line-height:1.35;letter-spacing:-.025em;color:#193e62;margin:3px 0 5px}
+.wave-panel-head p{font-size:12px;color:#648198;margin:0;line-height:1.65}
+.wave-panel-head .eyebrow{font-size:10px;color:#5e85aa;font-weight:700;letter-spacing:.12em}
+.wave-panel-head>svg{color:#2b72b7;flex:none}
+.wave-detail-tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:21px 26px;background:#fbfdff}
+.wave-detail-tiles>div{display:flex;flex-direction:column;gap:7px;padding:14px;border:1px solid #e3edf6;border-radius:12px;background:#fff}
+.wave-detail-tiles span{font-size:11px;color:#698099}
+.wave-detail-tiles strong{font-size:12px;color:#1e4869;line-height:1.5}
+.wave-warning{margin:20px 26px;display:flex;gap:10px;background:#fff6e5;color:#805800;border:1px solid #f1debc;border-radius:13px;padding:15px;font-size:12px;line-height:1.65}
+.wave-warning svg{flex:none}
+.wave-form-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.84fr);gap:0;padding:7px 26px 28px}
+.wave-form-layout>section{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:18px 23px 17px 0}
+.wave-form-layout>section:nth-child(2){border-left:1px solid #edf1f6;padding-left:23px;padding-right:0}
+.wave-form-layout h3{display:flex;align-items:center;gap:9px;color:#1b476c;font-size:15px;margin:0}
+.wave-form-layout h3 svg{color:var(--blue)}
+.wave-form-layout p{color:#66819a;line-height:1.7;font-size:11px;min-height:60px;margin:0 0 6px}
+.wave-label{font-size:12px;font-weight:700;color:#4e6e88;margin-top:4px}
+.wave-form-layout select,.wave-form-layout textarea{border:1px solid #c9dceb;border-radius:12px;background:#fff;color:#1c3952;padding:12px 13px;width:100%;min-width:0;font-size:13px}
+.wave-form-layout textarea{resize:vertical;line-height:1.6}
+.wave-form-layout .btn{margin-top:auto;min-height:44px}
+.wave-confirm{margin:0 26px 24px;border:1px solid #bdd9f4;background:#edf6ff;border-radius:15px;padding:18px;display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px}
+.wave-confirm-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#d7eafe;color:var(--blue)}
+.wave-confirm .eyebrow{font-size:10px;font-weight:700;letter-spacing:.11em;color:#517da4}
+.wave-confirm h3{font-size:16px;margin:3px 0 7px;color:#164870}
+.wave-confirm p{font-size:12px;line-height:1.7;color:#416987;margin:5px 0}
+.wave-confirm-actions{grid-column:2;display:flex;gap:9px;justify-content:flex-start;flex-wrap:wrap}
+.wave-history{padding:22px 23px;display:flex;flex-direction:column;gap:10px}
+.wave-history-item{display:flex;gap:12px;align-items:start;font-size:12px}
+.wave-dot{display:inline-flex;width:10px;height:10px;margin:6px 0 0 2px;border:3px solid #0a67d1;border-radius:50%;box-shadow:0 0 0 5px #e8f3ff;flex:none}
+.wave-history-item>div{display:flex;flex-direction:column;gap:5px}
+.wave-history-item strong{color:#24496a}
+.wave-history-item small{color:#62809a;line-height:1.7}
+.wave-empty{padding:28px 15px;font-size:12px;color:#718ba3;text-align:center;line-height:1.8;border:1px dashed #cfdfef;background:#f7fbff;border-radius:13px}
+.wave-note{display:flex;align-items:start;gap:9px;font-size:11px;line-height:1.8;color:#5f7d97;margin:0 22px 24px;padding:14px;border-radius:12px;background:#f2f8fd}
+.wave-note svg{flex:none;color:var(--blue)}
+.wave-drawer-aux{padding:0 30px 12px}
+.wave-drawer-aux .btn{width:100%}
+.wave-inline-nav{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.wave-inline-nav a{border:1px solid #d9e6f3;background:#fff;color:#577590;padding:10px 15px;border-radius:11px;font-size:12px;font-weight:700}
+.wave-inline-nav a:hover{border-color:#a8cdee;color:var(--blue)}
+.wave-inline-nav a.selected{background:#e4f1ff;border-color:#c5dff7;color:#075cb8}
+.wave-nurse-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:23px}
+.wave-nurse-stat{background:#fff;border:1px solid #e3ebf5;border-radius:19px;padding:20px 22px;min-height:150px;display:grid;grid-template-columns:52px 1fr;align-items:center;gap:1px 14px;box-shadow:var(--shadow)}
+.wave-stat-icon{grid-row:span 3;display:flex;align-items:center;justify-content:center;width:47px;height:47px;color:#0a67d1;background:#e9f3fd;border-radius:15px}
+.wave-nurse-stat small{font-size:12px;color:#607c95}
+.wave-nurse-stat strong{font-size:30px;line-height:1.2;font-weight:700;letter-spacing:-.05em;color:#153f63;font-variant-numeric:tabular-nums}
+.wave-nurse-stat>span:last-child{font-size:11px;color:#7890a6}
+.wave-nurse-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,.95fr);gap:20px;align-items:start}
+.wave-nurse-items,.wave-task-list{padding:10px 22px 20px}
+.wave-nurse-item{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;padding:15px 4px;border-bottom:1px solid #eef2f6}
+.wave-nurse-item:last-child{border-bottom:0}
+.wave-person{display:inline-flex;align-items:center;gap:11px;min-width:0}
+.wave-person>span:last-child{display:flex;min-width:0;flex-direction:column;gap:3px}
+.wave-person strong{font-size:12px;color:#284765;line-height:1.55}
+.wave-person small{font-size:10px;color:#718aa1;line-height:1.5}
+.wave-task{display:flex;align-items:center;gap:13px;padding:18px 4px;border-bottom:1px solid #ebf1f7;min-width:0}
+.wave-task:last-child{border-bottom:0}
+.wave-task-glyph{flex:none;display:flex;align-items:center;justify-content:center;width:41px;height:41px;border-radius:13px;background:#edf5fd;color:#357bb7}
+.wave-task>div{min-width:0;flex:1}
+.wave-task strong{display:block;font-size:12px;color:#244b6f;line-height:1.6}
+.wave-task small{display:block;font-size:11px;line-height:1.6;color:#7890a4;margin-top:3px}
+.wave-task .btn{flex:none}
+.wave-followup-list{padding:9px 25px 18px}
+.wave-followup-list .wave-task{padding:20px 6px}
+.wave-followup-list .eyebrow{font-size:9px;font-weight:700;color:#5984a8;letter-spacing:.12em}
+.wave-followup-list .wave-task.is-done{background:#f9fcfa}
+.wave-panel-foot{display:flex;justify-content:space-between;gap:10px;padding:16px 26px;font-size:11px;color:#748da4;background:#f9fbfd;border-top:1px solid #edf1f6}
+.wave-table-wrap{width:100%;overflow-x:auto}
+.wave-table{width:100%;border-collapse:collapse;min-width:720px}
+.wave-table th{padding:16px 18px;font-size:10px;letter-spacing:.08em;color:#6584a0;background:#f9fcff;text-align:left;text-transform:uppercase;border-bottom:1px solid #e5eef7}
+.wave-table td{padding:17px 18px;border-bottom:1px solid #ecf1f7;font-size:12px;color:#355570}
+.wave-table td>small{display:block;color:#7990a3;margin-top:6px}
+.wave-table td:last-child{text-align:right}
+.wave-table tr:last-child td{border-bottom:0}
+/* W07: stronger clinical hierarchy and less generic SaaS-card appearance */
+.wave-consult{--clinical-ink:#143b5c}
+.wave-workspace-eyebrow{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px;color:#6989a5;font-weight:700;font-size:10px;letter-spacing:.12em}
+.wave-workspace-kicker{display:inline-flex;align-items:center;gap:8px;color:#0a67d1}
+.wave-consult .consult-top{padding:23px 27px 22px;border:1px solid #dae7f3;background:linear-gradient(110deg,#fff 55%,#f1f7fe);border-radius:18px;margin-bottom:15px;box-shadow:0 10px 22px #173e5c08}
+.wave-consult .consult-identity h1{font-size:clamp(21px,2vw,28px);letter-spacing:-.045em;color:#123c61}
+.wave-consult .consult-idline{font-size:11px;color:#5280ab;letter-spacing:.07em}
+.wave-consult .consult-identity .person-lines>small{font-size:12px;color:#587995}
+.wave-consult .consult-actions .btn{min-height:43px}
+.wave-consult-progress{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #e1eaf4;border-radius:17px;padding:18px 24px;margin-bottom:18px;box-shadow:var(--shadow)}
+.wave-progress-step{display:grid;grid-template-columns:30px 1fr;align-items:center;column-gap:11px;row-gap:2px;min-width:0}
+.wave-progress-step>span{grid-row:span 2;display:flex;width:30px;height:30px;justify-content:center;align-items:center;background:#f1f6fc;border:1px solid #deebf6;color:#6986a1;border-radius:50%;font-size:11px;font-weight:700}
+.wave-progress-step.is-current>span{background:#0a67d1;color:#fff;border-color:#0a67d1}
+.wave-progress-step strong{font-size:12px;font-weight:700;color:#284e6d;line-height:1.4}
+.wave-progress-step small{font-size:10px;color:#7d94a8;line-height:1.4}
+.wave-progress-line{height:1px;flex:1;background:linear-gradient(90deg,#b4d0ea,#e0eaf4);min-width:8px}
+.wave-consult .consult-grid{grid-template-columns:minmax(185px,210px) minmax(0,1fr) minmax(225px,265px);gap:15px}
+.wave-consult .consult-grid .panel{border:1px solid #e0eaf4;box-shadow:0 8px 28px #21466c08;border-radius:17px}
+.wave-consult .consult-queue .panel-head h2{font-size:14px}
+.wave-consult .consult-queue .panel-head p{font-size:11px}
+.wave-consult .consult-person{padding:14px 11px;min-height:66px}
+.wave-consult .consult-person.selected{background:#e7f2ff;box-shadow:inset 0 0 0 1px #bedcf7}
+.wave-consult .consult-person .person-lines strong{font-size:12px}
+.wave-consult .consult-person .person-lines small{font-size:10px}
+.wave-consult .consult-editor{min-height:715px}
+.wave-consult .consult-editor-body{padding:25px 27px 30px}
+.wave-consult .consult-tabs{padding:0 20px;background:#fcfdff}
+.wave-consult .consult-tabs .tab{padding:19px 13px 17px;font-size:12px}
+.wave-consult .field{font-size:12px;color:#426886;gap:10px}
+.wave-consult .field textarea{font-size:13px;line-height:1.75;min-height:162px;border-color:#ccddeb;padding:15px 17px}
+.wave-consult .field textarea.mid-input{min-height:100px}
+.wave-consult .field .read-only-value{font-size:13px;background:#f5f9fe;border-color:#d4e4f2}
+.wave-consult .consult-right .panel-head h2{font-size:14px}
+.wave-consult .related-item{min-height:62px}
+@media(max-width:1420px){.wave-consult .consult-grid{grid-template-columns:minmax(175px,192px) minmax(0,1fr) minmax(215px,245px)}.wave-consult .consult-editor-body{padding:20px 18px}}
+@media(max-width:1290px){.wave-consult .consult-grid{grid-template-columns:minmax(180px,210px) minmax(0,1fr)}.wave-consult .consult-right{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.wave-schedule-grid,.wave-nurse-layout{grid-template-columns:1fr}}
+@media(max-width:980px){.wave-consult .consult-grid{grid-template-columns:1fr}.wave-consult .consult-right{grid-column:auto}.wave-nurse-layout{grid-template-columns:1fr}.wave-nurse-stats{gap:10px}.wave-nurse-stat{grid-template-columns:1fr;padding:15px}.wave-stat-icon{grid-row:auto}.wave-workspace-eyebrow>span:last-child{display:none}}
+@media(max-width:760px){.wave-form-layout{grid-template-columns:1fr}.wave-form-layout>section{padding-right:0}.wave-form-layout>section:nth-child(2){border:0;border-top:1px solid #e6eef7;padding:18px 0 0}.wave-detail-tiles{grid-template-columns:1fr}.wave-nurse-stats{grid-template-columns:1fr}.wave-consult-progress{padding:15px;gap:5px}.wave-progress-step{display:flex;align-items:center;flex-direction:column;text-align:center}.wave-progress-step small{display:none}.wave-progress-step strong{font-size:10px}.wave-consult .consult-top{padding:20px}.wave-consult .consult-right{grid-template-columns:1fr}.wave-nurse-item .btn{margin-left:auto}.wave-task{flex-wrap:wrap}.wave-task .btn{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.wave-screen *{scroll-behavior:auto}}
+
+/* Keep the three-role showcase switch readable at desktop sidebar widths. */
+.role-switch .switch-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.role-switch .switch-options button{white-space:nowrap;font-size:11px;min-height:36px}
+.role-switch .switch-options button:last-child{grid-column:1/-1;min-height:35px}
+@media(max-width:980px){.sidebar .role-switch{display:none}}

@@ -1,4 +1,4 @@
-# CareFlow Clinic — 16-surface desktop portfolio prototype
+# CareFlow Clinic — 20-surface desktop portfolio prototype
 
 This is a standalone, buildless HTML/CSS/JS **synthetic interactive prototype** added alongside (not instead of) the existing 47-screen patient mobile browser prototype.
 
@@ -60,3 +60,14 @@ node prototype/node_modules/@playwright/test/cli.js test --config=staff-prototyp
 ```
 
 If Playwright dependencies are available from the patient prototype, the staff browser test can be run with the repo's Node/Playwright toolchain. Inspect 1280, 1440, and 1920px screenshot compositions and the keyboard-flow evidence as a separate visual QA gate.
+
+## Wave 03: W07 + appointment changes + Nursing Desk
+
+Visual polish focuses on W07 Clinical Workspace with a three-stage journey header, stronger clinical typography, denser patient queue and better data grouping. No clinical decision support is created.
+
+- `#/schedule/a-018`: change or cancel an eligible appointment with a mandatory reason, conflict guard and explicit confirmation; status moves to pending after rescheduling, cancellation is final in the session; history is recorded in mock session state.
+- `#/nursing`: nurse dashboard (demo role).
+- `#/nursing/prepare`: prepare arrived patients and hand over to a doctor.
+- `#/nursing/followups`: mark internal coordination tasks handled/unhandled.
+
+The role switch in the sidebar offers Reception, Doctor, Nurse. All data is synthetic and no real communication, consultation, medication order, prescription or patient-data access occurs. Shared state persists only inside the browser session. The test file `wave3.spec.cjs` covers schedule safeguards, nurse handoff and W07 screenshot captures in Chromium at 1280 and 1440 pixels.
