@@ -269,7 +269,7 @@
     $('auth-jump').innerHTML = isAuth ? window.CareFlowIcon('arrow-right', 28) : '';
     $('phone-frame').dataset.authStep = id === 'A1' ? (u.otpSent ? '2' : '1') : '3';
     $('back').hidden = ['A1', 'B1', 'D1', 'K2', 'K5'].includes(id);
-    $('notifications').hidden = !s.authenticated;
+    $('notifications').hidden = !s.authenticated || isAuth;
     $('phone-content').dataset.screen = id;
     $('phone-content').dataset.guarded = g ? g[0] : '';
     $('phone-content').innerHTML = g
