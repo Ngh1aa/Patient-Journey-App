@@ -4,7 +4,7 @@
   const M = root.CareFlowModel,
     VI = root.CareFlowCopy,
     C = VI.common,
-    I = (name, size = 22) => root.CareFlowIcon(name, size);
+    I = (name, size = 22) => root.CareFlowIcon(name, size).replace('<svg ', '<svg aria-hidden="true" ');
   const esc = (x) =>
     String(x ?? '')
       .replaceAll('&', '&amp;')
@@ -28,8 +28,10 @@
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
   const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
   const facilityCard = () => `<section class="facility-card"><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
-  const row = (title, hint, to, icon = 'chevron-right', extra = {}) =>
-    `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`;
+  const row = (title, hint, to, icon = 'chevron-right', extra = {}) => {
+    const description = hint || VI.layout.rowHints[to];
+    return `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${description ? `<small>${esc(description)}</small>` : ''}</span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`;
+  };
   const card = (content, cls = '') =>
     `<section class="card ${cls}">${content}</section>`;
   const note = (text, type = 'info') =>
@@ -50,8 +52,8 @@
     `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
-  const section = (title, html, cls = '') =>
-    `<section class="section ${cls}"><h2>${esc(title)}</h2>${html}</section>`;
+  const section = (title, html, cls = '', icon = 'document') =>
+    `<section class="section ${cls}"><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}">${esc(text)}</span>`;
   const status = (v) =>
@@ -78,7 +80,7 @@
   };
   const modeText = (mode) => (mode === 'online' ? C.online : C.onsite);
   const details = (s, v) =>
-    `<dl class="details"><div><dt>${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
+    `<dl class="details"><div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
     const date = new Date(v.date + 'T12:00:00+07:00');
     const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
@@ -216,6 +218,7 @@
             active.length
               ? active.slice(0, 1).map((x) => visitCard(s, x, true)).join('') + (active.length > 1 ? nav('Xem tất cả ' + active.length + ' lịch hẹn', 'D1', 'text') : '')
               : empty(T.empty, T.emptyLead),
+            '', 'calendar',
           );
         if (v) {
           const next = M.nextAction(v);
@@ -243,6 +246,7 @@
               (v.status === 'completed'
                 ? row(VI.payments[v.payment.status], C.fee, 'H2', 'document')
                 : '') + '</div>',
+            '', 'clock',
           );
         }
         body +=
@@ -459,7 +463,7 @@
       case 'F2':
         body =
           card(
-            `<h2>${esc(l.name)}</h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
+            `<h2 class="card-heading">${I('document',24)}<span>${esc(l.name)}</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
           ) +
           section(T.prepare, `<p>${esc(C.noClinical)}</p>`) +
           (l.timing === 'pre' && !l.continuation ? form(
@@ -479,7 +483,7 @@
           body += nav(T.upload, 'F4');
         if (l.file)
           body += card(
-            `<strong>${esc(l.file.name)}</strong><p>${esc(VI.labs[l.status])}</p>`,
+            `<h2 class="card-heading">${I('document-check',24)}<span>${esc(l.file.name)}</span></h2><p>${esc(VI.labs[l.status])}</p>`,
           );
         if (['available','awaiting-review','reviewed'].includes(l.status) && l.timing === 'pre') {
           if (l.continuation === 'review-during') body += note('Phòng khám đã nhận kết quả. Bác sĩ sẽ xem cùng bạn trong buổi khám.') + nav('Theo dõi bước tiếp nhận', 'E3', 'primary');
@@ -561,7 +565,7 @@
       case 'H2':
         body =
           card(
-            `<span class="eyebrow">${esc(C.fee)}</span><h2>${esc(C.unknownFee)}</h2>${chip(VI.payments[v.payment.status])}`,
+            `<span class="eyebrow">${esc(C.fee)}</span><h2 class="card-heading">${I('document',24)}<span>${esc(C.unknownFee)}</span></h2>${chip(VI.payments[v.payment.status])}`,
           ) + note(T.note);
         if (['unpaid', 'deferred'].includes(v.payment.status))
           body +=
@@ -607,7 +611,7 @@
       case 'H5':
         body = card(
           chip(VI.payments[v.payment.status]) +
-            `<h2>${esc(T.receipt)}</h2>` +
+            `<h2 class="card-heading">${I('document-check',24)}<span>${esc(T.receipt)}</span></h2>` +
             (['paid', 'refunding', 'refunded'].includes(v.payment.status)
               ? `<dl class="details"><div><dt>${esc(T.number)}</dt><dd>${esc('RC-' + v.id)}</dd></div><div><dt>${esc(C.fee)}</dt><dd>${esc(C.unknownFee)}</dd></div></dl>`
               : `<p>${esc(T.empty)}</p>`),
@@ -626,7 +630,7 @@
       case 'H6':
         body =
           section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
-          section(T.medicine, card(`<p>${esc(C.noClinical)}</p>`)) +
+          section(T.medicine, card(`<p>${esc(C.noClinical)}</p>`), '', 'pill') +
           section(T.instructions, `<p>${esc(C.noClinical)}</p>`) +
           nav(T.question, 'I1', 'primary') +
           nav(T.followup, 'J1');
@@ -700,7 +704,7 @@
               .filter((x) => x.visitId === v.id)
               .map((x) =>
                 card(
-                  `<p>${esc(x.text)}</p><small>${esc(new Date(x.at).toLocaleDateString('vi-VN'))}</small>`,
+                  `<p>${esc(x.text)}</p><small class="entry-date">${I('clock',14)}${esc(new Date(x.at).toLocaleDateString('vi-VN'))}</small>`,
                 ),
               )
               .join('') || `<p>${esc(T.empty)}</p>`,
@@ -762,7 +766,7 @@
           s.profiles
             .map((x) =>
               card(
-                `<div class="profile-row"><span class="avatar">${root.CareFlowAvatar(x.id,52)}</span><div><h2>${esc(x.name)}</h2><p>${esc(x.dob?.split('-').reverse().join('/'))}</p>${chip(x.canViewResults ? T.view : T.bookOnly)}</div></div>`,
+                `<div class="profile-row"><span class="avatar">${root.CareFlowAvatar(x.id,52)}</span><div><h2>${esc(x.name)}</h2><p class="entry-date">${I('calendar',14)}${esc(x.dob?.split('-').reverse().join('/'))}</p>${chip(x.canViewResults ? T.view : T.bookOnly)}</div></div>`,
               ),
             )
             .join('') +
@@ -820,7 +824,8 @@
       !['C1', 'C4', 'I1'].includes(id)
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
         : '');
-    if (id === 'B1' || id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
+    if (id === 'B1') return `<div class="screen-masthead home-masthead">${intro}</div>${body}`;
+    if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
     const groups = {
       C: ['ĐẶT LỊCH KHÁM', 'calendar'], D: ['LỊCH KHÁM CỦA BẠN', 'calendar'],
       E: ['ĐẾN PHÒNG KHÁM', 'map-pin'], F: ['XÉT NGHIỆM & KẾT QUẢ', 'document-check'],

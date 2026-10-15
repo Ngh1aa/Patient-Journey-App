@@ -64,7 +64,7 @@
   border: 0;
   border-radius: 50%;
   background: #fff;
-  color: var(--auth-blue, #0866ff);
+  color: var(--auth-blue, #001d57);
   box-shadow: 0 3px 14px rgba(0,45,125,.08);
   cursor: pointer;
 }
@@ -141,7 +141,7 @@
   flex: 1 0 auto;
   margin-top: -24px !important;
   padding: 37px 28px 34px;
-  background: #fff;
+  background: var(--card-gradient);
   color: #202024;
   border-radius: 36px 36px 0 0;
   box-shadow: 0 -8px 22px rgba(20,35,65,.035);
@@ -188,9 +188,9 @@
 }
 .auth-panel input:not([type='radio'],[type='checkbox']):focus-visible,
 .auth-panel textarea:focus-visible {
-  outline-color: #0754ca;
+  outline-color: #001640;
   background: white;
-  border-color: #0754ca;
+  border-color: #001640;
 }
 .auth-panel textarea {
   min-height: 88px;

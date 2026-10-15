@@ -7,6 +7,16 @@
       savedProfiles: 'Hồ sơ đã lưu',
       dobLabel: 'Ngày sinh',
       sharedProfile: 'Người thân · Được xem kết quả',
+      rowHints: {
+        F1: 'Theo dõi xét nghiệm của lượt khám',
+        H5: 'Xem xác nhận khoản thu và biên lai',
+        H6: 'Xem tài liệu bác sĩ đã chia sẻ',
+        I1: 'Gửi câu hỏi sau buổi khám',
+        I3: 'Lưu thay đổi về tình trạng theo ngày',
+        I4: 'Cập nhật việc khám chuyên khoa',
+        I5: 'Đọc phản hồi và gửi tin nhắn',
+        J1: 'Chọn thời gian cho lần khám tiếp',
+      },
       tips: {
         C1: ['Kiểm tra hồ sơ trước khi tiếp tục', 'Lịch hẹn sẽ được lưu vào hồ sơ bạn chọn bên dưới.'],
         C2: ['Nên ghi những gì?', 'Ghi triệu chứng, thời điểm bắt đầu và những thay đổi bạn nhận thấy. Viết ngắn gọn theo cách của bạn.'],

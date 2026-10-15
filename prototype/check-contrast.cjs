@@ -68,6 +68,23 @@ const colorPairs = pairs.map(([fg, bg, target]) => {
     throw new Error('Missing CSS token ' + fg + '/' + bg);
   return { name: fg + ' / ' + bg, fg: tokens[fg], bg: tokens[bg], target };
 });
+// Check the actual translucent stops over the white card backing, including
+// muted secondary text. Token checks against plain white alone miss this case.
+for (const token of ['card-gradient', 'child-gradient', 'selected-gradient']) {
+  const declaration = css.match(new RegExp('--' + token + ':([^;]+);'))?.[1];
+  if (!declaration) throw new Error('Missing CSS gradient ' + token);
+  const stops = [...declaration.matchAll(/rgba\((\d+),(\d+),(\d+),([.\d]+)\)/g)];
+  if (!stops.length) throw new Error('Missing translucent stops for ' + token);
+  for (const [index, stop] of stops.entries()) {
+    const alpha = Number(stop[4]);
+    const bg = '#' + stop.slice(1, 4).map(value =>
+      Math.round(Number(value) * alpha + 255 * (1 - alpha)).toString(16).padStart(2, '0'),
+    ).join('');
+    for (const fg of ['heading', 'muted', 'primary']) {
+      colorPairs.push({name: `${fg} / ${token} stop ${index + 1}`, fg: tokens[fg], bg, target: 4.5});
+    }
+  }
+}
 colorPairs.push({
   name: 'Video text / stage',
   fg: '#d0e0ee',
