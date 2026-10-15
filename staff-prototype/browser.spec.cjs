@@ -6,7 +6,7 @@ const routes = [
   ['W04','/patients/p-001','Nguyễn Minh Anh'],
   ['W05','/appointments/a-018','Nguyễn Minh Anh'],
   ['W06','/doctor','Chào bác sĩ An'],
-  ['W07','/encounters/a-033','Buổi khám'],
+  ['W07','/encounters/a-033','BUỔI KHÁM'],
   ['W08','/results','Kết quả cần xem xét']
 ];
 test('eight showcase surfaces render without JS errors or horizontal page overflow',async ({page},testInfo)=>{
@@ -29,7 +29,7 @@ test('confirming a booking updates drawer status immediately',async ({page})=>{
   await page.locator('.drawer [data-action="confirm-appointment"]').click();
   await expect(page.locator('.drawer')).toContainText('Đã xác nhận');
   await expect(page.locator('.toast')).toContainText('Đã xác nhận lịch');
-  await page.locator('.drawer [data-action="close-drawer"]').click();
+  await page.locator('.drawer [aria-label="Đóng chi tiết lịch"]').click();
   await expect(page.locator('.drawer')).toHaveCount(0);
 });
 test('directory search, patient profile and result review',async ({page})=>{
@@ -65,7 +65,7 @@ test('week navigation and reset recover the showcase state',async ({page})=>{
   await expect(page.locator('.calendar-month')).toContainText('Tuần +1');
   await page.locator('[data-action="today"]').first().click();
   await expect(page.locator('.calendar-month')).toContainText('12 – 18');
-  await page.locator('[data-action="reset-demo"]').first().click();
+  await page.locator('.footer-reset[data-action="reset-demo"]').click();
   await expect(page.locator('.dialog-card')).toContainText('Đặt lại');
   await page.locator('[data-action="confirm-reset"]').click();
   await expect(page.locator('.toast')).toContainText('Đã đặt lại');
