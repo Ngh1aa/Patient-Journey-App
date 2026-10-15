@@ -385,7 +385,7 @@ test('scenario: pre-visit physician review to coordinator handoff',async({page})
  await page.locator('#journey-triage-note').fill('Cần bộ phận tiếp đón xác minh tình trạng và hướng dẫn tiếp nhận.');
  await page.locator('[data-action="doc-triage-handoff"]').click();
  await expect(page.locator('.journey-confirm')).toContainText('Đang chờ điều phối');
- await expect(page.locator('.journey-panel')).toContainText('Điều phối');
+ await expect(page.locator('.journey-page-grid>.journey-panel').last()).toContainText('Điều phối');
  await page.goto('/staff-prototype/index.html#/doctor');
  await expect(page.locator('.doctor-decision-card')).toContainText('0 cần xử lý');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
