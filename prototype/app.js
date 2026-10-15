@@ -42,6 +42,11 @@
     return (ALLOWED_TRANSITIONS[from] || []).includes(to);
   }
 
+  function localISO(offsetDays=0){
+    const date=new Date(Date.now()+offsetDays*86400000);
+    return new Intl.DateTimeFormat("sv-SE",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(date);
+  }
+
   // Unified DateTime Formatter (v2 Section 1.8: "09:30 · Thứ bảy, 20/06")
   function formatAppointmentDateTime(startsAt) {
     const dateText = startsAt || state.selectedDate;
@@ -89,7 +94,7 @@
     screeningChoice: "",
     selectedMode: "in-person", // in-person | online
     selectedProvider: "auto",
-    selectedDate: "2026-10-20",
+    selectedDate: localISO(5),
     selectedSlot: "09:00",
     bookingConsent: true,
     bookingOutcome: "success", // success | slot_unavailable | network_unknown
@@ -100,8 +105,8 @@
     currentAppointment: {
       id: "DEMO-001",
       patientId: "patient-self",
-      startsAt: "2026-10-20T09:30:00+07:00",
-      statusUpdatedAt: "2026-10-20T09:02:00+07:00",
+      startsAt: localISO(5)+"T09:30:00+07:00",
+      statusUpdatedAt: localISO(5)+"T09:02:00+07:00",
       mode: "in-person",
       facilityName: "Phòng khám CareFlow (123 Nguyễn Trãi, Q.1)",
       providerName: "BS. CKII Nguyễn Văn An",
@@ -114,7 +119,7 @@
       safetyAcknowledged: false,
       timeline: [
         { id: "tl-1", label: "Đã gửi yêu cầu", at: "2026-10-20T08:45:00+07:00", state: "done" },
-        { id: "tl-2", label: "Lịch đã được xác nhận", at: "2026-10-20T09:02:00+07:00", state: "done" },
+        { id: "tl-2", label: "Lịch đã được xác nhận", at: localISO(5)+"T09:02:00+07:00", state: "done" },
         { id: "tl-3", label: "Sắp đến giờ khám / Tiếp đón", at: "2026-10-20T09:15:00+07:00", state: "current" },
         { id: "tl-4", label: "Gặp bác sĩ khám", state: "upcoming" },
         { id: "tl-5", label: "Kết quả và hướng dẫn sau khám", state: "upcoming" }
@@ -685,7 +690,7 @@
       // =========================================================================
       case "C4": {
         const slots = ["09:00", "09:30", "10:00", "14:30", "15:00", "15:30"];
-        const days = [20,21,22,23];
+        const days = Array.from({length:5},(_,i)=>localISO(i+1));
 
         return `
           <div class="mini-step">C4 · BƯỚC 3/4</div>
@@ -703,7 +708,7 @@
           </div>
 
           <label class="field-label">Ngày khám · ${formatAppointmentDateTime()}</label>
-          <div class="pill-list" aria-label="Chọn ngày khám">${days.map(day=>`<button type="button" class="day-pill ${state.selectedDate.endsWith("-"+day)?"active":""}" data-action="chooseDate" data-value="2026-10-${day}">${day}/10</button>`).join("")}</div>
+          <div class="pill-list" aria-label="Chọn ngày khám">${days.map(day=>`<button type="button" class="day-pill ${state.selectedDate===day?"active":""}" data-action="chooseDate" data-value="${day}">${new Intl.DateTimeFormat("vi-VN",{day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(new Date(day+"T12:00:00+07:00"))}</button>`).join("")}</div>
           <div class="slots-grid">
             ${slots.map(s => `
               <button type="button" class="slot-btn ${m.slot === s ? "selected" : ""}" data-action="chooseSlot" data-value="${s}">
