@@ -93,8 +93,48 @@
   function supportingContext(){return {data,ui,people,person,appt,e,icon,pill,avatar,statePill,resultPill,btn,pageHeading,appointmentsTable,notify,go,openAppointment,save,render}}
   function activeNav(path){const r=route();if(r.startsWith('/encounters/'))return path.startsWith('/encounters/');return r===path||(r.startsWith('/patients/')&&path==='/patients')}
   function navLink(path,label,glyph){return `<a href="#${path}" class="nav-item ${activeNav(path)?'active':''}" data-route="${path}" ${activeNav(path)?'aria-current="page"':''}>${icon(glyph,19)}<span>${e(label)}</span>${activeNav(path)?'<span class="active-dot"></span>':''}</a>`}
-  function sidebar(){const isDoctor=ui.role==='doctor',isNurse=ui.role==='nurse';return `<aside class="sidebar" aria-label="Điều hướng chính"><div class="brand"><span class="brand-symbol">${icon('heart',22)}</span><span class="brand-name">careflow<span class="brand-tail">clinic</span></span></div><div class="side-divider"></div><div class="side-section"><div class="side-overline">KHÔNG GIAN LÀM VIỆC</div>${navLink(isDoctor?'/doctor':'/reception','Tổng quan','grid')}${navLink('/calendar','Lịch khám','calendar')}${navLink('/patients','Bệnh nhân','users')}${isDoctor?navLink('/encounters/a-033','Buổi khám','clipboard'):''}${navLink('/results','Kết quả','beaker')}${isNurse?`${navLink('/nursing','Điều dưỡng','activity')}${navLink('/nursing/prepare','Chuẩn bị khám','users')}${navLink('/nursing/followups','Theo dõi','clipboard')}`:isDoctor?`${navLink('/clinical/orders','Chỉ định','beaker')}${navLink('/clinical/prescription','Đơn thuốc','file')}${navLink('/clinical/review','Xem lại & ký','shield')}`:`${navLink('/requests','Yêu cầu đặt lịch','clipboard')}${navLink('/checkin','Tiếp nhận','check')}${navLink('/queue','Hàng chờ','activity')}`}</div><div class="sidebar-bottom"><a class="demo-entry-link" href="#/welcome">${icon('spark',16)} Chọn không gian trình diễn</a><div class="role-switch"><div class="mini-label">CHẾ ĐỘ TRÌNH DIỄN</div><div class="switch-options"><button data-action="role" data-role="reception" class="${!isDoctor?'selected':''}" aria-pressed="${!isDoctor}">Lễ tân</button><button data-action="role" data-role="doctor" class="${isDoctor?'selected':''}" aria-pressed="${isDoctor}">Bác sĩ</button><button data-action="role" data-role="nurse" class="${isNurse?'selected':''}" aria-pressed="${isNurse}">Điều dưỡng</button></div></div><div class="profile-mini">${avatar({initials:isDoctor?'VA':isNurse?'DN':'LC',color:'blue'})}<div class="person-lines"><strong>${isDoctor?'BS. Nguyễn Văn An':isNurse?'Điều dưỡng Minh':'Phan Thu Lan'}</strong><small>${isDoctor?'Bác sĩ':isNurse?'Điều dưỡng':'Lễ tân'}</small></div>${icon('dots',19)}</div></div></aside>`}
-  function header(){return `<header class="topbar"><div class="breadcrumbs"><span>CareFlow Clinic</span>${icon('chevron',14)}<strong>${e(currentTitle())}</strong></div><div class="top-actions"><span class="demo-indicator"><span></span> Dữ liệu minh họa</span><button type="button" class="icon-button" aria-label="Thông báo" data-action="notifications">${icon('bell',19)}<span class="notification-dot"></span></button><button type="button" class="icon-button mobile-only" aria-label="Đặt lại bản demo" data-action="reset-demo">${icon('refresh',18)}</button></div></header>`}
+  function sidebar(){
+    const isDoctor=ui.role==='doctor',isNurse=ui.role==='nurse',isReception=!isDoctor&&!isNurse;
+    const label=isDoctor?'Bác sĩ':isNurse?'Điều dưỡng':'Lễ tân';
+    const personName=isDoctor?'BS. Nguyễn Văn An':isNurse?'Điều dưỡng Minh':'Phan Thu Lan';
+    const common=`${navLink(isDoctor?'/doctor':isNurse?'/nursing':'/reception','Tổng quan','grid')}${navLink('/calendar','Lịch khám','calendar')}${navLink('/patients','Bệnh nhân','users')}${navLink('/results','Kết quả','beaker')}`;
+    const roleNav=isDoctor?`${navLink('/encounters/a-033','Buổi khám','clipboard')}${navLink('/clinical/orders','Chỉ định','beaker')}${navLink('/clinical/prescription','Đơn thuốc','file')}${navLink('/clinical/review','Xem lại & ký','shield')}`
+      :isNurse?`${navLink('/nursing/prepare','Chuẩn bị khám','users')}${navLink('/nursing/followups','Theo dõi & bàn giao','clipboard')}${navLink('/queue','Hàng chờ','activity')}`
+      :`${navLink('/requests','Yêu cầu đặt lịch','clipboard')}${navLink('/checkin','Tiếp nhận','check')}${navLink('/queue','Hàng chờ','activity')}`;
+    return `<aside class="sidebar" aria-label="Điều hướng chính">
+      <div class="sidebar-brand-wrap">
+        <div class="brand"><span class="brand-symbol">${icon('heart',22)}</span><span class="brand-name">careflow<span class="brand-tail">clinic</span></span></div>
+        <div class="sidebar-product-note"><span class="sidebar-note-line"></span> CLINIC WORKSPACE <span class="sidebar-note-line"></span></div>
+      </div>
+      <nav class="sidebar-nav" aria-label="Các chức năng CareFlow">
+        <div class="side-section"><div class="side-overline">KHÁM PHÁ HỆ THỐNG</div>${common}</div>
+        <div class="side-divider" aria-hidden="true"></div>
+        <div class="side-section"><div class="side-overline">${isDoctor?'CHUYÊN MÔN':isNurse?'ĐIỀU PHỐI & CHĂM SÓC':'VẬN HÀNH PHÒNG KHÁM'}</div>${roleNav}</div>
+      </nav>
+      <div class="sidebar-bottom">
+        <a class="demo-entry-link" href="#/welcome">${icon('spark',16)} Khám phá các vai trò ${icon('arrow',14)}</a>
+        <div class="role-switch" role="group" aria-label="Chọn không gian trình diễn">
+          <div class="mini-label">CHẾ ĐỘ TRÌNH DIỄN</div>
+          <div class="switch-options">
+            <button type="button" data-action="role" data-role="reception" class="${isReception?'selected':''}" aria-pressed="${isReception}">Lễ tân</button>
+            <button type="button" data-action="role" data-role="doctor" class="${isDoctor?'selected':''}" aria-pressed="${isDoctor}">Bác sĩ</button>
+            <button type="button" data-action="role" data-role="nurse" class="${isNurse?'selected':''}" aria-pressed="${isNurse}">Điều dưỡng</button>
+          </div>
+        </div>
+        <div class="profile-mini">${avatar({initials:isDoctor?'VA':isNurse?'DN':'LC',color:'blue'})}<div class="person-lines"><strong>${personName}</strong><small>${label} · Bản trình diễn</small></div></div>
+      </div>
+    </aside>`;
+  }
+  function header(){
+    const role=ui.role==='doctor'?'Không gian bác sĩ':ui.role==='nurse'?'Không gian điều dưỡng':'Không gian lễ tân';
+    return `<header class="topbar">
+      <div class="breadcrumbs"><span class="topbar-workspace">${e(role)}</span>${icon('chevron',14)}<strong>${e(currentTitle())}</strong></div>
+      <div class="top-actions"><span class="demo-indicator"><span></span> Dữ liệu minh họa</span>
+        <button type="button" class="icon-button" aria-label="Thông báo" data-action="notifications">${icon('bell',19)}<span class="notification-dot"></span></button>
+        <button type="button" class="icon-button mobile-only" aria-label="Đặt lại bản demo" data-action="reset-demo">${icon('refresh',18)}</button>
+      </div>
+    </header>`;
+  }
   function currentTitle(){const r=route(),extra=window.CareFlowWave3?.routeLabels?.[r]||(r.startsWith('/schedule/')?'Quản lý lịch':window.CareFlowSupporting?.routeNames()?.[r]);if(extra)return extra;if(r.startsWith('/encounters'))return 'Buổi khám';if(r.startsWith('/patients/'))return 'Hồ sơ bệnh nhân';if(r.startsWith('/appointments/'))return 'Chi tiết lịch hẹn';return r==='/reception'?'Tổng quan lễ tân':r==='/doctor'?'Tổng quan bác sĩ':r==='/calendar'?'Lịch khám':r==='/results'?'Kết quả':'Bệnh nhân'}
   function shell(content){return `<div class="app-shell">${sidebar()}<div class="main-wrap">${header()}<main id="content" tabindex="-1" class="main-content">${content}</main><footer class="app-footer"><span>CareFlow Clinic · Portfolio concept</span><span>Không sử dụng dữ liệu hoặc dịch vụ y tế thật</span><button data-action="reset-demo" class="footer-reset">${icon('refresh',14)} Đặt lại demo</button></footer></div></div>`}
   function metric(label,num,sub,glyph,tone='blue',spark=true){return `<section class="metric-card"><div class="metric-top"><span>${e(label)}</span><span class="metric-icon ${tone}">${icon(glyph,19)}</span></div><div class="metric-value">${e(num)}${spark?`<span class="metric-spark ${tone}"><svg viewBox="0 0 90 30" aria-hidden="true"><path d="M0 22 L11 17 L23 20 L35 12 L47 16 L60 8 L72 13 L90 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span>`:''}</div><div class="metric-sub">${e(sub)}</div></section>`}
