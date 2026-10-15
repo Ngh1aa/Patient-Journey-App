@@ -187,3 +187,21 @@
 #phone-content[data-screen="B1"] .rich-stat-strip button{min-width:0;overflow-wrap:anywhere}
 #phone-content[data-screen="B1"] .rich-hero,#phone-content[data-screen="B1"] .rich-care-card{min-width:0;max-width:100%;box-sizing:border-box}
 #phone-content[data-screen="B1"]{min-width:0}
+
+/* WebKit/WCAG 2.2: the actual selectable radio must meet the 24x24 CSS px
+   minimum, not just its large wrapping label. Keep a single visible indicator. */
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice input[type="radio"] {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  flex: 0 0 32px;
+  order: 3;
+  margin: 0 2px 0 auto;
+  accent-color: #205ca5;
+}
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice .rich-select-indicator { display: none; }
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice:focus-within {
+  outline: 3px solid #3979c9;
+  outline-offset: 2px;
+}
