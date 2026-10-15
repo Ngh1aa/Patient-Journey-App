@@ -254,6 +254,7 @@
   function render() {
     const id = readRoute().id;
     u.screen = id;
+    $('phone-frame').dataset.screen = id;
     const g = guard(id);
     $('phone-frame').classList.toggle('large-text', !!s.settings.largeText);
     $('phone-frame').classList.toggle(
