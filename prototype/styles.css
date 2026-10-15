@@ -1745,7 +1745,7 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
 
 /* Accessible six-position OTP, a single autofill-capable input owns the value */
 .otp-panel{height:60px;position:relative;margin:10px 0 14px}
-.otp-panel .otp-overlay{position:absolute!important;inset:0;width:100%;height:60px;z-index:2;opacity:.04;caret-color:#0A67D1;border-radius:16px;cursor:text}
+.otp-panel .otp-overlay{position:absolute!important;inset:0;width:100%;height:60px;z-index:2;opacity:0;caret-color:#0A67D1;border-radius:16px;cursor:text}
 .otp-boxes{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;pointer-events:none}
 .otp-digit-box{display:grid;place-items:center;border:1.5px solid #B8CCE0;border-radius:16px;background:#fff;font-size:24px;font-weight:700;color:#0B4A9E}
 .otp-panel:focus-within .otp-digit-box{border-color:#0A67D1}
@@ -1761,3 +1761,7 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
   .phone{height:calc(100dvh - 80px);min-height:540px}
 }
 @media(min-width:721px){#mobile-screen-picker{display:none}}
+
+/* 24-screen audit: body hints and inspector labels retain AA text contrast */
+.phone-scroll .field-hint,.phone-scroll .hint,.inspector dt{color:#475467}
+.phone-scroll .box.hero .field-hint{color:#FFFFFF}
