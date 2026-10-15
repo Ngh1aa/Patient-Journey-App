@@ -180,7 +180,7 @@
 @media (max-width:374px){#phone-content .rich-hero{padding:13px!important}#phone-content .rich-stat-strip button{padding:12px 8px}#phone-content .rich-hero-actions{grid-template-columns:1fr}#phone-content .rich-hero-actions .btn:last-child{grid-column:auto}#phone-content .rich-profile-bento .row{padding:12px 8px}}
 
 .phone-header #notifications{position:relative}
-.phone-header #notifications .navy-notice-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:2px 4px;border-radius:99px;background:#f5ba55;color:#182642;border:2px solid #032b65;font-size:10px;font-weight:800;line-height:12px}
+.phone-header #notifications .navy-notice-dot{position:absolute;right:4px;top:4px;width:11px;height:11px;border-radius:50%;background:#ff5a63;border:2px solid var(--careflow-navy,#0a1f5c);pointer-events:none}
 
 /* Rails retain the next-card peek without widening the enclosing phone scroller. */
 #phone-content[data-screen="B1"] .rich-task-rail,#phone-content[data-screen="B1"] .rich-tips{margin-right:0!important;max-width:100%;box-sizing:border-box}
