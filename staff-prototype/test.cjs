@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const read=(name)=>fs.readFileSync(path.join(__dirname,name),'utf8');
-const html=read('index.html'),app=read('app.js'),doctor=read('doctor-showcase.js'),css=read('doctor-showcase.css');
+const html=read('index.html'),app=read('app.js'),doctor=read('doctor-showcase.js'),css=read('doctor-showcase.css'),icons=read('doctor-icons.js'),polish=read('doctor-polish.css');
 test('public prototype is doctor only',()=>{
   assert.match(app,/function normalizeDoctorPath/);
   assert.match(app,/role:'doctor'/);
@@ -20,5 +20,10 @@ test('consistent brand, responsive constraints and accessibility contracts',()=>
  assert.match(css,/@media\(max-width:1290px\)/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/:focus-visible/);
+ assert.match(html,/Plus\\+Jakarta\\+Sans/);
+ assert.match(html,/doctor-icons\\.js/);
+ assert.match(html,/doctor-polish\\.css/);
+ assert.match(icons,/stethoscope/);
+ assert.match(polish,/doctor-now-details/);
  assert.match(app,/Dữ liệu minh họa/);
 });
