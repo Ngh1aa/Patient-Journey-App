@@ -83,7 +83,7 @@
     const date = new Date(v.date + 'T12:00:00+07:00');
     const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
     const month = new Intl.DateTimeFormat('vi-VN', { month: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${I('user', 20)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
+    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${I('user', 20)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open"><span>${esc(C.viewVisit)}</span>${I('arrow-right', 19)}</span></span></button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
@@ -223,6 +223,25 @@
               ? active.slice(0, 1).map((x) => visitCard(s, x, true)).join('') + (active.length > 1 ? nav('Xem tất cả ' + active.length + ' lịch hẹn', 'D1', 'text') : '')
               : empty(T.empty, T.emptyLead),
           );
+        const canSeeResults = !!(v && M.canViewResults(s, v));
+        body += section(VI.layout.services, `<div class="service-grid" aria-label="Các tiện ích chăm sóc">
+          <button type="button" class="service-tile booking-tile" data-action="begin" aria-label="Bắt đầu đặt lịch khám">
+            <span class="service-top"><span class="service-icon">${I('calendar',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="D1" aria-label="Mở danh sách lịch hẹn">
+            <span class="service-top"><span class="service-icon">${I('clock',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>Lịch hẹn</strong><small>Theo dõi lượt khám</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="F1" ${canSeeResults ? '' : 'disabled aria-disabled="true"'} aria-label="Xem kết quả xét nghiệm">
+            <span class="service-top"><span class="service-icon">${I('document-check',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>Kết quả</strong><small>${canSeeResults ? 'Xét nghiệm liên quan' : v ? 'Chưa được cấp quyền xem' : 'Cần có lượt khám'}</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="I1" ${v ? '' : 'disabled aria-disabled="true"'} aria-label="Theo dõi chăm sóc sau khám">
+            <span class="service-top"><span class="service-icon">${I('heart-pulse',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>${esc(VI.layout.aftercare)}</strong><small>${v ? esc(T.careLead) : 'Cần có lượt khám'}</small>
+          </button>
+        </div>`);
         if (v) {
           const next = M.nextAction(v);
           body += section(
@@ -251,8 +270,8 @@
                 : '') + '</div>',
           );
         }
-        body +=
-          section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`) + row(T.help, T.helpLead, 'K5', 'phone');
+
+        body += row(T.help, T.helpLead, 'K5', 'phone');
         break;
       }
       case 'C1':

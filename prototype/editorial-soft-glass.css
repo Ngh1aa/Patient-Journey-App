@@ -345,3 +345,94 @@ textarea { line-height: 1.65; resize: vertical; }
 .screen-masthead .booking-progress { margin-top: 12px !important; }
 .phone[data-screen^='C'] .masthead-label { display: none; }
 .phone[data-screen^='C'] .screen-masthead { padding-top: 8px; }
+
+
+/* CareFlow card affordances — reference layout only, brand primitives unchanged.
+   44px action cues, one real destination per card, status expressed in text. */
+#phone-content .service-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#phone-content .service-tile {
+  min-width:0;min-height:160px;display:flex;flex-direction:column;
+  gap:0;justify-content:space-between;
+  padding:15px;cursor:pointer;overflow:hidden;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+#phone-content .service-top {width:100%;display:flex;align-items:start;justify-content:space-between;gap:6px;margin-bottom:auto}
+#phone-content .service-icon {
+  display:grid;place-items:center;flex:0 0 44px;
+  width:44px;height:44px;background:var(--blue-soft);color:var(--primary);
+  margin:0;border-radius:50%;
+}
+#phone-content .service-arrow {
+  display:grid;place-items:center;flex:0 0 40px;
+  width:40px;height:40px;border:1px solid var(--border);
+  border-radius:50%;background:var(--surface);color:var(--primary);
+}
+#phone-content .service-tile strong {
+  display:block;margin-top:13px;max-width:100%;
+  color:inherit;font-size:calc(14px * var(--font-scale,1));
+  letter-spacing:-.03em;line-height:1.4;overflow-wrap:anywhere;
+}
+#phone-content .service-tile small {
+  display:block;margin-top:4px;
+  color:var(--muted);font-size:calc(10px * var(--font-scale,1));
+  line-height:1.45;overflow-wrap:anywhere;
+}
+#phone-content .booking-tile {background:var(--primary);color:#fff;border-color:var(--primary)}
+#phone-content .booking-tile .service-icon {background:#ffffff2b;color:#fff}
+#phone-content .booking-tile .service-arrow {background:#fff;color:var(--primary);border-color:#fff}
+#phone-content .booking-tile small {color:#fff}
+#phone-content .service-tile:hover:not(:disabled) {border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+#phone-content .service-tile:focus-visible {outline:3px solid var(--focus);outline-offset:3px}
+#phone-content .service-tile:active:not(:disabled) {transform:translateY(0)}
+#phone-content .service-tile:disabled {
+  cursor:not-allowed;border-style:dashed;box-shadow:none;
+  color:var(--muted);background:var(--surface)
+}
+#phone-content .service-tile:disabled .service-arrow,
+#phone-content .service-tile:disabled .service-icon {
+  background:var(--bg);color:var(--muted);border-color:var(--border)
+}
+#phone-content .service-tile:disabled:hover {transform:none;border-color:var(--border)}
+#phone-content .visit-open {
+  width:auto;min-width:44px;min-height:44px;display:inline-flex;
+  align-items:center;justify-content:center;gap:7px;
+  padding:7px 10px;border-radius:999px;
+  color:var(--primary-hover);background:var(--blue-soft);
+  font-size:calc(11px * var(--font-scale,1));font-weight:700;white-space:nowrap
+}
+#phone-content .visit-open>.cf-icon {flex-shrink:0}
+#phone-content .visit-card:focus-visible .visit-open,
+#phone-content .visit-card:hover .visit-open {background:var(--primary);color:#fff}
+#phone-content .visit-card .visit-bottom {flex-wrap:wrap}
+#phone-content .visit-card .visit-bottom .chip {max-width:100%;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:365px){
+ #phone-content .service-grid {gap:8px}
+ #phone-content .service-tile {padding:12px;min-height:154px}
+ #phone-content .service-tile .service-arrow {width:36px;height:36px;flex-basis:36px}
+ #phone-content .service-tile .service-icon {width:40px;height:40px;flex-basis:40px}
+}
+.phone.large-text #phone-content .service-grid {grid-template-columns:minmax(0,1fr)}
+.phone.large-text #phone-content .service-tile {min-height:122px}
+.phone.large-text #phone-content .visit-open {white-space:normal}
+@media(prefers-reduced-motion:reduce){
+ #phone-content .service-tile{transition:none}
+ #phone-content .service-tile:hover:not(:disabled){transform:none}
+}
+
+
+/* Accessibility reflow: scaled text must not collide with patient avatar. */
+.phone.large-text[data-screen='B1'] .greeting {
+  display:grid;grid-template-columns:44px minmax(0,1fr);
+  align-items:start;column-gap:14px;row-gap:7px;
+}
+.phone.large-text[data-screen='B1'] .greeting>.avatar {
+  grid-column:1;grid-row:1;width:44px;height:44px;
+  min-width:44px;min-height:44px;
+  font-size:14px;line-height:1;letter-spacing:0;white-space:nowrap;overflow:hidden;
+}
+.phone.large-text[data-screen='B1'] .greeting>div {grid-column:2;grid-row:1;min-width:0}
+.phone.large-text[data-screen='B1'] .greeting h1 {
+  font-size:calc(22px * var(--font-scale,1));
+  line-height:1.2;letter-spacing:-.045em;overflow-wrap:anywhere;
+}
+.phone.large-text[data-screen='B1'] .greeting p {line-height:1.45}
