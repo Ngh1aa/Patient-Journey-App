@@ -790,7 +790,7 @@
     save();
   });
 
-  document.addEventListener('submit', async (event) => {
+  document.addEventListener('submit', (event) => {
     const form = event.target;
     if (!form.matches('form[data-form]')) return;
     event.preventDefault();
@@ -887,7 +887,7 @@
         cta.disabled = true;
         cta.textContent = 'Đang gửi…';
         form.setAttribute('aria-busy', 'true');
-        await new Promise((resolve) => requestAnimationFrame(resolve));
+        // Commit the local request before navigation can replace this form.
         const result = M.submitBooking(s, $('booking-outcome').value);
         if (result.ok) complete(result, 'C9');
         else {

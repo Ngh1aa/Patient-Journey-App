@@ -71,3 +71,7 @@ Vòng96 tests đạt ở Windows và Linux trên59ed170. Review sau đó phát h
 PR9 đã merge ở ea863328. Main CI run38711175943 xanh nhưng báo97 passed +1 flaky (OTP field sau logout); public/main smoke đều10/10. Tái hiện xác định trên Chromium và WebKit: click logout→focus phone trong cùng task→frame kế tiếp chuyển focus sang screen-title. Root cause là render() hẹn focus heading bằng requestAnimationFrame dù DOM đã có sẵn.
 
 Sửa: focus đồng bộ ngay khi render kết thúc; không timeout, không catch hoặc bỏ assert. Regression kiểm focus còn ở phone sau frame kế tiếp và có thể tiếp tục OTP. Core suite tăng100 E2E, retries=0 để CI không che flakiness. Focus/identity/axe retest6/6 PASS local. Required full CI100 trên follow-up head và deployment/main SHA mới phải được xác minh trước bàn giao cuối. Medical/native/backend boundaries giữ nguyên.
+
+## Gửi lịch và điều hướng tức thì
+
+Main run38713310791:99/100 E2E; lỗi Chromium khi chuyển màn ngay sau gửi. Form submit hẹn đọc dữ liệu và ghi trạng thái ở frame kế tiếp; điều hướng có thể thay DOM trước khi guard được lưu. Đã bỏ frame delay trong giao dịch local đồng bộ, ghi request trước khi điều hướng. Regression ép submit và điều hướng trong cùng task, giữ đủ guards và retries=0. Kết quả full CI mới ghi trong bàn giao.
