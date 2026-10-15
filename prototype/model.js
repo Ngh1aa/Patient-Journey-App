@@ -887,7 +887,7 @@
     });
     submitBooking(s);
     // Synthetic presentation identifier only; production booking IDs still come from submitBooking.
-    if (s.request?.status === 'done') {
+    if (name === 'upcoming' && s.request?.status === 'done') {
       const synthetic = visit(s);
       synthetic.id = 'CF-1017-0042';
       s.activeVisitId = synthetic.id;
