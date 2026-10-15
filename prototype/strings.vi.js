@@ -77,7 +77,7 @@
       pending: 'Đang chờ phòng khám',
       empty: 'Chưa có nội dung',
       next: 'Việc tiếp theo',
-      owner: 'Ai đang xử lý',
+      owner: 'Bước tiếp theo',
       history: 'Các bước của lượt khám',
       choose: 'Chọn',
       returnVisit: 'Quay lại lượt khám',
