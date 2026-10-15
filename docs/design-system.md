@@ -1,6 +1,6 @@
 # CareFlow design system và handoff
 
-SYNTHETIC/CONCEPT browser prototype. Nguồn: design/tokens.json, prototype/styles.css, ghi chú IMPLEMENTATION-11-12.md, file13. File11 gốc không có trong checkout.
+> **Active feature-branch visual direction (October 2026):** Editorial Soft Glass is defined in [editorial-soft-glass-redesign.md](editorial-soft-glass-redesign.md), [design/tokens.json](../design/tokens.json), and [prototype/editorial-soft-glass.css](../prototype/editorial-soft-glass.css). The legacy Soft Float foundation below describes historical behavior for comparison; current branch render uses the additive Editorial Soft Glass stylesheet. Browser/clinical release claims require new QA on this head.\n\nSYNTHETIC/CONCEPT browser prototype. Nguồn: design/tokens.json, prototype/styles.css, ghi chú IMPLEMENTATION-11-12.md, file13. File11 gốc không có trong checkout.
 
 ## Typography và geometry
 Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL OFL, license kèm assets/fonts). Body 16px, form 16px, CTA15px, heading26px, status12px; large text nhân 2 mọi font size trong phone. 44px minimum hit targets, CTA52px. Khoảng cách 4/8/12/16/20/24/32/40/48px. Card R24, hero R28, input R14, CTA R26, tab R34. Shadow nhẹ chỉ cho container nổi có ý nghĩa. WCAG contrast/reflow là technical QA, không tuyên bố chứng nhận accessibility.
