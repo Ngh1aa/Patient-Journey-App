@@ -1,0 +1,38 @@
+name: CareFlow desktop showcase QA
+on:
+  pull_request:
+    paths:
+      - 'staff-prototype/**'
+      - '.github/workflows/careflow-staff-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'staff-prototype/**'
+      - '.github/workflows/careflow-staff-qa.yml'
+jobs:
+  desktop-showcase:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install existing browser QA dependencies
+        run: npm ci --prefix prototype
+      - name: Install Chromium
+        run: node prototype/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Validate script and screen contract
+        run: |
+          node --check staff-prototype/app.js
+          node --test staff-prototype/test.cjs
+      - name: Verify eight desktop screens and interactions
+        run: node prototype/node_modules/@playwright/test/cli.js test --config=staff-prototype/playwright.config.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: careflow-staff-showcase-evidence
+          path: |
+            staff-prototype/test-results/**
+          retention-days: 14
