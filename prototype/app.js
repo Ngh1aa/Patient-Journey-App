@@ -28,6 +28,10 @@
   function demo(message = VI.demo.notice) {
     $('demo-feedback').textContent = guideEnabled ? '' : message;
   }
+  function withFeeling(text, level) {
+    const label = {1:'Nhẹ',2:'Vừa',3:'Nặng'}[level];
+    return text + (label ? '\nMức độ cảm nhận: ' + label : '');
+  }
   try {
     const saved = JSON.parse(sessionStorage.getItem(KEY) || 'null');
     if (
@@ -257,6 +261,10 @@
     u.screen = id;
     $('phone-frame').dataset.screen = id;
     const g = guard(id);
+    const isSheet = ['D3', 'D4', 'H3'].includes(id) && !g;
+    $('phone-frame').classList.toggle('sheet-open', isSheet);
+    $('phone-frame').querySelector('.phone-header').inert = isSheet;
+    $('bottom-nav').inert = isSheet;
     if (/^C[1-8]$/.test(id) && !g) u.bookingScreen = id;
     $('phone-frame').classList.toggle('large-text', !!s.settings.largeText);
     $('phone-frame').classList.toggle(
@@ -312,6 +320,9 @@
       });
     updateDateSelection();
     updatePatientAction();
+    updateCountdown();
+    const savedHistory = $('medicalHistory');
+    if (savedHistory?.value) savedHistory.closest('details')?.setAttribute('open', '');
     if (u.notice) {
       const node = document.createElement('div');
       node.className = 'note';
@@ -322,7 +333,6 @@
     }
     $('phone-main').scrollTop = 0;
     renderReviewer();
-    if (window.CareFlowJourney && guideEnabled && renderJourney()) return;
     const qr = $('visit-qr');
     if (qr && window.qrcode) {
       const code = window.qrcode(0, 'M');
@@ -335,6 +345,7 @@
       });
       qr.querySelector('svg').setAttribute('aria-hidden', 'true');
     }
+    if (window.CareFlowJourney && guideEnabled && renderJourney()) return;
     document.title = (VI.screen[id]?.heading || 'CareFlow') + ' · CareFlow';
     $('announcer').textContent = VI.screen[id]?.heading || VI.feedback.notFound;
     save();
@@ -695,6 +706,11 @@
     },
     go(el) {
       const to = el.dataset.to;
+      if (el.dataset.section === 'saved-profiles') {
+        $('saved-profiles')?.scrollIntoView({block:'start'});
+        return;
+      }
+      if (el.dataset.section === 'callback') return actions['clinic-call']();
       if (el.dataset.reason) u.reportReason = el.dataset.reason;
       if (el.dataset.lab) u.labId = el.dataset.lab;
       if (el.dataset.purpose === 'rebook') return rebook();
@@ -734,6 +750,22 @@
       input.value = el.dataset.date;
       input.dispatchEvent(new Event('input', { bubbles: true }));
       updateDateSelection();
+    },
+    'reason-chip'(el) {
+      const input = $('reason');
+      if (!input) return;
+      input.value = input.value.trim() ? input.value.trim() + ', ' + el.dataset.value.toLowerCase() : el.dataset.value;
+      input.dispatchEvent(new Event('input', {bubbles:true}));
+      input.focus();
+    },
+    'result-filter'(el) {
+      u.resultFilter = el.dataset.filter;
+      render();
+    },
+    'call-tab'(el) {
+      u.callTab = el.dataset.tab;
+      u.callDrawerOpen = true;
+      render();
     },
     begin() {
       if (s.draft && s.request?.status !== 'done') return actions['book-nav']();
@@ -802,9 +834,14 @@
         s.requests.push({id:'request-'+s.requests.length,type:'callback',visitId:s.activeVisitId,text:'Bạn muốn phòng khám gọi lại để hỗ trợ.',status:'waiting'});
       save();render();
       dialog('Yêu cầu phòng khám gọi lại', VI.feedback.callback);
+      $('dialog-body').innerHTML = V.form('callback-window', V.choices('Khung giờ thuận tiện', [['morning','Buổi sáng','08:00–11:30'],['afternoon','Buổi chiều','13:30–17:00']], 'morning'), 'Gửi giờ mong muốn', 'primary', 'callback-error');
     },
     rebook(el) {
       rebook(el.dataset.purpose, el.dataset.mode || null);
+      if (el.dataset.date && s.draft && u.screen === 'C7') {
+        s.draft.date = el.dataset.date;
+        save();render();
+      }
     },
     arrive() {
       if (s.offline) return error('OFFLINE');
@@ -966,6 +1003,8 @@
         phone: '',
         deviceReady: false,
         urgentAftercare: false,
+        callNotes: {},
+        callDrawerOpen: false,
       };
       demo(VI.demo.warning);
       go('A1', {}, true);
@@ -973,6 +1012,8 @@
     logout() {
       s.authenticated = false;
       u.forms = {};
+      u.callNotes = {};
+      u.callDrawerOpen = false;
       u.otpSent = false;
       save();
       go('A1');
@@ -1079,7 +1120,7 @@
         break;
       case 'reason':
         if (!get('reason')) return error('REASON', 'reason');
-        s.draft.reason = get('reason');
+        s.draft.reason = withFeeling(get('reason'), get('feeling'));
         s.draft.medicalHistory = get('medicalHistory');
         complete({ ok: true }, 'C3');
         break;
@@ -1220,7 +1261,7 @@
           s,
           v.id,
           u.reportReason,
-          get('report'),
+          withFeeling(get('report'), get('symptomLevel')),
           data.has('urgent'),
         );
         u.urgentAftercare = data.has('urgent');
@@ -1229,8 +1270,22 @@
       }
       case 'tracking':
         if (!get('tracking')) return error('REQUIRED', 'tracking');
-        complete(M.submitCareUpdate(s, v.id, 'tracking', get('tracking')));
+        complete(M.submitCareUpdate(s, v.id, 'tracking', withFeeling(get('tracking'), get('dailyFeeling'))));
         break;
+      case 'call-note':
+        u.callNotes ??= {};
+        u.callNotes[v.id] = get('callNote');
+        complete({ok:true}, null, 'Đã lưu ghi chú riêng của bạn.');
+        break;
+      case 'callback-window': {
+        const preferredWindow = get('Khung giờ thuận tiện');
+        if (!['morning','afternoon'].includes(preferredWindow)) { $('callback-error').textContent = 'Chọn khung giờ thuận tiện để phòng khám liên hệ.'; return; }
+        const request = s.requests.find(r => r.type === 'callback' && r.visitId === s.activeVisitId && r.status === 'waiting');
+        if (request) request.preferredWindow = preferredWindow;
+        save();$('dialog').close();render();
+        dialog('Đã ghi nhận giờ mong muốn', 'Phòng khám sẽ sắp xếp liên hệ. Đây chưa phải giờ gọi đã xác nhận.');
+        break;
+      }
       case 'referral':
         if (!get('referral')) return error('REQUIRED', 'referral');
         complete(M.submitCareUpdate(s, v.id, 'referral', get('referral')), 'I5');
@@ -1281,6 +1336,10 @@
   $('screen-picker').addEventListener('change', (e) => go(e.target.value));
   $('scenario').addEventListener('change', (e) => loadScenario(e.target.value));
   $('phone-content').addEventListener('change', (e) => {
+    if (e.target.name === 'symptomLevel' && e.target.value === '3') {
+      actions['care-urgent']();
+      return;
+    }
     if (e.target.id === 'date') updateDateSelection();
     if (e.target.closest('.patient-group') && e.target.type === 'radio') updatePatientAction();
     if (e.target.name === VI.screen.I1.visit) {
@@ -1301,6 +1360,44 @@
     const add = group?.querySelector('.add-relative-inline');
     if (selected && add) selected.after(add);
   }
+  function updateCountdown() {
+    const el = $('phone-content').querySelector('[data-countdown]');
+    if (!el) return;
+    const delta = Date.parse(el.dataset.countdown) - Date.now();
+    if (!Number.isFinite(delta)) { el.textContent = 'Chờ xác nhận giờ hẹn'; return; }
+    const minutes = Math.max(0, Math.ceil(delta / 60000));
+    el.textContent = minutes === 0 ? 'Đã đến giờ hẹn' : minutes >= 1440 ? `${Math.floor(minutes/1440)} ngày ${Math.floor(minutes%1440/60)} giờ` : `${Math.floor(minutes/60)} giờ ${minutes%60} phút`;
+  }
+  setInterval(updateCountdown, 30000);
+  document.addEventListener('toggle', event => {
+    if (event.target.matches?.('.call-drawer')) { u.callDrawerOpen = event.target.open; save(); }
+  }, true);
+  let drawerGesture = null;
+  document.addEventListener('pointerdown', event => {
+    const handle = event.target.closest('.call-drawer > summary');
+    if (handle) { drawerGesture = {handle, y:event.clientY}; handle.setPointerCapture(event.pointerId); }
+  });
+  document.addEventListener('pointerup', event => {
+    if (!drawerGesture) return;
+    const {handle,y} = drawerGesture;
+    drawerGesture = null;
+    if (Math.abs(event.clientY-y) < 24) return;
+    handle.parentElement.open = event.clientY < y;
+    handle.addEventListener('click', click => click.preventDefault(), {once:true});
+  });
+  document.addEventListener('pointercancel', () => { drawerGesture = null; });
+  document.addEventListener('keydown', event => {
+    const sheet = $('phone-content').querySelector('.route-sheet');
+    if (!sheet || $('dialog').open) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();go(u.screen === 'H3' ? 'H2' : 'D2');return;
+    }
+    if (event.key !== 'Tab') return;
+    const targets = [...sheet.querySelectorAll('button:not(:disabled),input:not(:disabled),textarea,select,summary,[href]')].filter(el=>el.getClientRects().length);
+    const first = targets[0], last = targets.at(-1);
+    if (event.shiftKey && (document.activeElement === first || !targets.includes(document.activeElement))) {event.preventDefault();last?.focus();}
+    else if (!event.shiftKey && (document.activeElement === last || !targets.includes(document.activeElement))) {event.preventDefault();first?.focus();}
+  });
   function loadScenario(name) {
     s = name === 'new' ? M.initial() : M.fixture(name);
     u = {
@@ -1313,6 +1410,8 @@
       deviceReady: false,
       labId: null,
       urgentAftercare: false,
+      callNotes: {},
+      callDrawerOpen: false,
     };
     if (name === 'returning') {
       s.authenticated = false;

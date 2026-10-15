@@ -29,7 +29,7 @@
         K2: ['Đặt lịch cho người thân', 'Quyền đặt lịch hộ không mặc nhiên bao gồm quyền xem kết quả của người được khám.'],
         K4: ['Giữ riêng tư khi nhận thông báo', 'Bạn có thể ẩn nội dung thông báo để hạn chế hiển thị thông tin sức khỏe trên màn hình khóa.'],
       },
-      bookingSteps: ['Hồ sơ', 'Thông tin', 'Cách khám', 'Giờ hẹn', 'Kiểm tra'],
+      bookingSteps: ['Hồ sơ', 'Thông tin', 'Lịch khám', 'Kiểm tra'],
       bookingTitle: 'ĐẶT LỊCH KHÁM',
       step: 'Bước',
       quickDates: 'Chọn nhanh ngày khám',
