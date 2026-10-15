@@ -85,7 +85,7 @@
         <span class="rich-profile-meta">${p.canViewResults?'Đã xác thực':'Cần bổ sung quyền xem kết quả'}</span>
         <span class="rich-profile-meta">${p.relation==='self'?'Lần khám gần nhất '+DEMO.lastVisit+' · BHYT đến 12/2026 (demo)':'Lần khám & BHYT: chờ đối chiếu'}</span>
       </span><span class="rich-select-indicator" aria-hidden="true">${selected?'✓':''}</span>
-    </label>`;
+    </label>${selected?`<button class="btn secondary add-relative-inline" type="button" data-action="go" data-to="K2">+ Thêm người khám</button>`:''}`;
   }).join('');
   const selected=h.M.profile(s,d?.patientId);
   const form=h.form('patient',`<section class="patient-group"><div class="group-heading"><h2>Hồ sơ đã lưu</h2><span>${s.profiles.length}</span></div><fieldset class="choices"><legend class="sr-only">Ai sẽ đi khám?</legend>${choices}</fieldset><div class="rich-profile-hint">${h.I('shield',18)}<p>Phòng khám sẽ đối chiếu thông tin trước khi tạo hồ sơ mới để tránh trùng lặp.</p></div></section>`,selected?'Tiếp tục với '+firstName(selected.name):'Tiếp tục');
