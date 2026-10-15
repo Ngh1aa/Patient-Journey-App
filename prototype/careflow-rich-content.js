@@ -19,7 +19,7 @@
   const counts = (s) => ({a:active(s).length, done:s.visits.filter(v=>v.status==='completed').length, cancelled:s.visits.filter(v=>['cancelled','no-show'].includes(v.status)).length, notices:s.notifications.filter(n=>!n.read).length});
   const tone = (v) => ['pending','mode-review','unreachable'].includes(v.status)?'warning':['cancelled','no-show'].includes(v.status)?'danger':['completed','confirmed','ready'].includes(v.status)?'success':'info';
   const greeting = () => { const hour=Number(new Intl.DateTimeFormat('en-GB',{hour:'numeric',hourCycle:'h23',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date())); return hour<11?'Chào buổi sáng':hour<18?'Chào buổi chiều':'Chào buổi tối'; };
-  const firstName = (name) => String(name||'bạn').trim().split(/\s+/).at(-1);
+  const firstName = (name) => { const parts=String(name||'bạn').trim().split(/\s+/); return parts.length>1?parts.slice(-2).join(' '):parts[0]; };
   const action = (label,to,variant='secondary')=>`<button type="button" class="btn ${variant}" data-action="go" data-to="${H(to)}"><span>${H(label)}</span></button>`;
   const pill = (label,cls='info')=>`<span class="chip ${cls}">${H(label)}</span>`;
   const section = (title,html,extra='')=>`<section class="rich-section ${extra}"><h2 class="rich-heading">${H(title)}</h2>${html}</section>`;
