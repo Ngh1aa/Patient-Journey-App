@@ -17,24 +17,24 @@
   font-display: swap;
 }
 :root {
-  --bg: #f2f6fb;
+  --bg: #f2f2f2;
   --surface: #fff;
-  --primary: #0a67d1;
-  --primary-hover: #0754af;
-  --ink: #162535;
-  --heading: #123b63;
-  --muted: #3c5268;
-  --subtle: #5e7285;
-  --border: #d8e3ee;
-  --input-border: #718398;
-  --blue-soft: #e7f2fc;
+  --primary: #075fe8;
+  --primary-hover: #0754ca;
+  --ink: #242424;
+  --heading: #242424;
+  --muted: #57575f;
+  --subtle: #606066;
+  --border: #dcdce0;
+  --input-border: #76767b;
+  --blue-soft: #eaf1ff;
   --danger: #b42318;
   --danger-soft: #fde9e7;
   --success: #16734b;
   --success-soft: #e4f5ec;
   --warning: #805800;
   --warning-soft: #fff4d6;
-  --focus: #0754af;
+  --focus: #0754ca;
   --r-card: 24px;
   --r-button: 26px;
   --r-input: 14px;
