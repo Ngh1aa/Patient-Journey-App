@@ -23,7 +23,7 @@
   const action = (label,to,variant='secondary')=>`<button type="button" class="btn ${variant}" data-action="go" data-to="${H(to)}"><span>${H(label)}</span></button>`;
   const pill = (label,cls='info')=>`<span class="chip ${cls}">${H(label)}</span>`;
   const section = (title,html,extra='')=>`<section class="rich-section ${extra}"><h2 class="rich-heading">${H(title)}</h2>${html}</section>`;
-  const empty = (title,copy,to='C1')=>`<div class="rich-empty"><span aria-hidden="true">✧</span><strong>${H(title)}</strong><p>${H(copy)}</p><button type="button" class="btn primary" data-action="begin">Đặt lịch khám</button><small>Bạn từng khám tại đây? Có thể chọn bác sĩ quen khi phòng khám hỗ trợ.</small></div>`;
+  const empty = (title,copy,to='C1')=>`<div class="rich-empty"><span aria-hidden="true">✧</span><strong>${H(title)}</strong><p>${H(copy)}</p><button type="button" class="btn primary" data-action="book-nav">Đặt lịch khám</button><small>Bạn từng khám tại đây? Có thể chọn bác sĩ quen khi phòng khám hỗ trợ.</small></div>`;
   function homeHeader(s,p) {
     const c=counts(s);
     const tasks=c.a?2:0;
@@ -46,7 +46,7 @@
       {title:'Mang theo CCCD và thẻ BHYT',meta:dateTextLite(soon.date)+' · Nhắc trước khám',badge:'Nhắc nhở',to:'E1',cta:'Xem hướng dẫn',kind:'info'},
     ]:[{title:'Chuẩn bị thông tin trước khi đặt lịch',meta:'Họ tên · triệu chứng · thời gian',badge:'Gợi ý',to:'C1',cta:'Bắt đầu',kind:'info'}];
     html+=section('Việc cần làm',`<div class="home-tasks rich-task-rail">${tasks.map(t=>`<button class="row rich-task" type="button" data-action="go" data-to="${t.to}">${pill(t.badge,t.kind)}<strong>${H(t.title)}</strong><small>${H(t.meta)}</small><span class="rich-task-link">${H(t.cta)} ↗</span></button>`).join('')}</div><small class="rich-subnote">Vuốt để xem thêm · Các hạn giờ là ví dụ giao diện.</small>`,'rich-home-todo');
-    html+=`<nav class="home-quick-actions rich-shortcuts" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','book-nav',null],['heart-pulse','Hỏi phòng khám','go','I1'],['document-check','Kết quả','go','H7'],['phone','Gọi hỗ trợ','go','K5']].map(([ic,t,a,to])=>`<button type="button" data-action="${a}"${to?` data-to="${to}"`:''}><span>${h.I(ic,23)}</span><small>${H(t)}</small></button>`).join('')}</nav>`;
+    html+=`<nav class="home-quick-actions rich-shortcuts" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','begin',null],['heart-pulse','Hỏi phòng khám','go','I1'],['document-check','Kết quả','go','H7'],['phone','Gọi hỗ trợ','go','K5']].map(([ic,t,a,to])=>`<button type="button" data-action="${a}"${to?` data-to="${to}"`:''}><span>${h.I(ic,23)}</span><small>${H(t)}</small></button>`).join('')}</nav>`;
     const completed=s.visits.find(x=>x.status==='completed');
     html+=section('Chăm sóc sau khám',`<div class="rich-care-card"><div>${pill(completed?'Có lượt khám hoàn tất':'Nội dung minh họa','info')}<h3>Lần khám gần nhất: ${H(DEMO.lastVisit)}</h3><p>${H(DEMO.doctor)} · ${H(DEMO.specialty)}</p></div><div class="rich-care-facts"><span>2 lời dặn mẫu</span><span>1 đơn thuốc mẫu</span></div><p class="rich-med-line">${h.I('pill',19)} Tối nay · ${H(DEMO.lastDose)}</p><p class="rich-subnote">Đây là nội dung minh họa, không phải đơn thuốc hoặc lời dặn y tế của bạn.</p>${action(completed?'Xem lời dặn':'Xem lịch sử khám',completed?'H6':'K3','primary')}</div>`,'rich-aftercare');
     html+=section('Mẹo hữu ích',`<div class="rich-tips">${[
