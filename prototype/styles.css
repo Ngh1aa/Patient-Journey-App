@@ -2073,6 +2073,23 @@ textarea, select {
 .home-indicator { background: var(--ink); }
 
 @media (max-width: 720px) {
+  /* Reviewer controls are NOT part of the patient app. Keep them in a
+     separate full-width strip instead of overlaying the notification
+     button, which previously failed axe's actual pointer hit-test. */
+  body:not(.guided) .presentation-actions {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 52px;
+    padding: 4px 16px;
+    background: var(--bg);
+  }
+  body:not(.guided) .phone {
+    height: calc(100dvh - var(--presentation-height, 0px) - 52px);
+  }
   body { background: var(--bg); }
   .phone {
     border: 0;
