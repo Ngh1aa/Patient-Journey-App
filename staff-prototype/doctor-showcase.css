@@ -319,3 +319,20 @@ html{scroll-behavior:smooth}body{background:#f4f6f8;color:var(--doc-text)}
  html{scroll-behavior:auto}
  .doctor-screen *{transition:none!important;animation:none!important}
 }
+
+/* Fit all ten doctor destinations into short laptop viewports; don't bury critical navigation. */
+@media (min-width:981px) and (max-height:970px){
+ .doctor-sidebar{padding-top:14px;padding-bottom:11px}
+ .doctor-sidebar .sidebar-brand-wrap{padding-bottom:6px}
+ .doctor-sidebar .brand{min-height:45px}
+ .doctor-sidebar .sidebar-product-note{padding:3px 10px}
+ .doctor-sidebar .sidebar-nav{gap:3px}
+ .doctor-sidebar .side-section{gap:0}
+ .doctor-sidebar .side-overline{margin:7px 0 5px}
+ .doctor-sidebar .side-divider{margin:4px 12px}
+ .doctor-sidebar .nav-item{min-height:39px;height:39px;padding-top:7px;padding-bottom:7px}
+ .doctor-sidebar .nav-item.active::before{top:9px}
+ .doctor-sidebar-callout{display:none}
+ .doctor-sidebar .sidebar-bottom{padding-top:6px}
+ .doctor-sidebar .profile-mini{padding:8px 10px;min-height:46px}
+}
