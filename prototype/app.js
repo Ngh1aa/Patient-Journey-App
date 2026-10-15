@@ -843,9 +843,13 @@
         } else complete({ ok: true }, 'B1');
         break;
       }
-      case 'relative':
-        complete(M.createProfile(s, get('name'), get('dob'), 'relative'), 'K2');
+      case 'relative': {
+        const result = M.createProfile(s, get('name'), get('dob'), 'relative');
+        const returnToBooking = s.draft && s.request?.status !== 'done';
+        if (result.ok && returnToBooking) M.choosePatient(s, result.profile.id);
+        complete(result, returnToBooking ? 'C1' : 'K2');
         break;
+      }
       case 'patient':
         complete(M.choosePatient(s, get(VI.common.patient)), 'C2');
         break;

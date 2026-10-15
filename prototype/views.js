@@ -755,6 +755,7 @@
           card(
             `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>${esc(C.notProvided)}</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
           ) +
+          row(VI.screen.I1.heading, VI.screen.I1.lead, 'I1', 'heart-pulse') +
           form('support', textarea('support', T.text), T.message) +
           section(
             T.faq,

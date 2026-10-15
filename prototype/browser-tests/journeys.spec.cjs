@@ -522,7 +522,10 @@ test('F11 tracking, referral, messages and follow-up recommendation', async ({
   page,
 }) => {
   await load(page, 'completed');
-  await nav(page, 'I3');
+  await nav(page, 'K5');
+  await go(page, 'I1');
+  await screen(page, 'I1');
+  await go(page, 'I3');
   await page.locator('#tracking').fill('Tôi muốn cập nhật tình trạng hôm nay.');
   await submit(page);
   expect((await state(page)).tracking).toHaveLength(1);
@@ -973,8 +976,14 @@ test('exception screenshots document cancellation, no-show, offline and transfer
   await page
     .locator('.phone')
     .screenshot({ path: info.outputPath('offline.png') });
-  for(const id of ['C7','C9','H6','I1']){await seed(page,id,id==='I1');await page.locator('.phone').screenshot({path:info.outputPath(id+(id==='I1'?'-large':'')+'.png')});}
-
+  for (const id of ['C7', 'C9', 'H6', 'I1']) {
+    await seed(page, id, id === 'I1');
+    await page
+      .locator('.phone')
+      .screenshot({
+        path: info.outputPath(id + (id === 'I1' ? '-large' : '') + '.png'),
+      });
+  }
 });
 test('skip content preserves route and direct-link header Back has an in-app exit', async ({
   page,
@@ -1111,4 +1120,25 @@ test('F11 multiple completed visits keep the selected report context', async ({
   await submit(page);
   expect((await state(page)).reports[0].visitId).toBe('CF-0001');
   expect((await current(page)).id).toBe('CF-0001');
+});
+
+test('adding a relative while booking returns to the correct selected patient', async ({
+  page,
+}) => {
+  await load(page, 'empty');
+  await action(page, 'begin').first().click();
+  await go(page, 'K2');
+  await content(page).locator('.add-relative summary').click();
+  await page.locator('#name').fill('Người thân thử nghiệm');
+  await page.locator('#dob').fill('1980-03-12');
+  await submit(page);
+  await screen(page, 'C1');
+  await expect(content(page).locator('input[value=p3]')).toBeChecked();
+  await submit(page);
+  await page.locator('#reason').fill('Đặt lịch cho người thân vừa thêm');
+  await submit(page);
+  await normal(page);
+  await slot(page);
+  await send(page);
+  expect((await current(page)).patientId).toBe('p3');
 });
