@@ -56,6 +56,66 @@ test('Home preserves classic card styling, flush next card and an 8px navy inset
   }
 });
 
+test('Home greeting is a single state-aware sentence and Demo lives in the app bar', async ({page}) => {
+  await page.goto('/prototype/index.html?scenario=empty');
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','B1');
+  await expect(page.locator('.rich-greeting h1')).toContainText('Minh Anh');
+  await expect(page.locator('.rich-greeting p')).toHaveText('Hôm nay bạn chưa có lịch khám.');
+  await expect(page.locator('.rich-head-meta, .rich-eyebrow')).toHaveCount(0);
+  await expect(page.locator('.app-demo-badge')).toHaveText('Demo');
+  await expect(page.locator('.app-demo-badge')).toBeVisible();
+  await page.goto('/prototype/index.html?scenario=upcoming');
+  await expect(page.locator('.rich-greeting p')).toHaveText('Bạn có 1 lịch khám lúc 08:00.');
+  await expect(page.locator('.rich-head-meta, .rich-eyebrow')).toHaveCount(0);
+});
+
+test('Header has no white separator on Home, appointments, profile, support or booking', async ({page}) => {
+  await page.goto('/prototype/index.html?scenario=empty');
+  const check=async (id)=>{
+    await expect(page.locator('#phone-content')).toHaveAttribute('data-screen',id);
+    const styles=await page.locator('.phone-header').evaluate(el=>({
+      shadow:getComputedStyle(el).boxShadow,border:getComputedStyle(el).borderBottomWidth,
+      overflows:el.scrollWidth>el.clientWidth+1
+    }));
+    expect(styles.shadow,id).toBe('none');
+    expect(styles.border,id).toBe('0px');
+    expect(styles.overflows,id).toBe(false);
+    await expect(page.locator('.app-demo-badge')).toBeVisible();
+  };
+  await check('B1');
+  await page.locator('#bottom-nav a[href="#/appointments"]').click();
+  await check('D1');
+  await page.locator('#bottom-nav a[href="#/profile"]').click();
+  await check('K2');
+  await page.locator('#bottom-nav a[href="#/support"]').click();
+  await check('K5');
+  await page.locator('#bottom-nav .nav-book').click();
+  await check('C1');
+});
+
+test('Unread dot is shown on bell only when notifications are unread', async ({page}) => {
+  await page.goto('/prototype/index.html?scenario=empty');
+  const bell=page.locator('#notifications');
+  await expect(bell.locator('.navy-notice-dot')).toHaveCount(0);
+  await expect(bell).toHaveAttribute('aria-label','Thông báo');
+  await page.evaluate(()=>{
+    const key='careflow.browser.v3',payload=JSON.parse(sessionStorage.getItem(key));
+    payload.state.notifications.push({id:'qa-unread',title:'Tin mới',body:'Thử thông báo',at:new Date().toISOString(),read:false});
+    sessionStorage.setItem(key,JSON.stringify(payload));
+  });
+  await page.reload();
+  await expect(page.locator('#notifications .navy-notice-dot')).toHaveCount(1);
+  await expect(bell).toHaveAttribute('aria-label','Thông báo, 1 chưa đọc');
+  await page.evaluate(()=>{
+    const key='careflow.browser.v3',payload=JSON.parse(sessionStorage.getItem(key));
+    payload.state.notifications.find(n=>n.id==='qa-unread').read=true;
+    sessionStorage.setItem(key,JSON.stringify(payload));
+  });
+  await page.reload();
+  await expect(page.locator('#notifications .navy-notice-dot')).toHaveCount(0);
+  await expect(bell).toHaveAttribute('aria-label','Thông báo');
+});
+
 test('booking preserves the clinical risk branch with a four-dot visual stepper and useful symptom chips', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=empty');
   await page.locator('#bottom-nav .nav-book').click();

@@ -25,7 +25,7 @@ jobs:
         run: cd prototype && npx playwright install --with-deps chromium webkit
       - name: Serve previous main for before/after screenshots
         run: |
-          git worktree add --detach /tmp/careflow-patient-before 981e7f0eb6a869563c591358cb509c3b0ab25111
+          git worktree add --detach /tmp/careflow-patient-before d88e2b0314876485ed2b311849e6b4ae25c0617c
           PORT=4176 node /tmp/careflow-patient-before/prototype/preview-server.cjs > /tmp/careflow-patient-before.log 2>&1 &
           for attempt in $(seq 1 30); do
             curl -fsS http://127.0.0.1:4176/prototype/index.html > /dev/null && break

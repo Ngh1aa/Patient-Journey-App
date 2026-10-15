@@ -9,7 +9,7 @@
   background:var(--careflow-navy)!important;color:#fff!important;flex:none;
 }
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-header {
-  position:relative;z-index:5;box-shadow:0 1px 0 #ffffff1c;
+  position:relative;z-index:5;box-shadow:none;
 }
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-header :is(.app-wordmark,.app-wordmark span,.icon-btn){color:#fff!important;}
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-scroll {background:#F3F6FB!important;}
@@ -32,7 +32,7 @@
 }
 .phone:not(.video-mode) #phone-content .compact-masthead {min-height:112px;}
 .phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
-  min-height:clamp(210px, 30vh, 276px);padding:18px 20px 74px!important;
+  min-height:clamp(160px, 21vh, 190px);padding:18px 20px 65px!important;
   border-radius:0 0 32px 32px!important;
 }
 /* Home navy panel sits exactly 8px inside the device on both sides.
@@ -47,13 +47,10 @@
   margin-inline:-12px!important;
 }
 #phone-content[data-screen="B1"] .rich-home-head{padding:0!important;}
-#phone-content[data-screen="B1"] .rich-eyebrow{color:#d2e2ff;font-size:10px;}
 #phone-content[data-screen="B1"] .rich-greeting h1 {
-  font-size:calc(22px * var(--font-scale,1));line-height:1.3;
+  margin:0 0 9px;font-size:calc(20px * var(--font-scale,1));line-height:1.3;
 }
-#phone-content[data-screen="B1"] .rich-greeting p{max-width:26ch;font-size:calc(13px * var(--font-scale,1));line-height:1.5;color:#F0F5FF!important;}
-#phone-content[data-screen="B1"] .rich-head-meta{margin-top:15px;}
-#phone-content[data-screen="B1"] .rich-head-meta>span:last-child{color:#F0F5FF;}
+#phone-content[data-screen="B1"] .rich-greeting p{max-width:none;font-size:calc(13px * var(--font-scale,1));line-height:1.5;color:#F0F5FF!important;}
 /* Keep Home layout and overlap; restore the appointment card's previous visual
    contract (25px radius, 18px inset and softer 16/32 shadow). */
 #phone-content[data-screen="B1"] > .rich-hero,
@@ -176,3 +173,19 @@
     margin-inline:-8px!important;
   }
 }
+
+/* The navy header should never draw a white horizontal separator, on any route.
+   Keep existing 8px Home insets and all card styles intact. */
+.phone .phone-header,
+.phone .phone-top {border-bottom:0!important;box-shadow:none!important;}
+/* A compact demo flag belongs to the app bar rather than the Home hero. */
+.phone .phone-header .app-demo-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:none;min-height:22px;padding:3px 7px;border-radius:99px;
+  border:1px solid #d5e3ff;background:#edf4ff;color:#12315c;
+  font-size:calc(10px * var(--font-scale,1));font-weight:800;line-height:1.2;
+  letter-spacing:.02em;white-space:nowrap;
+}
+/* Keep the login progress and clinical video controls uncluttered. */
+.phone[data-screen^="A"] .phone-header .app-demo-badge,
+.phone.video-mode .phone-header .app-demo-badge{display:none;}

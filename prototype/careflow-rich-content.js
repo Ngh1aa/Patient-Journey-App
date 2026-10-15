@@ -26,9 +26,16 @@
   const empty = (title,copy,to='C1')=>`<div class="rich-empty"><span aria-hidden="true">✧</span><strong>${H(title)}</strong><p>${H(copy)}</p><button type="button" class="btn primary" data-action="book-nav">Đặt lịch khám</button><small>Bạn từng khám tại đây? Có thể chọn bác sĩ quen khi phòng khám hỗ trợ.</small></div>`;
   function homeHeader(s,p) {
     const c=counts(s);
-    const tasks=c.a?2:0;
+    const next=active(s)[0];
     const name=firstName(p?.name);
-    return `<div class="rich-home-head"><div class="rich-greeting"><div><span class="rich-eyebrow">CAREFLOW+ · DỮ LIỆU DEMO</span><h1 id="screen-title" tabindex="-1">${greeting()}, ${H(name)}</h1><p>Hôm nay bạn có <strong>${c.a} lịch khám</strong> và <strong>${tasks} việc cần làm</strong>.</p></div><span class="avatar">${root.CareFlowAvatar(p?.id||'account',48)}</span></div><div class="rich-head-meta">${pill(c.notices+' thông báo chưa đọc',c.notices?'warning':'info')}<span>Lịch khám và thông báo được cập nhật trong bản demo.</span></div></div>`;
+    const appointmentSummary=!next
+      ? 'Hôm nay bạn chưa có lịch khám.'
+      : next.slot
+        ? c.a===1
+          ? `Bạn có 1 lịch khám lúc ${H(next.slot)}.`
+          : `Bạn có ${c.a} lịch khám, gần nhất lúc ${H(next.slot)}.`
+        : `Bạn có ${c.a} lịch khám sắp tới.`;
+    return `<div class="rich-home-head"><div class="rich-greeting"><div><h1 id="screen-title" tabindex="-1">${greeting()}, ${H(name)}</h1><p>${appointmentSummary}</p></div><span class="avatar">${root.CareFlowAvatar(p?.id||'account',48)}</span></div></div>`;
   }
   function home(s,v,h) {
     const c=counts(s), vs=active(s), soon=vs[0];
