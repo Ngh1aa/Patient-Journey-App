@@ -92,10 +92,10 @@
     if(k==='ready-patient'){const a=data.appointments.find(a=>a.id===id);if(!a||a.status!=='arrived'){notify('Bệnh nhân chưa được ghi nhận đã đến.');return true}a.status='ready';a.owner='Bác sĩ';save();notify('Đã chuyển bệnh nhân sang hàng chờ khám (demo).');return true}
     if(k==='create-lab-order'){
       const p=document.getElementById('order-person')?.value, type=document.getElementById('order-type')?.value, title=document.getElementById('order-title')?.value.trim();
-      if(!p||!title){notify('Vui lòng điền tên yêu cầu minh họa.');return true}
-      const n=String(Date.now()).slice(-6);data.results.unshift({id:'r-new-'+n,personId:p,title,type,date:'15/10/2026',status:'waiting',doctor:'BS. Nguyễn Văn An',code:'XN-DEMO-'+n});save();notify('Đã thêm yêu cầu minh họa ở trạng thái chờ thực hiện.');return true
+      if(!p||!title){notify('Vui lòng nhập nội dung chỉ định.');return true}
+      const n=String(Date.now()).slice(-6);data.results.unshift({id:'r-new-'+n,personId:p,title,type,date:'15/10/2026',status:'waiting',doctor:'BS. Nguyễn Văn An',code:'XN-DEMO-'+n});save();notify('Đã ghi nhận chỉ định ở trạng thái chờ thực hiện.');return true
     }
-    if(k==='save-rx'){const a=data.appointments.find(a=>a.id===ui.consultId)||data.appointments[0];data.prescriptions??={};data.prescriptions[a.id]=document.getElementById('rx-note')?.value||'';save();notify('Đã lưu ghi chú nháp trong phiên demo.');return true}
+    if(k==='save-rx'){const a=data.appointments.find(a=>a.id===ui.consultId)||data.appointments[0];data.prescriptions??={};data.prescriptions[a.id]=document.getElementById('rx-note')?.value||'';save();notify('Đã lưu ghi chú trong phiên làm việc.');return true}
     return false;
   }
   root.CareFlowSupporting={page,action,routeNames};
