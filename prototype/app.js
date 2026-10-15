@@ -912,7 +912,8 @@
             <button type="button" class="context-bar-btn" data-action="startBooking">＋ Đặt lịch mới</button>
           </div>
 
-          <div class="box" style="cursor: pointer;" data-action="goD2">
+          ${((state.appointmentTab===0&&!state.lastAppointmentCancelled&&state.currentAppointmentStatus!=="reviewed")||(state.appointmentTab===1&&state.currentAppointmentStatus==="reviewed")||(state.appointmentTab===2&&state.lastAppointmentCancelled))?"":`<div class="box"><p class="lead">${esc(tx("D1","empty"))}</p></div>`}
+          <div class="box" style="cursor: pointer; ${((state.appointmentTab===0&&!state.lastAppointmentCancelled&&state.currentAppointmentStatus!=="reviewed")||(state.appointmentTab===1&&state.currentAppointmentStatus==="reviewed")||(state.appointmentTab===2&&state.lastAppointmentCancelled))?"":"display:none"}" data-action="goD2">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               ${statusChip(state.lastAppointmentCancelled ? "cancelled" : state.currentAppointmentStatus)}
               <span class="chip neutral" style="font-size: 12px;">${state.selectedMode === "online" ? "Trực tuyến (mô phỏng)" : "Trực tiếp"}</span>
