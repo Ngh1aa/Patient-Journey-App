@@ -133,7 +133,7 @@ test('Lucide medical icon registry, clinical copy and compact data-led cards',as
  expect(data.iconPaths).toContain('pill');
  expect(data.iconPaths.length).toBeGreaterThanOrEqual(25);
  expect(data.svgCount).toBeGreaterThanOrEqual(10);
- expect(data.statHeight).toBeLessThan(235);
+ expect(data.statHeight).toBeLessThan(275);
  expect(data.heroHeight).toBeLessThan(330);
  await expect(page.locator('.doctor-now-details')).toContainText('Hình thức');
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
@@ -306,19 +306,69 @@ test('phone appointment rows preserve full patient names and keep actions access
   expect(metrics.documentWidth).toBeLessThanOrEqual(376);
 });
 
-test('functional dashboard card affordances and keyboard focus',async({page})=>{
-  await page.goto('/staff-prototype/index.html#/doctor');
-  await expect(page.locator('.doctor-action-card')).toHaveCount(3);
-  await expect(page.locator('.doctor-card-footer-link')).toHaveCount(3);
-  await expect(page.locator('.doctor-card-icon-action')).toHaveCount(3);
-  await expect(page.locator('.doctor-now-bottom')).toContainText('Bắt đầu lúc');
-  await expect(page.locator('.doctor-labs-footer')).toContainText('kết quả chờ rà soát');
-  const actions=await page.locator('.doctor-action-card .doctor-icon-link').evaluateAll(links=>links.map(a=>({label:a.getAttribute('aria-label'),href:a.getAttribute('href')})));
-  expect(actions.map(a=>a.href)).toEqual(['#/doctor/schedule','#/doctor/queue','#/results']);
-  expect(actions.every(a=>a.label?.length>8)).toBe(true);
-  const icon=page.locator('.doctor-action-card .doctor-icon-link').first();
-  await icon.focus();
-  await expect(icon).toHaveCSS('outline-style','solid');
-  await icon.click();
-  await expect(page).toHaveURL(/#\/doctor\/schedule$/);
+test('unique card destinations, navy contrast and keyboard accessibility',async({page})=>{
+ await page.goto('/staff-prototype/index.html#/doctor');
+ await expect(page.locator('.doctor-action-card')).toHaveCount(3);
+ await expect(page.locator('.doctor-action-card .doctor-card-footer-link')).toHaveCount(3);
+ await expect(page.locator('.doctor-action-card .doctor-icon-link')).toHaveCount(0);
+ await expect(page.locator('.doctor-card-icon-action')).toHaveCount(2);
+ await expect(page.locator('.doctor-labs-footer')).toContainText('kết quả chờ rà soát');
+ const state=await page.evaluate(()=>{
+  const get=selector=>getComputedStyle(document.querySelector(selector));
+  const links=[...document.querySelectorAll('.doctor-action-card')].map(card=>({
+   actions:[...card.querySelectorAll('a[href],button[data-action]')].map(a=>a.getAttribute('href')||a.getAttribute('data-action')),
+   icons:[...card.querySelectorAll('.doctor-stat-card-head svg')].length
+  }));
+  return {
+   body:get('body').backgroundColor,
+   card:get('.doctor-stat-card:not(.is-selected)').backgroundColor,
+   primary:get('.doctor-hero').backgroundImage,
+   button:get('.doctor-now-bottom .btn').backgroundColor,
+   buttonColor:get('.doctor-now-bottom .btn').color,
+   navFont:parseFloat(get('.doctor-sidebar .nav-item').fontSize),
+   labelFont:parseFloat(get('.doctor-stat-card p').fontSize),
+   titleFont:parseFloat(get('.doctor-section-head h2').fontSize),
+   selected:get('.doctor-stat-card.is-selected').backgroundColor,
+   links
+  };
+ });
+ expect(state.body).toBe('rgb(245, 246, 248)');
+ expect(state.card).toBe('rgb(255, 255, 255)');
+ expect(state.primary).toContain('0, 29, 87');
+ expect(state.button).toBe('rgb(0, 29, 87)');
+ expect(state.buttonColor).toBe('rgb(255, 255, 255)');
+ expect(state.navFont).toBeGreaterThanOrEqual(page.viewportSize().width>=1291?13:12);
+ expect(state.labelFont).toBeGreaterThanOrEqual(12);
+ expect(state.titleFont).toBeGreaterThanOrEqual(16);
+ expect(state.selected).toBe('rgb(234, 240, 250)');
+ expect(state.links.every(card=>card.actions.length===1)).toBe(true);
+ expect(state.links.every(card=>card.icons===1)).toBe(true);
+ const action=page.locator('.doctor-card-footer-link').first();
+ await action.focus();
+ await expect(action).toHaveCSS('outline-style','solid');
+ await action.click();
+ await expect(page).toHaveURL(/#\/doctor\/schedule$/);
+});
+
+test('navy dashboard and clinical controls retain legible contrast across states',async({page})=>{
+ const paths=['/doctor','/doctor/schedule','/doctor/queue','/patients','/results','/encounters/a-033','/clinical/orders','/clinical/prescription','/clinical/review','/doctor/followups'];
+ for(const path of paths){
+  await page.goto('/staff-prototype/index.html#'+path);
+  const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:innerWidth}));
+  expect(size.scroll,path+' overflow').toBeLessThanOrEqual(size.viewport+1);
+  await expect(page.locator('main')).toBeVisible();
+ }
+ await page.goto('/staff-prototype/index.html#/doctor');
+ const action=page.locator('.doctor-now-bottom .btn');
+ await action.hover();
+ await expect(action).toHaveCSS('color','rgb(255, 255, 255)');
+ await action.focus();
+ await expect(action).toHaveCSS('outline-style','solid');
+});
+
+test('clinical brand statuses and selected tabs inherit navy rather than blue',async({page})=>{
+ await page.goto('/staff-prototype/index.html#/encounters/a-033');
+ await expect(page.locator('.consult-identity .pill-brand')).toHaveCSS('background-color','rgb(0, 29, 87)');
+ await expect(page.locator('.consult-tabs .tab.current')).toHaveCSS('color','rgb(0, 29, 87)');
+ await expect(page.locator('.consult-person.selected .selected-stripe')).toHaveCSS('background-color','rgb(0, 29, 87)');
 });

@@ -1,0 +1,199 @@
+/* CAREFLOW DOCTOR — NAVY / READABILITY UPDATE
+   Design reference: Ngh1aa/uiux-ai-workspace.
+   Accent: #001D57; neutral canvas separated from white cards.
+   Loaded last. Only doctor-only staff prototype changes; clinical statuses retain semantic colors. */
+:root{
+ --blue:#001D57;--blue-dark:#001647;--blue-soft:#EAF0FA;
+ --navy:#001D57;--canvas:#F5F6F8;--surface:#fff;
+ --doc-blue:#001D57;--doc-electric:#001D57;--doc-navy:#001D57;
+ --doc-text:#1C2C44;--doc-muted:#516176;--doc-soft:#F5F6F8;
+ --doc-line:#E0E5ED;--doc-glass:rgba(255,255,255,.94);
+ --clinic-fg:#243851;--clinic-fg-strong:#001D57;
+ --clinic-fg-subtle:#465971;--clinic-fg-muted:#566980;
+ --clinic-focus:#001D57;--clinic-soft:#ECF1FA;--clinic-tint:#F3F6FB;
+ --doctor-text:#1C2C44;--doctor-secondary:#52647B;
+ --doctor-border:#DFE5EE;
+ --doc-shadow:0 10px 30px rgba(0,29,87,.055);
+}
+html,body,.app-shell{background:#F5F6F8;color:var(--doctor-text)}
+.main-content{background:transparent}
+::selection{background:#CAD7EA;color:#001D57}
+:where(button,a,input,textarea,select):focus-visible{outline:3px solid #001D57;outline-offset:3px}
+:where(.doctor-screen,.support-screen,.wave-consult) :where(h1,h2,h3){color:#001D57}
+:where(.doctor-surface,.doctor-stat-card,.panel,.support-panel,.wave-panel,.profile-banner){
+ border-color:#E1E7F0;
+ box-shadow:0 8px 26px rgba(0,29,87,.045);
+}
+:where(.doctor-screen,.support-screen,.wave-consult) .btn-primary,
+:where(.doctor-screen,.support-screen,.wave-consult) .btn.btn-primary,
+.btn-primary{background:#001D57;border-color:#001D57;color:#fff;box-shadow:0 5px 14px rgba(0,29,87,.14)}
+:where(.doctor-screen,.support-screen,.wave-consult) .btn-primary:hover:not(:disabled),
+.btn-primary:hover:not(:disabled){background:#17396F;border-color:#17396F;color:#fff}
+:where(.doctor-screen,.support-screen,.wave-consult) .btn-soft,
+:where(.doctor-screen,.support-screen,.wave-consult) .btn-secondary,
+.btn-soft,.btn-secondary{background:#EBF1FA;color:#001D57}
+:where(.doctor-screen,.support-screen,.wave-consult) .btn-soft:hover:not(:disabled),
+.btn-soft:hover:not(:disabled),.btn-secondary:hover:not(:disabled){background:#DDE7F6;color:#001D57}
+.btn-outline{color:#001D57;border-color:#C7D3E4}
+.btn-outline:hover:not(:disabled){color:#001D57;border-color:#001D57;background:#F2F5FA}
+.doctor-hero{background:linear-gradient(115deg,#001D57 0%,#092C65 67%,#183E76 100%);box-shadow:0 14px 34px rgba(0,29,87,.14)}
+.doctor-hero :where(h1,.doctor-hero-mark,.doctor-hero-date){color:#fff}
+.doctor-hero h1 em{color:#E1EAF8}
+.doctor-hero-sub,.doctor-hero-eyebrow{color:#E2EAF6}
+.doctor-hero .btn-hero{background:#fff;border-color:#fff;color:#001D57}
+.doctor-hero .btn-hero:hover{background:#E8EFFA;color:#001D57}
+.doctor-hero .btn-hero-quiet{color:#fff;border-color:rgba(255,255,255,.65)}
+.doctor-hero .btn-hero-quiet:hover{color:#fff;background:rgba(255,255,255,.18)}
+.doctor-art-orb{background:radial-gradient(circle at 30% 24%,#C4D5EE 0%,#7B99C3 25%,#1B4780 68%,#001A4A 100%)}
+.doctor-art-floating{color:#001D57}
+.doctor-art-floating>span,.doctor-art-floating>div b{color:#001D57}
+/* Sidebar: explicit readability increase while preserving short laptop viewport constraints. */
+.doctor-sidebar .brand-symbol{background:#001D57;color:white;box-shadow:0 7px 18px rgba(0,29,87,.14)}
+.doctor-sidebar .brand-name{color:#001D57;font-size:18px}
+.doctor-sidebar .brand-tail{color:#4B6079}
+.doctor-sidebar .nav-item{font-size:13.5px;line-height:1.4;font-weight:700;letter-spacing:-.016em;color:#3B4D66}
+.doctor-sidebar .nav-item svg{color:#52657E}
+.doctor-sidebar .nav-item.active{background:#EBF1FA;color:#001D57}
+.doctor-sidebar .nav-item.active svg{color:#001D57}
+.doctor-sidebar .nav-item.active::before,.doctor-sidebar .active-dot{background:#001D57}
+.doctor-sidebar .nav-item:hover{background:#F1F4FA;color:#001D57}
+.doctor-sidebar .side-overline{font-size:10.5px;letter-spacing:.12em;font-weight:750;color:#526781}
+.doctor-sidebar .sidebar-product-note{font-size:10px;color:#526781}
+.doctor-sidebar .profile-mini .person-lines strong{font-size:12.5px;color:#001D57}
+.doctor-sidebar .profile-mini .person-lines small{font-size:11px;color:#52657C}
+.doctor-sidebar-callout{background:linear-gradient(155deg,#EAF0FA,#F6F8FC);border-color:#DFE7F3}
+.doctor-sidebar-callout-label,.doctor-sidebar-callout>span,.doctor-sidebar-callout svg{color:#163D72}
+.doctor-sidebar-callout strong{color:#001D57}
+.doctor-topbar .breadcrumbs strong{color:#001D57;font-size:13px}
+.doctor-topbar .topbar-workspace{color:#53677F;font-size:12px}
+.doctor-profile-chip{background:#F1F4F9;color:#001D57;border-color:#E0E7F0;font-size:12px}
+.doctor-profile-chip:hover{background:#E6EEF8}
+/* Typography: target 12–15px metadata, 15–19px card titles, 40px controls. */
+.doctor-screen .doctor-kicker,.doctor-overline,.doctor-overview-meta{font-size:11px;letter-spacing:.105em;color:#475F7C}
+.doctor-heading h1{color:#001D57}
+.doctor-heading p{font-size:14px;line-height:1.65;color:#4A5E75}
+.doctor-section-head h2{font-size:18px;line-height:1.4;font-weight:750;color:#001D57}
+.doctor-section-head p{font-size:12.5px;line-height:1.6;color:#526880}
+.doctor-more-link,.doctor-screen .doctor-more-link{font-size:12.5px;color:#001D57}
+.doctor-more-link:hover{color:#17396F}
+.doctor-screen .btn{font-size:12.5px;line-height:1.4;min-height:42px}
+.doctor-stat-card{background:#fff}
+.doctor-stat-card.is-selected{background:#EAF0FA;border-color:#C9D7EB}
+.doctor-stat-card .doctor-icon{background:#EBF1F9;color:#001D57}
+.doctor-stat-card.is-selected .doctor-icon{background:#fff;color:#001D57}
+.doctor-stat-number{font-size:43px;color:#001D57}
+.doctor-stat-main>strong{font-size:14.5px;line-height:1.45;color:#001D57}
+.doctor-stat-card p{font-size:12.5px;line-height:1.55;color:#50627A;margin-top:6px}
+.doctor-stat-index{color:#71839B;font-size:12px;font-weight:750;letter-spacing:.06em}
+.doctor-card-footer-link{font-size:12.5px;min-height:44px;color:#001D57;border-top-color:#DCE5F1}
+.doctor-card-footer-link:hover{color:#17396F}
+.doctor-card-footer-link:focus-visible,.doctor-card-icon-action:focus-visible{outline-color:#001D57}
+.doctor-card-icon-action{background:#EBF1FA;border-color:#D3DFEF;color:#001D57;width:44px;height:44px}
+.doctor-card-icon-action:hover{background:#DDE7F6;border-color:#B8CAE2;color:#001D57}
+.doctor-icon{background:#EBF1FA;color:#001D57}
+.doctor-count{background:#EAF0FA;color:#001D57}
+/* Important child: current encounter status and next patient only. */
+.doctor-now-details>div{background:#F6F8FC;border-color:#E0E6EF}
+.doctor-now-details>div:first-child{background:#EAF0FA;border-color:#CEDBEE}
+.doctor-now-details small{font-size:11.5px;color:#4E617B}
+.doctor-now-details strong{font-size:13px;color:#001D57}
+.doctor-now-person strong{font-size:15px;color:#001D57}
+.doctor-now-person span,.doctor-now>p{font-size:12.5px;line-height:1.65;color:#53657A}
+.doctor-card-hint{font-size:11.5px;color:#526680}
+.doctor-labs-footer{border-top-color:#E0E7F0}
+.doctor-lab-mini{background:#F9FAFC;border-color:#E2E8F1;color:#001D57;min-height:56px}
+.doctor-lab-mini:hover{background:#EBF1FA}
+.doctor-lab-mini .doctor-icon{background:#EAF0FA;color:#001D57}
+.doctor-lab-mini strong{font-size:13px;color:#001D57}
+.doctor-lab-mini small{font-size:11.5px;color:#53657E}
+.doctor-appointment-time strong{font-size:14.5px;color:#001D57}
+.doctor-appointment-time small{font-size:11px;color:#53677F}
+.doctor-appointment-person strong{font-size:13.5px;color:#001D57}
+.doctor-appointment-person span{font-size:11.5px;line-height:1.55;color:#51677D}
+.doctor-appointment.is-compact .doctor-appointment-person strong{font-size:13px}
+.doctor-appointment.is-compact .doctor-appointment-person span{font-size:11px}
+.doctor-appointment .btn{font-size:11.5px;min-height:40px}
+.doctor-next-visit{background:#EEF3FA;border-color:#D7E2F1}
+.doctor-next-patient strong{font-size:13px;color:#001D57}
+.doctor-next-patient span{font-size:12px;color:#50647D}
+.doctor-next-action .btn{min-height:44px}
+.doctor-day.selected{background:#001D57;border-color:#001D57;box-shadow:0 8px 20px rgba(0,29,87,.16)}
+.doctor-day.selected strong,.doctor-day.selected small{color:#fff}
+.doctor-day:not(.selected):hover{background:#EEF3FA;border-color:#BECDE1}
+.doctor-day strong{color:#001D57}
+.doctor-week-today,.doctor-icon-button{color:#001D57;background:#F3F6FA}
+.doctor-week-today:hover,.doctor-icon-button:hover{background:#EAF0FA}
+/* Results / patients / tasks: avoid tiny labels in large white spaces. */
+.doctor-lab-row strong,.doctor-directory-row strong,.doctor-task strong{font-size:13.5px;color:#001D57}
+.doctor-lab-row small,.doctor-directory-row div span,.doctor-task>div:nth-child(2)>span{font-size:12px;line-height:1.5;color:#52667E}
+.doctor-directory-open{background:#EAF0FA;color:#001D57;min-width:44px;min-height:44px}
+.doctor-directory-open:hover{background:#DDE7F6}
+.doctor-filter button{font-size:12px;min-height:40px;color:#344C68}
+.doctor-filter button.selected{color:#001D57;background:#fff}
+.doctor-result-preview h2{color:#001D57}
+.doctor-result-banner{background:#EAF0FA}
+.doctor-result-datum span{font-size:12.5px;color:#51647A}
+.doctor-result-datum strong{font-size:13px;color:#001D57}
+.doctor-followups-mini{font-size:12.5px;color:#516680}
+.doctor-followups-mini strong{color:#001D57}
+.doctor-task-count{color:#697F99}
+.doctor-task-actions .btn{min-height:42px;font-size:11.5px}
+.doctor-tip{background:#F2F5FA;border-color:#E0E6F0;color:#314D6D;font-size:12px}
+.doctor-tip svg{color:#001D57}
+.doctor-search input{font-size:13px}
+/* Existing clinical workspace and supporting pages retain their readability. */
+.wave-consult .consult-top,.wave-consult .consult-grid .panel,.support-panel,.profile-grid .panel{border-color:#E1E7EF}
+.wave-consult .consult-identity h1{color:#001D57}
+.wave-consult .consult-tabs .tab{font-size:12.5px}
+.wave-consult .consult-tabs .tab.current,.tab.current,.tab[aria-selected="true"]{color:#001D57;border-bottom-color:#001D57}
+.wave-consult .field{font-size:12.5px;color:#405873}
+.wave-consult .field textarea{font-size:13.5px}
+.wave-consult .consult-person .person-lines strong,.profile-body h2{font-size:13.5px;color:#001D57}
+.wave-consult .consult-person .person-lines small{font-size:11.5px}
+.wave-consult .related-item strong{font-size:13px}
+.wave-consult .related-item small{font-size:11.5px}
+.wave-consult .consult-person.selected{background:#EAF0FA;box-shadow:inset 0 0 0 1px #CAD8EC}
+.wave-consult .wave-progress-step.is-current>span{background:#001D57;border-color:#001D57;color:#fff}
+.wave-consult .consult-quickfacts>div{background:#EEF3FA;border-color:#D7E1F0}
+.wave-consult .consult-quickfacts strong{color:#001D57;font-size:12px}
+.support-screen .support-hero h1{color:#001D57}
+.support-screen .panel-head h2{font-size:16px;color:#001D57}
+.support-screen .support-document h2{color:#001D57}
+.support-screen .support-form input,.support-screen .support-form select,.support-screen .support-form textarea{font-size:13px}
+.support-screen .support-note{font-size:12px}
+.profile-head-details h1,.profile-banner h1{color:#001D57}
+.profile-head-details p{color:#52657A}
+.pill-info{background:#EAF0FA;color:#001D57}
+.avatar.blue{background:#E1EAF6;color:#001D57}
+/* No selected/card state relies on color alone. Preserve text labels for status. */
+@media (min-width:981px) and (max-width:1290px){
+ .doctor-sidebar .nav-item{font-size:12.5px}
+ .doctor-sidebar .side-overline{font-size:10px}
+}
+@media(max-width:700px){
+ .doctor-stat-number{font-size:39px}
+ .doctor-section-head h2{font-size:16px}
+ .doctor-appointment-person strong{font-size:13px}
+ .doctor-screen .btn{font-size:12px}
+}
+
+
+/* Clinical legacy accent cleanup spotted during rendered QA: semantic "in progress"
+   belongs to the navy brand, not the previous bright-blue token. */
+.pill-brand{background:#001D57;color:#fff}
+.selected-stripe{background:#001D57}
+:where(.wave-consult,.support-screen,.doctor-screen) .tab.current,
+:where(.wave-consult,.support-screen,.doctor-screen) .tab[aria-selected="true"]{color:#001D57;border-bottom-color:#001D57}
+:where(.wave-consult,.support-screen,.doctor-screen) .tab:hover{color:#001D57}
+:where(.wave-consult,.support-screen) .field textarea:focus,
+:where(.wave-consult,.support-screen) .support-field :is(input,textarea,select):focus{
+ border-color:#001D57;box-shadow:0 0 0 3px rgba(0,29,87,.12)
+}
+:where(.wave-consult,.support-screen) .consult-editor-footer svg,
+:where(.wave-consult,.support-screen) .related-item svg{color:#001D57}
+.wave-consult .consult-queue .selected-stripe{background:#001D57}
+.wave-consult .consult-idline{color:#526882}
+/* Keep naturally readable soft semantic fills for real task statuses. */
+.pill-success{background:#E3F3EB;color:#186748}
+.pill-warning{background:#FFF3DA;color:#7A560B}
+.pill-danger{background:#FDE8E6;color:#972A23}
