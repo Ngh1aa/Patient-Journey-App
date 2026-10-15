@@ -33,7 +33,8 @@ test('all 24 destinations render, with booking confirmation gated',async({page})
  await select(page,'C6');await expect(current(page)).toHaveText('C5');
 });
 test('safety flag requires clinician review, checkbox cannot clear it',async({page})=>{
- await page.locator('[data-scenario="warning"]').click();
+ await select(page,"C2");
+ await patient(page).locator('[data-action="chooseScreening"][data-value="warning"]').click();
  await inPhone(page,'nextScreening').click();await expect(current(page)).toHaveText('C3');
  await inPhone(page,'openContinueConfirmation').click();
  await expect(patient(page)).toContainText('Tôi hiểu');
