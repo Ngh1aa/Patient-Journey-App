@@ -35,7 +35,7 @@
     doctorTasks:[
       {id:'case-a-033',title:'Theo dõi sau tái khám',desc:'Kiểm tra phản hồi theo kế hoạch xử trí đã ghi nhận',category:'Theo dõi lâm sàng',personId:'p-006',owner:'Bác sĩ',due:'18/10/2026',next:'Đối chiếu ghi nhận của lần tái khám',route:'/patients/p-006',done:false},
       {id:'case-a-041',title:'Liên hệ lại phiên khám trực tuyến',desc:'Chưa kết nối được với người bệnh',category:'Kết nối',personId:'p-009',owner:'Điều phối',due:'15/10/2026',next:'Xác nhận khả năng liên hệ và bố trí phương án khác',route:'/doctor/online/a-041',done:false},
-      {id:'case-a-001',title:'Rà soát kết quả cận lâm sàng',desc:'Kết quả công thức máu chưa được bác sĩ xem',category:'Cận lâm sàng',personId:'p-001',owner:'Bác sĩ',due:'16/10/2026',next:'Mở kết quả, ghi nhận đã xem và xác định bước tiếp theo',route:'/results',done:false}
+      {id:'case-a-001',sourceResult:'r-01',title:'Rà soát kết quả cận lâm sàng',desc:'Kết quả công thức máu chưa được bác sĩ xem',category:'Cận lâm sàng',personId:'p-001',owner:'Bác sĩ',due:'16/10/2026',next:'Mở kết quả, ghi nhận đã xem và xác định bước tiếp theo',route:'/results',done:false}
     ]}}
   let data;
   try {const p=JSON.parse(sessionStorage.getItem(KEY)||'null');data=(p&&Array.isArray(p.appointments)&&Array.isArray(p.results))?p:init()}catch{data=init()}
@@ -217,7 +217,7 @@
     if(action==='save-draft'){save();notify('Đã lưu ghi nhận thăm khám');return}
     if(action==='review-sign'){const a=appt(id);if(a.status==='completed'){notify('Lượt khám đã hoàn tất.');return}if(a.status!=='in-consult'){notify('Lượt khám chưa bắt đầu hoặc chưa đủ điều kiện hoàn tất.');return}const d=data.drafts[a.id]||{};if(['symptom','assessment','plan'].some(k=>!String(d[k]||'').trim())){notify('Cần hoàn thiện triệu chứng, nhận định lâm sàng và kế hoạch xử trí trước khi hoàn tất.');return}if(data.results.some(r=>r.personId===a.personId&&r.status==='ready')){notify('Vẫn còn kết quả cận lâm sàng chưa được bác sĩ xem.');return}ui.modal={type:'sign',id};render();return}
     if(action==='confirm-sign'){const a=appt(id);const d=data.drafts[a.id]||{};if(a.status!=='in-consult'||['symptom','assessment','plan'].some(k=>!String(d[k]||'').trim())||data.results.some(r=>r.personId===a.personId&&r.status==='ready')){ui.modal=null;notify('Cần rà soát đủ ghi nhận và các kết quả liên quan trước khi hoàn tất.');return}a.status='completed';a.owner='Đã hoàn tất';data.signed[id]=true;ui.modal=null;save();notify(`Đã hoàn tất hồ sơ khám của ${person(a.personId).name}`);return}
-    if(action==='review-result'){const r=data.results.find(x=>x.id===id);if(!r||r.status!=='ready')return;r.status='reviewed';save();notify(`Đã ghi nhận bác sĩ xem kết quả ${r.title}`);return}
+    if(action==='review-result'){const r=data.results.find(x=>x.id===id);if(!r||r.status!=='ready')return;r.status='reviewed';for(const t of data.doctorTasks||[]){if(t.sourceResult===r.id&&t.category==='Cận lâm sàng')t.done=true}save();notify(`Đã ghi nhận bác sĩ xem kết quả ${r.title}`);return}
   }
   document.addEventListener('click',ev=>{
     const a=ev.target.closest('[data-action]');if(!a)return;
