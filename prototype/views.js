@@ -1,7 +1,8 @@
 /* Shared render components and 47 composed screens; events belong to app.js. */
 (function (root) {
   'use strict';
-  const M = root.CareFlowModel,
+  const R = root.CareFlowRich,
+    M = root.CareFlowModel,
     VI = root.CareFlowCopy,
     C = VI.common,
     I = (name, size = 22) => root.CareFlowIcon(name, size).replace('<svg ', '<svg aria-hidden="true" ');
@@ -139,6 +140,7 @@
       p = M.accountProfile(s),
       l = v?.labs.find((x) => x.id === u.labId) || v?.labs[0];
     let body = '';
+    const richH = { M, VI, C, I, esc, btn, go, row, card, note, empty, field, textarea, form, check, choices, chip, status, dateText, modeText, details, timeline, facilityCard };
     let intro = head(T?.heading || '', T?.lead || '');
     const nav = (label, to, variant = 'secondary', extra = {}) =>
       go(label, to, variant, extra);
@@ -208,63 +210,13 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting"><span class="avatar">${root.CareFlowAvatar(p?.id || 'account',44)}</span><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div></div><div class="home-statement"><h2>${VI.layout.homeTitle.map(esc).join('<br>')}</h2><p>${esc(VI.layout.homeLead)}</p></div>`;
-        const active = s.visits.filter(
-          (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
-        );
-        body =
-          section(
-            T.upcoming,
-            active.length
-              ? active.slice(0, 1).map((x) => visitCard(s, x, true)).join('') + (active.length > 1 ? nav('Xem tất cả ' + active.length + ' lịch hẹn', 'D1', 'text') : '')
-              : empty(T.empty, T.emptyLead),
-            '', 'calendar',
-          );
-        if (v) {
-          const next = M.nextAction(v);
-          body += section(
-            T.tasks,
-            '<div class="home-tasks">' + row(
-              VI.actions[next[1]],
-              VI.statuses[v.status][1],
-              next[0],
-              'clock',
-              {
-                'data-purpose': ['cancelled', 'no-show'].includes(v.status)
-                  ? 'rebook'
-                  : '',
-              },
-            ) +
-              (v.labs.length
-                ? row(
-                    VI.screen.F1.heading,
-                    VI.labs[v.labs[0].status],
-                    'F1',
-                    'document',
-                  )
-                : '') +
-              (v.status === 'completed'
-                ? row(VI.payments[v.payment.status], C.fee, 'H2', 'document')
-                : '') + '</div>',
-            '', 'clock',
-          );
-        }
-        body += `<nav class="home-quick-actions" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','book-nav',null],['clock','Lịch hẹn','go','D1'],['document','Kết quả','go','H7'],['phone','Hỗ trợ','go','K5']].map(([icon,label,action,to]) => `<button type="button" data-action="${action}"${to ? ` data-to="${to}"` : ''}><span>${I(icon,22)}</span><small>${esc(label)}</small></button>`).join('')}</nav>`;
-        body +=
-          section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`, 'service-section') + row(T.help, T.helpLead, 'K5', 'phone');
+        intro = R.homeHeader(s, p);
+        body = R.home(s, v, richH);
         break;
       }
       case 'C1':
-        body = form(
-          'patient',
-          `<section class="patient-group"><div class="group-heading"><h2>${esc(VI.layout.savedProfiles)}</h2><span>${s.profiles.length}</span></div>` +
-          choices(C.patient, s.profiles.map((x) => [
-            x.id, x.name,
-            x.relation === 'self' ? T.self : x.canViewResults ? VI.layout.sharedProfile : T.permission,
-            VI.layout.dobLabel + ' · ' + (x.dob ? x.dob.split('-').reverse().join('/') : C.notProvided),
-          ]), d?.patientId, nav(T.add, 'K2', 'secondary add-relative-inline')) + '</section>',
-          C.continue,
-        );
+        intro = head('Ai sẽ đi khám?', 'Chọn hồ sơ có sẵn hoặc thêm người mới.');
+        body = R.patient(s, d, richH);
         break;
       case 'C2':
         body =
@@ -337,17 +289,7 @@
           : '';
         break;
       case 'D1': {
-        body = `<div class="segments" role="group" aria-label="${esc(T.heading)}">${['upcoming', 'past', 'cancelled'].map((k) => btn(T[k], 'filter', { 'data-filter': k }, u.filter === k ? 'selected' : 'text')).join('')}</div>`;
-        const visits = s.visits.filter((x) =>
-          u.filter === 'past'
-            ? x.status === 'completed'
-            : u.filter === 'cancelled'
-              ? ['cancelled', 'no-show'].includes(x.status)
-              : !['completed', 'cancelled', 'no-show'].includes(x.status),
-        );
-        body += visits.length
-          ? visits.map((x) => visitCard(s, x)).join('')
-          : empty(T.empty, T.emptyLead, btn(C.book, 'begin', {}, 'primary'));
+        body = R.appointments(s, u, richH);
         break;
       }
       case 'D2': {
@@ -391,6 +333,7 @@
           `<div class="list">${row(T.labs, v.labs.length ? VI.labs[v.labs[0].status] : VI.screen.F1.empty, 'F1', 'document')}${row(T.pay, VI.payments[v.payment.status], 'H2', 'document')}${row(T.summary, C.noClinical, 'H6', 'pill')}${row(T.results, v.communication.result === 'notified' ? VI.screen.H7.notified : VI.screen.H7.pending, 'H7', 'document')}${row(T.care, '', 'I1', 'heart-pulse')}</div>`,
         );
         body += section(C.history, timeline(v));
+        body += R.visitExtras(s, v, richH);
         break;
       }
       case 'D3':
@@ -769,18 +712,7 @@
             : empty(T.empty, '')) + note(T.note);
         break;
       case 'K2':
-        body =
-          s.profiles
-            .map((x) =>
-              card(
-                `<div class="profile-row"><span class="avatar">${root.CareFlowAvatar(x.id,52)}</span><div><h2>${esc(x.name)}</h2><p class="entry-date">${I('calendar',14)}${esc(x.dob?.split('-').reverse().join('/'))}</p>${chip(x.canViewResults ? T.view : T.bookOnly)}</div></div>`,
-              ),
-            )
-            .join('') +
-          `<section class="profile-bento" aria-label="Tiện ích hồ sơ">${row('Người đi khám', '', 'C1', 'user')}${`<div class="profile-unavailable" aria-label="Bảo hiểm chưa kết nối"><span aria-hidden="true">${I('shield',24)}</span><strong>Bảo hiểm</strong><small>Chưa kết nối</small></div>`}${row('Kết quả khám', '', 'H7', 'document-check')}${row('Đơn thuốc và lời dặn', '', 'H6', 'pill')}</section>` +
-          row(T.history, '', 'K3', 'document') +
-          row(T.settings, '', 'K4', 'settings') +
-          `<details class="add-relative"><summary>${esc(T.add)}</summary>${form('relative', field('name', T.name) + field('dob', T.dob, '', 'date', { max: M.localDate() }), T.save)}</details>`;
+        body = R.profile(s, u, richH);
         break;
       case 'K3': {
         const old = s.visits.filter((x) =>
@@ -804,21 +736,7 @@
           btn(T.logout, 'logout', {}, 'text danger-text');
         break;
       case 'K5':
-        body =
-          card(
-            `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>Để lại yêu cầu để phòng khám liên hệ với bạn về lịch hẹn và việc sau khám.</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
-          ) +
-          `<div class="support-grid">${row('Hỏi phòng khám', VI.screen.I1.lead, 'I1', 'heart-pulse')}${row('Tin nhắn', 'Liên hệ điều phối viên', 'I5', 'phone')}</div>` +
-          form('support', textarea('support', T.text), T.message, 'secondary') +
-          section(
-            T.faq,
-            [1, 2, 3, 4]
-              .map(
-                (n) =>
-                  `<details class="faq"><summary>${esc(T['q' + n])}</summary><p>${esc(T['a' + n])}</p></details>`,
-              )
-              .join(''),
-          );
+        body = R.support(s, u, richH);
         break;
       default:
         return empty(
