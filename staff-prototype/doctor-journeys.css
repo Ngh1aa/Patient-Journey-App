@@ -101,3 +101,12 @@ p.journey-confirm{margin:0 0 8px}
  .journey-person-row>.pill{max-width:100%;white-space:normal}
 }
 @media(prefers-reduced-motion:reduce){.journey-circle-link{transition:none}}
+
+
+/* Information-rich due-date timeline instead of a tall empty follow-up summary. */
+.journey-deadline-list{display:flex;flex-direction:column;gap:10px;padding:14px 0;min-width:0}
+.journey-deadline-item{border:1px solid #E0E7F1;background:#F7F9FC;border-radius:13px;padding:13px 14px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.journey-deadline-item:first-child{background:#EAF0FA;border-color:#CAD9ED}
+.journey-deadline-date{color:#375476;font-size:11px;font-weight:800}
+.journey-deadline-item strong{color:#001D57;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.journey-deadline-item small{color:#526780;font-size:11px;line-height:1.5}
