@@ -363,6 +363,9 @@
             `<div class="ticket-head"><span class="eyebrow">${esc(T.code)}</span><strong>${esc(v.id)}</strong>${status(v)}</div>${details(s, v)}<div class="ticket-code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" aria-label="${esc(T.qr)}" role="img"></div><p>${esc(T.qrHint)}</p></div>`,
             'ticket',
           );
+        body += v.mode === 'onsite'
+          ? facilityCard()
+          : `<section class="online-appointment-status" aria-label="Chuẩn bị khám trực tuyến"><strong>Thời gian đến lịch khám</strong><time data-appointment-countdown="${esc(v.date + 'T' + v.slot + ':00+07:00')}" aria-live="off">Đang xác định thời gian</time><p>Phòng khám sẽ hướng dẫn bạn vào phòng khám trực tuyến khi đến giờ.</p></section>`;
         body += note(v.feePlan === 'not-required' ? C.feeFree : v.feePlan === 'package' ? C.feePackage : C.feePending);
         if (v.lockedAt) body += note(C.signed);
         if (v.communication.callback === 'pending') body += note(C.callback);
@@ -434,6 +437,7 @@
         break;
       case 'E2':
         body =
+          `<section class="checkin-qr-panel" aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa, không tự động check-in.</p></section>` +
           card(details(s, v)) +
           note(T.note) +
           btn(T.cta, 'arrive', {}, 'primary');
@@ -514,6 +518,7 @@
         break;
       case 'G1':
         body =
+          `<div class="online-prepare-list" aria-label="Chuẩn bị khám trực tuyến"><div>1 <span>Kiểm tra camera và micro</span></div><div>2 <span>Kiểm tra kết nối Internet</span></div><div>3 <span>Chờ phòng khám mở phòng khám trực tuyến</span></div></div>` +
           card(
             `<div class="video-preview">${I('video', 44)}<strong>${esc(u.deviceReady ? T.ready : T.waiting)}</strong></div>`,
           ) +
@@ -757,8 +762,8 @@
           (s.notifications.length
             ? s.notifications
                 .map(
-                  (n) =>
-                    `<button class="notification row ${n.read ? 'read' : ''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="read-dot" aria-hidden="true"></span><span class="row-icon">${I('bell')}</span><span class="row-text"><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right', 18)}</button>`,
+                  (n,i,all) =>
+                    `${i === 0 || Boolean(n.at && new Date(n.at).toDateString() === new Date().toDateString()) !== Boolean(all[i-1]?.at && new Date(all[i-1].at).toDateString() === new Date().toDateString()) ? `<h2 class="notification-day">${n.at && new Date(n.at).toDateString() === new Date().toDateString() ? 'Hôm nay' : 'Trước đó'}</h2>` : ''}<button class="notification row ${n.read ? 'read' : ''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="read-dot" aria-hidden="true"></span><span class="row-icon">${I('bell')}</span><span class="row-text"><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right', 18)}</button>`,
                 )
                 .join('')
             : empty(T.empty, '')) + note(T.note);
