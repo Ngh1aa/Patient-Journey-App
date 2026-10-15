@@ -30,7 +30,7 @@
 .phone:not(.video-mode) #phone-content .screen-masthead .screen-intro p {
   font-size:calc(12px * var(--font-scale,1));color:#e2ecff!important;line-height:1.55;
 }
-.phone:not(.video-mode) #phone-content .compact-masthead {min-height:138px;}
+.phone:not(.video-mode) #phone-content .compact-masthead {min-height:112px;}
 .phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
   min-height:clamp(210px, 30vh, 276px);padding:18px 20px 74px!important;
   border-radius:0 0 32px 32px!important;
