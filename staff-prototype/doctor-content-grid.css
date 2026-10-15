@@ -330,10 +330,10 @@
     overflow-wrap:anywhere;
     line-height:1.55;
   }
-  .doctor-screen .doctor-appointment-status { grid-column:3; grid-row:2; }
+  .doctor-screen .doctor-appointment-status { display:none; }
   .doctor-screen .doctor-appointment-action {
     grid-column:1 / -1;
-    grid-row:3;
+    grid-row:2;
     justify-self:end;
     margin:0;
   }
