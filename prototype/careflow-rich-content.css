@@ -1,0 +1,207 @@
+
+/* CareFlow+ richer content, viewport-first. No clinical workflow modifications. */
+#phone-content .rich-section{margin:18px 0 0;min-width:0}
+#phone-content .rich-heading{font-size:calc(17px * var(--font-scale,1));color:#122544;letter-spacing:-.02em;margin:0 0 12px;font-weight:780}
+#phone-content .rich-subnote{display:block;color:#60728b;font-size:calc(11px * var(--font-scale,1));line-height:1.55;margin-top:8px}
+#phone-content .rich-eyebrow{font-size:10px;letter-spacing:.13em;color:#bdd7fb;font-weight:800}
+#phone-content .rich-home-head{padding:0 0 24px;color:white}
+#phone-content .rich-greeting{display:flex;justify-content:space-between;align-items:center;gap:14px}
+#phone-content .rich-greeting > div{min-width:0}
+#phone-content .rich-greeting h1{font-weight:800;font-size:calc(23px * var(--font-scale,1));line-height:1.18;color:white;margin:9px 0 7px}
+#phone-content .rich-greeting p{font-size:calc(12px * var(--font-scale,1));color:#d9e6fa;line-height:1.6;margin:0}
+#phone-content .rich-head-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+#phone-content .rich-head-meta>span:last-child{font-size:10px;color:#e2eafa}
+#phone-content[data-screen="B1"] .home-masthead{padding-bottom:13px!important}
+#phone-content[data-screen="B1"] .rich-hero{margin-top:-3px;padding:18px;border-radius:25px;background:white;box-shadow:0 16px 32px #12264b25;border:1px solid #edf2f8}
+#phone-content .rich-hero-top,.rich-appt-date,.rich-appt-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#phone-content .rich-hero-top>span:last-child{font-size:10px;font-weight:800;letter-spacing:.09em;color:#6d7e96}
+#phone-content .rich-hero-visit{border:0!important;box-shadow:none!important;background:none!important;border-radius:0!important;padding:17px 0 14px!important;margin:0!important;display:flex!important;flex-direction:column;gap:9px;width:100%;text-align:left;align-items:flex-start;color:#173154}
+#phone-content .rich-big-hour{font-size:calc(41px * var(--font-scale,1));font-weight:850;line-height:1;letter-spacing:-.055em;color:#082a60}
+#phone-content .rich-hero-date{font-size:calc(14px * var(--font-scale,1));color:#2d4160}
+#phone-content .rich-doctor{display:flex;align-items:center;gap:11px;margin-top:4px}
+#phone-content .rich-doctor>span{display:grid;gap:3px}
+#phone-content .rich-doctor strong{font-size:13px}
+#phone-content .rich-doctor small{font-size:11px;color:#607089}
+#phone-content .rich-place{font-size:calc(11px * var(--font-scale,1));line-height:1.55;display:flex;align-items:flex-start;gap:7px;color:#3c5676}
+#phone-content .rich-hero-visit>small{font-size:11px;color:#65748b}
+#phone-content .rich-status{display:flex;flex-direction:column;gap:6px}
+#phone-content .rich-status>small{color:#61738a;font-size:calc(11px * var(--font-scale,1))}
+#phone-content .rich-hero-actions{display:grid;grid-template-columns:1.15fr 1fr;gap:7px}
+#phone-content .rich-hero-actions .btn{min-height:46px;padding:10px 9px;font-size:calc(11px * var(--font-scale,1));text-decoration:none;text-align:center;white-space:normal}
+#phone-content .rich-hero-actions .btn:last-child{grid-column:span 2}
+#phone-content .rich-stat-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:15px 0 0;background:#fff;border:1px solid #e2ebf5;border-radius:23px;overflow:hidden}
+#phone-content .rich-stat-strip button{display:flex;align-items:flex-start;flex-direction:column;gap:5px;padding:14px 12px;background:none;border:0;min-height:91px;text-align:left;color:#122b51}
+#phone-content .rich-stat-strip button+button{border-left:1px solid #e7eef7}
+#phone-content .rich-stat-strip button>span{color:#3275c4}
+#phone-content .rich-stat-strip button:nth-child(2)>span{color:#e19730}
+#phone-content .rich-stat-strip button:nth-child(3)>span{color:#249f85}
+#phone-content .rich-stat-strip strong{font-size:24px;line-height:1}
+#phone-content .rich-stat-strip small{font-size:calc(10px * var(--font-scale,1));line-height:1.4;color:#63758d}
+#phone-content[data-screen="B1"] .rich-task-rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 25px 10px 1px;scrollbar-width:none;margin-right:-20px}
+#phone-content .rich-task-rail::-webkit-scrollbar,.rich-tips::-webkit-scrollbar{display:none}
+#phone-content[data-screen="B1"] .rich-task-rail .rich-task{display:flex;flex:0 0 79%;flex-direction:column;align-items:flex-start;min-height:158px;gap:8px;justify-content:flex-start;padding:17px;border:1px solid #e1e9f4;box-shadow:none;scroll-snap-align:start;min-width:0;overflow:visible}
+#phone-content .rich-task strong{font-size:calc(14px * var(--font-scale,1));color:#173255}
+#phone-content .rich-task small{color:#66788d;line-height:1.5;font-size:11px}
+#phone-content .rich-task-link{margin-top:auto;color:#2266b7;font-size:12px;font-weight:800}
+#phone-content .rich-shortcuts{margin-top:15px;padding:7px 0 5px}
+#phone-content .rich-care-card{border-radius:24px;padding:19px;background:linear-gradient(150deg,#e4f4f7,#fff 74%);border:1px solid #d5eaf0;display:grid;gap:12px}
+#phone-content .rich-care-card h3{font-size:calc(15px * var(--font-scale,1));margin:10px 0 4px}
+#phone-content .rich-care-card p{margin:0;font-size:12px;color:#526e7a}
+#phone-content .rich-care-facts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#phone-content .rich-care-facts span{padding:10px 9px;background:#fff;border-radius:13px;font-weight:750;color:#25506a;font-size:11px}
+#phone-content .rich-med-line{padding:11px;border:1px dashed #9ac7cf;border-radius:13px;display:flex;gap:8px;align-items:center}
+#phone-content .rich-care-card .btn{justify-self:start}
+#phone-content .rich-tips{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 22px 9px 1px;margin-right:-20px;scrollbar-width:none;align-items:start}
+#phone-content .rich-tip{flex:0 0 76%;border:1px solid #dde9f6;border-radius:21px;background:#fff;scroll-snap-align:start;min-width:0;padding:14px}
+#phone-content .rich-tip summary{display:flex;flex-direction:column;align-items:flex-start;gap:12px;cursor:pointer;min-height:118px;list-style:none}
+#phone-content .rich-tip summary::-webkit-details-marker{display:none}
+#phone-content .rich-tip summary>span{display:grid;place-items:center;width:42px;height:42px;border-radius:15px;background:#eaf2ff;color:#2764b1}
+#phone-content .rich-tip strong{line-height:1.45;font-size:13px;color:#163656}
+#phone-content .rich-tip summary small{color:#6e7d94;font-size:10px}
+#phone-content .rich-tip p{font-size:12px;line-height:1.55;color:#586b85}
+#phone-content .rich-support-line{display:flex;align-items:center;gap:10px;padding:15px 13px;background:#e8eff8;border-radius:18px;color:#1d426a;margin:18px 0 8px}
+#phone-content .rich-support-line span{display:grid;gap:4px;flex:1;min-width:0;font-size:12px}
+#phone-content .rich-support-line small{font-size:10px;color:#687c97}
+#phone-content .rich-support-line button{border:0;background:none;font-size:11px;font-weight:800;color:#1d5bb2;padding:9px 4px;min-height:44px}
+#phone-content .rich-empty{padding:23px 17px;border:1px dashed #b5cee8;border-radius:22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;background:#fff}
+#phone-content .rich-empty>span{font-size:35px;color:#4b90da}
+#phone-content .rich-empty strong{font-size:16px;color:#15345c}
+#phone-content .rich-empty p{font-size:12px;line-height:1.55;color:#66768d}
+#phone-content .rich-empty small{line-height:1.4;font-size:11px;color:#66768d}
+#phone-content .rich-appt-tabs{display:flex;gap:6px;background:#fff;padding:5px;border-radius:16px;margin-bottom:12px}
+#phone-content .rich-appt-tabs .btn{flex:1;padding:10px 4px;min-height:46px;font-size:11px;text-align:center}
+#phone-content .rich-filter-chips{display:flex;gap:7px;overflow-x:auto;padding:3px 0 12px;scrollbar-width:none}
+#phone-content .rich-filter-chips button{border:1px solid #dbe6f3;background:#fff;color:#4c6483;border-radius:99px;white-space:nowrap;min-height:44px;padding:9px 13px;font-size:12px;font-weight:750}
+#phone-content .rich-filter-chips button[aria-pressed="true"]{background:#17498a;border-color:#17498a;color:#fff}
+#phone-content .rich-appt-card{padding:16px;background:#fff;border:1px solid #e2e9f4;border-left:5px solid #3977bb;border-radius:20px;margin-bottom:12px;display:grid;gap:13px;min-width:0}
+#phone-content .rich-appt-card.state-warning{border-left-color:#e2a233}
+#phone-content .rich-appt-card.state-success{border-left-color:#28a276}
+#phone-content .rich-appt-card.state-danger{border-left-color:#cd5961}
+#phone-content .rich-appt-date strong{font-size:13px;line-height:1.5;color:#14335d}
+#phone-content .rich-appt-doctor{display:flex;gap:10px;align-items:center}
+#phone-content .rich-appt-doctor>div{display:grid;gap:4px;min-width:0}
+#phone-content .rich-appt-doctor strong{font-size:13px;color:#193a60}
+#phone-content .rich-appt-doctor small{font-size:11px;line-height:1.5;color:#596f8b}
+#phone-content .rich-appt-place{font-size:11px;line-height:1.6;color:#62758d;margin:0}
+#phone-content .rich-appt-meta{flex-wrap:wrap;padding-top:7px;border-top:1px dashed #e2e9f1;color:#62758c;font-size:11px}
+#phone-content .rich-appt-status{display:flex;gap:6px;align-items:flex-start;flex-direction:column}
+#phone-content .rich-appt-status small{font-size:11px;color:#6c7d93}
+#phone-content .rich-appt-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#phone-content .rich-appt-actions .btn:only-child{grid-column:span 2}
+#phone-content .rich-filter-empty{padding:19px 15px;background:#fff;border-radius:16px;font-size:12px;color:#5b7090;text-align:center}
+#phone-content .rich-rebook-tip{background:#e6f2ff;border-radius:20px;padding:17px;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+#phone-content .rich-rebook-tip strong{font-size:13px}
+#phone-content .rich-rebook-tip small{font-size:11px;color:#547193}
+#phone-content .rich-rebook-tip button{background:none;border:0;align-self:flex-start;padding:12px 0;min-height:44px;color:#246bb8;font-weight:800}
+#phone-content .rich-patient-options .choices{gap:10px}
+#phone-content .rich-patient-choice{border-radius:22px;padding:15px 12px;min-height:135px;align-items:center;gap:10px;display:flex;background:#fff}
+#phone-content .rich-patient-choice:has(input:checked){border:2px solid #205ca5;background:#eef5ff}
+#phone-content .rich-patient-choice .choice-copy{flex:1;min-width:0}
+#phone-content .rich-patient-choice .choice-copy strong{font-size:14px}
+#phone-content .rich-patient-choice .choice-copy small{font-size:11px;line-height:1.5}
+#phone-content .rich-profile-meta{font-size:10px;line-height:1.55;color:#4b759f}
+#phone-content .rich-select-indicator{display:grid;place-items:center;width:22px;height:22px;border:2px solid #8ca5be;border-radius:50%;color:#fff;font-size:13px;flex:0 0 auto}
+#phone-content .rich-patient-choice:has(input:checked) .rich-select-indicator{background:#215eac;border-color:#215eac}
+#phone-content .rich-lead{color:#e4eefc;font-size:13px;line-height:1.5}
+#phone-content .rich-profile-hint{display:flex;align-items:flex-start;gap:9px;border-radius:16px;background:#eaf1fb;color:#435c7c;padding:13px;font-size:11px;line-height:1.6}
+#phone-content .rich-profile-hint p{margin:0}
+#phone-content .rich-add-person{background:#fff;border:1px dashed #b2ccea;border-radius:20px;padding:16px;margin:14px 0}
+#phone-content .rich-add-person>summary{list-style:none;display:flex;align-items:center;gap:8px;font-size:13px;color:#1e5f9e;font-weight:800;min-height:44px;cursor:pointer;flex-wrap:wrap}
+#phone-content .rich-add-person>summary::-webkit-details-marker{display:none}
+#phone-content .rich-add-person summary small{font-size:11px;color:#687e95;font-weight:400}
+#phone-content .rich-new-profile{margin-top:14px;border-top:1px solid #e6ecf4;padding-top:11px}
+#phone-content .rich-new-step{border-top:1px dashed #d8e4f1;margin-top:16px;padding-top:12px;font-size:12px;line-height:1.6;color:#586b7f}
+#phone-content .rich-warning-note{border:1px solid #fae2b3;background:#fff8e8;border-radius:17px;padding:13px;font-size:11px;line-height:1.7}
+#phone-content .rich-warning-note .btn{min-height:44px}
+#phone-content .rich-progress-steps{list-style:none;margin:0;padding:15px;background:white;border-radius:22px;border:1px solid #e0e8f3;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+#phone-content .rich-progress-steps li{display:flex;align-items:center;gap:7px;font-size:11px;color:#6d7f95;min-width:0}
+#phone-content .rich-progress-steps li>span{width:26px;height:26px;border-radius:50%;background:#edf2f7;color:#64778b;display:grid;place-items:center;flex:0 0 auto;font-weight:800}
+#phone-content .rich-progress-steps li.done>span{background:#e1f8ed;color:#168a62}
+#phone-content .rich-progress-steps li.current{color:#174c8b}
+#phone-content .rich-progress-steps li.current>span{background:#1457a3;color:white}
+#phone-content .rich-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#phone-content .rich-mini-grid>div{background:#fff;border:1px solid #e2eaf5;border-radius:17px;padding:13px;min-width:0;display:grid;gap:9px}
+#phone-content .rich-mini-grid strong{display:flex;align-items:center;gap:6px;font-size:12px;color:#21456d}
+#phone-content .rich-mini-grid small{font-size:11px;color:#6b7f96;line-height:1.5}
+#phone-content .rich-detail-block,#phone-content .rich-lab-summary{border-radius:19px;padding:16px;background:#fff;border:1px solid #e3eaf5;display:grid;gap:8px;font-size:12px}
+#phone-content .rich-detail-block strong{color:#183a5c}
+#phone-content .rich-detail-block p{margin:0;color:#5c738e;line-height:1.6}
+#phone-content .rich-lab-summary>div{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#phone-content .rich-policy{border:1px solid #dce7f5;border-radius:17px;background:#eaf2fc;margin-top:15px;padding:13px;display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:11px;line-height:1.5;color:#517291}
+#phone-content .rich-profile-hero{padding:20px;background:linear-gradient(155deg,#e0eeff,#fff 83%);border-radius:25px;border:1px solid #d4e4f5;display:grid;gap:13px}
+#phone-content .rich-profile-account{display:flex;align-items:center;gap:12px}
+#phone-content .rich-profile-account>div{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0}
+#phone-content .rich-profile-account strong{font-size:15px;color:#1b3d66}
+#phone-content .rich-profile-account small{font-size:11px;color:#667d97;overflow-wrap:anywhere}
+#phone-content .rich-progress-label{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px}
+#phone-content .rich-progress-label small{color:#74859c}
+#phone-content .rich-progress-bar{height:7px;background:#d5e5f4;border-radius:20px;overflow:hidden}
+#phone-content .rich-progress-bar span{display:block;height:100%;background:#2684d5;border-radius:20px}
+#phone-content .rich-profile-bento{margin:14px 0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#phone-content .rich-profile-bento .row,#phone-content .rich-profile-bento .profile-unavailable{min-width:0;overflow:hidden}
+#phone-content .rich-edit-list{padding:0 15px;border-radius:20px;background:#fff;border:1px solid #e1eaf5}
+#phone-content .rich-edit-list>div{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:11px 0;min-height:60px}
+#phone-content .rich-edit-list>div+div{border-top:1px solid #e8eef5}
+#phone-content .rich-edit-list span{display:grid;gap:5px;min-width:0}
+#phone-content .rich-edit-list strong{font-size:12px}
+#phone-content .rich-edit-list small{font-size:11px;color:#71839b}
+#phone-content .rich-edit-list button{border:0;background:none;color:#2062a4;font-size:11px;min-height:44px;flex:0 0 auto}
+#phone-content .rich-medical-pills{display:flex;gap:7px;flex-wrap:wrap}
+#phone-content .rich-settings-links{display:grid;gap:9px}
+#phone-content .rich-support-hero{border:1px solid #d0e0f4;background:linear-gradient(135deg,#dfedff,#fff 85%);border-radius:24px;padding:20px;display:grid;gap:12px}
+#phone-content .rich-support-hero>strong{font-size:calc(22px * var(--font-scale,1));color:#1c456b;letter-spacing:-.02em}
+#phone-content .rich-support-hero>p{font-size:11px;line-height:1.5;color:#647a95;margin:0}
+#phone-content .rich-hotline-label{display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-size:10px}
+#phone-content .rich-hotline-label small{color:#647c94}
+#phone-content .rich-contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#phone-content .rich-contact-grid .row{min-width:0}
+#phone-content .rich-contact-grid+.rich-mini-grid{margin-top:10px}
+#phone-content .rich-callback{padding:16px;background:#fff;border:1px solid #e0e9f5;border-radius:20px;display:grid;gap:12px}
+#phone-content .rich-callback>p{font-size:12px;margin:0;line-height:1.6;color:#657992}
+#phone-content .rich-callback-slots{display:flex;flex-wrap:wrap;gap:7px}
+#phone-content .rich-callback-slots button{border:1px solid #d7e4f3;background:#fff;border-radius:99px;padding:8px 11px;min-height:44px;font-size:11px;color:#1d507b}
+#phone-content .rich-callback-slots button[aria-pressed="true"]{background:#e5f1ff;border-color:#3078bd;font-weight:800}
+#phone-content .rich-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#phone-content .rich-topic-grid .btn{justify-content:start;font-size:11px;min-height:50px}
+#phone-content .rich-faqs{display:grid;gap:9px}
+#phone-content .rich-faqs details{background:#fff;border-radius:15px;border:1px solid #e1eaf4;padding:13px}
+#phone-content .rich-faqs summary{min-height:44px;display:flex;align-items:center;font-size:12px;font-weight:700;color:#203c5a;cursor:pointer}
+#phone-content .rich-faqs p{font-size:11px;line-height:1.6;color:#637691}
+#phone-content .rich-emergency{padding:17px;margin:16px 0;background:#fff3f1;border:1px solid #efc9c3;border-radius:19px;display:grid;gap:11px}
+#phone-content .rich-emergency strong{color:#a24447;font-size:13px;display:flex;align-items:center;gap:6px}
+#phone-content .rich-emergency p{font-size:12px;line-height:1.6;color:#894e4b;margin:0}
+#phone-content .rich-emergency .btn{justify-self:start}
+#phone-content[data-screen="B1"] > .section:first-of-type{all:unset}
+.phone :is(.rich-task-rail,.rich-tips,.rich-filter-chips){scrollbar-width:none;-ms-overflow-style:none}
+.phone :is(.rich-task-rail,.rich-tips,.rich-filter-chips)::-webkit-scrollbar{display:none}
+.phone.large-text #phone-content :is(.rich-mini-grid,.rich-care-facts,.rich-progress-steps,.rich-topic-grid){grid-template-columns:minmax(0,1fr)}
+.phone.large-text #phone-content .rich-task-rail .rich-task{flex-basis:93%}
+.phone.large-text #phone-content .rich-tip{flex-basis:94%}
+@media (max-width:374px){#phone-content .rich-hero{padding:13px!important}#phone-content .rich-stat-strip button{padding:12px 8px}#phone-content .rich-hero-actions{grid-template-columns:1fr}#phone-content .rich-hero-actions .btn:last-child{grid-column:auto}#phone-content .rich-profile-bento .row{padding:12px 8px}}
+
+.phone-header #notifications{position:relative}
+.phone-header #notifications .navy-notice-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:2px 4px;border-radius:99px;background:#f5ba55;color:#182642;border:2px solid #032b65;font-size:10px;font-weight:800;line-height:12px}
+
+/* Rails retain the next-card peek without widening the enclosing phone scroller. */
+#phone-content[data-screen="B1"] .rich-task-rail,#phone-content[data-screen="B1"] .rich-tips{margin-right:0!important;max-width:100%;box-sizing:border-box}
+#phone-content[data-screen="B1"] .rich-stat-strip button{min-width:0;overflow-wrap:anywhere}
+#phone-content[data-screen="B1"] .rich-hero,#phone-content[data-screen="B1"] .rich-care-card{min-width:0;max-width:100%;box-sizing:border-box}
+#phone-content[data-screen="B1"]{min-width:0}
+
+/* WebKit/WCAG 2.2: the actual selectable radio must meet the 24x24 CSS px
+   minimum, not just its large wrapping label. Keep a single visible indicator. */
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice input[type="radio"] {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  flex: 0 0 32px;
+  order: 3;
+  margin: 0 2px 0 auto;
+  accent-color: #205ca5;
+}
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice .rich-select-indicator { display: none; }
+#phone-content[data-screen="C1"] .patient-group .rich-patient-choice:focus-within {
+  outline: 3px solid #3979c9;
+  outline-offset: 2px;
+}

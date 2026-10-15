@@ -724,7 +724,7 @@ test('deep link authentication resumes the exact visit after matching the profil
   await load(page);
   await nav(page, 'K4');
   await action(page, 'logout').click();
-  await page.goto('/prototype/index.html#/appointments/CF-0001');
+  await page.goto('/prototype/index.html#/appointments/CF-1017-0042');
   await expect(content(page)).toHaveAttribute('data-guarded', 'auth');
   await go(page, 'A1');
   await login(page);
@@ -1217,7 +1217,7 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
   await submit(page);
   await screen(page, 'B1');
-  await expect(content(page).locator('h1')).toHaveText('Nguyễn Minh Anh');
+  await expect(content(page).locator('h1')).toHaveText(/^Chào buổi (sáng|chiều|tối), Minh Anh$/);
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });
