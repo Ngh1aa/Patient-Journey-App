@@ -273,7 +273,7 @@
             textarea('reason', T.label, d?.reason || '', {
               maxlength: '1200',
               required: 'required',
-            }) + `<div class="symptom-chips" role="group" aria-label="Triệu chứng thường gặp">${['Đau đầu','Sốt','Ho','Đau bụng','Mệt mỏi','Khó ngủ'].map(x => `<button type="button" class="symptom-chip" data-symptom="${esc(x)}">${esc(x)}</button>`).join('')}</div><p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
+            }) + `<div class="symptom-chips" role="group" aria-label="Triệu chứng thường gặp">${['Đau đầu','Sốt','Ho','Đau bụng','Mệt mỏi','Khó ngủ'].map(x => `<button type="button" class="symptom-chip" data-symptom="${esc(x)}">${esc(x)}</button>`).join('')}</div><fieldset class="severity-set"><legend>Mức độ khó chịu bạn tự cảm nhận</legend><div class="severity-grid">${[['mild','Nhẹ'],['moderate','Vừa'],['high','Nặng']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"${d?.severity===value?' checked':''}><span>${label}</span></label>`).join('')}</div><small>Thông tin tự đánh giá, không thay cho bước kiểm tra dấu hiệu nguy hiểm.</small></fieldset><p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
           ) + (T.note ? note(T.note) : '');
         break;
       case 'C3':
@@ -696,7 +696,7 @@
             textarea('report', T.text, u.reportText || '', {
               maxlength: '2000',
             }) +
-              (u.reportReason === 'symptoms' ? check('urgent', T.urgent) : '') +
+              (u.reportReason === 'symptoms' ? `<fieldset class="severity-set"><legend>Mức độ triệu chứng mới</legend><div class="severity-grid">${[['mild','Nhẹ'],['moderate','Vừa'],['high','Nặng']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"><span>${label}</span></label>`).join('')}</div></fieldset>` + check('urgent', T.urgent) : '') +
               note(T.note, 'warning'),
             T.cta,
           );
@@ -777,7 +777,8 @@
               ),
             )
             .join('') +
-          `<section class="profile-bento" aria-label="Tiện ích hồ sơ">${row('Người đi khám', '', 'C1', 'user')}${row('Lịch sử khám', '', 'K3', 'document')}${row('Kết quả khám', '', 'H7', 'document-check')}${row('Đơn thuốc và lời dặn', '', 'H6', 'pill')}</section>` +
+          `<section class="profile-bento" aria-label="Tiện ích hồ sơ">${row('Người đi khám', '', 'C1', 'user')}${`<div class="profile-unavailable" aria-label="Bảo hiểm chưa kết nối"><span aria-hidden="true">${I('shield',24)}</span><strong>Bảo hiểm</strong><small>Chưa kết nối</small></div>`}${row('Kết quả khám', '', 'H7', 'document-check')}${row('Đơn thuốc và lời dặn', '', 'H6', 'pill')}</section>` +
+          row(T.history, '', 'K3', 'document') +
           row(T.settings, '', 'K4', 'settings') +
           `<details class="add-relative"><summary>${esc(T.add)}</summary>${form('relative', field('name', T.name) + field('dob', T.dob, '', 'date', { max: M.localDate() }), T.save)}</details>`;
         break;
