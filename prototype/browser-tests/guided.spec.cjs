@@ -73,7 +73,8 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
    else if(await app.locator('form [type=submit]').count()){
     await app.locator('form [type=submit]').click();
     if(screen==='D4')await page.locator('[data-action=confirm-cancel]').click();
-   }else await app.locator('.btn.primary:not(:disabled)').first().click();
+   }else if(screen==='B1')await app.locator('[data-action=begin]').first().click();
+   else await app.locator('.btn.primary:not(:disabled)').first().click();
    await expect.poll(async()=>{
     const after=await snapshot(page);
     return after.ui.journey.index>guide.index || after.ui.screen!==screen;
