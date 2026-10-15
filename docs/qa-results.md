@@ -61,3 +61,7 @@ Run38708246815 trên c02d88f:93/94 E2E PASS; WebKit Linux crash ở page.reload 
 Rà soát chức năng bổ sung: K5 mở I1 đúng context sau khám; tạo người thân trong C1 trả về C1 và chọn đúng hồ sơ mới. Regression tests được thêm; tổng hiện có96 E2E cases. Full suite bắt buộc chạy lại với browser build mới, giữ nguyên kiểm tra Back/reload đã crash trước đó. Windows capture mới và Linux CI mới được ghi ở gói handoff; backend/native/clinical approval vẫn UNKNOWN.
 
 Runtime source hiện hành:627d3ccae3d7bb49c9d70763f48f1f9d13b57a1a; browser-source-hashes.json đã tính lại sau sửa K5/relative. Chromium143/WebKit26 build2227 dùng ở vòng1.57. Full current gate gồm96 E2E; kết quả CI có thẩm quyền ở checks PR9, không suy từ các run lịch sử nêu trên.
+
+## Ngữ cảnh chủ tài khoản và người được khám
+
+Vòng96 tests đạt ở Windows và Linux trên59ed170. Review sau đó phát hiện A2/B1 dùng activePatientId sau đặt hộ. Đã thêm accountProfileId/accountProfile, bookedByProfileId tách patientId; hồ sơ chủ tài khoản không đổi khi chọn người thân, không tự cấp quyền xem kết quả. Regression đăng nhập lại sau đặt hộ đã PASS cả2 engines. Model suite42 cases; browser suite98 cases. Ngưỡng merge vẫn là full CI trên head mới; không dùng kết quả96 trước sửa để thay thế.
