@@ -249,7 +249,7 @@
             '', 'clock',
           );
         }
-        body += `<nav class="home-quick-actions" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','begin',null],['clock','Lịch hẹn','go','D1'],['document','Kết quả','go','H7'],['phone','Hỗ trợ','go','K5']].map(([icon,label,action,to]) => `<button type="button" data-action="${action}"${to ? ` data-to="${to}"` : ''}><span>${I(icon,22)}</span><small>${esc(label)}</small></button>`).join('')}</nav>`;
+        body += `<nav class="home-quick-actions" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','book-nav',null],['clock','Lịch hẹn','go','D1'],['document','Kết quả','go','H7'],['phone','Hỗ trợ','go','K5']].map(([icon,label,action,to]) => `<button type="button" data-action="${action}"${to ? ` data-to="${to}"` : ''}><span>${I(icon,22)}</span><small>${esc(label)}</small></button>`).join('')}</nav>`;
         body +=
           section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`, 'service-section') + row(T.help, T.helpLead, 'K5', 'phone');
         break;
@@ -437,7 +437,7 @@
         break;
       case 'E2':
         body =
-          `<section class="checkin-qr-panel" aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa, không tự động check-in.</p></section>` +
+          `<section class="checkin-qr-panel" aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận vẫn do lễ tân xác nhận.</p></section>` +
           card(details(s, v)) +
           note(T.note) +
           btn(T.cta, 'arrive', {}, 'primary');
