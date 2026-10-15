@@ -462,6 +462,10 @@ regression(
   },
 );
 test('account profile remains separate from the patient booked on behalf of', () => {
+  const missingOwner = M.initial();
+  missingOwner.authenticated = true;
+  M.createProfile(missingOwner, 'Người thân', '1980-01-01', 'relative');
+  assert.equal(M.accountProfile(missingOwner), undefined);
   const s = draft();
   M.choosePatient(s, 'p2');
   Object.assign(s.draft, { reason: 'Đặt hộ', safety: 'normal', slot: '09:00' });

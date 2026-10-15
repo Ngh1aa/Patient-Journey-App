@@ -410,11 +410,11 @@
   const profile = (s, id = s.activePatientId) =>
       s.profiles.find((p) => p.id === id),
     visit = (s, id = s.activeVisitId) => s.visits.find((v) => v.id === id);
-  const accountProfile = (s) =>
-    profile(
-      s,
-      s.accountProfileId || s.profiles.find((p) => p.relation === 'self')?.id,
-    );
+  const accountProfile = (s) => {
+    const ownerId =
+      s.accountProfileId || s.profiles.find((p) => p.relation === 'self')?.id;
+    return ownerId ? profile(s, ownerId) : undefined;
+  };
   function beginBooking(s, previousId = null, purpose = 'new', mode = null) {
     if (s.request?.status === 'unknown') return fail('UNKNOWN');
     const previous = previousId ? visit(s, previousId) : null;
