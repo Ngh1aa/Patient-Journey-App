@@ -47,7 +47,8 @@ const colorPairs = [
   { name: "Warning tag text (#8A5F00 trên nền vàng #FFF4D6)", fg: "#8A5F00", bg: "#FFF4D6", target: 4.5, type: "Normal text" },
   { name: "Danger button text (trắng trên nền đỏ #B42318)", fg: "#FFFFFF", bg: "#B42318", target: 4.5, type: "Bold text" },
   { name: "Danger tag text (#B42318 trên nền đỏ nhạt #FDE9E7)", fg: "#B42318", bg: "#FDE9E7", target: 4.5, type: "Normal text" },
-  { name: "Info tag text (#245A93 trên nền xanh nhạt #E7F2FC)", fg: "#245A93", bg: "#E7F2FC", target: 4.5, type: "Normal text" }
+  { name: "Info tag text (#245A93 trên nền xanh nhạt #E7F2FC)", fg: "#245A93", bg: "#E7F2FC", target: 4.5, type: "Normal text" },
+  { name: "Soft Float body trên nền app xanh nhạt", fg: "#162535", bg: "#F2F6FB", target: 4.5, type: "Normal text" }
 ];
 
 console.log("=== BÁO CÁO KIỂM TRA ĐỘ TƯƠNG PHẢN MÀU (WCAG 2.1 AA) ===\n");
