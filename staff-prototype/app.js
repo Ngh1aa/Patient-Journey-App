@@ -39,6 +39,16 @@
     ]}}
   let data;
   try {const p=JSON.parse(sessionStorage.getItem(KEY)||'null');data=(p&&Array.isArray(p.appointments)&&Array.isArray(p.results))?p:init()}catch{data=init()}
+  // Backward-compatible synthetic demo migration: preserve existing draft edits and results.
+  // An already-open portfolio browser may still have the previous sessionStorage schema.
+  const baseline=init();
+  for(const demo of baseline.appointments.filter(a=>['a-040','a-041'].includes(a.id))){
+    if(!data.appointments.some(a=>a.id===demo.id))data.appointments.push(demo);
+  }
+  if(!Array.isArray(data.doctorTasks))data.doctorTasks=structuredClone(baseline.doctorTasks);
+  data.doctorReviews??={};
+  data.onlineVisits??={};
+  data.resultNexts??={};
   const ui={role:'doctor',lastPage:'/doctor',drawerTime:null,dayOffset:0,calendarMode:'week',doctorFilter:'all',patientFilter:'all',patientSearch:'',resultFilter:'all',resultSelected:'r-01',profileTab:'overview',consultTab:'notes',consultId:'a-033',modal:null,notifications:false,toast:null};
   const G={reception:'Tổng quan',calendar:'Lịch khám',patients:'Bệnh nhân',doctor:'Bác sĩ',results:'Kết quả'};
   const statusText={pending:'Chờ xác nhận',review:'Cần xem xét',confirmed:'Đã xác nhận',arrived:'Đã đến',ready:'Sẵn sàng khám','in-consult':'Đang khám',completed:'Đã hoàn tất',unreachable:'Chưa liên hệ được',cancelled:'Đã hủy'};
