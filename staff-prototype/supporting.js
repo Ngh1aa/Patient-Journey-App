@@ -2,7 +2,7 @@
 (function installSupporting(root){
   'use strict';
   const R={
-    '/requests':'Yêu cầu đặt lịch','/appointments/new':'Tạo lịch khám',
+    '/requests':'Yêu cầu đặt lịch','/booking/new':'Tạo lịch khám',
     '/checkin':'Tiếp nhận bệnh nhân','/queue':'Hàng chờ khám',
     '/clinical/orders':'Tạo chỉ định','/clinical/prescription':'Đơn thuốc',
     '/clinical/review':'Xem lại buổi khám','/welcome':'Chọn không gian'
@@ -19,11 +19,11 @@
       const match=(ui.requestFilter||'all');
       const list=data.appointments.filter(a=>['pending','review','unreachable'].includes(a.status));
       const visible=list.filter(a=>match==='all'||a.status===match);
-      return `<section class="screen support-screen">${hero('ĐIỀU PHỐI LỊCH KHÁM','Yêu cầu đặt lịch','Tất cả yêu cầu cần được kiểm tra trước khi chuyển sang trạng thái tiếp theo.',btn(`${icon('plus',17)} Tạo lịch`,'go','btn-primary','data-to="/appointments/new"'))}
+      return `<section class="screen support-screen">${hero('ĐIỀU PHỐI LỊCH KHÁM','Yêu cầu đặt lịch','Tất cả yêu cầu cần được kiểm tra trước khi chuyển sang trạng thái tiếp theo.',btn(`${icon('plus',17)} Tạo lịch`,'go','btn-primary','data-to="/booking/new"'))}
         <div class="support-metrics"><div>${icon('clock',19)}<strong>${list.filter(a=>a.status==='pending').length}</strong><span>Chờ xác nhận</span></div><div>${icon('shield',19)}<strong>${list.filter(a=>a.status==='review').length}</strong><span>Cần xem xét chuyên môn</span></div><div>${icon('message',19)}<strong>${list.filter(a=>a.status==='unreachable').length}</strong><span>Chưa liên hệ được</span></div></div>
         ${panel(`<div class="panel-head"><div><h2>Danh sách cần xử lý</h2><p>Chọn một dòng để mở phiếu và thực hiện hành động phù hợp</p></div><div class="segmented" role="group" aria-label="Lọc yêu cầu">${[['all','Tất cả'],['pending','Chờ xác nhận'],['review','Cần xem xét'],['unreachable','Gọi lại']].map(([v,t])=>`<button class="${match===v?'selected':''}" data-action="request-filter" data-value="${v}" aria-pressed="${match===v}">${t}</button>`).join('')}</div></div>${appointmentsTable(visible)}<div class="panel-foot"><span>${visible.length} / ${list.length} yêu cầu</span><span>Thao tác chỉ thay đổi dữ liệu minh họa</span></div>`)}</section>`;
     }
-    if(path==='/appointments/new'){
+    if(path==='/booking/new'){
       const options=people.map(p=>`<option value="${e(p.id)}">${e(p.name)} · ${e(p.code)}</option>`).join('');
       return `<section class="screen support-screen">${hero('LỄ TÂN · TẠO YÊU CẦU','Tạo lịch khám','Một luồng đơn giản để giới thiệu thao tác tạo lịch tại quầy, với kiểm tra trùng giờ demo.',btn(`${icon('left',16)} Danh sách yêu cầu`,'go','btn-outline','data-to="/requests"'))}
       <div class="support-two-col">${panel(`<div class="panel-head"><div><h2>Thông tin cuộc hẹn</h2><p>Điền thông tin và kiểm tra trước khi gửi</p></div>${pill('Bản demo','info')}</div><div class="support-form">
