@@ -54,7 +54,7 @@
     {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'begin'},
     {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'begin'}
   ];
-  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="go" data-to="${to}">Xem tất cả ${h.I('chevron-right',16)}</button></div>`;
+  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'begin':'go'}"${to==='C1'?'':` data-to="${to}"`}>Xem tất cả ${h.I('chevron-right',16)}</button></div>`;
   let html='<section class="rich-hero cf-home-appointment" aria-label="Lịch khám sắp tới">';
   html+=sectionHead('Lịch khám sắp tới','D1');
   if(soon){
