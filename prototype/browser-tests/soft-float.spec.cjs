@@ -52,7 +52,7 @@ test('scheduling reselects day and confirms with retained date',async({page})=>{
  await patient(page).locator('[data-action="chooseDate"]').nth(1).click();
  await patient(page).locator('[data-action="chooseSlot"][data-value="14:30"]').click();
  await inPhone(page,'nextSlot').click();await expect(current(page)).toHaveText('C5');
- const shown=new Intl.DateTimeFormat("vi-VN",{day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(new Date(day+"T12:00:00+07:00"));
+ const shown=day.slice(8,10)+"/"+day.slice(5,7); // Browser displays dd/MM; Node ICU may render dd-MM
  await expect(patient(page)).toContainText(shown);
  await inPhone(page,'confirmBooking').click();
  await expect(current(page)).toHaveText('C6');
