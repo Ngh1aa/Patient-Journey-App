@@ -3,6 +3,14 @@
   'use strict';
   const data = {
     common: {
+      contactPhone: 'Số điện thoại liên hệ',
+      medicalHistory: 'Tiền sử và thuốc đang dùng (nếu có)',
+      historyHint: 'Bạn có thể bổ sung bệnh đã biết, dị ứng hoặc thuốc đang dùng để bác sĩ lưu ý.',
+      feePending: 'Phòng khám sẽ thông báo trước khi thu phí',
+      feePackage: 'Thu phí theo gói · Chờ thông báo chi tiết',
+      feeFree: 'Phòng khám xác nhận không thu phí',
+      signed: 'Bác sĩ đã ký và hoàn tất hồ sơ buổi khám',
+      callback: 'Đang chờ phòng khám liên hệ lại',
       continue: 'Tiếp tục',
       back: 'Quay lại',
       home: 'Về trang chủ',
@@ -345,6 +353,7 @@
         done: 'Kết quả đã được gắn vào lượt khám. Bạn hãy chờ phòng khám kiểm tra.',
       },
       G1: {
+        notYet: 'Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.',
         heading: 'Chuẩn bị khám online',
         lead: 'Bạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.',
         check: 'Kiểm tra thiết bị',
@@ -436,6 +445,7 @@
         summary: 'Xem kết luận và đơn thuốc',
       },
       H6: {
+        shared: 'Thông tin buổi khám đã được chia sẻ',
         heading: 'Kết luận và đơn thuốc',
         lead: 'Thông tin do bác sĩ cung cấp sau buổi khám.',
         conclusion: 'Kết luận buổi khám',
@@ -546,7 +556,7 @@
         reminders: 'Nhận nhắc lịch',
         privacy: 'Quyền riêng tư',
         privacyLead:
-          'Chỉ dùng dữ liệu thử nghiệm. Bạn có thể xóa phiên từ thanh Bản demo.',
+          'Bạn có thể bắt đầu lại trải nghiệm từ mục Tùy chọn.',
         logout: 'Đăng xuất',
       },
       K5: {
@@ -584,25 +594,25 @@
       demoStopped: 'Đã dừng luồng đặt lịch.',
     },
     demo: {
-      title: 'Bản demo',
+      title: 'Trải nghiệm minh họa',
       warning:
-        'Chỉ dùng dữ liệu thử nghiệm. Không đặt lịch, gửi tin, gọi video hay thanh toán thật.',
-      otp: 'Mã thử: 123456 · Không gửi SMS. Không nhập thông tin cá nhân thật.',
+        'Hồ sơ minh họa. Không có yêu cầu hoặc giao dịch thực được gửi.',
+      otp: 'Mã xác nhận đã được chuẩn bị sẵn: 123456.',
       notice:
-        'Thao tác chỉ cập nhật phiên thử nghiệm, không gửi đến phòng khám.',
+        'Thông tin được lưu trong trải nghiệm trên trình duyệt này.',
       emergency:
-        'Không thực hiện cuộc gọi cấp cứu trong bản demo. Khi cần trợ giúp ngoài đời, hãy dùng ứng dụng Điện thoại của bạn.',
+        'Trải nghiệm này không thực hiện cuộc gọi. Khi cần trợ giúp khẩn cấp, hãy dùng ứng dụng Điện thoại của bạn.',
       directions:
         'Chưa có địa chỉ đã được xác nhận. Không mở chỉ đường tới cơ sở giả.',
       payment:
-        'Không có mã chuyển tiền thật. Nút thử nghiệm chỉ chuyển trạng thái sang chờ xác nhận.',
+        'Thông báo chuyển khoản đang chờ phòng khám xác nhận.',
       video:
-        'Camera, micro và cuộc gọi chỉ là trạng thái thử nghiệm; không thu âm hoặc ghi hình.',
+        'Cuộc gọi được minh họa trên màn hình, không thu âm hoặc ghi hình.',
       stored: 'Phiên chỉ lưu trên trình duyệt này. Đặt lại để xóa dữ liệu thử.',
       reset: 'Đặt lại',
-      controls: 'Công cụ đánh giá',
-      update: 'Áp dụng cập nhật thử nghiệm',
-      reviewer: 'Cập nhật từ phòng khám (thử nghiệm)',
+      controls: 'Tùy chọn trải nghiệm',
+      update: 'Xem cập nhật từ phòng khám',
+      reviewer: 'Cập nhật từ phòng khám',
       current: 'Màn hiện tại',
     },
   };

@@ -356,7 +356,10 @@ test('F12 follow-up keeps old encounter intact and links new visit', () => {
     old = current(s),
     history = JSON.stringify(old.history);
   M.beginBooking(s, old.id, 'followup');
-  Object.assign(s.draft, { safety: 'normal', slot: '14:00' });
+  assert.equal(s.draft.safety, '');
+  assert.equal(s.draft.reason, '');
+  assert.equal(M.submitBooking(s).ok, false);
+  Object.assign(s.draft, { reason: 'Cập nhật tình trạng khi tái khám', safety: 'normal', slot: '14:00' });
   M.submitBooking(s);
   assert.equal(current(s).previousId, old.id);
   assert.equal(old.status, 'completed');
@@ -424,7 +427,8 @@ test('script loading order and mobile viewport are intact', () => {
   const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
   assert.ok(html.includes('viewport-fit=cover'));
   assert.ok(html.indexOf('src="./model.js"') < html.indexOf('src="./app.js"'));
-  assert.ok(html.includes('Bản demo'));
+  assert.ok(html.includes('Trải nghiệm minh họa'));
+  assert.ok(html.includes('Không gửi yêu cầu hoặc thanh toán thực'));
 });
 
 test('unknown outcome cannot be reset by restarting booking or changing patient', () => {
@@ -478,4 +482,56 @@ test('account profile remains separate from the patient booked on behalf of', ()
   M.authenticate(s, '0900000000', '123456');
   assert.equal(M.accountProfile(s).name, 'Nguyễn Minh Anh');
   assert.equal(M.canViewResults(s, M.visit(s)), false);
+});
+
+test('clinic callback is queued automatically and resolved on connection', () => {
+  const s=M.fixture('online'),v=M.visit(s);
+  for(const next of ['reminder','online-wait','unreachable']) assert.equal(M.transition(s,v.id,next,'staff').ok,true);
+  assert.equal(v.communication.callback,'pending');
+  for(const next of ['online-wait','calling','in-consult'])M.transition(s,v.id,next,'staff');
+  assert.equal(v.communication.callback,'resolved');
+});
+test('care handoff preserves owner and rejects patient or skipped transitions', () => {
+  const s=M.fixture('completed'),v=M.visit(s);
+  M.submitCareUpdate(s,v.id,'tracking','Tình trạng hôm nay');
+  assert.equal(M.advanceCare(s,v.id,'answered').ok,false);
+  assert.equal(M.advanceCare(s,v.id,'coordinating','patient').ok,false);
+  for(const status of ['coordinating','doctor-review','answered'])assert.equal(M.advanceCare(s,v.id,status).ok,true);
+  assert.equal(v.care.tasks[0].owner,'Bạn');
+  assert.equal(v.care.tasks[0].history.length,4);
+  assert.equal(s.messages.at(-1).from,'staff');
+});
+test('result callback is resolved independently of doctor review', () => {
+  const s=M.fixture('completed'),v=M.visit(s),l=v.labs[0];
+  for(const status of ['available','awaiting-review','reviewed'])M.labTransition(s,v.id,l.id,status);
+  M.communicateResult(s,v.id,'unreachable');assert.equal(v.communication.callback,'pending');
+  M.communicateResult(s,v.id,'notified');assert.equal(v.communication.callback,'resolved');
+  assert.equal(v.communication.explanation,'pending');
+});
+test('signed summary requires completed clinical record and clinic authority', () => {
+  const s=M.fixture('upcoming'),v=M.visit(s);
+  assert.equal(M.shareSummary(s,v.id).ok,false);
+  for(const status of ['reminder','arrived','received','ready','in-consult','completed'])M.transition(s,v.id,status,'staff');
+  assert.ok(v.lockedAt);assert.equal(v.lockedAt,v.signedAt);
+  assert.equal(M.shareSummary(s,v.id,'patient').ok,false);
+  assert.equal(M.shareSummary(s,v.id).ok,true);
+});
+test('pre-lab continuation is clinic confirmed and differs by requested route', () => {
+  for(const path of ['visit','during']){
+    const s=M.fixture('pre-lab'),v=M.visit(s),l=v.labs[0];l.returnPath=path;
+    M.labTransition(s,v.id,l.id,'available');assert.equal(l.continuation,undefined);
+    M.transition(s,v.id,'confirmed','staff');assert.equal(l.continuation,path==='during'?'review-during':'return-to-visit');
+  }
+});
+test('fee plan is clinic owned and cannot replace a paid receipt', () => {
+  const s=M.fixture('completed'),v=M.visit(s);
+  assert.equal(M.setFeePlan(s,v.id,'not-required','patient').ok,false);
+  assert.equal(M.setFeePlan(s,v.id,'package').ok,true);
+  M.setPayment(s,v.id,'counter-pending');M.setPayment(s,v.id,'paid','staff');
+  assert.equal(M.setFeePlan(s,v.id,'not-required').ok,false);
+});
+
+test('changing the booked patient never carries another patient medical history', () => {
+  const s=M.fixture('empty');M.beginBooking(s);s.draft.medicalHistory='Thông tin riêng của người thứ nhất';
+  M.choosePatient(s,'p2');assert.equal(s.draft.medicalHistory,'');
 });

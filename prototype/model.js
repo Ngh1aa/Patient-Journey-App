@@ -294,7 +294,7 @@
     arrived: ['received'],
     received: ['ready'],
     ready: ['in-consult'],
-    'in-consult': ['completed'],
+    'in-consult': ['completed', 'online-wait'],
     'online-wait': ['calling', 'unreachable'],
     calling: ['in-consult', 'unreachable'],
     unreachable: ['online-wait', 'cancelled'],
@@ -303,6 +303,7 @@
     'no-show': [],
   };
   const PATIENT_TRANSITIONS = {
+    'in-consult': ['online-wait'],
     reminder: ['arrived', 'online-wait', 'cancelled'],
     calling: ['in-consult', 'unreachable'],
     unreachable: ['cancelled'],
@@ -397,6 +398,8 @@
       name: name.trim(),
       dob,
       relation,
+      phone: '',
+      medicalHistory: '',
       canBook: true,
       canViewResults: relation === 'self',
     };
@@ -424,7 +427,8 @@
     s.activePatientId = patientId;
     s.draft = {
       patientId,
-      reason: previous?.reason || '',
+      reason: purpose === 'followup' ? '' : previous?.reason || '',
+      medicalHistory: previous?.medicalHistory || profile(s, patientId)?.medicalHistory || '',
       safety: '',
       risk: !!s.riskByPatient[patientId],
       reviewAccepted: false,
@@ -448,6 +452,7 @@
         ...s.draft,
         patientId: id,
         reason: '',
+        medicalHistory: profile(s, id)?.medicalHistory || '',
         safety: '',
         risk: !!s.riskByPatient[id],
         reviewAccepted: false,
@@ -528,10 +533,12 @@
       patientId: d.patientId,
       bookedByProfileId: accountProfile(s)?.id,
       reason: d.reason,
+      medicalHistory: d.medicalHistory,
       mode: d.mode,
       date: d.date,
       slot: d.slot,
       status: d.risk ? 'mode-review' : 'pending',
+      feePlan: d.free ? 'not-required' : 'pending',
       risk: d.risk,
       reviewReason: d.risk
         ? 'Bạn đã yêu cầu phòng khám xem xét hình thức khám.'
@@ -618,6 +625,18 @@
     if (to === 'cancelled' && !reason.trim()) return fail('CANCEL_REASON');
     if (to === 'arrived' && v.mode !== 'onsite') return fail('MODE');
     if (to === 'online-wait' && v.mode !== 'online') return fail('MODE');
+    if (to === 'unreachable') {
+      v.communication.callback = 'pending';
+      v.communication.callbackReason = 'online';
+    }
+    if (to === 'calling' && v.communication.callback === 'pending')
+      v.communication.callback = 'in-progress';
+    if (to === 'in-consult') v.communication.callback = 'resolved';
+    if (to === 'completed') {
+      v.signedAt = stamp();
+      v.lockedAt = v.signedAt;
+      v.signedBy = 'Bác sĩ phụ trách';
+    }
     if (
       v.status === 'pre-lab' &&
       to === 'confirmed' &&
@@ -628,6 +647,11 @@
     )
       return fail('LAB_PENDING');
     v.status = to;
+    if (to === 'confirmed' && v.labs.some(l => l.timing === 'pre' && ['available','awaiting-review','reviewed'].includes(l.status))) {
+      const completedLab = v.labs.find(l => l.timing === 'pre' && ['available','awaiting-review','reviewed'].includes(l.status));
+      completedLab.continuation = completedLab.returnPath === 'during' ? 'review-during' : 'return-to-visit';
+      completedLab.continuationAt = stamp();
+    }
     v.history.push({ status: to, at: stamp(), actor, reason });
     if (to === 'cancelled') v.cancelReason = reason;
     if (actor === 'staff' && (to !== 'reminder' || s.settings.reminders))
@@ -686,6 +710,16 @@
     if (actor === 'staff') notify(s, v, 'H5');
     return pass();
   }
+  function setFeePlan(s, id, plan, actor = 'staff') {
+    const v = visit(s, id);
+    if (actor !== 'staff') return fail('STAFF_ONLY');
+    if (!v || !['package','not-required'].includes(plan)) return fail('PAYMENT');
+    if (!['unpaid','not-required'].includes(v.payment.status)) return fail('PAYMENT');
+    v.feePlan = plan;
+    v.payment.status = plan === 'not-required' ? 'not-required' : 'unpaid';
+    notify(s, v, 'D2');
+    return pass();
+  }
   function addLab(s, id, timing = 'post') {
     const v = visit(s, id);
     if (!v) return fail('VISIT');
@@ -735,7 +769,12 @@
       v.communication.explanation = 'explained';
     } else v.communication.result = outcome;
     if (outcome === 'notified') notify(s, v, 'H7');
-    if (outcome === 'unreachable') v.communication.callback = 'pending';
+    if (outcome === 'unreachable') {
+      v.communication.callback = 'pending';
+      v.communication.callbackReason = 'result';
+    }
+    if (['notified', 'explained'].includes(outcome) && v.communication.callbackReason === 'result')
+      v.communication.callback = 'resolved';
     return pass();
   }
   const canViewResults = (s, v) =>
@@ -760,6 +799,7 @@
       at: stamp(),
     };
     s.reports.push(item);
+    openCareTask(s, v, reason, text);
     v.care.status = 'feedback-received';
     s.messages.push({
       visitId: id,
@@ -769,6 +809,43 @@
       at: stamp(),
     });
     return pass({ next: urgent ? 'C4' : 'I5' });
+  }
+  function openCareTask(s, v, type, text) {
+    const id = 'care-' + v.id + '-' + (v.care.tasks?.length || 0);
+    const task = { id, type, text, status: 'received', owner: 'Điều phối viên', history: [{ status: 'received', at: stamp() }] };
+    v.care.tasks ??= [];
+    v.care.tasks.push(task);
+    return task;
+  }
+  function submitCareUpdate(s, id, type, text) {
+    const v = visit(s, id);
+    if (!v || v.status !== 'completed' || !['tracking','referral'].includes(type) || !text.trim()) return fail('REPORT');
+    if (type === 'referral' && !v.care.referral) return fail('REFERRAL');
+    if (type === 'tracking') s.tracking.push({ visitId: id, patientId: v.patientId, text, at: stamp() });
+    else s.messages.push({ visitId: id, patientId: v.patientId, from: 'patient', text, at: stamp() });
+    return pass({ task: openCareTask(s, v, type, text) });
+  }
+  function advanceCare(s, id, to, actor = 'staff') {
+    const v = visit(s, id), task = v?.care.tasks?.find(t => t.status !== 'answered');
+    if (actor !== 'staff') return fail('STAFF_ONLY');
+    const next = { received: 'coordinating', coordinating: 'doctor-review', 'doctor-review': 'answered' };
+    if (!task || next[task.status] !== to) return fail('TRANSITION');
+    task.status = to;
+    task.owner = to === 'answered' ? 'Bạn' : to === 'doctor-review' ? 'Bác sĩ phụ trách' : 'Điều phối viên';
+    task.history.push({ status: to, at: stamp() });
+    if (to === 'answered') {
+      s.messages.push({ visitId: id, patientId: v.patientId, from: 'staff', text: 'Phòng khám đã nhận nội dung của bạn, bác sĩ đã xem và đề nghị tiếp tục trao đổi với điều phối viên nếu bạn còn điều chưa rõ.', at: stamp() });
+      notify(s, v, 'I5');
+    }
+    return pass();
+  }
+  function shareSummary(s, id, actor = 'staff') {
+    const v = visit(s, id);
+    if (actor !== 'staff') return fail('STAFF_ONLY');
+    if (!v?.lockedAt) return fail('NOT_COMPLETED');
+    v.summary = { sharedAt: stamp(), author: v.signedBy, note: 'Nội dung buổi khám đã được ghi nhận trong hồ sơ. Bạn có thể hỏi lại phòng khám về những điều chưa rõ.' };
+    notify(s, v, 'H6');
+    return pass();
   }
   function nextAction(v) {
     const map = {
@@ -849,12 +926,16 @@
     transition,
     reviewMode,
     setPayment,
+    setFeePlan,
     addLab,
     lab,
     labTransition,
     communicateResult,
     canViewResults,
     report,
+    submitCareUpdate,
+    advanceCare,
+    shareSummary,
     nextAction,
     fixture,
   };

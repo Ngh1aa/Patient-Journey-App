@@ -15,12 +15,11 @@
     <a class="skip-link" href="#phone-main" data-action="skip-content"
       >Đến nội dung ứng dụng</a
     >
-    <section class="demo-bar" aria-label="Môi trường thử nghiệm">
+    <section class="demo-bar" aria-label="Thông tin trải nghiệm">
       <div>
-        <strong>Bản demo</strong
+        <strong>CareFlow</strong
         ><span id="demo-warning"
-          >Chỉ dùng dữ liệu thử nghiệm. Không đặt lịch, gửi tin, gọi video hay
-          thanh toán thật.</span
+          >Trải nghiệm minh họa · Không gửi yêu cầu hoặc thanh toán thực.</span
         >
       </div>
       <button
@@ -29,7 +28,7 @@
         aria-expanded="false"
         aria-controls="review-tools"
       >
-        Công cụ đánh giá
+        Tùy chọn
       </button>
     </section>
     <div
@@ -39,16 +38,26 @@
       aria-live="polite"
     ></div>
     <div class="workspace">
+      <aside class="journey-panel" aria-labelledby="journey-heading">
+        <div class="journey-heading">
+          <span class="eyebrow">HÀNH TRÌNH BỆNH NHÂN</span>
+          <h1 id="journey-heading">An tâm ở<br>mỗi bước khám.</h1>
+          <p>Chọn một hành trình và trải nghiệm CareFlow. Thông tin đã sẵn sàng, bạn chỉ cần tiếp tục từng bước.</p>
+        </div>
+        <button class="journey-mobile-toggle" type="button" data-action="journey-toggle" aria-expanded="false" aria-controls="journey-list"><span id="journey-mobile-label">Chọn hành trình</span><span aria-hidden="true">⌄</span></button>
+        <ol class="journey-list" id="journey-list" aria-label="12 hành trình bệnh nhân"></ol>
+        <p class="journey-footnote">Hồ sơ minh họa · Nguyễn Minh Anh<br>Không sử dụng thông tin bệnh nhân thật.</p>
+      </aside>
       <aside class="review-tools" id="review-tools" hidden>
         <div class="brand">
           <span class="brandmark">+</span>
           <div>
             <strong>CareFlow</strong
-            ><small>Patient journey · Browser preview</small>
+            ><small>Hành trình chăm sóc bệnh nhân</small>
           </div>
         </div>
-        <h2>Kiểm tra hành trình</h2>
-        <label for="scenario">Dữ liệu thử nghiệm</label
+        <h2>Tùy chọn trải nghiệm</h2>
+        <label for="scenario">Tình huống</label
         ><select id="scenario">
           <option value="new">Người mới</option>
           <option value="returning">Hồ sơ đã có</option>
@@ -59,17 +68,16 @@
           <option value="completed">Sau buổi khám</option>
           <option value="no-show">Chưa đến khám</option>
         </select>
-        <label for="screen-picker">47 màn hình · Danh mục chuẩn</label
+        <label for="screen-picker">Chuyển đến màn hình</label
         ><select id="screen-picker"></select>
         <p class="review-hint">
-          Chọn màn không bỏ qua guard. Nạp dữ liệu phù hợp trước để kiểm tra
-          bước cần xem.
+          Màn hình sẽ mở khi lượt khám đáp ứng điều kiện tiếp tục.
         </p>
         <div id="review-state"></div>
-        <label for="staff-event">Cập nhật từ phòng khám (thử nghiệm)</label
+        <label for="staff-event">Cập nhật từ phòng khám</label
         ><select id="staff-event"></select
         ><button type="button" class="btn primary" data-action="staff">
-          Áp dụng cập nhật thử nghiệm
+          Xem cập nhật
         </button>
         <label for="booking-outcome">Phản hồi khi gửi đặt lịch</label
         ><select id="booking-outcome">
@@ -82,12 +90,12 @@
         ><button class="btn secondary" type="button" data-action="large-text">
           Bật/tắt chữ lớn</button
         ><button class="btn text danger-text" type="button" data-action="reset">
-          Đặt lại toàn bộ phiên thử
+          Bắt đầu lại
         </button>
         <p class="review-hint">
           Không có kết nối SMS, y tế, video hay ngân hàng. Camera và micro chỉ
-          là trạng thái. Tệp không được gửi lên máy chủ. Dữ liệu trong
-          sessionStorage có thể xem trên trình duyệt; chỉ dùng dữ liệu thử.
+          là trạng thái. Tệp không được gửi lên máy chủ. Thông tin chỉ lưu trên
+          trình duyệt; không nhập thông tin bệnh nhân thật.
         </p>
       </aside>
       <main class="stage">
@@ -136,7 +144,7 @@
           <div class="home-indicator" aria-hidden="true"></div>
         </div>
         <p class="stage-caption">
-          Trải nghiệm dành cho bệnh nhân · Soft Float / Calm Clinical
+          Chăm sóc sức khỏe, liền mạch từ lịch hẹn đến sau khám.
         </p>
       </main>
       <aside class="presentation-note" aria-label="Giới hạn đánh giá">
@@ -147,8 +155,7 @@
         </p>
         <div class="presentation-rule"></div>
         <p class="review-hint">
-          47 màn · 12 hành trình<br />Trình duyệt · Dữ liệu thử nghiệm<br />Chưa
-          phải dịch vụ chăm sóc thật.
+          47 màn · 12 hành trình<br />Hồ sơ minh họa, không có giao dịch thực.
         </p>
       </aside>
     </div>
@@ -168,6 +175,7 @@
     <script src="./icons.js"></script>
     <script src="./vendor/qrcode.js"></script>
     <script src="./views.js"></script>
+    <script src="./journeys.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

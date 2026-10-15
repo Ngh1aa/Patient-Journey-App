@@ -1599,3 +1599,66 @@ dialog p {
   display: block;
   margin-top: 16px;
 }
+
+/* Guided portfolio presentation; patient content keeps its own mobile shell. */
+.guided .workspace { max-width:1140px; display:grid; grid-template-columns:380px 402px; gap:96px; justify-content:center; padding:28px 28px 32px; }
+.guided .presentation-note { display:none; }
+.journey-panel { min-width:0; position:sticky; top:24px; max-height:calc(100dvh - 112px); overflow:auto; scrollbar-width:thin; padding-right:12px; }
+.journey-heading { padding:0 10px 22px; }
+.journey-heading > .eyebrow { color:var(--primary); letter-spacing:1.5px; }
+.journey-heading h1 { font-size:34px; line-height:1.25; letter-spacing:-1.2px; color:var(--heading); margin:10px 0 14px; font-weight:600; }
+.journey-heading p { font-size:13px; color:var(--muted); line-height:1.8; max-width:320px; }
+.journey-list { list-style:none; padding:0; margin:0; }
+.journey-item { border-bottom:1px solid var(--border); }
+.journey-item > button { display:flex; gap:12px; align-items:center; border:0; background:transparent; text-align:left; width:100%; min-height:62px; color:var(--muted); padding:13px 10px; border-radius:14px; }
+.journey-item > button:hover { background:#ffffff80; }
+.journey-number { flex:none; display:grid; place-items:center; width:32px; height:32px; font-size:11px; border:1px solid #b9cada; border-radius:50%; font-weight:600; }
+.journey-item > button > span:nth-child(2) { flex:1; min-width:0; }
+.journey-item strong { font-size:13px; font-weight:600; display:block; }
+.journey-item small { font-size:11px; display:block; margin-top:4px; line-height:1.7; }
+.journey-item.active { background:var(--surface); border:1px solid var(--border); border-radius:20px; margin:8px 0; box-shadow:var(--shadow); }
+.journey-item.active > button { padding:17px 16px 10px; color:var(--heading); }
+.journey-item.active .journey-number { background:var(--primary); color:white; border-color:var(--primary); }
+.journey-chevron { font-size:20px; font-weight:400; }
+.journey-detail { padding:0 17px 18px; }
+.journey-branches { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 16px; }
+.journey-branches button { min-height:44px; font-size:11px; border:1px solid var(--border); background:var(--surface); color:var(--muted); padding:8px 10px; border-radius:12px; }
+.journey-branches button[aria-pressed=true] { background:var(--blue-soft); color:var(--primary-hover); border-color:var(--primary); font-weight:600; }
+.journey-progress { display:flex; justify-content:space-between; font-size:10px; font-weight:600; color:var(--muted); margin:12px 0 4px; }
+.journey-detail progress { width:100%; height:4px; display:block; appearance:none; border:0; border-radius:4px; background:var(--blue-soft); color:var(--primary); accent-color:var(--primary); }
+.journey-detail progress::-webkit-progress-bar { background:var(--blue-soft); border-radius:4px; }
+.journey-detail progress::-webkit-progress-value { background:var(--primary); border-radius:4px; }
+.journey-checklist { list-style:none; padding:12px 0 6px; margin:0; }
+.journey-checklist { max-height:230px; overflow:auto; scrollbar-width:thin; scroll-padding-block:12px; }
+.journey-checklist:focus-visible { outline:3px solid var(--focus); outline-offset:3px; border-radius:8px; }
+.journey-checklist li { display:flex; gap:10px; padding:7px 0; font-size:11px; color:var(--muted); line-height:1.6; }
+.step-check { width:20px; height:20px; border:1px solid #a4b7ca; border-radius:50%; flex:none; display:grid; place-items:center; font-size:9px; margin-top:1px; }
+.journey-checklist .done { color:var(--success); }
+.journey-checklist .done .step-check { border-color:var(--success); background:var(--success-soft); }
+.journey-checklist .current { color:var(--heading); font-weight:600; }
+.journey-checklist .current .step-check { color:white; background:var(--primary); border-color:var(--primary); }
+.journey-checklist .current small { color:var(--muted); font-size:10px; font-weight:400; }
+.journey-current { background:var(--bg); border-radius:13px; padding:12px; margin-top:7px; }
+.journey-current p { font-size:11px; line-height:1.8; color:var(--muted); margin-bottom:10px; }
+.journey-current .btn { font-size:11px; padding:10px; min-height:44px; width:100%; }
+.journey-footnote { font-size:10px; line-height:1.8; color:var(--subtle); padding:18px 10px; }
+.journey-mobile-toggle { display:none; }
+.guided .review-tools { position:fixed; z-index:15; right:20px; top:72px; background:white; max-height:calc(100dvh - 100px); overflow:auto; box-shadow:0 16px 70px #123b6333; border-radius:20px; padding:20px; }
+.care-progress > .eyebrow { display:block; margin-top:12px; }
+@media(max-width:1000px) and (min-width:761px) { .guided .workspace { grid-template-columns:minmax(280px,340px) 390px; gap:28px; padding-inline:20px; } }
+@media(max-width:760px) {
+  .guided .workspace { display:block; padding:0; }
+  .guided .stage { width:100%; max-width:520px; margin:auto; }
+  .guided .phone { height:calc(100dvh - var(--demo-height,50px) - 54px); }
+  .journey-panel { position:relative; top:0; max-height:none; padding:0; background:white; border-bottom:1px solid var(--border); }
+  .journey-heading,.journey-panel .journey-list,.journey-footnote { display:none; }
+  .journey-mobile-toggle { display:flex; width:100%; justify-content:space-between; align-items:center; gap:12px; border:0; background:white; padding:12px 20px; min-height:54px; color:var(--heading); font-size:13px; font-weight:600; }
+  #journey-mobile-label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+  .journey-panel.mobile-open { position:fixed; top:var(--demo-height,50px); inset-inline:0; bottom:0; z-index:12; overflow:auto; padding:0 12px 24px; }
+  .journey-panel.mobile-open .journey-list { display:block; }
+  .guided .review-tools { inset-inline:12px; width:auto; }
+  .demo-bar { padding:8px 16px; gap:12px; }
+  .demo-bar > div { display:block; }
+  .demo-bar strong { background:transparent; border:0; padding:0; color:var(--heading); }
+  #demo-warning { display:block; font-size:10px; line-height:1.5; }
+}

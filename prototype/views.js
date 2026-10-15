@@ -42,8 +42,8 @@
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
   const choices = (name, items, selected) =>
     `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint]) => `<label class="choice ${v === selected ? 'selected' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}><span><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span></label>`).join('')}</fieldset>`;
-  const form = (name, html, cta = C.continue) =>
-    `<form data-form="${name}" novalidate>${html}<p class="field-error" id="form-error" role="alert"></p><button class="btn primary" type="submit">${esc(cta)}</button></form>`;
+  const form = (name, html, cta = C.continue, variant = 'primary') =>
+    `<form data-form="${name}" novalidate>${html}<p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit">${esc(cta)}</button></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html) =>
@@ -74,9 +74,9 @@
   };
   const modeText = (mode) => (mode === 'online' ? C.online : C.onsite);
   const details = (s, v) =>
-    `<dl class="details"><div><dt>${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${esc(C.mode)}</dt><dd>${esc(modeText(v.mode))}</dd></div><div><dt>${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
+    `<dl class="details"><div><dt>${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="eyebrow">${esc(modeText(v.mode))}</span>${I(v.mode === 'online' ? 'video' : 'calendar', 24)}</span><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-person">${I('user', 17)}${esc(M.profile(s, v.patientId)?.name)}</span><span class="visit-bottom">${status(v)}${I('chevron-right', 20)}</span></button>`;
+    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="eyebrow">${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</span>${I(v.mode === 'online' ? 'video' : 'calendar', 24)}</span><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-person">${I('user', 17)}${esc(M.profile(s, v.patientId)?.name)}</span><span class="visit-bottom">${status(v)}${I('chevron-right', 20)}</span></button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
@@ -98,6 +98,12 @@
     return p
       ? `<div class="context">${I('user', 16)}<span>${esc(p.name)}</span>${v ? `<small>${esc(v.id)}</small>` : ''}</div>`
       : '';
+  }
+  function careProgress(v) {
+    const task = v.care.tasks?.at(-1);
+    if (!task) return '';
+    const labels = { received: ['Đã nhận cập nhật của bạn','Điều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.'], coordinating: ['Điều phối viên đang xử lý','Thông tin của bạn đang được tổng hợp để chuyển bác sĩ.'], 'doctor-review': ['Bác sĩ đang xem','Phòng khám sẽ phản hồi khi bác sĩ có hướng dẫn tiếp theo.'], answered: ['Phòng khám đã phản hồi','Bạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.'] };
+    return card(`${chip(labels[task.status][0])}<p class="eyebrow">Ai đang xử lý</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
   function render(id, s, u) {
     const T = VI.screen[id],
@@ -142,7 +148,9 @@
             field('name', T.name, p?.name || '', 'text', {
               autocomplete: 'name',
             }) +
-              field('dob', T.dob, p?.dob || '', 'date', { max: M.localDate() }),
+              field('dob', T.dob, p?.dob || '', 'date', { max: M.localDate() }) +
+              field('contactPhone', C.contactPhone, p?.phone || '', 'tel') +
+              textarea('medicalHistory', C.medicalHistory, p?.medicalHistory || ''),
             T.confirm,
           ) + btn(T.different, 'different-profile', {}, 'text');
         break;
@@ -153,7 +161,7 @@
             field('dob', T.dob, '', 'date', {
               max: M.localDate(),
               required: 'required',
-            }),
+            }) + field('contactPhone', C.contactPhone, '', 'tel') + textarea('medicalHistory', C.medicalHistory),
           T.submit,
         );
         break;
@@ -234,7 +242,7 @@
             textarea('reason', T.label, d?.reason || '', {
               maxlength: '1200',
               required: 'required',
-            }) + `<p class="hint">${esc(T.hint)}</p>`,
+            }) + `<p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
           ) + note(T.note);
         break;
       case 'C3':
@@ -322,6 +330,9 @@
             `<div class="ticket-head"><span class="eyebrow">${esc(T.code)}</span><strong>${esc(v.id)}</strong>${status(v)}</div>${details(s, v)}<div class="ticket-code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" aria-label="${esc(T.qr)}" role="img"></div><p>${esc(T.qrHint)}</p></div>`,
             'ticket',
           );
+        body += note(v.feePlan === 'not-required' ? C.feeFree : v.feePlan === 'package' ? C.feePackage : C.feePending);
+        if (v.lockedAt) body += note(C.signed);
+        if (v.communication.callback === 'pending') body += note(C.callback);
         if (v.status === 'no-show') body += note(T.noShow, 'warning');
         if (v.cancelReason)
           body += note(T.cancelReason + ': ' + v.cancelReason);
@@ -425,7 +436,7 @@
             `<h2>${esc(l.name)}</h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
           ) +
           section(T.prepare, `<p>${esc(C.noClinical)}</p>`) +
-          form(
+          (l.timing === 'pre' && !l.continuation ? form(
             'lab-path',
             choices(
               T.path,
@@ -435,8 +446,8 @@
               ],
               l.returnPath,
             ),
-            C.save,
-          );
+            C.save, 'secondary',
+          ) : '');
         if (l.status === 'ordered') body += nav(T.book, 'F3', 'primary');
         if (['ordered', 'scheduled'].includes(l.status))
           body += nav(T.upload, 'F4');
@@ -444,6 +455,11 @@
           body += card(
             `<strong>${esc(l.file.name)}</strong><p>${esc(VI.labs[l.status])}</p>`,
           );
+        if (['available','awaiting-review','reviewed'].includes(l.status) && l.timing === 'pre') {
+          if (l.continuation === 'review-during') body += note('Phòng khám đã nhận kết quả. Bác sĩ sẽ xem cùng bạn trong buổi khám.') + nav('Theo dõi bước tiếp nhận', 'E3', 'primary');
+          else if (l.continuation === 'return-to-visit') body += note('Phòng khám đã nhận kết quả. Bạn hãy quay lại phiếu khám để tiếp tục lượt hiện tại.') + nav('Tiếp tục lượt khám hiện tại', 'D2', 'primary');
+          else body += note('Kết quả đang chờ điều dưỡng kiểm tra. Phòng khám sẽ xác nhận cách tiếp tục lượt khám của bạn.');
+        }
         body += nav(C.returnVisit, 'D2');
         break;
       case 'F3':
@@ -471,7 +487,8 @@
           ) +
           note(T.note) +
           btn(T.check, 'device') +
-          btn(T.cta, 'join', {}, 'primary', !u.deviceReady);
+          (v.status === 'confirmed' ? note(T.notYet) : '') +
+          btn(T.cta, 'join', {}, 'primary', !u.deviceReady || !['reminder','online-wait'].includes(v.status));
         break;
       case 'G2':
         body =
@@ -492,6 +509,7 @@
         break;
       case 'G5':
         body =
+          (v.communication.callback === 'pending' ? note(C.callback) : '') +
           note(T.lead, 'warning') +
           btn(T.wait, 'callback', {}, 'primary') +
           btn(T.online, 'rebook', {
@@ -511,6 +529,7 @@
               `<p>${esc(M.profile(s, v.patientId)?.name)} · ${esc(dateText(v))}</p>`,
           ) +
           nav(T.pay, 'H2', 'primary') +
+          (v.lockedAt ? note(C.signed) : '') +
           `<div class="list">${row(T.summary, '', 'H6', 'document')}${row(T.labs, '', 'F1', 'document')}${row(T.care, '', 'I1', 'heart-pulse')}${row(T.followup, '', 'J1', 'calendar')}</div>`;
         break;
       case 'H2':
@@ -580,7 +599,7 @@
         break;
       case 'H6':
         body =
-          section(T.conclusion, card(`<p>${esc(T.empty)}</p>`)) +
+          section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
           section(T.medicine, card(`<p>${esc(C.noClinical)}</p>`)) +
           section(T.instructions, `<p>${esc(C.noClinical)}</p>`) +
           nav(T.question, 'I1', 'primary') +
@@ -647,6 +666,7 @@
         break;
       case 'I3':
         body =
+          careProgress(v) +
           form('tracking', textarea('tracking', T.text), T.cta) +
           section(
             T.heading,
@@ -662,13 +682,14 @@
           nav(T.contact, 'I5');
         break;
       case 'I4':
-        body = v.care.referral
+        body = careProgress(v) + (v.care.referral
           ? card(`<p>${esc(v.care.referral)}</p>`) +
             form('referral', textarea('referral', T.text), T.cta)
-          : empty(T.empty, T.lead, nav(C.support, 'K5'));
+          : empty(T.empty, T.lead, nav(C.support, 'K5')));
         break;
       case 'I5':
         body =
+          careProgress(v) +
           (v.care.status === 'followup-due'
             ? note(VI.screen.I5.recommendation) +
               nav(VI.screen.I5.followup, 'J1', 'primary')
