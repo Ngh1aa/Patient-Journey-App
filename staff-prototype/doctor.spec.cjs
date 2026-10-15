@@ -36,10 +36,12 @@ test('site defaults to doctor and rejects all reception and nursing routes',asyn
  await expect(page.locator('.switch-options')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="reception"]')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="nursing"]')).toHaveCount(0);
- for(const path of ['/reception','/nursing','/welcome','/requests','/checkin','/booking/new','/calendar','/schedule/a-018']){
+ for(const path of ['/reception','/nursing','/welcome','/requests','/checkin','/booking/new','/schedule/a-018']){
   await page.goto('/staff-prototype/index.html#'+path);
   await expect(page).toHaveURL(/#\/doctor$/);
  }
+ await page.goto('/staff-prototype/index.html#/calendar');
+ await expect(page).toHaveURL(/#\/doctor\/schedule$/);
 });
 test('doctor schedule navigation and patient queue',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
