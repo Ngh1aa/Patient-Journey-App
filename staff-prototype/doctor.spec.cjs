@@ -144,3 +144,46 @@ test('Lucide medical icon registry, clinical copy and compact data-led cards',as
  await expect(page.locator('.support-rx-metadata')).toContainText('Lượt khám');
  await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
 });
+
+test('sidebar fills the vertical rail with evenly distributed doctor links',async({page},testInfo)=>{
+ const width=page.viewportSize().width;
+ for(const height of [700,768,900,1080]){
+  await page.setViewportSize({width,height});
+  await page.goto('/staff-prototype/index.html#/doctor');
+  const layout=await page.evaluate(()=>{
+   const sidebar=document.querySelector('.doctor-sidebar');
+   const nav=sidebar.querySelector('.sidebar-nav');
+   const bottom=sidebar.querySelector('.sidebar-bottom');
+   const groups=[...nav.querySelectorAll('.side-section')];
+   const rect=el=>el.getBoundingClientRect();
+   return {
+    sidebar:rect(sidebar).toJSON(),nav:rect(nav).toJSON(),bottom:rect(bottom).toJSON(),
+    overflow:nav.scrollHeight>nav.clientHeight+2,
+    allLinks:[...nav.querySelectorAll('.nav-item')].map(el=>rect(el).toJSON()),
+    groupIntervals:groups.map(group=>{
+     const links=[...group.querySelectorAll('.nav-item')];
+     const tops=links.map(el=>rect(el).top);
+     return tops.slice(1).map((top,i)=>top-tops[i]);
+    }),
+    active:[...nav.querySelectorAll('.nav-item[aria-current="page"]')].length
+   };
+  });
+  expect(layout.active).toBe(1);
+  expect(layout.allLinks).toHaveLength(10);
+  expect(Math.abs(layout.sidebar.bottom-height)).toBeLessThan(2);
+  expect(layout.bottom.bottom).toBeLessThanOrEqual(height);
+  expect(layout.bottom.bottom).toBeGreaterThan(height-35);
+  expect(layout.nav.bottom).toBeLessThanOrEqual(layout.bottom.top+2);
+  if(height>=768){
+   expect(layout.overflow,`sidebar has unnecessary scroll at ${width}x${height}`).toBe(false);
+   const last=layout.allLinks.at(-1);
+   expect(last.bottom,`last sidebar entry hidden at ${height}px`).toBeLessThanOrEqual(layout.nav.bottom+1);
+   expect(layout.nav.bottom-last.bottom,`sidebar keeps excessive empty lower region at ${height}px`).toBeLessThan(85);
+   for(const intervals of layout.groupIntervals){
+    const spread=Math.max(...intervals)-Math.min(...intervals);
+    expect(spread,`uneven intra-group sidebar rhythm at ${height}px`).toBeLessThan(3);
+   }
+  }
+  await page.locator('.doctor-sidebar').screenshot({path:testInfo.outputPath(`sidebar-${width}x${height}.png`),animations:'disabled'});
+ }
+});
