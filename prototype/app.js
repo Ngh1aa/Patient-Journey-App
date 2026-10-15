@@ -115,6 +115,7 @@
     return { id: 'UNKNOWN' };
   }
   function go(id, extra = {}, replace = false) {
+    if (id === 'D1' && u.screen !== 'D1') u.filter = 'upcoming';
     if (extra.visitId) s.activeVisitId = extra.visitId;
     if (extra.labId) u.labId = extra.labId;
     if (extra.reason) u.reportReason = extra.reason;
@@ -279,13 +280,13 @@
       ? V.head(g[1], g[2]) + V.go(VI.common.continue, g[3], 'primary')
       : V.render(id, s, u);
     $('bottom-nav').hidden =
-      !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id);
+      !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id) || (s.draft && /^C[1-8]$/.test(id));
     $('bottom-nav').innerHTML = [
       ['B1', 'Trang chủ', 'home'],
       ['D1', 'Lịch hẹn', 'calendar'],
       ['C1', 'Đặt lịch', 'plus'],
       ['K2', 'Hồ sơ', 'user'],
-      ['K5', 'Hỗ trợ', 'phone'],
+      ['K5', 'Hỗ trợ', 'headphones'],
     ]
       .map(
         ([to, label, icon]) =>
@@ -971,7 +972,11 @@
       demo(VI.demo.warning);
       go('A1', {}, true);
     },
+    'confirm-logout'() {
+      dialog('Đăng xuất khỏi CareFlow+?', 'Bạn sẽ cần đăng nhập lại để tiếp tục dùng bản demo.', V.btn('Ở lại', 'close-dialog', {}, 'secondary') + V.btn('Đăng xuất', 'logout', {}, 'danger'));
+    },
     logout() {
+      if ($('dialog').open) $('dialog').close();
       s.authenticated = false;
       u.forms = {};
       u.otpSent = false;
