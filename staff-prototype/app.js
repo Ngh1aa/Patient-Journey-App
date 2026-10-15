@@ -45,7 +45,7 @@
   for(const demo of baseline.appointments.filter(a=>['a-040','a-041'].includes(a.id))){
     if(!data.appointments.some(a=>a.id===demo.id))data.appointments.push(demo);
   }
-  if(!Array.isArray(data.doctorTasks))data.doctorTasks=structuredClone(baseline.doctorTasks);
+  if(!Array.isArray(data.doctorTasks)||data.doctorTasks.some(t=>!t.personId||!t.owner||!t.due))data.doctorTasks=structuredClone(baseline.doctorTasks);
   data.doctorReviews??={};
   data.onlineVisits??={};
   data.resultNexts??={};
