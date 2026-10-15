@@ -22,3 +22,11 @@ test('Wave3 scheduling safeguards and nursing journeys are wired',()=>{
   assert.match(js,/wave-consult-progress/);assert.match(js,/cancelled:'Đã hủy'/);
   assert.match(css3,/wave-consult/);
 });
+
+test('unified desktop visual foundation and role-aware navigation are present',()=>{
+  const visual=fs.readFileSync(path.join(__dirname,'visual-foundations.css'),'utf8');
+  assert.match(html,/visual-foundations\.css/);
+  for(const selector of ['--clinic-fg-strong','.sidebar-nav','.nav-item.active','.data-table','.metric-card','.wave-consult']) assert.ok(visual.includes(selector),selector);
+  assert.match(js,/isReception/);
+  assert.match(js,/sidebar-product-note/);
+});
