@@ -266,7 +266,8 @@
     );
     $('back').innerHTML = window.CareFlowIcon('chevron-left', 23);
     const unreadNotifications = s.notifications.filter(item => !item.read).length;
-    $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-count" aria-label="'+unreadNotifications+' thông báo chưa đọc">'+Math.min(99,unreadNotifications)+'</span>' : '');
+    $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-dot" aria-hidden="true"></span>' : '');
+    $('notifications').setAttribute('aria-label', unreadNotifications ? 'Thông báo, '+unreadNotifications+' chưa đọc' : 'Thông báo');
     const isAuth = ['A1', 'A2', 'A3'].includes(id);
     $('auth-progress').hidden = !isAuth;
     $('auth-jump').hidden = !isAuth;
