@@ -1163,3 +1163,20 @@ test('login after proxy booking confirms the account owner, not the selected rel
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });
+test('navigation does not steal focus from a patient field on the next frame', async ({
+  page,
+}) => {
+  await load(page);
+  await nav(page, 'K4');
+  const focused = await page.evaluate(() => {
+    document.querySelector('[data-action=logout]').click();
+    document.querySelector('#phone').focus();
+    return new Promise((resolve) =>
+      requestAnimationFrame(() => resolve(document.activeElement.id)),
+    );
+  });
+  expect(focused).toBe('phone');
+  await page.locator('#phone').fill('0900000000');
+  await submit(page);
+  await expect(page.locator('#otp')).toBeVisible();
+});
