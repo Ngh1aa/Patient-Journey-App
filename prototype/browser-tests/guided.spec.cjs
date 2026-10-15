@@ -1,6 +1,41 @@
 const {test,expect}=require('@playwright/test');
 const AxeBuilder=require('@axe-core/playwright').default;
 const snapshot=page=>page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')));
+for(const entered of [false,true])test(`legacy booking deep link restores guide without replacing ${entered?'entered':'empty'} draft`,async({page},info)=>{
+ await page.setViewportSize({width:1440,height:1000});
+ await page.goto('/prototype/index.html?scenario=empty');
+ await page.evaluate(entered=>{
+  const s=CareFlowModel.fixture('empty');
+  s.profiles[0].name='Người xem đã có hồ sơ';
+  CareFlowModel.beginBooking(s);
+  sessionStorage.setItem('careflow.browser.v3',JSON.stringify({state:s,ui:{screen:'C2',forms:{reason:{reason:entered?'Nội dung đang viết cần giữ lại':'',medicalHistory:entered?'Thông tin đã nhập cần giữ lại':''}}}}));
+ },entered);
+ await page.goto('about:blank');
+ await page.goto('/prototype/index.html#/book/reason');
+ await expect(page.locator('.journey-panel')).toBeVisible();
+ await expect(page.locator('.journey-item > button')).toHaveCount(12);
+ await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
+ await expect(page.locator('#phone-content')).toContainText('Người xem đã có hồ sơ');
+ await expect(page.locator('#reason')).toHaveValue(entered?'Nội dung đang viết cần giữ lại':'Tôi muốn trao đổi với bác sĩ về tình trạng gần đây.');
+ await expect(page.locator('#medicalHistory')).toHaveValue(entered?'Thông tin đã nhập cần giữ lại':'Chưa có thông tin cần bổ sung.');
+ expect((await snapshot(page)).state.visits).toHaveLength(0);
+ await page.reload();
+ await expect(page.locator('.journey-panel')).toBeVisible();
+ await expect(page.locator('#reason')).not.toHaveValue('');
+ await page.screenshot({path:info.outputPath(`restored-booking-${entered?'entered':'empty'}.png`)});
+ await page.locator('#phone-content form [type=submit]').click();
+ await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C3');
+ await expect(page.locator('.journey-checklist [aria-current=step]')).toContainText('Sàng lọc');
+});
+test('explicit inspection mode persists through reload without presentation autofill',async({page})=>{
+ await page.goto('/prototype/index.html?scenario=empty');
+ await page.locator('#phone-content [data-action=begin]').click();
+ await page.locator('#phone-content form [type=submit]').click();
+ await page.reload();
+ await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
+ await expect(page.locator('.journey-panel')).toBeHidden();
+ await expect(page.locator('#reason')).toHaveValue('');
+});
 const cases={F1:['default'],F2:['default'],F3:['review','emergency'],F4:['default'],F5:['visit','during'],F6:['cancel','no-show','reschedule'],F7:['default'],F8:['callback','online','onsite'],F9:['transfer','counter','pharmacy','later','refund','free'],F10:['summary','more','explain','callback'],F11:['medicine','question','symptoms','urgent','tracking','referral'],F12:['default']};
 for(const [flow,branches] of Object.entries(cases))for(const branch of branches){
  test(`guided ${flow}/${branch}: patient clicks and clinic handoffs complete the checklist`,async({page})=>{
