@@ -1617,7 +1617,7 @@ dialog p {
 :root {
   --bg: #f2f2f3;
   --surface: #fff;
-  --primary: #086bff;
+  --primary: #0063f5;
   --primary-hover: #0055dc;
   --ink: #171719;
   --heading: #171719;
@@ -1953,7 +1953,7 @@ textarea, select {
 .dashboard-hero { margin: 0; padding: 0; }
 .dashboard-hero > h1 {
   color: var(--ink);
-  font-size: calc(clamp(30px, 8vw, 42px) * var(--font-scale, 1));
+  font-size: clamp(calc(30px * var(--font-scale, 1)), calc(8vw * var(--font-scale, 1)), calc(42px * var(--font-scale, 1)));
   line-height: 1.14;
   letter-spacing: -1.6px;
   margin: 0 0 22px;
