@@ -375,7 +375,8 @@
   :extra.contactTab===1?`<div class="box"><h3>${esc(v.symptoms)}</h3><div class="pill-list">${["Triệu chứng mới","Dùng thuốc nhưng chưa đỡ","Nghi do tác dụng phụ của thuốc"].map(x=>`<button type="button" data-action="chooseSymptom" data-value="${esc(x)}" class="${p.symptom===x?"active":""}">${esc(x)}</button>`).join("")}</div>
   <p class="lead">Mức độ</p><div class="pill-list">${v.severity.map(x=>`<button type="button" data-action="chooseSeverity" data-value="${esc(x)}" class="${extra.severity===x?"active":""}">${esc(x)}</button>`).join("")}</div>${b(v.send,"sendSymptoms","btn-primary")}</div>`
   :`<div class="box"><h3>${esc(v.callback)}</h3><label class="field-label" for="callback-note">Lý do liên hệ</label><textarea id="callback-note" data-field="callbackNote">${esc(extra.callbackNote)}</textarea>${b(v.request,"requestCallback","btn-primary")}</div>`}
-  ${m.callback==="pending"?`<span class="chip success">Đã gửi yêu cầu (mẫu)</span>`:""}${note()}`;
+  ${extra.contactTab!==2?b("Nhờ phòng khám gọi lại","requestCallback"):""}
+  ${m.callback==="pending"?`<span class="chip success">Đã nhận yêu cầu (demo) · Không có ticket thật.</span>`:""}${note()}`;
   if(id==="G1")return `${h(v.title)}${profileContextBar()}
   <div class="box hero"><h3>${esc(v.personal)}</h3><p>${esc(personName())}</p></div>
   <div class="box"><h3>${esc(v.family)}</h3>
@@ -769,7 +770,7 @@
               ${icon("warning", 16)} <span>Ngày này đã kín lịch. Bạn có thể chọn giờ gần nhất bên dưới hoặc gọi phòng khám.</span>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="chooseSlot" data-value="14:30">Xem giờ 14:30</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="chooseSuggestedSlot" data-value="14:30">Chọn giờ 14:30</button>
               <button type="button" class="btn-secondary btn-sm" data-action="openHelp">Gọi phòng khám</button>
             </div>
           ` : ""}
@@ -1653,6 +1654,7 @@ function handleAction(action, value) {
         state.selectedSlot = "";
         return render();
 
+      case "chooseSuggestedSlot":
       case "chooseSlot":
         state.selectedSlot = value;
         m.slot = value;
