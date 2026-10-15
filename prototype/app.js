@@ -308,6 +308,43 @@
     G2: { title: "Thông báo", goal: "Thông báo lịch khám, kết quả và việc cần làm kèm deep-link.", risk: "Tuyệt đối không để lộ dữ liệu chẩn đoán nhạy cảm ở bản xem trước." }
   };
 
+
+  let extra = {byPatient:{},contactTab:0,supportMessage:"",callbackNote:"",severity:"Nhẹ",fontSize:0,faqSearch:"",settings:[true,true,true,true,true]};
+
+  function renderSoft(id){
+  const currentPatient=()=>m.person==="self"?"patient-self":"patient-relative";
+  const patientData=()=>{const p=currentPatient();return extra.byPatient[p]||(extra.byPatient[p]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});};
+  const info=(message)=>`<p class="field-hint" data-copy-help>${esc(message)}</p>`;
+  const headline=(title,subtitle="")=>`<div class="mini-step">${id} · CAREFLOW</div><h2>${esc(title)}</h2>${subtitle?`<p class="lead">${esc(subtitle)}</p>`:""}`;
+  const action=(label,event,klass="btn-secondary")=>`<button type="button" class="${klass}" data-action="${event}">${esc(label)}</button>`;
+  const sim=()=>`<p class="field-hint">Dữ liệu mẫu để xem thử giao diện. Không gửi đến phòng khám.</p>`;
+  const step=(text,type)=>`<div class="timeline-step ${type||""}"><div class="timeline-dot"></div><div>${esc(text)}</div></div>`;
+  const p=patientData();
+  const v=VI.screens[id]||{};
+  switch(id){
+      case "E1": return renderSoft("E1");
+      case "E2": return renderSoft("E2");
+      case "E3": return renderSoft("E3");
+      case "E4": return renderSoft("E4");
+      case "F1": return renderSoft("F1");
+      case "F3": return renderSoft("F3");
+      case "F4": return renderSoft("F4");
+      case "G1": return renderSoft("G1");
+      case "G3": return renderSoft("G3");
+
+    case "H1":return `${headline(v.title)}<div class="box hero"><h3>${esc(v.hero)}</h3><p>${esc(v.hours)}</p>
+       ${action(v.call,"callClinicHotline","btn-primary")}</div>
+      <div class="btn-row">${action(v.message,"goF4")}${action(v.callback,"goF4")}</div>
+      <div class="box warning"><strong>${esc(v.emergency)}</strong>${action("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
+      <div class="box"><label for="faq-search" class="field-label">${esc(v.search)}</label>
+      <input type="search" id="faq-search" data-field="faqSearch" value="${esc(extra.faqSearch)}" placeholder="Tìm câu hỏi">
+      ${["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].filter(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase())).map((x,i)=>`<button type="button" class="choice" data-action="faq" data-value="${esc(x)}">${esc(x)} ${icon("chevron-right",16)}</button>`).join("")}
+      ${extra.faqSearch&&!["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].some(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase()))?`<p>${esc(v.empty)}</p>`:""}
+      </div>${sim()}`;
+    default:return null;
+  }
+}
+
   // Render Functions for Each Screen
   function renderScreen(id) {
     switch (id) {
@@ -1229,6 +1266,8 @@
           </div>
         `;
 
+      case "H1": return renderSoft("H1");
+
       default:
         return `
           <h2>Không tìm thấy màn hình</h2>
@@ -1791,7 +1830,7 @@
 
       case "openHelp":
         state.lastHelpFrom = state.currentScreen;
-        return nav("F4");
+        return nav("H1");
 
       case "goC1": return nav("C1");
       case "goC2": return nav("C2");
