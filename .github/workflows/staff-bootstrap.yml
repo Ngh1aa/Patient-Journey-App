@@ -24,7 +24,6 @@ jobs:
           node --check staff-prototype/app.js
           node --test staff-prototype/test.cjs
           git rm -rf staff-payload
-          git rm .github/workflows/staff-bootstrap.yml
-          git add staff-prototype .github/workflows/careflow-staff-qa.yml
+          git add staff-prototype
           git -c user.name='careflow-showcase-bot' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'feat(staff): build eight CareFlow desktop portfolio surfaces'
           git push origin HEAD:design/careflow-clinic-core-8-portfolio
