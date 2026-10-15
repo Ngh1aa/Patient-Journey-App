@@ -17,7 +17,7 @@
   const config = {
     APP_NAME: "CareFlow",
     EMERGENCY_NUMBER: "115", // [MEDICAL REVIEW REQUIRED]
-    CLINIC_HOTLINE: "1900 6868",
+    CLINIC_HOTLINE: "[Số điện thoại phòng khám]",
     DEMO_CONTROLS: true
   };
 
@@ -145,9 +145,9 @@
 
     // Notifications
     notifications: [
-      { id: "n1", title: "Lịch khám đã được xác nhận", body: "Lịch khám 09:30 · Thứ bảy, 20/06 đã được phòng khám xác nhận.", time: "10 phút trước", isRead: false, link: "D2" },
-      { id: "n2", title: "Có cập nhật mới về lượt khám", body: "Bác sĩ đã xem và cập nhật kết quả cho lượt khám gần nhất.", time: "2 giờ trước", isRead: false, link: "F2" },
-      { id: "n3", title: "Nhắc nhở lịch khám ngày mai", body: "Bạn có lịch hẹn vào 09:30 ngày mai. Vui lòng đến trước 15 phút.", time: "1 ngày trước", isRead: true, link: "D2" },
+      { id: "n1", title: "Phòng khám đã xác nhận lịch", body: "Mở app để xem chi tiết", time: "10 phút trước", isRead: false, link: "D2" },
+      { id: "n2", title: "Có cập nhật mới về lượt khám", body: "Mở app để xem", time: "2 giờ trước", isRead: false, link: "F2" },
+      { id: "n3", title: "Mai bạn có lịch khám", body: "Xem hướng dẫn chuẩn bị", time: "1 ngày trước", isRead: true, link: "D2" },
       { id: "n4", title: "Cập nhật hồ sơ thành công", body: "Hồ sơ cá nhân và người thân đã được đồng bộ an toàn.", time: "3 ngày trước", isRead: true, link: "G1" }
     ]
   };
@@ -1421,7 +1421,7 @@
     if (state.activeModal === "emergency") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="modal-sheet" onclick="event.stopPropagation()">
+          <div class="modal-sheet" >
             <div class="sheet-handle"></div>
             <h3 style="color: var(--color-danger-700); margin-bottom: 8px;">Gọi cấp cứu ${config.EMERGENCY_NUMBER}</h3>
             <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 16px; line-height: 1.5;">
@@ -1434,7 +1434,7 @@
     } else if (state.activeModal === "continue-confirm") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="modal-sheet" onclick="event.stopPropagation()">
+          <div class="modal-sheet" >
             <div class="sheet-handle"></div>
             <h3>Xác nhận tiếp tục đặt lịch</h3>
             <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 14px; line-height: 1.5;">
@@ -1465,7 +1465,7 @@
     } else if (state.activeModal === "feature-soon") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="feature-soon-sheet" onclick="event.stopPropagation()">
+          <div class="feature-soon-sheet" >
             <div class="sheet-handle"></div>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
               <div style="width: 40px; height: 40px; border-radius: 12px; background: var(--color-info-100); color: var(--color-brand-700); display: grid; place-items: center;">
@@ -1486,7 +1486,7 @@
     } else if (state.activeModal === "demo-controls") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="demo-controls-panel" onclick="event.stopPropagation()">
+          <div class="demo-controls-panel" >
             <div class="sheet-handle"></div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
               <h3 style="margin: 0; font-size: 18px;">Bảng điều khiển Demo (Hidden)</h3>
@@ -1633,7 +1633,7 @@
     case "chooseSymptom":r.symptom=value;return render();
     case "chooseSeverity":extra.severity=value;return render();
     case "sendSymptoms":if(!r.symptom)return showNotice("Bạn hãy chọn nội dung cần báo.","error");r.messages.push("Báo triệu chứng: "+r.symptom+" · "+extra.severity);return showNotice("Phòng khám đã nhận tin của bạn (mẫu).","success");
-    case "selectFamilyProfile":if(value==="patient-father")return showNotice("Hồ sơ này chưa được kết nối trong demo.","error");M.choosePerson(m,value==="patient-self"?"self":"relative");return showNotice("Đang chọn hồ sơ: "+personShort()+".");
+    case "selectFamilyProfile":if(value==="patient-father")return showNotice("Hồ sơ này chưa được kết nối trong demo.","error");M.choosePerson(m,value==="patient-self"?"self":"relative");m.payment=record().paymentStatus;return showNotice("Đang chọn hồ sơ: "+personShort()+".");
     case "addFamily":return showNotice("Thêm người thân chưa kết nối dữ liệu thật. Vui lòng gọi phòng khám để xác minh quyền.");
     case "settingsSection":return showNotice("Mục "+value+" đang có trong bản xem thử. Bạn có thể chỉnh cỡ chữ và thông báo bên dưới.");
     case "setFontSize":extra.fontSize=Number(value);state.largeText=extra.fontSize>0;document.body.classList.toggle("large-text",state.largeText);return render();
@@ -1694,6 +1694,7 @@ function handleAction(action, value) {
       case "selectPerson":
       case "selectPatient":
         M.choosePerson(m, value);
+        {const pid=m.person==="self"?"patient-self":"patient-relative";m.payment=extra.byPatient[pid]?.paymentStatus||"unpaid";}
         state.screeningChoice = "";
         state.reasonNote = "";
         return showNotice("Đã chọn " + personShort() + ". Thông tin lý do khám trước đó đã được xóa.");
@@ -1988,12 +1989,14 @@ function handleAction(action, value) {
 
       case "bookSelf":
         M.choosePerson(m, "self");
+        m.payment=extra.byPatient["patient-self"]?.paymentStatus||"unpaid";
         state.screeningChoice = "";
         state.reasonNote = "";
         return nav("C1");
 
       case "bookRelative":
         M.choosePerson(m, "relative");
+        m.payment=extra.byPatient["patient-relative"]?.paymentStatus||"unpaid";
         state.screeningChoice = "";
         state.reasonNote = "";
         return nav("C1");
@@ -2143,6 +2146,7 @@ function handleAction(action, value) {
   document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-action],[data-screen],[data-scenario]");
     if (!el) return;
+    if (el.classList.contains("modal-overlay") && e.target!==el) return;
     if (el.dataset.scenario) return resetScenario(el.dataset.scenario);
     if (el.dataset.screen) return nav(el.dataset.screen);
     if (el.dataset.action) return handleAction(el.dataset.action, el.dataset.value);
