@@ -17,7 +17,9 @@ test('eight showcase surfaces render without JS errors or horizontal page overfl
     await expect(page.locator('.demo-indicator')).toContainText('Dữ liệu minh họa');
     const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:window.innerWidth}));
     expect(size.scroll,`${id} viewport overflow`).toBeLessThanOrEqual(size.width+1);
-    await page.screenshot({path:testInfo.outputPath(id+'.png'),fullPage:true,animations:'disabled'});
+    if(id==='W01') await expect(page.locator('.sidebar [aria-current="page"]')).toHaveCount(1);
+    if(id==='W07') await expect(page.locator('.switch-options [data-role="doctor"]')).toHaveAttribute('aria-pressed','true');
+    await page.screenshot({path:testInfo.outputPath(id+'.png'),fullPage:id!=='W05',animations:'disabled'});
   }
   expect(errors).toEqual([]);
 });
