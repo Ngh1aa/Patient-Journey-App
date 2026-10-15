@@ -318,37 +318,84 @@
   let extra = {byPatient:{},contactTab:0,supportMessage:"",callbackNote:"",severity:"Nhẹ",fontSize:0,faqSearch:"",settings:[true,true,true,true,true]};
 
   function renderSoft(id){
-  const currentPatient=()=>m.person==="self"?"patient-self":"patient-relative";
-  const patientData=()=>{const p=currentPatient();return extra.byPatient[p]||(extra.byPatient[p]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});};
-  const info=(message)=>`<p class="field-hint" data-copy-help>${esc(message)}</p>`;
-  const headline=(title,subtitle="")=>`<div class="mini-step">${id} · CAREFLOW</div><h2>${esc(title)}</h2>${subtitle?`<p class="lead">${esc(subtitle)}</p>`:""}`;
-  const action=(label,event,klass="btn-secondary")=>`<button type="button" class="${klass}" data-action="${event}">${esc(label)}</button>`;
-  const sim=()=>`<p class="field-hint">Dữ liệu mẫu để xem thử giao diện. Không gửi đến phòng khám.</p>`;
-  const step=(text,type)=>`<div class="timeline-step ${type||""}"><div class="timeline-dot"></div><div>${esc(text)}</div></div>`;
-  const p=patientData();
+  const pid=m.person==="self"?"patient-self":"patient-relative";
+  const p=extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});
   const v=VI.screens[id]||{};
-  switch(id){
-      case "E1": return renderSoft("E1");
-      case "E2": return renderSoft("E2");
-      case "E3": return renderSoft("E3");
-      case "E4": return renderSoft("E4");
-      case "F1": return renderSoft("F1");
-      case "F3": return renderSoft("F3");
-      case "F4": return renderSoft("F4");
-      case "G1": return renderSoft("G1");
-      case "G3": return renderSoft("G3");
-
-    case "H1":return `${headline(v.title)}<div class="box hero"><h3>${esc(v.hero)}</h3><p>${esc(v.hours)}</p>
-       ${action(v.call,"callClinicHotline","btn-primary")}</div>
-      <div class="btn-row">${action(v.message,"goF4")}${action(v.callback,"goF4")}</div>
-      <div class="box warning"><strong>${esc(v.emergency)}</strong>${action("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
-      <div class="box"><label for="faq-search" class="field-label">${esc(v.search)}</label>
-      <input type="search" id="faq-search" data-field="faqSearch" value="${esc(extra.faqSearch)}" placeholder="Tìm câu hỏi">
-      ${["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].filter(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase())).map((x,i)=>`<button type="button" class="choice" data-action="faq" data-value="${esc(x)}">${esc(x)} ${icon("chevron-right",16)}</button>`).join("")}
-      ${extra.faqSearch&&!["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].some(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase()))?`<p>${esc(v.empty)}</p>`:""}
-      </div>${sim()}`;
-    default:return null;
-  }
+  const h=(title,desc)=>`<div class="mini-step">${id} · CAREFLOW</div><h2>${esc(title)}</h2>${desc?`<p class="lead">${esc(desc)}</p>`:""}`;
+  const b=(label,act,cls="btn-secondary")=>`<button type="button" class="${cls}" data-action="${act}">${esc(label)}</button>`;
+  const note=()=>`<p class="field-hint">Dữ liệu mẫu · Không gửi thông tin thật đến phòng khám.</p>`;
+  const timeline=(items,now)=>`<div class="timeline">${items.map((x,i)=>`<div class="timeline-step ${i<now?"completed":i===now?"current":""}"><div class="timeline-dot"></div><strong>${esc(x)}</strong></div>`).join("")}</div>`;
+  if(id==="E1")return `${h(v.title)}${profileContextBar()}
+  <section class="box hero"><div class="box-title">${esc(v.number)}</div><div class="hero-number">A012</div><p>${esc(v.calling)}: A009 · Còn 3 lượt</p><p>Khoảng 15–20 phút · Chỉ tham khảo</p><p>Cập nhật 09:12 (demo)</p></section>
+  <div class="box"><h3>${esc(m.queue==="checked_in"?"Bạn đã đến":"Bạn đã đến phòng khám chưa?")}</h3><p class="lead">Bấm khi bạn đã đến để lễ tân biết.</p><span class="chip info">${m.queue==="checked_in"?"Bạn đã đến":"Chưa check-in"}</span>${b(v.arrival,"checkin","btn-primary")}${b(v.qr,"qrCheckin")}</div>
+  <div class="box"><h3>Tiếp theo</h3>${timeline(["Đã đến quầy","Đang chờ bác sĩ","Vào phòng khám"],m.queue==="checked_in"?1:0)}<p>${esc(v.note)}</p></div>${b(v.support,"goH1")}${note()}`;
+  if(id==="E2")return `${h(v.title,v.description)}${profileContextBar()}
+  <div class="video-stage">${icon("video",40)}<p>Camera mô phỏng · Không thu hình thật</p></div>
+  <div class="box"><h3>Kiểm tra thiết bị</h3>
+  ${[["Camera",state.videoCamera],["Micro",state.videoMic],["Mạng",!state.isOffline]].map(([name,ok])=>`<div class="review-row"><span>${name}</span><strong>${ok?"Ổn":"Cần bật"}</strong></div>`).join("")}
+  <div class="btn-row">${b(state.videoCamera?"Tắt camera":"Bật camera","toggleCamera")}${b(state.videoMic?"Tắt micro":"Bật micro","toggleMic")}</div></div>
+  <div class="box"><h3>Trước khi khám</h3>${v.prep.map(x=>`<p class="lead">✓ ${esc(x)}</p>`).join("")}<p class="field-hint">${esc(v.permission)}</p></div>
+  <div class="floating-action">${b(v.cta,"joinVideo","btn-primary")}</div>${b(v.callback,"requestCallback")}${note()}`;
+  if(id==="E3")return `${h("Khám video")}
+  <div class="video-stage" style="aspect-ratio:3/4;min-height:285px"><div>${icon("video",40)}<p style="color:#fff">Đang kết nối với bác sĩ…</p><p style="color:#E5E7EB">Không có cuộc gọi thật</p></div></div>
+  <div class="box"><span class="chip info">${state.isOffline?"Mạng yếu":"Kết nối mô phỏng"}</span>
+  <div class="btn-row">${b(state.videoMic?"Tắt micro":"Bật micro","toggleMic")}${b(state.videoCamera?"Tắt camera":"Bật camera","toggleCamera")}</div>
+  ${b(v.audio,"audioOnly")}${b(v.issue,"dropCall")}</div>
+  <div class="floating-action">${b("Kết thúc buổi khám","endVideo","btn-danger")}</div>${note()}`;
+  if(id==="E4")return `${h(v.title,v.description)}
+  <div class="box warning"><strong>Cuộc gọi bị gián đoạn</strong><p>Phòng khám đang xử lý · Lịch khám vẫn còn nguyên.</p></div>
+  <div class="stacked-options">${b(v.retry,"retryVideo","btn-primary")}${b(v.callback,"requestCallback")}${b(v.rebook,"goD3")}${b(v.onsite,"switchToOnsite")}</div>
+  ${m.callback==="pending"?`<div class="box"><span class="chip success">${esc(v.sent)}</span></div>`:""}${b("Nhắn tin hoặc nhờ gọi lại","goF4")}${b("Gọi phòng khám","goH1")}${note()}`;
+  if(id==="F1")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><p>${esc(v.total)}</p><div style="font-size:28px;font-weight:700">${esc(v.amount)}</div>
+  <span class="chip">${esc(p.paymentStatus==="paid"?"Đã thanh toán":p.paymentStatus==="deferred"?"Thanh toán sau":p.paymentStatus==="pending_reconciliation"?"Đang kiểm tra khoản chuyển…":"Chưa thanh toán")}</span></div>
+  <section class="box"><h3>${esc(v.methods)}</h3>
+  ${[["qr",v.qr,v.qrHint],["counter",v.counter,v.counterHint],["pharmacy",v.pharmacy,v.pharmacyHint]].map(([key,title,sub])=>`<button class="choice ${p.paymentMethod===key?"selected":""}" type="button" data-action="choosePaymentMethod" data-value="${key}"><strong>${esc(title)}</strong><small>${esc(sub)}</small></button>`).join("")}
+  ${p.paymentMethod==="qr"?`<div class="qr">MÃ QR MẪU<br>KHÔNG QUÉT</div><p class="field-hint">Không chuyển tiền vào mã mô phỏng.</p>`:""}
+  ${p.paymentStatus==="pending_reconciliation"?`<p class="lead">Đang xác nhận thanh toán · Không gửi thêm khi chưa có kết quả.</p>${b("Đánh dấu đã thanh toán (chỉ demo)","simulatedSettlePayment")}`:""}
+  ${p.paymentStatus==="paid"?`${b(v.receipt,"showReceipt")}`:""}
+  <div class="floating-action">${b(v.cta,"beginPayment","btn-primary")}</div>
+  <label class="field-label" for="payment-due">Ngày dự kiến thanh toán sau (tùy chọn)</label>
+  <input id="payment-due" type="date" data-field="paymentDue" value="${esc(state.paymentDue||"")}">
+  ${b(v.later,"deferPayment")}</section>${note()}`;
+  if(id==="F3")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><h3>${esc(v.title)}</h3><p>${esc(v.after)}</p></div>
+  <div class="box"><h3>Chỉ định mẫu</h3><span class="chip info">${esc(p.labAppointment?"Đã hẹn":"Cần đặt hẹn")}</span>
+  <p class="lead">[Tên xét nghiệm hoặc chụp chiếu được bác sĩ chỉ định]</p>
+  ${timeline(["Bác sĩ chỉ định","Cần đặt hẹn","Có kết quả","Chờ bác sĩ xem","Bác sĩ đã xem"],p.labAppointment?2:1)}
+  ${[["Cần chuẩn bị","[Hướng dẫn được phòng khám duyệt]"],["Làm ở đâu","[Địa điểm]"],["Mất bao lâu","[Thời gian]"]].map(([k,val])=>`<div class="review-row"><strong>${esc(k)}</strong><span>${esc(val)}</span></div>`).join("")}</div>
+  <div class="floating-action">${b(v.cta,"bookLab","btn-primary")}</div>${b("Có kết quả từ nơi khác? Tải lên","uploadLab")}${b("Xem kết quả và hướng dẫn","goF2")}${note()}`;
+  if(id==="F4")return `${h(v.title)}${profileContextBar()}
+  <div class="segmented-control">${v.tabs.map((tab,i)=>`<button type="button" class="segmented-btn ${extra.contactTab===i?"active":""}" data-action="contactTab" data-value="${i}">${esc(tab)}</button>`).join("")}</div>
+  <div class="box warning"><strong>${esc(v.emergency)}</strong>${b("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
+  ${extra.contactTab===0?`<div class="box"><p class="lead">${esc(v.reply)}</p><div class="chat-bubble clinic">Xin chào, phòng khám có thể giúp gì cho bạn?</div>
+  ${p.messages.map(x=>`<div class="chat-bubble patient">${esc(x)}</div>`).join("")}
+  <div class="pill-list">${v.starter.map(x=>`<button type="button" data-action="messageSuggestion" data-value="${esc(x)}">${esc(x)}</button>`).join("")}</div>
+  <label class="field-label" for="support-message">Nhập tin nhắn</label><textarea id="support-message" data-field="supportMessage" placeholder="Nhập tin nhắn">${esc(extra.supportMessage)}</textarea>${b("Gửi tin nhắn","sendMessage","btn-primary")}</div>`
+  :extra.contactTab===1?`<div class="box"><h3>${esc(v.symptoms)}</h3><div class="pill-list">${["Triệu chứng mới","Dùng thuốc nhưng chưa đỡ","Nghi do tác dụng phụ của thuốc"].map(x=>`<button type="button" data-action="chooseSymptom" data-value="${esc(x)}" class="${p.symptom===x?"active":""}">${esc(x)}</button>`).join("")}</div>
+  <p class="lead">Mức độ</p><div class="pill-list">${v.severity.map(x=>`<button type="button" data-action="chooseSeverity" data-value="${esc(x)}" class="${extra.severity===x?"active":""}">${esc(x)}</button>`).join("")}</div>${b(v.send,"sendSymptoms","btn-primary")}</div>`
+  :`<div class="box"><h3>${esc(v.callback)}</h3><label class="field-label" for="callback-note">Lý do liên hệ</label><textarea id="callback-note" data-field="callbackNote">${esc(extra.callbackNote)}</textarea>${b(v.request,"requestCallback","btn-primary")}</div>`}
+  ${m.callback==="pending"?`<span class="chip success">Đã gửi yêu cầu (mẫu)</span>`:""}${note()}`;
+  if(id==="G1")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><h3>${esc(v.personal)}</h3><p>${esc(personName())}</p></div>
+  <div class="box"><h3>${esc(v.family)}</h3>
+  ${state.patients.filter(x=>x.id!=="patient-father").map(item=>`<button type="button" class="choice ${item.id===pid?"selected":""}" data-action="selectFamilyProfile" data-value="${item.id}"><strong>${esc(item.fullName)}</strong><small>${esc(item.id===pid?"Đang chọn":item.canBook?"Có quyền đặt hộ":"Chưa có quyền đặt hộ")}</small></button>`).join("")}
+  <p class="field-hint">Quyền đặt hộ không tự cấp quyền xem kết quả xét nghiệm.</p>
+  ${b(m.canBookRelative?"Thu hồi quyền đặt hộ (mô phỏng)":"Bật quyền đặt hộ (mô phỏng)","toggleRelativeBook")}
+  ${b("Thêm người thân","addFamily")}${b("Đặt lịch cho người đang chọn","startBooking","btn-primary")}</div>${note()}`;
+  if(id==="G3")return `${h(v.title)}<div class="group-list">
+  ${v.groups.map(x=>`<button type="button" data-action="settingsSection" data-value="${esc(x)}"><span>${esc(x)}</span>${icon("chevron-right",16)}</button>`).join("")}</div>
+  <div class="box"><h3>Cỡ chữ</h3><div class="pill-list">${v.font.map((x,i)=>`<button type="button" data-action="setFontSize" data-value="${i}" class="${extra.fontSize===i?"active":""}">${esc(x)}</button>`).join("")}</div></div>
+  <div class="box"><h3>Thông báo và quyền riêng tư</h3>${v.notifications.map((label,i)=>`<button type="button" class="choice" data-action="toggleSetting" data-value="${i}"><span class="review-row"><strong>${esc(label)}</strong><span class="ios-switch ${extra.settings[i]?"on":""}"></span></span></button>`).join("")}</div>
+  ${b("Đăng xuất","promptLogout")}${b("Xóa tài khoản","promptDelete")}${note()}`;
+  if(id==="H1")return `${h(v.title)}<div class="box hero"><h3>${esc(v.hero)}</h3><p>${esc(v.hours)}</p>${b(v.call,"callClinicHotline","btn-primary")}</div>
+  <div class="btn-row">${b(v.message,"goF4")}${b(v.callback,"goF4")}</div>
+  <div class="box warning"><strong>${esc(v.emergency)}</strong>${b("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
+  <div class="box"><label for="faq-search" class="field-label">${esc(v.search)}</label><input id="faq-search" type="search" data-field="faqSearch" value="${esc(extra.faqSearch)}" placeholder="Tìm câu hỏi">
+  ${["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].filter(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase())).map(x=>`<button class="choice" type="button" data-action="faq" data-value="${esc(x)}">${esc(x)} ${icon("chevron-right",16)}</button>`).join("")}
+  ${extra.faqSearch&&!["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].some(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase()))?`<p>${esc(v.empty)}</p>`:""}
+  </div>${note()}`;
+  return null;
 }
 
   // Render Functions for Each Screen
@@ -1063,218 +1110,18 @@
       // =========================================================================
       // G1 / Profile — Hồ sơ & người thân (/profile)
       // =========================================================================
-      case "G1":
-        return `
-          <div class="mini-step">G1 · HỒ SƠ</div>
-          <h2>Hồ sơ & người thân</h2>
-          <p class="lead">Xem người đã liên kết và quyền thao tác.</p>
+      case "G1": return renderSoft("G1");
 
-          <div class="box">
-            <div class="box-title">Hồ sơ của tôi</div>
-            <strong>Tôi (hồ sơ mẫu)</strong>
-            <span class="chip success" style="margin-left: 8px;">Chủ hồ sơ</span>
-            <div style="margin-top: 10px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="bookSelf">Đặt lịch cho tôi</button>
-            </div>
-          </div>
+      case "F4": return renderSoft("F4");
 
-          <div class="box">
-            <div class="box-title">Hồ sơ người thân</div>
-            <strong>Mẹ (hồ sơ mẫu)</strong>
-            <div style="margin: 6px 0;">
-              <span class="chip ${m.canBookRelative ? "success" : "neutral"}">
-                ${m.canBookRelative ? "Có quyền đặt hộ" : "Không có quyền đặt hộ"}
-              </span>
-              <span class="chip ${m.canViewRelativeResults ? "success" : "neutral"}" style="margin-left: 6px;">
-                ${m.canViewRelativeResults ? "Được xem kết quả" : "Không được xem kết quả"}
-              </span>
-            </div>
-            <div class="callout" style="margin: 10px 0;">
-              Quyền đặt lịch và xem hồ sơ là hai quyền khác nhau.
-            </div>
-            <div style="display: grid; gap: 8px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="bookRelative">Đặt lịch cho mẹ</button>
-              <button type="button" class="btn-tertiary btn-sm" data-action="toggleRelativeBook">
-                Mô phỏng thu hồi / cấp quyền đặt hộ
-              </button>
-            </div>
-          </div>
+      case "E1": return renderSoft("E1");
+      case "E2": return renderSoft("E2");
+      case "E3": return renderSoft("E3");
+      case "E4": return renderSoft("E4");
+      case "F1": return renderSoft("F1");
+      case "F3": return renderSoft("F3");
+      case "G3": return renderSoft("G3");
 
-          <button type="button" class="btn-secondary" data-action="goG3">Cài đặt</button>
-        `;
-
-      // =========================================================================
-      // F4 / Support — Hỗ trợ & Hotline (/support)
-      // =========================================================================
-      case "F4":
-        return `
-          <div class="mini-step">F4 · HỖ TRỢ</div>
-          <h2>Liên hệ phòng khám</h2>
-          <p class="lead">Bản mẫu hỗ trợ kết nối trực tiếp với nhân viên điều phối.</p>
-
-          <div class="box hero">
-            <div class="box-title">Gọi phòng khám</div>
-            <p class="field-hint">Hotline hỗ trợ: ${config.CLINIC_HOTLINE}</p>
-            <button type="button" class="btn-secondary" data-action="callPlaceholder">
-              ${icon("phone", 18)} <span>Xem số hotline (chưa cấu hình)</span>
-            </button>
-          </div>
-
-          <div class="box">
-            <div class="box-title">Yêu cầu gọi lại</div>
-            <div style="margin-bottom: 8px;">
-              <span class="chip ${m.callback === "pending" ? "success" : "neutral"}">
-                ${m.callback === "pending" ? "Đã nhận yêu cầu (demo)" : "Chưa gửi yêu cầu"}
-              </span>
-            </div>
-            <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 10px;">
-              Đội phụ trách: điều phối viên (theo quy trình dự kiến).
-            </p>
-            <button type="button" class="btn-primary" data-action="requestCallback">
-              Gửi yêu cầu gọi lại (demo)
-            </button>
-          </div>
-
-          <button type="button" class="btn-secondary" data-action="goBack">Quay lại</button>
-        `;
-
-      // =========================================================================
-      // Complementary Encounter Screens (E1, E2, E3, E4, F1, F3, G3)
-      // =========================================================================
-      case "E1":
-        return `
-          <div class="mini-step">E1 · TRỰC TIẾP</div>
-          <h2>Check-in tại phòng khám</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Trạng thái tiếp nhận</div>
-            <span class="chip ${m.queue === "checked_in" ? "success" : "neutral"}">
-              ${m.queue === "checked_in" ? "Phòng khám đã nhận bạn" : "Chưa check-in"}
-            </span>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; text-align: center;">
-              <div style="background: #f1f5f9; padding: 12px; border-radius: 12px;">
-                <span class="field-hint">Số tiếp nhận</span>
-                <div style="font-size: 26px; font-weight: 800; color: var(--color-brand-700);">A012</div>
-              </div>
-              <div style="background: #f1f5f9; padding: 12px; border-radius: 12px;">
-                <span class="field-hint">Số chờ khám</span>
-                <div style="font-size: 26px; font-weight: 800; color: var(--color-brand-900);">05</div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="checkin">Đánh dấu check-in (demo)</button>
-          <button type="button" class="btn-secondary" data-action="goD2">Xem chi tiết lịch</button>
-        `;
-
-      case "E2":
-        return `
-          <div class="mini-step">E2 · KIỂM TRA THIẾT BỊ</div>
-          <h2>Chuẩn bị khám online</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Trước khi tham gia</div>
-            <p style="font-size: 15px;">□ Có kết nối Internet</p>
-            <p style="font-size: 15px;">□ Cho phép camera và micro</p>
-            <p style="font-size: 15px;">□ Đang ở nơi yên tĩnh, riêng tư</p>
-            <div style="height: 120px; border: 2px dashed var(--color-border-strong); border-radius: 14px; background: #eef2f6; display: grid; place-items: center; text-align: center; font-size: 13px; color: var(--color-text-700); margin: 10px 0;">
-              [ VÙNG XEM CAMERA — DEMO ]
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="joinVideo">Tôi đã sẵn sàng (mẫu)</button>
-          <button type="button" class="btn-secondary" data-action="goE4">Không tham gia được</button>
-        `;
-
-      case "E3":
-        return `
-          <div class="mini-step">E3 · KHÁM VIDEO</div>
-          <h2>Buổi khám trực tuyến</h2>
-          <div style="height: 240px; border-radius: 18px; background: #0f172a; color: #fff; display: grid; place-items: center; text-align: center; padding: 20px;">
-            <div>
-              ${icon("video", 36)}
-              <div style="font-weight: 700; margin-top: 10px; font-size: 16px;">[ VIDEO PLACEHOLDER ]</div>
-              <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Không có cuộc gọi thật</p>
-            </div>
-          </div>
-          <div class="btn-row" style="margin-top: 12px;">
-            <button type="button" class="btn-secondary" data-action="toggleMic">${state.videoMic ? "Tắt micro" : "Bật micro"}</button>
-            <button type="button" class="btn-secondary" data-action="toggleCamera">${state.videoCamera ? "Tắt camera" : "Bật camera"}</button>
-          </div>
-          <button type="button" class="btn-secondary" data-action="dropCall">Mô phỏng mất kết nối</button>
-          <button type="button" class="btn-tertiary" data-action="endVideo">Hoàn tất buổi khám</button>
-        `;
-
-      case "E4":
-        return `
-          <div class="mini-step">E4 · XỬ LÝ NGOẠI LỆ</div>
-          <h2>Chưa kết nối được</h2>
-          <div class="box warning">
-            <strong style="color: var(--color-danger-700);">Không thể tiếp tục cuộc gọi</strong>
-            <p style="font-size: 15px; color: var(--color-text-700); margin: 6px 0;">
-              Cuộc gọi bị gián đoạn. Thông tin lịch hẹn vẫn được giữ lại (bản mẫu).
-            </p>
-          </div>
-          <button type="button" class="btn-primary" data-action="retryVideo">Thử kết nối lại</button>
-          <button type="button" class="btn-secondary" data-action="goF4">Yêu cầu phòng khám gọi lại</button>
-          <button type="button" class="btn-tertiary" data-action="goD2">Xem lịch / chuyển khám trực tiếp</button>
-        `;
-
-      case "F1":
-        return `
-          <div class="mini-step">F1 · VIỆN PHÍ</div>
-          <h2>Thanh toán</h2>
-          <div class="box">
-            <div class="box-title">Khoản thanh toán minh họa</div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span>Khám bệnh (mẫu)</span>
-              <strong>— đ</strong>
-            </div>
-            <div style="width: 140px; height: 140px; border: 2px dashed #94a3b8; border-radius: 14px; margin: 12px auto; display: grid; place-items: center; text-align: center; font-size: 13px;">
-              [ QR PLACEHOLDER ]<br>Không quét
-            </div>
-            <div style="text-align: center;">
-              <span class="chip ${m.payment === "paid" ? "success" : m.payment === "pending_reconciliation" ? "warning" : "neutral"}">
-                ${m.payment === "paid" ? "Đã xác nhận" : m.payment === "pending_reconciliation" ? "Đang xác nhận" : "Chưa thanh toán"}
-              </span>
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="beginPayment">Mô phỏng đã quét QR</button>
-          <p class="field-hint" style="text-align: center;">Quét QR ≠ đã trả. Chỉ hệ thống đối soát được xác nhận thành công.</p>
-        `;
-
-      case "F3":
-        return `
-          <div class="mini-step">F3 · CẬN LÂM SÀNG</div>
-          <h2>Xét nghiệm cần làm</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Chỉ định mẫu</div>
-            <strong>Xét nghiệm, chụp chiếu theo chỉ định của bác sĩ (placeholder)</strong>
-            <div class="timeline" style="margin-top: 10px;">
-              <div class="timeline-step completed"><div class="timeline-dot"></div><div>Đã chỉ định</div></div>
-              <div class="timeline-step current"><div class="timeline-dot"></div><div>Chờ thực hiện</div></div>
-              <div class="timeline-step"><div class="timeline-dot"></div><div>Có kết quả</div></div>
-              <div class="timeline-step"><div class="timeline-dot"></div><div>Bác sĩ xem</div></div>
-            </div>
-          </div>
-          <button type="button" class="btn-secondary" data-action="goF2">Xem kết quả và đơn thuốc</button>
-        `;
-
-      case "G3":
-        return `
-          <div class="mini-step">G3 · CÀI ĐẶT</div>
-          <h2>Cài đặt</h2>
-          <div class="box">
-            <div class="box-title">Khả năng tiếp cận</div>
-            <button type="button" class="btn-secondary btn-sm" data-action="toggleLargeText">
-              ${state.largeText ? "Tắt chữ lớn mẫu" : "Bật chữ lớn mẫu"}
-            </button>
-            <p class="field-hint" style="margin-top: 6px;">Bản sản phẩm thật dùng Dynamic Type / font scaling theo iOS/Android.</p>
-          </div>
-          <div class="box">
-            <div class="box-title">Quyền riêng tư</div>
-            <button type="button" class="btn-secondary btn-sm" data-action="goG1">Quản lý hồ sơ người thân</button>
-          </div>
-        `;
 
       case "H1": return renderSoft("H1");
 
