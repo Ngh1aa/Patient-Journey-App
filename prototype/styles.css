@@ -1617,7 +1617,7 @@ dialog p {
 :root {
   --bg: #f2f2f3;
   --surface: #fff;
-  --primary: #0063f5;
+  --primary: #005ce8;
   --primary-hover: #0055dc;
   --ink: #171719;
   --heading: #171719;
@@ -1664,6 +1664,7 @@ body {
   min-height: 44px;
 }
 .phone-header .icon-btn:first-child { background: #f7f7f8; }
+.phone-header #notifications { min-width: 52px; min-height: 52px; width: 52px; height: 52px; flex: none; }
 #phone-content { padding: 12px 20px 34px; }
 .screen-intro { margin-bottom: 24px !important; }
 .screen-intro h1 {
@@ -1951,7 +1952,7 @@ textarea, select {
   box-shadow: 0 0 0 2px #fff;
 }
 .dashboard-hero { margin: 0; padding: 0; }
-.dashboard-hero > h1 {
+.dashboard-hero > h2 {
   color: var(--ink);
   font-size: clamp(calc(30px * var(--font-scale, 1)), calc(8vw * var(--font-scale, 1)), calc(42px * var(--font-scale, 1)));
   line-height: 1.14;
