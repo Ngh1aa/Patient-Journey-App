@@ -1740,3 +1740,23 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
   .phone-scroll{padding-bottom:132px}
   #phone-footer-container{bottom:12px}
 }
+
+
+/* Accessible six-position OTP, a single autofill-capable input owns the value */
+.otp-panel{height:60px;position:relative;margin:10px 0 14px}
+.otp-panel .otp-overlay{position:absolute!important;inset:0;width:100%;height:60px;z-index:2;opacity:.04;caret-color:#0A67D1;border-radius:16px;cursor:text}
+.otp-boxes{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;pointer-events:none}
+.otp-digit-box{display:grid;place-items:center;border:1.5px solid #B8CCE0;border-radius:16px;background:#fff;font-size:24px;font-weight:700;color:#0B4A9E}
+.otp-panel:focus-within .otp-digit-box{border-color:#0A67D1}
+.phone-scroll .day-pill.active{background:#0A67D1;color:#fff;box-shadow:var(--shadow-button)}
+.phone-scroll .row-consent{display:flex;gap:11px;align-items:flex-start;font-size:15px;line-height:1.5;cursor:pointer}
+.phone-scroll .row-consent input{min-width:21px;width:21px;height:21px;margin-top:2px;accent-color:#0A67D1}
+.phone-scroll .qr{width:172px;height:172px;border-radius:24px;border:2px dashed #94A3B8;background:repeating-linear-gradient(45deg,#E7F2FC 0 8px,#fff 8px 16px);display:grid;place-items:center;font-size:14px;font-weight:700;margin:14px auto}
+.mobile-screen-nav{display:none}
+@media(max-width:720px){
+  .mobile-screen-nav{display:block;background:#F2F6FB;padding:12px 20px 6px;width:100%;color:#123B63}
+  .mobile-screen-nav label{font-size:12px;font-weight:700;display:block;margin-bottom:5px}
+  #mobile-screen-picker{width:100%;border:1px solid #D7E2EC;border-radius:14px;min-height:44px;background:white;color:#123B63;padding:8px 12px}
+  .phone{height:calc(100dvh - 80px);min-height:540px}
+}
+@media(min-width:721px){#mobile-screen-picker{display:none}}
