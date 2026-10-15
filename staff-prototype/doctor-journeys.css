@@ -110,3 +110,8 @@ p.journey-confirm{margin:0 0 8px}
 .journey-deadline-date{color:#375476;font-size:11px;font-weight:800}
 .journey-deadline-item strong{color:#001D57;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
 .journey-deadline-item small{color:#526780;font-size:11px;line-height:1.5}
+
+
+/* Let real deadlines occupy the supporting card instead of an auto-margin gap. */
+.doctor-followups-summary>.doctor-divider{margin:17px 0}
+.doctor-followups-summary>.journey-deadline-list{flex:1 1 auto;justify-content:space-evenly;padding:10px 0}
