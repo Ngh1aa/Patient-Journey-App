@@ -202,7 +202,7 @@
 }
 #phone-content[data-screen="B1"] .cf-home-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}
 #phone-content[data-screen="B1"] .cf-home-section-head h2{margin:0;min-width:0;font-size:calc(17px * var(--font-scale,1));line-height:1.35;font-weight:750;color:var(--cf-card-navy)}
-#phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:38px;padding:4px 0 4px 6px;font:650 calc(12px * var(--font-scale,1))/1.3 inherit;color:var(--cf-card-navy);cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:38px;padding:4px 0 4px 6px;font-weight:650;font-size:calc(12px * var(--font-scale,1));line-height:1.3;font-family:inherit;color:var(--cf-card-navy);cursor:pointer}
 #phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head h2,
 #phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head button{color:#fff}
 #phone-content[data-screen="B1"] .cf-home-appointment-info{display:flex;align-items:center;gap:12px;min-width:0}
@@ -217,7 +217,7 @@
 #phone-content[data-screen="B1"] .cf-home-appointment-button{
   flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
   padding:10px 14px;border:0;border-radius:999px;background:#fff;color:var(--cf-card-navy);
-  font:750 calc(13px * var(--font-scale,1))/1.2 inherit;cursor:pointer;
+  font-weight:750;font-size:calc(13px * var(--font-scale,1));line-height:1.2;font-family:inherit;cursor:pointer;
 }
 #phone-content[data-screen="B1"] .cf-home-empty{display:grid;gap:12px;justify-items:start}
 #phone-content[data-screen="B1"] .cf-home-empty p{margin:0;color:#e3eafb;font-size:calc(13px * var(--font-scale,1))}
