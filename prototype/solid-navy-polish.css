@@ -176,3 +176,89 @@
     margin-inline:-8px!important;
   }
 }
+
+
+/* B1 home content adaptation based on the supplied CareFlow card reference.
+   Scoped strictly to Home; existing app bar and bottom navigation are untouched. */
+#phone-content[data-screen="B1"] { --cf-card-navy:#001D57; }
+.phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead{
+  min-height:0!important;padding:15px 18px 31px!important;border-radius:0 0 28px 28px!important;
+}
+#phone-content[data-screen="B1"] .cf-home-head{padding:0!important;display:grid;gap:23px}
+#phone-content[data-screen="B1"] .cf-home-head .rich-greeting{align-items:flex-start;gap:8px}
+#phone-content[data-screen="B1"] .cf-home-head .rich-greeting h1{margin:0 0 7px;font-size:calc(22px * var(--font-scale,1));line-height:1.36;letter-spacing:-.03em;font-weight:750}
+#phone-content[data-screen="B1"] .cf-home-head .rich-greeting p{margin:0;max-width:31ch;line-height:1.5;font-size:calc(13px * var(--font-scale,1))}
+#phone-content[data-screen="B1"] .cf-home-head .rich-greeting .avatar{flex:none}
+#phone-content[data-screen="B1"] .cf-home-quick h2{font-size:calc(17px * var(--font-scale,1));line-height:1.4;margin:0 0 14px;color:#fff}
+#phone-content[data-screen="B1"] .cf-home-quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0!important;padding:0!important;background:transparent!important}
+#phone-content[data-screen="B1"] .cf-home-quick-grid button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;min-width:0;min-height:90px;padding:0;border:0;background:transparent;color:#fff!important;font-family:inherit;cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-quick-grid button small{font-weight:650;font-size:calc(12px * var(--font-scale,1))!important;line-height:1.3;color:#fff!important}
+#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{display:grid;place-items:center;width:57px;height:57px;min-height:57px;border-radius:18px;background:#fff!important;color:var(--cf-card-navy)!important;box-shadow:none}
+#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon .cf-icon{color:var(--cf-card-navy)!important}
+#phone-content[data-screen="B1"] > .rich-hero.cf-home-appointment{
+  margin:-12px 0 0!important;padding:16px!important;background:var(--cf-card-navy)!important;
+  border:1px solid #254477!important;color:#fff!important;border-radius:24px!important;
+  box-shadow:0 10px 22px #12264b19!important;display:grid;gap:16px;
+}
+#phone-content[data-screen="B1"] .cf-home-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}
+#phone-content[data-screen="B1"] .cf-home-section-head h2{margin:0;min-width:0;font-size:calc(17px * var(--font-scale,1));line-height:1.35;font-weight:750;color:var(--cf-card-navy)}
+#phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:38px;padding:4px 0 4px 6px;font:650 calc(12px * var(--font-scale,1))/1.3 inherit;color:var(--cf-card-navy);cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head h2,
+#phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head button{color:#fff}
+#phone-content[data-screen="B1"] .cf-home-appointment-info{display:flex;align-items:center;gap:12px;min-width:0}
+#phone-content[data-screen="B1"] .cf-home-appointment-avatar{width:46px;height:46px;flex:none;border-radius:50%;background:#1D4390;display:grid;place-items:center;overflow:hidden}
+#phone-content[data-screen="B1"] .cf-home-appointment-info>div{display:grid;gap:4px;min-width:0}
+#phone-content[data-screen="B1"] .cf-home-appointment-info strong{font-size:calc(16px * var(--font-scale,1));line-height:1.3;color:#fff}
+#phone-content[data-screen="B1"] .cf-home-appointment-info small{font-size:calc(12px * var(--font-scale,1));line-height:1.4;color:#dce7ff}
+#phone-content[data-screen="B1"] .cf-home-appointment-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+#phone-content[data-screen="B1"] .cf-home-appointment-footer>div{display:grid;gap:8px;min-width:0;flex:1}
+#phone-content[data-screen="B1"] .cf-home-appointment-footer strong{font-size:calc(13px * var(--font-scale,1));line-height:1.55;color:#fff}
+#phone-content[data-screen="B1"] .cf-home-appointment-status .chip{background:#e9f2ff;color:#12345c;border:0}
+#phone-content[data-screen="B1"] .cf-home-appointment-button{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  padding:10px 14px;border:0;border-radius:999px;background:#fff;color:var(--cf-card-navy);
+  font:750 calc(13px * var(--font-scale,1))/1.2 inherit;cursor:pointer;
+}
+#phone-content[data-screen="B1"] .cf-home-empty{display:grid;gap:12px;justify-items:start}
+#phone-content[data-screen="B1"] .cf-home-empty p{margin:0;color:#e3eafb;font-size:calc(13px * var(--font-scale,1))}
+#phone-content[data-screen="B1"] .rich-section:is(.cf-home-task-section,.cf-home-care-section,.cf-home-tips-section,.cf-home-help-section){
+  margin:16px 0 0!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;display:grid;gap:9px;
+}
+#phone-content[data-screen="B1"] .cf-home-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#phone-content[data-screen="B1"] .cf-home-task-card,
+#phone-content[data-screen="B1"] .cf-home-tip-card{min-width:0;text-align:left;border-radius:20px;border:1px solid #d6dfef;background:#fff;padding:14px;color:var(--cf-card-navy);box-shadow:none}
+#phone-content[data-screen="B1"] .cf-home-task-card{display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:147px;font-family:inherit;cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-card-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:#e3eaf7;color:var(--cf-card-navy)}
+#phone-content[data-screen="B1"] .cf-home-task-card strong,
+#phone-content[data-screen="B1"] .cf-home-tip-card strong{font-size:calc(13px * var(--font-scale,1));line-height:1.4;font-weight:750;color:var(--cf-card-navy)}
+#phone-content[data-screen="B1"] .cf-home-task-card small,
+#phone-content[data-screen="B1"] .cf-home-tip-card small{font-size:calc(12px * var(--font-scale,1));line-height:1.45;color:#536783}
+#phone-content[data-screen="B1"] .cf-home-care-card{padding:16px;border:1px solid #d6dfef;border-radius:22px;background:#fff;display:grid;gap:12px}
+#phone-content[data-screen="B1"] .cf-home-care-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+#phone-content[data-screen="B1"] .cf-home-care-title>div{display:grid;gap:6px;min-width:0}
+#phone-content[data-screen="B1"] .cf-home-care-title strong,
+#phone-content[data-screen="B1"] .cf-home-support strong{font-size:calc(14px * var(--font-scale,1));line-height:1.4;color:var(--cf-card-navy)}
+#phone-content[data-screen="B1"] .cf-home-care-title small,
+#phone-content[data-screen="B1"] .cf-home-support small{font-size:calc(12px * var(--font-scale,1));line-height:1.5;color:#536783}
+#phone-content[data-screen="B1"] .cf-home-care-card p{margin:0;font-size:calc(12px * var(--font-scale,1));color:#536783}
+#phone-content[data-screen="B1"] .cf-home-care-foot{display:grid;gap:8px;justify-items:start}
+#phone-content[data-screen="B1"] .cf-home-care-foot small{color:#536783;font-size:calc(12px * var(--font-scale,1))}
+#phone-content[data-screen="B1"] .cf-home-care-card .btn{justify-self:start;min-height:44px}
+#phone-content[data-screen="B1"] .cf-home-sample-label{background:#edf1f7;color:#385071;border-radius:999px;padding:4px 9px;font-size:11px}
+#phone-content[data-screen="B1"] .cf-home-tip-card{padding:0;overflow:hidden}
+#phone-content[data-screen="B1"] .cf-home-tip-card summary{display:grid;gap:11px;padding:15px;list-style:none;cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-tip-card summary::-webkit-details-marker{display:none}
+#phone-content[data-screen="B1"] .cf-home-tip-card summary span{display:inline-flex;gap:4px;align-items:center;color:#315a87;font-size:calc(11px * var(--font-scale,1));font-weight:700}
+#phone-content[data-screen="B1"] .cf-home-tip-card[open] summary span .cf-icon{transform:rotate(90deg)}
+#phone-content[data-screen="B1"] .cf-home-tip-card p{margin:0;padding:0 15px 15px;color:#425a76;font-size:calc(12px * var(--font-scale,1));line-height:1.5}
+#phone-content[data-screen="B1"] .cf-home-support{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #d6dfef;border-radius:22px;padding:14px}
+#phone-content[data-screen="B1"] .cf-home-support>div{display:grid;gap:6px;min-width:0}
+#phone-content[data-screen="B1"] .cf-home-support button{flex:none;min-height:44px;border:0;border-radius:999px;padding:8px 14px;background:var(--cf-card-navy);color:#fff;font-weight:750;cursor:pointer}
+#phone-content[data-screen="B1"] :is(.cf-home-task-card,.cf-home-appointment-button,.cf-home-tip-card summary,.cf-home-support button,.cf-home-section-head button,.cf-home-quick-grid button):focus-visible{outline:3px solid #65bbff;outline-offset:3px}
+@media(max-width:374px){
+  #phone-content[data-screen="B1"] .cf-home-card-grid{gap:8px}
+  #phone-content[data-screen="B1"] .cf-home-task-card{padding:11px}
+  #phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{width:52px;height:52px;min-height:52px}
+}
+.phone.large-text #phone-content[data-screen="B1"] .cf-home-card-grid{grid-template-columns:1fr}
+.phone.large-text #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
