@@ -22,9 +22,9 @@ test('launches latest demo with three panels and live inspector',async({page})=>
   await expect(page.locator('#phone-frame')).toBeVisible();
   await expect(page.locator('.inspector')).toBeVisible();
   await expect(page.locator('#scenario-menu [data-scenario]')).toHaveCount(5);
-  await expect(page.locator('#screen-menu [data-screen]')).toHaveCount(23);
+  await expect(page.locator('#screen-menu [data-screen]')).toHaveCount(24);
   await expect(page.locator('#inspector-content')).toContainText('A1');
-  await expect(page.getByText('14 MVP SCREENS')).toBeVisible();
+  await expect(page.getByText('24 SCREENS')).toBeVisible();
 });
 
 test('login with demo OTP then inspect dashboard and notification center',async({page})=>{

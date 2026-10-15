@@ -7,7 +7,7 @@ const M=require("./model.js");
 const cases=[];
 function test(name,fn){try{fn();cases.push({name,pass:true});console.log("PASS "+name);}catch(error){cases.push({name,pass:false});console.error("FAIL "+name+"\n"+error.stack);}}
 const state=()=>M.initial(), normal=()=>{const s=state();M.screening(s,"normal");return s;};
-test("1/23 all screen codes unique",()=>{assert.equal(M.SCREENS.length,23);assert.equal(new Set(M.SCREENS).size,23);});
+test("1/24 all screen codes unique",()=>{assert.equal(M.SCREENS.length,24);assert.equal(new Set(M.SCREENS).size,24);});
 test("2 booking self creates confirmed patient record",()=>{const s=normal();const v=M.attemptBooking(s);assert.equal(v.ok,true);assert.equal(v.appointment.patientId,"patient-self");assert.equal(v.appointment.status,"confirmed");});
 test("3 booking confirmation is locked before success",()=>{assert.equal(M.mayEnter(state(),"C6"),false);});
 test("4 booking relative keeps actor and subject distinct",()=>{const s=state();M.choosePerson(s,"relative");M.screening(s,"normal");s.slot="14:30";const v=M.attemptBooking(s);assert.equal(v.appointment.patientId,"patient-relative");assert.equal(v.appointment.createdBy,"actor-demo");});
@@ -32,6 +32,6 @@ test("22 doctor reviewing results does not notify patient",()=>{const s=state();
 test("23 callback stays a separate task",()=>{const s=state();M.requestCallback(s);assert.equal(s.callback,"pending");});
 test("24 all screen render branches exist",()=>{const code=fs.readFileSync(path.join(__dirname,"app.js"),"utf8");for(const id of M.SCREENS)assert.ok(code.includes('case "'+id+'"'),"screen not rendered "+id);});
 test("25 HTML includes model then app and mobile viewport",()=>{const html=fs.readFileSync(path.join(__dirname,"index.html"),"utf8");assert.ok(html.indexOf('src="./model.js"')<html.indexOf('src="./app.js"'));assert.ok(html.includes('name="viewport"'));});
-test("26 svg review board depicts all 23 screens",()=>{const svg=fs.readFileSync(path.join(__dirname,"wireframe-board.svg"),"utf8");for(const id of M.SCREENS)assert.ok(svg.includes(id+"  ")||svg.includes(id+" ·"),"missing "+id);});
+test("26 svg review board depicts all 24 screens",()=>{const svg=fs.readFileSync(path.join(__dirname,"wireframe-board.svg"),"utf8");for(const id of M.SCREENS)assert.ok(svg.includes(id+"  ")||svg.includes(id+" ·"),"missing "+id);});
 const pass=cases.filter(x=>x.pass).length;console.log("\n"+pass+"/"+cases.length+" PASSED");
 if(pass!==cases.length)process.exitCode=1;

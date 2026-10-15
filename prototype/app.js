@@ -7,13 +7,17 @@
   "use strict";
 
   const M = window.CareFlowModel;
+  const VI = window.CareFlowCopy;
+  if (!VI || !VI.screens) throw new Error("Thiếu strings.vi.js");
+  const tx = (screen, key) => VI.screens[screen]?.[key] ?? key;
+  const sc = (status) => VI.statuses[status] || [status, ""];
   if (!M) throw new Error("Thiếu model.js");
 
   // System Configuration (v2 Section 1.9 & 1.10)
   const config = {
     APP_NAME: "CareFlow",
     EMERGENCY_NUMBER: "115", // [MEDICAL REVIEW REQUIRED]
-    CLINIC_HOTLINE: "1900 6868",
+    CLINIC_HOTLINE: "[Số điện thoại phòng khám]",
     DEMO_CONTROLS: true
   };
 
@@ -38,9 +42,19 @@
     return (ALLOWED_TRANSITIONS[from] || []).includes(to);
   }
 
+  function localISO(offsetDays=0){
+    const date=new Date(Date.now()+offsetDays*86400000);
+    return new Intl.DateTimeFormat("sv-SE",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(date);
+  }
+
   // Unified DateTime Formatter (v2 Section 1.8: "09:30 · Thứ bảy, 20/06")
   function formatAppointmentDateTime(startsAt) {
-    return "09:30 · Thứ bảy, 20/06";
+    const dateText = startsAt || state.selectedDate;
+    const d = new Date(dateText && dateText.includes("T") ? dateText : dateText + "T12:00:00+07:00");
+    if (Number.isNaN(d.getTime())) return "[Giờ khám] · [Ngày khám]";
+    const formatted = new Intl.DateTimeFormat("vi-VN",{weekday:"long",day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(d);
+    const time = startsAt && startsAt.includes("T") ? new Intl.DateTimeFormat("vi-VN",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Ho_Chi_Minh"}).format(d) : (state.selectedSlot || m.slot || "09:30");
+    return time + " · " + formatted.charAt(0).toUpperCase()+formatted.slice(1);
   }
 
   // Core State Machine
@@ -80,7 +94,7 @@
     screeningChoice: "",
     selectedMode: "in-person", // in-person | online
     selectedProvider: "auto",
-    selectedDate: "2026-06-20",
+    selectedDate: localISO(5),
     selectedSlot: "09:00",
     bookingConsent: true,
     bookingOutcome: "success", // success | slot_unavailable | network_unknown
@@ -91,28 +105,29 @@
     currentAppointment: {
       id: "DEMO-001",
       patientId: "patient-self",
-      startsAt: "2026-06-20T09:30:00+07:00",
-      statusUpdatedAt: "2026-06-20T09:02:00+07:00",
+      startsAt: localISO(5)+"T09:30:00+07:00",
+      statusUpdatedAt: localISO(5)+"T09:02:00+07:00",
       mode: "in-person",
-      facilityName: "Phòng khám CareFlow (123 Nguyễn Trãi, Q.1)",
-      providerName: "BS. CKII Nguyễn Văn An",
+      facilityName: "Phòng khám CareFlow · [Địa chỉ phòng khám]",
+      providerName: "Bác sĩ: Phòng khám sắp xếp",
       reason: "Khám tổng quát",
       status: "confirmed", // 12 spec statuses
       owner: "patient",
-      estimatedFee: "Từ 300.000đ",
+      estimatedFee: "[Phí dự kiến]",
       queueNumber: "A012",
       estimatedWait: "15 phút",
       safetyAcknowledged: false,
       timeline: [
-        { id: "tl-1", label: "Đã gửi yêu cầu", at: "2026-06-20T08:45:00+07:00", state: "done" },
-        { id: "tl-2", label: "Lịch đã được xác nhận", at: "2026-06-20T09:02:00+07:00", state: "done" },
-        { id: "tl-3", label: "Sắp đến giờ khám / Tiếp đón", at: "2026-06-20T09:15:00+07:00", state: "current" },
+        { id: "tl-1", label: "Đã gửi yêu cầu", at: "2026-10-20T08:45:00+07:00", state: "done" },
+        { id: "tl-2", label: "Lịch đã được xác nhận", at: localISO(5)+"T09:02:00+07:00", state: "done" },
+        { id: "tl-3", label: "Sắp đến giờ khám / Tiếp đón", at: "2026-10-20T09:15:00+07:00", state: "current" },
         { id: "tl-4", label: "Gặp bác sĩ khám", state: "upcoming" },
         { id: "tl-5", label: "Kết quả và hướng dẫn sau khám", state: "upcoming" }
       ]
     },
 
     currentAppointmentStatus: "confirmed",
+    appointmentTab:0,
     lastAppointmentCancelled: false,
     cancelReason: "Tôi bận vào thời gian này",
     cancelNote: "",
@@ -135,9 +150,9 @@
 
     // Notifications
     notifications: [
-      { id: "n1", title: "Lịch khám đã được xác nhận", body: "Lịch khám 09:30 · Thứ bảy, 20/06 đã được phòng khám xác nhận.", time: "10 phút trước", isRead: false, link: "D2" },
-      { id: "n2", title: "Có cập nhật mới về lượt khám", body: "Bác sĩ đã xem và cập nhật kết quả cho lượt khám gần nhất.", time: "2 giờ trước", isRead: false, link: "F2" },
-      { id: "n3", title: "Nhắc nhở lịch khám ngày mai", body: "Bạn có lịch hẹn vào 09:30 ngày mai. Vui lòng đến trước 15 phút.", time: "1 ngày trước", isRead: true, link: "D2" },
+      { id: "n1", title: "Phòng khám đã xác nhận lịch", body: "Mở app để xem chi tiết", time: "10 phút trước", isRead: false, link: "D2" },
+      { id: "n2", title: "Có cập nhật mới về lượt khám", body: "Mở app để xem", time: "2 giờ trước", isRead: false, link: "F2" },
+      { id: "n3", title: "Mai bạn có lịch khám", body: "Xem hướng dẫn chuẩn bị", time: "1 ngày trước", isRead: true, link: "D2" },
       { id: "n4", title: "Cập nhật hồ sơ thành công", body: "Hồ sơ cá nhân và người thân đã được đồng bộ an toàn.", time: "3 ngày trước", isRead: true, link: "G1" }
     ]
   };
@@ -265,7 +280,7 @@
       "connection-failed": { label: "Chưa kết nối được", icon: "warning", type: "danger" }
     };
     const s = map[statusKey] || { label: statusKey, icon: "info", type: "neutral" };
-    return `<span class="chip ${s.type}">${icon(s.icon, 14)}<span>${esc(s.label)}</span></span>`;
+    return `<span class="chip ${s.type}">${icon(s.icon, 14)}<span>${esc(sc(statusKey)[0])}</span></span>`;
   }
 
   // Profile Context Bar Component
@@ -299,6 +314,91 @@
     G2: { title: "Thông báo", goal: "Thông báo lịch khám, kết quả và việc cần làm kèm deep-link.", risk: "Tuyệt đối không để lộ dữ liệu chẩn đoán nhạy cảm ở bản xem trước." }
   };
 
+
+  let extra = {byPatient:{},contactTab:0,supportMessage:"",callbackNote:"",severity:"Nhẹ",fontSize:0,faqSearch:"",settings:[true,true,true,true,true]};
+
+  function renderSoft(id){
+  const pid=m.person==="self"?"patient-self":"patient-relative";
+  const p=extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});
+  const v=VI.screens[id]||{};
+  const h=(title,desc)=>`<div class="mini-step">${id} · CAREFLOW</div><h2>${esc(title)}</h2>${desc?`<p class="lead">${esc(desc)}</p>`:""}`;
+  const b=(label,act,cls="btn-secondary")=>`<button type="button" class="${cls}" data-action="${act}">${esc(label)}</button>`;
+  const note=()=>`<p class="field-hint">Dữ liệu mẫu · Không gửi thông tin thật đến phòng khám.</p>`;
+  const timeline=(items,now)=>`<div class="timeline">${items.map((x,i)=>`<div class="timeline-step ${i<now?"completed":i===now?"current":""}"><div class="timeline-dot"></div><strong>${esc(x)}</strong></div>`).join("")}</div>`;
+  if(id==="E1")return `${h(v.title)}${profileContextBar()}
+  <section class="box hero"><div class="box-title">${esc(v.number)}</div><div class="hero-number">A012</div><p>${esc(v.calling)}: A009 · Còn 3 lượt</p><p>Khoảng 15–20 phút · Chỉ tham khảo</p><p>Cập nhật 09:12 (demo)</p></section>
+  <div class="box"><h3>${esc(m.queue==="checked_in"?"Bạn đã đến":"Bạn đã đến phòng khám chưa?")}</h3><p class="lead">Bấm khi bạn đã đến để lễ tân biết.</p><span class="chip info">${m.queue==="checked_in"?"Bạn đã đến":"Chưa check-in"}</span>${b(v.arrival,"checkin","btn-primary")}${b(v.qr,"qrCheckin")}</div>
+  <div class="box"><h3>Tiếp theo</h3>${timeline(["Đã đến quầy","Đang chờ bác sĩ","Vào phòng khám"],m.queue==="checked_in"?1:0)}<p>${esc(v.note)}</p></div>${b(v.support,"goH1")}${note()}`;
+  if(id==="E2")return `${h(v.title,v.description)}${profileContextBar()}
+  <div class="video-stage">${icon("video",40)}<p>Camera mô phỏng · Không thu hình thật</p></div>
+  <div class="box"><h3>Kiểm tra thiết bị</h3>
+  ${[["Camera",state.videoCamera],["Micro",state.videoMic],["Mạng",!state.isOffline]].map(([name,ok])=>`<div class="review-row"><span>${name}</span><strong>${ok?"Ổn":"Cần bật"}</strong></div>`).join("")}
+  <div class="btn-row">${b(state.videoCamera?"Tắt camera":"Bật camera","toggleCamera")}${b(state.videoMic?"Tắt micro":"Bật micro","toggleMic")}</div></div>
+  <div class="box"><h3>Trước khi khám</h3>${v.prep.map(x=>`<p class="lead">✓ ${esc(x)}</p>`).join("")}<p class="field-hint">${esc(v.permission)}</p></div>
+  <div class="floating-action">${b(v.cta,"joinVideo","btn-primary")}</div>${b(v.callback,"requestCallback")}${note()}`;
+  if(id==="E3")return `${h("Khám video")}
+  <div class="video-stage" style="aspect-ratio:3/4;min-height:285px"><div>${icon("video",40)}<p style="color:#fff">Đang kết nối với bác sĩ…</p><p style="color:#E5E7EB">Không có cuộc gọi thật</p></div></div>
+  <div class="box"><span class="chip info">${state.isOffline?"Mạng yếu":"Kết nối mô phỏng"}</span>
+  <div class="btn-row">${b(state.videoMic?"Tắt micro":"Bật micro","toggleMic")}${b(state.videoCamera?"Tắt camera":"Bật camera","toggleCamera")}</div>
+  ${b(v.audio,"audioOnly")}${b(v.issue,"dropCall")}</div>
+  <div class="floating-action">${b("Kết thúc buổi khám","endVideo","btn-danger")}</div>${note()}`;
+  if(id==="E4")return `${h(v.title,v.description)}
+  <div class="box warning"><strong>Cuộc gọi bị gián đoạn</strong><p>Phòng khám đang xử lý · Lịch khám vẫn còn nguyên.</p></div>
+  <div class="stacked-options">${b(v.retry,"retryVideo","btn-primary")}${b(v.callback,"requestCallback")}${b(v.rebook,"goD3")}${b(v.onsite,"switchToOnsite")}</div>
+  ${m.callback==="pending"?`<div class="box"><span class="chip success">${esc(v.sent)}</span></div>`:""}${b("Nhắn tin hoặc nhờ gọi lại","goF4")}${b("Gọi phòng khám","goH1")}${note()}`;
+  if(id==="F1")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><p>${esc(v.total)}</p><div style="font-size:28px;font-weight:700">${esc(v.amount)}</div>
+  <span class="chip">${esc(p.paymentStatus==="paid"?"Đã thanh toán":p.paymentStatus==="deferred"?"Thanh toán sau":p.paymentStatus==="pending_reconciliation"?"Đang kiểm tra khoản chuyển…":"Chưa thanh toán")}</span></div>
+  <section class="box"><h3>${esc(v.methods)}</h3>
+  ${[["qr",v.qr,v.qrHint],["counter",v.counter,v.counterHint],["pharmacy",v.pharmacy,v.pharmacyHint]].map(([key,title,sub])=>`<button class="choice ${p.paymentMethod===key?"selected":""}" type="button" data-action="choosePaymentMethod" data-value="${key}"><strong>${esc(title)}</strong><small>${esc(sub)}</small></button>`).join("")}
+  ${p.paymentMethod==="qr"?`<div class="qr">MÃ QR MẪU<br>KHÔNG QUÉT</div><p class="field-hint">Không chuyển tiền vào mã mô phỏng.</p>`:""}
+  ${p.paymentStatus==="pending_reconciliation"?`<p class="lead">Đang xác nhận thanh toán · Không gửi thêm khi chưa có kết quả.</p>${b("Đánh dấu đã thanh toán (chỉ demo)","simulatedSettlePayment")}`:""}
+  ${p.paymentStatus==="paid"?`${b(v.receipt,"showReceipt")}`:""}
+  <div class="floating-action">${b(v.cta,"beginPayment","btn-primary")}</div>
+  <label class="field-label" for="payment-due">Ngày dự kiến thanh toán sau (tùy chọn)</label>
+  <input id="payment-due" type="date" data-field="paymentDue" value="${esc(state.paymentDue||"")}">
+  ${b(v.later,"deferPayment")}</section>${note()}`;
+  if(id==="F3")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><h3>${esc(v.title)}</h3><p>${esc(v.after)}</p></div>
+  <div class="box"><h3>Chỉ định mẫu</h3><span class="chip info">${esc(p.labAppointment?"Đã hẹn":"Cần đặt hẹn")}</span>
+  <p class="lead">[Tên xét nghiệm hoặc chụp chiếu được bác sĩ chỉ định]</p>
+  ${timeline(["Bác sĩ chỉ định","Cần đặt hẹn","Có kết quả","Chờ bác sĩ xem","Bác sĩ đã xem"],p.labAppointment?2:1)}
+  ${[["Cần chuẩn bị","[Hướng dẫn được phòng khám duyệt]"],["Làm ở đâu","[Địa điểm]"],["Mất bao lâu","[Thời gian]"]].map(([k,val])=>`<div class="review-row"><strong>${esc(k)}</strong><span>${esc(val)}</span></div>`).join("")}</div>
+  <div class="floating-action">${b(v.cta,"bookLab","btn-primary")}</div>${b("Có kết quả từ nơi khác? Tải lên","uploadLab")}${b("Xem kết quả và hướng dẫn","goF2")}${note()}`;
+  if(id==="F4")return `${h(v.title)}${profileContextBar()}
+  <div class="segmented-control">${v.tabs.map((tab,i)=>`<button type="button" class="segmented-btn ${extra.contactTab===i?"active":""}" data-action="contactTab" data-value="${i}">${esc(tab)}</button>`).join("")}</div>
+  <div class="box warning"><strong>${esc(v.emergency)}</strong>${b("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
+  ${extra.contactTab===0?`<div class="box"><p class="lead">${esc(v.reply)}</p><div class="chat-bubble clinic">Xin chào, phòng khám có thể giúp gì cho bạn?</div>
+  ${p.messages.map(x=>`<div class="chat-bubble patient">${esc(x)}</div>`).join("")}
+  <div class="pill-list">${v.starter.map(x=>`<button type="button" data-action="messageSuggestion" data-value="${esc(x)}">${esc(x)}</button>`).join("")}</div>
+  <label class="field-label" for="support-message">Nhập tin nhắn</label><textarea id="support-message" data-field="supportMessage" placeholder="Nhập tin nhắn">${esc(extra.supportMessage)}</textarea>${b("Gửi tin nhắn","sendMessage","btn-primary")}</div>`
+  :extra.contactTab===1?`<div class="box"><h3>${esc(v.symptoms)}</h3><div class="pill-list">${["Triệu chứng mới","Dùng thuốc nhưng chưa đỡ","Nghi do tác dụng phụ của thuốc"].map(x=>`<button type="button" data-action="chooseSymptom" data-value="${esc(x)}" class="${p.symptom===x?"active":""}">${esc(x)}</button>`).join("")}</div>
+  <p class="lead">Mức độ</p><div class="pill-list">${v.severity.map(x=>`<button type="button" data-action="chooseSeverity" data-value="${esc(x)}" class="${extra.severity===x?"active":""}">${esc(x)}</button>`).join("")}</div>${b(v.send,"sendSymptoms","btn-primary")}</div>`
+  :`<div class="box"><h3>${esc(v.callback)}</h3><label class="field-label" for="callback-note">Lý do liên hệ</label><textarea id="callback-note" data-field="callbackNote">${esc(extra.callbackNote)}</textarea>${b(v.request,"requestCallback","btn-primary")}</div>`}
+  ${extra.contactTab!==2?b("Nhờ phòng khám gọi lại","requestCallback"):""}
+  ${m.callback==="pending"?`<span class="chip success">Đã nhận yêu cầu (demo) · Không có ticket thật.</span>`:""}${note()}`;
+  if(id==="G1")return `${h(v.title)}${profileContextBar()}
+  <div class="box hero"><h3>${esc(v.personal)}</h3><p>${esc(personName())}</p></div>
+  <div class="box"><h3>${esc(v.family)}</h3>
+  ${state.patients.filter(x=>x.id!=="patient-father").map(item=>`<button type="button" class="choice ${item.id===pid?"selected":""}" data-action="selectFamilyProfile" data-value="${item.id}"><strong>${esc(item.fullName)}</strong><small>${esc(item.id===pid?"Đang chọn":item.canBook?"Có quyền đặt hộ":"Chưa có quyền đặt hộ")}</small></button>`).join("")}
+  <p class="field-hint">Quyền đặt hộ không tự cấp quyền xem kết quả xét nghiệm.</p>
+  ${b(m.canBookRelative?"Thu hồi quyền đặt hộ (mô phỏng)":"Bật quyền đặt hộ (mô phỏng)","toggleRelativeBook")}
+  ${b("Thêm người thân","addFamily")}${b("Đặt lịch cho người đang chọn","startBooking","btn-primary")}</div>${note()}`;
+  if(id==="G3")return `${h(v.title)}<div class="group-list">
+  ${v.groups.map(x=>`<button type="button" data-action="settingsSection" data-value="${esc(x)}"><span>${esc(x)}</span>${icon("chevron-right",16)}</button>`).join("")}</div>
+  <div class="box"><h3>Cỡ chữ</h3><div class="pill-list">${v.font.map((x,i)=>`<button type="button" data-action="setFontSize" data-value="${i}" class="${extra.fontSize===i?"active":""}">${esc(x)}</button>`).join("")}</div></div>
+  <div class="box"><h3>Thông báo và quyền riêng tư</h3>${v.notifications.map((label,i)=>`<button type="button" class="choice" data-action="toggleSetting" data-value="${i}"><span class="review-row"><strong>${esc(label)}</strong><span class="ios-switch ${extra.settings[i]?"on":""}"></span></span></button>`).join("")}</div>
+  ${b("Đăng xuất","promptLogout")}${b("Xóa tài khoản","promptDelete")}${note()}`;
+  if(id==="H1")return `${h(v.title)}<div class="box hero"><h3>${esc(v.hero)}</h3><p>${esc(v.hours)}</p>${b(v.call,"callClinicHotline","btn-primary")}</div>
+  <div class="btn-row">${b(v.message,"goF4")}${b(v.callback,"goF4")}</div>
+  <div class="box warning"><strong>${esc(v.emergency)}</strong>${b("Gọi 115 (mô phỏng)","callEmergency","btn-danger")}</div>
+  <div class="box"><label for="faq-search" class="field-label">${esc(v.search)}</label><input id="faq-search" type="search" data-field="faqSearch" value="${esc(extra.faqSearch)}" placeholder="Tìm câu hỏi">
+  ${["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].filter(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase())).map(x=>`<button class="choice" type="button" data-action="faq" data-value="${esc(x)}">${esc(x)} ${icon("chevron-right",16)}</button>`).join("")}
+  ${extra.faqSearch&&!["Làm sao đổi hoặc hủy lịch?","Làm sao biết đến lượt khám?","Làm sao xem kết quả?"].some(x=>x.toLowerCase().includes(extra.faqSearch.toLowerCase()))?`<p>${esc(v.empty)}</p>`:""}
+  </div>${note()}`;
+  return null;
+}
+
   // Render Functions for Each Screen
   function renderScreen(id) {
     switch (id) {
@@ -309,22 +409,22 @@
         return `
           <div style="text-align: center; padding: 18px 0 20px;">
             <div class="brandmark" style="margin: 0 auto 14px; width: 54px; height: 54px; font-size: 20px;">CF</div>
-            <h2>Bắt đầu hành trình khám của bạn</h2>
-            <p class="lead" style="margin-bottom: 0;">Đặt lịch, theo dõi lượt khám và nhận hướng dẫn sau khám ở một nơi.</p>
+            <h2>${esc(tx("A1","title"))}</h2>
+            <p class="lead" style="margin-bottom: 0;">${esc(tx("A1","description"))}</p>
           </div>
 
           <div class="box">
             <label class="field-label" for="phone-input">Số điện thoại <span class="required">*</span></label>
-            <input id="phone-input" type="tel" autocomplete="tel" data-field="phone" value="${esc(state.phone)}" placeholder="09xxxxxxxx" />
-            <p class="field-hint">Chúng tôi sẽ gửi mã xác nhận qua SMS.</p>
+            <input id="phone-input" type="tel" autocomplete="tel" data-field="phone" value="${esc(state.phone)}" placeholder="${esc(tx("A1","phoneHint"))}" />
+            <p class="field-hint">Đây là bản xem thử; không gửi SMS thật.</p>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
-              <label class="field-label" for="otp-input" style="margin: 0;">Mã OTP <span class="required">*</span></label>
+              <label class="field-label" for="otp-input" style="margin: 0;">${esc(tx("A1","otp"))} <span class="required">*</span></label>
               <button type="button" class="context-bar-btn" style="padding: 2px 8px; font-size: 12px;" data-action="resendOtp">
-                Gửi lại (${state.otpCountdown}s)
+                ${esc(tx("A1","resend"))}
               </button>
             </div>
-            <input id="otp-input" inputmode="numeric" type="text" maxlength="6" autocomplete="one-time-code" data-field="otp" value="${esc(state.otp)}" placeholder="123456" />
+            <div class="otp-panel"><input id="otp-input" class="otp-overlay" aria-label="Nhập mã OTP gồm 6 số" inputmode="numeric" type="text" maxlength="6" autocomplete="one-time-code" data-field="otp" value="${esc(state.otp)}" /><div class="otp-boxes" aria-hidden="true">${Array.from({length:6},(_,i)=>`<span class="otp-digit-box" data-otp-slot="${i}">${esc(state.otp[i]||"·")}</span>`).join("")}</div></div>
             <p class="field-hint">Bản demo: dùng mã <strong>123456</strong>, không gửi SMS thật.</p>
 
             <div style="margin-top: 16px; display: flex; align-items: flex-start; gap: 8px;">
@@ -342,7 +442,7 @@
           
           <div style="text-align: center; margin-top: 14px;">
             <button type="button" class="btn-tertiary btn-sm" style="border: 0;" data-action="openHelp">
-              ${icon("phone", 16)} Gọi phòng khám: ${config.CLINIC_HOTLINE}
+              ${icon("phone", 16)} ${esc(tx("A1","help"))}
             </button>
           </div>
         `;
@@ -353,8 +453,8 @@
       case "A2":
         return `
           <div class="mini-step">A2 · HỒ SƠ</div>
-          <h2>Tạo hồ sơ của bạn</h2>
-          <p class="lead">Chỉ cần vài thông tin để bắt đầu. Bạn có thể bổ sung sau.</p>
+          <h2>${esc(tx("A2","title"))}</h2>
+          <p class="lead">${esc(tx("A2","description"))}</p>
 
           <div class="box">
             <label class="field-label" for="profile-name">Họ và tên <span class="required">*</span></label>
@@ -372,7 +472,7 @@
           </div>
 
           <button type="button" class="btn-primary" data-action="createProfile">
-            ${icon("check", 18)} <span>Hoàn tất</span>
+            ${icon("check", 18)} <span>${esc(tx("A2","cta"))}</span>
           </button>
           <button type="button" class="btn-secondary" data-action="goBack">Quay lại</button>
         `;
@@ -406,7 +506,7 @@
 
           <!-- Appointment Hero Card -->
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-            <span class="group-label" style="margin: 0;">LỊCH GẦN NHẤT</span>
+            <span class="group-label" style="margin: 0;">${esc(tx("B1","hero"))}</span>
             <button type="button" class="context-bar-btn" style="padding: 2px 8px; font-size: 12px; border: 0; background: none;" data-action="goD1">Xem tất cả →</button>
           </div>
 
@@ -426,7 +526,7 @@
               </p>
 
               <div style="background: #ffffff; border: 1px solid #dbe6f0; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
-                <span style="color: var(--color-text-700);">Đang được xử lý bởi:</span>
+                <span style="color: var(--color-text-700);">Đang chờ</span>
                 <strong style="color: var(--color-brand-700); font-weight: 700;">
                   ${aptStatus === "pending" ? "Phòng khám (Điều phối)" : aptStatus === "arrived" ? "Lễ tân tiếp đón" : aptStatus === "results-ready" ? "Bác sĩ điều trị" : "Bạn"}
                 </strong>
@@ -441,9 +541,9 @@
               <div class="empty-state-icon" style="margin: 0 auto 12px; width: 48px; height: 48px;">
                 ${icon("calendar", 24)}
               </div>
-              <h3 style="font-size: 17px; margin-bottom: 4px;">Bạn chưa có lịch khám</h3>
+              <h3 style="font-size: 17px; margin-bottom: 4px;">Chưa có lịch khám nào.</h3>
               <p class="lead" style="max-width: 260px; margin: 0 auto 16px;">
-                Đặt lịch để bắt đầu hành trình chăm sóc của bạn.
+                Đặt lịch để phòng khám nhắc giờ cho bạn.
               </p>
               <button type="button" class="btn-primary btn-sm" data-action="startBooking" style="width: auto; padding: 8px 24px; margin: 0 auto;">
                 Đặt lịch khám
@@ -453,7 +553,7 @@
 
           <!-- Quick Actions & Tasks -->
           <div style="margin: 18px 0 8px;">
-            <span class="group-label" style="margin: 0;">VIỆC BẠN CẦN LÀM (3)</span>
+            <span class="group-label" style="margin: 0;">${esc(tx("B1","tasks"))}</span>
           </div>
 
           <div class="task-item">
@@ -514,8 +614,8 @@
       case "C1":
         return `
           <div class="mini-step">C1 · BƯỚC 1/4</div>
-          <h2>Ai sẽ đi khám?</h2>
-          <p class="lead">Chọn đúng hồ sơ để lịch khám và kết quả được lưu chính xác.</p>
+          <h2>${esc(tx("C1","title"))}</h2>
+          <p class="lead">Chọn hồ sơ của người sẽ đi khám.</p>
 
           <button type="button" class="choice ${m.person === "self" ? "selected" : ""}" data-action="selectPerson" data-value="self">
             <strong>Nguyễn Minh Anh — Tôi (hồ sơ mẫu)</strong>
@@ -534,7 +634,7 @@
               <strong>Quyền người thân:</strong> Được đặt hộ không đồng nghĩa được phép xem kết quả xét nghiệm.
             </div>
             <button type="button" class="btn-secondary btn-sm" style="margin-top: 8px;" data-action="goG1">
-              Kiểm tra quyền người thân
+              Kiểm tra quyền đặt hộ
             </button>
           </div>
 
@@ -555,8 +655,8 @@
           <h2>Lý do khám</h2>
           ${profileContextBar()}
 
-          <label class="field-label" for="reason-note">Lý do khám (mẫu)</label>
-          <textarea id="reason-note" data-field="reasonNote" placeholder="Nhập mô tả ngắn (không dùng thông tin sức khỏe thật)">${esc(state.reasonNote)}</textarea>
+          <label class="field-label" for="reason-note">${esc(tx("C2","reason"))}</label>
+          <textarea id="reason-note" data-field="reasonNote" placeholder="${esc(tx("C2","hint"))}">${esc(state.reasonNote)}</textarea>
 
           <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px;">
             ${reasons.map(r => `
@@ -568,18 +668,18 @@
 
           <!-- Screening Section -->
           <div class="box warning" style="margin-top: 16px;">
-            <strong style="font-size: 15px; color: var(--color-danger-700);">Sàng lọc — chỉ mô phỏng tương tác</strong>
+            <strong style="font-size: 15px; color: var(--color-danger-700);">${esc(tx("C2","screening"))}</strong>
             <p class="lead" style="margin: 4px 0 10px; font-size: 13px;">
-              Hai lựa chọn bên dưới là dữ liệu kịch bản kiểm thử, không phải câu hỏi sàng lọc lâm sàng.
+              [Dấu hiệu cảnh báo do bác sĩ phòng khám xác định] · Chỉ mô phỏng thử nghiệm.
             </p>
 
             <button type="button" class="choice ${state.screeningChoice === "normal" ? "selected" : ""}" data-action="chooseScreening" data-value="normal">
-              <strong>Không kích hoạt cảnh báo mô phỏng</strong>
+              <strong>Không có (mẫu)</strong>
               <small>Đi tiếp chọn hình thức khám</small>
             </button>
 
             <button type="button" class="choice ${state.screeningChoice === "warning" ? "selected" : ""}" data-action="chooseScreening" data-value="warning">
-              <strong style="color: var(--color-danger-700);">Kích hoạt cảnh báo mô phỏng</strong>
+              <strong style="color: var(--color-danger-700);">Có (mẫu)</strong>
               <small>Chuyển màn C3 để kiểm tra an toàn</small>
             </button>
           </div>
@@ -600,18 +700,18 @@
           <div class="medical-review-badge">
             ${icon("shield", 14)} [MEDICAL REVIEW REQUIRED]
           </div>
-          <h2>Cần hỗ trợ từ nhân viên y tế</h2>
-          <p class="lead">Màn cảnh báo là bản phác thảo giao diện, không phải công cụ đánh giá sức khỏe.</p>
+          <h2>${esc(tx("C3","title"))}</h2>
+          <p class="lead">${esc(tx("C3","explanation"))}</p>
 
           <div class="box warning" style="margin-bottom: 16px;">
-            <strong style="font-size: 16px; color: var(--color-danger-700);">⚠️ Quy trình đặt lịch tự động tạm dừng</strong>
+            <strong style="font-size: 16px; color: var(--color-danger-700);">${esc(tx("C3","safety"))}</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 6px 0 10px; line-height: 1.5;">
               Trong tình huống được đánh dấu, hệ thống cần chuyển sang hướng dẫn hỗ trợ do chuyên môn phê duyệt. Không đưa lời khuyên chẩn đoán và không tự xác định bệnh nhân có thể khám trực tuyến.
             </p>
           </div>
 
           <button type="button" class="btn-danger" data-action="callEmergency">
-            ${icon("phone", 20)} <span>Gọi cấp cứu ngay: ${config.EMERGENCY_NUMBER}</span>
+            ${icon("phone", 20)} <span>${esc(tx("C3","emergency"))}</span>
           </button>
 
           <button type="button" class="btn-secondary" data-action="openHospitalMap">
@@ -624,7 +724,7 @@
 
           <div class="box dashed" style="text-align: center; padding: 14px; margin-top: 14px;">
             <button type="button" class="btn-tertiary btn-sm" style="border: 0; font-size: 14px; font-weight: 600;" data-action="openContinueConfirmation">
-              Tôi vẫn muốn đặt lịch
+              ${esc(tx("C3","continue"))}
             </button>
           </div>
 
@@ -638,10 +738,11 @@
       // =========================================================================
       case "C4": {
         const slots = ["09:00", "09:30", "10:00", "14:30", "15:00", "15:30"];
+        const days = Array.from({length:5},(_,i)=>localISO(i+1));
 
         return `
           <div class="mini-step">C4 · BƯỚC 3/4</div>
-          <h2>Chọn lịch khám</h2>
+          <h2>${esc(tx("C4","title"))}</h2>
           ${profileContextBar()}
 
           <label class="field-label">Hình thức khám</label>
@@ -650,11 +751,12 @@
               ${icon("location", 14)} Khám trực tiếp
             </button>
             <button type="button" class="segmented-btn ${state.selectedMode === "online" ? "active" : ""}" data-action="chooseMode" data-value="online">
-              ${icon("video", 14)} Khám trực tuyến (bản mô phỏng)
+              ${icon("video", 14)} ${esc(tx("C4","online"))}
             </button>
           </div>
 
-          <label class="field-label">Ngày khám: Thứ Bảy, 20/06/2026</label>
+          <label class="field-label">Ngày khám · ${formatAppointmentDateTime()}</label>
+          <div class="pill-list" aria-label="Chọn ngày khám">${days.map(day=>`<button type="button" class="day-pill ${state.selectedDate===day?"active":""}" data-action="chooseDate" data-value="${day}">${new Intl.DateTimeFormat("vi-VN",{day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(new Date(day+"T12:00:00+07:00"))}</button>`).join("")}</div>
           <div class="slots-grid">
             ${slots.map(s => `
               <button type="button" class="slot-btn ${m.slot === s ? "selected" : ""}" data-action="chooseSlot" data-value="${s}">
@@ -668,13 +770,13 @@
               ${icon("warning", 16)} <span>Ngày này đã kín lịch. Bạn có thể chọn giờ gần nhất bên dưới hoặc gọi phòng khám.</span>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="chooseSlot" data-value="14:30">Xem giờ 14:30</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="chooseSuggestedSlot" data-value="14:30">Chọn giờ 14:30</button>
               <button type="button" class="btn-secondary btn-sm" data-action="openHelp">Gọi phòng khám</button>
             </div>
           ` : ""}
 
           <button type="button" class="btn-primary" data-action="nextSlot" ${!m.slot ? "disabled" : ""}>
-            <span>Chọn giờ này (${esc(m.slot || "Chưa chọn")})</span> ${icon("chevron-right", 18)}
+            <span>${esc(tx("C4","cta"))} (${esc(m.slot || "Chưa chọn")})</span> ${icon("chevron-right", 18)}
           </button>
           <button type="button" class="btn-secondary" data-action="goC2">Quay lại</button>
         `;
@@ -686,7 +788,7 @@
       case "C5":
         return `
           <div class="mini-step">C5 · BƯỚC 4/4</div>
-          <h2>Kiểm tra thông tin</h2>
+          <h2>${esc(tx("C5","title"))}</h2>
           <p class="lead">Xác nhận đúng người khám và lịch trước khi gửi.</p>
           ${profileContextBar()}
 
@@ -710,8 +812,8 @@
                 <span class="review-value">${esc(state.reasonNote || state.reasonCategory || "Khám tổng quát")}</span>
               </div>
               <div class="review-row">
-                <span class="review-label">Chi phí dự kiến</span>
-                <span class="review-value">Từ 300.000đ (Mẫu)</span>
+                <span class="review-label">Phí dự kiến</span>
+                <span class="review-value">[Phí dự kiến do phòng khám xác nhận]</span>
               </div>
             </div>
           </div>
@@ -722,7 +824,7 @@
               <span>↓</span>
             </button>
             <div class="accordion-content">
-              Bạn có thể đổi hoặc hủy lịch miễn phí trước giờ khám ít nhất 2 tiếng qua ứng dụng hoặc hotline ${config.CLINIC_HOTLINE}.
+              [Chính sách đổi, hủy của phòng khám]
             </div>
           </div>
 
@@ -746,8 +848,9 @@
             </div>
           ` : ""}
 
+          <div class="box"><label class="row-consent"><input type="checkbox" data-action="toggleBookingConsent" ${state.bookingConsent?"checked":""} /><span>${esc(tx("C5","consent"))}</span></label></div>
           <button type="button" class="btn-primary" data-action="confirmBooking" ${m.bookingPending || state.isSubmitting ? "disabled" : ""}>
-            ${icon("check", 18)} <span>${state.isSubmitting ? "Đang xử lý..." : "Xác nhận đặt lịch"}</span>
+            ${icon("check", 18)} <span>${state.isSubmitting ? "Đang gửi…" : tx("C5","cta")}</span>
           </button>
           <button type="button" class="btn-secondary" data-action="goC4">Đổi ngày giờ</button>
         `;
@@ -762,13 +865,13 @@
             <div style="width: 60px; height: 60px; border-radius: 50%; background: #e0f6eb; color: #16734b; display: grid; place-items: center; margin: 0 auto 14px;">
               ${icon("check", 32)}
             </div>
-            <h2>Đặt lịch thành công</h2>
-            <p class="lead" style="margin-bottom: 0;">Hệ thống mô phỏng đã xác nhận yêu cầu.</p>
+            <h2>${esc(tx("C6","confirmed"))}</h2>
+            <p class="lead" style="margin-bottom: 0;">Phòng khám đã xác nhận lịch của bạn (mẫu).</p>
           </div>
 
           <div class="box hero hero-confirmed">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <span class="chip success">Confirmed · Demo</span>
+              <span class="chip success">${esc(tx("C6","confirmed"))}</span>
               <span style="font-size: 15px; font-weight: 700; color: var(--color-brand-700);">${esc(aptId)}</span>
             </div>
 
@@ -793,7 +896,7 @@
           </div>
 
           <button type="button" class="btn-primary" data-action="goD2">
-            <span>Xem chi tiết lịch</span> ${icon("chevron-right", 18)}
+            <span>Xem lịch hẹn</span> ${icon("chevron-right", 18)}
           </button>
           <button type="button" class="btn-secondary" data-action="goB1">Về trang chủ</button>
         `;
@@ -804,12 +907,14 @@
       // =========================================================================
       case "D1":
         return `
+          <div class="segmented-control" aria-label="Lọc lịch hẹn">${["Sắp tới","Đã khám","Đã hủy"].map((label,i)=>`<button class="segmented-btn ${state.appointmentTab===i?"active":""}" type="button" data-action="filterAppointments" data-value="${i}">${label}</button>`).join("")}</div>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-            <h2>Lịch hẹn của tôi</h2>
+            <h2>${esc(tx("D1","title"))}</h2>
             <button type="button" class="context-bar-btn" data-action="startBooking">＋ Đặt lịch mới</button>
           </div>
 
-          <div class="box" style="cursor: pointer;" data-action="goD2">
+          ${((state.appointmentTab===0&&!state.lastAppointmentCancelled&&state.currentAppointmentStatus!=="reviewed")||(state.appointmentTab===1&&state.currentAppointmentStatus==="reviewed")||(state.appointmentTab===2&&state.lastAppointmentCancelled))?"":`<div class="box"><p class="lead">${esc(tx("D1","empty"))}</p></div>`}
+          <div class="box" style="cursor: pointer; ${((state.appointmentTab===0&&!state.lastAppointmentCancelled&&state.currentAppointmentStatus!=="reviewed")||(state.appointmentTab===1&&state.currentAppointmentStatus==="reviewed")||(state.appointmentTab===2&&state.lastAppointmentCancelled))?"":"display:none"}" data-action="goD2">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               ${statusChip(state.lastAppointmentCancelled ? "cancelled" : state.currentAppointmentStatus)}
               <span class="chip neutral" style="font-size: 12px;">${state.selectedMode === "online" ? "Trực tuyến (mô phỏng)" : "Trực tiếp"}</span>
@@ -840,10 +945,10 @@
         const ctaMapping = {
           pending: { label: "Gọi phòng khám", action: "callClinicHotline", icon: "phone" },
           confirmed: { label: "Xem hướng dẫn", action: "openPreparationGuide", icon: "document" },
-          reminder: { label: "Check-in", action: "openFeatureSoonCheckin", icon: "location" },
-          arrived: { label: "Xem số thứ tự", action: "openFeatureSoonQueue", icon: "document" },
-          waiting: { label: "Xem trạng thái", action: "openFeatureSoonWaiting", icon: "clock" },
-          "online-waiting": { label: "Vào phòng chờ", action: "openFeatureSoonWaiting", icon: "video" },
+          reminder: { label: "Check-in", action: "goE1", icon: "location" },
+          arrived: { label: "Xem số thứ tự", action: "goE1", icon: "document" },
+          waiting: { label: "Xem trạng thái", action: "goE1", icon: "clock" },
+          "online-waiting": { label: "Vào phòng chờ", action: "goE2", icon: "video" },
           delayed: { label: "Giữ lịch / Đổi lịch", action: "goD3", icon: "calendar" },
           "results-pending": { label: "Xem tiến độ", action: "goF2", icon: "document-check" },
           "results-ready": { label: "Xem kết quả", action: "goF2", icon: "document-check" },
@@ -857,7 +962,7 @@
 
         return `
           <div class="mini-step">D2 · CHI TIẾT LỊCH</div>
-          <h2>Chi tiết lịch khám</h2>
+          <h2>${esc(tx("D2","title"))}</h2>
 
           <div class="box hero">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
@@ -874,7 +979,7 @@
             </p>
 
             <div style="background: #ffffff; border: 1px solid #dbe6f0; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
-              <span style="color: var(--color-text-700);">Đang được xử lý bởi:</span>
+              <span style="color: var(--color-text-700);">Đang chờ</span>
               <strong style="color: var(--color-brand-700); font-weight: 700;">
                 ${status === "pending" ? "Phòng khám" : status === "arrived" ? "Lễ tân tiếp đón" : status === "results-ready" ? "Bác sĩ" : "Bạn"}
               </strong>
@@ -887,7 +992,7 @@
 
           <!-- Dynamic 5-Step Timeline from Data (v2 Section 1.8) -->
           <div class="box">
-            <div class="box-title">Tiến trình khám</div>
+            <div class="box-title">Hành trình buổi khám</div>
             <div class="timeline">
               ${state.currentAppointment.timeline.map((step, idx) => `
                 <div class="timeline-step ${step.state === "done" ? "completed" : step.state === "current" ? "current" : ""}">
@@ -906,11 +1011,11 @@
           <div class="box">
             <div class="box-title">Thao tác lượt khám</div>
             <div style="display: grid; gap: 8px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="goE1">Check-in và số thứ tự</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goE1">Check-in</button>
               <button type="button" class="btn-secondary btn-sm" data-action="goE2">Chuẩn bị khám trực tuyến</button>
               <button type="button" class="btn-secondary btn-sm" data-action="goF1">Thanh toán</button>
-              <button type="button" class="btn-secondary btn-sm" data-action="goF2">Xem kết quả / đơn thuốc</button>
-              <button type="button" class="btn-secondary btn-sm" data-action="goD3">Hủy hoặc đổi lịch</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goF2">Xem kết quả</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goD3">Đổi hoặc hủy lịch</button>
             </div>
           </div>
         `;
@@ -922,7 +1027,7 @@
       case "D3":
         return `
           <div class="mini-step">D3 · THAY ĐỔI</div>
-          <h2>Hủy hoặc đổi lịch</h2>
+          <h2>${esc(tx("D3","title"))}</h2>
           <p class="lead">Mọi thay đổi cần được hệ thống phòng khám xác nhận.</p>
 
           <div class="box" style="background: #f8fafc;">
@@ -933,12 +1038,12 @@
           </div>
 
           <div class="box">
-            <label class="field-label" for="cancel-reason">Lý do hủy (mô phỏng)</label>
+            <label class="field-label" for="cancel-reason">${esc(tx("D3","reason"))}</label>
             <input id="cancel-reason" data-field="cancelReason" value="${esc(state.cancelReason)}" placeholder="Chọn / nhập lý do" />
           </div>
 
-          <button type="button" class="btn-secondary" data-action="goC4">Đổi ngày giờ</button>
-          <button type="button" class="btn-danger" data-action="cancelAppointment">Gửi yêu cầu hủy (demo)</button>
+          <button type="button" class="btn-secondary" data-action="goC4">Đổi sang giờ khác</button>
+          <button type="button" class="btn-danger" data-action="cancelAppointment">Hủy lịch</button>
           <button type="button" class="btn-tertiary" data-action="goD2" style="font-weight: 700;">Giữ lịch</button>
         `;
 
@@ -950,7 +1055,7 @@
 
         return `
           <div class="mini-step">F2 · SAU KHÁM</div>
-          <h2>Đơn thuốc & kết quả</h2>
+          <h2>${esc(tx("F2","title"))}</h2>
           ${profileContextBar()}
 
           <div class="box">
@@ -963,13 +1068,13 @@
           </div>
 
           <div class="box dashed">
-            <div class="box-title">Đơn thuốc / kết luận</div>
+            <div class="box-title">Kết luận của bác sĩ và đơn thuốc</div>
             <p class="field-hint">
               Nội dung kết luận chỉ xuất hiện khi người có thẩm quyền đã phát hành và người xem có quyền truy cập.
             </p>
           </div>
 
-          <button type="button" class="btn-secondary" data-action="goF3">Xét nghiệm, chụp chiếu theo chỉ định của bác sĩ</button>
+          <button type="button" class="btn-secondary" data-action="goF3">Xét nghiệm và chụp chiếu</button>
           <button type="button" class="btn-secondary" data-action="openHelp">Hỏi phòng khám</button>
         `;
       }
@@ -986,15 +1091,15 @@
           </div>
 
           <div class="box" style="cursor: pointer;" data-action="goD2">
-            <strong>Cập nhật lịch hẹn</strong>
+            <strong>Phòng khám đã xác nhận lịch</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 4px 0 8px;">
-              Có cập nhật mới cho lượt khám của bạn.
+              Mở app để xem chi tiết
             </p>
             <button type="button" class="btn-secondary btn-sm" data-action="goD2">Mở chi tiết lịch</button>
           </div>
 
           <div class="box" style="cursor: pointer;" data-action="notificationResult">
-            <strong>Có cập nhật mới từ phòng khám</strong>
+            <strong>Có kết quả mới</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 4px 0 8px;">
               Đăng nhập để xem nội dung được phép (mô phỏng).
             </p>
@@ -1007,218 +1112,20 @@
       // =========================================================================
       // G1 / Profile — Hồ sơ & người thân (/profile)
       // =========================================================================
-      case "G1":
-        return `
-          <div class="mini-step">G1 · HỒ SƠ</div>
-          <h2>Hồ sơ & người thân</h2>
-          <p class="lead">Xem người đã liên kết và quyền thao tác.</p>
+      case "G1": return renderSoft("G1");
 
-          <div class="box">
-            <div class="box-title">Hồ sơ của tôi</div>
-            <strong>Tôi (hồ sơ mẫu)</strong>
-            <span class="chip success" style="margin-left: 8px;">Chủ hồ sơ</span>
-            <div style="margin-top: 10px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="bookSelf">Đặt lịch cho tôi</button>
-            </div>
-          </div>
+      case "F4": return renderSoft("F4");
 
-          <div class="box">
-            <div class="box-title">Hồ sơ người thân</div>
-            <strong>Mẹ (hồ sơ mẫu)</strong>
-            <div style="margin: 6px 0;">
-              <span class="chip ${m.canBookRelative ? "success" : "neutral"}">
-                ${m.canBookRelative ? "Có quyền đặt hộ" : "Không có quyền đặt hộ"}
-              </span>
-              <span class="chip ${m.canViewRelativeResults ? "success" : "neutral"}" style="margin-left: 6px;">
-                ${m.canViewRelativeResults ? "Được xem kết quả" : "Không được xem kết quả"}
-              </span>
-            </div>
-            <div class="callout" style="margin: 10px 0;">
-              Quyền đặt lịch và xem hồ sơ là hai quyền khác nhau.
-            </div>
-            <div style="display: grid; gap: 8px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="bookRelative">Đặt lịch cho mẹ</button>
-              <button type="button" class="btn-tertiary btn-sm" data-action="toggleRelativeBook">
-                Mô phỏng thu hồi / cấp quyền đặt hộ
-              </button>
-            </div>
-          </div>
+      case "E1": return renderSoft("E1");
+      case "E2": return renderSoft("E2");
+      case "E3": return renderSoft("E3");
+      case "E4": return renderSoft("E4");
+      case "F1": return renderSoft("F1");
+      case "F3": return renderSoft("F3");
+      case "G3": return renderSoft("G3");
 
-          <button type="button" class="btn-secondary" data-action="goG3">Cài đặt</button>
-        `;
 
-      // =========================================================================
-      // F4 / Support — Hỗ trợ & Hotline (/support)
-      // =========================================================================
-      case "F4":
-        return `
-          <div class="mini-step">F4 · HỖ TRỢ</div>
-          <h2>Liên hệ phòng khám</h2>
-          <p class="lead">Bản mẫu hỗ trợ kết nối trực tiếp với nhân viên điều phối.</p>
-
-          <div class="box hero">
-            <div class="box-title">Gọi phòng khám</div>
-            <p class="field-hint">Hotline hỗ trợ: ${config.CLINIC_HOTLINE}</p>
-            <button type="button" class="btn-secondary" data-action="callPlaceholder">
-              ${icon("phone", 18)} <span>Xem số hotline (chưa cấu hình)</span>
-            </button>
-          </div>
-
-          <div class="box">
-            <div class="box-title">Yêu cầu gọi lại</div>
-            <div style="margin-bottom: 8px;">
-              <span class="chip ${m.callback === "pending" ? "success" : "neutral"}">
-                ${m.callback === "pending" ? "Đã nhận yêu cầu (demo)" : "Chưa gửi yêu cầu"}
-              </span>
-            </div>
-            <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 10px;">
-              Đội phụ trách: điều phối viên (theo quy trình dự kiến).
-            </p>
-            <button type="button" class="btn-primary" data-action="requestCallback">
-              Gửi yêu cầu gọi lại (demo)
-            </button>
-          </div>
-
-          <button type="button" class="btn-secondary" data-action="goBack">Quay lại</button>
-        `;
-
-      // =========================================================================
-      // Complementary Encounter Screens (E1, E2, E3, E4, F1, F3, G3)
-      // =========================================================================
-      case "E1":
-        return `
-          <div class="mini-step">E1 · TRỰC TIẾP</div>
-          <h2>Check-in tại phòng khám</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Trạng thái tiếp nhận</div>
-            <span class="chip ${m.queue === "checked_in" ? "success" : "neutral"}">
-              ${m.queue === "checked_in" ? "Phòng khám đã nhận bạn" : "Chưa check-in"}
-            </span>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; text-align: center;">
-              <div style="background: #f1f5f9; padding: 12px; border-radius: 12px;">
-                <span class="field-hint">Số tiếp nhận</span>
-                <div style="font-size: 26px; font-weight: 800; color: var(--color-brand-700);">A012</div>
-              </div>
-              <div style="background: #f1f5f9; padding: 12px; border-radius: 12px;">
-                <span class="field-hint">Số chờ khám</span>
-                <div style="font-size: 26px; font-weight: 800; color: var(--color-brand-900);">05</div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="checkin">Đánh dấu check-in (demo)</button>
-          <button type="button" class="btn-secondary" data-action="goD2">Xem chi tiết lịch</button>
-        `;
-
-      case "E2":
-        return `
-          <div class="mini-step">E2 · KIỂM TRA THIẾT BỊ</div>
-          <h2>Chuẩn bị khám online</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Trước khi tham gia</div>
-            <p style="font-size: 15px;">□ Có kết nối Internet</p>
-            <p style="font-size: 15px;">□ Cho phép camera và micro</p>
-            <p style="font-size: 15px;">□ Đang ở nơi yên tĩnh, riêng tư</p>
-            <div style="height: 120px; border: 2px dashed var(--color-border-strong); border-radius: 14px; background: #eef2f6; display: grid; place-items: center; text-align: center; font-size: 13px; color: var(--color-text-700); margin: 10px 0;">
-              [ VÙNG XEM CAMERA — DEMO ]
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="joinVideo">Tôi đã sẵn sàng (mẫu)</button>
-          <button type="button" class="btn-secondary" data-action="goE4">Không tham gia được</button>
-        `;
-
-      case "E3":
-        return `
-          <div class="mini-step">E3 · KHÁM VIDEO</div>
-          <h2>Buổi khám trực tuyến</h2>
-          <div style="height: 240px; border-radius: 18px; background: #0f172a; color: #fff; display: grid; place-items: center; text-align: center; padding: 20px;">
-            <div>
-              ${icon("video", 36)}
-              <div style="font-weight: 700; margin-top: 10px; font-size: 16px;">[ VIDEO PLACEHOLDER ]</div>
-              <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Không có cuộc gọi thật</p>
-            </div>
-          </div>
-          <div class="btn-row" style="margin-top: 12px;">
-            <button type="button" class="btn-secondary" data-action="toggleMic">${state.videoMic ? "Tắt micro" : "Bật micro"}</button>
-            <button type="button" class="btn-secondary" data-action="toggleCamera">${state.videoCamera ? "Tắt camera" : "Bật camera"}</button>
-          </div>
-          <button type="button" class="btn-secondary" data-action="dropCall">Mô phỏng mất kết nối</button>
-          <button type="button" class="btn-tertiary" data-action="endVideo">Hoàn tất buổi khám</button>
-        `;
-
-      case "E4":
-        return `
-          <div class="mini-step">E4 · XỬ LÝ NGOẠI LỆ</div>
-          <h2>Chưa kết nối được</h2>
-          <div class="box warning">
-            <strong style="color: var(--color-danger-700);">Không thể tiếp tục cuộc gọi</strong>
-            <p style="font-size: 15px; color: var(--color-text-700); margin: 6px 0;">
-              Cuộc gọi bị gián đoạn. Thông tin lịch hẹn vẫn được giữ lại (bản mẫu).
-            </p>
-          </div>
-          <button type="button" class="btn-primary" data-action="retryVideo">Thử kết nối lại</button>
-          <button type="button" class="btn-secondary" data-action="goF4">Yêu cầu phòng khám gọi lại</button>
-          <button type="button" class="btn-tertiary" data-action="goD2">Xem lịch / chuyển khám trực tiếp</button>
-        `;
-
-      case "F1":
-        return `
-          <div class="mini-step">F1 · VIỆN PHÍ</div>
-          <h2>Thanh toán</h2>
-          <div class="box">
-            <div class="box-title">Khoản thanh toán minh họa</div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span>Khám bệnh (mẫu)</span>
-              <strong>— đ</strong>
-            </div>
-            <div style="width: 140px; height: 140px; border: 2px dashed #94a3b8; border-radius: 14px; margin: 12px auto; display: grid; place-items: center; text-align: center; font-size: 13px;">
-              [ QR PLACEHOLDER ]<br>Không quét
-            </div>
-            <div style="text-align: center;">
-              <span class="chip ${m.payment === "paid" ? "success" : m.payment === "pending_reconciliation" ? "warning" : "neutral"}">
-                ${m.payment === "paid" ? "Đã xác nhận" : m.payment === "pending_reconciliation" ? "Đang xác nhận" : "Chưa thanh toán"}
-              </span>
-            </div>
-          </div>
-          <button type="button" class="btn-primary" data-action="beginPayment">Mô phỏng đã quét QR</button>
-          <p class="field-hint" style="text-align: center;">Quét QR ≠ đã trả. Chỉ hệ thống đối soát được xác nhận thành công.</p>
-        `;
-
-      case "F3":
-        return `
-          <div class="mini-step">F3 · CẬN LÂM SÀNG</div>
-          <h2>Xét nghiệm cần làm</h2>
-          ${profileContextBar()}
-          <div class="box">
-            <div class="box-title">Chỉ định mẫu</div>
-            <strong>Xét nghiệm, chụp chiếu theo chỉ định của bác sĩ (placeholder)</strong>
-            <div class="timeline" style="margin-top: 10px;">
-              <div class="timeline-step completed"><div class="timeline-dot"></div><div>Đã chỉ định</div></div>
-              <div class="timeline-step current"><div class="timeline-dot"></div><div>Chờ thực hiện</div></div>
-              <div class="timeline-step"><div class="timeline-dot"></div><div>Có kết quả</div></div>
-              <div class="timeline-step"><div class="timeline-dot"></div><div>Bác sĩ xem</div></div>
-            </div>
-          </div>
-          <button type="button" class="btn-secondary" data-action="goF2">Xem kết quả và đơn thuốc</button>
-        `;
-
-      case "G3":
-        return `
-          <div class="mini-step">G3 · CÀI ĐẶT</div>
-          <h2>Cài đặt</h2>
-          <div class="box">
-            <div class="box-title">Khả năng tiếp cận</div>
-            <button type="button" class="btn-secondary btn-sm" data-action="toggleLargeText">
-              ${state.largeText ? "Tắt chữ lớn mẫu" : "Bật chữ lớn mẫu"}
-            </button>
-            <p class="field-hint" style="margin-top: 6px;">Bản sản phẩm thật dùng Dynamic Type / font scaling theo iOS/Android.</p>
-          </div>
-          <div class="box">
-            <div class="box-title">Quyền riêng tư</div>
-            <button type="button" class="btn-secondary btn-sm" data-action="goG1">Quản lý hồ sơ người thân</button>
-          </div>
-        `;
+      case "H1": return renderSoft("H1");
 
       default:
         return `
@@ -1240,13 +1147,14 @@
       { id: "B1", label: "Trang chủ", iconName: "house" },
       { id: "D1", label: "Lịch hẹn", iconName: "calendar" },
       { id: "G1", label: "Hồ sơ", iconName: "person" },
-      { id: "F4", label: "Hỗ trợ", iconName: "phone" }
+      { id: "H1", label: "Hỗ trợ", iconName: "phone" }
     ];
 
     return `
       <nav class="phone-footer" aria-label="Điều hướng chính 4 tab">
         ${tabs.map(t => {
           const isActive = state.currentScreen === t.id ||
+            (t.id === "H1" && state.currentScreen === "F4") ||
             (t.id === "D1" && (state.currentScreen === "D2" || state.currentScreen === "D3")) ||
             (t.id === "G1" && state.currentScreen === "G3");
           return `
@@ -1283,8 +1191,10 @@
       { name: "Quản lý lịch", items: [["D1", "Danh sách lịch"], ["D2", "Chi tiết lịch"], ["D3", "Hủy / đổi lịch"]] },
       { name: "Trong lượt khám", items: [["E1", "Check-in / STT"], ["E2", "Chuẩn bị online"], ["E3", "Khám video"], ["E4", "Chưa kết nối"]] },
       { name: "Sau khám", items: [["F1", "Thanh toán"], ["F2", "Đơn / kết quả"], ["F3", "Xét nghiệm cần làm"], ["F4", "Hỏi phòng khám"]] },
-      { name: "Tài khoản", items: [["G1", "Hồ sơ / người thân"], ["G2", "Thông báo"], ["G3", "Cài đặt"]] }
+      { name: "Tài khoản", items: [["G1", "Hồ sơ / người thân"], ["G2", "Thông báo"], ["G3", "Cài đặt"], ["H1", "Hỗ trợ"]] }
     ];
+
+    $("mobile-screen-picker").innerHTML = groups.flatMap(g => g.items).map(item => `<option value="${item[0]}" ${state.currentScreen===item[0]?"selected":""}>${item[0]} · ${esc(item[1])}</option>`).join("");
 
     $("screen-menu").innerHTML = groups.map(g => `
       <div class="group-label">${esc(g.name)}</div>
@@ -1334,7 +1244,7 @@
 
     // Top Header state
     const backBtn = $("header-back-btn");
-    const level1Screens = ["B1", "D1", "G1", "F4", "G2"];
+    const level1Screens = ["B1", "D1", "G1", "H1", "G2"];
     if (level1Screens.includes(state.currentScreen) || state.currentScreen === "A1") {
       backBtn.style.display = "none";
     } else {
@@ -1346,6 +1256,7 @@
     badge.style.display = unreadCount > 0 ? "block" : "none";
 
     $("phone-screen-tag").textContent = state.currentScreen;
+    $("phone-main").setAttribute("data-current-screen",state.currentScreen);
     $("offline-bar").style.display = state.isOffline ? "flex" : "none";
 
     // Main Content
@@ -1364,7 +1275,7 @@
     if (state.activeModal === "emergency") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="modal-sheet" onclick="event.stopPropagation()">
+          <div class="modal-sheet" >
             <div class="sheet-handle"></div>
             <h3 style="color: var(--color-danger-700); margin-bottom: 8px;">Gọi cấp cứu ${config.EMERGENCY_NUMBER}</h3>
             <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 16px; line-height: 1.5;">
@@ -1377,7 +1288,7 @@
     } else if (state.activeModal === "continue-confirm") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="modal-sheet" onclick="event.stopPropagation()">
+          <div class="modal-sheet" >
             <div class="sheet-handle"></div>
             <h3>Xác nhận tiếp tục đặt lịch</h3>
             <p style="font-size: 15px; color: var(--color-text-700); margin-bottom: 14px; line-height: 1.5;">
@@ -1396,10 +1307,36 @@
           </div>
         </div>
       `;
+    } else if (state.activeModal === "cancel-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Hủy lịch khám này?">
+          <div class="sheet-handle"></div><h3>Hủy lịch khám này?</h3>
+          <p class="lead">[Chính sách đổi, hủy của phòng khám]</p>
+          <p class="lead">Lý do: ${esc(state.cancelReason)}</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Giữ lịch</button>
+          <button type="button" class="btn-danger" data-action="confirmCancelAppointment">Hủy lịch</button>
+        </div></div>`;
+    } else if (state.activeModal === "logout-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Đăng xuất khỏi tài khoản?">
+          <div class="sheet-handle"></div><h3>Đăng xuất khỏi tài khoản?</h3>
+          <p class="lead">Bạn có thể đăng nhập lại bằng OTP.</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Ở lại</button>
+          <button type="button" class="btn-secondary" data-action="confirmLogout">Đăng xuất</button>
+        </div></div>`;
+    } else if (state.activeModal === "delete-confirm") {
+      contentHtml += `
+        <div class="modal-overlay"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Xóa tài khoản?">
+          <div class="sheet-handle"></div><h3>Xóa tài khoản?</h3>
+          <p class="lead">Thông tin tài khoản sẽ bị xóa. Hồ sơ bệnh án có thể được giữ theo quy định. [Pháp lý duyệt]</p>
+          <p class="field-hint">Bản demo không gửi yêu cầu xóa thật.</p>
+          <button type="button" class="btn-primary" data-action="closeModal">Giữ tài khoản</button>
+          <button type="button" class="btn-secondary" data-action="requestDeletion">Tiếp tục xóa</button>
+        </div></div>`;
     } else if (state.activeModal === "feature-soon") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="feature-soon-sheet" onclick="event.stopPropagation()">
+          <div class="feature-soon-sheet" >
             <div class="sheet-handle"></div>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
               <div style="width: 40px; height: 40px; border-radius: 12px; background: var(--color-info-100); color: var(--color-brand-700); display: grid; place-items: center;">
@@ -1420,7 +1357,7 @@
     } else if (state.activeModal === "demo-controls") {
       contentHtml += `
         <div class="modal-overlay" data-action="closeModal">
-          <div class="demo-controls-panel" onclick="event.stopPropagation()">
+          <div class="demo-controls-panel" >
             <div class="sheet-handle"></div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
               <h3 style="margin: 0; font-size: 18px;">Bảng điều khiển Demo (Hidden)</h3>
@@ -1548,7 +1485,41 @@
   }
 
   // Action Dispatcher
-  function handleAction(action, value) {
+    function runExtendedAction(action,value){
+  const record=()=>{const pid=m.person==="self"?"patient-self":"patient-relative";return extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});};
+  const r=record();
+  switch(action){
+    case "qrCheckin":return showNotice("Bạn có thể quét mã QR tại quầy. Tính năng quét mã chưa kết nối (mẫu).");
+    case "audioOnly":state.videoCamera=false;return showNotice("Đã chuyển sang chế độ chỉ âm thanh (mẫu).");
+    case "switchToOnsite":state.selectedMode="in-person";m.mode="onsite";return nav("D3");
+    case "choosePaymentMethod":r.paymentMethod=value;return render();
+    case "deferPayment":r.paymentStatus="deferred";r.paymentDue=state.paymentDue||"";return showNotice("Đã ghi nhận đề nghị thanh toán sau (mẫu). Phòng khám cần xác nhận.","success");
+    case "showReceipt":return showNotice("Biên lai minh họa: mã DEMO-001, số tiền 350.000 ₫. Không phải chứng từ thanh toán thật.");
+    case "simulatedSettlePayment":if(m.payment!=="pending_reconciliation")return showNotice("Chưa có khoản chuyển đang xác minh.","error");M.settlePayment(m);r.paymentStatus="paid";return showNotice("Đã thanh toán — trạng thái được gán bởi bộ mô phỏng, không phải ngân hàng.","success");
+    case "bookLab":r.labAppointment=true;return showNotice("Đã tạo lịch xét nghiệm giả lập. Cần phòng khám xác nhận trước khi đến.","success");
+    case "uploadLab":return showNotice("Chỉ sử dụng dữ liệu mẫu. Không tải thông tin sức khỏe thật lên prototype.");
+    case "contactTab":extra.contactTab=Number(value);return render();
+    case "messageSuggestion":extra.supportMessage=value;return render();
+    case "sendMessage":if(!extra.supportMessage.trim())return showNotice("Bạn nhập nội dung trước khi gửi nhé.","error");r.messages.push(extra.supportMessage.trim());extra.supportMessage="";return showNotice("Phòng khám đã nhận tin của bạn (mẫu).","success");
+    case "chooseSymptom":r.symptom=value;return render();
+    case "chooseSeverity":extra.severity=value;return render();
+    case "sendSymptoms":if(!r.symptom)return showNotice("Bạn hãy chọn nội dung cần báo.","error");r.messages.push("Báo triệu chứng: "+r.symptom+" · "+extra.severity);return showNotice("Phòng khám đã nhận tin của bạn (mẫu).","success");
+    case "selectFamilyProfile":if(value==="patient-father")return showNotice("Hồ sơ này chưa được kết nối trong demo.","error");M.choosePerson(m,value==="patient-self"?"self":"relative");m.payment=record().paymentStatus;return showNotice("Đang chọn hồ sơ: "+personShort()+".");
+    case "addFamily":return showNotice("Thêm người thân chưa kết nối dữ liệu thật. Vui lòng gọi phòng khám để xác minh quyền.");
+    case "settingsSection":return showNotice("Mục "+value+" đang có trong bản xem thử. Bạn có thể chỉnh cỡ chữ và thông báo bên dưới.");
+    case "setFontSize":extra.fontSize=Number(value);state.largeText=extra.fontSize>0;document.body.classList.toggle("large-text",state.largeText);return render();
+    case "toggleSetting":extra.settings[Number(value)]=!extra.settings[Number(value)];return render();
+    case "promptLogout":state.activeModal="logout-confirm";return render();
+    case "promptDelete":state.activeModal="delete-confirm";return render();
+    case "confirmLogout":state.activeModal=null;return nav("A1");
+    case "requestDeletion":state.activeModal=null;return showNotice("Để xóa tài khoản, phòng khám cần xác minh yêu cầu và quy định lưu hồ sơ. Demo không xóa dữ liệu.");
+    case "faq":return showNotice("Câu hỏi: "+value+". Phòng khám sẽ hướng dẫn chi tiết khi được cấu hình.");
+    default:return null;
+  }
+}
+
+function handleAction(action, value) {
+    if (["qrCheckin","audioOnly","switchToOnsite","choosePaymentMethod","deferPayment","showReceipt","simulatedSettlePayment","bookLab","uploadLab","contactTab","messageSuggestion","sendMessage","chooseSymptom","chooseSeverity","sendSymptoms","selectFamilyProfile","addFamily","settingsSection","setFontSize","toggleSetting","promptLogout","promptDelete","confirmLogout","requestDeletion","faq"].includes(action)) return runExtendedAction(action,value);
     switch (action) {
       case "tapHeaderTitle":
         titleTapCount++;
@@ -1563,6 +1534,7 @@
         return;
 
       case "login":
+        if (!state.termsAccepted) return showNotice("Bạn cần đồng ý với điều khoản để tiếp tục.","error");
         if (!/^0\d{9,10}$/.test(state.phone.trim()) || state.otp.trim() !== "123456") {
           return showNotice("Số điện thoại mẫu hoặc OTP không hợp lệ. Mã demo: 123456.", "error");
         }
@@ -1570,8 +1542,8 @@
         return nav("B1");
 
       case "resendOtp":
-        state.otpCountdown = 60;
-        return showNotice("Đã gửi lại mã OTP qua tin nhắn SMS (mã demo: 123456).", "success");
+        state.otpCountdown = 30;
+        return showNotice("Đây là bản xem thử: mã 123456. Không gửi SMS thật.");
 
       case "goA2":
         return nav("A2");
@@ -1594,6 +1566,7 @@
       case "selectPerson":
       case "selectPatient":
         M.choosePerson(m, value);
+        {const pid=m.person==="self"?"patient-self":"patient-relative";m.payment=extra.byPatient[pid]?.paymentStatus||"unpaid";}
         state.screeningChoice = "";
         state.reasonNote = "";
         return showNotice("Đã chọn " + personShort() + ". Thông tin lý do khám trước đó đã được xóa.");
@@ -1605,6 +1578,10 @@
         }
         logAnalytics("patient_selected", { person: m.person });
         return nav("C2");
+
+      case "chooseGender":
+        state.gender = value;
+        return render();
 
       case "chooseReason":
         state.reasonCategory = value;
@@ -1629,8 +1606,8 @@
         return render();
 
       case "nextScreening": {
-        m.reason = state.reasonNote;
-        const r = M.screening(m, state.screeningChoice || "normal");
+        m.reason = state.reasonNote || state.reasonCategory;
+        const r = M.screening(m, state.screeningChoice);
         if (!r.ok) return showNotice("Vui lòng chọn một tình huống mô phỏng.", "error");
         logAnalytics("screening_completed", { choice: state.screeningChoice });
         return nav(r.next);
@@ -1663,9 +1640,8 @@
 
       case "confirmContinueBooking":
         state.activeModal = null;
-        m.risk = false;
         state.currentAppointment.safetyAcknowledged = true;
-        return nav("C4");
+        return showNotice("Phòng khám cần xem lại thông tin trước khi xác nhận lịch. Luồng đặt lịch tự động vẫn tạm dừng.", "error");
 
       case "chooseMode":
         state.selectedMode = value === "online" ? "online" : "in-person";
@@ -1674,8 +1650,11 @@
 
       case "chooseDate":
         state.selectedDate = value;
+        m.slot = "";
+        state.selectedSlot = "";
         return render();
 
+      case "chooseSuggestedSlot":
       case "chooseSlot":
         state.selectedSlot = value;
         m.slot = value;
@@ -1694,20 +1673,23 @@
         return render();
 
       case "togglePolicyAccordion":
-        return showNotice("Chính sách: Đổi hoặc hủy lịch trước 2 tiếng hoàn toàn miễn phí.");
+        return showNotice("[Chính sách đổi, hủy của phòng khám] Chưa được xác nhận, vui lòng gọi phòng khám.");
 
       case "confirmBooking": {
+        if (!state.bookingConsent) return showNotice("Bạn cần đồng ý với điều khoản và chính sách đổi, hủy lịch.","error");
         state.isSubmitting = true;
         render();
         logAnalytics("booking_submitted");
         if (!m.slot) m.slot = "09:00";
-        if (m.screening !== "normal" && m.screening !== "warning") M.screening(m, "normal");
+        if (m.screening !== "normal" && m.screening !== "warning") return showNotice("Bạn cần trả lời câu hỏi an toàn trước khi gửi yêu cầu.","error");
+        if (!state.bookingConsent) return showNotice("Bạn cần đồng ý với điều khoản và chính sách đổi, hủy lịch.","error");
         const r = M.attemptBooking(m, state.bookingOutcome);
         state.isSubmitting = false;
 
         if (r.ok) {
           state.currentAppointmentStatus = "confirmed";
           state.lastAppointmentCancelled = false;
+          state.currentAppointment.startsAt=state.selectedDate+"T"+(m.slot||"09:00")+":00+07:00";
           logAnalytics("booking_confirmed");
           return nav("C6");
         }
@@ -1779,7 +1761,7 @@
 
       case "openHelp":
         state.lastHelpFrom = state.currentScreen;
-        return nav("F4");
+        return nav("H1");
 
       case "goC1": return nav("C1");
       case "goC2": return nav("C2");
@@ -1797,6 +1779,13 @@
       case "goF4": state.lastHelpFrom = state.currentScreen; return nav("F4");
       case "goG1": return nav("G1");
       case "goG2": return nav("G2");
+      case "goH1":
+        return nav("H1");
+
+      case "filterAppointments":
+        state.appointmentTab=Number(value);
+        return render();
+
       case "goG3": return nav("G3");
       case "goScreen": return nav(value);
 
@@ -1805,6 +1794,11 @@
         return render();
 
       case "cancelAppointment":
+        state.activeModal="cancel-confirm";
+        return render();
+
+      case "confirmCancelAppointment":
+        state.activeModal=null;
         state.lastAppointmentCancelled = true;
         state.currentAppointmentStatus = "cancelled";
         if (m.appointment) m.appointment.status = "cancelled";
@@ -1842,7 +1836,8 @@
         return render();
 
       case "beginPayment":
-        M.startPayment(m);
+        if(m.payment==="unpaid")M.startPayment(m);
+        { const pid=m.person==="self"?"patient-self":"patient-relative"; const rec=extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false}); rec.paymentStatus=m.payment; }
         return showNotice("Đang xác nhận thanh toán. Quét QR không tự thành đã thu.", "info");
 
       case "viewResult":
@@ -1867,12 +1862,14 @@
 
       case "bookSelf":
         M.choosePerson(m, "self");
+        m.payment=extra.byPatient["patient-self"]?.paymentStatus||"unpaid";
         state.screeningChoice = "";
         state.reasonNote = "";
         return nav("C1");
 
       case "bookRelative":
         M.choosePerson(m, "relative");
+        m.payment=extra.byPatient["patient-relative"]?.paymentStatus||"unpaid";
         state.screeningChoice = "";
         state.reasonNote = "";
         return nav("C1");
@@ -1935,7 +1932,7 @@
       }
     }
 
-    assert("Có đủ 23 màn hình", () => M.SCREENS.length === 23);
+    assert("Có đủ 24 màn hình", () => M.SCREENS.length === 24);
     assert("Đặt lịch bình thường", () => {
       let s = M.initial();
       M.screening(s, "normal");
@@ -2022,19 +2019,25 @@
   document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-action],[data-screen],[data-scenario]");
     if (!el) return;
+    if (el.classList.contains("modal-overlay") && e.target!==el) return;
     if (el.dataset.scenario) return resetScenario(el.dataset.scenario);
     if (el.dataset.screen) return nav(el.dataset.screen);
     if (el.dataset.action) return handleAction(el.dataset.action, el.dataset.value);
   });
 
   document.addEventListener("input", (e) => {
+    if(e.target.dataset.field==="otp"){e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);document.querySelectorAll("[data-otp-slot]").forEach((slot,i)=>slot.textContent=e.target.value[i]||"·");}
     if (e.target.dataset.field) {
       const field = e.target.dataset.field;
+      if (["supportMessage","callbackNote","faqSearch"].includes(field)) {extra[field]=e.target.value;return;}
+      if(field==="paymentDue"){state.paymentDue=e.target.value;return;}
       if (Object.prototype.hasOwnProperty.call(state, field)) {
         state[field] = e.target.value;
       }
     }
   });
+
+  $("mobile-screen-picker").addEventListener("change",e=>nav(e.target.value));
 
   $("demo-outcome").addEventListener("change", (e) => {
     state.bookingOutcome = e.target.value;
