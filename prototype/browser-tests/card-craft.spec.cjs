@@ -36,7 +36,7 @@ test('empty profile keeps useful shortcuts and explains unavailable results',asy
   await expect(page.locator('.home-shortcut')).toHaveCount(4);
   const result=page.locator('.home-shortcut[data-to="F1"]');
   await expect(result).toBeDisabled();
-  await expect(result).toContainText('Có khi có lượt khám');
+  await expect(result).toContainText('Cần có lượt khám');
   await expect(page.locator('.home-shortcut-primary')).toBeEnabled();
   await page.locator('#phone-frame').screenshot({path:info.outputPath('patient-empty-shortcuts.png'),animations:'disabled'});
   await page.locator('.home-shortcut-primary').click();
