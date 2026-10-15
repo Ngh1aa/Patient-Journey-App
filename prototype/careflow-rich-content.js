@@ -49,12 +49,12 @@
   const completed=s.visits.find(x=>x.status==='completed');
   const taskCards=soon?[
     {icon:'document',title:'Chuẩn bị thông tin',detail:'Triệu chứng · giấy tờ',actionName:'open-visit',id:soon.id},
-    {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:'go',to:'D1'}
+    {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:soon.mode==='online'?'open-visit':'go',id:soon.mode==='online'?soon.id:null,to:soon.mode==='online'?null:'D1'}
   ]:[
     {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'begin'},
     {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'begin'}
   ];
-  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'begin':'go'}"${to==='C1'?'':` data-to="${to}"`}>Xem tất cả ${h.I('chevron-right',16)}</button></div>`;
+  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'begin':'go'}"${to==='C1'?'':` data-to="${to}"`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Mẹo sức khỏe'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
   let html='<section class="rich-hero cf-home-appointment" aria-label="Lịch khám sắp tới">';
   html+=sectionHead('Lịch khám sắp tới','D1');
   if(soon){
