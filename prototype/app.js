@@ -1929,7 +1929,7 @@ function handleAction(action, value) {
       }
     }
 
-    assert("Có đủ 23 màn hình", () => M.SCREENS.length === 23);
+    assert("Có đủ 24 màn hình", () => M.SCREENS.length === 24);
     assert("Đặt lịch bình thường", () => {
       let s = M.initial();
       M.screening(s, "normal");
