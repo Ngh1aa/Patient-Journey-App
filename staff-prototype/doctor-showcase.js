@@ -31,7 +31,7 @@
     const p=x.person(a.personId);
     return `<div class="doctor-appointment ${compact?'is-compact':''}">
        <div class="doctor-appointment-time"><strong>${x.e(a.time)}</strong><small>${x.e(a.date)}</small></div>
-       ${x.avatar(p)}<div class="doctor-appointment-person"><strong>${x.e(p.name)}</strong><span>${x.e(p.code)} · ${x.e(a.mode)}</span></div>
+       ${x.avatar(p)}<div class="doctor-appointment-person"><strong>${x.e(p.name)}</strong><span>${x.e(p.code)} · ${x.e(a.mode)} · Phụ trách: ${x.e(a.owner)}</span></div>
        <div class="doctor-appointment-status">${stepLabel(x,a)}</div>
        <div class="doctor-appointment-action">${actionFor(a,x)}</div></div>`
   }
