@@ -355,22 +355,22 @@
         return `
           <div style="text-align: center; padding: 18px 0 20px;">
             <div class="brandmark" style="margin: 0 auto 14px; width: 54px; height: 54px; font-size: 20px;">CF</div>
-            <h2>Bắt đầu hành trình khám của bạn</h2>
-            <p class="lead" style="margin-bottom: 0;">Đặt lịch, theo dõi lượt khám và nhận hướng dẫn sau khám ở một nơi.</p>
+            <h2>${esc(tx("A1","title"))}</h2>
+            <p class="lead" style="margin-bottom: 0;">${esc(tx("A1","description"))}</p>
           </div>
 
           <div class="box">
             <label class="field-label" for="phone-input">Số điện thoại <span class="required">*</span></label>
-            <input id="phone-input" type="tel" autocomplete="tel" data-field="phone" value="${esc(state.phone)}" placeholder="09xxxxxxxx" />
-            <p class="field-hint">Chúng tôi sẽ gửi mã xác nhận qua SMS.</p>
+            <input id="phone-input" type="tel" autocomplete="tel" data-field="phone" value="${esc(state.phone)}" placeholder="${esc(tx("A1","phoneHint"))}" />
+            <p class="field-hint">Đây là bản xem thử; không gửi SMS thật.</p>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
-              <label class="field-label" for="otp-input" style="margin: 0;">Mã OTP <span class="required">*</span></label>
+              <label class="field-label" for="otp-input" style="margin: 0;">${esc(tx("A1","otp"))} <span class="required">*</span></label>
               <button type="button" class="context-bar-btn" style="padding: 2px 8px; font-size: 12px;" data-action="resendOtp">
-                Gửi lại (${state.otpCountdown}s)
+                ${esc(tx("A1","resend"))}
               </button>
             </div>
-            <input id="otp-input" inputmode="numeric" type="text" maxlength="6" autocomplete="one-time-code" data-field="otp" value="${esc(state.otp)}" placeholder="123456" />
+            <div class="otp-panel"><input id="otp-input" class="otp-overlay" aria-label="Nhập mã OTP gồm 6 số" inputmode="numeric" type="text" maxlength="6" autocomplete="one-time-code" data-field="otp" value="${esc(state.otp)}" /><div class="otp-boxes" aria-hidden="true">${Array.from({length:6},(_,i)=>`<span class="otp-digit-box" data-otp-slot="${i}">${esc(state.otp[i]||"·")}</span>`).join("")}</div></div>
             <p class="field-hint">Bản demo: dùng mã <strong>123456</strong>, không gửi SMS thật.</p>
 
             <div style="margin-top: 16px; display: flex; align-items: flex-start; gap: 8px;">
@@ -388,7 +388,7 @@
           
           <div style="text-align: center; margin-top: 14px;">
             <button type="button" class="btn-tertiary btn-sm" style="border: 0;" data-action="openHelp">
-              ${icon("phone", 16)} Gọi phòng khám: ${config.CLINIC_HOTLINE}
+              ${icon("phone", 16)} ${esc(tx("A1","help"))}
             </button>
           </div>
         `;
@@ -399,8 +399,8 @@
       case "A2":
         return `
           <div class="mini-step">A2 · HỒ SƠ</div>
-          <h2>Tạo hồ sơ của bạn</h2>
-          <p class="lead">Chỉ cần vài thông tin để bắt đầu. Bạn có thể bổ sung sau.</p>
+          <h2>${esc(tx("A2","title"))}</h2>
+          <p class="lead">${esc(tx("A2","description"))}</p>
 
           <div class="box">
             <label class="field-label" for="profile-name">Họ và tên <span class="required">*</span></label>
@@ -418,7 +418,7 @@
           </div>
 
           <button type="button" class="btn-primary" data-action="createProfile">
-            ${icon("check", 18)} <span>Hoàn tất</span>
+            ${icon("check", 18)} <span>${esc(tx("A2","cta"))}</span>
           </button>
           <button type="button" class="btn-secondary" data-action="goBack">Quay lại</button>
         `;
@@ -452,7 +452,7 @@
 
           <!-- Appointment Hero Card -->
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-            <span class="group-label" style="margin: 0;">LỊCH GẦN NHẤT</span>
+            <span class="group-label" style="margin: 0;">${esc(tx("B1","hero"))}</span>
             <button type="button" class="context-bar-btn" style="padding: 2px 8px; font-size: 12px; border: 0; background: none;" data-action="goD1">Xem tất cả →</button>
           </div>
 
@@ -472,7 +472,7 @@
               </p>
 
               <div style="background: #ffffff; border: 1px solid #dbe6f0; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
-                <span style="color: var(--color-text-700);">Đang được xử lý bởi:</span>
+                <span style="color: var(--color-text-700);">Đang chờ</span>
                 <strong style="color: var(--color-brand-700); font-weight: 700;">
                   ${aptStatus === "pending" ? "Phòng khám (Điều phối)" : aptStatus === "arrived" ? "Lễ tân tiếp đón" : aptStatus === "results-ready" ? "Bác sĩ điều trị" : "Bạn"}
                 </strong>
@@ -487,9 +487,9 @@
               <div class="empty-state-icon" style="margin: 0 auto 12px; width: 48px; height: 48px;">
                 ${icon("calendar", 24)}
               </div>
-              <h3 style="font-size: 17px; margin-bottom: 4px;">Bạn chưa có lịch khám</h3>
+              <h3 style="font-size: 17px; margin-bottom: 4px;">Chưa có lịch khám nào.</h3>
               <p class="lead" style="max-width: 260px; margin: 0 auto 16px;">
-                Đặt lịch để bắt đầu hành trình chăm sóc của bạn.
+                Đặt lịch để phòng khám nhắc giờ cho bạn.
               </p>
               <button type="button" class="btn-primary btn-sm" data-action="startBooking" style="width: auto; padding: 8px 24px; margin: 0 auto;">
                 Đặt lịch khám
@@ -499,7 +499,7 @@
 
           <!-- Quick Actions & Tasks -->
           <div style="margin: 18px 0 8px;">
-            <span class="group-label" style="margin: 0;">VIỆC BẠN CẦN LÀM (3)</span>
+            <span class="group-label" style="margin: 0;">${esc(tx("B1","tasks"))}</span>
           </div>
 
           <div class="task-item">
@@ -560,8 +560,8 @@
       case "C1":
         return `
           <div class="mini-step">C1 · BƯỚC 1/4</div>
-          <h2>Ai sẽ đi khám?</h2>
-          <p class="lead">Chọn đúng hồ sơ để lịch khám và kết quả được lưu chính xác.</p>
+          <h2>${esc(tx("C1","title"))}</h2>
+          <p class="lead">Chọn hồ sơ của người sẽ đi khám.</p>
 
           <button type="button" class="choice ${m.person === "self" ? "selected" : ""}" data-action="selectPerson" data-value="self">
             <strong>Nguyễn Minh Anh — Tôi (hồ sơ mẫu)</strong>
@@ -580,7 +580,7 @@
               <strong>Quyền người thân:</strong> Được đặt hộ không đồng nghĩa được phép xem kết quả xét nghiệm.
             </div>
             <button type="button" class="btn-secondary btn-sm" style="margin-top: 8px;" data-action="goG1">
-              Kiểm tra quyền người thân
+              Kiểm tra quyền đặt hộ
             </button>
           </div>
 
@@ -601,8 +601,8 @@
           <h2>Lý do khám</h2>
           ${profileContextBar()}
 
-          <label class="field-label" for="reason-note">Lý do khám (mẫu)</label>
-          <textarea id="reason-note" data-field="reasonNote" placeholder="Nhập mô tả ngắn (không dùng thông tin sức khỏe thật)">${esc(state.reasonNote)}</textarea>
+          <label class="field-label" for="reason-note">${esc(tx("C2","reason"))}</label>
+          <textarea id="reason-note" data-field="reasonNote" placeholder="${esc(tx("C2","hint"))}">${esc(state.reasonNote)}</textarea>
 
           <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px;">
             ${reasons.map(r => `
@@ -614,18 +614,18 @@
 
           <!-- Screening Section -->
           <div class="box warning" style="margin-top: 16px;">
-            <strong style="font-size: 15px; color: var(--color-danger-700);">Sàng lọc — chỉ mô phỏng tương tác</strong>
+            <strong style="font-size: 15px; color: var(--color-danger-700);">${esc(tx("C2","screening"))}</strong>
             <p class="lead" style="margin: 4px 0 10px; font-size: 13px;">
-              Hai lựa chọn bên dưới là dữ liệu kịch bản kiểm thử, không phải câu hỏi sàng lọc lâm sàng.
+              [Dấu hiệu cảnh báo do bác sĩ phòng khám xác định] · Chỉ mô phỏng thử nghiệm.
             </p>
 
             <button type="button" class="choice ${state.screeningChoice === "normal" ? "selected" : ""}" data-action="chooseScreening" data-value="normal">
-              <strong>Không kích hoạt cảnh báo mô phỏng</strong>
+              <strong>Không có (mẫu)</strong>
               <small>Đi tiếp chọn hình thức khám</small>
             </button>
 
             <button type="button" class="choice ${state.screeningChoice === "warning" ? "selected" : ""}" data-action="chooseScreening" data-value="warning">
-              <strong style="color: var(--color-danger-700);">Kích hoạt cảnh báo mô phỏng</strong>
+              <strong style="color: var(--color-danger-700);">Có (mẫu)</strong>
               <small>Chuyển màn C3 để kiểm tra an toàn</small>
             </button>
           </div>
@@ -646,18 +646,18 @@
           <div class="medical-review-badge">
             ${icon("shield", 14)} [MEDICAL REVIEW REQUIRED]
           </div>
-          <h2>Cần hỗ trợ từ nhân viên y tế</h2>
-          <p class="lead">Màn cảnh báo là bản phác thảo giao diện, không phải công cụ đánh giá sức khỏe.</p>
+          <h2>${esc(tx("C3","title"))}</h2>
+          <p class="lead">${esc(tx("C3","explanation"))}</p>
 
           <div class="box warning" style="margin-bottom: 16px;">
-            <strong style="font-size: 16px; color: var(--color-danger-700);">⚠️ Quy trình đặt lịch tự động tạm dừng</strong>
+            <strong style="font-size: 16px; color: var(--color-danger-700);">${esc(tx("C3","safety"))}</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 6px 0 10px; line-height: 1.5;">
               Trong tình huống được đánh dấu, hệ thống cần chuyển sang hướng dẫn hỗ trợ do chuyên môn phê duyệt. Không đưa lời khuyên chẩn đoán và không tự xác định bệnh nhân có thể khám trực tuyến.
             </p>
           </div>
 
           <button type="button" class="btn-danger" data-action="callEmergency">
-            ${icon("phone", 20)} <span>Gọi cấp cứu ngay: ${config.EMERGENCY_NUMBER}</span>
+            ${icon("phone", 20)} <span>${esc(tx("C3","emergency"))}</span>
           </button>
 
           <button type="button" class="btn-secondary" data-action="openHospitalMap">
@@ -670,7 +670,7 @@
 
           <div class="box dashed" style="text-align: center; padding: 14px; margin-top: 14px;">
             <button type="button" class="btn-tertiary btn-sm" style="border: 0; font-size: 14px; font-weight: 600;" data-action="openContinueConfirmation">
-              Tôi vẫn muốn đặt lịch
+              ${esc(tx("C3","continue"))}
             </button>
           </div>
 
@@ -687,7 +687,7 @@
 
         return `
           <div class="mini-step">C4 · BƯỚC 3/4</div>
-          <h2>Chọn lịch khám</h2>
+          <h2>${esc(tx("C4","title"))}</h2>
           ${profileContextBar()}
 
           <label class="field-label">Hình thức khám</label>
@@ -696,11 +696,11 @@
               ${icon("location", 14)} Khám trực tiếp
             </button>
             <button type="button" class="segmented-btn ${state.selectedMode === "online" ? "active" : ""}" data-action="chooseMode" data-value="online">
-              ${icon("video", 14)} Khám trực tuyến (bản mô phỏng)
+              ${icon("video", 14)} ${esc(tx("C4","online"))}
             </button>
           </div>
 
-          <label class="field-label">Ngày khám: Thứ Bảy, 20/06/2026</label>
+          <label class="field-label">Ngày khám · ${formatAppointmentDateTime()}</label>
           <div class="slots-grid">
             ${slots.map(s => `
               <button type="button" class="slot-btn ${m.slot === s ? "selected" : ""}" data-action="chooseSlot" data-value="${s}">
@@ -720,7 +720,7 @@
           ` : ""}
 
           <button type="button" class="btn-primary" data-action="nextSlot" ${!m.slot ? "disabled" : ""}>
-            <span>Chọn giờ này (${esc(m.slot || "Chưa chọn")})</span> ${icon("chevron-right", 18)}
+            <span>${esc(tx("C4","cta"))} (${esc(m.slot || "Chưa chọn")})</span> ${icon("chevron-right", 18)}
           </button>
           <button type="button" class="btn-secondary" data-action="goC2">Quay lại</button>
         `;
@@ -732,7 +732,7 @@
       case "C5":
         return `
           <div class="mini-step">C5 · BƯỚC 4/4</div>
-          <h2>Kiểm tra thông tin</h2>
+          <h2>${esc(tx("C5","title"))}</h2>
           <p class="lead">Xác nhận đúng người khám và lịch trước khi gửi.</p>
           ${profileContextBar()}
 
@@ -756,8 +756,8 @@
                 <span class="review-value">${esc(state.reasonNote || state.reasonCategory || "Khám tổng quát")}</span>
               </div>
               <div class="review-row">
-                <span class="review-label">Chi phí dự kiến</span>
-                <span class="review-value">Từ 300.000đ (Mẫu)</span>
+                <span class="review-label">Phí dự kiến</span>
+                <span class="review-value">[Phí dự kiến do phòng khám xác nhận]</span>
               </div>
             </div>
           </div>
@@ -768,7 +768,7 @@
               <span>↓</span>
             </button>
             <div class="accordion-content">
-              Bạn có thể đổi hoặc hủy lịch miễn phí trước giờ khám ít nhất 2 tiếng qua ứng dụng hoặc hotline ${config.CLINIC_HOTLINE}.
+              [Chính sách đổi, hủy của phòng khám]
             </div>
           </div>
 
@@ -808,13 +808,13 @@
             <div style="width: 60px; height: 60px; border-radius: 50%; background: #e0f6eb; color: #16734b; display: grid; place-items: center; margin: 0 auto 14px;">
               ${icon("check", 32)}
             </div>
-            <h2>Đặt lịch thành công</h2>
-            <p class="lead" style="margin-bottom: 0;">Hệ thống mô phỏng đã xác nhận yêu cầu.</p>
+            <h2>${esc(tx("C6","confirmed"))}</h2>
+            <p class="lead" style="margin-bottom: 0;">Phòng khám đã xác nhận lịch của bạn (mẫu).</p>
           </div>
 
           <div class="box hero hero-confirmed">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <span class="chip success">Confirmed · Demo</span>
+              <span class="chip success">${esc(tx("C6","confirmed"))}</span>
               <span style="font-size: 15px; font-weight: 700; color: var(--color-brand-700);">${esc(aptId)}</span>
             </div>
 
@@ -839,7 +839,7 @@
           </div>
 
           <button type="button" class="btn-primary" data-action="goD2">
-            <span>Xem chi tiết lịch</span> ${icon("chevron-right", 18)}
+            <span>Xem lịch hẹn</span> ${icon("chevron-right", 18)}
           </button>
           <button type="button" class="btn-secondary" data-action="goB1">Về trang chủ</button>
         `;
@@ -851,7 +851,7 @@
       case "D1":
         return `
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-            <h2>Lịch hẹn của tôi</h2>
+            <h2>${esc(tx("D1","title"))}</h2>
             <button type="button" class="context-bar-btn" data-action="startBooking">＋ Đặt lịch mới</button>
           </div>
 
@@ -903,7 +903,7 @@
 
         return `
           <div class="mini-step">D2 · CHI TIẾT LỊCH</div>
-          <h2>Chi tiết lịch khám</h2>
+          <h2>${esc(tx("D2","title"))}</h2>
 
           <div class="box hero">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
@@ -920,7 +920,7 @@
             </p>
 
             <div style="background: #ffffff; border: 1px solid #dbe6f0; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
-              <span style="color: var(--color-text-700);">Đang được xử lý bởi:</span>
+              <span style="color: var(--color-text-700);">Đang chờ</span>
               <strong style="color: var(--color-brand-700); font-weight: 700;">
                 ${status === "pending" ? "Phòng khám" : status === "arrived" ? "Lễ tân tiếp đón" : status === "results-ready" ? "Bác sĩ" : "Bạn"}
               </strong>
@@ -933,7 +933,7 @@
 
           <!-- Dynamic 5-Step Timeline from Data (v2 Section 1.8) -->
           <div class="box">
-            <div class="box-title">Tiến trình khám</div>
+            <div class="box-title">Hành trình buổi khám</div>
             <div class="timeline">
               ${state.currentAppointment.timeline.map((step, idx) => `
                 <div class="timeline-step ${step.state === "done" ? "completed" : step.state === "current" ? "current" : ""}">
@@ -952,11 +952,11 @@
           <div class="box">
             <div class="box-title">Thao tác lượt khám</div>
             <div style="display: grid; gap: 8px;">
-              <button type="button" class="btn-secondary btn-sm" data-action="goE1">Check-in và số thứ tự</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goE1">Check-in</button>
               <button type="button" class="btn-secondary btn-sm" data-action="goE2">Chuẩn bị khám trực tuyến</button>
               <button type="button" class="btn-secondary btn-sm" data-action="goF1">Thanh toán</button>
-              <button type="button" class="btn-secondary btn-sm" data-action="goF2">Xem kết quả / đơn thuốc</button>
-              <button type="button" class="btn-secondary btn-sm" data-action="goD3">Hủy hoặc đổi lịch</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goF2">Xem kết quả</button>
+              <button type="button" class="btn-secondary btn-sm" data-action="goD3">Đổi hoặc hủy lịch</button>
             </div>
           </div>
         `;
@@ -968,7 +968,7 @@
       case "D3":
         return `
           <div class="mini-step">D3 · THAY ĐỔI</div>
-          <h2>Hủy hoặc đổi lịch</h2>
+          <h2>${esc(tx("D3","title"))}</h2>
           <p class="lead">Mọi thay đổi cần được hệ thống phòng khám xác nhận.</p>
 
           <div class="box" style="background: #f8fafc;">
@@ -979,12 +979,12 @@
           </div>
 
           <div class="box">
-            <label class="field-label" for="cancel-reason">Lý do hủy (mô phỏng)</label>
+            <label class="field-label" for="cancel-reason">${esc(tx("D3","reason"))}</label>
             <input id="cancel-reason" data-field="cancelReason" value="${esc(state.cancelReason)}" placeholder="Chọn / nhập lý do" />
           </div>
 
-          <button type="button" class="btn-secondary" data-action="goC4">Đổi ngày giờ</button>
-          <button type="button" class="btn-danger" data-action="cancelAppointment">Gửi yêu cầu hủy (demo)</button>
+          <button type="button" class="btn-secondary" data-action="goC4">Đổi sang giờ khác</button>
+          <button type="button" class="btn-danger" data-action="cancelAppointment">Hủy lịch</button>
           <button type="button" class="btn-tertiary" data-action="goD2" style="font-weight: 700;">Giữ lịch</button>
         `;
 
@@ -996,7 +996,7 @@
 
         return `
           <div class="mini-step">F2 · SAU KHÁM</div>
-          <h2>Đơn thuốc & kết quả</h2>
+          <h2>${esc(tx("F2","title"))}</h2>
           ${profileContextBar()}
 
           <div class="box">
@@ -1009,13 +1009,13 @@
           </div>
 
           <div class="box dashed">
-            <div class="box-title">Đơn thuốc / kết luận</div>
+            <div class="box-title">Kết luận của bác sĩ và đơn thuốc</div>
             <p class="field-hint">
               Nội dung kết luận chỉ xuất hiện khi người có thẩm quyền đã phát hành và người xem có quyền truy cập.
             </p>
           </div>
 
-          <button type="button" class="btn-secondary" data-action="goF3">Xét nghiệm, chụp chiếu theo chỉ định của bác sĩ</button>
+          <button type="button" class="btn-secondary" data-action="goF3">Xét nghiệm và chụp chiếu</button>
           <button type="button" class="btn-secondary" data-action="openHelp">Hỏi phòng khám</button>
         `;
       }
@@ -1032,15 +1032,15 @@
           </div>
 
           <div class="box" style="cursor: pointer;" data-action="goD2">
-            <strong>Cập nhật lịch hẹn</strong>
+            <strong>Phòng khám đã xác nhận lịch</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 4px 0 8px;">
-              Có cập nhật mới cho lượt khám của bạn.
+              Mở app để xem chi tiết
             </p>
             <button type="button" class="btn-secondary btn-sm" data-action="goD2">Mở chi tiết lịch</button>
           </div>
 
           <div class="box" style="cursor: pointer;" data-action="notificationResult">
-            <strong>Có cập nhật mới từ phòng khám</strong>
+            <strong>Có kết quả mới</strong>
             <p style="font-size: 15px; color: var(--color-text-700); margin: 4px 0 8px;">
               Đăng nhập để xem nội dung được phép (mô phỏng).
             </p>
