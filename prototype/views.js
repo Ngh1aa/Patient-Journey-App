@@ -223,6 +223,25 @@
               ? active.slice(0, 1).map((x) => visitCard(s, x, true)).join('') + (active.length > 1 ? nav('Xem tất cả ' + active.length + ' lịch hẹn', 'D1', 'text') : '')
               : empty(T.empty, T.emptyLead),
           );
+        const canSeeResults = !!(v && M.canViewResults(s, v));
+        body += section(VI.layout.services, `<div class="service-grid" aria-label="Các tiện ích chăm sóc">
+          <button type="button" class="service-tile booking-tile" data-action="begin" aria-label="Bắt đầu đặt lịch khám">
+            <span class="service-top"><span class="service-icon">${I('calendar',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="D1" aria-label="Mở danh sách lịch hẹn">
+            <span class="service-top"><span class="service-icon">${I('clock',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>Lịch hẹn</strong><small>Theo dõi lượt khám</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="F1" ${canSeeResults ? '' : 'disabled aria-disabled="true"'} aria-label="Xem kết quả xét nghiệm">
+            <span class="service-top"><span class="service-icon">${I('document-check',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>Kết quả</strong><small>${canSeeResults ? 'Xét nghiệm liên quan' : v ? 'Chưa được cấp quyền xem' : 'Cần có lượt khám'}</small>
+          </button>
+          <button type="button" class="service-tile" data-action="go" data-to="I1" ${v ? '' : 'disabled aria-disabled="true"'} aria-label="Theo dõi chăm sóc sau khám">
+            <span class="service-top"><span class="service-icon">${I('heart-pulse',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
+            <strong>${esc(VI.layout.aftercare)}</strong><small>${v ? esc(T.careLead) : 'Cần có lượt khám'}</small>
+          </button>
+        </div>`);
         if (v) {
           const next = M.nextAction(v);
           body += section(
@@ -252,25 +271,7 @@
           );
         }
 
-        const canSeeResults = !!(v && M.canViewResults(s, v));
-        body += section(VI.layout.services, `<div class="service-grid" aria-label="Các tiện ích chăm sóc">
-          <button type="button" class="service-tile booking-tile" data-action="begin" aria-label="Bắt đầu đặt lịch khám">
-            <span class="service-top"><span class="service-icon">${I('calendar',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
-            <strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>
-          </button>
-          <button type="button" class="service-tile" data-action="go" data-to="D1" aria-label="Mở danh sách lịch hẹn">
-            <span class="service-top"><span class="service-icon">${I('clock',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
-            <strong>Lịch hẹn</strong><small>Theo dõi lượt khám</small>
-          </button>
-          <button type="button" class="service-tile" data-action="go" data-to="F1" ${canSeeResults ? '' : 'disabled aria-disabled="true"'} aria-label="Xem kết quả xét nghiệm">
-            <span class="service-top"><span class="service-icon">${I('document-check',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
-            <strong>Kết quả</strong><small>${canSeeResults ? 'Xét nghiệm liên quan' : v ? 'Chưa được cấp quyền xem' : 'Cần có lượt khám'}</small>
-          </button>
-          <button type="button" class="service-tile" data-action="go" data-to="I1" ${v ? '' : 'disabled aria-disabled="true"'} aria-label="Theo dõi chăm sóc sau khám">
-            <span class="service-top"><span class="service-icon">${I('heart-pulse',24)}</span><span class="service-arrow">${I('arrow-right',17)}</span></span>
-            <strong>${esc(VI.layout.aftercare)}</strong><small>${v ? esc(T.careLead) : 'Cần có lượt khám'}</small>
-          </button>
-        </div>`) + row(T.help, T.helpLead, 'K5', 'phone');
+        body += row(T.help, T.helpLead, 'K5', 'phone');
         break;
       }
       case 'C1':
