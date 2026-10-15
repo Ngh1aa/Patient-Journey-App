@@ -1064,7 +1064,7 @@
   $('screen-picker').addEventListener('change', (e) => go(e.target.value));
   $('scenario').addEventListener('change', (e) => loadScenario(e.target.value));
   $('phone-content').addEventListener('change', (e) => {
-    if (e.target.dataset.select === 'visit') {
+    if (e.target.name === VI.screen.I1.visit) {
       s.activeVisitId = e.target.value;
       u.forms = {};
       go('I1', { visitId: s.activeVisitId });

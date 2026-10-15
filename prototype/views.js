@@ -617,7 +617,18 @@
           break;
         }
         body =
-          `<div class="field"><label for="care-visit">${esc(T.visit)}</label><select id="care-visit" data-select="visit">${completed.map((x) => `<option value="${x.id}"${x.id === v?.id ? ' selected' : ''}>${esc(M.profile(s, x.patientId)?.name)} · ${esc(x.id)}</option>`).join('')}</select></div>` +
+          section(
+            T.visit,
+            choices(
+              T.visit,
+              completed.map((x) => [
+                x.id,
+                M.profile(s, x.patientId)?.name,
+                x.id + ' · ' + dateText(x),
+              ]),
+              v?.id,
+            ),
+          ) +
           `<div class="list">${['medicine', 'question', 'symptoms'].map((k) => row(T[k], T[k + 'Hint'], 'I2', k === 'medicine' ? 'pill' : 'document', { 'data-reason': k })).join('')}${row(T.tracking, '', 'I3', 'heart-pulse')}${row(T.referral, '', 'I4', 'document')}${row(T.messages, '', 'I5', 'phone')}</div>`;
         break;
       }
