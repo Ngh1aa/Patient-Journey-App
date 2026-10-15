@@ -231,3 +231,27 @@ body{font-size:13px;color:var(--doctor-text)}
  .wave-consult .consult-tabs .tab{white-space:nowrap}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Make consultation side context informative, not an empty shell */
+.wave-consult .consult-quickfacts{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 13px 12px}
+.wave-consult .consult-quickfacts>div{background:#f6faff;border:1px solid #e2ecf6;border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.wave-consult .consult-quickfacts span{font-size:9px;color:#6c849a}
+.wave-consult .consult-quickfacts strong{font-size:10px;color:#1b4f74;overflow-wrap:anywhere}
+.wave-consult .followup-panel>p{margin-bottom:11px}
+.wave-consult .followup-foot{font-size:10px}
+/* Avoid artificially tall prescription document block */
+.support-screen .support-document{min-height:0;margin:7px 19px 0;padding:16px 17px}
+.support-screen .support-document h2{margin:10px 0 6px}
+.support-screen .support-document p{margin:7px 0 9px;line-height:1.65}
+.support-screen .support-document-panel{padding-bottom:18px}
+.support-screen .support-document-panel>.support-patient-main{padding:8px 19px}
+.support-screen .support-rule{margin-inline:19px}
+.support-screen .support-form{gap:11px}
+.support-screen .support-form-panel{padding-bottom:13px}
+.support-screen .support-note{margin:9px 18px 14px;padding:11px 13px;font-size:10.5px;line-height:1.6}
+.support-screen .support-guidance>h2{margin:20px 20px 11px;font-size:15px}
+.support-screen .support-check-list{margin-inline:19px}
+.support-screen .support-review-item{margin-inline:20px;padding:10px 0}
+/* Footer remains the single compact prototype notice */
+.app-footer .footer-reset{white-space:nowrap;font-size:10px}
+@media(max-width:690px){.wave-consult .consult-quickfacts{grid-template-columns:1fr}}
