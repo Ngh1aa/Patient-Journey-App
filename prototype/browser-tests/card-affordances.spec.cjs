@@ -11,6 +11,8 @@ test('appointment card shows real visit context and labeled detail action',async
  await expect(c.locator('.visit-person strong')).not.toBeEmpty();
  await expect(c.locator('.visit-schedule')).toBeVisible();
  await expect(c.locator('.visit-bottom .chip')).toHaveCount(1);
+ const ordered=await page.evaluate(()=>document.querySelector('.service-grid').getBoundingClientRect().top<document.querySelector('.home-tasks').getBoundingClientRect().top);
+ expect(ordered).toBe(true);
  await expect(c.locator('.visit-open')).toContainText('Xem phiếu khám');
  await page.locator('#phone-frame').screenshot({path:info.outputPath('card-visit-390.png'),animations:'disabled'});
  await c.click();
@@ -61,6 +63,14 @@ for(const width of [360,390,430]){
    expect(dims.phoneScroll).toBeLessThanOrEqual(dims.phoneClient+1);
    expect(dims.cardWidth).toBeLessThanOrEqual(dims.contentWidth+1);
    expect(dims.cols).toBe(large?1:2);
+   if(large){
+    const alignment=await page.evaluate(()=>{
+      const avatar=document.querySelector('.greeting>.avatar').getBoundingClientRect();
+      const h1=document.querySelector('.greeting h1').getBoundingClientRect();
+      return {avatarRight:avatar.right,headingLeft:h1.left};
+    });
+    expect(alignment.avatarRight).toBeLessThanOrEqual(alignment.headingLeft+1);
+   }
    if(width===390)await phone.screenshot({path:info.outputPath('card-'+width+'-'+(large?'large':'normal')+'.png'),animations:'disabled'});
   }
  });
