@@ -1600,7 +1600,40 @@
   }
 
   // Action Dispatcher
-  function handleAction(action, value) {
+    function runExtendedAction(action,value){
+  const record=()=>{const pid=m.person==="self"?"patient-self":"patient-relative";return extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false});};
+  const r=record();
+  switch(action){
+    case "qrCheckin":return showNotice("Bạn có thể quét mã QR tại quầy. Tính năng quét mã chưa kết nối (mẫu).");
+    case "audioOnly":state.videoCamera=false;return showNotice("Đã chuyển sang chế độ chỉ âm thanh (mẫu).");
+    case "switchToOnsite":state.selectedMode="in-person";m.mode="onsite";return nav("D3");
+    case "choosePaymentMethod":r.paymentMethod=value;return render();
+    case "deferPayment":r.paymentStatus="deferred";r.paymentDue=state.paymentDue||"";return showNotice("Đã ghi nhận đề nghị thanh toán sau (mẫu). Phòng khám cần xác nhận.","success");
+    case "showReceipt":return showNotice("Biên lai minh họa: mã DEMO-001, số tiền 350.000 ₫. Không phải chứng từ thanh toán thật.");
+    case "simulatedSettlePayment":if(m.payment!=="pending_reconciliation")return showNotice("Chưa có khoản chuyển đang xác minh.","error");M.settlePayment(m);r.paymentStatus="paid";return showNotice("Đã thanh toán — trạng thái được gán bởi bộ mô phỏng, không phải ngân hàng.","success");
+    case "bookLab":r.labAppointment=true;return showNotice("Đã tạo lịch xét nghiệm giả lập. Cần phòng khám xác nhận trước khi đến.","success");
+    case "uploadLab":return showNotice("Chỉ sử dụng dữ liệu mẫu. Không tải thông tin sức khỏe thật lên prototype.");
+    case "contactTab":extra.contactTab=Number(value);return render();
+    case "messageSuggestion":extra.supportMessage=value;return render();
+    case "sendMessage":if(!extra.supportMessage.trim())return showNotice("Bạn nhập nội dung trước khi gửi nhé.","error");r.messages.push(extra.supportMessage.trim());extra.supportMessage="";return showNotice("Phòng khám đã nhận tin của bạn (mẫu).","success");
+    case "chooseSymptom":r.symptom=value;return render();
+    case "chooseSeverity":extra.severity=value;return render();
+    case "sendSymptoms":if(!r.symptom)return showNotice("Bạn hãy chọn nội dung cần báo.","error");r.messages.push("Báo triệu chứng: "+r.symptom+" · "+extra.severity);return showNotice("Phòng khám đã nhận tin của bạn (mẫu).","success");
+    case "selectFamilyProfile":if(value==="patient-father")return showNotice("Hồ sơ này chưa được kết nối trong demo.","error");M.choosePerson(m,value==="patient-self"?"self":"relative");return showNotice("Đang chọn hồ sơ: "+personShort()+".");
+    case "addFamily":return showNotice("Thêm người thân chưa kết nối dữ liệu thật. Vui lòng gọi phòng khám để xác minh quyền.");
+    case "settingsSection":return showNotice("Mục "+value+" đang có trong bản xem thử. Bạn có thể chỉnh cỡ chữ và thông báo bên dưới.");
+    case "setFontSize":extra.fontSize=Number(value);state.largeText=extra.fontSize>0;document.body.classList.toggle("large-text",state.largeText);return render();
+    case "toggleSetting":extra.settings[Number(value)]=!extra.settings[Number(value)];return render();
+    case "promptLogout":state.activeModal="logout-confirm";return render();
+    case "promptDelete":state.activeModal="delete-confirm";return render();
+    case "confirmLogout":state.activeModal=null;return nav("A1");
+    case "faq":return showNotice("Câu hỏi: "+value+". Phòng khám sẽ hướng dẫn chi tiết khi được cấu hình.");
+    default:return null;
+  }
+}
+
+function handleAction(action, value) {
+    if (["qrCheckin","audioOnly","switchToOnsite","choosePaymentMethod","deferPayment","showReceipt","simulatedSettlePayment","bookLab","uploadLab","contactTab","messageSuggestion","sendMessage","chooseSymptom","chooseSeverity","sendSymptoms","selectFamilyProfile","addFamily","settingsSection","setFontSize","toggleSetting","promptLogout","promptDelete","confirmLogout","faq"].includes(action)) return runExtendedAction(action,value);
     switch (action) {
       case "tapHeaderTitle":
         titleTapCount++;
@@ -1896,7 +1929,8 @@
         return render();
 
       case "beginPayment":
-        M.startPayment(m);
+        if(m.payment==="unpaid")M.startPayment(m);
+        { const pid=m.person==="self"?"patient-self":"patient-relative"; const rec=extra.byPatient[pid]||(extra.byPatient[pid]={messages:[],symptom:"",lab:"ordered",labAppointment:false,paymentMethod:"qr",paymentStatus:"unpaid",paymentDue:"",receipt:false}); rec.paymentStatus=m.payment; }
         return showNotice("Đang xác nhận thanh toán. Quét QR không tự thành đã thu.", "info");
 
       case "viewResult":
