@@ -107,6 +107,11 @@
     const labels = { received: ['Đã nhận cập nhật của bạn','Điều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.'], coordinating: ['Điều phối viên đang xử lý','Thông tin của bạn đang được tổng hợp để chuyển bác sĩ.'], 'doctor-review': ['Bác sĩ đang xem','Phòng khám sẽ phản hồi khi bác sĩ có hướng dẫn tiếp theo.'], answered: ['Phòng khám đã phản hồi','Bạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.'] };
     return card(`${chip(labels[task.status][0])}<p class="eyebrow">Ai đang xử lý</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
+  // Auth visuals are shared; each screen retains its real form and validation.
+  const authVisual = () =>
+    '<div class="auth-scene" aria-hidden="true"><span class="auth-scene-circle"></span><span class="auth-scene-ring"></span></div>';
+  const authPanel = (title, lead, controls, variant = '') =>
+    `<section class="auth-panel ${esc(variant)}" aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
     const T = VI.screen[id],
       v = M.visit(s),
@@ -119,9 +124,12 @@
       go(label, to, variant, extra);
     switch (id) {
       case 'A1':
-        intro = `<div class="onboarding-hero"><p>CAREFLOW · HÀNH TRÌNH CỦA BẠN</p><div class="onboarding-orbit" aria-hidden="true">${I('heart-pulse', 66)}</div></div>`;
-        body =
-          `<section class="onboarding-sheet">${head(T.heading, T.lead)}` +
+        intro = authVisual();
+        body = authPanel(
+          u.otpSent ? 'Xác nhận số điện thoại' : T.heading,
+          u.otpSent
+            ? 'Nhập mã xác nhận để tiếp tục với hồ sơ của bạn.'
+            : T.lead,
           form(
             u.otpSent ? 'verify' : 'otp',
             field('phone', T.phone, u.phone || '', 'tel', {
@@ -139,11 +147,15 @@
                 : ''),
             u.otpSent ? T.verify : T.getCode,
           ) +
-          (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
-          nav(C.support, 'K5', 'text') + '</section>';
+            (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
+            nav(C.support, 'K5', 'text'),
+          u.otpSent ? 'auth-otp' : 'auth-start',
+        );
         break;
       case 'A2':
-        body =
+        intro = authVisual();
+        body = authPanel(
+          T.heading, T.lead,
           form(
             'match',
             field('name', T.name, p?.name || '', 'text', {
@@ -153,17 +165,26 @@
               field('contactPhone', C.contactPhone, p?.phone || '', 'tel') +
               textarea('medicalHistory', C.medicalHistory, p?.medicalHistory || ''),
             T.confirm,
-          ) + btn(T.different, 'different-profile', {}, 'text');
+          ) + btn(T.different, 'different-profile', {}, 'text'),
+          'auth-profile',
+        );
         break;
       case 'A3':
-        body = form(
-          'profile',
-          field('name', T.name, '', 'text', { autocomplete: 'name' }) +
-            field('dob', T.dob, '', 'date', {
-              max: M.localDate(),
-              required: 'required',
-            }) + field('contactPhone', C.contactPhone, '', 'tel') + textarea('medicalHistory', C.medicalHistory),
-          T.submit,
+        intro = authVisual();
+        body = authPanel(
+          T.heading, T.lead,
+          form(
+            'profile',
+            field('name', T.name, '', 'text', { autocomplete: 'name' }) +
+              field('dob', T.dob, '', 'date', {
+                max: M.localDate(),
+                required: 'required',
+              }) +
+              field('contactPhone', C.contactPhone, '', 'tel') +
+              textarea('medicalHistory', C.medicalHistory),
+            T.submit,
+          ),
+          'auth-profile',
         );
         break;
       case 'B1': {
