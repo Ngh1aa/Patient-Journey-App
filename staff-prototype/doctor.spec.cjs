@@ -482,3 +482,22 @@ test('journey command cards render and fit in all responsive viewports',async({p
   await page.screenshot({path:testInfo.outputPath('clinical-command-'+size.width+'.png'),fullPage:true,animations:'disabled'});
  }
 });
+
+test('cross-screen design evidence: clinical decision, online, aftercare and result',async({page},testInfo)=>{
+ const sizes=[{width:1440,height:900},{width:375,height:812}];
+ const screens=[['review','/doctor/review/a-021'],['online','/doctor/online/a-040'],['followups','/doctor/followups'],['results','/results']];
+ for(const size of sizes){
+  await page.setViewportSize(size);
+  for(const [name,path] of screens){
+   await page.goto('/staff-prototype/index.html#'+path);
+   await expect(page.locator('main')).toBeVisible();
+   const sizeCheck=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
+   expect(sizeCheck.scroll,path+' at '+size.width).toBeLessThanOrEqual(sizeCheck.width+1);
+   if(name==='followups'){
+    await expect(page.locator('.journey-deadline-item')).toHaveCount(3);
+    await expect(page.locator('.journey-deadline-item').first()).toContainText('15/10/2026');
+   }
+   await page.screenshot({path:testInfo.outputPath('journey-'+name+'-'+size.width+'.png'),fullPage:true,animations:'disabled'});
+  }
+ }
+});
