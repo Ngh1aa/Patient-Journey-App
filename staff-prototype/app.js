@@ -9,7 +9,9 @@
     {id:'p-004',name:'Phạm Gia Huy',initials:'GH',age:26,gender:'Nam',phone:'09•• ••• 837',code:'BN-2044',history:'Bệnh nhân mới',note:'Chờ khám',color:'mint'},
     {id:'p-005',name:'Đặng Ngọc Mai',initials:'NM',age:39,gender:'Nữ',phone:'09•• ••• 742',code:'BN-2045',history:'Đã từng khám',note:'Cần liên hệ lại',color:'peach'},
     {id:'p-006',name:'Võ Thanh Tùng',initials:'TT',age:31,gender:'Nam',phone:'09•• ••• 691',code:'BN-2046',history:'Đã từng khám',note:'Đang khám',color:'purple'},
-    {id:'p-007',name:'Bùi Lan Chi',initials:'LC',age:36,gender:'Nữ',phone:'09•• ••• 348',code:'BN-2047',history:'Bệnh nhân cũ',note:'Sẵn sàng khám',color:'blue'}
+    {id:'p-007',name:'Bùi Lan Chi',initials:'LC',age:36,gender:'Nữ',phone:'09•• ••• 348',code:'BN-2047',history:'Bệnh nhân cũ',note:'Sẵn sàng khám',color:'blue'},
+    {id:'p-008',name:'Hoàng Nhật Nam',initials:'NN',age:32,gender:'Nam',phone:'09•• ••• 572',code:'BN-2048',history:'Tái khám trực tuyến',note:'Chờ kết nối',color:'mint'},
+    {id:'p-009',name:'Mai Khánh Vy',initials:'KV',age:28,gender:'Nữ',phone:'09•• ••• 486',code:'BN-2049',history:'Khám trực tuyến',note:'Cần hỗ trợ liên hệ',color:'purple'}
   ];
   const seedAppointments=[
     {id:'a-018',code:'PK-1015-018',personId:'p-001',time:'09:00',mode:'Tại phòng khám',status:'pending',owner:'Lễ tân',doctor:'BS. Nguyễn Văn An',reason:'Ho 2 ngày, hơi sốt',history:'Tiền sử đã khai báo',date:'15/10/2026'},
@@ -18,7 +20,9 @@
     {id:'a-027',code:'PK-1015-027',personId:'p-004',time:'10:30',mode:'Tại phòng khám',status:'ready',owner:'Bác sĩ',doctor:'BS. Nguyễn Văn An',reason:'Khám theo lịch',history:'Lần đầu đến phòng khám',date:'15/10/2026'},
     {id:'a-030',code:'PK-1015-030',personId:'p-005',time:'11:15',mode:'Khám online',status:'unreachable',owner:'Điều phối',doctor:'BS. Trần Phương Linh',reason:'Trao đổi kết quả',history:'Đã từng khám',date:'15/10/2026'},
     {id:'a-033',code:'PK-1015-033',personId:'p-006',time:'08:45',mode:'Tại phòng khám',status:'in-consult',owner:'Bác sĩ',doctor:'BS. Nguyễn Văn An',reason:'Tái khám',history:'Đã từng khám',date:'15/10/2026'},
-    {id:'a-034',code:'PK-1015-034',personId:'p-007',time:'11:45',mode:'Tại phòng khám',status:'ready',owner:'Bác sĩ',doctor:'BS. Nguyễn Văn An',reason:'Khám theo hẹn',history:'Đã từng khám',date:'15/10/2026'}
+    {id:'a-034',code:'PK-1015-034',personId:'p-007',time:'11:45',mode:'Tại phòng khám',status:'ready',owner:'Bác sĩ',doctor:'BS. Nguyễn Văn An',reason:'Khám theo hẹn',history:'Đã từng khám',date:'15/10/2026'},
+    {id:'a-040',code:'PK-1015-040',personId:'p-008',time:'14:00',mode:'Khám online',status:'ready',owner:'Bác sĩ',doctor:'BS. Nguyễn Văn An',reason:'Tái khám theo lịch trực tuyến',history:'Hẹn trực tuyến đã xác nhận và bàn giao',date:'15/10/2026'},
+    {id:'a-041',code:'PK-1015-041',personId:'p-009',time:'14:30',mode:'Khám online',status:'unreachable',owner:'Điều phối',doctor:'BS. Nguyễn Văn An',reason:'Trao đổi triệu chứng',history:'Chưa kết nối được qua kênh đã hẹn',date:'15/10/2026'}
   ];
   const seedResults=[
     {id:'r-01',personId:'p-001',title:'Công thức máu',type:'Xét nghiệm',date:'15/10/2026',status:'ready',doctor:'BS. Nguyễn Văn An',code:'XN-1152'},
@@ -27,7 +31,12 @@
     {id:'r-04',personId:'p-004',title:'Tổng phân tích nước tiểu',type:'Xét nghiệm',date:'15/10/2026',status:'ready',doctor:'BS. Nguyễn Văn An',code:'XN-1156'},
     {id:'r-05',personId:'p-005',title:'Siêu âm tổng quát',type:'Chẩn đoán hình ảnh',date:'13/10/2026',status:'reviewed',doctor:'BS. Trần Phương Linh',code:'CD-2028'}
   ];
-  function init(){return {appointments:structuredClone(seedAppointments),results:structuredClone(seedResults),drafts:{},signed:{}}}
+  function init(){return {appointments:structuredClone(seedAppointments),results:structuredClone(seedResults),drafts:{},signed:{},doctorReviews:{},resultNexts:{},onlineVisits:{},
+    doctorTasks:[
+      {id:'case-a-033',title:'Theo dõi sau tái khám',desc:'Kiểm tra phản hồi theo kế hoạch xử trí đã ghi nhận',category:'Theo dõi lâm sàng',personId:'p-006',owner:'Bác sĩ',due:'18/10/2026',next:'Đối chiếu ghi nhận của lần tái khám',route:'/patients/p-006',done:false},
+      {id:'case-a-041',title:'Liên hệ lại phiên khám trực tuyến',desc:'Chưa kết nối được với người bệnh',category:'Kết nối',personId:'p-009',owner:'Điều phối',due:'15/10/2026',next:'Xác nhận khả năng liên hệ và bố trí phương án khác',route:'/doctor/online/a-041',done:false},
+      {id:'case-a-001',title:'Rà soát kết quả cận lâm sàng',desc:'Kết quả công thức máu chưa được bác sĩ xem',category:'Cận lâm sàng',personId:'p-001',owner:'Bác sĩ',due:'16/10/2026',next:'Mở kết quả, ghi nhận đã xem và xác định bước tiếp theo',route:'/results',done:false}
+    ]}}
   let data;
   try {const p=JSON.parse(sessionStorage.getItem(KEY)||'null');data=(p&&Array.isArray(p.appointments)&&Array.isArray(p.results))?p:init()}catch{data=init()}
   const ui={role:'doctor',lastPage:'/doctor',drawerTime:null,dayOffset:0,calendarMode:'week',doctorFilter:'all',patientFilter:'all',patientSearch:'',resultFilter:'all',resultSelected:'r-01',profileTab:'overview',consultTab:'notes',consultId:'a-033',modal:null,notifications:false,toast:null};
@@ -193,11 +202,11 @@
     if(action==='mode-review'){ui.modal={type:'review'};render();return}
     if(action==='confirm-appointment'){const a=appt(id);if(a.status!=='pending'){notify('Trạng thái hiện tại không cho phép xác nhận lịch.');return}a.status='confirmed';a.owner='Bệnh nhân';if(ui.drawerTime&&ui.drawerTime!==a.time){go('/schedule/'+id);notify('Để đổi giờ, hãy ghi lý do trong trang Quản lý lịch.');return}save();ui.drawerTime=null;notify(`Đã xác nhận lịch của ${person(a.personId).name}`);return}
     if(action==='reschedule'){go('/schedule/'+id);return}
-    if(action==='start-consult'){const a=appt(id);if(a.status==='cancelled'){notify('Lịch đã hủy, không thể bắt đầu khám.');return}if(a.status==='review'){ui.modal={type:'review'};render();return}if(a.status==='pending'){notify('Hãy xác nhận lịch trước khi mở buổi khám.');return}if(a.status==='confirmed'||a.status==='ready'||a.status==='arrived'){a.status='in-consult';a.owner='Bác sĩ';save()}ui.consultTab='notes';ui.role='doctor';go('/encounters/'+a.id);return}
+    if(action==='start-consult'){const a=appt(id);if(!a.doctor.includes('Nguyễn Văn An')){notify('Lượt khám không thuộc lịch của bác sĩ.');return}if(a.status!=='ready'&&a.status!=='in-consult'){notify('Chỉ bắt đầu khám sau khi bệnh nhân được bàn giao ở trạng thái Sẵn sàng khám.');return}if(a.mode.toLowerCase().includes('online')&&a.status==='ready'&&data.onlineVisits?.[a.id]?.connection!=='connected'){notify('Cần xác nhận kết nối trước khi bắt đầu khám trực tuyến.');go('/doctor/online/'+a.id);return}if(a.status==='ready'){a.status='in-consult';a.owner='Bác sĩ';save()}ui.consultTab='notes';ui.role='doctor';go('/encounters/'+a.id);return}
     if(action==='consult-tab'){ui.consultTab=value;render();return}
     if(action==='save-draft'){save();notify('Đã lưu ghi nhận thăm khám');return}
-    if(action==='review-sign'){const a=appt(id);if(a.status==='completed'){notify('Lượt khám đã hoàn tất.');return}if(a.status!=='in-consult'){notify('Lượt khám chưa bắt đầu hoặc chưa đủ điều kiện hoàn tất.');return}ui.modal={type:'sign',id};render();return}
-    if(action==='confirm-sign'){const a=appt(id);if(a.status!=='in-consult'){notify('Lượt khám chưa đủ điều kiện hoàn tất.');return}a.status='completed';a.owner='Đã hoàn tất';data.signed[id]=true;ui.modal=null;save();notify(`Đã hoàn tất hồ sơ khám của ${person(a.personId).name}`);return}
+    if(action==='review-sign'){const a=appt(id);if(a.status==='completed'){notify('Lượt khám đã hoàn tất.');return}if(a.status!=='in-consult'){notify('Lượt khám chưa bắt đầu hoặc chưa đủ điều kiện hoàn tất.');return}const d=data.drafts[a.id]||{};if(['symptom','assessment','plan'].some(k=>!String(d[k]||'').trim())){notify('Cần hoàn thiện triệu chứng, nhận định lâm sàng và kế hoạch xử trí trước khi hoàn tất.');return}if(data.results.some(r=>r.personId===a.personId&&r.status==='ready')){notify('Vẫn còn kết quả cận lâm sàng chưa được bác sĩ xem.');return}ui.modal={type:'sign',id};render();return}
+    if(action==='confirm-sign'){const a=appt(id);const d=data.drafts[a.id]||{};if(a.status!=='in-consult'||['symptom','assessment','plan'].some(k=>!String(d[k]||'').trim())||data.results.some(r=>r.personId===a.personId&&r.status==='ready')){ui.modal=null;notify('Cần rà soát đủ ghi nhận và các kết quả liên quan trước khi hoàn tất.');return}a.status='completed';a.owner='Đã hoàn tất';data.signed[id]=true;ui.modal=null;save();notify(`Đã hoàn tất hồ sơ khám của ${person(a.personId).name}`);return}
     if(action==='review-result'){const r=data.results.find(x=>x.id===id);if(!r||r.status!=='ready')return;r.status='reviewed';save();notify(`Đã ghi nhận bác sĩ xem kết quả ${r.title}`);return}
   }
   document.addEventListener('click',ev=>{
