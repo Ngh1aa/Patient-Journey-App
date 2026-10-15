@@ -8,6 +8,7 @@
     KEY = 'careflow.browser.v3';
   let returnHash = null;
   let guideEnabled = false;
+  let restoredSession = false;
   let s = M.initial(),
     u = {
       screen: 'A1',
@@ -35,6 +36,7 @@
     ) {
       s = saved.state;
       u = { ...u, ...saved.ui, forms: saved.ui?.forms || {} };
+      restoredSession = true;
     }
   } catch {
     demo('Phiên trước không đọc được. Đã mở phiên thử nghiệm mới.');
@@ -333,7 +335,7 @@
     const selected = variant || flow.variants?.[0][0] || 'default';
     guideEnabled = true;
     s = window.CareFlowJourney.seed(flow, selected);
-    u = {...u, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
+    u = {...u, inspection:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
     const params = new URLSearchParams(location.search);
     params.set('journey', flow.id);
     params.set('branch', selected);
@@ -344,6 +346,33 @@
     go(flow.steps(selected)[0].screen,{},true);
     const panel = document.querySelector('.journey-panel'), active = panel.querySelector('.journey-item.active');
     if(active && flow.id!=='F1')panel.scrollTop=Math.max(0,active.offsetTop-panel.offsetTop-150);
+  }
+  function restoreJourney() {
+    const id = readRoute().id, v = M.visit(s), l = v?.labs[0];
+    let flowId='F1', variant='default';
+    if(id==='A2')flowId='F2';
+    else if(['C4','C5'].includes(id) || (/^C[7-9]$/.test(id) && s.draft?.risk) || (id==='D2' && v?.status==='mode-review')){flowId='F3';variant='review';}
+    else if(id==='J1' || (/^C[2-8]$/.test(id) && s.draft?.purpose==='followup'))flowId='F12';
+    else if(id.startsWith('E'))flowId='F4';
+    else if(id.startsWith('F')){flowId=l?.timing==='pre'?'F5':'F10';variant=flowId==='F5'?(l?.returnPath || 'visit'):'summary';}
+    else if(id.startsWith('G')){flowId=id==='G5'?'F8':'F7';variant=id==='G5'?'callback':'default';}
+    else if(['D3','D4'].includes(id) || (id==='D2' && ['cancelled','no-show'].includes(v?.status))){flowId='F6';variant=id==='D3'?'reschedule':v?.status==='no-show'?'no-show':'cancel';}
+    else if(/^H[2-5]$/.test(id)){flowId='F9';variant=id==='H3'?'later':id==='H4'?'transfer':'counter';}
+    else if(id==='H7'){flowId='F10';variant='summary';}
+    else if(id.startsWith('I')){flowId='F11';variant=id==='I3'?'tracking':id==='I4'?'referral':u.reportReason || 'medicine';}
+    else if(v?.status==='completed')flowId='F4';
+    if(!s.authenticated)flowId='F1';
+    const flow=window.CareFlowJourney.flows.find(f=>f.id===flowId);
+    if(flow.variants && !flow.variants.some(([key])=>key===variant))variant=flow.variants[0][0];
+    const steps=flow.steps(variant);
+    let index=steps.findIndex(step=>step.screen===id);
+    if(flowId==='F1' && s.authenticated)index=id==='A3'||!s.profiles.length?2:index<0?3:index;
+    if(!s.authenticated)index=0;
+    if(flowId==='F5' && l?.status==='available')index=3;
+    if(flowId==='F5' && l?.continuation)index=4;
+    u.inspection=false;
+    u.journey={id:flowId,variant,index:Math.max(0,index)};
+    // Adopt the route and draft in place. Switching journeys remains an explicit reset.
   }
   function prefillJourney() {
     const branch=u.journey.variant;
@@ -1173,6 +1202,8 @@
     s = name === 'new' ? M.initial() : M.fixture(name);
     u = {
       ...u,
+      inspection: true,
+      journey: null,
       forms: {},
       otpSent: false,
       phone: '',
@@ -1188,7 +1219,8 @@
   }
   window.addEventListener('hashchange', render);
   const params = new URLSearchParams(location.search);
-  guideEnabled = !params.has('scenario') && (params.has('journey') || !location.hash || !!u.journey);
+  if(params.has('inspect'))u.inspection=true;
+  guideEnabled = !params.has('scenario') && !params.has('inspect') && (params.has('journey') || !location.hash || !!u.journey || !u.inspection);
   if(guideEnabled && u.journey?.index===1 && ['F1','F2'].includes(u.journey.id) && !s.authenticated) u.otpSent=true;
   if (
     [
@@ -1203,6 +1235,7 @@
     ].includes(params.get('scenario'))
   ) {
     u.journey = null;
+    u.inspection = true;
     s =
       params.get('scenario') === 'new'
         ? M.initial()
@@ -1241,6 +1274,7 @@
   document.querySelector('.journey-panel').hidden = !guideEnabled;
   document.body.classList.toggle('guided',guideEnabled);
   if(guideEnabled){$('review-toggle').textContent='Bắt đầu lại';$('review-toggle').setAttribute('aria-controls','journey-list');}
-  if(guideEnabled && (!u.journey || (params.has('journey') && params.get('journey')!==u.journey.id) || (params.has('branch') && params.get('branch')!==u.journey.variant))) startJourney(params.get('journey') || 'F1',params.get('branch'));
+  if(guideEnabled && !u.journey && restoredSession && !params.has('journey')){restoreJourney();render();}
+  else if(guideEnabled && (!u.journey || (params.has('journey') && params.get('journey')!==u.journey.id) || (params.has('branch') && params.get('branch')!==u.journey.variant))) startJourney(params.get('journey') || 'F1',params.get('branch'));
   else render();
 })();

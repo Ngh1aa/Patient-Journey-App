@@ -426,7 +426,8 @@ test('copy contains no developer jargon in patient screens', () => {
 test('script loading order and mobile viewport are intact', () => {
   const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
   assert.ok(html.includes('viewport-fit=cover'));
-  assert.ok(html.indexOf('src="./model.js"') < html.indexOf('src="./app.js"'));
+  const appIndex = html.search(/src="\.\/app\.js(?:\?[^"\s]*)?"/);
+  assert.ok(appIndex > html.indexOf('src="./model.js"'));
   assert.ok(html.includes('Trải nghiệm minh họa'));
   assert.ok(html.includes('Không gửi yêu cầu hoặc thanh toán thực'));
 });

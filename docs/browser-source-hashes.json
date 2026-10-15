@@ -1,13 +1,13 @@
 {
-  "sourceRevision": "414da68b3d234f429b38202287a968bde565f7c2",
+  "sourceRevision": "fix/restore-guided-patient-links: runtime bytes",
   "scope": "Actual local browser source bytes. Not native/clinical/deployment evidence.",
   "files": {
-    "prototype/index.html": "bedb92fcc0d60fe1fb851fe6e299ab84b4aaf698953ff2cbb8bfe5577414a9a6",
+    "prototype/index.html": "bc244e27cdd6240404f19d3f716a7c55d8eda80af5cb2a7129b71a573068aa5c",
     "prototype/model.js": "6002365bc5ecc3363486d5b7bfa10f63dd542002490aae65611c87b924049d7f",
     "prototype/strings.vi.js": "67fe0ca536bd1e202855bd0b60c024c62da640c05b365d398518e5f998d2dd57",
     "prototype/icons.js": "fd3e0158ca92f175f19c068bfc01935f2812433915292ca9d9d58a192e0aa181",
     "prototype/views.js": "bc35604238ae0c7d1e4fcdf79eb3a88ce6386c3a37d1864c90eec8c7093bacda",
-    "prototype/app.js": "b91e8fc3e32f3b6cda20f5b253a57494324b60b7cba836252e690fa11ccbf604",
+    "prototype/app.js": "28dcd2b63a749576f990fc5c0304b87afdd1eb5dac72409e5f377bb0150b72fd",
     "prototype/styles.css": "8647f61256462651acd2221f531bb1add19a81541f02bcbe6369a22cbecb1d20",
     "prototype/vendor/qrcode.js": "79ec86f82856005b1c887905cfccfcfbec3821ca61c7fd5a952faa5f778f791c",
     "prototype/assets/fonts/BeVietnamPro-Regular.ttf": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",

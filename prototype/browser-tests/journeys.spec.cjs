@@ -170,6 +170,7 @@ async function seed(page, id, large = false) {
           ui: {
             labId: v?.labs[0]?.id,
             reportReason: 'medicine',
+            inspection: true,
             forms: {},
             filter: 'upcoming',
           },
@@ -1114,7 +1115,7 @@ test('F11 multiple completed visits keep the selected report context', async ({
       M.transition(s, s.activeVisitId, to, 'staff');
     sessionStorage.setItem(
       'careflow.browser.v3',
-      JSON.stringify({ state: s, ui: { forms: {} } }),
+      JSON.stringify({ state: s, ui: { forms: {}, inspection: true } }),
     );
   });
   await page.goto('/prototype/index.html?multiple=1#/care?visit=CF-0002');
