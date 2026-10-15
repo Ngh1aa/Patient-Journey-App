@@ -81,7 +81,7 @@
       if(!a||a.status==='completed')return true;
       const choice=document.getElementById('journey-online-choice')?.value||'Gọi lại và hỗ trợ kết nối';
       a.status='unreachable';a.owner='Điều phối';x.data.onlineVisits??={};x.data.onlineVisits[id]={connection:'handoff',choice};
-      addTask(x,{id:'online-'+id,title:'Hỗ trợ lịch khám trực tuyến',desc:'Không thể kết nối theo lịch; chờ điều phối xác nhận phương án.',category:'Kết nối',personId:a.personId,owner:'Điều phối',due:'15/10/2026',next:choice,route:'/doctor/online/'+id,done:false});
+      addTask(x,{id:(id==='a-041'?'case-a-041':'online-'+id),title:'Hỗ trợ lịch khám trực tuyến',desc:'Không thể kết nối theo lịch; chờ điều phối xác nhận phương án.',category:'Kết nối',personId:a.personId,owner:'Điều phối',due:'15/10/2026',next:choice,route:'/doctor/online/'+id,done:false});
       x.save();x.render();x.notify('Đã bàn giao xử lý kết nối cho điều phối.');return true;
     }
     if(name==='doc-result-next'){
