@@ -178,3 +178,6 @@
 .phone.large-text #phone-content .rich-task-rail .rich-task{flex-basis:93%}
 .phone.large-text #phone-content .rich-tip{flex-basis:94%}
 @media (max-width:374px){#phone-content .rich-hero{padding:13px!important}#phone-content .rich-stat-strip button{padding:12px 8px}#phone-content .rich-hero-actions{grid-template-columns:1fr}#phone-content .rich-hero-actions .btn:last-child{grid-column:auto}#phone-content .rich-profile-bento .row{padding:12px 8px}}
+
+.phone-header #notifications{position:relative}
+.phone-header #notifications .navy-notice-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:2px 4px;border-radius:99px;background:#f5ba55;color:#182642;border:2px solid #032b65;font-size:10px;font-weight:800;line-height:12px}
