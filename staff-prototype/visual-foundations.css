@@ -83,6 +83,7 @@ button:disabled{opacity:.56}
 .profile-mini>.avatar{flex:none}
 .profile-mini>svg{display:none}
 /* Application chrome */
+.compact-role-link{display:none}
 .topbar{height:70px;border-bottom:1px solid #e2ecf5;background:rgba(255,255,255,.86);
   box-shadow:0 3px 16px rgba(19,55,91,.025);backdrop-filter:blur(15px)}
 .breadcrumbs{font-size:12px;gap:10px;color:#6d879f;min-width:0}
@@ -205,6 +206,7 @@ button:disabled{opacity:.56}
   .main-content{padding-inline:22px}
 }
 @media(max-width:980px){
+  .compact-role-link{display:inline-flex}
   .sidebar{width:75px;padding:20px 9px;overflow-y:auto}
   .sidebar-brand-wrap{padding:0;margin-bottom:6px}
   .sidebar .brand{padding:0;justify-content:center}
