@@ -60,5 +60,6 @@ test('appointment and support use their own layouts instead of generic stacked c
   await expect(page.locator('.support-grid > .row')).toHaveCount(2);
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
-  await expect(page.locator('.profile-bento > .row')).toHaveCount(4);
+  await expect(page.locator('.profile-bento > .row')).toHaveCount(3);
+  await expect(page.locator('.profile-bento > .profile-unavailable')).toHaveCount(1);
 });
