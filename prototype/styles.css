@@ -1774,3 +1774,6 @@ body.large-text .phone-scroll .box{overflow-wrap:anywhere}
   .sidebar .scenario{flex:0 0 auto;min-height:44px;border-radius:999px;padding:8px 13px;background:#fff}
   .phone{height:calc(100dvh - 156px);min-height:530px}
 }
+
+/* WCAG AA: secondary labels inside chosen/unselected cards must be readable. */
+.phone-scroll .choice small,.phone-scroll .choice.selected small{color:#344F69!important}
