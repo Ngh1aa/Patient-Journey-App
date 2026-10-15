@@ -82,7 +82,7 @@ test('quick dates update the actual booking, custom date selection and reload re
   await page.reload();
   await expect(date).toHaveAttribute('aria-pressed','true');
   await page.locator('input[name=slot][value="10:30"]').check();await submit(page);
-  await expect(page.locator('.booking-progress [aria-current=step]')).toHaveText('Lịch hẹn');
+  await expect(page.locator('.booking-progress [aria-current=step] > span:last-child')).toHaveText('Lịch hẹn');
   expect((await state(page)).state.draft.date).toBe(value);
   await page.locator('#consent').check();await submit(page);
   await expect(page.locator('.request-received')).toContainText('Đã gửi yêu cầu');
