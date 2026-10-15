@@ -21,7 +21,7 @@
 ### Bảng màu trích từ ảnh (ảnh raster, không phải token gốc)
 
 - Ảnh 8 có màu xanh bề mặt phổ biến gần **#0067FF** và một tông tròn sẫm gần **#0061F3** (pixel sampling); ảnh 7/9 dùng **#FFFFFF**, **#EFEFEF**, xám thẻ gần **#BCBCBC** và typography gần đen.
-- Quyết định áp dụng là **bản thích nghi**, không copy chính xác mọi pixel. Primary tương tác đề xuất `#086BFF` (trên nền trắng; chữ trên nền xanh = trắng), brand hero `#086BFF`, page `#F2F2F3`, white `#FFFFFF`, ink `#171719`, muted `#5D626A`. Điều chỉnh để pass kiểm tra contrast theo từng pair.
+- Quyết định áp dụng là **bản thích nghi**, không copy chính xác mọi pixel. Primary tương tác đề xuất (đã kiểm tra sơ bộ tỷ lệ ~4.63:1 so với blue-soft) `#0063F5` (trên nền trắng; chữ trên nền xanh = trắng), brand hero `#0063F5`, page `#F2F2F3`, white `#FFFFFF`, ink `#171719`, muted `#5D626A`. Điều chỉnh để pass kiểm tra contrast theo từng pair.
 - Medical semantic statuses (danger/warning/success) **không đổi thành màu xanh**; trạng thái phải có text icon/ngữ nghĩa đi kèm, dựa trên model.
 
 ## 3. Unified visual DNA
@@ -39,7 +39,7 @@ Tên hướng: **CareFlow Soft Minimal Healthcare**.
 
 | Vai trò | Quyết định | Áp dụng |
 |---|---|---|
-| Brand / action | `#086BFF`; hover `#0055DC`; text white | PrimaryButton, selected slot, indicator |
+| Brand / action | `#0063F5`; hover `#0055DC`; text white | PrimaryButton, selected slot, indicator |
 | Page / surface | `#F2F2F3` / `#FFFFFF`; panel gray `#EDEDEF` | Home hero, cards, forms, screens |
 | Typography | Be Vietnam Pro 400/600/700; H1 utility 28–32, display home 36–42, section 19–21, body 16, label 14 | All 47 screens; override by font-scale for large text |
 | Text | ink `#171719`, secondary `#555B63` | Header, data, labels; no low contrast light-gray action |
