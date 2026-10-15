@@ -23,7 +23,7 @@
     variant = 'secondary',
     disabled = false,
   ) =>
-    `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${['device', 'clinic-call', 'callback', 'rebook', 'arrive', 'directions'].includes(action) ? I(({device:'video','clinic-call':'phone',callback:'phone',rebook:'calendar',arrive:'map-pin',directions:'map-pin'})[action],20) : ''}<span>${esc(label)}</span>${variant.includes('primary') && action === 'go' ? I('arrow-right',20) : ''}</button>`;
+    `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${['device', 'clinic-call', 'callback', 'rebook', 'arrive', 'directions'].includes(action) ? I(({device:'video','clinic-call':'phone',callback:'phone',rebook:'calendar',arrive:'map-pin',directions:'map-pin'})[action],20) : ''}${variant.includes('change-visit') ? I('refresh',20) : variant.includes('cancel-visit') ? I('cross',20) : variant.includes('add-relative-inline') ? I('plus',20) : ''}<span>${esc(label)}</span>${variant.includes('primary') && action === 'go' ? I('arrow-right',20) : ''}</button>`;
   const go = (label, to, variant = 'secondary', extra = {}) =>
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
   const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
@@ -42,16 +42,16 @@
     `<div class="field"><label for="${id}">${esc(label)}</label><textarea id="${id}" name="${id}" rows="4"${attrs(extra)}>${esc(value)}</textarea></div>`;
   const check = (id, label, checked = false) =>
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
-  const choices = (name, items, selected) => {
+  const choices = (name, items, selected, inlineAction = '') => {
     const icons = { onsite: 'map-pin', online: 'video', normal: 'shield', warning: 'warning' };
-    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${I(icons[v] || 'user', 25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}</span></label>`).join('')}</fieldset>`;
+    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
   };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
     `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
-  const section = (title, html) =>
-    `<section class="section"><h2>${esc(title)}</h2>${html}</section>`;
+  const section = (title, html, cls = '') =>
+    `<section class="section ${cls}"><h2>${esc(title)}</h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}">${esc(text)}</span>`;
   const status = (v) =>
@@ -83,7 +83,7 @@
     const date = new Date(v.date + 'T12:00:00+07:00');
     const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
     const month = new Intl.DateTimeFormat('vi-VN', { month: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${I('user', 20)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
+    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${root.CareFlowAvatar(v.patientId,36)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
@@ -117,7 +117,7 @@
     const task = v.care.tasks?.at(-1);
     if (!task) return '';
     const labels = { received: ['Đã nhận cập nhật của bạn','Điều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.'], coordinating: ['Điều phối viên đang xử lý','Thông tin của bạn đang được tổng hợp để chuyển bác sĩ.'], 'doctor-review': ['Bác sĩ đang xem','Phòng khám sẽ phản hồi khi bác sĩ có hướng dẫn tiếp theo.'], answered: ['Phòng khám đã phản hồi','Bạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.'] };
-    return card(`${chip(labels[task.status][0])}<p class="eyebrow">Ai đang xử lý</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
+    return card(`${chip(labels[task.status][0])}<p class="eyebrow">Phụ trách yêu cầu</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
   function bookingProgress(id) {
     const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 4}[id];
@@ -206,13 +206,7 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting"><span class="avatar">${esc(
-          (p?.name || 'CF')
-            .split(' ')
-            .slice(-2)
-            .map((x) => x[0])
-            .join(''),
-        )}</span><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div></div><div class="home-statement"><h2>${VI.layout.homeTitle.map(esc).join('<br>')}</h2><p>${esc(VI.layout.homeLead)}</p></div>`;
+        intro = `<div class="greeting"><span class="avatar">${root.CareFlowAvatar(p?.id || 'account',44)}</span><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div></div><div class="home-statement"><h2>${VI.layout.homeTitle.map(esc).join('<br>')}</h2><p>${esc(VI.layout.homeLead)}</p></div>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
@@ -252,24 +246,20 @@
           );
         }
         body +=
-          section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`) + row(T.help, T.helpLead, 'K5', 'phone');
+          section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`, 'service-section') + row(T.help, T.helpLead, 'K5', 'phone');
         break;
       }
       case 'C1':
-        body =
-          form(
-            'patient',
-            choices(
-              C.patient,
-              s.profiles.map((x) => [
-                x.id,
-                x.name,
-                x.relation === 'self' ? T.self : T.permission,
-              ]),
-              d?.patientId,
-            ),
-            C.continue,
-          ) + nav(T.add, 'K2', 'text');
+        body = form(
+          'patient',
+          `<section class="patient-group"><div class="group-heading"><h2>${esc(VI.layout.savedProfiles)}</h2><span>${s.profiles.length}</span></div>` +
+          choices(C.patient, s.profiles.map((x) => [
+            x.id, x.name,
+            x.relation === 'self' ? T.self : x.canViewResults ? VI.layout.sharedProfile : T.permission,
+            VI.layout.dobLabel + ' · ' + (x.dob ? x.dob.split('-').reverse().join('/') : C.notProvided),
+          ]), d?.patientId, nav(T.add, 'K2', 'secondary add-relative-inline')) + '</section>',
+          C.continue,
+        );
         break;
       case 'C2':
         body =
@@ -279,7 +269,7 @@
               maxlength: '1200',
               required: 'required',
             }) + `<p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
-          ) + note(T.note);
+          ) + (T.note ? note(T.note) : '');
         break;
       case 'C3':
         body =
@@ -293,7 +283,7 @@
               ],
               d?.safety,
             ),
-          ) + note(T.note);
+          ) + (T.note ? note(T.note) : '');
         break;
       case 'C4':
         body =
@@ -357,11 +347,13 @@
       }
       case 'D2': {
         const next = M.nextAction(v);
+        const management = (M.TRANSITIONS[v.status] || []).includes('cancelled')
+          ? `<div class="appointment-tools" role="group" aria-label="Điều chỉnh lịch hẹn">${nav(T.change, 'D3', 'secondary change-visit')}${nav(T.cancel, 'D4', 'secondary cancel-visit')}</div>` : '';
         body =
           card(
             `${status(v)}<span class="eyebrow">${esc(C.owner)}</span><h2>${esc(VI.statuses[v.status][1])}</h2>${v.reviewReason ? `<p>${esc(v.reviewReason)}</p>` : ''}${nav(VI.actions[next[1]], next[0], 'primary', { 'data-purpose': ['cancelled', 'no-show'].includes(v.status) ? 'rebook' : '' })}`,
             'next-step',
-          ) +
+          ) + management +
           card(
             `<div class="ticket-head"><span class="eyebrow">${esc(T.code)}</span><strong>${esc(v.id)}</strong>${status(v)}</div>${details(s, v)}<div class="ticket-code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" aria-label="${esc(T.qr)}" role="img"></div><p>${esc(T.qrHint)}</p></div>`,
             'ticket',
@@ -390,8 +382,6 @@
           T.details,
           `<div class="list">${row(T.labs, v.labs.length ? VI.labs[v.labs[0].status] : VI.screen.F1.empty, 'F1', 'document')}${row(T.pay, VI.payments[v.payment.status], 'H2', 'document')}${row(T.summary, C.noClinical, 'H6', 'pill')}${row(T.results, v.communication.result === 'notified' ? VI.screen.H7.notified : VI.screen.H7.pending, 'H7', 'document')}${row(T.care, '', 'I1', 'heart-pulse')}</div>`,
         );
-        if ((M.TRANSITIONS[v.status] || []).includes('cancelled'))
-          body += `<div class="inline-actions">${nav(T.change, 'D3')}${nav(T.cancel, 'D4', 'text danger-text')}</div>`;
         body += section(C.history, timeline(v));
         break;
       }
@@ -772,13 +762,7 @@
           s.profiles
             .map((x) =>
               card(
-                `<div class="profile-row"><span class="avatar">${esc(
-                  x.name
-                    .split(' ')
-                    .slice(-2)
-                    .map((z) => z[0])
-                    .join(''),
-                )}</span><div><h2>${esc(x.name)}</h2><p>${esc(x.dob)}</p>${chip(x.canViewResults ? T.view : T.bookOnly)}</div></div>`,
+                `<div class="profile-row"><span class="avatar">${root.CareFlowAvatar(x.id,52)}</span><div><h2>${esc(x.name)}</h2><p>${esc(x.dob?.split('-').reverse().join('/'))}</p>${chip(x.canViewResults ? T.view : T.bookOnly)}</div></div>`,
               ),
             )
             .join('') +
@@ -846,7 +830,7 @@
     };
     const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
     const tip = VI.layout.tips[id];
-    return `<div class="screen-masthead"><div class="masthead-label"><span>${esc(label)}</span><span class="masthead-icon" aria-hidden="true">${I(icon,24)}</span></div>${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
+    return `<div class="screen-masthead"><div class="masthead-label"><span>${esc(label)}</span><span class="masthead-icon" aria-hidden="true">${I(icon,24)}</span></div>${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? id === 'C1' ? `<aside class="selection-reminder" role="note">${I('shield',21)}<div><strong>${esc(tip[0])}</strong><p>${esc(tip[1])}</p></div></aside>` : `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
   }
   root.CareFlowViews = {
     external,

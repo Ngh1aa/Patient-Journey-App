@@ -16,7 +16,7 @@ for(const entered of [false,true])test(`legacy booking deep link restores guide 
  await expect(page.locator('.journey-item > button')).toHaveCount(12);
  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
  await expect(page.locator('#phone-content')).toContainText('Người xem đã có hồ sơ');
- await expect(page.locator('#reason')).toHaveValue(entered?'Nội dung đang viết cần giữ lại':'Tôi muốn trao đổi với bác sĩ về tình trạng gần đây.');
+ await expect(page.locator('#reason')).toHaveValue(entered?'Nội dung đang viết cần giữ lại':'Đau đầu hai ngày, ngủ không ngon.');
  await expect(page.locator('#medicalHistory')).toHaveValue(entered?'Thông tin đã nhập cần giữ lại':'Chưa có thông tin cần bổ sung.');
  expect((await snapshot(page)).state.visits).toHaveLength(0);
  await page.reload();

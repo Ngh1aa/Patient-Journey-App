@@ -289,8 +289,8 @@
       .map(
         ([to, label, icon]) =>
           to === 'C1'
-            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span>${label}</span></button>`
-            : `<a href="#${routeFor(to)}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span>${label}</span></a>`,
+            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption" hidden>${label}</span></button>`
+            : `<a href="#${routeFor(to)}" aria-label="${label}" title="${label}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span class="nav-caption" hidden>${label}</span></a>`,
       )
       .join('');
     $('offline-bar').hidden = !s.offline;
@@ -311,6 +311,7 @@
           }
       });
     updateDateSelection();
+    updatePatientAction();
     if (u.notice) {
       const node = document.createElement('div');
       node.className = 'note';
@@ -400,7 +401,7 @@
         if(button!==chosen && !button.classList.contains('text'))button.classList.add('secondary');
       }
     }
-    const values = {phone:'0900000000',otp:'123456',name:'Nguyễn Minh Anh',dob:'1994-08-15',contactPhone:'0900000000',medicalHistory:'Chưa có thông tin cần bổ sung.',reason:u.journey.id==='F12'?'Tôi muốn cập nhật tình trạng và trao đổi lại sau lần khám trước.':'Tôi muốn trao đổi với bác sĩ về tình trạng gần đây.',cancelNote:'Tôi cần sắp xếp lại thời gian.',deferReason:'Tôi cần sắp xếp thời gian thanh toán.',report:'Tôi muốn trao đổi thêm với phòng khám sau buổi khám.',tracking:'Tôi gửi cập nhật tình trạng hôm nay để phòng khám theo dõi.',referral:'Tôi đã đến khám chuyên khoa và muốn chuyển thông tin lại cho bác sĩ.',message:'Tôi muốn hỏi thêm về thông tin sau buổi khám.',support:'Tôi cần phòng khám hỗ trợ về lịch hẹn.'};
+    const values = {phone:'0900000000',otp:'123456',name:'Nguyễn Minh Anh',dob:'1994-08-15',contactPhone:'0900000000',medicalHistory:'Chưa có thông tin cần bổ sung.',reason:u.journey.id==='F12'?'Tôi muốn cập nhật tình trạng và trao đổi lại sau lần khám trước.':'Đau đầu hai ngày, ngủ không ngon.',cancelNote:'Tôi cần sắp xếp lại thời gian.',deferReason:'Tôi cần sắp xếp thời gian thanh toán.',report:'Tôi muốn trao đổi thêm với phòng khám sau buổi khám.',tracking:'Tôi gửi cập nhật tình trạng hôm nay để phòng khám theo dõi.',referral:'Tôi đã đến khám chuyên khoa và muốn chuyển thông tin lại cho bác sĩ.',message:'Tôi muốn hỏi thêm về thông tin sau buổi khám.',support:'Tôi cần phòng khám hỗ trợ về lịch hẹn.'};
     const form = $('phone-content').querySelector('form[data-form]');
     if (!form) return;
     for (const el of form.elements) {
@@ -1281,6 +1282,7 @@
   $('scenario').addEventListener('change', (e) => loadScenario(e.target.value));
   $('phone-content').addEventListener('change', (e) => {
     if (e.target.id === 'date') updateDateSelection();
+    if (e.target.closest('.patient-group') && e.target.type === 'radio') updatePatientAction();
     if (e.target.name === VI.screen.I1.visit) {
       s.activeVisitId = e.target.value;
       u.forms = {};
@@ -1292,6 +1294,12 @@
     $('phone-content').querySelectorAll('[data-action="quick-date"]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.date === value));
     });
+  }
+  function updatePatientAction() {
+    const group = $('phone-content').querySelector('.patient-group');
+    const selected = group?.querySelector('.choice input:checked')?.closest('.choice');
+    const add = group?.querySelector('.add-relative-inline');
+    if (selected && add) selected.after(add);
   }
   function loadScenario(name) {
     s = name === 'new' ? M.initial() : M.fixture(name);

@@ -345,3 +345,63 @@ textarea { line-height: 1.65; resize: vertical; }
 .screen-masthead .booking-progress { margin-top: 12px !important; }
 .phone[data-screen^='C'] .masthead-label { display: none; }
 .phone[data-screen^='C'] .screen-masthead { padding-top: 8px; }
+/* Compact icon navigation; accessible names remain on each control. */
+.phone .bottom-nav, .phone.large-text .bottom-nav { width: calc(100% - 40px); max-width: 332px; min-height: 60px; margin: 6px auto 7px; padding: 4px; border-radius: 25px; gap: 2px; }
+.phone .bottom-nav a, .phone .bottom-nav .nav-book,
+.phone.large-text .bottom-nav a, .phone.large-text .bottom-nav .nav-book { min-height: 48px; padding: 4px; border-radius: 20px; gap: 0; }
+.phone .bottom-nav .nav-plus { width: 52px; height: 52px; top: -10px; }
+.phone .bottom-nav .nav-caption { display: none !important; }
+.avatar { overflow: hidden; }
+.avatar > svg { display: block; width: 100%; height: 100%; border-radius: inherit; }
+.visit-person > svg { flex: none; border-radius: 12px; }
+/* Parent sections keep related child cards together, as in the supplied reference. */
+.service-section { background: #fff; padding: 17px; border: 1px solid #e0e7f2; border-radius: 28px; }
+.service-section > h2 { font-size: calc(16px * var(--font-scale,1)); margin-bottom: 14px; }
+.service-section .service-grid { gap: 10px; }
+.service-section .service-tile { min-height: 164px; padding: 14px; border-radius: 21px; background: #f0f4fa; border-color: transparent; }
+.service-section .booking-tile { background: var(--blue-soft); }
+.service-section .service-tile strong { font-size: calc(14px * var(--font-scale,1)); }
+.service-section .service-tile small { font-size: calc(11px * var(--font-scale,1)); }
+.home-tasks { background: #fff; border: 1px solid #e0e7f2; border-radius: 25px; padding: 10px; }
+.home-tasks .row { background: #f2f6fc; border: 0; }
+#phone-content[data-screen='D2'] .section:has(.list) { padding: 17px; border-radius: 28px; background: #fff; border: 1px solid #e0e7f2; }
+#phone-content[data-screen='D2'] .section:has(.list) > h2 { font-size: calc(16px * var(--font-scale,1)); }
+#phone-content[data-screen='D2'] .list .row { background: #f2f6fc; border-color: transparent; }
+/* Profile selection has a persistent reminder and one grouped set of profiles. */
+.selection-reminder { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid #ceddfa; border-radius: 17px; background: #eaf1ff; color: var(--primary-hover); }
+.selection-reminder > .cf-icon { flex: none; margin-top: 2px; }
+.selection-reminder strong { font-size: calc(12px * var(--font-scale,1)); font-weight: 600; line-height: 1.6; display: block; }
+.selection-reminder p { color: var(--muted); font-size: calc(11px * var(--font-scale,1)); line-height: 1.6; margin: 3px 0 0; }
+.patient-group { padding: 14px; background: #fff; border: 1px solid #e0e7f2; border-radius: 25px; }
+.group-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.group-heading h2 { font-size: calc(14px * var(--font-scale,1)); margin: 0; }
+.group-heading > span { display: grid; place-items: center; width: 25px; height: 25px; font-size: calc(11px * var(--font-scale,1)); color: var(--primary-hover); background: var(--blue-soft); border-radius: 50%; }
+.patient-group .choices { gap: 10px; }
+.patient-group .choice, .patient-group .choice:has(input:checked) { padding: 12px; gap: 10px; min-height: 88px; border-radius: 18px; }
+.patient-group .choice-visual { width: 44px; height: 48px; border-radius: 15px; overflow: hidden; }
+.patient-group .choice-copy { gap: 4px; }
+.patient-group .choice strong { font-size: calc(14px * var(--font-scale,1)); }
+.patient-group .choice small { font-size: calc(11px * var(--font-scale,1)); line-height: 1.5; margin: 0; }
+.choice-meta { display: flex; align-items: center; gap: 5px; font-size: calc(10px * var(--font-scale,1)); color: var(--muted); line-height: 1.6; }
+.patient-group .add-relative-inline { width: 100%; min-height: 44px; padding: 9px 12px; border: 1px dashed #638ccd; background: #f4f7ff; color: var(--primary-hover); border-radius: 15px; font-size: calc(12px * var(--font-scale,1)); }
+.patient-group .add-relative-inline:hover { background: var(--blue-soft); border-style: solid; }
+.phone[data-screen='C1'] #phone-content { display: flex; flex-direction: column; min-height: 100%; padding-bottom: 18px; }
+.phone[data-screen='C1'] #phone-content > * + * { margin-top: 14px; }
+.phone[data-screen='C1'] .screen-masthead { margin-bottom: 0 !important; }
+.phone[data-screen='C1'] .selection-reminder { flex: none; }
+.phone[data-screen='C1'] form[data-form='patient'] { display: flex; flex: 1; flex-direction: column; }
+.phone[data-screen='C1'] form .form-actions { margin-top: auto; padding-top: 14px; }
+.phone[data-screen='C1'] .screen-masthead .screen-intro h1 { font-size: calc(26px * var(--font-scale,1)); }
+.phone[data-screen='C1'] .screen-masthead .screen-intro p { font-size: calc(12px * var(--font-scale,1)); }
+/* Appointment management is visible beside the next action, before the long ticket. */
+.appointment-tools { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.appointment-tools .btn { min-height: 50px; padding: 12px; font-weight: 600; font-size: calc(14px * var(--font-scale,1)); border-radius: 17px; }
+.appointment-tools .change-visit { border: 1px solid #7aa1e3; background: #eaf1ff; color: var(--primary-hover); }
+.appointment-tools .cancel-visit { border: 1px solid #d99089; background: #fff3f1; color: var(--danger); }
+.appointment-tools .cancel-visit:hover { background: var(--danger-soft); }
+.phone.large-text .appointment-tools { grid-template-columns: minmax(0,1fr); }
+.phone.large-text .patient-group .choice { flex-wrap: wrap; }
+.phone.large-text .choice-meta { font-size: calc(11px * var(--font-scale,1)); }
+.phone.large-text .patient-group .choice-visual { display: none; }
+#phone-content[data-screen='C2'] #reason { min-height: calc(108px * var(--font-scale,1)); height: calc(108px * var(--font-scale,1)); }
+#phone-content[data-screen='C2'] #medicalHistory { min-height: calc(84px * var(--font-scale,1)); height: calc(84px * var(--font-scale,1)); }

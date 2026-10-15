@@ -3,14 +3,46 @@ const AxeBuilder = require('@axe-core/playwright').default;
 const state = page => page.evaluate(() => JSON.parse(sessionStorage.getItem('careflow.browser.v3')));
 const submit = page => page.locator('#phone-content form [type=submit]').click();
 
+test('icon navigation is compact, named for screen readers and profile add follows the selection', async ({page}) => {
+  await page.goto('/prototype/index.html?scenario=empty');
+  const nav=page.locator('#bottom-nav');
+  expect((await nav.boundingBox()).height).toBeLessThanOrEqual(64);
+  for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
+  for(const caption of await nav.locator('.nav-caption').all()) await expect(caption).toBeHidden();
+  await nav.locator('.nav-book').click();
+  await expect(page.locator('.selection-reminder')).toHaveAttribute('role','note');
+  await expect(page.locator('.patient-group')).toContainText('Ngày sinh · 15/08/1994');
+  await expect(page.locator('.patient-group .choice-visual svg')).toHaveCount(2);
+  const portrait=await page.locator('.patient-choice .choice-visual').first().innerHTML();
+  await page.locator('.patient-group input[value=p2]').check();
+  expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');
+  await page.reload();
+  expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');
+  expect(await page.locator('.patient-choice .choice-visual').first().innerHTML()).toBe(portrait);
+});
+
+test('appointment management is before the ticket and opens existing change/cancel flows', async ({page}) => {
+  await page.goto('/prototype/index.html?scenario=upcoming');
+  await page.locator('.visit-card').click();
+  const tools=page.locator('.appointment-tools');
+  expect(await tools.evaluate(el=>!!(el.compareDocumentPosition(document.querySelector('.ticket')) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
+  await tools.locator('[data-to=D3]').click();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','D3');
+  await page.goBack();
+  await page.locator('.appointment-tools [data-to=D4]').click();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','D4');
+  expect((await state(page)).state.visits[0].status).toBe('confirmed');
+});
+
 test('contextual tips open with keyboard; patient shortcut returns to the existing selection screen', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=empty');
   await page.locator('#bottom-nav .nav-book').click();
+  await expect(page.locator('.selection-reminder')).toContainText('Kiểm tra hồ sơ');
+  await submit(page);
   const tip=page.locator('.ux-tip');
   await tip.locator('summary').focus();await page.keyboard.press('Enter');
   await expect(tip).toHaveAttribute('open','');
   await expect(tip.locator('p')).toBeVisible();
-  await submit(page);
   await page.locator('button.context-edit').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C1');
   await expect(page.locator('input[value=p1]')).toBeChecked();
@@ -53,7 +85,7 @@ test('quick dates update the actual booking, custom date selection and reload re
   await page.reload();
   await expect(date).toHaveAttribute('aria-pressed','true');
   await page.locator('input[name=slot][value="10:30"]').check();await submit(page);
-  await expect(page.locator('.booking-progress [aria-current=step]')).toHaveText('Xác nhận');
+  await expect(page.locator('.booking-progress [aria-current=step]')).toHaveText('Kiểm tra');
   expect((await state(page)).state.draft.date).toBe(value);
   await page.locator('#consent').check();await submit(page);
   await expect(page.locator('.request-received')).toContainText('Đã gửi yêu cầu');
