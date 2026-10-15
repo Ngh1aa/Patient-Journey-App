@@ -886,6 +886,32 @@ test('accessibility: axe WCAG A/AA and keyboard labels in 16 representative stat
       .include('.phone')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
+    if (results.violations.some((violation) => violation.id === 'target-size')) {
+      const targetDebug = await page.evaluate(() => {
+        const el = document.querySelector('#notifications');
+        if (!el) return null;
+        const rect = el.getBoundingClientRect();
+        const head = el.parentElement.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const center = document.elementFromPoint(cx, cy);
+        return {
+          outerHTML: el.outerHTML,
+          rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+          header: { x: head.x, y: head.y, width: head.width, height: head.height },
+          computed: { display: style.display, width: style.width, height: style.height, pointerEvents: style.pointerEvents, visibility: style.visibility, zIndex: style.zIndex },
+          centerElement: center?.outerHTML?.slice(0, 250) || null,
+          overlaps: [...document.querySelectorAll('button,a')].filter((other) => {
+            if (other === el) return false;
+            const r = other.getBoundingClientRect();
+            return Math.max(rect.left, r.left) < Math.min(rect.right, r.right) &&
+              Math.max(rect.top, r.top) < Math.min(rect.bottom, r.bottom);
+          }).map((other) => ({ selector: other.id || other.className, html: other.outerHTML.slice(0, 130) })),
+        };
+      });
+      console.log('A11Y target-size diagnostic ' + id + ': ' + JSON.stringify(targetDebug));
+    }
     expect(
       results.violations.map((v) => ({
         id: v.id,

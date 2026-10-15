@@ -1,9 +1,9 @@
 # CareFlow design system và handoff
 
-SYNTHETIC/CONCEPT browser prototype. Nguồn: design/tokens.json, prototype/styles.css, ghi chú IMPLEMENTATION-11-12.md, file13. File11 gốc không có trong checkout.
+SYNTHETIC/CONCEPT browser prototype. Nguồn: design/tokens.json, prototype/styles.css, ghi chú IMPLEMENTATION-11-12.md, file13. Bản visual reference-led 2026: [nghiên cứu ba ảnh và quyết định 47 màn](uiux/mobile-reference-style-study-2026.md). File11 gốc không có trong checkout.
 
 ## Typography và geometry
-Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL OFL, license kèm assets/fonts). Body 16px, form 16px, CTA15px, heading26px, status12px; large text nhân 2 mọi font size trong phone. 44px minimum hit targets, CTA52px. Khoảng cách 4/8/12/16/20/24/32/40/48px. Card R24, hero R28, input R14, CTA R26, tab R34. Shadow nhẹ chỉ cho container nổi có ý nghĩa. WCAG contrast/reflow là technical QA, không tuyên bố chứng nhận accessibility.
+Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL OFL, license kèm assets/fonts). Body 16px, form 16px, CTA15px, utility heading30px (home display 30–42px), status12px; large text nhân 2 mọi font size trong phone. 44px minimum hit targets, CTA52px. Khoảng cách 4/8/12/16/20/24/32/40/48px. Card R30, appointment R32, input R20, CTA pill R999, tab dock R999. Shadow nhẹ chỉ cho container nổi có ý nghĩa. Màu action #005CE8, nền #F2F2F3, text #171719; tab có đủ bốn nhãn. WCAG contrast/reflow là technical QA, không tuyên bố chứng nhận accessibility.
 
 ## Owners và contracts
 | Component | Owner | Variants / behavior |

@@ -49,7 +49,7 @@
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html) =>
-    `<section class="section"><h2>${esc(title)}</h2>${html}</section>`;
+    `<section class="section"><h2>${typeof title === 'string' && title.startsWith('<') ? title : esc(title)}</h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}">${esc(text)}</span>`;
   const status = (v) =>
@@ -120,7 +120,7 @@
     switch (id) {
       case 'A1':
         intro =
-          `<div class="welcome-mark" aria-hidden="true">${I('heart-pulse', 44)}</div>` +
+          `<div class="auth-hero"><strong class="auth-brand">CareFlow</strong><span class="auth-orb" aria-hidden="true">${I('heart-pulse', 48)}</span><p>Chăm sóc, liền mạch.</p></div><div class="auth-panel">` +
           head(T.heading, T.lead);
         body =
           form(
@@ -141,7 +141,7 @@
             u.otpSent ? T.verify : T.getCode,
           ) +
           (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
-          nav(C.support, 'K5', 'text');
+          nav(C.support, 'K5', 'text') + '</div>';
         break;
       case 'A2':
         body =
@@ -168,20 +168,20 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting"><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><span class="avatar">${esc(
+        intro = `<div class="dashboard-top"><div class="greeting dashboard-greeting"><span class="avatar">${esc(
           (p?.name || 'CF')
             .split(' ')
             .slice(-2)
             .map((x) => x[0])
             .join(''),
-        )}</span></div><p class="greeting-lead">${esc(T.lead)}</p>`;
+        )}</span><div><p>Xin chào,</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><button class="icon-btn notification-orb" type="button" data-action="go" data-to="K1" aria-label="Thông báo">${I('bell', 22)}</button></div><div class="dashboard-hero"><h2 class="dashboard-question">Sức khoẻ của bạn<br>hôm nay thế nào</h2><button type="button" class="dashboard-search" data-action="go" data-to="D1" aria-label="Xem lịch hẹn"><span>${I('search', 20)}<span>Xem lịch hẹn</span></span>${I('chevron-right', 18)}</button><div class="quick-actions"><button type="button" data-action="go" data-to="K3">${I('heart-pulse', 20)}<strong>Lịch sử</strong></button><button type="button" data-action="go" data-to="I1">${I('message', 20)}<strong>Trao đổi</strong></button><button type="button" class="quick-call" data-action="go" data-to="K5" aria-label="Gọi hỗ trợ">${I('phone', 20)}</button></div></div><p class="greeting-lead">${esc(T.lead)}</p></div>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body =
           btn(C.book, 'begin', {}, 'primary book-cta') +
           section(
-            T.upcoming,
+            `<span class="section-heading-row"><span>${esc(T.upcoming)}</span><button type="button" class="section-link" data-action="go" data-to="D1">Xem tất cả</button></span>`,
             active.length
               ? active.map((x) => visitCard(s, x, true)).join('')
               : empty(T.empty, T.emptyLead),

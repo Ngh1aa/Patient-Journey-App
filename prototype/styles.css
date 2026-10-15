@@ -1609,3 +1609,524 @@ dialog p {
   .journey-panel.mobile-open .journey-list { display:block; }
   .guided .review-tools { inset-inline:12px; width:auto; }
 }
+
+/* Reference-led CareFlow 2026 — source and rationale:
+   docs/uiux/mobile-reference-style-study-2026.md
+   Semantic foundations stay on the shared components; no permanent
+   skeleton placeholders, unlabeled navigation or inert search UI. */
+:root {
+  --bg: #f2f2f3;
+  --surface: #fff;
+  --primary: #005ce8;
+  --primary-hover: #0055dc;
+  --ink: #171719;
+  --heading: #171719;
+  --muted: #555b63;
+  --subtle: #686e76;
+  --border: #e0e2e6;
+  --input-border: #858b94;
+  --blue-soft: #edf4ff;
+  --focus: #004fba;
+  --r-card: 30px;
+  --r-button: 999px;
+  --r-input: 20px;
+  --shadow: 0 8px 26px rgba(26, 30, 41, .065);
+}
+body {
+  background: #e9eaed;
+  color: var(--ink);
+}
+.phone {
+  background: var(--bg);
+  border-color: #fff;
+  border-radius: 42px;
+  box-shadow: 0 24px 80px rgba(20, 24, 35, .15), 0 0 0 1px #dadde2;
+}
+.phone-top {
+  color: var(--ink);
+  padding-inline: 24px;
+}
+.phone-island { display: none; }
+.phone-header {
+  min-height: 66px;
+  padding: 12px 20px;
+}
+.app-wordmark {
+  color: var(--ink);
+  font-size: calc(21px * var(--font-scale, 1));
+  letter-spacing: -.9px;
+}
+.icon-btn {
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  min-width: 44px;
+  min-height: 44px;
+}
+.phone-header .icon-btn:first-child { background: #f7f7f8; }
+.phone-header #notifications { min-width: 52px; min-height: 52px; width: 52px; height: 52px; flex: none; }
+#phone-content { padding: 12px 20px 34px; }
+.screen-intro { margin-bottom: 24px !important; }
+.screen-intro h1 {
+  color: var(--ink);
+  font-size: calc(30px * var(--font-scale, 1));
+  letter-spacing: -1.25px;
+  line-height: 1.19;
+  text-wrap: balance;
+}
+.screen-intro p {
+  color: var(--muted);
+  font-size: calc(15px * var(--font-scale, 1));
+  line-height: 1.65;
+}
+h2 {
+  color: var(--ink);
+  letter-spacing: -.45px;
+}
+.section { margin-top: 28px !important; }
+.section > h2 {
+  color: var(--ink);
+  font-size: calc(20px * var(--font-scale, 1));
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+.section-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.section-link {
+  border: 0;
+  background: transparent;
+  color: #3e526e;
+  font-size: calc(13px * var(--font-scale, 1));
+  font-weight: 600;
+  min-height: 44px;
+  flex: none;
+  padding: 8px 0 8px 10px;
+}
+.btn {
+  min-height: 54px;
+  border-radius: var(--r-button);
+  font-weight: 700;
+  transition: background-color .16s ease, box-shadow .16s ease;
+}
+.btn.primary {
+  color: #fff;
+  background: var(--primary);
+  box-shadow: 0 8px 17px rgba(8, 107, 255, .16);
+}
+.btn.secondary {
+  color: var(--ink);
+  border: 1px solid #dfe2e6;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(20, 24, 35, .045);
+}
+.btn.secondary:hover:not(:disabled) { background: #f5f8ff; }
+.btn.text:hover:not(:disabled) { background: #e7effd; }
+.card, .list {
+  border: 1px solid #e9e9ec;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.row {
+  border: 1px solid #e9e9ed;
+  background: #fff;
+  border-radius: 23px;
+  box-shadow: 0 4px 15px rgba(20, 24, 35, .035);
+}
+.list .row { box-shadow: none; }
+.row-icon { color: var(--primary); }
+.chip {
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: #1553ac;
+  padding: 7px 12px;
+}
+.chip.warning, .chip.success, .chip.neutral {
+  /* Preserve existing semantic success/warning/neutral colors. */
+  box-shadow: none;
+}
+input:not([type='radio'], [type='checkbox']),
+textarea, select {
+  border-radius: var(--r-input);
+  background: #fff;
+  color: var(--ink);
+}
+.choice {
+  border-radius: 22px;
+  background: #fff;
+  min-height: 64px;
+}
+.choice:has(input:checked) {
+  background: var(--blue-soft);
+}
+.slot span { border-radius: 18px; }
+.segments { border-radius: 999px; background: #e6e8ed; }
+.segments .btn { border-radius: 999px; }
+.empty {
+  border-radius: var(--r-card);
+  background: #fff;
+  border: 1px solid #e5e7ec;
+}
+
+/* Appointment object. Its layer separation follows reference 7, but
+   its content is drawn only from real prototype visit state. */
+.visit-card, .visit-card.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 228px;
+  padding: 22px;
+  border: 1px solid #e4e6eb;
+  border-radius: 32px;
+  background: #ededef;
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(20, 24, 35, .06);
+  gap: 9px;
+}
+.visit-card::before, .visit-card.hero::before {
+  /* No invented doctor image or fake photo placeholder. */
+  content: none;
+}
+.visit-card-top { align-items: center; }
+.visit-card-top .eyebrow {
+  font-size: calc(13px * var(--font-scale, 1));
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 700;
+}
+.visit-card-top .cf-icon { color: var(--primary); }
+.visit-time {
+  color: var(--ink);
+  font-size: calc(34px * var(--font-scale, 1));
+  letter-spacing: -1.25px;
+  margin-top: 8px;
+  line-height: 1.15;
+}
+.visit-date { color: #41464e; font-size: calc(14px * var(--font-scale, 1)); }
+.visit-person { color: #41464e; font-size: calc(13px * var(--font-scale, 1)); }
+.visit-bottom, .hero .visit-bottom {
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 4px 18px rgba(20, 24, 35, .045);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px 12px;
+  min-height: 66px;
+  margin-top: auto;
+  gap: 8px;
+  justify-content: space-between;
+}
+.visit-bottom .cf-icon { color: var(--ink); }
+.hero .chip, .visit-card.hero .chip {
+  background: var(--blue-soft);
+  color: #1553ac;
+}
+.visit-card:hover:not(:disabled) { border-color: #d1d5de; }
+
+/* Entry = the existing real phone/OTP journey, not two invented
+   sign-up buttons. The blue hero and white sheet follow reference 8. */
+.phone:has(#phone-content[data-screen='A1']) { background: var(--primary); }
+.phone:has(#phone-content[data-screen='A1']) .phone-header { display: none; }
+.phone:has(#phone-content[data-screen='A1']) .phone-top { color: white; }
+#phone-content[data-screen='A1'] {
+  background: var(--primary);
+  padding: 0 !important;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+#phone-content[data-screen='A1'] > .auth-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 25px 12px;
+  min-height: clamp(194px, 32dvh, 340px);
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+}
+.auth-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 95%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  right: -24%;
+  bottom: -62%;
+  background: #0059e7;
+}
+.auth-brand {
+  font-size: calc(24px * var(--font-scale, 1));
+  line-height: 1.1;
+  letter-spacing: -.9px;
+}
+.auth-orb {
+  color: #fff;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  min-height: 72px;
+}
+.auth-hero p {
+  font-size: calc(14px * var(--font-scale, 1));
+  font-weight: 600;
+  margin: 0;
+}
+#phone-content[data-screen='A1'] > .auth-panel {
+  margin-top: 0;
+  border-radius: 38px 38px 0 0;
+  padding: 34px 24px max(28px, env(safe-area-inset-bottom, 0px));
+  min-height: 390px;
+  background: #fff;
+  flex: 1;
+}
+.auth-panel .screen-intro h1 {
+  font-size: calc(29px * var(--font-scale, 1));
+  line-height: 1.22;
+}
+.auth-panel .screen-intro { margin-bottom: 24px !important; }
+.auth-panel .btn.text { margin-top: 6px; }
+
+/* Home = airy neutral hero + real clinical next steps (reference 9).
+   Four real destinations stay accessible; search-looking CTA is a button. */
+.phone:has(#phone-content[data-screen='B1']) { background: #fff; }
+.phone:has(#phone-content[data-screen='B1']) .phone-header { display: none; }
+#phone-content[data-screen='B1'] {
+  padding: 0 0 34px;
+  background: #fff;
+}
+#phone-content[data-screen='B1'] > .dashboard-top {
+  background: #efeff0;
+  padding: 24px 20px 26px;
+  border-radius: 0 0 38px 38px;
+}
+.dashboard-greeting {
+  display: flex;
+  gap: 12px;
+  margin: 0 0 28px !important;
+}
+.dashboard-greeting .avatar {
+  width: 50px;
+  height: 50px;
+  background: #dedee1;
+  color: #41464e;
+  font-size: calc(13px * var(--font-scale, 1));
+}
+.dashboard-greeting > div { min-width: 0; }
+.dashboard-greeting p { font-size: calc(13px * var(--font-scale, 1)); margin: 0; }
+.dashboard-greeting h1 {
+  color: var(--ink);
+  font-size: calc(18px * var(--font-scale, 1));
+  letter-spacing: -.6px;
+  line-height: 1.38;
+}
+.dashboard-greeting .notification-orb {
+  margin-left: auto;
+  background: #fff;
+  border: 1px solid #fff;
+  position: relative;
+  flex: none;
+  min-width: 50px;
+  min-height: 50px;
+  width: 50px;
+  height: 50px;
+}
+.dashboard-greeting .notification-orb::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 2px #fff;
+}
+.dashboard-hero { margin: 0; padding: 0; }
+.dashboard-hero > h2 {
+  color: var(--ink);
+  font-size: clamp(calc(30px * var(--font-scale, 1)), calc(8vw * var(--font-scale, 1)), calc(42px * var(--font-scale, 1)));
+  line-height: 1.14;
+  letter-spacing: -1.6px;
+  margin: 0 0 22px;
+  max-width: 360px;
+}
+.dashboard-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #505760;
+  border-radius: 999px;
+  padding: 0 20px;
+  font-size: calc(15px * var(--font-scale, 1));
+  text-align: left;
+}
+.dashboard-search > span { display: flex; align-items: center; gap: 10px; }
+.dashboard-search .cf-icon { color: #424953; }
+.dashboard-search:hover { background: #f8faff; }
+.quick-actions {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) 54px;
+  align-items: stretch;
+  gap: 7px;
+}
+.quick-actions button {
+  min-width: 0;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  padding: 7px;
+}
+.quick-actions button strong {
+  font-size: calc(12px * var(--font-scale, 1));
+  line-height: 1.3;
+  font-weight: 700;
+}
+.quick-actions button .cf-icon { flex: none; }
+.quick-actions .quick-call {
+  color: #fff;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.quick-actions button:hover:not(:disabled) { filter: brightness(.97); }
+.dashboard-top .greeting-lead {
+  color: var(--muted);
+  margin: 18px 0 0 !important;
+  font-size: calc(13px * var(--font-scale, 1));
+}
+#phone-content[data-screen='B1'] > .book-cta {
+  width: calc(100% - 40px);
+  margin: 22px 20px 0 !important;
+}
+#phone-content[data-screen='B1'] > .section,
+#phone-content[data-screen='B1'] > .row {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#phone-content[data-screen='B1'] > .row { width: calc(100% - 40px); }
+
+/* Four actual IA labels are always shown; reference nav icons are examples,
+   not a reason to remove accessible names or add a fictitious fifth tab. */
+.bottom-nav {
+  margin: 4px 12px calc(9px + env(safe-area-inset-bottom, 0px));
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .8);
+  background: rgba(97, 101, 110, .91);
+  box-shadow: 0 8px 22px rgba(24, 27, 37, .14);
+  padding: 5px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+.bottom-nav a {
+  min-width: 0;
+  min-height: 60px;
+  border-radius: 999px;
+  padding: 6px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  color: #fff;
+  text-decoration: none;
+}
+.bottom-nav a span {
+  display: block;
+  color: inherit;
+  font-size: calc(10px * var(--font-scale, 1));
+  line-height: 1.25;
+  font-weight: 600;
+  text-align: center;
+}
+.bottom-nav a[aria-current='page'] {
+  color: #fff;
+  background: var(--primary);
+  box-shadow: 0 4px 12px rgba(2, 62, 147, .24);
+}
+.bottom-nav a:hover:not([aria-current='page']) {
+  background: rgba(255, 255, 255, .14);
+}
+.home-indicator { background: var(--ink); }
+
+@media (max-width: 720px) {
+  /* Reviewer controls are NOT part of the patient app. Keep them in a
+     separate full-width strip instead of overlaying the notification
+     button, which previously failed axe's actual pointer hit-test. */
+  body:not(.guided) .presentation-actions {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 52px;
+    padding: 4px 16px;
+    background: var(--bg);
+  }
+  body:not(.guided) .phone {
+    height: calc(100dvh - var(--presentation-height, 0px) - 52px);
+  }
+  body { background: var(--bg); }
+  .phone {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .phone-header {
+    min-height: 62px;
+    padding: max(9px, env(safe-area-inset-top, 0px)) 20px 9px;
+  }
+  #phone-content { padding: 12px 20px 30px; }
+  #phone-content[data-screen='A1'] { padding: 0 !important; }
+  #phone-content[data-screen='B1'] { padding: 0 0 30px; }
+}
+@media (max-width: 374px) {
+  #phone-content { padding-inline: 16px; }
+  .screen-intro h1 { font-size: calc(27px * var(--font-scale, 1)); }
+  #phone-content[data-screen='B1'] > .dashboard-top { padding-inline: 16px; }
+  #phone-content[data-screen='B1'] > .book-cta {
+    width: calc(100% - 32px);
+    margin-inline: 16px !important;
+  }
+  #phone-content[data-screen='B1'] > .section,
+  #phone-content[data-screen='B1'] > .row { margin-inline: 16px; }
+  #phone-content[data-screen='B1'] > .row { width: calc(100% - 32px); }
+  .quick-actions { grid-template-columns: minmax(0,1fr) minmax(0,1fr) 48px; }
+  .quick-actions button { min-height: 50px; gap: 4px; padding-inline: 4px; }
+  .quick-actions button strong { font-size: calc(11px * var(--font-scale, 1)); }
+  .bottom-nav { margin-inline: 8px; }
+  .bottom-nav a span { font-size: calc(9px * var(--font-scale, 1)); }
+  .visit-card, .visit-card.hero { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+@media (forced-colors: active) {
+  .bottom-nav, .bottom-nav a[aria-current='page'],
+  .btn.primary { border: 1px solid CanvasText; }
+  .visit-bottom { backdrop-filter: none; }
+}
