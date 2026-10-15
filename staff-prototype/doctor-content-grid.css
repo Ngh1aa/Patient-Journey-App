@@ -1,0 +1,341 @@
+/* CareFlow Doctor | Content Composition System — Wave 06
+   Root cause: columns used align-items:start, leaving an orphaned lower-right card.
+   Scope: content region ONLY — sidebar, header, type, tokens and routing unchanged.
+   12-col desktop -> 2-col tablet -> 1-col mobile. */
+:root { --doctor-content-gap:clamp(16px,1.55vw,24px); }
+.main-wrap { min-width:0; }
+.main-content {
+  box-sizing:border-box;
+  max-width:1440px;
+  width:100%;
+  min-width:0;
+  margin-inline:auto;
+}
+.main-content :where(.screen,.doctor-screen,.support-screen,.consultation-screen) {
+  min-width:0;
+  max-width:100%;
+}
+.main-content :where(.doctor-surface,.panel,.doctor-stat-card,.doctor-tip,
+  .doctor-sidebar-callout,.doctor-appointment,.doctor-task,.doctor-lab-row,
+  .doctor-directory-row,.support-patient-row,.record-row) { min-width:0; }
+.main-content :where(.doctor-appointment-person,.doctor-appointment-person strong,
+  .doctor-lab-row>span:nth-child(2),.doctor-directory-row>div:nth-child(2),
+  .doctor-section-head>div,.support-patient-main>div,.person-lines) { min-width:0; }
+.main-content :where(.doctor-surface,.panel,.doctor-tip,.doctor-appointment-person,
+  .doctor-result-datum,.support-note,.support-review-item,.record-row,
+  .doctor-task,.doctor-section-head) { overflow-wrap:anywhere; }
+
+/* Primary composition: the summary cards share the same 12-column grid grammar. */
+.doctor-stat-grid {
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--doctor-content-gap);
+}
+.doctor-stat-grid>.doctor-stat-card { grid-column:span 4; min-width:0; }
+
+/* Dashboard: one encompassing rectangular block, not a dangling results card.
+   The agenda rows expand evenly, instead of adding dead white space underneath. */
+.doctor-dashboard-grid {
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--doctor-content-gap);
+  align-items:stretch;
+}
+.doctor-dashboard-grid>.doctor-today {
+  grid-column:span 8;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.doctor-today>.doctor-today-list {
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-height:0;
+}
+.doctor-today .doctor-appointment {
+  display:flex;
+  flex:1 1 auto;
+  align-items:center;
+}
+.doctor-dashboard-grid>.doctor-side-stack {
+  grid-column:span 4;
+  min-width:0;
+  min-height:0;
+  height:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(min-content,1fr) auto;
+  gap:var(--doctor-content-gap);
+  align-items:stretch;
+}
+.doctor-side-stack>.doctor-surface { min-width:0; }
+.doctor-side-stack>.doctor-now {
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.doctor-side-stack>.doctor-now>.btn { margin-top:auto; }
+
+/* One composition system shared by schedule, results and follow-up. */
+.doctor-schedule-layout,
+.doctor-results-grid,
+.doctor-followups-grid,
+.profile-grid,
+.support-two-col,
+.support-review-grid {
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--doctor-content-gap);
+  align-items:stretch;
+}
+.doctor-schedule-main { grid-column:span 8; min-width:0; }
+.doctor-schedule-aside {
+  grid-column:span 4;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(min-content,1fr) minmax(min-content,.85fr) auto;
+  gap:var(--doctor-content-gap);
+  height:100%;
+  min-width:0;
+  align-items:stretch;
+}
+.doctor-schedule-aside>.doctor-schedule-summary {
+  display:flex;
+  flex-direction:column;
+}
+.doctor-schedule-aside>.doctor-next-visit {
+  display:flex;
+  flex-direction:column;
+}
+.doctor-schedule-aside .doctor-next-action { margin-top:auto; }
+.doctor-schedule-aside>.doctor-tip { margin:0; }
+.doctor-results-grid>.doctor-surface:first-child {
+  grid-column:span 7;
+  display:flex;
+  flex-direction:column;
+}
+.doctor-results-grid>.doctor-result-preview { grid-column:span 5; }
+.doctor-results-grid .doctor-lab-list {
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  min-height:0;
+}
+.doctor-results-grid .doctor-lab-row { flex:1 1 auto; min-height:58px; }
+.doctor-followups-grid>.doctor-surface { grid-column:span 8; }
+.doctor-followups-grid>.doctor-followups-side {
+  grid-column:span 4;
+  min-width:0;
+}
+.doctor-followups-side>.doctor-followups-summary {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.doctor-followups-summary>.btn { margin-top:auto; }
+.doctor-followups-summary>.doctor-divider { margin-block:auto; }
+
+/* Patient record: equal outer edge despite independently sized right-hand cards. */
+.profile-grid>.profile-main { grid-column:span 8; min-width:0; }
+.profile-grid>.profile-side {
+  grid-column:span 4;
+  min-width:0;
+  height:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(min-content,1fr) minmax(min-content,.55fr);
+  gap:var(--doctor-content-gap);
+}
+.profile-grid>.profile-main>.panel { min-height:100%; }
+.profile-grid>.profile-side>.panel { min-width:0; }
+.profile-grid .profile-stat-list { display:flex; flex-direction:column; justify-content:space-evenly; }
+.profile-grid .profile-side .note-panel { display:flex; flex-direction:column; }
+.profile-grid .note-panel>p { line-height:1.75; }
+
+/* Three columns of clinical work, with the two right context cards sharing one edge. */
+.wave-consult .consult-grid {
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--doctor-content-gap);
+  align-items:stretch;
+}
+.wave-consult .consult-grid>.consult-queue { grid-column:span 3; }
+.wave-consult .consult-grid>.consult-editor { grid-column:span 6; }
+.wave-consult .consult-grid>.consult-right {
+  grid-column:span 3;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(min-content,1.25fr) minmax(min-content,.75fr);
+  gap:var(--doctor-content-gap);
+  min-width:0;
+  min-height:0;
+  height:100%;
+  align-items:stretch;
+}
+.wave-consult .consult-right>.panel { min-width:0; }
+.wave-consult .consult-right>.followup-panel { display:flex; flex-direction:column; }
+.wave-consult .followup-panel>.followup-foot { margin-top:auto; }
+.wave-consult .consult-grid>.consult-editor { min-width:0; min-height:0; }
+.wave-consult .consult-tabs { max-width:100%; overflow-x:auto; }
+.wave-consult .consult-tabs .tab { flex-shrink:0; }
+
+/* The physician's clinical supporting cards use the same 12-column rules.
+   Existing forms/actions/state remain unchanged; only their containers stretch. */
+.support-two-col>.support-panel:first-child { grid-column:span 7; }
+.support-two-col>.support-panel:nth-child(2) { grid-column:span 5; }
+.support-review-grid>.support-panel:first-child { grid-column:span 8; }
+.support-review-grid>.support-panel:nth-child(2) { grid-column:span 4; }
+.support-two-col>.support-panel,
+.support-review-grid>.support-panel { min-width:0; height:100%; }
+.support-two-col>.support-panel:first-child,
+.support-two-col>.support-form-panel { display:flex; flex-direction:column; }
+.support-two-col .support-list {
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+}
+.support-two-col .support-list>.support-patient-row { flex:1 1 auto; min-height:60px; }
+.support-two-col>.support-form-panel>.support-form { flex:1 1 auto; }
+.support-form-panel .support-form>.btn-full { margin-top:auto; }
+.support-two-col .support-document-panel { display:flex; flex-direction:column; }
+.support-two-col .support-document-panel .support-document { flex:1 1 auto; }
+.support-review-grid>.support-guidance { display:flex; flex-direction:column; }
+.support-review-grid>.support-guidance>.support-note { margin-top:auto; }
+
+/* Tablet: two true columns, stacked master sections, paired context cards. */
+@media (max-width:1180px) and (min-width:701px) {
+  .doctor-stat-grid,
+  .doctor-dashboard-grid,
+  .doctor-schedule-layout,
+  .doctor-results-grid,
+  .doctor-followups-grid,
+  .profile-grid,
+  .support-two-col,
+  .support-review-grid,
+  .wave-consult .consult-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .doctor-stat-grid>.doctor-stat-card { grid-column:span 1; }
+  .doctor-stat-grid>.doctor-stat-card:last-child { grid-column:span 2; }
+  .doctor-dashboard-grid>.doctor-today,
+  .doctor-dashboard-grid>.doctor-side-stack,
+  .doctor-schedule-layout>.doctor-schedule-main,
+  .doctor-schedule-layout>.doctor-schedule-aside,
+  .doctor-followups-grid>.doctor-surface,
+  .doctor-followups-grid>.doctor-followups-side,
+  .doctor-results-grid>.doctor-surface:first-child,
+  .doctor-results-grid>.doctor-result-preview,
+  .profile-grid>.profile-main,
+  .profile-grid>.profile-side,
+  .support-two-col>.support-panel:first-child,
+  .support-two-col>.support-panel:nth-child(2),
+  .support-review-grid>.support-panel:first-child,
+  .support-review-grid>.support-panel:nth-child(2) { grid-column:1 / -1; }
+  .doctor-dashboard-grid>.doctor-side-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:auto;
+    height:auto;
+  }
+  .doctor-side-stack>.doctor-now { min-height:100%; }
+  .doctor-schedule-layout>.doctor-schedule-aside {
+    height:auto;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:auto auto;
+  }
+  .doctor-schedule-aside>.doctor-tip { grid-column:1 / -1; }
+  .profile-grid>.profile-side {
+    height:auto;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:auto;
+  }
+  .wave-consult .consult-grid>.consult-editor { grid-column:1 / -1; grid-row:1; }
+  .wave-consult .consult-grid>.consult-queue { grid-column:1; grid-row:2; }
+  .wave-consult .consult-grid>.consult-right {
+    grid-column:2;
+    grid-row:2;
+    height:auto;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:minmax(min-content,1fr) minmax(min-content,.65fr);
+  }
+}
+@media (max-width:700px) {
+  .doctor-stat-grid,
+  .doctor-dashboard-grid,
+  .doctor-schedule-layout,
+  .doctor-results-grid,
+  .doctor-followups-grid,
+  .profile-grid,
+  .support-two-col,
+  .support-review-grid,
+  .wave-consult .consult-grid {
+    grid-template-columns:minmax(0,1fr);
+    gap:16px;
+  }
+  .doctor-stat-grid>.doctor-stat-card,
+  .doctor-dashboard-grid>.doctor-today,
+  .doctor-dashboard-grid>.doctor-side-stack,
+  .doctor-schedule-layout>.doctor-schedule-main,
+  .doctor-schedule-layout>.doctor-schedule-aside,
+  .doctor-results-grid>.doctor-surface:first-child,
+  .doctor-results-grid>.doctor-result-preview,
+  .doctor-followups-grid>.doctor-surface,
+  .doctor-followups-grid>.doctor-followups-side,
+  .profile-grid>.profile-main,
+  .profile-grid>.profile-side,
+  .support-two-col>.support-panel:first-child,
+  .support-two-col>.support-panel:nth-child(2),
+  .support-review-grid>.support-panel:first-child,
+  .support-review-grid>.support-panel:nth-child(2),
+  .wave-consult .consult-grid>.consult-queue,
+  .wave-consult .consult-grid>.consult-editor,
+  .wave-consult .consult-grid>.consult-right { grid-column:1 / -1; grid-row:auto; }
+  .doctor-dashboard-grid>.doctor-side-stack,
+  .doctor-schedule-layout>.doctor-schedule-aside,
+  .profile-grid>.profile-side,
+  .wave-consult .consult-grid>.consult-right {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto;
+    height:auto;
+  }
+  .doctor-today .doctor-appointment { flex:0 0 auto; }
+  .doctor-appointment { min-width:0; }
+}
+
+
+/* At phone width, preserve the full patient's name and place the row action below.
+   Three-column appointment data otherwise shrinks to unreadable ellipses. */
+@media (max-width:700px) {
+  .doctor-screen .doctor-appointment,
+  .doctor-screen .doctor-appointment.is-compact {
+    display:grid;
+    grid-template-columns:minmax(45px,54px) 34px minmax(0,1fr);
+    align-items:center;
+    column-gap:8px;
+    row-gap:8px;
+  }
+  .doctor-screen .doctor-appointment-time { grid-column:1; grid-row:1; }
+  .doctor-screen .doctor-appointment>.avatar { grid-column:2; grid-row:1; width:32px; height:32px; }
+  .doctor-screen .doctor-appointment-person {
+    grid-column:3;
+    grid-row:1;
+    min-width:0;
+    width:100%;
+  }
+  .doctor-screen .doctor-appointment-person strong {
+    white-space:normal;
+    text-overflow:clip;
+    overflow:visible;
+    overflow-wrap:anywhere;
+    line-height:1.55;
+  }
+  .doctor-screen .doctor-appointment-status { display:none; }
+  .doctor-screen .doctor-appointment-action {
+    grid-column:1 / -1;
+    grid-row:2;
+    justify-self:end;
+    margin:0;
+  }
+  .doctor-screen .doctor-appointment-action .btn { min-height:40px; }
+}
