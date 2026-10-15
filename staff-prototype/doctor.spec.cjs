@@ -22,6 +22,12 @@ for(const group of [0,1,2]){
    await expect(page.locator('.doctor-sidebar')).toBeVisible();
    await expect(page.locator('.demo-indicator')).toContainText('Dữ liệu minh họa');
    await expect(page.locator('.sidebar [aria-current="page"]')).toHaveCount(1);
+   const navFits=await page.evaluate(()=>{
+     const item=document.querySelector('.sidebar-nav a[href="#/doctor/followups"]');
+     const viewport=document.querySelector('.sidebar-nav');
+     return item && viewport && item.getBoundingClientRect().bottom<=viewport.getBoundingClientRect().bottom+2;
+   });
+   expect(navFits,name+' sidebar last item clipped').toBe(true);
    const dimensions=await page.evaluate(()=>({body:document.documentElement.scrollWidth,viewport:innerWidth}));
    expect(dimensions.body,name+' horizontal overflow').toBeLessThanOrEqual(dimensions.viewport+1);
    await page.screenshot({path:testInfo.outputPath('doctor-'+name+'.png'),fullPage:true,animations:'disabled'});
