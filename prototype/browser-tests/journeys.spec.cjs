@@ -248,7 +248,7 @@ test('F2 existing profile is confirmed and can be updated without re-entry', asy
   await send(page);
   expect((await current(page)).status).toBe('pending');
 });
-test('F3a warning → emergency exit, no booking and no real external call', async ({
+test('F3a warning → emergency contact sheet, native phone link and no booking', async ({
   page,
 }) => {
   await load(page, 'empty');
@@ -258,12 +258,59 @@ test('F3a warning → emergency exit, no booking and no real external call', asy
   await screen(page, 'C4');
   await action(page, 'emergency').click();
   await expect(page.locator('#dialog')).toBeVisible();
-  await expect(page.locator('#dialog-body')).toContainText(
-    /không thực hiện cuộc gọi/i,
-  );
+  await expect(page.locator('#dialog-body')).toContainText('ứng dụng Điện thoại');
+  await expect(page.locator('#dialog-actions a[href="tel:115"]')).toBeVisible();
+  await page.locator('#dialog [data-action=directions]').click();
+  await expect(page.locator('#dialog-body')).toContainText('Bệnh viện Nhân dân 115');
+  await expect(page.locator('#dialog-body')).toContainText('527 Sư Vạn Hạnh');
+  await expect(page.locator('#dialog-actions a').first()).toHaveAttribute('href', /google\.com\/maps\/dir\//);
+  await expect(page.locator('#dialog-actions a').nth(1)).toHaveAttribute('href', 'https://benhviennhandan115.com/pages/lien-he');
+  expect((await state(page)).draft.safety).toBe('warning');
+  await page.locator('#dialog [data-action=close-dialog]').click();
+  await action(page, 'emergency').click();
   await page.locator('[data-action=stop-emergency]').click();
   await screen(page, 'B1');
   expect((await state(page)).visits).toHaveLength(0);
+});
+
+test('device permission recovery and preview cleanup preserve the online visit', async ({page}) => {
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await load(page,'online');await nav(page,'G1');
+  const visitId=(await state(page)).activeVisitId;
+  await page.evaluate(()=>{
+    window.cameraStopped=0;window.cameraAllowed=false;
+    Object.defineProperty(HTMLVideoElement.prototype,'srcObject',{configurable:true,writable:true,value:null});
+    Object.defineProperty(navigator,'mediaDevices',{configurable:true,value:{getUserMedia:async()=>{
+      if(!window.cameraAllowed)throw new DOMException('Permission denied','NotAllowedError');
+      return {getTracks:()=>[{stop(){window.cameraStopped++;}}]};
+    }}});
+  });
+  await action(page,'device').click();
+  await page.locator('[data-action=device-camera]').click();
+  await expect(page.locator('#device-status')).toContainText('thử lại hoặc tiếp tục');
+  await page.evaluate(()=>window.cameraAllowed=true);
+  await page.locator('[data-action=device-camera]').click();
+  await expect(page.locator('#device-preview')).toBeVisible();
+  await page.locator('[data-action=device-audio]').click();
+  await expect(page.locator('#device-status')).toContainText(/âm báo|cài đặt âm thanh/);
+  await page.locator('[data-action=device-ready]').click();
+  expect(await page.evaluate(()=>window.cameraStopped)).toBeGreaterThan(0);
+  expect((await state(page)).activeVisitId).toBe(visitId);
+  await expect(content(page)).toContainText('Đã hoàn tất chuẩn bị');
+  expect(errors).toEqual([]);
+});
+
+test('support callback accepts the request once without requiring an appointment', async ({page}) => {
+  await load(page,'empty');await nav(page,'K5');
+  for(let i=0;i<2;i++){
+    await action(page,'clinic-call').click();
+    await expect(page.locator('#dialog-body')).toContainText('chờ phòng khám');
+    await page.locator('#dialog [data-action=close-dialog]').click();
+  }
+  const s=await state(page);
+  expect(s.requests.filter(r=>r.type==='callback')).toHaveLength(1);
+  expect(s.requests[0].status).toBe('waiting');
+  expect(s.visits).toHaveLength(0);
 });
 test('F3b cannot bypass risk; review request waits for staff mode decision', async ({
   page,

@@ -9,6 +9,7 @@
   let returnHash = null;
   let guideEnabled = false;
   let restoredSession = false;
+  let deviceStream = null;
   let s = M.initial(),
     u = {
       screen: 'A1',
@@ -39,7 +40,7 @@
       restoredSession = true;
     }
   } catch {
-    demo('Phiên trước không đọc được. Đã mở phiên thử nghiệm mới.');
+    demo('Không mở được phiên trước. Bạn có thể bắt đầu lại.');
   }
   function save() {
     try {
@@ -335,7 +336,7 @@
     const selected = variant || flow.variants?.[0][0] || 'default';
     guideEnabled = true;
     s = window.CareFlowJourney.seed(flow, selected);
-    u = {...u, inspection:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
+    u = {...u, inspection:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,emergencyOpened:false,emergencyAccessed:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
     const params = new URLSearchParams(location.search);
     params.set('journey', flow.id);
     params.set('branch', selected);
@@ -494,12 +495,17 @@
       : '<option value="">Chưa có cập nhật khả dụng</option>';
   }
   function dialog(title, body, buttons = '') {
-    lastFocus = document.activeElement;
+    stopDevicePreview();
+    if(!$('dialog').open)lastFocus = document.activeElement;
     $('dialog-title').textContent = title;
     $('dialog-body').textContent = body;
     $('dialog-actions').innerHTML =
       buttons || V.btn('Đóng', 'close-dialog', {}, 'primary');
     $('dialog').showModal();
+  }
+  function stopDevicePreview() {
+    deviceStream?.getTracks().forEach(track=>track.stop());
+    deviceStream=null;
   }
   function error(code, fieldId) {
     const target = $('form-error');
@@ -725,11 +731,14 @@
       go('B1');
     },
     emergency() {
+      u.emergencyOpened = true;
+      render();
       dialog(
-        VI.demo.title,
-        VI.demo.emergency,
-        V.btn(VI.screen.C4.exit, 'stop-emergency', {}, 'primary') +
-          V.btn('Đóng', 'close-dialog'),
+        VI.facility.emergencyTitle,
+        VI.facility.emergencyLead,
+        V.external('Gọi '+VI.facility.emergencyPhone, 'tel:'+VI.facility.emergencyPhone, 'danger') +
+          V.btn(VI.screen.C4.directions, 'directions') +
+          V.btn(VI.screen.C4.exit, 'stop-emergency', {}, 'text'),
       );
     },
     'stop-emergency'() {
@@ -739,10 +748,19 @@
       go('B1');
     },
     directions() {
-      dialog(VI.demo.title, VI.demo.directions);
+      u.emergencyOpened = true;
+      render();
+      dialog(VI.screen.C4.directions, '', V.external(VI.facility.directions, VI.facility.maps) + V.external(VI.facility.details, VI.facility.source, 'secondary') + V.btn('Quay lại', 'close-dialog', {}, 'text'));
+      $('dialog-body').innerHTML=V.facilityCard();
     },
+    'external-support'() { u.emergencyAccessed=true;save();render(); },
     'clinic-call'() {
-      dialog(VI.screen.K5.call, VI.common.notProvided);
+      const v=M.visit(s);
+      if(v)v.communication.callback='pending';
+      if(!s.requests.some(r=>r.type==='callback' && r.visitId===s.activeVisitId && r.status==='waiting'))
+        s.requests.push({id:'request-'+s.requests.length,type:'callback',visitId:s.activeVisitId,text:'Bạn muốn phòng khám gọi lại để hỗ trợ.',status:'waiting'});
+      save();render();
+      dialog('Yêu cầu phòng khám gọi lại', VI.feedback.callback);
     },
     rebook(el) {
       rebook(el.dataset.purpose, el.dataset.mode || null);
@@ -753,13 +771,43 @@
     },
     device() {
       dialog(
-        VI.demo.title,
-        VI.demo.video,
-        V.btn('Tiếp tục thử thiết bị', 'device-ready', {}, 'primary') +
-          V.btn(VI.common.cancel, 'close-dialog'),
+        'Chuẩn bị camera và âm thanh',
+        'Bạn có thể kiểm tra trước khi vào phòng chờ. Camera chỉ bật khi bạn cho phép.',
+        V.btn('Bật camera', 'device-camera') + V.btn('Nghe âm thanh', 'device-audio') +
+          V.btn('Tiếp tục vào phòng chờ', 'device-ready', {}, 'primary') + V.btn(VI.common.cancel, 'close-dialog', {}, 'text'),
       );
+      $('dialog-body').insertAdjacentHTML('beforeend','<video id="device-preview" autoplay muted playsinline hidden></video><p id="device-status" class="hint" role="status">Bạn có thể tiếp tục mà chưa bật camera.</p>');
+    },
+    async 'device-camera'() {
+      const status=$('device-status');
+      if(!navigator.mediaDevices?.getUserMedia){status.textContent='Trình duyệt chưa hỗ trợ camera. Bạn có thể đổi trình duyệt hoặc tiếp tục vào phòng chờ.';return;}
+      try {
+        const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+        if(!$('dialog').open || !$('device-preview') || $('device-status')!==status){stream.getTracks().forEach(t=>t.stop());return;}
+        stopDevicePreview();deviceStream=stream;
+        $('device-preview').srcObject=stream;$('device-preview').hidden=false;
+        status.textContent='Camera đã bật. Bạn có thể kiểm tra hình ảnh trước khi tiếp tục.';
+      } catch {
+        if($('dialog').open && $('device-status')===status)status.textContent='Chưa bật được camera. Bạn có thể cấp quyền trong trình duyệt, thử lại hoặc tiếp tục vào phòng chờ.';
+      }
+    },
+    async 'device-audio'() {
+      const Audio=window.AudioContext || window.webkitAudioContext;
+      if(!Audio){$('device-status').textContent='Bạn có thể kiểm tra loa bằng phần cài đặt âm thanh trên thiết bị.';return;}
+      let context;
+      try {
+        context=new Audio();
+        await context.resume();
+        const tone=context.createOscillator(),volume=context.createGain();
+        volume.gain.setValueAtTime(0.05,context.currentTime);
+        tone.frequency.value=520;tone.connect(volume);volume.connect(context.destination);
+        tone.start();tone.stop(context.currentTime+0.25);
+        tone.onended=()=>context.close().catch(()=>{});
+        if($('device-status'))$('device-status').textContent='Nếu nghe thấy âm báo, loa hoặc tai nghe của bạn đã sẵn sàng.';
+      } catch {context?.close().catch(()=>{});if($('device-status'))$('device-status').textContent='Chưa phát được âm thanh. Bạn hãy kiểm tra âm lượng rồi thử lại.';}
     },
     'device-ready'() {
+      stopDevicePreview();
       $('dialog').close();
       u.deviceReady = true;
       render();
@@ -858,7 +906,7 @@
       demo(
         s.offline
           ? VI.feedback.offline
-          : 'Đã kết nối lại trong phiên thử nghiệm.',
+          : 'Đã kết nối lại.',
       );
     },
     'large-text'() {
@@ -906,7 +954,7 @@
     if (!el || el.disabled) return;
     const action = actions[el.dataset.action];
     if (action) {
-      event.preventDefault();
+      if(el.dataset.action!=='external-support')event.preventDefault();
       action(el);
     }
   });
@@ -1180,7 +1228,7 @@
   });
   $('dialog').addEventListener(
     'close',
-    () => lastFocus?.isConnected && lastFocus.focus(),
+    () => {stopDevicePreview();lastFocus?.isConnected && lastFocus.focus();},
   );
   $('review-toggle').addEventListener('click', () => {
     if(guideEnabled){startJourney(u.journey.id,u.journey.variant);return;}
@@ -1265,11 +1313,9 @@
   }
   const sizeObserver = new ResizeObserver(() => {
     const height =
-      document.querySelector('.demo-bar').getBoundingClientRect().height +
       $('demo-feedback').getBoundingClientRect().height;
-    document.documentElement.style.setProperty('--demo-height', height + 'px');
+    document.documentElement.style.setProperty('--presentation-height', height + 'px');
   });
-  sizeObserver.observe(document.querySelector('.demo-bar'));
   sizeObserver.observe($('demo-feedback'));
   document.querySelector('.journey-panel').hidden = !guideEnabled;
   document.body.classList.toggle('guided',guideEnabled);

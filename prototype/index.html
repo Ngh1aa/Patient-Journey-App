@@ -15,13 +15,7 @@
     <a class="skip-link" href="#phone-main" data-action="skip-content"
       >Đến nội dung ứng dụng</a
     >
-    <section class="demo-bar" aria-label="Thông tin trải nghiệm">
-      <div>
-        <strong>CareFlow</strong
-        ><span id="demo-warning"
-          >Trải nghiệm minh họa · Không gửi yêu cầu hoặc thanh toán thực.</span
-        >
-      </div>
+    <div class="presentation-actions">
       <button
         id="review-toggle"
         type="button"
@@ -30,7 +24,7 @@
       >
         Tùy chọn
       </button>
-    </section>
+    </div>
     <div
       id="demo-feedback"
       class="demo-feedback"
@@ -46,7 +40,7 @@
         </div>
         <button class="journey-mobile-toggle" type="button" data-action="journey-toggle" aria-expanded="false" aria-controls="journey-list"><span id="journey-mobile-label">Chọn hành trình</span><span aria-hidden="true">⌄</span></button>
         <ol class="journey-list" id="journey-list" aria-label="12 hành trình bệnh nhân"></ol>
-        <p class="journey-footnote">Hồ sơ minh họa · Nguyễn Minh Anh<br>Không sử dụng thông tin bệnh nhân thật.</p>
+        <p class="journey-footnote">Luôn biết bước hiện tại, người phụ trách<br>và việc cần làm tiếp theo.</p>
       </aside>
       <aside class="review-tools" id="review-tools" hidden>
         <div class="brand">
@@ -147,7 +141,7 @@
           Chăm sóc sức khỏe, liền mạch từ lịch hẹn đến sau khám.
         </p>
       </main>
-      <aside class="presentation-note" aria-label="Giới hạn đánh giá">
+      <aside class="presentation-note" aria-label="Về CareFlow">
         <span class="eyebrow">CARE, CONNECTED.</span>
         <h2>An tâm hơn<br />ở mỗi bước khám.</h2>
         <p>
@@ -155,7 +149,7 @@
         </p>
         <div class="presentation-rule"></div>
         <p class="review-hint">
-          47 màn · 12 hành trình<br />Hồ sơ minh họa, không có giao dịch thực.
+          Đặt lịch · Khám bệnh · Theo dõi sau khám
         </p>
       </aside>
     </div>
@@ -166,7 +160,7 @@
         </button>
       </form>
       <h2 id="dialog-title"></h2>
-      <p id="dialog-body"></p>
+      <div id="dialog-body"></div>
       <div id="dialog-actions"></div>
     </dialog>
     <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
@@ -176,6 +170,6 @@
     <script src="./vendor/qrcode.js"></script>
     <script src="./views.js"></script>
     <script src="./journeys.js"></script>
-    <script src="./app.js?v=restore-guide"></script>
+    <script src="./app.js?v=patient-actions"></script>
   </body>
 </html>

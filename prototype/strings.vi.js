@@ -2,6 +2,18 @@
 (function (root) {
   'use strict';
   const data = {
+    facility: {
+      name: 'Bệnh viện Nhân dân 115',
+      address: '527 Sư Vạn Hạnh, phường Hòa Hưng, TP.HCM',
+      entrance: 'Cổng cấp cứu · Cổng 4',
+      source: 'https://benhviennhandan115.com/pages/lien-he',
+      maps: 'https://www.google.com/maps/dir/?api=1&destination=Cong%20cap%20cuu%20Benh%20vien%20Nhan%20dan%20115%20527%20Su%20Van%20Hanh%20Ho%20Chi%20Minh',
+      emergencyPhone: '115',
+      directions: 'Mở chỉ đường Google Maps',
+      details: 'Thông tin từ bệnh viện',
+      emergencyTitle: 'Liên hệ cấp cứu 115',
+      emergencyLead: 'Mở ứng dụng Điện thoại để liên hệ tổng đài cấp cứu.',
+    },
     common: {
       contactPhone: 'Số điện thoại liên hệ',
       medicalHistory: 'Tiền sử và thuốc đang dùng (nếu có)',
@@ -357,7 +369,7 @@
         heading: 'Chuẩn bị khám online',
         lead: 'Bạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.',
         check: 'Kiểm tra thiết bị',
-        ready: 'Thiết bị đã sẵn sàng',
+        ready: 'Đã hoàn tất chuẩn bị',
         waiting: 'Chưa kiểm tra',
         note: 'Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.',
         cta: 'Vào phòng chờ',
@@ -562,7 +574,7 @@
       K5: {
         heading: 'Phòng khám luôn sẵn sàng lắng nghe',
         lead: 'Chọn cách để được hỗ trợ về lịch hẹn và việc sau khám.',
-        call: 'Gọi phòng khám',
+        call: 'Nhờ phòng khám gọi lại',
         message: 'Gửi yêu cầu hỗ trợ',
         text: 'Bạn cần hỗ trợ việc gì?',
         sent: 'Yêu cầu đang chờ phòng khám tiếp nhận.',
@@ -594,20 +606,15 @@
       demoStopped: 'Đã dừng luồng đặt lịch.',
     },
     demo: {
-      title: 'Trải nghiệm minh họa',
-      warning:
-        'Hồ sơ minh họa. Không có yêu cầu hoặc giao dịch thực được gửi.',
+      title: 'Thông tin',
+      warning: '',
       otp: 'Mã xác nhận đã được chuẩn bị sẵn: 123456.',
       notice:
         'Thông tin được lưu trong trải nghiệm trên trình duyệt này.',
-      emergency:
-        'Trải nghiệm này không thực hiện cuộc gọi. Khi cần trợ giúp khẩn cấp, hãy dùng ứng dụng Điện thoại của bạn.',
-      directions:
-        'Chưa có địa chỉ đã được xác nhận. Không mở chỉ đường tới cơ sở giả.',
       payment:
         'Thông báo chuyển khoản đang chờ phòng khám xác nhận.',
       video:
-        'Cuộc gọi được minh họa trên màn hình, không thu âm hoặc ghi hình.',
+        'Bạn có thể bật hoặc tắt camera và micro trong cuộc gọi.',
       stored: 'Phiên chỉ lưu trên trình duyệt này. Đặt lại để xóa dữ liệu thử.',
       reset: 'Đặt lại',
       controls: 'Tùy chọn trải nghiệm',
