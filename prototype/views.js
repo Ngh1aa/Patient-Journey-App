@@ -125,8 +125,8 @@
   function bookingProgress(id) {
     const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 3}[id];
     if (step === undefined) return '';
-    const labels = ['Người đi khám', 'Triệu chứng', 'Hình thức', 'Lịch hẹn'];
-    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track"></span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
+    const labels = ['Người đi khám', 'Triệu chứng', 'Nơi khám', 'Lịch hẹn'];
+    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track" aria-hidden="true">${i < step ? "✓" : i + 1}</span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
   }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
@@ -751,6 +751,7 @@
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
         : '');
     if (id === 'B1') return `<div class="screen-masthead home-masthead">${intro}</div>${body}`;
+    if (['C1','D1','K2','K5'].includes(id)) return `<div class="screen-masthead compact-masthead">${intro}${id==='C1' && s.draft ? bookingProgress(id) : ''}</div>${body}`;
     if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
     const groups = {
       C: ['ĐẶT LỊCH KHÁM', 'calendar'], D: ['LỊCH KHÁM CỦA BẠN', 'calendar'],
@@ -760,8 +761,8 @@
       K: [id === 'K5' ? 'PHÒNG KHÁM ĐỒNG HÀNH' : 'THÔNG TIN CỦA BẠN', id === 'K5' ? 'phone' : 'user'],
     };
     const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
-    const tip = VI.layout.tips[id];
-    return `<div class="screen-masthead"><div class="masthead-label"><span>${esc(label)}</span><span class="masthead-icon" aria-hidden="true">${I(icon,24)}</span></div>${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? id === 'C1' ? `<aside class="selection-reminder" role="note">${I('shield',21)}<div><strong>${esc(tip[0])}</strong><p>${esc(tip[1])}</p></div></aside>` : `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
+    const tip = ['C1','D1','K2','K5'].includes(id) ? null : VI.layout.tips[id];
+    return `<div class="screen-masthead">${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? id === 'C1' ? `<aside class="selection-reminder" role="note">${I('shield',21)}<div><strong>${esc(tip[0])}</strong><p>${esc(tip[1])}</p></div></aside>` : `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
   }
   root.CareFlowViews = {
     external,
