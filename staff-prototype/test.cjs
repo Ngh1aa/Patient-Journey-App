@@ -17,7 +17,7 @@ test('eight follow-up showcase surfaces and shared entrypoints are present',()=>
 test('Wave3 scheduling safeguards and nursing journeys are wired',()=>{
   const js3=fs.readFileSync(path.join(__dirname,'wave3.js'),'utf8');
   const css3=fs.readFileSync(path.join(__dirname,'wave3.css'),'utf8');
-  assert.match(html,/wave3\\.js/);assert.match(html,/wave3\\.css/);
+  assert.match(html,/wave3\.js/);assert.match(html,/wave3\.css/);
   for(const path of ['/nursing','/nursing/prepare','/nursing/followups','/schedule/'])assert.ok(js3.includes(path),path);
   assert.match(js,/wave-consult-progress/);assert.match(js,/cancelled:'Đã hủy'/);
   assert.match(css3,/wave-consult/);
