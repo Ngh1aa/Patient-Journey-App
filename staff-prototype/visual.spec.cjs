@@ -61,7 +61,7 @@ test('cross-page typography, contrast, role nav and button states',async({page})
   await expect(page.locator('.switch-options [data-role="reception"]')).toHaveAttribute('aria-pressed','false');
   await expect(page.locator('.sidebar-nav .nav-item.active')).toContainText('Tổng quan');
   await page.locator('.sidebar-nav a[data-route="/nursing/prepare"]').click();
-  await expect(page).toHaveURL(/#\\/nursing\\/prepare/);
+  await expect(page).toHaveURL(new RegExp('#/nursing/prepare$'));
   await expect(page.locator('.sidebar-nav .nav-item.active')).toContainText('Chuẩn bị khám');
 });
 
