@@ -164,3 +164,16 @@
   #phone-content .home-shortcut,#phone-content .visit-card-corner{transition:none}
   #phone-content .home-shortcut:hover,#phone-content .visit-card:hover .visit-card-corner{transform:none}
 }
+
+
+#phone-content .home-shortcut:disabled,
+#phone-content .home-shortcut[aria-disabled='true'] {
+  background:var(--surface);
+  color:var(--muted);
+  border-style:dashed;
+  box-shadow:none;
+  cursor:not-allowed;
+}
+#phone-content .home-shortcut:disabled .home-shortcut-icon,
+#phone-content .home-shortcut:disabled .home-shortcut-arrow {color:var(--muted);background:var(--bg)}
+#phone-content .home-shortcut:disabled:hover {transform:none;border-color:var(--border)}
