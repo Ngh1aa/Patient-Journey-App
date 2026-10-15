@@ -122,10 +122,10 @@
     return card(`${chip(labels[task.status][0])}<p class="eyebrow">Phụ trách yêu cầu</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
   function bookingProgress(id) {
-    const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 4}[id];
+    const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 3}[id];
     if (step === undefined) return '';
-    const labels = VI.layout.bookingSteps;
-    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 5</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track"></span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
+    const labels = ['Người đi khám', 'Triệu chứng', 'Hình thức', 'Lịch hẹn'];
+    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track"></span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
   }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
@@ -249,6 +249,7 @@
             '', 'clock',
           );
         }
+        body += `<nav class="home-quick-actions" aria-label="Thao tác nhanh">${[['calendar','Đặt lịch','begin',null],['clock','Lịch hẹn','go','D1'],['document','Kết quả','go','H7'],['phone','Hỗ trợ','go','K5']].map(([icon,label,action,to]) => `<button type="button" data-action="${action}"${to ? ` data-to="${to}"` : ''}><span>${I(icon,22)}</span><small>${esc(label)}</small></button>`).join('')}</nav>`;
         body +=
           section(VI.layout.services, `<div class="service-grid"><button type="button" class="service-tile booking-tile" data-action="begin"><span class="service-icon">${I('calendar', 26)}</span><strong>${esc(C.book)}</strong><small>${esc(VI.layout.bookingHint)}</small>${I('arrow-right', 19)}</button><button type="button" class="service-tile" data-action="go" data-to="I1"><span class="service-icon">${I('heart-pulse', 26)}</span><strong>${esc(VI.layout.aftercare)}</strong><small>${esc(T.careLead)}</small>${I('arrow-right', 19)}</button></div>`, 'service-section') + row(T.help, T.helpLead, 'K5', 'phone');
         break;
@@ -272,7 +273,7 @@
             textarea('reason', T.label, d?.reason || '', {
               maxlength: '1200',
               required: 'required',
-            }) + `<p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
+            }) + `<div class="symptom-chips" role="group" aria-label="Triệu chứng thường gặp">${['Đau đầu','Sốt','Ho','Đau bụng','Mệt mỏi','Khó ngủ'].map(x => `<button type="button" class="symptom-chip" data-symptom="${esc(x)}">${esc(x)}</button>`).join('')}</div><p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
           ) + (T.note ? note(T.note) : '');
         break;
       case 'C3':
@@ -449,7 +450,8 @@
           nav(C.viewVisit, 'D2');
         break;
       case 'F1':
-        body = v.labs.length
+        body = `<ol class="lab-stage-strip" aria-label="Tiến trình cận lâm sàng">${[['ordered','Đã chỉ định'],['scheduled','Đã hẹn'],['available','Có kết quả'],['awaiting-review','Chờ bác sĩ'],['reviewed','Đã xem']].map(([key,label],i) => `<li class="${['ordered','scheduled','available','awaiting-review','reviewed'].indexOf(v.labs[0]?.status) >= i ? 'reached' : ''}"><span>${i+1}</span><small>${label}</small></li>`).join('')}</ol>`;
+        body += v.labs.length
           ? v.labs
               .map((x) =>
                 row(x.name, VI.labs[x.status], 'F2', 'document', {
@@ -542,18 +544,18 @@
           (v.communication.callback === 'pending' ? note(C.callback) : '') +
           note(T.lead, 'warning') +
           btn(T.wait, 'callback', {}, 'primary') +
-          btn(T.online, 'rebook', {
+          `<div class="recovery-options" role="group" aria-label="Cách tiếp tục">` + btn(T.online, 'rebook', {
             'data-purpose': 'online-retry',
             'data-mode': 'online',
           }) +
           btn(T.onsite, 'rebook', {
             'data-purpose': 'convert-onsite',
             'data-mode': 'onsite',
-          });
+          }) + `</div>`;
         break;
       case 'H1':
         body =
-          `<div class="completion-mark">${I('check-circle', 48)}</div>` +
+          `<div class="care-stat-strip" aria-label="Tổng quan sau khám"><div><strong>${v.summary ? 1 : 0}</strong><small>Lời dặn</small></div><div><strong>${v.labs.filter(x=>['available','reviewed'].includes(x.status)).length}</strong><small>Kết quả</small></div><div><strong>${['unpaid','deferred'].includes(v.payment.status) ? 1 : 0}</strong><small>Chờ thu</small></div></div><div class="completion-mark">${I('check-circle', 48)}</div>` +
           card(
             status(v) +
               `<p>${esc(M.profile(s, v.patientId)?.name)} · ${esc(dateText(v))}</p>`,
@@ -678,7 +680,7 @@
               v?.id,
             ),
           ) +
-          `<div class="list">${['medicine', 'question', 'symptoms'].map((k) => row(T[k], T[k + 'Hint'], 'I2', k === 'medicine' ? 'pill' : 'document', { 'data-reason': k })).join('')}${row(T.tracking, '', 'I3', 'heart-pulse')}${row(T.referral, '', 'I4', 'document')}${row(T.messages, '', 'I5', 'phone')}</div>`;
+           `<div class="support-reasons" aria-label="Chọn nội dung cần hỏi">${['medicine', 'question', 'symptoms'].map((k) => row(T[k], T[k + 'Hint'], 'I2', k === 'medicine' ? 'pill' : 'document', { 'data-reason': k })).join('')}</div><div class="list care-links">${row(T.tracking, '', 'I3', 'heart-pulse')}${row(T.referral, '', 'I4', 'document')}${row(T.messages, '', 'I5', 'phone')}</div>`;
         break;
       }
       case 'I2':
@@ -712,7 +714,7 @@
           nav(T.contact, 'I5');
         break;
       case 'I4':
-        body = careProgress(v) + (v.care.referral
+        body = `<ol class="referral-steps" aria-label="Tiến trình chuyên khoa"><li class="${v.care.referral ? 'reached' : ''}">Được giới thiệu</li><li>Đã khám chuyên khoa</li><li>Đã phản hồi</li></ol>` + careProgress(v) + (v.care.referral
           ? card(`<p>${esc(v.care.referral)}</p>`) +
             form('referral', textarea('referral', T.text), T.cta)
           : empty(T.empty, T.lead, nav(C.support, 'K5')));
@@ -756,7 +758,7 @@
             ? s.notifications
                 .map(
                   (n) =>
-                    `<button class="notification row ${n.read ? 'read' : ''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right', 18)}</button>`,
+                    `<button class="notification row ${n.read ? 'read' : ''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="read-dot" aria-hidden="true"></span><span class="row-icon">${I('bell')}</span><span class="row-text"><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right', 18)}</button>`,
                 )
                 .join('')
             : empty(T.empty, '')) + note(T.note);
@@ -770,7 +772,7 @@
               ),
             )
             .join('') +
-          row(T.history, '', 'K3', 'document') +
+          `<section class="profile-bento" aria-label="Tiện ích hồ sơ">${row('Người đi khám', '', 'C1', 'user')}${row('Lịch sử khám', '', 'K3', 'document')}${row('Kết quả khám', '', 'H7', 'document-check')}${row('Đơn thuốc và lời dặn', '', 'H6', 'pill')}</section>` +
           row(T.settings, '', 'K4', 'settings') +
           `<details class="add-relative"><summary>${esc(T.add)}</summary>${form('relative', field('name', T.name) + field('dob', T.dob, '', 'date', { max: M.localDate() }), T.save)}</details>`;
         break;
@@ -800,7 +802,7 @@
           card(
             `<span class="support-mark">${I('phone', 32)}</span><h2>${esc(T.call)}</h2><p>Để lại yêu cầu để phòng khám liên hệ với bạn về lịch hẹn và việc sau khám.</p>${btn(T.call, 'clinic-call', {}, 'primary')}`,
           ) +
-          row(VI.screen.I1.heading, VI.screen.I1.lead, 'I1', 'heart-pulse') +
+          `<div class="support-grid">${row('Hỏi phòng khám', VI.screen.I1.lead, 'I1', 'heart-pulse')}${row('Tin nhắn', 'Liên hệ điều phối viên', 'I5', 'phone')}</div>` +
           form('support', textarea('support', T.text), T.message, 'secondary') +
           section(
             T.faq,
