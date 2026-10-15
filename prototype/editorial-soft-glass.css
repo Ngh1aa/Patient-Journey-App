@@ -668,3 +668,28 @@ dialog .icon-btn { background: #F1F1F3; }
 .large-text #phone-content[data-screen='D1'] .screen-intro h1,
 .large-text #phone-content[data-screen='K2'] .screen-intro h1,
 .large-text #phone-content[data-screen='K5'] .screen-intro h1 { font-size: calc(26px * var(--font-scale,1)); max-width: none; }
+
+/* Reviewer controls belong OUTSIDE the product screen.
+   On narrow devices the prior absolute toggle could overlap the bell hit target. */
+@media (max-width: 760px) {
+  body:not(.guided) .presentation-actions {
+    position: relative;
+    inset: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 52px;
+    padding: 4px 12px;
+    background: var(--bg);
+    z-index: 1;
+  }
+  body:not(.guided) .presentation-actions button {
+    min-height: 40px;
+    border-radius: 999px;
+    background: white;
+    color: var(--ink);
+  }
+  body:not(.guided) .phone {
+    height: calc(100dvh - var(--presentation-height,0px) - 52px);
+  }
+}
