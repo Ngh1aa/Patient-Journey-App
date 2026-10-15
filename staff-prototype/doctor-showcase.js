@@ -88,7 +88,7 @@
   }
   function resultsPage(x){
     const all=results(x),filter=x.ui.docResultFilter||'all',list=all.filter(r=>filter==='all'||r.status===filter);
-    let selected=all.find(r=>r.id===x.ui.resultSelected)||all[0];if(!selected){return `<section class="screen doctor-screen">${intro('KẾT QUẢ / CẬN LÂM SÀNG','Kết quả cận lâm sàng','Không có kết quả minh họa trong phiên.')}</section>`}
+    let selected=all.find(r=>r.id===x.ui.resultSelected)||all[0];if(!selected){return `<section class="screen doctor-screen">${intro('KẾT QUẢ / CẬN LÂM SÀNG','Kết quả cận lâm sàng','Chưa có kết quả để xem.')}</section>`}
     return `<section class="screen doctor-screen">${intro('KẾT QUẢ / CẬN LÂM SÀNG','Kết quả cận lâm sàng','Theo dõi trạng thái, xem thông tin tài liệu và ghi nhận đã xem — không tự công bố kết quả.')}
      <div class="doctor-results-grid"><section class="doctor-surface"><div class="doctor-section-head"><div><span class="doctor-overline">PHIẾU KẾT QUẢ</span><h2>Danh sách kết quả</h2></div><div class="doctor-filter" role="group" aria-label="Trạng thái kết quả">${[['all','Tất cả'],['ready','Cần xem'],['reviewed','Đã xem']].map(([v,t])=>`<button data-action="doc-result-filter" data-value="${v}" aria-pressed="${filter===v}" class="${filter===v?'selected':''}">${t}</button>`).join('')}</div></div>
       <div class="doctor-lab-list">${list.length?list.map(r=>`<button class="doctor-lab-row ${r.id===selected.id?'selected':''}" data-action="select-result" data-id="${x.e(r.id)}">${iconRound(x,'beaker')}<span><strong>${x.e(r.title)}</strong><small>${x.e(x.person(r.personId).name)} · ${x.e(r.date)}</small></span>${x.resultPill(r)}${x.icon('chevron',16)}</button>`).join(''):`<div class="doctor-empty">Không có kết quả phù hợp.</div>`}</div></section>
@@ -137,7 +137,7 @@
     if(name==='doc-today'){x.ui.docDay=3;x.ui.dayOffset=0;x.render();return true}
     if(name==='doc-filter-queue'){x.ui.docQueueFilter=node.dataset.value;x.render();return true}
     if(name==='doc-result-filter'){x.ui.docResultFilter=node.dataset.value;x.render();return true}
-    if(name==='doc-task-toggle'){const task=x.data.doctorTasks?.find(t=>t.id===node.dataset.id);if(task){task.done=!task.done;x.save();x.notify(task.done?'Đã đánh dấu xử lý trong demo.':'Đã mở lại công việc trong demo.')}return true}
+    if(name==='doc-task-toggle'){const task=x.data.doctorTasks?.find(t=>t.id===node.dataset.id);if(task){task.done=!task.done;x.save();x.notify(task.done?'Đã đánh dấu công việc đã xử lý.':'Đã đưa công việc về trạng thái cần xử lý.')}return true}
     return false;
   }
   root.CareFlowDoctor={page,action,permitted,texts};
