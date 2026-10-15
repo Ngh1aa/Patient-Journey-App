@@ -1,0 +1,17 @@
+{
+  "sourceRevision": "3915fb1d63a4c053c76d952049d312c9f0d585ab",
+  "scope": "Actual local browser source bytes. Not native/clinical/deployment evidence.",
+  "files": {
+    "prototype/index.html": "b28a26decf04bbfdc149c7cbae4620cac4274726c79040565fb0082231d7d7fd",
+    "prototype/model.js": "2515fb782460dfdcb342a6cc388e1e74a7380905ec536e3f4cc065e36b08ffbe",
+    "prototype/strings.vi.js": "3284758a541d0477efdd7a86955911c4be7035769d579bde4a05fd564e422cfa",
+    "prototype/icons.js": "fd3e0158ca92f175f19c068bfc01935f2812433915292ca9d9d58a192e0aa181",
+    "prototype/views.js": "157f40d18fef12f6ae56c7ae0c48cf3d873604c8c430cb5e88755ffea03dde02",
+    "prototype/app.js": "b952acb0e976f3fbdfe4bf3414edba35a05538578a190531787bc0bbb9ae8569",
+    "prototype/styles.css": "69865d4401ef818f6de54ba629701d598fb5e1f5f3cfa644f618a12ca57e27df",
+    "prototype/vendor/qrcode.js": "79ec86f82856005b1c887905cfccfcfbec3821ca61c7fd5a952faa5f778f791c",
+    "prototype/assets/fonts/BeVietnamPro-Regular.ttf": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",
+    "prototype/assets/fonts/BeVietnamPro-SemiBold.ttf": "bd8e27eb02720b9d91e59e4f10a90878643219f25ce6a8d9a4f06a8a88d3bb71",
+    "prototype/assets/fonts/BeVietnamPro-Bold.ttf": "7f738fe5c43c8872807b20e2d30d42163618de8a4daf7f48a939adac32c16847"
+  }
+}

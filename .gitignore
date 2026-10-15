@@ -6,3 +6,6 @@ runtime-playwright-report/
 hifi-test-results/
 hifi-playwright-report/
 *.log
+
+prototype/test-results-followup/
+prototype/test-results-evidence/
