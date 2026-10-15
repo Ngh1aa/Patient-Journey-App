@@ -1,0 +1,39 @@
+name: CareFlow Hi-Fi Wave 01 QA
+on:
+  push:
+    branches: [main, integrate/careflow-pre-codex-work]
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'hifi/**'
+      - 'prototype/hifi*'
+      - '.github/workflows/careflow-hifi-qa.yml'
+jobs:
+  hifi-browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test tools
+        run: npm install --prefix prototype --no-audit --no-fund
+      - name: Install mobile browser engines
+        run: cd prototype && npx playwright install --with-deps chromium webkit
+      - name: Check existing business-state guards
+        run: node prototype/tests.cjs
+      - name: Run Hi-Fi mobile E2E, screenshots and axe
+        run: cd prototype && npx playwright test -c hifi.config.cjs
+      - name: Upload hi-fi screenshot and QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: careflow-hifi-wave1-${{ github.run_id }}
+          path: |
+            prototype/hifi-test-results/
+            prototype/hifi-playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14
