@@ -108,12 +108,12 @@
       startsAt: localISO(5)+"T09:30:00+07:00",
       statusUpdatedAt: localISO(5)+"T09:02:00+07:00",
       mode: "in-person",
-      facilityName: "Phòng khám CareFlow (123 Nguyễn Trãi, Q.1)",
-      providerName: "BS. CKII Nguyễn Văn An",
+      facilityName: "Phòng khám CareFlow · [Địa chỉ phòng khám]",
+      providerName: "Bác sĩ: Phòng khám sắp xếp",
       reason: "Khám tổng quát",
       status: "confirmed", // 12 spec statuses
       owner: "patient",
-      estimatedFee: "Từ 300.000đ",
+      estimatedFee: "[Phí dự kiến]",
       queueNumber: "A012",
       estimatedWait: "15 phút",
       safetyAcknowledged: false,
@@ -849,7 +849,7 @@
 
           <div class="box"><label class="row-consent"><input type="checkbox" data-action="toggleBookingConsent" ${state.bookingConsent?"checked":""} /><span>${esc(tx("C5","consent"))}</span></label></div>
           <button type="button" class="btn-primary" data-action="confirmBooking" ${m.bookingPending || state.isSubmitting ? "disabled" : ""}>
-            ${icon("check", 18)} <span>${state.isSubmitting ? "Đang xử lý..." : "Xác nhận đặt lịch"}</span>
+            ${icon("check", 18)} <span>${state.isSubmitting ? "Đang gửi…" : tx("C5","cta")}</span>
           </button>
           <button type="button" class="btn-secondary" data-action="goC4">Đổi ngày giờ</button>
         `;
@@ -1671,7 +1671,7 @@ function handleAction(action, value) {
         return render();
 
       case "togglePolicyAccordion":
-        return showNotice("Chính sách: Đổi hoặc hủy lịch trước 2 tiếng hoàn toàn miễn phí.");
+        return showNotice("[Chính sách đổi, hủy của phòng khám] Chưa được xác nhận, vui lòng gọi phòng khám.");
 
       case "confirmBooking": {
         if (!state.bookingConsent) return showNotice("Bạn cần đồng ý với điều khoản và chính sách đổi, hủy lịch.","error");
