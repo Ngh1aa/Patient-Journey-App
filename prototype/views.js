@@ -49,7 +49,7 @@
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html) =>
-    `<section class="section"><h2>${esc(title)}</h2>${html}</section>`;
+    `<section class="section"><h2>${typeof title === 'string' && title.startsWith('<') ? title : esc(title)}</h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}">${esc(text)}</span>`;
   const status = (v) =>
@@ -168,20 +168,20 @@
         );
         break;
       case 'B1': {
-        intro = `<div class="greeting"><div><p>${esc(T.heading)}</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><span class="avatar">${esc(
+        intro = `<div class="greeting dashboard-greeting"><span class="avatar">${esc(
           (p?.name || 'CF')
             .split(' ')
             .slice(-2)
             .map((x) => x[0])
             .join(''),
-        )}</span></div><p class="greeting-lead">${esc(T.lead)}</p>`;
+        )}</span><div><p>Good Morning,</p><h1 id="screen-title" tabindex="-1">${esc(p?.name || '')}</h1></div><button class="icon-btn notification-orb" type="button" data-action="go" data-to="K1" aria-label="Thông báo">${I('bell', 22)}</button></div><div class="dashboard-hero"><h1>Sức khoẻ của bạn<br>hôm nay thế nào</h1><div class="dashboard-search" role="search"><span>${I('search', 20)}<span>Tìm kiếm</span></span>${I('chevron-right', 18)}</div><div class="quick-actions"><button type="button" data-action="go" data-to="K5">${I('heart-pulse', 20)}<strong>Sức khoẻ</strong></button><button type="button" data-action="go" data-to="K5">${I('message', 20)}<strong>Tư vấn</strong></button><button type="button" class="quick-call" data-action="go" data-to="K5" aria-label="Gọi hỗ trợ">${I('phone', 20)}</button></div></div><p class="greeting-lead">${esc(T.lead)}</p>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body =
           btn(C.book, 'begin', {}, 'primary book-cta') +
           section(
-            T.upcoming,
+            `<span class="section-heading-row"><span>${esc(T.upcoming)}</span><button type="button" class="section-link" data-action="go" data-to="D1">Xem tất cả</button></span>`,
             active.length
               ? active.map((x) => visitCard(s, x, true)).join('')
               : empty(T.empty, T.emptyLead),
