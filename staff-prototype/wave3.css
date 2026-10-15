@@ -124,3 +124,9 @@
 @media(max-width:980px){.wave-consult .consult-grid{grid-template-columns:1fr}.wave-consult .consult-right{grid-column:auto}.wave-nurse-layout{grid-template-columns:1fr}.wave-nurse-stats{gap:10px}.wave-nurse-stat{grid-template-columns:1fr;padding:15px}.wave-stat-icon{grid-row:auto}.wave-workspace-eyebrow>span:last-child{display:none}}
 @media(max-width:760px){.wave-form-layout{grid-template-columns:1fr}.wave-form-layout>section{padding-right:0}.wave-form-layout>section:nth-child(2){border:0;border-top:1px solid #e6eef7;padding:18px 0 0}.wave-detail-tiles{grid-template-columns:1fr}.wave-nurse-stats{grid-template-columns:1fr}.wave-consult-progress{padding:15px;gap:5px}.wave-progress-step{display:flex;align-items:center;flex-direction:column;text-align:center}.wave-progress-step small{display:none}.wave-progress-step strong{font-size:10px}.wave-consult .consult-top{padding:20px}.wave-consult .consult-right{grid-template-columns:1fr}.wave-nurse-item .btn{margin-left:auto}.wave-task{flex-wrap:wrap}.wave-task .btn{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){.wave-screen *{scroll-behavior:auto}}
+
+/* Keep the three-role showcase switch readable at desktop sidebar widths. */
+.role-switch .switch-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.role-switch .switch-options button{white-space:nowrap;font-size:11px;min-height:36px}
+.role-switch .switch-options button:last-child{grid-column:1/-1;min-height:35px}
+@media(max-width:980px){.sidebar .role-switch{display:none}}
