@@ -907,8 +907,12 @@ test('unknown request locks earlier booking steps until reconciliation', async (
   await tools(page);
   await page.locator('#booking-outcome').selectOption('unknown');
   await page.locator('#consent').check();
-  await submit(page);
-  await nav(page, 'C2');
+  // Navigation in the same turn must not outrun the local submission guard.
+  await page.evaluate(() => {
+    document.querySelector('form[data-form="booking"]').requestSubmit();
+    location.hash = '#/book/reason';
+  });
+  await expect(content(page)).toHaveAttribute('data-screen', 'C2');
   await expect(content(page)).toHaveAttribute('data-guarded', 'unknown');
   await go(page, 'C8');
   await staff(page, 'unknown:found');
