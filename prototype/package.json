@@ -1,15 +1,16 @@
 {
-  "name": "careflow-lowfi-qa",
+  "name": "careflow-patient-browser",
   "private": true,
-  "version": "0.1.0",
-  "description": "CareFlow prototype browser smoke tests (not a healthcare application)",
+  "version": "3.0.0",
+  "description": "CareFlow 47-screen patient browser prototype; all external services synthetic",
   "scripts": {
     "test:model": "node tests.cjs",
     "test:e2e": "playwright test -c playwright.config.cjs",
-    "test:all": "npm run test:model && npm run test:e2e"
+    "test:all": "npm run check && npm run test:model && node check-contrast.cjs && npm run test:e2e",
+    "check": "node --check model.js && node --check strings.vi.js && node --check icons.js && node --check views.js && node --check app.js"
   },
   "devDependencies": {
-    "@playwright/test": "1.56.1",
-    "@axe-core/playwright": "4.13.0"
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.57.0"
   }
 }

@@ -1,476 +1,611 @@
-/* CareFlow Vietnamese patient-facing UI copy. Source: 12-ui-copy-vi.md. Placeholders require clinic approval. */
-(function(root){'use strict';const data={
-  "meta": {
-    "locale": "vi-VN",
-    "voice": "Thân thiện, rõ ràng như lễ tân",
-    "source": "12-ui-copy-vi.md",
-    "status": "DRAFT — MEDICAL/LEGAL APPROVAL REQUIRED FOR BRACKETED CONTENT"
-  },
-  "common": {
-    "continue": "Tiếp tục",
-    "callClinic": "Gọi phòng khám",
-    "later": "Để sau",
-    "retry": "Thử lại",
-    "sending": "Đang gửi…",
-    "loading": "Đang tải…",
-    "comingSoon": "Sắp ra mắt",
-    "noNetwork": "Mất mạng. Nội dung bạn nhập vẫn còn.",
-    "offline": "Đang mất mạng · Dữ liệu lúc [09:12]",
-    "error": "Chưa gửi được. Bạn thử lại hoặc gọi phòng khám.",
-    "notAvailable": "Lịch này không còn nữa. Bạn xem lại danh sách lịch hẹn nhé.",
-    "paymentAmount": "350.000 ₫",
-    "clinicHours": "[Thứ Hai đến Thứ Bảy, 07:30–17:00]",
-    "replyTime": "[30 phút]",
-    "reopenTime": "[07:30]",
-    "emergency": "115"
-  },
-  "statuses": {
-    "pending": [
-      "Chờ phòng khám xác nhận",
-      "Lễ tân đang xử lý"
-    ],
-    "confirmed": [
-      "Đã xác nhận",
-      "Đang chờ bạn"
-    ],
-    "reminder": [
-      "Sắp đến giờ khám",
-      "Đang chờ bạn"
-    ],
-    "arrived": [
-      "Bạn đã đến",
-      "Lễ tân đang xử lý"
-    ],
-    "waiting": [
-      "Đang chờ khám",
-      "Bác sĩ chuẩn bị gọi bạn"
-    ],
-    "delayed": [
-      "Bác sĩ đang trễ",
-      "Phòng khám đang sắp xếp"
-    ],
-    "online-waiting": [
-      "Chờ bác sĩ gọi",
-      "Bác sĩ chuẩn bị gọi bạn"
-    ],
-    "connection-failed": [
-      "Chưa kết nối được",
-      "Phòng khám đang xử lý"
-    ],
-    "results-pending": [
-      "Đang chờ kết quả",
-      "Phòng xét nghiệm"
-    ],
-    "results-ready": [
-      "Có kết quả",
-      "Bác sĩ chuẩn bị xem"
-    ],
-    "reviewed": [
-      "Bác sĩ đã xem",
-      "Đang chờ bạn"
-    ],
-    "cancelled": [
-      "Đã hủy",
-      ""
-    ],
-    "no-show": [
-      "Chưa đến khám",
-      ""
-    ]
-  },
-  "notifications": {
-    "confirmed": [
-      "Phòng khám đã xác nhận lịch",
-      "Mở app để xem chi tiết"
-    ],
-    "oneDay": [
-      "Mai bạn có lịch khám",
-      "Xem hướng dẫn chuẩn bị"
-    ],
-    "twoHours": [
-      "2 giờ nữa đến giờ khám",
-      "Sẵn sàng check-in"
-    ],
-    "checkIn": [
-      "Bạn có thể check-in",
-      "Mở app khi đến phòng khám"
-    ],
-    "queue": [
-      "Sắp đến lượt bạn",
-      "Mở app để xem số thứ tự"
-    ],
-    "doctor": [
-      "Bác sĩ đã sẵn sàng",
-      "Vào phòng chờ ngay"
-    ],
-    "disconnect": [
-      "Chưa kết nối được",
-      "Mở app để chọn cách tiếp theo"
-    ],
-    "results": [
-      "Có kết quả mới",
-      "Mở app để xem"
-    ],
-    "reply": [
-      "Phòng khám đã trả lời",
-      "Mở app để đọc"
-    ],
-    "payment": [
-      "Còn một khoản cần thanh toán",
-      "Mở app để xem"
-    ]
-  },
-  "screens": {
-    "A1": {
-      "title": "Chào mừng đến CareFlow",
-      "description": "Đặt lịch khám, theo dõi lịch hẹn và xem kết quả ngay trên điện thoại.",
-      "phone": "Số điện thoại",
-      "phoneHint": "Nhập số điện thoại của bạn",
-      "otp": "Nhập mã 6 số vừa gửi đến bạn",
-      "resend": "Gửi lại mã",
-      "otpWrong": "Mã chưa đúng. Bạn thử nhập lại nhé.",
-      "otpExpired": "Mã đã hết hạn. Bạn lấy mã mới nhé.",
-      "cta": "Tiếp tục",
-      "help": "Cần giúp? Gọi phòng khám"
+/* Vietnamese patient copy. Proposed content: clinical/operational approval still required. */
+(function (root) {
+  'use strict';
+  const data = {
+    common: {
+      continue: 'Tiếp tục',
+      back: 'Quay lại',
+      home: 'Về trang chủ',
+      support: 'Liên hệ phòng khám',
+      save: 'Lưu thay đổi',
+      send: 'Gửi yêu cầu',
+      retry: 'Thử lại',
+      cancel: 'Để sau',
+      viewVisit: 'Xem phiếu khám',
+      book: 'Đặt lịch khám',
+      patient: 'Người khám',
+      date: 'Ngày khám',
+      time: 'Giờ khám',
+      mode: 'Hình thức',
+      onsite: 'Tại phòng khám',
+      online: 'Khám online',
+      reason: 'Lý do khám',
+      fee: 'Phí khám',
+      unknownFee: 'Phòng khám sẽ thông báo',
+      notProvided: 'Phòng khám chưa cung cấp',
+      pending: 'Đang chờ phòng khám',
+      empty: 'Chưa có nội dung',
+      next: 'Việc tiếp theo',
+      owner: 'Ai đang xử lý',
+      history: 'Các bước của lượt khám',
+      choose: 'Chọn',
+      returnVisit: 'Quay lại lượt khám',
+      staffWaiting: 'Phòng khám sẽ cập nhật khi có thông tin mới.',
+      noClinical: 'Nội dung sẽ hiển thị khi được phòng khám cung cấp.',
+      privacy: 'Chỉ xem được khi người được khám cho phép.',
+      local: 'Thông tin chỉ được lưu trong phiên trên thiết bị này.',
     },
-    "A2": {
-      "title": "Thông tin của bạn",
-      "description": "Chỉ cần vài thông tin để tạo hồ sơ. Phần còn lại bạn bổ sung sau.",
-      "fullName": "Họ và tên",
-      "dob": "Ngày sinh",
-      "gender": "Giới tính",
-      "nameHint": "Nhập đúng như trên giấy tờ để lúc đến khám không phải chỉnh lại.",
-      "cta": "Tạo hồ sơ"
+    errors: {
+      PHONE: 'Số điện thoại cần có 10 chữ số và bắt đầu bằng 0.',
+      OTP: 'Mã xác nhận chưa đúng. Bạn kiểm tra lại nhé.',
+      PROFILE: 'Nhập họ tên và ngày sinh hợp lệ, không sau hôm nay.',
+      AUTH: 'Bạn cần đăng nhập để tiếp tục.',
+      PERMISSION:
+        'Bạn chưa được cấp quyền thực hiện việc này cho người được khám.',
+      REASON: 'Bạn hãy nhập lý do muốn khám.',
+      SAFETY: 'Bạn hãy trả lời câu hỏi trước khi tiếp tục.',
+      REVIEW: 'Phòng khám cần xem xét hình thức khám cho bạn.',
+      MODE: 'Hình thức khám chưa phù hợp với lượt khám này.',
+      SLOT: 'Bạn hãy chọn ngày và giờ khám còn phù hợp.',
+      SLOT_UNAVAILABLE:
+        'Giờ này vừa hết chỗ. Thông tin khác vẫn được giữ; bạn hãy chọn giờ khác.',
+      UNKNOWN:
+        'Chưa xác định yêu cầu đã được nhận hay chưa. Kiểm tra yêu cầu trước khi gửi lại.',
+      CONFLICT:
+        'Thông tin yêu cầu đã thay đổi. Vui lòng liên hệ phòng khám để kiểm tra.',
+      OFFLINE:
+        'Đang mất mạng. Nội dung bạn nhập vẫn còn. Hãy kết nối lại rồi thử gửi.',
+      VISIT: 'Không tìm thấy lượt khám này. Bạn hãy mở lại từ Lịch hẹn.',
+      TRANSITION:
+        'Lượt khám chưa đến bước này. Bạn có thể xem việc cần làm trong phiếu khám.',
+      STAFF_ONLY: 'Bước này cần phòng khám cập nhật.',
+      CANCEL_REASON: 'Bạn hãy cho phòng khám biết lý do hủy lịch.',
+      LAB_PENDING:
+        'Phòng khám đang chờ kết quả hoặc hướng dẫn tiếp theo của bác sĩ.',
+      PAYMENT: 'Phí khám chưa thể chuyển sang trạng thái này.',
+      NOT_COMPLETED: 'Nội dung sau khám sẽ mở khi buổi khám hoàn tất.',
+      DEFER: 'Bạn hãy nhập lý do và chọn ngày thanh toán từ hôm nay.',
+      REFUND_REASON: 'Cần có lý do hoàn tiền từ phòng khám.',
+      LAB: 'Chỉ định chưa đến bước này.',
+      LAB_DATE: 'Bạn hãy chọn thời gian hoặc nhờ điều dưỡng liên hệ.',
+      FILE: 'Chọn một tệp PDF hoặc ảnh, tối đa 10 MB.',
+      RESULT: 'Kết quả chưa được bác sĩ xem.',
+      NOT_NOTIFIED: 'Phòng khám chưa thông báo kết quả cho bạn.',
+      REPORT: 'Chọn lượt đã khám, lý do và nhập nội dung cần trao đổi.',
+      REQUIRED: 'Bạn hãy điền đầy đủ các mục bắt buộc.',
+      CONSENT: 'Bạn cần đồng ý gửi thông tin này cho phòng khám.',
+      DEVICE:
+        'Chưa thể kiểm tra thiết bị. Bạn có thể thử lại hoặc nhờ phòng khám hỗ trợ.',
     },
-    "B1": {
-      "greeting": "Xin chào, [Tên]",
-      "context": "Đang đặt cho: Bạn",
-      "hero": "Lịch khám sắp tới",
-      "cta": "Đặt lịch khám",
-      "tasks": "Việc cần làm",
-      "empty": "Chưa có lịch khám nào. Đặt lịch để phòng khám nhắc giờ cho bạn."
-    },
-    "C1": {
-      "title": "Ai đi khám?",
-      "self": "Bạn",
-      "add": "Thêm người thân",
-      "cta": "Tiếp tục"
-    },
-    "C2": {
-      "title": "Lý do khám",
-      "reason": "Bạn đến khám vì sao?",
-      "hint": "Ví dụ: ho 2 ngày, hơi sốt",
-      "onset": "Bắt đầu từ khi nào?",
-      "screening": "Bạn có đang gặp dấu hiệu nào dưới đây không?",
-      "alertPlaceholder": "[Dấu hiệu cảnh báo do bác sĩ phòng khám xác định]",
-      "none": "Không có",
-      "yes": "Có",
-      "required": "Bạn mô tả ngắn lý do khám để bác sĩ chuẩn bị nhé.",
-      "cta": "Tiếp tục"
-    },
-    "C3": {
-      "title": "Bạn nên đến cơ sở y tế ngay",
-      "explanation": "[Giải thích ngắn nguy cơ và việc cần làm, do bác sĩ phòng khám duyệt]",
-      "emergency": "Gọi cấp cứu 115",
-      "clinic": "Gọi phòng khám",
-      "continue": "Tôi hiểu rủi ro và vẫn muốn đặt lịch",
-      "review": "Phòng khám sẽ xem lại thông tin của bạn trước khi xác nhận lịch.",
-      "ack": "Tôi hiểu và muốn tiếp tục",
-      "cta": "Tiếp tục đặt lịch",
-      "safety": "Luồng đặt lịch tự động tạm dừng. Nhân viên y tế có thẩm quyền cần đánh giá trước khi tiếp tục."
-    },
-    "C4": {
-      "title": "Chọn ngày giờ khám",
-      "onsite": "Trực tiếp",
-      "online": "Trực tuyến",
-      "doctor": "Bác sĩ: Phòng khám sắp xếp",
-      "full": "Hết chỗ",
-      "fullDay": "Ngày này đã kín lịch. Bạn thử ngày khác nhé.",
-      "help": "Không thấy giờ phù hợp? Nhờ phòng khám gợi ý",
-      "cta": "Chọn giờ này"
-    },
-    "C5": {
-      "title": "Kiểm tra lại trước khi đặt",
-      "person": "Người khám",
-      "reason": "Lý do",
-      "mode": "Hình thức",
-      "time": "Thời gian",
-      "fee": "Phí dự kiến",
-      "consent": "Tôi đồng ý với điều khoản và chính sách đổi, hủy lịch",
-      "cta": "Gửi yêu cầu đặt lịch"
-    },
-    "C6": {
-      "pending": "Đã gửi yêu cầu đặt lịch",
-      "pendingDescription": "Phòng khám sẽ xác nhận trong khoảng [30 phút]. Có kết quả, app sẽ báo cho bạn.",
-      "confirmed": "Lịch khám đã xác nhận",
-      "confirmedDescription": "Hẹn gặp bạn lúc [Giờ khám] · [Ngày khám].",
-      "calendar": "Thêm vào lịch điện thoại",
-      "cta": "Xem lịch hẹn"
-    },
-    "D1": {
-      "title": "Lịch hẹn",
-      "upcoming": "Sắp tới",
-      "past": "Đã khám",
-      "cancelled": "Đã hủy",
-      "empty": "Chưa có lịch khám nào. Lịch bạn đặt sẽ hiện ở đây."
-    },
-    "D2": {
-      "title": "Chi tiết lịch hẹn",
-      "pending": "Phòng khám chưa xác nhận lịch này",
-      "confirmed": "Lịch đã xác nhận",
-      "timeline": [
-        "Đã gửi yêu cầu",
-        "Phòng khám xác nhận",
-        "Đến phòng khám",
-        "Gặp bác sĩ",
-        "Kết quả và hướng dẫn"
+    statuses: {
+      pending: ['Chờ phòng khám xác nhận', 'Lễ tân đang xử lý'],
+      'mode-review': [
+        'Đang xem xét hình thức khám',
+        'Bác sĩ và lễ tân đang xem xét',
       ],
-      "cta": [
-        "Xem hướng dẫn",
-        "Check-in",
-        "Vào phòng chờ",
-        "Thanh toán",
-        "Xem kết quả",
-        "Đặt lịch tái khám"
-      ],
-      "change": "Đổi lịch",
-      "cancel": "Hủy lịch",
-      "call": "Gọi phòng khám"
+      confirmed: ['Đã xác nhận', 'Đang chờ bạn'],
+      'pre-lab': ['Cần xét nghiệm trước khám', 'Đang chờ bạn'],
+      reminder: ['Sắp đến giờ khám', 'Đang chờ bạn'],
+      arrived: ['Bạn đã đến', 'Lễ tân đang xử lý'],
+      received: ['Phòng khám đã nhận bạn', 'Lễ tân đang xử lý'],
+      ready: ['Sẵn sàng khám', 'Bác sĩ chuẩn bị gọi bạn'],
+      'in-consult': ['Đang khám', 'Bác sĩ đang khám'],
+      'online-wait': ['Chờ bác sĩ gọi', 'Bác sĩ, điều dưỡng'],
+      calling: ['Bác sĩ đang gọi bạn', 'Đang chờ bạn'],
+      unreachable: ['Chưa liên hệ được', 'Lễ tân sẽ gọi lại'],
+      completed: ['Hoàn tất buổi khám', 'Phòng khám đã hoàn tất ghi nhận'],
+      cancelled: ['Đã hủy', 'Bạn có thể đặt lịch mới'],
+      'no-show': ['Bạn chưa đến khám', 'Bạn có thể đặt lại lịch'],
     },
-    "D3": {
-      "title": "Đổi hoặc hủy lịch",
-      "reason": "Lý do của bạn là gì?",
-      "reasons": [
-        "Bận việc đột xuất",
-        "Đã đỡ hơn",
-        "Muốn đổi giờ khác",
-        "Lý do khác"
-      ],
-      "policy": "[Chính sách đổi, hủy của phòng khám]",
-      "cta": "Đổi sang giờ khác",
-      "cancel": "Hủy lịch",
-      "confirmTitle": "Hủy lịch khám này?",
-      "keep": "Giữ lịch",
-      "cancelled": "Đã hủy lịch. Cần khám lại, bạn đặt lịch mới bất cứ lúc nào.",
-      "book": "Đặt lịch mới"
+    payments: {
+      unpaid: 'Chưa thanh toán',
+      'transfer-pending': 'Chờ xác nhận chuyển khoản',
+      'counter-pending': 'Chờ thanh toán tại quầy',
+      'pharmacy-pending': 'Chờ thanh toán tại nhà thuốc',
+      paid: 'Đã thanh toán',
+      deferred: 'Thanh toán sau',
+      'not-required': 'Không phát sinh phí',
+      refunding: 'Đang hoàn tiền',
+      refunded: 'Đã hoàn tiền',
     },
-    "E1": {
-      "title": "Check-in và số thứ tự",
-      "unarrived": "Bạn đã đến phòng khám chưa?",
-      "arrival": "Tôi đã đến",
-      "qr": "Quét mã QR tại quầy",
-      "tooEarly": "Chưa đến giờ check-in. Bạn check-in được từ [08:30].",
-      "number": "Số thứ tự của bạn",
-      "calling": "Đang gọi",
-      "updated": "Cập nhật [09:12]",
-      "note": "Đến lượt, app sẽ báo ngay. Bạn không cần mở máy chờ.",
-      "called": "Đến lượt bạn rồi.",
-      "calledBody": "Mời bạn vào [Phòng khám số 3].",
-      "delay": "Bác sĩ đang trễ khoảng [20 phút].",
-      "late": "Bạn đến trễ so với giờ hẹn.",
-      "latePolicy": "[Chính sách đến trễ]",
-      "support": "Tôi cần hỗ trợ"
+    labs: {
+      ordered: 'Đã chỉ định',
+      scheduled: 'Chờ thực hiện',
+      available: 'Có kết quả',
+      'awaiting-review': 'Chờ bác sĩ xem',
+      reviewed: 'Bác sĩ đã xem',
     },
-    "E2": {
-      "title": "Kiểm tra trước khi khám online",
-      "description": "Thử nhanh camera, micro và mạng để buổi khám không bị gián đoạn.",
-      "camera": "Camera",
-      "microphone": "Micro",
-      "network": "Mạng",
-      "notChecked": "Chưa kiểm tra",
-      "checking": "Đang kiểm tra",
-      "ok": "Ổn",
-      "enable": "Cần bật",
-      "why": "Vì sao cần camera và micro?",
-      "permission": "Bác sĩ cần nhìn và nghe bạn để khám từ xa. Hình ảnh và âm thanh chỉ dùng trong buổi khám này.",
-      "allow": "Cho phép",
-      "later": "Để sau",
-      "prep": [
-        "Chọn nơi yên tĩnh, đủ sáng",
-        "Chuẩn bị sổ khám và đơn thuốc cũ",
-        "Sạc đầy pin hoặc cắm sạc"
-      ],
-      "cta": "Vào phòng chờ",
-      "call": "Khám bằng cuộc gọi thường",
-      "waiting": "Bạn đang ở phòng chờ.",
-      "waitingHint": "Bác sĩ sẽ vào trong khoảng [5 phút].",
-      "denied": "Chưa bật camera hoặc micro.",
-      "deniedHint": "Vào Cài đặt, chọn CareFlow rồi bật Camera và Micro.",
-      "callback": "Nhờ phòng khám gọi lại"
+    actions: {
+      contact: 'Hỏi về lượt khám',
+      prepare: 'Xem hướng dẫn chuẩn bị',
+      labs: 'Xem chỉ định xét nghiệm',
+      join: 'Vào phòng chờ',
+      arrive: 'Báo đã đến',
+      track: 'Theo dõi lượt khám',
+      consult: 'Xem buổi khám',
+      wait: 'Xem phòng chờ',
+      answer: 'Xem cuộc gọi đến',
+      recover: 'Chọn cách liên hệ lại',
+      after: 'Xem việc sau khám',
+      rebook: 'Đặt lịch mới',
+      appointments: 'Xem lịch hẹn',
     },
-    "E3": {
-      "connecting": "Đang kết nối với bác sĩ…",
-      "weak": "Mạng yếu. Hình ảnh đã tắt để giữ tiếng.",
-      "video": "Bật lại hình ảnh",
-      "reconnect": "Đang kết nối lại… [12 giây]",
-      "audio": "Chuyển sang gọi thoại",
-      "left": "Bác sĩ rời đi một lát. Bạn chờ thêm chút nhé.",
-      "end": "Kết thúc buổi khám?",
-      "stay": "Tiếp tục khám",
-      "finish": "Kết thúc",
-      "done": "Buổi khám đã kết thúc.",
-      "instructions": "Xem hướng dẫn",
-      "help": "Cần hỗ trợ khẩn",
-      "issue": "Báo sự cố kết nối"
+    screen: {
+      A1: {
+        heading: 'Chăm sóc sức khỏe, từng bước an tâm.',
+        lead: 'Đăng nhập để đặt lịch và theo dõi việc khám của bạn.',
+        phone: 'Số điện thoại',
+        otp: 'Mã xác nhận',
+        getCode: 'Nhận mã xác nhận',
+        verify: 'Xác nhận và tiếp tục',
+        consent:
+          'Tôi đồng ý cho phòng khám sử dụng thông tin để tiếp nhận yêu cầu khám.',
+        resend: 'Gửi lại mã',
+        privacy: 'Thông tin của bạn được dùng để hỗ trợ lượt khám.',
+      },
+      A2: {
+        heading: 'Đây có phải hồ sơ của bạn?',
+        lead: 'Kiểm tra thông tin để tiếp tục với hồ sơ đã có.',
+        confirm: 'Đúng, đây là hồ sơ của tôi',
+        different: 'Không phải hồ sơ của tôi',
+        name: 'Họ và tên',
+        dob: 'Ngày sinh',
+      },
+      A3: {
+        heading: 'Tạo hồ sơ của bạn',
+        lead: 'Thông tin giúp phòng khám tiếp nhận đúng người.',
+        name: 'Họ và tên',
+        dob: 'Ngày sinh',
+        relation: 'Mối quan hệ',
+        self: 'Tôi',
+        relative: 'Người thân',
+        submit: 'Tạo hồ sơ',
+      },
+      B1: {
+        heading: 'Chào bạn,',
+        lead: 'Cùng bạn chăm sóc sức khỏe mỗi ngày.',
+        upcoming: 'Lịch khám của bạn',
+        tasks: 'Việc cần làm',
+        all: 'Xem tất cả',
+        empty: 'Bạn chưa có lịch khám',
+        emptyLead: 'Chọn thời gian phù hợp khi bạn cần gặp bác sĩ.',
+        care: 'Sau buổi khám',
+        careLead: 'Kết quả, lời dặn và trao đổi với phòng khám.',
+        help: 'Bạn cần hỗ trợ?',
+        helpLead: 'Phòng khám sẽ giúp bạn với lịch hẹn và việc sau khám.',
+      },
+      C1: {
+        heading: 'Bạn đặt lịch cho ai?',
+        lead: 'Chọn đúng người để phòng khám tiếp nhận thông tin.',
+        self: 'Hồ sơ của bạn',
+        relative: 'Hồ sơ người thân',
+        permission: 'Được đặt lịch · Chưa được xem kết quả',
+        add: 'Thêm người thân',
+      },
+      C2: {
+        heading: 'Bạn muốn khám vì lý do gì?',
+        lead: 'Mô tả điều bạn muốn trao đổi với bác sĩ.',
+        label: 'Lý do khám và triệu chứng',
+        hint: 'Bạn có thể cho biết tình trạng bắt đầu từ khi nào và điều khiến bạn lo lắng.',
+        note: 'Bạn không cần tự xác định mình mắc bệnh gì.',
+      },
+      C3: {
+        heading: 'Trước khi chọn lịch',
+        lead: 'Bạn có đang gặp tình trạng cần được hỗ trợ khẩn cấp không?',
+        normal: 'Không, tôi muốn đặt lịch khám',
+        warning: 'Có, hoặc tôi không chắc',
+        note: 'Câu hỏi này không thay thế đánh giá của nhân viên y tế.',
+      },
+      C4: {
+        heading: 'Ưu tiên được hỗ trợ kịp thời',
+        lead: 'Nếu bạn đang cần trợ giúp khẩn cấp, đừng chờ lịch hẹn trong ứng dụng.',
+        call: 'Gọi cấp cứu',
+        directions: 'Tìm cơ sở cấp cứu',
+        continue: 'Tôi hiểu và vẫn muốn khám',
+        exit: 'Dừng đặt lịch',
+        note: 'Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn.',
+      },
+      C5: {
+        heading: 'Phòng khám sẽ xem xét',
+        lead: 'Bác sĩ và lễ tân cần xác nhận bạn nên đến phòng khám hay khám online.',
+        note: 'Yêu cầu của bạn chưa phải lịch khám đã được xác nhận.',
+        ack: 'Tôi hiểu cần chờ phòng khám xem xét',
+        cta: 'Chọn thời gian mong muốn',
+      },
+      C6: {
+        heading: 'Bạn muốn khám bằng cách nào?',
+        lead: 'Chọn hình thức phù hợp với nhu cầu của bạn.',
+        onsite: 'Gặp bác sĩ tại phòng khám',
+        online: 'Trao đổi với bác sĩ qua cuộc gọi',
+        note: 'Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.',
+      },
+      C7: {
+        heading: 'Chọn ngày và giờ khám',
+        lead: 'Chọn thời gian bạn mong muốn. Phòng khám sẽ xác nhận lại.',
+        date: 'Ngày mong muốn',
+        time: 'Giờ mong muốn',
+        free: 'Hẹn giải thích kết quả · Không thu phí',
+        next: 'Kiểm tra yêu cầu',
+      },
+      C8: {
+        heading: 'Kiểm tra trước khi gửi',
+        lead: 'Bạn có thể quay lại để sửa thông tin.',
+        consent: 'Tôi đồng ý gửi thông tin trên cho phòng khám.',
+        send: 'Gửi yêu cầu đặt lịch',
+        edit: 'Sửa thông tin',
+        verify: 'Kiểm tra yêu cầu đã gửi',
+      },
+      C9: {
+        heading: 'Đã ghi nhận yêu cầu của bạn',
+        lead: 'Bạn hãy chờ phòng khám xác nhận. Thông tin sẽ được cập nhật trong phiếu khám.',
+      },
+      D1: {
+        heading: 'Lịch hẹn',
+        lead: 'Các lượt khám của bạn và người thân.',
+        upcoming: 'Sắp tới',
+        past: 'Đã khám',
+        cancelled: 'Đã hủy',
+        empty: 'Chưa có lịch trong mục này',
+        emptyLead: 'Lịch khám mới sẽ xuất hiện tại đây.',
+      },
+      D2: {
+        heading: 'Phiếu khám',
+        lead: 'Thông tin và các việc trong lượt khám này.',
+        details: 'Thông tin lượt khám',
+        change: 'Đổi lịch',
+        cancel: 'Hủy lịch',
+        labs: 'Xét nghiệm, chụp chiếu',
+        pay: 'Phí khám và biên lai',
+        summary: 'Kết luận và đơn thuốc',
+        results: 'Kết quả và việc tiếp theo',
+        care: 'Trao đổi sau khám',
+        previous: 'Lượt khám trước',
+        replacement: 'Lượt khám mới',
+        code: 'Mã lượt khám',
+        qr: 'Mã xác nhận lượt khám',
+        qrHint: 'Bạn có thể đọc mã lượt khám cho lễ tân.',
+        cancelReason: 'Lý do hủy',
+        noShow:
+          'Phòng khám chưa ghi nhận bạn đến. Bạn có thể chọn lại giờ phù hợp.',
+      },
+      D3: {
+        heading: 'Bạn muốn đổi sang lúc nào?',
+        lead: 'Lịch cũ được giữ cho đến khi bạn gửi yêu cầu mới. Lịch sử lượt khám vẫn còn.',
+        cta: 'Chọn lịch mới',
+      },
+      D4: {
+        heading: 'Hủy lịch khám',
+        lead: 'Phòng khám sẽ nhận lý do để hỗ trợ bạn tốt hơn.',
+        reason: 'Lý do hủy',
+        option1: 'Tôi bận vào thời gian này',
+        option2: 'Tôi muốn chọn ngày khác',
+        option3: 'Lý do khác',
+        cta: 'Tiếp tục hủy',
+        keep: 'Giữ lịch khám',
+        dialog: 'Bạn muốn hủy lịch này?',
+        confirm: 'Xác nhận hủy lịch',
+        note: 'Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.',
+      },
+      E1: {
+        heading: 'Chuẩn bị trước khi đến',
+        lead: 'Xem lại lịch và thông tin tiếp nhận của bạn.',
+        time: 'Giờ hẹn',
+        arrival: 'Giờ nên có mặt',
+        papers: 'Giấy tờ cần mang',
+        address: 'Địa chỉ phòng khám',
+        note: 'Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn.',
+        cta: 'Xem phiếu khám',
+      },
+      E2: {
+        heading: 'Bạn đã đến phòng khám?',
+        lead: 'Báo cho lễ tân biết để tiếp nhận bạn.',
+        cta: 'Tôi đã đến phòng khám',
+        note: 'Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn.',
+      },
+      E3: {
+        heading: 'Theo dõi lượt khám',
+        lead: 'Phòng khám sẽ cập nhật từng bước tiếp nhận.',
+        queue: 'Số thứ tự',
+        queueNote: 'Lễ tân sẽ cung cấp khi tiếp nhận.',
+        note: 'Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi.',
+      },
+      F1: {
+        heading: 'Xét nghiệm, chụp chiếu',
+        lead: 'Các chỉ định gắn với lượt khám này.',
+        empty: 'Bạn chưa có chỉ định',
+        emptyLead: 'Chỉ thực hiện khi đã được nhân viên y tế hướng dẫn.',
+      },
+      F2: {
+        heading: 'Chi tiết chỉ định',
+        lead: 'Kiểm tra lịch thực hiện và cách gửi kết quả.',
+        prepare: 'Hướng dẫn chuẩn bị',
+        book: 'Đặt hẹn thực hiện',
+        upload: 'Tôi đã có kết quả',
+        path: 'Khi có kết quả, bạn muốn',
+        return: 'Quay lại lượt khám hiện tại',
+        during: 'Để bác sĩ xem trong buổi khám',
+        saved: 'Đã lưu lựa chọn cho chỉ định này.',
+      },
+      F3: {
+        heading: 'Đặt hẹn xét nghiệm',
+        lead: 'Chọn thời gian hoặc nhờ điều dưỡng liên hệ.',
+        date: 'Ngày mong muốn',
+        time: 'Giờ mong muốn',
+        coordinator: 'Nhờ điều dưỡng liên hệ để sắp xếp',
+        cta: 'Gửi thời gian mong muốn',
+        done: 'Đã ghi nhận thời gian. Điều dưỡng sẽ xác nhận với bạn.',
+      },
+      F4: {
+        heading: 'Đính kèm kết quả',
+        lead: 'Gửi ảnh hoặc PDF kết quả của đúng người được khám.',
+        file: 'Tệp kết quả',
+        hint: 'PDF, JPG hoặc PNG · tối đa 10 MB',
+        note: 'Kiểm tra tệp thuộc đúng người được khám trước khi gửi.',
+        cta: 'Gửi kết quả',
+        done: 'Kết quả đã được gắn vào lượt khám. Bạn hãy chờ phòng khám kiểm tra.',
+      },
+      G1: {
+        heading: 'Chuẩn bị khám online',
+        lead: 'Bạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.',
+        check: 'Kiểm tra thiết bị',
+        ready: 'Thiết bị đã sẵn sàng',
+        waiting: 'Chưa kiểm tra',
+        note: 'Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.',
+        cta: 'Vào phòng chờ',
+      },
+      G2: {
+        heading: 'Chờ bác sĩ gọi',
+        lead: 'Bạn hãy giữ màn hình này mở. Cuộc gọi sẽ hiện khi phòng khám sẵn sàng.',
+        note: 'Nếu chưa kết nối được, phòng khám có thể liên hệ lại.',
+        cancel: 'Hủy lịch khám',
+      },
+      G3: {
+        heading: 'Bác sĩ đang gọi bạn',
+        lead: 'Cuộc gọi từ phòng khám CareFlow',
+        accept: 'Nhận cuộc gọi',
+        decline: 'Tôi chưa thể nghe máy',
+      },
+      G4: {
+        heading: 'Đang khám online',
+        lead: 'Bạn đang trong buổi trao đổi với phòng khám.',
+        micOn: 'Tắt micro',
+        micOff: 'Bật micro',
+        camOn: 'Tắt camera',
+        camOff: 'Bật camera',
+        end: 'Rời cuộc gọi',
+        note: 'Rời cuộc gọi không có nghĩa buổi khám đã hoàn tất.',
+        disconnect: 'Bạn đã rời cuộc gọi. Phòng khám sẽ liên hệ lại.',
+      },
+      G5: {
+        heading: 'Chưa liên hệ được với bạn',
+        lead: 'Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.',
+        wait: 'Chờ phòng khám gọi lại',
+        online: 'Hẹn online lần khác',
+        onsite: 'Chuyển sang khám tại phòng khám',
+        waiting: 'Bạn đang chờ phòng khám gọi lại.',
+      },
+      H1: {
+        heading: 'Buổi khám đã hoàn tất',
+        lead: 'Bạn có thể xem thông tin sau khám và các việc cần làm.',
+        pay: 'Xem phí khám',
+        summary: 'Kết luận và đơn thuốc',
+        labs: 'Xét nghiệm sau khám',
+        care: 'Hỏi phòng khám',
+        followup: 'Đặt lịch tái khám',
+      },
+      H2: {
+        heading: 'Thanh toán phí khám',
+        lead: 'Chọn cách thanh toán phù hợp.',
+        counter: 'Thanh toán tại quầy',
+        transfer: 'Chuyển khoản',
+        pharmacy: 'Thanh toán tại nhà thuốc',
+        later: 'Tôi cần thanh toán sau',
+        note: 'Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.',
+        receipt: 'Xem biên lai và trạng thái',
+      },
+      H3: {
+        heading: 'Hẹn ngày thanh toán',
+        lead: 'Cho phòng khám biết lý do và ngày bạn có thể thanh toán.',
+        reason: 'Lý do thanh toán sau',
+        date: 'Ngày dự kiến thanh toán',
+        cta: 'Gửi đề nghị',
+        done: 'Đã ghi nhận ngày dự kiến. Phòng khám sẽ liên hệ nếu cần trao đổi.',
+      },
+      H4: {
+        heading: 'Chuyển khoản phí khám',
+        lead: 'Kiểm tra thông tin nhận tiền trước khi chuyển khoản.',
+        bank: 'Thông tin tài khoản nhận tiền',
+        qr: 'Mã chuyển khoản',
+        noQR: 'Chưa có mã thanh toán',
+        note: 'Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông tin.',
+        cta: 'Tôi đã chuyển khoản',
+        pending:
+          'Phòng khám đang kiểm tra khoản chuyển. Chưa xác nhận đã thanh toán.',
+      },
+      H5: {
+        heading: 'Biên lai và hoàn tiền',
+        lead: 'Trạng thái thanh toán của lượt khám này.',
+        receipt: 'Biên lai',
+        empty: 'Biên lai sẽ có sau khi phòng khám xác nhận khoản thu.',
+        number: 'Mã ghi nhận',
+        refund: 'Thông tin hoàn tiền',
+        policy:
+          'Phòng khám sẽ giải thích chính sách và thời gian xử lý áp dụng.',
+        date: 'Ngày dự kiến thanh toán',
+        reason: 'Lý do',
+        summary: 'Xem kết luận và đơn thuốc',
+      },
+      H6: {
+        heading: 'Kết luận và đơn thuốc',
+        lead: 'Thông tin do bác sĩ cung cấp sau buổi khám.',
+        conclusion: 'Kết luận buổi khám',
+        medicine: 'Đơn thuốc',
+        instructions: 'Hướng dẫn chăm sóc',
+        empty: 'Chưa có tài liệu được phòng khám chia sẻ.',
+        question: 'Hỏi lại phòng khám',
+        followup: 'Đặt lịch tái khám',
+      },
+      H7: {
+        heading: 'Kết quả và việc tiếp theo',
+        lead: 'Theo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.',
+        notification: 'Thông báo kết quả',
+        explanation: 'Giải thích kết quả',
+        pending: 'Chưa thông báo',
+        notified: 'Đã gửi thông báo',
+        unreachable: 'Phòng khám đang cố liên hệ với bạn',
+        explained: 'Đã trao đổi với bạn',
+        notExplained: 'Chưa ghi nhận đã giải thích',
+        summary: 'Xem kết luận và đơn thuốc',
+        more: 'Xem xét nghiệm tiếp theo',
+        free: 'Hẹn giải thích kết quả, không thu phí',
+        call: 'Yêu cầu phòng khám liên hệ',
+        wait: 'Bạn hãy chờ bác sĩ xem và hướng dẫn bước tiếp theo.',
+      },
+      I1: {
+        heading: 'Bạn muốn hỏi về việc gì?',
+        lead: 'Chọn lượt khám và điều bạn cần trao đổi.',
+        visit: 'Lượt đã khám',
+        medicine: 'Phản hồi về đơn thuốc',
+        medicineHint: 'Hiệu quả điều trị hoặc vấn đề khi dùng thuốc',
+        question: 'Hỏi lại, dùng thuốc',
+        questionHint: 'Điều chưa rõ trong hướng dẫn của phòng khám',
+        symptoms: 'Triệu chứng mới, chưa cải thiện',
+        symptomsHint: 'Cập nhật tình trạng của bạn sau khám',
+        tracking: 'Theo dõi triệu chứng',
+        messages: 'Tin nhắn với phòng khám',
+        referral: 'Chuyển chuyên khoa',
+      },
+      I2: {
+        heading: 'Gửi phản hồi cho phòng khám',
+        lead: 'Mô tả điều bạn cần được giải đáp.',
+        text: 'Nội dung cần trao đổi',
+        urgent: 'Tôi cần được hỗ trợ khẩn cấp',
+        note: 'Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp.',
+        cta: 'Gửi phản hồi',
+      },
+      I3: {
+        heading: 'Theo dõi triệu chứng',
+        lead: 'Ghi lại thay đổi để phòng khám theo dõi cùng bạn.',
+        text: 'Hôm nay bạn thấy thế nào?',
+        cta: 'Gửi cập nhật',
+        empty: 'Chưa có cập nhật của bạn',
+        contact: 'Trao đổi với điều phối viên',
+      },
+      I4: {
+        heading: 'Chuyển chuyên khoa',
+        lead: 'Điều phối viên sẽ hướng dẫn khi bác sĩ giới thiệu bạn đến chuyên khoa khác.',
+        empty: 'Chưa có hướng dẫn chuyển chuyên khoa',
+        text: 'Phản hồi sau khi khám chuyên khoa',
+        cta: 'Gửi phản hồi',
+      },
+      I5: {
+        recommendation: 'Phòng khám đề nghị bạn đặt lịch tái khám.',
+        heading: 'Tin nhắn với phòng khám',
+        lead: 'Trao đổi với điều phối viên về lượt khám.',
+        text: 'Tin nhắn của bạn',
+        cta: 'Gửi tin nhắn',
+        empty: 'Bạn chưa có tin nhắn trong lượt khám này.',
+        waiting: 'Chờ phòng khám phản hồi',
+        followup: 'Đặt lịch tái khám',
+        urgent: 'Cần trợ giúp khẩn cấp',
+      },
+      J1: {
+        heading: 'Đặt lịch tái khám',
+        lead: 'Hồ sơ của bạn và thông tin lượt trước được giữ lại.',
+        suggestion: 'Ngày gợi ý từ phòng khám',
+        cta: 'Chọn thời gian tái khám',
+      },
+      K1: {
+        heading: 'Thông báo',
+        lead: 'Cập nhật về lịch hẹn và việc cần làm.',
+        empty: 'Bạn chưa có thông báo mới',
+        note: 'Nội dung sức khỏe không xuất hiện trong bản xem trước.',
+      },
+      K2: {
+        heading: 'Hồ sơ và người thân',
+        lead: 'Quản lý hồ sơ dùng để đặt lịch.',
+        history: 'Lịch sử khám',
+        settings: 'Cài đặt',
+        add: 'Thêm người thân',
+        view: 'Được xem kết quả',
+        bookOnly: 'Chỉ được đặt lịch',
+        name: 'Họ và tên',
+        dob: 'Ngày sinh',
+        save: 'Lưu hồ sơ người thân',
+      },
+      K3: {
+        heading: 'Lịch sử khám',
+        lead: 'Các lượt đã hoàn tất, đã hủy và chưa đến khám.',
+        empty: 'Bạn chưa có lịch sử khám',
+      },
+      K4: {
+        heading: 'Cài đặt',
+        lead: 'Điều chỉnh cách bạn sử dụng CareFlow.',
+        text: 'Chữ lớn',
+        preview: 'Ẩn nội dung sức khỏe trong thông báo',
+        reminders: 'Nhận nhắc lịch',
+        privacy: 'Quyền riêng tư',
+        privacyLead:
+          'Chỉ dùng dữ liệu thử nghiệm. Bạn có thể xóa phiên từ thanh Bản demo.',
+        logout: 'Đăng xuất',
+      },
+      K5: {
+        heading: 'Phòng khám luôn sẵn sàng lắng nghe',
+        lead: 'Chọn cách để được hỗ trợ về lịch hẹn và việc sau khám.',
+        call: 'Gọi phòng khám',
+        message: 'Gửi yêu cầu hỗ trợ',
+        text: 'Bạn cần hỗ trợ việc gì?',
+        sent: 'Yêu cầu đang chờ phòng khám tiếp nhận.',
+        faq: 'Câu hỏi thường gặp',
+        q1: 'Làm sao biết lịch đã được xác nhận?',
+        a1: 'Mở phiếu khám trong Lịch hẹn. Lịch chỉ được xác nhận khi trạng thái ghi “Đã xác nhận”.',
+        q2: 'Tôi chuyển khoản rồi, vì sao vẫn đang chờ?',
+        a2: 'Phòng khám cần kiểm tra khoản chuyển trước khi xác nhận và cung cấp biên lai.',
+        q3: 'Tôi có thể xem kết quả của người thân không?',
+        a3: 'Quyền đặt lịch hộ không bao gồm quyền xem kết quả. Người được khám cần cho phép riêng.',
+        q4: 'Tôi muốn đổi lịch khám?',
+        a4: 'Mở phiếu khám, chọn Đổi lịch rồi gửi thời gian mới. Lịch sử lượt cũ được giữ lại.',
+      },
     },
-    "E4": {
-      "title": "Chưa kết nối được với bác sĩ",
-      "description": "Lịch khám vẫn còn nguyên. Bạn muốn làm gì tiếp?",
-      "retry": "Thử lại ngay",
-      "callback": "Nhờ phòng khám gọi lại",
-      "callbackHint": "Phòng khám gọi vào số của bạn trong khoảng [10 phút]",
-      "rebook": "Hẹn buổi online khác",
-      "onsite": "Đổi sang khám trực tiếp",
-      "autotry": "Tự thử lại sau [20 giây]",
-      "stop": "Dừng",
-      "sent": "Đã gửi yêu cầu. Phòng khám sẽ gọi lại cho bạn."
+    feedback: {
+      saved: 'Đã lưu thay đổi.',
+      sent: 'Đã ghi nhận trong phiên hiện tại.',
+      callback: 'Đã ghi nhận yêu cầu liên hệ. Bạn hãy chờ phòng khám.',
+      offline: 'Đang mất mạng · Nội dung đã nhập được giữ lại.',
+      notFound: 'Không tìm thấy nội dung này',
+      notFoundLead: 'Bạn có thể trở về Lịch hẹn để mở lại đúng lượt khám.',
+      permission: 'Bạn chưa được xem nội dung này',
+      permissionLead:
+        'Người được khám cần cho phép riêng. Quyền đặt lịch hộ không bao gồm quyền xem kết quả.',
+      awaiting: 'Nội dung chưa mở ở bước này',
+      auth: 'Đăng nhập để tiếp tục',
+      authLead:
+        'Thông tin lượt khám chỉ hiển thị sau khi xác nhận số điện thoại.',
+      demoStopped: 'Đã dừng luồng đặt lịch.',
     },
-    "F1": {
-      "title": "Thanh toán",
-      "total": "Tổng cộng",
-      "amount": "350.000 ₫",
-      "unpaid": "Chưa thanh toán",
-      "methods": "Chọn cách thanh toán",
-      "qr": "Chuyển khoản QR",
-      "qrHint": "Quét mã bằng app ngân hàng",
-      "counter": "Thanh toán tại quầy",
-      "counterHint": "Tiền mặt hoặc thẻ",
-      "pharmacy": "Thanh toán tại nhà thuốc",
-      "pharmacyHint": "Cùng lúc nhận thuốc",
-      "cta": "Thanh toán 350.000 ₫",
-      "later": "Thanh toán sau",
-      "scan": "Quét mã để chuyển khoản",
-      "copy": "Sao chép",
-      "transferred": "Tôi đã chuyển khoản",
-      "checking": "Đang kiểm tra khoản chuyển…",
-      "paid": "Đã thanh toán.",
-      "receipt": "Lưu biên lai",
-      "failed": "Chưa nhận được tiền. Bạn thử lại hoặc chọn cách khác.",
-      "deferDate": "Chọn ngày bạn sẽ thanh toán",
-      "deferReason": "Lý do"
+    demo: {
+      title: 'Bản demo',
+      warning:
+        'Chỉ dùng dữ liệu thử nghiệm. Không đặt lịch, gửi tin, gọi video hay thanh toán thật.',
+      otp: 'Mã thử: 123456 · Không gửi SMS. Không nhập thông tin cá nhân thật.',
+      notice:
+        'Thao tác chỉ cập nhật phiên thử nghiệm, không gửi đến phòng khám.',
+      emergency:
+        'Không thực hiện cuộc gọi cấp cứu trong bản demo. Khi cần trợ giúp ngoài đời, hãy dùng ứng dụng Điện thoại của bạn.',
+      directions:
+        'Chưa có địa chỉ đã được xác nhận. Không mở chỉ đường tới cơ sở giả.',
+      payment:
+        'Không có mã chuyển tiền thật. Nút thử nghiệm chỉ chuyển trạng thái sang chờ xác nhận.',
+      video:
+        'Camera, micro và cuộc gọi chỉ là trạng thái thử nghiệm; không thu âm hoặc ghi hình.',
+      stored: 'Phiên chỉ lưu trên trình duyệt này. Đặt lại để xóa dữ liệu thử.',
+      reset: 'Đặt lại',
+      controls: 'Công cụ đánh giá',
+      update: 'Áp dụng cập nhật thử nghiệm',
+      reviewer: 'Cập nhật từ phòng khám (thử nghiệm)',
+      current: 'Màn hiện tại',
     },
-    "F2": {
-      "title": "Kết quả và hướng dẫn",
-      "conclusion": "Kết luận của bác sĩ",
-      "prescription": "Đơn thuốc",
-      "labs": "Kết quả xét nghiệm",
-      "pending": "Kết quả đang được xử lý. Có kết quả, app sẽ báo cho bạn.",
-      "awaitingDoctor": "Bác sĩ chưa xem kết quả này.",
-      "medicine": "Tên thuốc · Cách dùng",
-      "help": "Có thắc mắc? Hỏi phòng khám",
-      "cta": "Đặt lịch tái khám"
-    },
-    "F3": {
-      "title": "Xét nghiệm và chụp chiếu",
-      "before": "Bác sĩ đề nghị làm xét nghiệm trước buổi khám.",
-      "after": "Bác sĩ chỉ định thêm xét nghiệm.",
-      "statuses": [
-        "Cần đặt hẹn",
-        "Đã hẹn",
-        "Có kết quả",
-        "Chờ bác sĩ xem",
-        "Bác sĩ đã xem"
-      ],
-      "prep": "Cần chuẩn bị",
-      "where": "Làm ở đâu",
-      "duration": "Mất bao lâu",
-      "cta": "Đặt hẹn xét nghiệm",
-      "empty": "Chưa có chỉ định nào. Bác sĩ chỉ định xong, bạn sẽ thấy ở đây.",
-      "upload": "Có kết quả từ nơi khác? Tải lên",
-      "fileError": "Tệp quá lớn hoặc không đúng định dạng. Chọn ảnh hoặc PDF dưới 10 MB."
-    },
-    "F4": {
-      "title": "Hỏi phòng khám",
-      "tabs": [
-        "Nhắn tin",
-        "Báo triệu chứng",
-        "Gọi lại"
-      ],
-      "emergency": "Khẩn cấp? Gọi 115",
-      "reply": "Phòng khám thường trả lời trong khoảng [30 phút].",
-      "starter": [
-        "Hỏi về đơn thuốc",
-        "Cách dùng thuốc",
-        "Triệu chứng mới hoặc chưa đỡ"
-      ],
-      "input": "Nhập tin nhắn",
-      "afterHours": "Phòng khám đang nghỉ. Tin của bạn sẽ được trả lời lúc [07:30] sáng mai.",
-      "symptoms": "Bạn đang gặp chuyện gì?",
-      "severity": [
-        "Nhẹ",
-        "Vừa",
-        "Nặng"
-      ],
-      "send": "Gửi cho phòng khám",
-      "sent": "Phòng khám đã nhận tin của bạn.",
-      "callback": "Phòng khám gọi lại về việc gì?",
-      "request": "Gửi yêu cầu gọi lại"
-    },
-    "G1": {
-      "title": "Hồ sơ",
-      "active": "Đang đặt lịch cho",
-      "personal": "Thông tin cá nhân",
-      "family": "Người thân",
-      "history": "Lịch sử khám",
-      "missing": "Còn thiếu thông tin",
-      "add": "Bổ sung",
-      "fields": [
-        "Họ và tên",
-        "Quan hệ",
-        "Ngày sinh",
-        "Giới tính",
-        "Số điện thoại"
-      ],
-      "consent": "Tôi có quyền đặt lịch và xem thông tin của người này",
-      "save": "Lưu",
-      "remove": "Bỏ [Tên] khỏi danh sách?",
-      "empty": "Bạn chưa thêm người thân. Thêm để đặt lịch hộ nhanh hơn.",
-      "duplicate": "Hồ sơ này có vẻ đã có sẵn. Bạn gọi phòng khám để được hỗ trợ."
-    },
-    "G2": {
-      "title": "Thông báo",
-      "empty": "Chưa có thông báo nào. Nhắc lịch và tin từ phòng khám sẽ hiện ở đây."
-    },
-    "G3": {
-      "title": "Cài đặt",
-      "groups": [
-        "Thông báo",
-        "Hiển thị",
-        "Ngôn ngữ",
-        "Quyền riêng tư và bảo mật",
-        "Về ứng dụng"
-      ],
-      "notifications": [
-        "Thông báo trên điện thoại",
-        "Tin nhắn SMS hoặc Zalo",
-        "Nhắc trước 1 ngày",
-        "Nhắc trước 2 giờ",
-        "Ẩn nội dung nhạy cảm trên màn hình khóa"
-      ],
-      "font": [
-        "Mặc định",
-        "Lớn",
-        "Rất lớn"
-      ],
-      "optout": "Tắt hết thông báo, bạn có thể lỡ nhắc lịch khám.",
-      "logout": "Đăng xuất khỏi tài khoản?",
-      "delete": "Xóa tài khoản?",
-      "deleteHint": "Thông tin tài khoản sẽ bị xóa. Hồ sơ bệnh án có thể được giữ theo quy định. [Pháp lý duyệt]"
-    },
-    "H1": {
-      "title": "Hỗ trợ",
-      "hero": "Cần giúp gì?",
-      "hours": "Phòng khám làm việc [Thứ Hai đến Thứ Bảy, 07:30–17:00].",
-      "call": "Gọi phòng khám",
-      "message": "Nhắn tin",
-      "callback": "Nhờ gọi lại",
-      "emergency": "Khẩn cấp? Gọi 115",
-      "search": "Tìm câu hỏi",
-      "empty": "Không thấy câu hỏi phù hợp. Bạn nhắn tin hoặc gọi phòng khám nhé.",
-      "afterHours": "Phòng khám đang nghỉ. Bạn có thể nhắn tin, phòng khám trả lời vào [07:30] sáng mai."
-    }
-  }
-};
-root.CareFlowCopy=Object.freeze(data);
-if(typeof module!=='undefined'&&module.exports)module.exports=data;
-})(typeof window!=='undefined'?window:globalThis);
+  };
+  root.CareFlowCopy = data;
+  if (typeof module !== 'undefined') module.exports = data;
+})(typeof window !== 'undefined' ? window : globalThis);

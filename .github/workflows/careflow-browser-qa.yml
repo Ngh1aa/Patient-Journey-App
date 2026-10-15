@@ -1,39 +1,26 @@
-name: CareFlow mobile browser QA
+# Manual compatibility entrypoint. Required PR/main gates live in careflow-main-runtime.yml.
+name: CareFlow manual browser QA - careflow-browser-qa
 on:
-  push:
-    branches:
-      - qa/careflow-browser-accessibility-2026
-  pull_request:
-    paths:
-      - 'prototype/**'
-      - '.github/workflows/careflow-browser-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
 jobs:
-  mobile-browser-tests:
-    name: Mobile browser flows and accessibility
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
+    timeout-minutes: 25
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install test dependencies
-        run: npm install --prefix prototype --no-audit --no-fund
-      - name: Install Chromium and WebKit
-        run: cd prototype && npx playwright install --with-deps chromium webkit
-      - name: Run deterministic model and browser tests
-        run: npm --prefix prototype run test:all
-      - name: Upload browser test reports
-        if: always()
+      - run: npm ci --prefix prototype --no-audit --no-fund
+      - run: cd prototype && npx playwright install --with-deps chromium webkit
+      - run: npm --prefix prototype run test:all
+      - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: careflow-browser-qa-${{ github.run_id }}
+          name: careflow-manual-${{ github.run_id }}
           path: |
             prototype/test-results/
             prototype/playwright-report/
-          if-no-files-found: ignore
-          retention-days: 14
+          if-no-files-found: error

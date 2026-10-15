@@ -1,0 +1,37 @@
+/* Run: node prototype/tests.cjs — deterministic model and inventory checks. */
+"use strict";
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const path=require("node:path");
+const M=require("./model.js");
+const cases=[];
+function test(name,fn){try{fn();cases.push({name,pass:true});console.log("PASS "+name);}catch(error){cases.push({name,pass:false});console.error("FAIL "+name+"\n"+error.stack);}}
+const state=()=>M.initial(), normal=()=>{const s=state();M.screening(s,"normal");return s;};
+test("1/24 all screen codes unique",()=>{assert.equal(M.SCREENS.length,24);assert.equal(new Set(M.SCREENS).size,24);});
+test("2 booking self creates confirmed patient record",()=>{const s=normal();const v=M.attemptBooking(s);assert.equal(v.ok,true);assert.equal(v.appointment.patientId,"patient-self");assert.equal(v.appointment.status,"confirmed");});
+test("3 booking confirmation is locked before success",()=>{assert.equal(M.mayEnter(state(),"C6"),false);});
+test("4 booking relative keeps actor and subject distinct",()=>{const s=state();M.choosePerson(s,"relative");M.screening(s,"normal");s.slot="14:30";const v=M.attemptBooking(s);assert.equal(v.appointment.patientId,"patient-relative");assert.equal(v.appointment.createdBy,"actor-demo");});
+test("5 relative BOOK permission does not imply VIEW_RESULT",()=>{const s=state();M.choosePerson(s,"relative");assert.equal(M.canBook(s),true);assert.equal(M.canViewResults(s),false);});
+test("6 revoked relative cannot book",()=>{const s=state();M.choosePerson(s,"relative");s.canBookRelative=false;M.screening(s,"normal");s.slot="09:00";assert.equal(M.attemptBooking(s).code,"NO_BOOK_PERMISSION");});
+test("7 results deep link cannot switch to different patient",()=>{assert.equal(M.mayOpenResultLink(state(),"patient-relative"),false);});
+test("8 proxy revoked result link stays blocked",()=>{const s=state();M.choosePerson(s,"relative");assert.equal(M.mayOpenResultLink(s,"patient-relative"),false);});
+test("9 changing patient purges personal screening data",()=>{const s=state();s.reason="demo";M.screening(s,"warning");M.choosePerson(s,"relative");assert.equal(s.reason,"");assert.equal(s.risk,false);assert.equal(s.screening,"");});
+test("10 screening flag routes to urgent warning",()=>{const s=state();assert.equal(M.screening(s,"warning").next,"C3");});
+test("11 warning blocks slot, review and success screens",()=>{const s=state();M.screening(s,"warning");for(const id of ["C4","C5","C6"])assert.equal(M.mayEnter(s,id),false);});
+test("12 warning blocks booking submission",()=>{const s=state();M.screening(s,"warning");assert.equal(M.attemptBooking(s).code,"CLINICAL_REVIEW_REQUIRED");assert.equal(s.appointment,null);});
+test("13 warning cannot be bypassed by changing answers",()=>{const s=state();M.screening(s,"warning");assert.equal(M.screening(s,"normal").next,"C3");assert.equal(s.risk,true);});
+test("14 slot collision leaves no appointment",()=>{const s=normal();assert.equal(M.attemptBooking(s,"slot_unavailable").code,"SLOT_UNAVAILABLE");assert.equal(s.appointment,null);assert.equal(s.slot,"");});
+test("15 timeout cannot show successful booking",()=>{const s=normal();assert.equal(M.attemptBooking(s,"network_unknown").code,"UNCONFIRMED_REQUEST");assert.equal(s.appointment,null);assert.equal(M.mayEnter(s,"C6"),false);});
+test("16 timeout prevents duplicate submission",()=>{const s=normal();M.attemptBooking(s,"network_unknown");assert.equal(M.attemptBooking(s).code,"UNCONFIRMED_REQUEST");});
+test("17 verify pending NOT_FOUND allows retry",()=>{const s=normal();M.attemptBooking(s,"network_unknown");assert.equal(M.resolveUnknown(s,false).code,"NOT_FOUND_RETRY_ALLOWED");assert.equal(M.attemptBooking(s).ok,true);});
+test("18 verify pending FOUND returns existing record",()=>{const s=normal();M.attemptBooking(s,"network_unknown");assert.equal(M.resolveUnknown(s,true).code,"FOUND_CONFIRMED");assert.equal(M.attemptBooking(s).code,"EXISTING_BOOKING");});
+test("19 after changing profile old success is not shown",()=>{const s=normal();M.attemptBooking(s);M.choosePerson(s,"relative");assert.equal(M.mayEnter(s,"C6"),false);});
+test("20 QR created is pending, not paid",()=>{const s=state();assert.equal(M.startPayment(s),"pending_reconciliation");assert.equal(s.payment!=="paid",true);});
+test("21 payment can only settle after reconciliation started",()=>{const s=state();assert.equal(M.settlePayment(s).ok,false);M.startPayment(s);assert.equal(M.settlePayment(s).ok,true);});
+test("22 doctor reviewing results does not notify patient",()=>{const s=state();M.doctorReviewed(s);assert.equal(s.result,"reviewed");assert.equal(s.communication,"pending");});
+test("23 callback stays a separate task",()=>{const s=state();M.requestCallback(s);assert.equal(s.callback,"pending");});
+test("24 all screen render branches exist",()=>{const code=fs.readFileSync(path.join(__dirname,"app.js"),"utf8");for(const id of M.SCREENS)assert.ok(code.includes('case "'+id+'"'),"screen not rendered "+id);});
+test("25 HTML includes model then app and mobile viewport",()=>{const html=fs.readFileSync(path.join(__dirname,"index.html"),"utf8");assert.ok(html.indexOf('src="./model.js"')<html.indexOf('src="./app.js"'));assert.ok(html.includes('name="viewport"'));});
+test("26 svg review board depicts all 24 screens",()=>{const svg=fs.readFileSync(path.join(__dirname,"wireframe-board.svg"),"utf8");for(const id of M.SCREENS)assert.ok(svg.includes(id+"  ")||svg.includes(id+" ·"),"missing "+id);});
+const pass=cases.filter(x=>x.pass).length;console.log("\n"+pass+"/"+cases.length+" PASSED");
+if(pass!==cases.length)process.exitCode=1;

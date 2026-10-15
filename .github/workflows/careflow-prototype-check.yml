@@ -1,4 +1,4 @@
-name: CareFlow low-fi prototype checks
+name: CareFlow state contract checks
 on:
   push:
     branches:
@@ -17,5 +17,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Run deterministic wireframe model tests
+      - name: Run patient journey state contract tests
         run: node prototype/tests.cjs

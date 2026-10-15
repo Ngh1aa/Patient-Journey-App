@@ -1,40 +1,35 @@
-name: CareFlow main runtime validation
+name: CareFlow patient journeys - required QA
 on:
   push:
-    branches:
-      - main
-      - integrate/careflow-pre-codex-work
-  workflow_dispatch:
+    branches: [main, feature/careflow-patient-journey-47]
   pull_request:
-    paths:
-      - 'prototype/**'
-      - '.github/workflows/careflow-main-runtime.yml'
+    paths: ['prototype/**', 'docs/**', 'design/**', '.github/workflows/careflow-main-runtime.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   run-project:
+    name: 47 screens, F1-F12, Chromium and WebKit
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install test dependencies
+      - name: Install locked test tools
         run: npm ci --prefix prototype --no-audit --no-fund
-      - name: Set up browser engines
+      - name: Install browser engines
         run: cd prototype && npx playwright install --with-deps chromium webkit
-      - name: Run 26 model assertions
-        run: node prototype/tests.cjs
-      - name: Launch current project HTTP server and test three-column UI
-        run: cd prototype && npx playwright test -c runtime-main.config.cjs
-      - name: Save runtime screenshots and browser test reports
+      - name: Syntax, model, actual-token contrast and browser acceptance
+        run: npm --prefix prototype run test:all
+      - name: Save route, exception and accessibility evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: careflow-main-runtime-${{ github.run_id }}
+          name: careflow-patient-journeys-${{ github.run_id }}
           path: |
-            prototype/runtime-test-results/
-            prototype/runtime-playwright-report/
-          if-no-files-found: ignore
+            prototype/test-results/
+            prototype/playwright-report/
+          if-no-files-found: error
           retention-days: 14

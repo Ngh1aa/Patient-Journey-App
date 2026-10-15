@@ -1,0 +1,284 @@
+[
+  {
+    "id": "A1",
+    "title": "Đăng nhập (SĐT và OTP)",
+    "route": "/login",
+    "phase": "P1"
+  },
+  {
+    "id": "A2",
+    "title": "Xác nhận hồ sơ cũ",
+    "route": "/profile-match",
+    "phase": "P1"
+  },
+  {
+    "id": "A3",
+    "title": "Tạo hồ sơ bệnh nhân",
+    "route": "/profile-new",
+    "phase": "P1"
+  },
+  {
+    "id": "B1",
+    "title": "Trang chủ",
+    "route": "/home",
+    "phase": "P1"
+  },
+  {
+    "id": "C1",
+    "title": "Ai đi khám",
+    "route": "/book/patient",
+    "phase": "P1"
+  },
+  {
+    "id": "C2",
+    "title": "Lý do khám và triệu chứng",
+    "route": "/book/reason",
+    "phase": "P1"
+  },
+  {
+    "id": "C3",
+    "title": "Dấu hiệu nguy hiểm",
+    "route": "/book/safety",
+    "phase": "P1"
+  },
+  {
+    "id": "C4",
+    "title": "Khuyến cáo nhập viện, cấp cứu",
+    "route": "/book/alert",
+    "phase": "P1"
+  },
+  {
+    "id": "C5",
+    "title": "Phòng khám xác nhận hình thức khám",
+    "route": "/book/mode-review",
+    "phase": "P1"
+  },
+  {
+    "id": "C6",
+    "title": "Chọn hình thức khám",
+    "route": "/book/mode",
+    "phase": "P1"
+  },
+  {
+    "id": "C7",
+    "title": "Chọn ngày giờ",
+    "route": "/book/slot",
+    "phase": "P1"
+  },
+  {
+    "id": "C8",
+    "title": "Kiểm tra và gửi yêu cầu",
+    "route": "/book/review",
+    "phase": "P1"
+  },
+  {
+    "id": "C9",
+    "title": "Đã gửi, Phiếu khám",
+    "route": "/book/done/:id",
+    "phase": "P1"
+  },
+  {
+    "id": "D1",
+    "title": "Lịch hẹn",
+    "route": "/appointments",
+    "phase": "P1"
+  },
+  {
+    "id": "D2",
+    "title": "Phiếu khám (chi tiết lượt khám)",
+    "route": "/appointments/:id",
+    "phase": "P1"
+  },
+  {
+    "id": "D3",
+    "title": "Đổi lịch",
+    "route": "/appointments/:id/reschedule",
+    "phase": "P1"
+  },
+  {
+    "id": "D4",
+    "title": "Hủy lịch",
+    "route": "/appointments/:id/cancel",
+    "phase": "P1"
+  },
+  {
+    "id": "E1",
+    "title": "Chuẩn bị trước khi đến",
+    "route": "/appointments/:id/prepare",
+    "phase": "P1"
+  },
+  {
+    "id": "E2",
+    "title": "Báo đã đến",
+    "route": "/appointments/:id/arrive",
+    "phase": "P1"
+  },
+  {
+    "id": "E3",
+    "title": "Theo dõi lượt khám",
+    "route": "/appointments/:id/visit",
+    "phase": "P1"
+  },
+  {
+    "id": "F1",
+    "title": "Xét nghiệm, chụp chiếu",
+    "route": "/appointments/:id/labs",
+    "phase": "P2"
+  },
+  {
+    "id": "F2",
+    "title": "Chi tiết chỉ định",
+    "route": "/appointments/:id/labs/:labId",
+    "phase": "P2"
+  },
+  {
+    "id": "F3",
+    "title": "Đặt hẹn xét nghiệm",
+    "route": "/appointments/:id/labs/:labId/book",
+    "phase": "P2"
+  },
+  {
+    "id": "F4",
+    "title": "Đính kèm kết quả",
+    "route": "/appointments/:id/labs/:labId/upload",
+    "phase": "P2"
+  },
+  {
+    "id": "G1",
+    "title": "Chuẩn bị khám online",
+    "route": "/appointments/:id/online-prepare",
+    "phase": "P2"
+  },
+  {
+    "id": "G2",
+    "title": "Chờ bác sĩ gọi",
+    "route": "/appointments/:id/online-wait",
+    "phase": "P2"
+  },
+  {
+    "id": "G3",
+    "title": "Bác sĩ đang gọi",
+    "route": "/appointments/:id/incoming",
+    "phase": "P2"
+  },
+  {
+    "id": "G4",
+    "title": "Đang khám online",
+    "route": "/appointments/:id/call",
+    "phase": "P2"
+  },
+  {
+    "id": "G5",
+    "title": "Chưa liên hệ được",
+    "route": "/appointments/:id/unreachable",
+    "phase": "P2"
+  },
+  {
+    "id": "H1",
+    "title": "Buổi khám đã hoàn tất",
+    "route": "/appointments/:id/completed",
+    "phase": "P2"
+  },
+  {
+    "id": "H2",
+    "title": "Thanh toán",
+    "route": "/appointments/:id/pay",
+    "phase": "P2"
+  },
+  {
+    "id": "H3",
+    "title": "Thanh toán sau",
+    "route": "/appointments/:id/pay-later",
+    "phase": "P2"
+  },
+  {
+    "id": "H4",
+    "title": "Chuyển khoản QR",
+    "route": "/appointments/:id/pay/transfer",
+    "phase": "P2"
+  },
+  {
+    "id": "H5",
+    "title": "Biên lai và hoàn tiền",
+    "route": "/appointments/:id/receipt",
+    "phase": "P2"
+  },
+  {
+    "id": "H6",
+    "title": "Kết luận và đơn thuốc",
+    "route": "/appointments/:id/summary",
+    "phase": "P2"
+  },
+  {
+    "id": "H7",
+    "title": "Kết quả và việc tiếp theo",
+    "route": "/appointments/:id/results",
+    "phase": "P2"
+  },
+  {
+    "id": "I1",
+    "title": "Hỏi phòng khám",
+    "route": "/care",
+    "phase": "P3"
+  },
+  {
+    "id": "I2",
+    "title": "Gửi phản hồi (ba lý do)",
+    "route": "/care/report?reason=",
+    "phase": "P3"
+  },
+  {
+    "id": "I3",
+    "title": "Theo dõi triệu chứng",
+    "route": "/care/follow-up",
+    "phase": "P3"
+  },
+  {
+    "id": "I4",
+    "title": "Chuyển chuyên khoa",
+    "route": "/care/referral/:id",
+    "phase": "P3"
+  },
+  {
+    "id": "I5",
+    "title": "Tin nhắn với điều phối viên",
+    "route": "/care/messages",
+    "phase": "P3"
+  },
+  {
+    "id": "J1",
+    "title": "Đặt lịch tái khám",
+    "route": "/followup/:id",
+    "phase": "P1"
+  },
+  {
+    "id": "K1",
+    "title": "Thông báo",
+    "route": "/notifications",
+    "phase": "P1"
+  },
+  {
+    "id": "K2",
+    "title": "Hồ sơ và người thân",
+    "route": "/profile",
+    "phase": "P3"
+  },
+  {
+    "id": "K3",
+    "title": "Lịch sử khám",
+    "route": "/profile/history",
+    "phase": "P3"
+  },
+  {
+    "id": "K4",
+    "title": "Cài đặt",
+    "route": "/settings",
+    "phase": "P3"
+  },
+  {
+    "id": "K5",
+    "title": "Hỗ trợ",
+    "route": "/support",
+    "phase": "P1 (khung), P2 (đầy đủ)"
+  }
+]
