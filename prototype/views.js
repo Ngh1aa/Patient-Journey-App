@@ -78,7 +78,21 @@
   const details = (s, v) =>
     `<dl class="details"><div><dt>${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="eyebrow">${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</span>${I(v.mode === 'online' ? 'video' : 'calendar', 24)}</span><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-person">${I('user', 17)}${esc(M.profile(s, v.patientId)?.name)}</span><span class="visit-bottom">${status(v)}${I('chevron-right', 20)}</span></button>`;
+    const person = M.profile(s, v.patientId);
+    const name = person?.name || C.patient;
+    const initials = name.trim().split(/\s+/).slice(-2).map(x => x.charAt(0)).join('').toUpperCase();
+    const type = v.status === 'mode-review' || (!v.status && v.risk)
+      ? 'Chờ xác nhận hình thức khám' : modeText(v.mode);
+    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"
+      aria-label="Xem lượt khám ${esc(name)}, ${esc(v.slot)}, ${esc(dateText(v))}">
+      <span class="visit-card-top">
+        <span class="visit-card-category"><span class="visit-card-category-icon">${I(v.mode === 'online' ? 'video' : 'calendar', 18)}</span><span><small>LƯỢT KHÁM</small><strong>${esc(type)}</strong></span></span>
+        <span class="visit-card-corner" aria-hidden="true">${I('arrow-right', 19)}</span>
+      </span>
+      <span class="visit-card-schedule"><span class="visit-time">${esc(v.slot)}</span><span class="visit-date">${I('calendar', 15)} ${esc(dateText(v))}</span></span>
+      <span class="visit-card-person"><span class="visit-card-avatar" aria-hidden="true">${esc(initials)}</span><span><small>Người đi khám</small><strong>${esc(name)}</strong></span></span>
+      <span class="visit-bottom">${status(v)}<span class="visit-card-open">Xem chi tiết ${I('arrow-right',17)}</span></span>
+    </button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
@@ -199,13 +213,32 @@
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body =
-          btn(C.book, 'begin', {}, 'primary book-cta') +
           section(
             T.upcoming,
             active.length
               ? active.map((x) => visitCard(s, x, true)).join('')
               : empty(T.empty, T.emptyLead),
           );
+        body += `<section class="section home-shortcuts" aria-label="Lối tắt">
+          <div class="home-section-heading"><div><span class="eyebrow">TRUY CẬP NHANH</span><h2>Tiện ích cho bạn</h2></div><span class="home-section-caption">Chọn để tiếp tục</span></div>
+          <div class="home-shortcut-grid">
+            <button class="home-shortcut home-shortcut-primary" type="button" data-action="begin" aria-label="Bắt đầu đặt lịch khám">
+              <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('calendar',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
+              <span class="home-shortcut-copy"><strong>Đặt lịch khám</strong><small>Chọn ngày và giờ</small></span>
+            </button>
+            <button class="home-shortcut" type="button" data-action="go" data-to="D1" aria-label="Xem danh sách lịch hẹn">
+              <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('clock',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
+              <span class="home-shortcut-copy"><strong>Lịch hẹn</strong><small>Theo dõi lượt khám</small></span>
+            </button>
+            <button class="home-shortcut" type="button" data-action="go" data-to="F1" aria-label="Xem kết quả và xét nghiệm">
+              <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('document-check',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
+              <span class="home-shortcut-copy"><strong>Kết quả</strong><small>Xét nghiệm liên quan</small></span>
+            </button>
+            <button class="home-shortcut" type="button" data-action="go" data-to="K5" aria-label="Mở thông tin hỗ trợ của phòng khám">
+              <span class="home-shortcut-top"><span class="home-shortcut-icon">${I('phone',21)}</span><span class="home-shortcut-arrow">${I('arrow-right',17)}</span></span>
+              <span class="home-shortcut-copy"><strong>Hỗ trợ</strong><small>Liên hệ phòng khám</small></span>
+            </button>
+          </div></section>`;
         if (v) {
           const next = M.nextAction(v);
           body += section(
