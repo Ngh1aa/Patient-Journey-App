@@ -320,9 +320,7 @@
     document.title = (VI.screen[id]?.heading || 'CareFlow') + ' · CareFlow';
     $('announcer').textContent = VI.screen[id]?.heading || VI.feedback.notFound;
     save();
-    requestAnimationFrame(() =>
-      $('screen-title')?.focus({ preventScroll: true }),
-    );
+    $('screen-title')?.focus({ preventScroll: true });
   }
   function renderReviewer() {
     $('screen-picker').innerHTML = M.SCREENS.map(

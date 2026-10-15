@@ -65,3 +65,9 @@ Runtime source hiện hành:627d3ccae3d7bb49c9d70763f48f1f9d13b57a1a; browser-so
 ## Ngữ cảnh chủ tài khoản và người được khám
 
 Vòng96 tests đạt ở Windows và Linux trên59ed170. Review sau đó phát hiện A2/B1 dùng activePatientId sau đặt hộ. Đã thêm accountProfileId/accountProfile, bookedByProfileId tách patientId; hồ sơ chủ tài khoản không đổi khi chọn người thân, không tự cấp quyền xem kết quả. Regression đăng nhập lại sau đặt hộ đã PASS cả2 engines. Model suite42 cases; browser suite98 cases. Ngưỡng merge vẫn là full CI trên head mới; không dùng kết quả96 trước sửa để thay thế.
+
+## Follow-up: focus không bị lấy lại khi bắt đầu nhập
+
+PR9 đã merge ở ea863328. Main CI run38711175943 xanh nhưng báo97 passed +1 flaky (OTP field sau logout); public/main smoke đều10/10. Tái hiện xác định trên Chromium và WebKit: click logout→focus phone trong cùng task→frame kế tiếp chuyển focus sang screen-title. Root cause là render() hẹn focus heading bằng requestAnimationFrame dù DOM đã có sẵn.
+
+Sửa: focus đồng bộ ngay khi render kết thúc; không timeout, không catch hoặc bỏ assert. Regression kiểm focus còn ở phone sau frame kế tiếp và có thể tiếp tục OTP. Core suite tăng100 E2E, retries=0 để CI không che flakiness. Focus/identity/axe retest6/6 PASS local. Required full CI100 trên follow-up head và deployment/main SHA mới phải được xác minh trước bàn giao cuối. Medical/native/backend boundaries giữ nguyên.
