@@ -92,7 +92,7 @@
   function closeAppointment(){go(ui.lastPage||'/reception')}
   function supportingContext(){return {data,ui,people,person,appt,e,icon,pill,avatar,statePill,resultPill,btn,pageHeading,appointmentsTable,notify,go,openAppointment,save,render}}
   function activeNav(path){const r=route();if(r.startsWith('/encounters/'))return path.startsWith('/encounters/');return r===path||(r.startsWith('/patients/')&&path==='/patients')}
-  function navLink(path,label,glyph){return `<a href="#${path}" class="nav-item ${activeNav(path)?'active':''}" data-route="${path}" ${activeNav(path)?'aria-current="page"':''}>${icon(glyph,19)}<span>${e(label)}</span>${activeNav(path)?'<span class="active-dot"></span>':''}</a>`}
+  function navLink(path,label,glyph){return `<a href="#${path}" class="nav-item ${activeNav(path)?'active':''}" data-route="${path}" aria-label="${e(label)}" title="${e(label)}" ${activeNav(path)?'aria-current="page"':''}>${icon(glyph,19)}<span>${e(label)}</span>${activeNav(path)?'<span class="active-dot"></span>':''}</a>`}
   function sidebar(){
     const isDoctor=ui.role==='doctor',isNurse=ui.role==='nurse',isReception=!isDoctor&&!isNurse;
     const label=isDoctor?'Bác sĩ':isNurse?'Điều dưỡng':'Lễ tân';
@@ -129,7 +129,7 @@
     const role=ui.role==='doctor'?'Không gian bác sĩ':ui.role==='nurse'?'Không gian điều dưỡng':'Không gian lễ tân';
     return `<header class="topbar">
       <div class="breadcrumbs"><span class="topbar-workspace">${e(role)}</span>${icon('chevron',14)}<strong>${e(currentTitle())}</strong></div>
-      <div class="top-actions"><span class="demo-indicator"><span></span> Dữ liệu minh họa</span>
+      <div class="top-actions"><button type="button" class="icon-button compact-role-link" aria-label="Chọn vai trò trình diễn" title="Chọn vai trò" data-action="go" data-to="/welcome">${icon('users',18)}</button><span class="demo-indicator"><span></span> Dữ liệu minh họa</span>
         <button type="button" class="icon-button" aria-label="Thông báo" data-action="notifications">${icon('bell',19)}<span class="notification-dot"></span></button>
         <button type="button" class="icon-button mobile-only" aria-label="Đặt lại bản demo" data-action="reset-demo">${icon('refresh',18)}</button>
       </div>
