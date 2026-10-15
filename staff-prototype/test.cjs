@@ -1,32 +1,24 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-const css = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf8');
-const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8');
-const routes = ['/reception', '/calendar', '/patients', '/appointments/', '/doctor', '/encounters/', '/results'];
-test('standalone shell with accessible target', () => { assert.match(html, /lang="vi"/); assert.match(html, /id="content"|href="#content"/); assert.match(html, /app\.js/); });
-test('eight showcase surfaces are implemented', () => { for(const s of ['receptionPage','calendarPage','patientsPage','patientProfilePage','appointmentDrawer','doctorPage','consultationPage','resultsPage']) assert.match(js, new RegExp('function '+s+'\\(')); });
-test('all routes have reachable navigation', () => { for(const r of routes) assert.ok(js.includes(r),r); });
-test('brand tokens and responsive layouts exist', () => { for(const t of ['#0a67d1','#f2f6fb','Be Vietnam Pro','prefers-reduced-motion','@media']) assert.ok(css.includes(t),t); });
-test('demo caveats and reset are explicit', () => { assert.match(js, /Dữ liệu minh họa/); assert.match(js, /reset-demo/); });
-
-test('eight follow-up showcase surfaces and shared entrypoints are present',()=>{ const ext=fs.readFileSync(path.join(__dirname,'supporting.js'),'utf8'); const newCss=fs.readFileSync(path.join(__dirname,'supporting.css'),'utf8'); for(const url of ['/requests','/booking/new','/checkin','/queue','/clinical/orders','/clinical/prescription','/clinical/review','/welcome']) assert.ok(ext.includes(url),url);assert.match(html,/supporting\.js/);assert.match(html,/supporting\.css/);assert.match(js,/supportingContext/);assert.match(newCss,/support-welcome/); });
-
-test('Wave3 scheduling safeguards and nursing journeys are wired',()=>{
-  const js3=fs.readFileSync(path.join(__dirname,'wave3.js'),'utf8');
-  const css3=fs.readFileSync(path.join(__dirname,'wave3.css'),'utf8');
-  assert.match(html,/wave3\.js/);assert.match(html,/wave3\.css/);
-  for(const path of ['/nursing','/nursing/prepare','/nursing/followups','/schedule/'])assert.ok(js3.includes(path),path);
-  assert.match(js,/wave-consult-progress/);assert.match(js,/cancelled:'Đã hủy'/);
-  assert.match(css3,/wave-consult/);
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const read=(name)=>fs.readFileSync(path.join(__dirname,name),'utf8');
+const html=read('index.html'),app=read('app.js'),doctor=read('doctor-showcase.js'),css=read('doctor-showcase.css');
+test('public prototype is doctor only',()=>{
+  assert.match(app,/function normalizeDoctorPath/);
+  assert.match(app,/role:'doctor'/);
+  assert.match(app,/Điều hướng bác sĩ/);
+  assert.doesNotMatch(app.slice(app.indexOf('function sidebar()'),app.indexOf('function header()')),/data-role="reception"|data-role="nurse"/);
+  assert.match(doctor,/CareFlowDoctor/);
+  assert.match(doctor,/return false/);
 });
-
-test('unified desktop visual foundation and role-aware navigation are present',()=>{
-  const visual=fs.readFileSync(path.join(__dirname,'visual-foundations.css'),'utf8');
-  assert.match(html,/visual-foundations\.css/);
-  for(const selector of ['--clinic-fg-strong','.sidebar-nav','.nav-item.active','.data-table','.metric-card','.wave-consult']) assert.ok(visual.includes(selector),selector);
-  assert.match(js,/isReception/);
-  assert.match(js,/sidebar-product-note/);
+test('doctor IA and core interactions are implemented',()=>{
+  for(const route of ['/doctor','/doctor/schedule','/doctor/queue','/doctor/followups','/patients','/results','/clinical/orders','/clinical/prescription','/clinical/review'])assert.ok(doctor.includes(route)||app.includes(route),route);
+  for(const action of ['doc-day','doc-today','doc-filter-queue','doc-result-filter','doc-task-toggle'])assert.ok(doctor.includes(action),action);
+  assert.match(app,/review-sign/);assert.match(app,/review-result/);assert.match(app,/save-draft/);
+});
+test('consistent brand, responsive constraints and accessibility contracts',()=>{
+ assert.match(html,/doctor-showcase\.css/);assert.match(html,/doctor-showcase\.js/);
+ assert.match(css,/#0a67d1/i);assert.match(css,/Be Vietnam Pro/);
+ assert.match(css,/@media\(max-width:1290px\)/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+ assert.match(css,/:focus-visible/);
+ assert.match(app,/Dữ liệu minh họa/);
 });
