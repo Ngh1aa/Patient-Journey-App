@@ -181,3 +181,9 @@
 
 .phone-header #notifications{position:relative}
 .phone-header #notifications .navy-notice-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:2px 4px;border-radius:99px;background:#f5ba55;color:#182642;border:2px solid #032b65;font-size:10px;font-weight:800;line-height:12px}
+
+/* Rails retain the next-card peek without widening the enclosing phone scroller. */
+#phone-content[data-screen="B1"] .rich-task-rail,#phone-content[data-screen="B1"] .rich-tips{margin-right:0!important;max-width:100%;box-sizing:border-box}
+#phone-content[data-screen="B1"] .rich-stat-strip button{min-width:0;overflow-wrap:anywhere}
+#phone-content[data-screen="B1"] .rich-hero,#phone-content[data-screen="B1"] .rich-care-card{min-width:0;max-width:100%;box-sizing:border-box}
+#phone-content[data-screen="B1"]{min-width:0}
