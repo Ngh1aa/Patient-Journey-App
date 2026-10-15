@@ -2,6 +2,34 @@
 (function (root) {
   'use strict';
   const data = {
+    layout: {
+      changePatient: 'Đổi người khám',
+      tips: {
+        C1: ['Chọn đúng người khám', 'Mỗi lượt khám gắn với một người. Hãy kiểm tra đúng hồ sơ trước khi tiếp tục.'],
+        C2: ['Bạn có thể quay lại', 'Nội dung đang nhập được giữ khi bạn chuyển mục rồi quay lại bằng nút đặt lịch.'],
+        C6: ['Hình thức khám sẽ được xác nhận', 'Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận lịch của bạn.'],
+        C7: ['Muốn chọn một ngày khác?', 'Chạm vào ô ngày bên dưới dải ngày để chọn thời gian khác.'],
+        C8: ['Điều gì xảy ra sau khi gửi?', 'Yêu cầu sẽ chờ phòng khám xác nhận. Bạn theo dõi cập nhật trong phiếu khám.'],
+        D1: ['Thông tin lịch hẹn ở đâu?', 'Chạm vào một lịch để xem phiếu khám, trạng thái và việc cần làm tiếp theo.'],
+        D2: ['Một nơi cho cả lượt khám', 'Xét nghiệm, phí khám và thông tin sau khám đều được tập trung trong phiếu này.'],
+        F4: ['Kiểm tra trước khi gửi', 'Chọn đúng tệp của người được khám. Bạn có thể gửi ảnh hoặc PDF kết quả đã nhận.'],
+        K2: ['Đặt lịch cho người thân', 'Quyền đặt lịch hộ không mặc nhiên bao gồm quyền xem kết quả của người được khám.'],
+        K4: ['Giữ riêng tư khi nhận thông báo', 'Bạn có thể ẩn nội dung thông báo để hạn chế hiển thị thông tin sức khỏe trên màn hình khóa.'],
+      },
+      bookingSteps: ['Người khám', 'Lý do', 'Hình thức', 'Ngày giờ', 'Xác nhận'],
+      bookingTitle: 'ĐẶT LỊCH KHÁM',
+      step: 'Bước',
+      quickDates: 'Chọn nhanh ngày khám',
+      homeTitle: ['Sức khỏe của bạn,', 'luôn được quan tâm.'],
+      homeLead: 'Lịch khám và việc cần làm, ngay tại đây.',
+      services: 'Bạn cần gì hôm nay?',
+      bookingHint: 'Chọn giờ phù hợp với bạn',
+      aftercare: 'Chăm sóc sau khám',
+      requestSent: 'Đã gửi yêu cầu',
+      requestPending: 'Đây chưa phải lịch khám đã xác nhận.',
+      authTitle: ['An tâm hơn.', 'Gần nhau hơn.'],
+      authLead: 'Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.',
+    },
     facility: {
       name: 'Bệnh viện Nhân dân 115',
       address: '527 Sư Vạn Hạnh, phường Hòa Hưng, TP.HCM',

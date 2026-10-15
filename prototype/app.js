@@ -246,7 +246,8 @@
     return null;
   }
   function activeTab(id) {
-    if (id === 'B1' || id.startsWith('C')) return 'B1';
+    if (id.startsWith('C')) return 'C1';
+    if (id === 'B1') return 'B1';
     if (['K2', 'K3', 'K4'].includes(id)) return 'K2';
     if (id.startsWith('I') || id === 'K5') return 'K5';
     return 'D1';
@@ -256,6 +257,7 @@
     u.screen = id;
     $('phone-frame').dataset.screen = id;
     const g = guard(id);
+    if (/^C[1-8]$/.test(id) && !g) u.bookingScreen = id;
     $('phone-frame').classList.toggle('large-text', !!s.settings.largeText);
     $('phone-frame').classList.toggle(
       'video-mode',
@@ -280,12 +282,15 @@
     $('bottom-nav').innerHTML = [
       ['B1', 'Trang chủ', 'home'],
       ['D1', 'Lịch hẹn', 'calendar'],
+      ['C1', 'Đặt lịch', 'plus'],
       ['K2', 'Hồ sơ', 'user'],
       ['K5', 'Hỗ trợ', 'phone'],
     ]
       .map(
         ([to, label, icon]) =>
-          `<a href="#${routeFor(to)}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span>${label}</span></a>`,
+          to === 'C1'
+            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span>${label}</span></button>`
+            : `<a href="#${routeFor(to)}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span>${label}</span></a>`,
       )
       .join('');
     $('offline-bar').hidden = !s.offline;
@@ -305,6 +310,7 @@
             else el.value = cache[el.name];
           }
       });
+    updateDateSelection();
     if (u.notice) {
       const node = document.createElement('div');
       node.className = 'note';
@@ -709,10 +715,31 @@
       else
         go(s.authenticated ? (visitScreens.has(u.screen) ? 'D1' : 'B1') : 'A1');
     },
+    'book-nav'() {
+      if (s.request?.status === 'unknown') return go('C8');
+      // Resume a draft when returning from another tab; do not erase entered data.
+      if (s.draft && s.request?.status !== 'done') {
+        if (/^C[1-8]$/.test(u.bookingScreen)) return go(u.bookingScreen);
+        const next = s.draft.risk
+          ? (s.draft.reviewAccepted ? (s.draft.slot ? 'C8' : 'C7') : 'C4')
+          : !s.draft.reason ? 'C1' : !s.draft.safety ? 'C3' : !s.draft.slot ? 'C6' : 'C8';
+        return go(next);
+      }
+      actions.begin();
+    },
+    'quick-date'(el) {
+      const input = $('date');
+      if (!input) return;
+      input.value = el.dataset.date;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      updateDateSelection();
+    },
     begin() {
+      if (s.draft && s.request?.status !== 'done') return actions['book-nav']();
       const result = M.beginBooking(s);
       if (result.ok) {
         u.forms = {};
+        u.bookingScreen = 'C1';
         u.urgentAftercare = false;
         go('C1');
       } else error(result.code);
@@ -1253,12 +1280,19 @@
   $('screen-picker').addEventListener('change', (e) => go(e.target.value));
   $('scenario').addEventListener('change', (e) => loadScenario(e.target.value));
   $('phone-content').addEventListener('change', (e) => {
+    if (e.target.id === 'date') updateDateSelection();
     if (e.target.name === VI.screen.I1.visit) {
       s.activeVisitId = e.target.value;
       u.forms = {};
       go('I1', { visitId: s.activeVisitId });
     }
   });
+  function updateDateSelection() {
+    const value = $('date')?.value;
+    $('phone-content').querySelectorAll('[data-action="quick-date"]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.date === value));
+    });
+  }
   function loadScenario(name) {
     s = name === 'new' ? M.initial() : M.fixture(name);
     u = {
@@ -1326,10 +1360,10 @@
   }
   const sizeObserver = new ResizeObserver(() => {
     const height =
-      $('demo-feedback').getBoundingClientRect().height;
+      $('presentation-bar').getBoundingClientRect().height;
     document.documentElement.style.setProperty('--presentation-height', height + 'px');
   });
-  sizeObserver.observe($('demo-feedback'));
+  sizeObserver.observe($('presentation-bar'));
   document.querySelector('.journey-panel').hidden = !guideEnabled;
   document.body.classList.toggle('guided',guideEnabled);
   if(guideEnabled){$('review-toggle').textContent='Bắt đầu lại';$('review-toggle').setAttribute('aria-controls','journey-list');}
