@@ -119,10 +119,9 @@
       go(label, to, variant, extra);
     switch (id) {
       case 'A1':
-        intro =
-          `<div class="welcome-mark" aria-hidden="true">${I('heart-pulse', 44)}</div>` +
-          head(T.heading, T.lead);
+        intro = `<div class="onboarding-hero"><p>CAREFLOW · HÀNH TRÌNH CỦA BẠN</p><div class="onboarding-orbit" aria-hidden="true">${I('heart-pulse', 66)}</div></div>`;
         body =
+          `<section class="onboarding-sheet">${head(T.heading, T.lead)}` +
           form(
             u.otpSent ? 'verify' : 'otp',
             field('phone', T.phone, u.phone || '', 'tel', {
@@ -141,7 +140,7 @@
             u.otpSent ? T.verify : T.getCode,
           ) +
           (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
-          nav(C.support, 'K5', 'text');
+          nav(C.support, 'K5', 'text') + '</section>';
         break;
       case 'A2':
         body =
@@ -174,7 +173,7 @@
             .slice(-2)
             .map((x) => x[0])
             .join(''),
-        )}</span></div><p class="greeting-lead">${esc(T.lead)}</p>`;
+        )}</span></div><div class="home-statement"><span class="eyebrow">CHĂM SÓC LIỀN MẠCH</span><h2>Mỗi bước khám, rõ ràng trong tầm tay.</h2><p>${esc(T.lead)}</p></div>`;
         const active = s.visits.filter(
           (x) => !['completed', 'cancelled', 'no-show'].includes(x.status),
         );
