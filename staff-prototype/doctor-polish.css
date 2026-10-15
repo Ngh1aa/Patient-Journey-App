@@ -255,3 +255,70 @@ body{font-size:13px;color:var(--doctor-text)}
 /* Footer remains the single compact prototype notice */
 .app-footer .footer-reset{white-space:nowrap;font-size:10px}
 @media(max-width:690px){.wave-consult .consult-quickfacts{grid-template-columns:1fr}}
+
+
+/* Sidebar height rhythm — use the space between brand and pinned physician profile.
+   Group content stays equally spaced; short laptop viewports scroll only the menu.
+   The icon rail (<=980px) deliberately retains its existing compact layout. */
+@media (min-width:981px) {
+ .doctor-sidebar{
+  overflow:hidden;
+ }
+ .doctor-sidebar .sidebar-brand-wrap,
+ .doctor-sidebar .sidebar-bottom{
+  flex:0 0 auto;
+ }
+ .doctor-sidebar .sidebar-nav{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 0;
+  min-height:0;
+  gap:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:#c7d8e8 transparent;
+  overscroll-behavior:contain;
+ }
+ .doctor-sidebar .side-section{
+  display:flex;
+  flex-direction:column;
+  flex:1 0 auto;
+  justify-content:space-evenly;
+  gap:0;
+  min-height:max-content;
+  margin:0;
+  width:100%;
+ }
+ .doctor-sidebar .side-overline{
+  flex:0 0 auto;
+ }
+ .doctor-sidebar .nav-item{
+  flex:0 0 auto;
+ }
+ .doctor-sidebar .side-divider{
+  flex:0 0 1px;
+  margin:0 13px;
+  border-top:1px solid #e7eef5;
+ }
+ .doctor-sidebar .sidebar-bottom{
+  margin-top:0;
+ }
+}
+/* Preserve predictable click targets and allow navigation scrolling on short displays. */
+@media (min-width:981px) and (max-height:730px) {
+ .doctor-sidebar .sidebar-nav{
+  scroll-padding-block:12px;
+ }
+ .doctor-sidebar .side-section{
+  justify-content:flex-start;
+  gap:5px;
+ }
+ .doctor-sidebar .side-overline{
+  margin-top:8px;
+  margin-bottom:8px;
+ }
+ .doctor-sidebar .side-divider{
+  margin-block:8px;
+ }
+}
