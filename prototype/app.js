@@ -2156,6 +2156,8 @@ function handleAction(action, value) {
     if(e.target.dataset.field==="otp"){e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);document.querySelectorAll("[data-otp-slot]").forEach((slot,i)=>slot.textContent=e.target.value[i]||"·");}
     if (e.target.dataset.field) {
       const field = e.target.dataset.field;
+      if (["supportMessage","callbackNote","faqSearch"].includes(field)) {extra[field]=e.target.value;return;}
+      if(field==="paymentDue"){state.paymentDue=e.target.value;return;}
       if (Object.prototype.hasOwnProperty.call(state, field)) {
         state[field] = e.target.value;
       }
