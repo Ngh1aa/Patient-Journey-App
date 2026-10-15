@@ -7,6 +7,10 @@
   "use strict";
 
   const M = window.CareFlowModel;
+  const VI = window.CareFlowCopy;
+  if (!VI || !VI.screens) throw new Error("Thiếu strings.vi.js");
+  const tx = (screen, key) => VI.screens[screen]?.[key] ?? key;
+  const sc = (status) => VI.statuses[status] || [status, ""];
   if (!M) throw new Error("Thiếu model.js");
 
   // System Configuration (v2 Section 1.9 & 1.10)
@@ -40,7 +44,12 @@
 
   // Unified DateTime Formatter (v2 Section 1.8: "09:30 · Thứ bảy, 20/06")
   function formatAppointmentDateTime(startsAt) {
-    return "09:30 · Thứ bảy, 20/06";
+    const dateText = startsAt || state.selectedDate;
+    const d = new Date(dateText && dateText.includes("T") ? dateText : dateText + "T12:00:00+07:00");
+    if (Number.isNaN(d.getTime())) return "[Giờ khám] · [Ngày khám]";
+    const formatted = new Intl.DateTimeFormat("vi-VN",{weekday:"long",day:"2-digit",month:"2-digit",timeZone:"Asia/Ho_Chi_Minh"}).format(d);
+    const time = startsAt && startsAt.includes("T") ? new Intl.DateTimeFormat("vi-VN",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Ho_Chi_Minh"}).format(d) : (state.selectedSlot || m.slot || "09:30");
+    return time + " · " + formatted.charAt(0).toUpperCase()+formatted.slice(1);
   }
 
   // Core State Machine
@@ -80,7 +89,7 @@
     screeningChoice: "",
     selectedMode: "in-person", // in-person | online
     selectedProvider: "auto",
-    selectedDate: "2026-06-20",
+    selectedDate: "2026-10-20",
     selectedSlot: "09:00",
     bookingConsent: true,
     bookingOutcome: "success", // success | slot_unavailable | network_unknown
@@ -91,8 +100,8 @@
     currentAppointment: {
       id: "DEMO-001",
       patientId: "patient-self",
-      startsAt: "2026-06-20T09:30:00+07:00",
-      statusUpdatedAt: "2026-06-20T09:02:00+07:00",
+      startsAt: "2026-10-20T09:30:00+07:00",
+      statusUpdatedAt: "2026-10-20T09:02:00+07:00",
       mode: "in-person",
       facilityName: "Phòng khám CareFlow (123 Nguyễn Trãi, Q.1)",
       providerName: "BS. CKII Nguyễn Văn An",
@@ -104,9 +113,9 @@
       estimatedWait: "15 phút",
       safetyAcknowledged: false,
       timeline: [
-        { id: "tl-1", label: "Đã gửi yêu cầu", at: "2026-06-20T08:45:00+07:00", state: "done" },
-        { id: "tl-2", label: "Lịch đã được xác nhận", at: "2026-06-20T09:02:00+07:00", state: "done" },
-        { id: "tl-3", label: "Sắp đến giờ khám / Tiếp đón", at: "2026-06-20T09:15:00+07:00", state: "current" },
+        { id: "tl-1", label: "Đã gửi yêu cầu", at: "2026-10-20T08:45:00+07:00", state: "done" },
+        { id: "tl-2", label: "Lịch đã được xác nhận", at: "2026-10-20T09:02:00+07:00", state: "done" },
+        { id: "tl-3", label: "Sắp đến giờ khám / Tiếp đón", at: "2026-10-20T09:15:00+07:00", state: "current" },
         { id: "tl-4", label: "Gặp bác sĩ khám", state: "upcoming" },
         { id: "tl-5", label: "Kết quả và hướng dẫn sau khám", state: "upcoming" }
       ]
@@ -1240,13 +1249,14 @@
       { id: "B1", label: "Trang chủ", iconName: "house" },
       { id: "D1", label: "Lịch hẹn", iconName: "calendar" },
       { id: "G1", label: "Hồ sơ", iconName: "person" },
-      { id: "F4", label: "Hỗ trợ", iconName: "phone" }
+      { id: "H1", label: "Hỗ trợ", iconName: "phone" }
     ];
 
     return `
       <nav class="phone-footer" aria-label="Điều hướng chính 4 tab">
         ${tabs.map(t => {
           const isActive = state.currentScreen === t.id ||
+            (t.id === "H1" && state.currentScreen === "F4") ||
             (t.id === "D1" && (state.currentScreen === "D2" || state.currentScreen === "D3")) ||
             (t.id === "G1" && state.currentScreen === "G3");
           return `
@@ -1283,8 +1293,10 @@
       { name: "Quản lý lịch", items: [["D1", "Danh sách lịch"], ["D2", "Chi tiết lịch"], ["D3", "Hủy / đổi lịch"]] },
       { name: "Trong lượt khám", items: [["E1", "Check-in / STT"], ["E2", "Chuẩn bị online"], ["E3", "Khám video"], ["E4", "Chưa kết nối"]] },
       { name: "Sau khám", items: [["F1", "Thanh toán"], ["F2", "Đơn / kết quả"], ["F3", "Xét nghiệm cần làm"], ["F4", "Hỏi phòng khám"]] },
-      { name: "Tài khoản", items: [["G1", "Hồ sơ / người thân"], ["G2", "Thông báo"], ["G3", "Cài đặt"]] }
+      { name: "Tài khoản", items: [["G1", "Hồ sơ / người thân"], ["G2", "Thông báo"], ["G3", "Cài đặt"], ["H1", "Hỗ trợ"]] }
     ];
+
+    $("mobile-screen-picker").innerHTML = groups.flatMap(g => g.items).map(item => `<option value="${item[0]}" ${state.currentScreen===item[0]?"selected":""}>${item[0]} · ${esc(item[1])}</option>`).join("");
 
     $("screen-menu").innerHTML = groups.map(g => `
       <div class="group-label">${esc(g.name)}</div>
@@ -1334,7 +1346,7 @@
 
     // Top Header state
     const backBtn = $("header-back-btn");
-    const level1Screens = ["B1", "D1", "G1", "F4", "G2"];
+    const level1Screens = ["B1", "D1", "G1", "H1", "G2"];
     if (level1Screens.includes(state.currentScreen) || state.currentScreen === "A1") {
       backBtn.style.display = "none";
     } else {
@@ -1346,6 +1358,7 @@
     badge.style.display = unreadCount > 0 ? "block" : "none";
 
     $("phone-screen-tag").textContent = state.currentScreen;
+    $("phone-main").setAttribute("data-current-screen",state.currentScreen);
     $("offline-bar").style.display = state.isOffline ? "flex" : "none";
 
     // Main Content
@@ -1663,9 +1676,8 @@
 
       case "confirmContinueBooking":
         state.activeModal = null;
-        m.risk = false;
         state.currentAppointment.safetyAcknowledged = true;
-        return nav("C4");
+        return showNotice("Phòng khám cần xem lại thông tin trước khi xác nhận lịch. Luồng đặt lịch tự động vẫn tạm dừng.", "error");
 
       case "chooseMode":
         state.selectedMode = value === "online" ? "online" : "in-person";
@@ -1797,6 +1809,9 @@
       case "goF4": state.lastHelpFrom = state.currentScreen; return nav("F4");
       case "goG1": return nav("G1");
       case "goG2": return nav("G2");
+      case "goH1":
+        return nav("H1");
+
       case "goG3": return nav("G3");
       case "goScreen": return nav(value);
 
@@ -2035,6 +2050,8 @@
       }
     }
   });
+
+  $("mobile-screen-picker").addEventListener("change",e=>nav(e.target.value));
 
   $("demo-outcome").addEventListener("change", (e) => {
     state.bookingOutcome = e.target.value;
