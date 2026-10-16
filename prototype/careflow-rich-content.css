@@ -132,7 +132,7 @@
 #phone-content .rich-profile-account{display:flex;align-items:center;gap:12px}
 #phone-content .rich-profile-account>div{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0}
 #phone-content .rich-profile-account strong{font-size:15px;color:#1b3d66}
-#phone-content .rich-profile-account small{font-size:11px;color:#667d97;overflow-wrap:anywhere}
+#phone-content .rich-profile-account small{font-size:calc(12px * var(--font-scale,1));color:#405a78;overflow-wrap:anywhere}
 #phone-content .rich-progress-label{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px}
 #phone-content .rich-progress-label small{color:#74859c}
 #phone-content .rich-progress-bar{height:7px;background:#d5e5f4;border-radius:20px;overflow:hidden}

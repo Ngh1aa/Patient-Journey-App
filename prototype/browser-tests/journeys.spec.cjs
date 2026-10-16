@@ -744,8 +744,8 @@ test('settings persist through reload and reset; support and FAQ are functional'
   await expect(page.locator('#largeText')).toBeChecked();
   await expect(page.locator('#reminders')).not.toBeChecked();
   await nav(page, 'K5');
-  await page.locator('summary').first().click();
-  await expect(content(page)).toContainText('Lịch chỉ được xác nhận');
+  await page.locator('.rich-faqs summary').filter({hasText:'Đổi hoặc hủy lịch thế nào?'}).click();
+  await expect(page.locator('.rich-faqs details[open]')).toContainText('Lịch thay thế cần phòng khám xác nhận');
   await page.locator('#support').fill('Tôi cần hỗ trợ đổi giờ');
   await submit(page);
   await page.locator('[data-action=close-dialog]').click();

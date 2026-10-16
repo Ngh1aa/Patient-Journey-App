@@ -9,11 +9,12 @@
   background:var(--careflow-navy)!important;color:#fff!important;flex:none;
 }
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-header {
-  position:relative;z-index:5;box-shadow:0 1px 0 #ffffff1c;
+  position:relative;z-index:5;box-shadow:none;
 }
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-header :is(.app-wordmark,.app-wordmark span,.icon-btn){color:#fff!important;}
 .phone:not(.video-mode):not([data-screen^="A"]) .phone-scroll {background:#F3F6FB!important;}
 .phone:not(.video-mode) #phone-content {padding-bottom:calc(104px + env(safe-area-inset-bottom, 0px));}
+.phone:not(.video-mode):not([data-screen^="A"]) #phone-content{padding-top:8px!important;}
 .phone:not(.video-mode) #phone-content[data-screen^="C"] {padding-bottom:32px;}
 .phone:not(.video-mode) #phone-content .screen-masthead {
   position:relative;isolation:isolate;
@@ -35,17 +36,12 @@
   min-height:clamp(210px, 30vh, 276px);padding:18px 20px 74px!important;
   border-radius:0 0 32px 32px!important;
 }
-/* Home navy panel sits exactly 8px inside the device on both sides.
-   Preserve brand/bell positions by compensating header's internal padding. */
+/* Home shares one edge-to-edge navy surface with the device header. */
+.phone:not(.video-mode) .phone-header{border-bottom:0!important;box-shadow:none!important;}
 .phone[data-screen="B1"]:not(.video-mode) .phone-top,
-.phone[data-screen="B1"]:not(.video-mode) .phone-header {margin-inline:8px;}
-.phone[data-screen="B1"]:not(.video-mode) .phone-header {
-  padding-inline:12px;
-  box-shadow:none;
-}
-.phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
-  margin-inline:-12px!important;
-}
+.phone[data-screen="B1"]:not(.video-mode) .phone-header{margin-inline:0;}
+.phone[data-screen="B1"]:not(.video-mode) .phone-header{padding-inline:20px;}
+.phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead{margin-inline:-20px!important;}
 #phone-content[data-screen="B1"] .rich-home-head{padding:0!important;}
 #phone-content[data-screen="B1"] .rich-eyebrow{color:#d2e2ff;font-size:10px;}
 #phone-content[data-screen="B1"] .rich-greeting h1 {
@@ -100,8 +96,8 @@
 #phone-content .rich-person-options{display:grid;gap:4px;padding:6px 9px 11px;border-top:1px solid #e3eaf3;}
 #phone-content .rich-person-options button{border:0;background:#f1f6fc;color:#14325e;border-radius:10px;min-height:44px;text-align:left;padding:9px 12px;}
 #phone-content .rich-appt-card{border-left-width:5px!important;}
-#phone-content .rich-appt-card.state-success{border-left-color:#16856e!important;}
-#phone-content .rich-appt-card.state-danger{border-left-color:#b94b4b!important;}
+#phone-content .rich-appt-card.state-success{border-left-color:#d6dfef!important;}
+#phone-content .rich-appt-card.state-danger{border-left-color:#d6dfef!important;}
 #phone-content .rich-empty{padding:16px 12px;gap:8px;min-height:152px;}
 #phone-content .rich-rebook-tip{margin-top:13px;}
 #phone-content .rich-profile-bento .row{align-content:start;min-height:122px!important;}
@@ -170,10 +166,10 @@
 #phone-content[data-screen="K5"] .rich-hotline-label small,
 #phone-content[data-screen="K5"] .rich-support-hero > p {color:#314d70!important;}
 
-/* Narrow-phone content switches to 16px padding; keep the navy at 8px inset. */
+/* Match the existing 16px narrow-phone content gutter. */
 @media (max-width:374px) {
   .phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead {
-    margin-inline:-8px!important;
+    margin-inline:-16px!important;
   }
 }
 
@@ -189,22 +185,25 @@
 #phone-content[data-screen="B1"] .cf-home-head .rich-greeting h1{margin:0 0 7px;font-size:calc(22px * var(--font-scale,1));line-height:1.36;letter-spacing:-.03em;font-weight:750}
 #phone-content[data-screen="B1"] .cf-home-head .rich-greeting p{margin:0;max-width:31ch;line-height:1.5;font-size:calc(13px * var(--font-scale,1))}
 #phone-content[data-screen="B1"] .cf-home-head .rich-greeting .avatar{flex:none}
-#phone-content[data-screen="B1"] .cf-home-quick h2{font-size:calc(17px * var(--font-scale,1));line-height:1.4;margin:0 0 14px;color:#fff}
-#phone-content[data-screen="B1"] .cf-home-quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0!important;padding:0!important;background:transparent!important}
-#phone-content[data-screen="B1"] .cf-home-quick-grid button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;min-width:0;min-height:90px;padding:0;border:0;background:transparent;color:#fff!important;font-family:inherit;cursor:pointer}
-#phone-content[data-screen="B1"] .cf-home-quick-grid button small{font-weight:650;font-size:calc(12px * var(--font-scale,1))!important;line-height:1.3;color:#fff!important}
-#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{display:grid;place-items:center;width:57px;height:57px;min-height:57px;border-radius:18px;background:#fff!important;color:var(--cf-card-navy)!important;box-shadow:none}
-#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon .cf-icon{color:var(--cf-card-navy)!important}
+#phone-content[data-screen="B1"] .cf-home-quick h2{font-size:calc(12px * var(--font-scale,1));line-height:1.4;margin:0 0 10px;color:#c8d8f4;font-weight:600;letter-spacing:.02em}
+#phone-content[data-screen="B1"] .cf-home-quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0!important;padding:0!important;background:transparent!important}
+#phone-content[data-screen="B1"] .cf-home-quick-grid button{min-width:0;min-height:76px;margin:0;padding:12px 6px;border:1px solid #ffffff26;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#ffffff0c;color:#fff!important;font-family:inherit;cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-quick-grid button small{font-weight:600;font-size:calc(12px * var(--font-scale,1))!important;line-height:1.4;color:inherit!important}
+#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{display:grid;place-items:center;width:28px;height:28px;min-height:28px;flex:none;background:transparent!important;color:inherit!important;box-shadow:none}
+#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-primary{grid-column:1/-1;flex-direction:row;justify-content:flex-start;gap:12px;min-height:76px;padding:13px 15px;border-color:#fff;background:#fff;color:#001d57!important;text-align:left}
+#phone-content[data-screen="B1"] .cf-quick-primary>.cf-quick-icon{width:44px;height:44px;background:#e8eef9!important;border-radius:13px}
+#phone-content[data-screen="B1"] .cf-quick-primary-copy{display:grid;justify-items:start;align-items:start;text-align:left;gap:4px;flex:1;min-width:0;background:transparent!important;box-shadow:none!important}
+#phone-content[data-screen="B1"] .cf-quick-primary-copy strong{font-size:calc(16px * var(--font-scale,1));line-height:1.4;font-weight:750}
+#phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-primary-copy small{font-size:calc(11px * var(--font-scale,1))!important;font-weight:400!important;color:#405a78!important}
 #phone-content[data-screen="B1"] > .rich-hero.cf-home-appointment{
-  margin:-12px 0 0!important;padding:16px!important;background:var(--cf-card-navy)!important;
-  border:1px solid #254477!important;color:#fff!important;border-radius:24px!important;
-  box-shadow:0 10px 22px #12264b19!important;display:grid;gap:16px;
+  margin:0!important;padding:0!important;background:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;display:grid;gap:9px;
 }
 #phone-content[data-screen="B1"] .cf-home-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}
 #phone-content[data-screen="B1"] .cf-home-section-head h2{margin:0;min-width:0;font-size:calc(17px * var(--font-scale,1));line-height:1.35;font-weight:750;color:var(--cf-card-navy)}
 #phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:44px;padding:4px 0 4px 6px;font-weight:650;font-size:calc(12px * var(--font-scale,1));line-height:1.3;font-family:inherit;color:var(--cf-card-navy);cursor:pointer}
 #phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head h2,
-#phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head button{color:#fff}
+#phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head button{color:var(--cf-card-navy)}
 #phone-content[data-screen="B1"] .cf-home-appointment-info{display:flex;align-items:center;gap:12px;min-width:0}
 #phone-content[data-screen="B1"] .cf-home-appointment-avatar{width:46px;height:46px;flex:none;border-radius:50%;background:#1D4390;display:grid;place-items:center;overflow:hidden}
 #phone-content[data-screen="B1"] .cf-home-appointment-info>.cf-home-appointment-doctor{display:grid;gap:4px;min-width:0}
@@ -258,16 +257,15 @@
 @media(max-width:374px){
   #phone-content[data-screen="B1"] .cf-home-card-grid{gap:8px}
   #phone-content[data-screen="B1"] .cf-home-task-card{padding:11px}
-  #phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{width:52px;height:52px;min-height:52px}
 }
 .phone.large-text #phone-content[data-screen="B1"] .cf-home-card-grid{grid-template-columns:1fr}
-.phone.large-text #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.phone.large-text #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:1fr}
 
 
 /* B1 scroll seam guard: keep scrolled text completely below the navy app bar.
    The scrolling viewport starts immediately under the persistent header;
    a narrow sticky navy curtain prevents clipped glyphs from peeking at its edge.
-   Its 8px horizontal inset matches the unchanged Home app bar. */
+   Its full width matches the edge-to-edge Home app bar. */
 .phone[data-screen="B1"]:not(.video-mode) .phone-scroll::before {
   content:"";
   display:block;
@@ -275,7 +273,7 @@
   top:0;
   z-index:6;
   height:14px;
-  margin:0 8px -14px;
+  margin:0 0 -14px;
   background:var(--careflow-navy);
   pointer-events:none;
 }
@@ -313,3 +311,161 @@
   outline:3px solid #65bbff;
   outline-offset:4px;
 }
+
+/* Reference content uses the current navy chrome and navigation unchanged. */
+#phone-content[data-screen="B1"] .cf-home-appointment-card{display:grid;gap:14px;padding:16px;background:var(--cf-card-navy);border-radius:24px;color:#fff}
+#phone-content .rich-appt-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#385476;font-size:calc(12px * var(--font-scale,1))}
+#phone-content .rich-appt-heading .btn{width:auto!important;min-height:44px;padding:7px 0 7px 9px;margin:0;font-size:calc(12px * var(--font-scale,1))}
+#phone-content .rich-appt-card{gap:10px;padding:14px 16px;border-left-width:1px!important;border-color:#d6dfef!important;box-shadow:none}
+#phone-content .rich-appt-card .rich-appt-doctor strong{font-size:calc(15px * var(--font-scale,1))}
+#phone-content .rich-appt-card .rich-appt-doctor small,#phone-content .rich-appt-person{font-size:calc(12px * var(--font-scale,1));line-height:1.5;color:#405a78;margin:0}
+#phone-content .rich-appt-date strong{font-size:calc(13px * var(--font-scale,1))}
+#phone-content .rich-appt-actions .btn{min-width:0;font-size:calc(13px * var(--font-scale,1));white-space:normal;margin:0}
+#phone-content .rich-appointment-group{margin:16px 0 0}
+#phone-content .rich-appointment-group .rich-heading{font-size:calc(16px * var(--font-scale,1))}
+#phone-content .rich-new-booking{width:100%;margin-top:16px}
+#phone-content .rich-profile-hero{background:#fff;border-color:#d6dfef;padding:16px}
+#phone-content .rich-profile-details{padding:4px 16px;margin:0;background:#fff;border:1px solid #d6dfef;border-radius:20px}
+#phone-content .rich-profile-details>div{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:5px 14px;padding:12px 0;font-size:calc(13px * var(--font-scale,1));line-height:1.5}
+#phone-content .rich-profile-details>div+div{border-top:1px solid #e3eaf3}
+#phone-content .rich-profile-details dt{color:#405a78}
+#phone-content .rich-profile-details dd{margin:0;color:#122544;font-weight:650;overflow-wrap:anywhere}
+#phone-content .rich-aftercare-sample{padding:16px;background:#fff;border:1px solid #d6dfef;border-radius:20px;display:grid;gap:12px}
+#phone-content .rich-aftercare-sample .rich-subnote{margin:0;color:#405a78}
+#phone-content .rich-aftercare-sample .rich-med-line{justify-content:space-between;flex-wrap:wrap}
+#phone-content .rich-med-line>div{display:grid;gap:5px}
+#phone-content .rich-med-line small{color:#405a78;font-size:calc(12px * var(--font-scale,1))}
+#phone-content .rich-sample-instructions{margin:0;padding-left:20px;line-height:1.7;font-size:calc(13px * var(--font-scale,1));color:#405a78}
+#phone-content .rich-message-preview{padding:14px;background:#fff;border:1px solid #d6dfef;border-radius:16px;font-size:calc(13px * var(--font-scale,1))}
+#phone-content .rich-message-preview p{margin:7px 0 0;color:#405a78;overflow-wrap:anywhere}
+.phone.large-text #phone-content .rich-appt-actions{grid-template-columns:1fr}
+.phone.large-text #phone-content .rich-appt-actions .btn:only-child{grid-column:auto}
+
+/* Appointment board: the supplied Lich-hen.dc.html composition, real routes/state. */
+#phone-content[data-screen="D1"] .screen-masthead{padding-bottom:20px!important;min-height:0;border-radius:0 0 26px 26px!important}
+#phone-content .cf-appt-titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#phone-content .cf-appt-titlebar .screen-intro{flex:1;min-width:0}
+#phone-content .cf-appt-titlebar .screen-intro p{display:none}
+#phone-content .cf-appt-titlebar .screen-intro h1{margin-bottom:0!important}
+#phone-content .cf-appt-titlebar .icon-btn{color:#fff;background:#ffffff12;border:1px solid #ffffff30}
+#phone-content[data-screen="D1"] .rich-appt-tabs{gap:8px;background:transparent;margin:15px 0 0;padding:0;border-radius:0}
+#phone-content[data-screen="D1"] .rich-appt-tabs .btn{flex:0 1 auto;min-height:44px;margin:0;padding:9px 16px;border:0;border-radius:999px;font-size:calc(13px * var(--font-scale,1));font-weight:600;line-height:1.5;background:#ffffff1f;color:#fff;box-shadow:none;text-decoration:none}
+#phone-content[data-screen="D1"] .rich-appt-tabs .selected{background:#fff;color:#001d57}
+#phone-content .cf-appointments{--cf-appt-navy:#001d57;padding-top:12px;min-width:0}
+#phone-content .cf-appointment-filter-panel{margin:0 0 8px;padding:12px;background:#e9eff9;border:1px solid #d6dfef;border-radius:18px}
+#phone-content .cf-appointment-filter-panel .rich-person-picker{margin:0}
+#phone-content .cf-appointment-filter-panel .rich-filter-chips{padding-bottom:0;margin-top:8px}
+#phone-content .cf-appointments .rich-appointment-group{margin:0 0 8px}
+#phone-content .cf-appointment-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;margin:0 4px 4px}
+#phone-content .cf-appointment-section-head .rich-heading{margin:0;font-size:calc(16px * var(--font-scale,1));font-weight:700;line-height:1.5;color:var(--cf-appt-navy)}
+#phone-content .cf-appointment-section-head>button{display:inline-flex;gap:2px;align-items:center;flex:none;border:0;min-height:44px;padding:6px 0 6px 9px;background:none;font-family:inherit;font-size:calc(12px * var(--font-scale,1));font-weight:600;line-height:1.4;color:var(--cf-appt-navy);cursor:pointer}
+#phone-content .cf-appointment-cards{display:grid;gap:10px}
+#phone-content .cf-appointments .rich-appt-card{display:grid;gap:12px;margin:0;padding:16px;background:#fff;border:1px solid #d6dfef!important;border-radius:24px;color:var(--cf-appt-navy);box-shadow:none}
+#phone-content .cf-appointments .cf-appt-featured{background:var(--cf-appt-navy);border-color:var(--cf-appt-navy)!important;color:#fff}
+#phone-content .rich-appt-top{display:flex;align-items:center;gap:10px;min-width:0}
+#phone-content .cf-appt-open{display:flex;align-items:center;gap:10px;flex:1;min-width:0;min-height:44px;margin:0;padding:0;border:0;background:transparent;font-family:inherit;text-align:left;color:inherit;cursor:pointer}
+#phone-content .cf-clinician-avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;flex:none;background:#e3eaf7;color:var(--cf-appt-navy);font-size:calc(14px * var(--font-scale,1));font-weight:700}
+#phone-content .cf-appt-featured .cf-clinician-avatar{background:#1d4390;color:#fff}
+#phone-content .cf-clinician-copy{display:grid;gap:3px;min-width:0}
+#phone-content .cf-clinician-copy strong{font-size:calc(14px * var(--font-scale,1));line-height:1.5;font-weight:700;color:inherit}
+#phone-content .cf-clinician-copy small{font-size:calc(11px * var(--font-scale,1));line-height:1.5;color:#405a78}
+#phone-content .cf-appt-featured .cf-clinician-copy small{color:#d5e1f5}
+#phone-content .cf-appt-badge{display:inline-block;flex:none;max-width:100%;padding:4px 9px;border-radius:999px;background:#e3eaf7;color:#001d57;font-size:calc(10px * var(--font-scale,1));line-height:1.4;font-weight:600;white-space:normal}
+#phone-content .cf-appt-featured .cf-appt-badge{background:#fff}
+#phone-content .cf-appt-badge.is-pending{background:#fff1cc;color:#5c4000}
+#phone-content .cf-appointments .rich-appt-date{display:flex;justify-content:flex-start;align-items:center;gap:6px}
+#phone-content .cf-appointments .rich-appt-date strong{font-size:calc(12px * var(--font-scale,1));line-height:1.5;font-weight:500;color:inherit}
+#phone-content .cf-appointments .rich-appt-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#phone-content .cf-appointments .rich-appt-actions .btn{min-height:44px;margin:0;padding:10px 7px;border:0;border-radius:999px;background:#e3eaf7;color:var(--cf-appt-navy);box-shadow:none;font-size:calc(12px * var(--font-scale,1));font-weight:600;line-height:1.4}
+#phone-content .cf-appointments .rich-appt-actions .btn.primary{background:var(--cf-appt-navy);color:#fff}
+#phone-content .cf-appointments .cf-appt-featured .rich-appt-actions .btn{background:#ffffff29;color:#fff}
+#phone-content .cf-appointments .cf-appt-featured .rich-appt-actions .btn.primary{background:#fff;color:var(--cf-appt-navy)}
+#phone-content .cf-appointment-history-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#phone-content .cf-appointment-history{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;height:100%;padding:14px;text-align:left;font-family:inherit;background:#fff;border:1px solid #d6dfef;border-radius:20px;color:var(--cf-appt-navy);cursor:pointer}
+#phone-content .cf-appointment-history strong{font-size:calc(13px * var(--font-scale,1));line-height:1.4;font-weight:700}
+#phone-content .cf-appointment-history small{font-size:calc(11px * var(--font-scale,1));line-height:1.5;color:#405a78;flex:1}
+#phone-content .cf-appointment-history .cf-appt-badge{background:#edeff3;color:#3a4558}
+#phone-content .cf-appointments .rich-new-booking{width:100%;margin-top:2px;min-height:48px;border-radius:999px;font-size:calc(13px * var(--font-scale,1));background:var(--cf-appt-navy);color:#fff;box-shadow:none}
+#phone-content .cf-appointments :is(button,summary):focus-visible{outline:3px solid #4ba9ec;outline-offset:3px}
+#phone-content .cf-appointments button:hover{filter:brightness(.97)}
+#phone-content .cf-appointments button:active{transform:translateY(1px)}
+.phone.large-text #phone-content .cf-appointments .rich-appt-top{align-items:flex-start;flex-direction:column}
+.phone.large-text #phone-content .cf-appointments .rich-appt-actions,.phone.large-text #phone-content .cf-appointment-history-grid{grid-template-columns:1fr}
+.phone.large-text #phone-content .cf-appointment-section-head{flex-wrap:wrap;gap:0}
+
+/* K2/K5 content follows the supplied Ho-so/Ho-tro references. */
+#phone-content .cf-reference-section{margin:0 0 8px;min-width:0}
+#phone-content .cf-reference-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;margin:0 4px 4px}
+#phone-content .cf-reference-section-head h2{margin:0;font-size:calc(16px * var(--font-scale,1));line-height:1.5;font-weight:700;color:#001d57}
+#phone-content .cf-reference-section-head>button{display:inline-flex;align-items:center;gap:2px;flex:none;min-height:44px;padding:6px 0 6px 9px;background:none;border:0;font-family:inherit;font-size:calc(12px * var(--font-scale,1));line-height:1.4;font-weight:600;color:#001d57;cursor:pointer}
+#phone-content .cf-reference-card{padding:16px;background:#fff;border:1px solid #d6dfef;border-radius:24px;min-width:0;color:#001d57}
+#phone-content .cf-reference-avatar{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;flex:none;background:#e3eaf7;color:#001d57;font-size:calc(14px * var(--font-scale,1));font-weight:700}
+#phone-content[data-screen="K2"] .screen-masthead{padding-bottom:24px!important;min-height:0}
+#phone-content[data-screen="K2"] .screen-intro p{display:none}
+#phone-content .cf-profile-masthead-account{display:flex;align-items:center;gap:14px;margin-top:18px}
+#phone-content .cf-profile-masthead-account>.cf-reference-avatar{width:56px;height:56px;background:#fff;font-size:calc(18px * var(--font-scale,1))}
+#phone-content .cf-profile-masthead-account>div{display:grid;gap:5px;min-width:0}
+#phone-content .cf-profile-masthead-account strong{font-size:calc(18px * var(--font-scale,1));line-height:1.45;color:#fff;font-weight:700}
+#phone-content .cf-profile-masthead-account small{font-size:calc(12px * var(--font-scale,1));line-height:1.5;color:#d6e0f5}
+#phone-content .cf-profile-content,#phone-content .cf-support-content{padding-top:12px;min-width:0}
+#phone-content .cf-profile-content .rich-profile-details{padding:0 16px;border-radius:24px}
+#phone-content .cf-profile-content .rich-profile-details>div{display:block;padding:0;min-height:0}
+#phone-content .cf-profile-content .rich-profile-details dd{margin:0}
+#phone-content .cf-profile-content .rich-profile-details button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:68px;padding:10px 0;border:0;background:none;font-family:inherit;text-align:left;color:#001d57;cursor:pointer}
+#phone-content .cf-profile-content .rich-profile-details button>span{display:grid;gap:4px;min-width:0}
+#phone-content .cf-profile-content .rich-profile-details small{font-size:calc(11px * var(--font-scale,1));line-height:1.4;color:#405a78;font-weight:400}
+#phone-content .cf-profile-content .rich-profile-details strong{font-size:calc(14px * var(--font-scale,1));line-height:1.5;font-weight:600;overflow-wrap:anywhere}
+#phone-content .cf-relative-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#phone-content .cf-relative-card{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border:1px solid #d6dfef;border-radius:20px;background:#fff;font-family:inherit;color:#001d57;text-align:left;min-width:0;cursor:pointer}
+#phone-content .cf-relative-card>span:last-child{display:grid;gap:4px;min-width:0}
+#phone-content .cf-relative-card strong{font-size:calc(14px * var(--font-scale,1));font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+#phone-content .cf-relative-card small{font-size:calc(12px * var(--font-scale,1));line-height:1.4;color:#405a78}
+#phone-content .cf-relative-add.rich-add-person{margin:0;padding:0;border:1px dashed #93aaca;border-radius:20px;background:transparent;min-width:0}
+#phone-content .cf-relative-add>summary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:112px;padding:14px;list-style:none;font-size:calc(13px * var(--font-scale,1));font-weight:600;color:#001d57;cursor:pointer}
+#phone-content .cf-relative-add>summary::after{content:none!important}
+#phone-content .cf-relative-add[open]{grid-column:1/-1;background:#fff}
+#phone-content .cf-relative-add[open]>summary{min-height:48px;justify-content:flex-start}
+#phone-content .cf-relative-add form{padding:0 14px 14px}
+#phone-content .cf-settings-list{display:grid;gap:0;padding:0 16px}
+#phone-content .cf-settings-list>button{display:flex;align-items:center;gap:10px;width:100%;min-width:0;min-height:56px;padding:10px 0;border:0;background:none;text-align:left;font-family:inherit;color:#001d57;cursor:pointer}
+#phone-content .cf-settings-list>button+button{border-top:1px solid #e3eaf7}
+#phone-content .cf-settings-list strong{flex:1;min-width:0;font-size:calc(13px * var(--font-scale,1));font-weight:500;line-height:1.5}
+#phone-content .cf-settings-list small{color:#405a78;font-size:calc(11px * var(--font-scale,1));line-height:1.4}
+#phone-content .cf-profile-content .rich-danger-logout{margin-top:14px;min-height:48px;border-radius:999px;border-color:#e6ada6;color:#7a1409;font-weight:600}
+#phone-content .cf-support-content .rich-contact-grid{gap:8px}
+#phone-content .cf-support-content .rich-contact-grid>button{background:#e3eaf7;border:0;border-radius:18px;min-height:76px;gap:8px;padding:12px 5px;color:#001d57}
+#phone-content .cf-support-content .rich-contact-grid strong{font-size:calc(12px * var(--font-scale,1));line-height:1.4;font-weight:600}
+#phone-content .cf-support-request-card{padding:16px}
+#phone-content .cf-support-request-card form{margin:0}
+#phone-content .cf-support-content .rich-support-form{gap:14px}
+#phone-content .cf-support-content .field{margin:0;display:grid;gap:6px}
+#phone-content .cf-support-content .field>label{font-size:calc(12px * var(--font-scale,1));color:#405a78;line-height:1.4;font-weight:600}
+#phone-content .cf-support-content :is(select,textarea){margin:0;width:100%;min-width:0;padding:12px;border:1px solid #a7b8d3;border-radius:14px;background:#fff;color:#001d57;font-size:calc(14px * var(--font-scale,1));line-height:1.5}
+#phone-content .cf-support-content textarea{min-height:110px;resize:vertical}
+#phone-content .cf-support-request-card .form-actions{margin:0;padding:0;background:none;border:0;box-shadow:none;position:static}
+#phone-content .cf-support-request-card .form-actions .field-error:empty{display:none}
+#phone-content .cf-support-request-card .form-actions button[type="submit"]{border-radius:999px;font-size:calc(14px * var(--font-scale,1));min-height:48px;margin-top:14px;box-shadow:none}
+#phone-content .cf-support-request-card .form-actions button svg{display:none}
+#phone-content .cf-contact-preference>summary{display:flex;align-items:center;gap:6px;min-height:44px;font-size:calc(12px * var(--font-scale,1));color:#405a78;list-style:none;cursor:pointer}
+#phone-content .cf-contact-preference .rich-contact-methods{margin-top:8px}
+#phone-content .cf-support-content .rich-faqs{display:block;gap:0;padding:0 16px}
+#phone-content .cf-support-content .rich-faqs details{padding:0;background:transparent;border:0;border-radius:0}
+#phone-content .cf-support-content .rich-faqs details+details{border-top:1px solid #e3eaf7}
+#phone-content .cf-support-content .rich-faqs summary{display:flex;gap:12px;justify-content:space-between;min-height:56px;padding:12px 0;list-style:none;font-size:calc(13px * var(--font-scale,1));line-height:1.5;font-weight:500;color:#001d57}
+#phone-content .cf-support-content .rich-faqs summary::after{content:none!important}
+#phone-content .cf-support-content .rich-faqs summary svg{flex:none}
+#phone-content .cf-support-content .rich-faqs details[open] summary svg{transform:rotate(90deg)}
+#phone-content .cf-support-content .rich-faqs p{margin:0;padding:0 0 14px;color:#405a78;font-size:calc(12px * var(--font-scale,1));line-height:1.6}
+#phone-content .cf-support-content .rich-message-preview{display:flex;gap:12px;align-items:flex-start}
+#phone-content .rich-message-preview>div{min-width:0}
+#phone-content .cf-support-content .rich-message-preview strong{font-size:calc(14px * var(--font-scale,1));line-height:1.5;font-weight:600}
+#phone-content .cf-support-content .rich-message-preview p,#phone-content .cf-message-empty p{margin:4px 0 0;color:#405a78;font-size:calc(12px * var(--font-scale,1));line-height:1.5;overflow-wrap:anywhere}
+#phone-content .cf-support-emergency.rich-emergency{display:block;padding:0 14px;margin:12px 0 24px;border-radius:18px}
+#phone-content .cf-support-emergency>summary{display:flex;align-items:center;gap:8px;min-height:48px;font-size:calc(12px * var(--font-scale,1));line-height:1.5;color:#7a1409;font-weight:600;list-style:none;cursor:pointer}
+#phone-content .cf-support-emergency>p{padding:0 0 10px}
+#phone-content .cf-support-emergency>.btn{margin-bottom:12px}
+#phone-content :is(.cf-profile-content,.cf-support-content) :is(button,summary,select,textarea):focus-visible{outline:3px solid #4ba9ec;outline-offset:3px}
+.phone.large-text #phone-content .cf-relative-grid{grid-template-columns:1fr}
+.phone.large-text #phone-content .cf-settings-list>button{flex-wrap:wrap}
+.phone.large-text #phone-content .cf-reference-section-head{flex-wrap:wrap;gap:0}
+#dialog-body{white-space:pre-line}
