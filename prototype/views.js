@@ -81,7 +81,7 @@
   };
   const modeText = (mode) => (mode === 'online' ? C.online : C.onsite);
   const details = (s, v) =>
-    `<dl class="details"><div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
+    `<dl class="details">${v.status?`<div><dt>${I('user',14)}Bác sĩ</dt><dd>${esc(R.clinician(v).name)} · ${esc(R.clinician(v).specialty)}</dd></div>`:''}<div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
     const date = new Date(v.date + 'T12:00:00+07:00');
     const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
@@ -264,8 +264,8 @@
             choices(
               C.mode,
               [
-                ['onsite', C.onsite, T.onsite],
-                ['online', C.online, T.online],
+                ['onsite', 'Tại phòng khám', T.onsite],
+                ['online', 'Khám online', T.online],
               ],
               d?.mode,
             ),
@@ -285,10 +285,11 @@
         break;
       case 'C9':
         body = v
-          ? `<div class="request-received">${I('document-check', 30)}<div><strong>${esc(VI.layout.requestSent)}</strong><p>${esc(VI.layout.requestPending)}</p></div></div>` + card(status(v) + details(s, v)) + nav(C.viewVisit, 'D2', 'primary')
+          ? `<div class="request-received">${I('document-check', 30)}<div><strong>${esc(VI.layout.requestSent)}</strong><p>${esc(VI.layout.requestPending)}</p></div></div>` + card(`<div class="ticket-head"><span class="eyebrow">Mã lượt khám</span><strong>${esc(v.id)}</strong>${status(v)}</div>` + details(s, v), 'ticket') + nav(C.viewVisit, 'D2', 'primary')
           : '';
         break;
       case 'D1': {
+        intro = `<div class="cf-appt-titlebar">${head(T.heading,'')}<button type="button" class="icon-btn" data-action="appointment-filters" aria-label="Lọc lịch hẹn" aria-expanded="${!!u.appointmentFilters}" aria-controls="appointment-filters">${I('settings',22)}</button></div>` + R.appointmentTabs(s,u);
         body = R.appointments(s, u, richH);
         break;
       }
@@ -581,7 +582,7 @@
         body =
           section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
           section(T.medicine, card(`<p>${esc(C.noClinical)}</p>`), '', 'pill') +
-          section(T.instructions, `<p>${esc(C.noClinical)}</p>`) +
+          section(T.instructions, `<p>${esc(C.noClinical)}</p>`) + R.aftercare(v,richH) +
           nav(T.question, 'I1', 'primary') +
           nav(T.followup, 'J1');
         break;
@@ -712,6 +713,7 @@
             : empty(T.empty, '')) + note(T.note);
         break;
       case 'K2':
+        intro = head(T.heading,'') + R.profileHeader(s,richH);
         body = R.profile(s, u, richH);
         break;
       case 'K3': {

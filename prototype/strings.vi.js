@@ -274,10 +274,10 @@
         cta: 'Chọn thời gian mong muốn',
       },
       C6: {
-        heading: 'Chọn cách khám',
+        heading: 'Nơi khám',
         lead: 'Đến phòng khám hoặc gặp bác sĩ qua cuộc gọi video.',
-        onsite: 'Gặp bác sĩ tại phòng khám',
-        online: 'Trao đổi với bác sĩ qua cuộc gọi',
+        onsite: 'Đến khám trực tiếp',
+        online: 'Gọi video với bác sĩ',
         note: 'Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.',
       },
       C7: {
@@ -585,7 +585,7 @@
         note: 'Nội dung sức khỏe không xuất hiện trong bản xem trước.',
       },
       K2: {
-        heading: 'Hồ sơ và người thân',
+        heading: 'Hồ sơ',
         lead: 'Quản lý hồ sơ dùng để đặt lịch.',
         history: 'Lịch sử khám',
         settings: 'Cài đặt',
@@ -614,7 +614,7 @@
       },
       K5: {
         heading: 'Hỗ trợ',
-        lead: 'Chúng tôi phản hồi trong giờ làm việc.',
+        lead: 'Giờ hỗ trợ 7:30–19:00 (demo).',
         call: 'Nhờ phòng khám gọi lại',
         message: 'Gửi yêu cầu hỗ trợ',
         text: 'Bạn cần hỗ trợ việc gì?',

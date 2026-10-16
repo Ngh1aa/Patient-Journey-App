@@ -1,20 +1,25 @@
 /* Patient-journey progressive enhancements. Real forms, model guards and routes remain in app.js. */
 (function () {
   'use strict';
+  function filterAppointments(root) {
+    const mode = root.querySelector('[data-visit-filter][aria-pressed="true"]')?.dataset.visitFilter || 'all';
+    const person = root.querySelector('.rich-person-picker')?.dataset.person || 'all';
+    const cards = [...root.querySelectorAll('.rich-filterable')];
+    cards.forEach(card => {
+      card.hidden = (mode !== 'all' && card.dataset.mode !== mode) || (person !== 'all' && card.dataset.person !== person);
+    });
+    root.querySelectorAll('.rich-appointment-group').forEach(group => {
+      group.hidden = ![...group.querySelectorAll('.rich-filterable')].some(card => !card.hidden);
+    });
+    const empty = root.querySelector('.rich-filter-empty');
+    if (empty) empty.hidden = cards.some(card => !card.hidden) || !cards.length;
+  }
   document.addEventListener('click', (event) => {
     const filter = event.target.closest('button[data-visit-filter]');
     if (filter) {
       const root = filter.closest('#phone-content');
-      const value = filter.dataset.visitFilter;
       root.querySelectorAll('button[data-visit-filter]').forEach(button => button.setAttribute('aria-pressed',String(button===filter)));
-      const cards = [...root.querySelectorAll('.rich-filterable')];
-      if (value === 'person') {
-        const list = root.querySelector('.rich-appointment-list');
-        cards.sort((a,b)=>a.dataset.person.localeCompare(b.dataset.person,'vi')).forEach(el=>list.appendChild(el));
-      }
-      cards.forEach(card => { card.hidden = value==='all'||value==='person'?false:card.dataset.mode!==value; });
-      const empty = root.querySelector('.rich-filter-empty');
-      if (empty) empty.hidden = cards.some(card=>!card.hidden) || !cards.length;
+      filterAppointments(root);
       return;
     }
     const callbackSlot = event.target.closest('button[data-callback-slot]');
@@ -34,10 +39,9 @@
     if(person){
       const picker=person.closest('.rich-person-picker');
       const id=person.dataset.appointmentPerson;
-      const cards=[...document.querySelectorAll('.rich-appointment-list .rich-filterable')];
-      cards.forEach(card=>{card.hidden=id!=='all'&&card.dataset.person!==id;});
-      const empty=document.querySelector('.rich-filter-empty');
-      if(empty)empty.hidden=cards.some(card=>!card.hidden)||!cards.length;
+      picker.dataset.person=id;
+      picker.querySelectorAll('[data-appointment-person]').forEach(button=>button.setAttribute('aria-pressed',String(button===person)));
+      filterAppointments(picker.closest('#phone-content'));
       const selected=picker.querySelector('summary span');
       if(selected)selected.textContent=id==='all'?'Tất cả hồ sơ':person.textContent.trim();
       picker.open=false;

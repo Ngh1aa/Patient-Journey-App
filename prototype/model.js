@@ -872,6 +872,27 @@
     return map[v?.status] || ['D1', 'appointments'];
   }
   function fixture(name = 'upcoming') {
+    // User-supplied appointment-board examples, isolated from the F1–F12 recipes.
+    if (name === 'appointments') {
+      const s = fixture('online');
+      const make = (scenario,id,date,slot,doctor) => {
+        const v = fixture(scenario).visits[0];
+        Object.assign(v,{id,date,slot,clinician:doctor});
+        return v;
+      };
+      const ha={name:'BS. Trần Thu Hà',specialty:'Nội tổng quát',initials:'TH'};
+      const quan={name:'BS. Lê Minh Quân',specialty:'Tim mạch',initials:'LQ'};
+      const lan={name:'BS. Phạm Ngọc Lan',specialty:'Da liễu',initials:'PL'};
+      const pending=make('upcoming','CF-SAMPLE-03','2026-10-30','08:15',lan);
+      pending.status='pending';
+      pending.history=pending.history.filter(x=>x.status==='pending');
+      s.visits=[make('online','CF-SAMPLE-01','2026-10-24','09:00',ha),make('upcoming','CF-SAMPLE-02','2026-10-27','14:30',quan),pending,make('completed','CF-SAMPLE-04','2026-10-02','10:00',ha),make('completed','CF-SAMPLE-05','2026-08-18','14:00',quan)];
+      s.activeVisitId=s.visits[0].id;
+      s.request=null;
+      s.notifications=[];
+      s.sequence=5;
+      return s;
+    }
     const s = initial();
     s.authenticated = true;
     createProfile(s, 'Nguyễn Minh Anh', '1994-08-15');

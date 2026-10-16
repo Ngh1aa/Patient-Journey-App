@@ -14,6 +14,8 @@
     u = {
       screen: 'A1',
       filter: 'upcoming',
+      appointmentGroup: null,
+      appointmentFilters: false,
       reportReason: 'medicine',
       labId: null,
       mic: true,
@@ -115,7 +117,10 @@
     return { id: 'UNKNOWN' };
   }
   function go(id, extra = {}, replace = false) {
-    if (id === 'D1' && u.screen !== 'D1') u.filter = 'upcoming';
+    if (id === 'D1' && u.screen !== 'D1') {
+      u.filter = 'upcoming';
+      u.appointmentGroup = null;
+    }
     if (extra.visitId) s.activeVisitId = extra.visitId;
     if (extra.labId) u.labId = extra.labId;
     if (extra.reason) u.reportReason = extra.reason;
@@ -696,6 +701,7 @@
       $('phone-main').focus();
     },
     go(el) {
+      if (el.dataset.id) s.activeVisitId = el.dataset.id;
       const to = el.dataset.to;
       if (el.dataset.reason) u.reportReason = el.dataset.reason;
       if (el.dataset.lab) u.labId = el.dataset.lab;
@@ -705,6 +711,67 @@
         if (found) s.activeVisitId = found.id;
       }
       go(to);
+    },
+    'profile-details'() {
+      const person=M.accountProfile(s);
+      if(!person) return;
+      dialog('Thông tin cá nhân',[person.name,'Ngày sinh: '+(person.dob?.split('-').reverse().join('/')||'Chưa cập nhật'),'Số điện thoại: '+(person.phone?person.phone.slice(0,3)+' ••• '+person.phone.slice(-3):'Chưa cập nhật'),'Dị ứng: '+(person.allergies||'Chưa khai báo'),'Ghi chú y tế: '+(person.medicalHistory||'Chưa khai báo')].join('\n'),V.btn('Yêu cầu cập nhật','profile-update',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+    },
+    'profile-update'() {
+      if($('dialog').open) $('dialog').close();
+      u.forms.support={...u.forms.support,supportTopic:'Thông tin hồ sơ'};
+      go('K5');
+      actions['support-compose']();
+    },
+    'profile-relative'(el) {
+      const person=M.profile(s,el.dataset.id);
+      if(!person||person.relation==='self') return;
+      dialog(person.name,'Ngày sinh: '+person.dob.split('-').reverse().join('/')+'\n'+(person.canViewResults?'Được xem kết quả':'Chưa được cấp quyền xem kết quả'),V.btn('Đặt lịch cho người này','profile-book-relative',{'data-id':person.id},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+    },
+    'profile-book-relative'(el) {
+      $('dialog').close();
+      const result=M.beginBooking(s);
+      if(!result.ok) return error(result.code);
+      const selected=M.choosePatient(s,el.dataset.id);
+      if(!selected.ok) return error(selected.code);
+      u.forms={};
+      u.bookingScreen='C1';
+      u.deviceReady=false;
+      u.urgentAftercare=false;
+      go('C1');
+    },
+    'profile-relatives'() {
+      const relatives=s.profiles.filter(person=>person.relation!=='self');
+      dialog('Người thân',relatives.map(person=>person.name+' · '+person.dob.split('-').reverse().join('/')).join('\n')||'Chưa có người thân.',V.btn('Thêm người thân','profile-add-relative',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+    },
+    'profile-add-relative'() {
+      if($('dialog').open) $('dialog').close();
+      const details=$('profile-add-relative');
+      details.open=true;
+      details.scrollIntoView({block:'center'});
+      $('name')?.focus({preventScroll:true});
+    },
+    'support-channels'() {
+      dialog('Liên hệ phòng khám','Gọi lại: gửi yêu cầu để phòng khám liên hệ.\nNhắn tin: trao đổi về lượt khám được cấp quyền hoặc gửi câu hỏi qua form.\nGiờ hỗ trợ 7:30–19:00 (demo).',V.btn('Gửi câu hỏi','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+    },
+    'support-requests'() {
+      dialog('Yêu cầu hỗ trợ',s.requests.map(request=>(request.type==='callback'?'Gọi lại':request.topic||'Yêu cầu hỗ trợ')+' · '+(request.status==='waiting'?'Chờ tiếp nhận':'Đã cập nhật')).join('\n')||'Bạn chưa gửi yêu cầu hỗ trợ.',V.btn('Gửi yêu cầu mới','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+    },
+    'support-faqs'() {
+      u.supportFaqs=!u.supportFaqs;
+      render();
+      $('phone-content').querySelector('.rich-faqs')?.scrollIntoView({block:'center'});
+    },
+    'support-messages'() {
+      if(!window.CareFlowRich.supportMessages(s).length) return actions['support-compose']();
+      u.supportMessagesAll=!u.supportMessagesAll;
+      render();
+      $('phone-content').querySelector('.rich-message-preview')?.scrollIntoView({block:'center'});
+    },
+    'support-compose'() {
+      if($('dialog').open) $('dialog').close();
+      $('support')?.scrollIntoView({ block: 'center' });
+      $('support')?.focus({ preventScroll: true });
     },
     'auth-jump'() {
       const id = u.screen === 'A1' ? (u.otpSent ? 'otp' : 'phone') : 'name';
@@ -754,7 +821,17 @@
     },
     filter(el) {
       u.filter = el.dataset.filter;
+      u.appointmentGroup = null;
       render();
+    },
+    'appointment-group'(el) {
+      u.appointmentGroup = el.dataset.group;
+      render();
+    },
+    'appointment-filters'(el) {
+      u.appointmentFilters = !u.appointmentFilters;
+      el.setAttribute('aria-expanded',String(u.appointmentFilters));
+      $('appointment-filters').hidden = !u.appointmentFilters;
     },
     resend() {
       demo(VI.demo.otp);
@@ -1258,6 +1335,8 @@
         s.requests.push({
           id: 'request-' + s.requests.length,
           text: get('support'),
+          topic: get('supportTopic'),
+          contactMode: get('contactMode'),
           visitId: s.activeVisitId,
           status: 'waiting',
         });
@@ -1276,7 +1355,11 @@
   });
   $('dialog').addEventListener(
     'close',
-    () => {stopDevicePreview();lastFocus?.isConnected && lastFocus.focus();},
+    () => {
+      stopDevicePreview();
+      const focused=document.activeElement;
+      if(lastFocus?.isConnected && (focused===document.body || $('dialog').contains(focused))) lastFocus.focus();
+    },
   );
   $('review-toggle').addEventListener('click', () => {
     if(guideEnabled){startJourney(u.journey.id,u.journey.variant);return;}
@@ -1314,6 +1397,9 @@
       ...u,
       inspection: true,
       journey: null,
+      filter: 'upcoming',
+      appointmentGroup: null,
+      appointmentFilters: false,
       forms: {},
       otpSent: false,
       phone: '',
@@ -1324,7 +1410,7 @@
     if (name === 'returning') {
       s.authenticated = false;
       go('A1', {}, true);
-    } else go(name === 'new' ? 'A1' : 'B1', {}, true);
+    } else go(name === 'new' ? 'A1' : name === 'appointments' ? 'D1' : 'B1', {}, true);
     demo(VI.demo.warning);
   }
   window.addEventListener('hashchange', render);
@@ -1338,6 +1424,7 @@
       'returning',
       'empty',
       'upcoming',
+      'appointments',
       'completed',
       'online',
       'pre-lab',
@@ -1351,6 +1438,9 @@
         ? M.initial()
         : M.fixture(params.get('scenario'));
     if (params.get('scenario') === 'returning') s.authenticated = false;
+    u.filter = 'upcoming';
+    u.appointmentGroup = null;
+    u.appointmentFilters = false;
     u.forms = {};
     if (!location.hash)
       history.replaceState(

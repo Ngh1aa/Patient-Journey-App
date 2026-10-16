@@ -25,7 +25,7 @@ test('solid navy rounded masthead scrolls under sticky navy app header', async (
   expect(await page.locator('.cf-home-card-grid').first().evaluate(el => getComputedStyle(el).display)).toBe('grid');
 });
 
-test('Home preserves classic card styling, flush next card and an 8px navy inset', async ({page}) => {
+test('Home uses the reference section heading and an edge-to-edge navy masthead', async ({page}) => {
   for (const width of [360,375,430]) {
     await page.setViewportSize({width,height:852});
     await page.goto('/prototype/index.html?scenario=upcoming');
@@ -46,11 +46,11 @@ test('Home preserves classic card styling, flush next card and an 8px navy inset
       };
     });
     for (const side of ['headerLeft','headerRight','navyLeft','navyRight']) {
-      expect(metrics[side], width+'px '+side).toBeCloseTo(8,0);
+      expect(metrics[side], width+'px '+side).toBeCloseTo(0,0);
     }
-    expect(metrics.gap, width+'px card-to-header overlap').toBeCloseTo(-12,0);
+    expect(metrics.gap, width+'px section-to-header gap').toBeCloseTo(0,0);
     expect(metrics.quickBeforeHero).toBe(true);
-    const hero=page.locator('#phone-content > .rich-hero');
+    const hero=page.locator('.cf-home-appointment-card');
     await expect(hero).toHaveCSS('border-radius','24px');
     await expect(hero).toHaveCSS('padding-top','16px');
     await expect(hero).toHaveCSS('background-color','rgb(0, 29, 87)');
@@ -88,6 +88,7 @@ test('appointment and support use their own layouts instead of generic stacked c
   await expect(page.locator('.support-grid > button')).toHaveCount(3);
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
-  await expect(page.locator('.profile-bento > .row')).toHaveCount(3);
-  await expect(page.locator('.profile-bento > .rich-insurance')).toHaveCount(1);
+  await expect(page.locator('.rich-profile-details')).toContainText('Nguyễn Minh Anh');
+  await expect(page.locator('.rich-profile-details')).toContainText('Chưa khai báo');
+  await expect(page.locator('.rich-settings-links')).toContainText(['Trần Thị Mai','Thông báo']);
 });
