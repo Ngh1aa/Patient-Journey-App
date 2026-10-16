@@ -51,23 +51,21 @@
     {icon:'document',title:'Chuẩn bị thông tin',detail:'Triệu chứng · giấy tờ',actionName:'open-visit',id:soon.id},
     {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:soon.mode==='online'?'open-visit':'go',id:soon.mode==='online'?soon.id:null,to:soon.mode==='online'?null:'D1'}
   ]:[
-    {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'begin'},
-    {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'begin'}
+    {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'book-nav'},
+    {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'book-nav'}
   ];
-  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'begin':'go'}"${to==='C1'?'':` data-to="${to}"`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Mẹo sức khỏe'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
+  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'book-nav':'go'}"${to==='C1'?'':` data-to="${to}"`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Mẹo sức khỏe'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
   let html='<section class="rich-hero cf-home-appointment" aria-label="Lịch khám sắp tới">';
   html+=sectionHead('Lịch khám sắp tới','D1');
   if(soon){
     const online=soon.mode==='online';
-    html+=`<div class="cf-home-appointment-info">
+    html+=`<button type="button" class="visit-card cf-home-appointment-summary" data-action="open-visit" data-id="${H(soon.id)}"><span class="cf-home-appointment-info">
       <span class="cf-home-appointment-avatar">${root.CareFlowAvatar('doctor-ha',44)}</span>
       <div><strong>${H(DEMO.doctor)}</strong><small>${H(DEMO.specialty)} · ${online?'Khám online':'Khám trực tiếp'}</small></div>
-    </div>
-    <div class="cf-home-appointment-footer"><div><strong>${H(h.dateText(soon))} · ${H(soon.slot||'Chờ xác nhận giờ')}</strong><div class="cf-home-appointment-status">${h.status(soon)}</div></div>
-      <button type="button" class="cf-home-appointment-button" data-action="open-visit" data-id="${H(soon.id)}">Xem lịch</button>
-    </div>`;
+    </span><span class="cf-home-appointment-summary-meta"><strong>${H(h.dateText(soon))} · ${H(soon.slot||'Chờ xác nhận giờ')}</strong><span class="cf-home-appointment-status">${h.status(soon)}</span></span></button>
+    <div class="cf-home-appointment-footer"><button type="button" class="cf-home-appointment-button" data-action="open-visit" data-id="${H(soon.id)}">Xem lịch</button></div>`;
   }else{
-    html+=`<div class="cf-home-empty"><p>Bạn chưa có lịch khám sắp tới.</p><button type="button" class="cf-home-appointment-button" data-action="begin">Đặt lịch khám</button></div>`;
+    html+=`<div class="cf-home-empty"><p>Bạn chưa có lịch khám sắp tới.</p><button type="button" class="cf-home-appointment-button" data-action="book-nav">Đặt lịch khám</button></div>`;
   }
   html+='</section>';
   html+=`<section class="rich-section cf-home-task-section">${sectionHead('Việc cần làm',soon?'D2':'C1')}
