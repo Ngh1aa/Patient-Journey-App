@@ -36,3 +36,35 @@ test('B1 aftercare is conditional and does not show fictitious medication remind
   await home(page).locator('.cf-home-tip-card summary').first().click();
   await expect(home(page).locator('.cf-home-tip-card').first()).toHaveAttribute('open', '');
 });
+
+
+for (const width of [360, 390, 1440]) {
+  test('Home scroll seam stays navy while content scrolls at ' + width + 'px', async ({ page }, testInfo) => {
+    await page.setViewportSize({ width, height: 852 });
+    await page.goto('/prototype/index.html?scenario=upcoming#/home');
+    const metrics = await page.locator('.phone-scroll').evaluate(el => {
+      const header = document.querySelector('.phone-header');
+      el.scrollTop = 400;
+      const curtain = getComputedStyle(el, '::before');
+      return {
+        scrollTop: el.scrollTop,
+        headerBottom: header.getBoundingClientRect().bottom,
+        scrollTopEdge: el.getBoundingClientRect().top,
+        curtainPosition: curtain.position,
+        curtainTop: curtain.top,
+        curtainHeight: curtain.height,
+        curtainBackground: curtain.backgroundColor,
+        curtainPointerEvents: curtain.pointerEvents
+      };
+    });
+    expect(metrics.scrollTop).toBeGreaterThan(100);
+    expect(metrics.scrollTopEdge).toBeGreaterThanOrEqual(metrics.headerBottom - 1);
+    expect(metrics.curtainPosition).toBe('sticky');
+    expect(metrics.curtainTop).toBe('0px');
+    expect(metrics.curtainHeight).toBe('14px');
+    expect(metrics.curtainBackground).toBe('rgb(10, 31, 92)');
+    expect(metrics.curtainPointerEvents).toBe('none');
+    await page.screenshot({ path:testInfo.outputPath('navy-scroll-' + width + '.png') });
+    await expect(page.locator('#bottom-nav')).toBeVisible();
+  });
+}
