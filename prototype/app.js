@@ -356,7 +356,7 @@
     const selected = variant || flow.variants?.[0][0] || 'default';
     guideEnabled = true;
     s = window.CareFlowJourney.seed(flow, selected);
-    u = {...u, inspection:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,emergencyOpened:false,emergencyAccessed:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
+    u = {...u, inspection:false, appointmentShowcase:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,emergencyOpened:false,emergencyAccessed:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
     const params = new URLSearchParams(location.search);
     params.set('journey', flow.id);
     params.set('branch', selected);
@@ -1396,6 +1396,7 @@
     u = {
       ...u,
       inspection: true,
+      appointmentShowcase: false,
       journey: null,
       filter: 'upcoming',
       appointmentGroup: null,
@@ -1415,8 +1416,17 @@
   }
   window.addEventListener('hashchange', render);
   const params = new URLSearchParams(location.search);
+  // This shared review link opens the approved appointment fixture directly.
+  // Keep its URL and preserve edits when the reviewer reloads or opens a card.
+  const reviewLinkParams = params.get('journey') === 'F1' && params.get('branch') === 'default' && !params.has('scenario') && !params.has('inspect');
+  const appointmentShowcaseLink = reviewLinkParams && location.hash.split('?')[0] === '#/appointments';
+  const appointmentShowcaseSession = reviewLinkParams && u.appointmentShowcase && !u.journey;
+  if (appointmentShowcaseLink && !appointmentShowcaseSession) {
+    s = M.fixture('appointments');
+    u = {...u, inspection:true, appointmentShowcase:true, journey:null, filter:'upcoming', appointmentGroup:null, appointmentFilters:false, forms:{}, otpSent:false, phone:'', deviceReady:false, labId:null, urgentAftercare:false};
+  }
   if(params.has('inspect'))u.inspection=true;
-  guideEnabled = !params.has('scenario') && !params.has('inspect') && (params.has('journey') || !location.hash || !!u.journey || !u.inspection);
+  guideEnabled = !appointmentShowcaseLink && !appointmentShowcaseSession && !params.has('scenario') && !params.has('inspect') && (params.has('journey') || !location.hash || !!u.journey || !u.inspection);
   if(guideEnabled && u.journey?.index===1 && ['F1','F2'].includes(u.journey.id) && !s.authenticated) u.otpSent=true;
   if (
     [
@@ -1432,6 +1442,7 @@
     ].includes(params.get('scenario'))
   ) {
     u.journey = null;
+    u.appointmentShowcase = false;
     u.inspection = true;
     s =
       params.get('scenario') === 'new'
