@@ -1,6 +1,47 @@
 const {test,expect}=require('@playwright/test');
 const AxeBuilder=require('@axe-core/playwright').default;
 
+test('HR appointment link opens reviewed cards without login and preserves the selected visit on reload',async({page})=>{
+  const url='/prototype/?journey=F1&branch=default#/appointments';
+  await page.goto(url);
+  await expect(page).toHaveURL(/\?journey=F1&branch=default#\/appointments$/);
+  await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
+  await expect(page.locator('.rich-appt-card')).toHaveCount(3);
+  await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
+  await page.locator('[data-id="CF-SAMPLE-02"][data-to="D2"]').click();
+  await page.reload();
+  await expect(page.locator('.ticket')).toContainText('BS. Lê Minh Quân');
+  await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
+  await page.evaluate(()=>{
+    const saved=JSON.parse(sessionStorage.getItem('careflow.browser.v3'));
+    saved.state.visits.find(v=>v.id==='CF-SAMPLE-02').status='cancelled';
+    sessionStorage.setItem('careflow.browser.v3',JSON.stringify(saved));
+  });
+  await page.reload();
+  await expect(page.locator('.rich-appt-card')).toHaveCount(2);
+  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits.find(v=>v.id==='CF-SAMPLE-02').status)).toBe('cancelled');
+});
+
+test('HR appointment link replaces an earlier empty F1 session',async({page})=>{
+  await page.goto('/prototype/?scenario=empty#/appointments');
+  await page.evaluate(()=>{
+    const saved=JSON.parse(sessionStorage.getItem('careflow.browser.v3'));
+    saved.ui.journey={id:'F1',variant:'default',index:4};
+    saved.ui.inspection=false;
+    sessionStorage.setItem('careflow.browser.v3',JSON.stringify(saved));
+  });
+  await page.goto('/prototype/?journey=F1&branch=default#/appointments');
+  await expect(page.locator('.rich-appt-card')).toHaveCount(3);
+  await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
+});
+
+test('F1 entry still starts the first booking journey',async({page})=>{
+  await page.goto('/prototype/?journey=F1&branch=default');
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','A1');
+  await expect(page.locator('.journey-panel')).toBeVisible();
+  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits)).toHaveLength(0);
+});
+
 async function mixedAppointments(page) {
   await page.goto('/prototype/?scenario=upcoming#/appointments');
   await page.evaluate(()=>{
