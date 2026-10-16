@@ -61,7 +61,7 @@
     const online=soon.mode==='online';
     html+=`<button type="button" class="visit-card cf-home-appointment-summary" data-action="open-visit" data-id="${H(soon.id)}"><span class="cf-home-appointment-info">
       <span class="cf-home-appointment-avatar">${root.CareFlowAvatar('doctor-ha',44)}</span>
-      <div><strong>${H(DEMO.doctor)}</strong><small>${H(DEMO.specialty)} · ${online?'Khám online':'Khám trực tiếp'}</small></div>
+      <span class="cf-home-appointment-doctor"><strong>${H(DEMO.doctor)}</strong><small>${H(DEMO.specialty)} · ${online?'Khám online':'Khám trực tiếp'}</small></span>
     </span><span class="cf-home-appointment-summary-meta"><strong>${H(h.dateText(soon))} · ${H(soon.slot||'Chờ xác nhận giờ')}</strong><span class="cf-home-appointment-status">${h.status(soon)}</span></span></button>
     <div class="cf-home-appointment-footer"><button type="button" class="cf-home-appointment-button" data-action="open-visit" data-id="${H(soon.id)}">Xem lịch</button></div>`;
   }else{
