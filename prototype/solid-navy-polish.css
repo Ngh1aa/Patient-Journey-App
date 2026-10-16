@@ -182,7 +182,7 @@
    Scoped strictly to Home; existing app bar and bottom navigation are untouched. */
 #phone-content[data-screen="B1"] { --cf-card-navy:#001D57; }
 .phone:not(.video-mode) #phone-content[data-screen="B1"] .home-masthead{
-  min-height:0!important;padding:15px 18px 31px!important;border-radius:0 0 28px 28px!important;
+  min-height:0!important;padding:15px 18px 31px!important;border-radius:0 0 32px 32px!important;
 }
 #phone-content[data-screen="B1"] .cf-home-head{padding:0!important;display:grid;gap:23px}
 #phone-content[data-screen="B1"] .cf-home-head .rich-greeting{align-items:flex-start;gap:8px}
@@ -202,7 +202,7 @@
 }
 #phone-content[data-screen="B1"] .cf-home-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}
 #phone-content[data-screen="B1"] .cf-home-section-head h2{margin:0;min-width:0;font-size:calc(17px * var(--font-scale,1));line-height:1.35;font-weight:750;color:var(--cf-card-navy)}
-#phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:38px;padding:4px 0 4px 6px;font-weight:650;font-size:calc(12px * var(--font-scale,1));line-height:1.3;font-family:inherit;color:var(--cf-card-navy);cursor:pointer}
+#phone-content[data-screen="B1"] .cf-home-section-head button{border:0;background:transparent;display:inline-flex;align-items:center;gap:3px;flex:none;min-height:44px;padding:4px 0 4px 6px;font-weight:650;font-size:calc(12px * var(--font-scale,1));line-height:1.3;font-family:inherit;color:var(--cf-card-navy);cursor:pointer}
 #phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head h2,
 #phone-content[data-screen="B1"] .cf-home-appointment .cf-home-section-head button{color:#fff}
 #phone-content[data-screen="B1"] .cf-home-appointment-info{display:flex;align-items:center;gap:12px;min-width:0}
@@ -213,7 +213,7 @@
 #phone-content[data-screen="B1"] .cf-home-appointment-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
 #phone-content[data-screen="B1"] .cf-home-appointment-footer>div{display:grid;gap:8px;min-width:0;flex:1}
 #phone-content[data-screen="B1"] .cf-home-appointment-footer strong{font-size:calc(13px * var(--font-scale,1));line-height:1.55;color:#fff}
-#phone-content[data-screen="B1"] .cf-home-appointment-status .chip{background:#e9f2ff;color:#12345c;border:0}
+#phone-content[data-screen="B1"] .cf-home-appointment-status .chip{border:0}
 #phone-content[data-screen="B1"] .cf-home-appointment-button{
   flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
   padding:10px 14px;border:0;border-radius:999px;background:#fff;color:var(--cf-card-navy);
@@ -262,3 +262,54 @@
 }
 .phone.large-text #phone-content[data-screen="B1"] .cf-home-card-grid{grid-template-columns:1fr}
 .phone.large-text #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+
+/* B1 scroll seam guard: keep scrolled text completely below the navy app bar.
+   The scrolling viewport starts immediately under the persistent header;
+   a narrow sticky navy curtain prevents clipped glyphs from peeking at its edge.
+   Its 8px horizontal inset matches the unchanged Home app bar. */
+.phone[data-screen="B1"]:not(.video-mode) .phone-scroll::before {
+  content:"";
+  display:block;
+  position:sticky;
+  top:0;
+  z-index:6;
+  height:14px;
+  margin:0 8px -14px;
+  background:var(--careflow-navy);
+  pointer-events:none;
+}
+#phone-content[data-screen="B1"] .cf-home-appointment-summary.visit-card {
+  display:grid!important;
+  gap:12px;
+  align-items:stretch;
+  text-align:left;
+  width:100%;
+  min-width:0;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff;
+  cursor:pointer;
+}
+#phone-content[data-screen="B1"] .cf-home-appointment-summary-meta {
+  display:grid;
+  gap:8px;
+  line-height:1.5;
+  color:#fff;
+}
+#phone-content[data-screen="B1"] .cf-home-appointment-summary-meta>strong {
+  font-size:calc(13px * var(--font-scale,1));
+  color:#fff;
+}
+#phone-content[data-screen="B1"] .cf-home-appointment-footer {
+  display:flex;
+  justify-content:flex-end;
+}
+#phone-content[data-screen="B1"] .cf-home-appointment-summary:focus-visible {
+  outline:3px solid #65bbff;
+  outline-offset:4px;
+}
