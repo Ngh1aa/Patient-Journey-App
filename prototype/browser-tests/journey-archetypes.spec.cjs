@@ -21,8 +21,8 @@ test('solid navy rounded masthead scrolls under sticky navy app header', async (
   expect(result.moved).toBeLessThan(-180);
   await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
   await expect(page.locator('.rich-stat-strip button')).toHaveCount(0);
-  await expect(page.locator('.rich-tips .rich-tip')).toHaveCount(3);
-  expect(await page.locator('.home-tasks').evaluate(el => getComputedStyle(el).display)).toBe('flex');
+  await expect(page.locator('.cf-home-tip-card')).toHaveCount(2);
+  expect(await page.locator('.cf-home-card-grid').first().evaluate(el => getComputedStyle(el).display)).toBe('grid');
 });
 
 test('Home preserves classic card styling, flush next card and an 8px navy inset', async ({page}) => {
@@ -33,7 +33,7 @@ test('Home preserves classic card styling, flush next card and an 8px navy inset
       const header=frame.querySelector('.phone-header').getBoundingClientRect();
       const masthead=frame.querySelector('.home-masthead').getBoundingClientRect();
       const card=frame.querySelector('#phone-content > .rich-hero');
-      const shortcuts=frame.querySelector('.rich-shortcuts').getBoundingClientRect();
+      const shortcuts=frame.querySelector('.cf-home-quick-grid').getBoundingClientRect();
       const cardRect=card.getBoundingClientRect();
       const phone=frame.getBoundingClientRect();
       return {
@@ -41,17 +41,19 @@ test('Home preserves classic card styling, flush next card and an 8px navy inset
         headerRight:phone.right-header.right,
         navyLeft:masthead.left-phone.left,
         navyRight:phone.right-masthead.right,
-        gap:shortcuts.top-cardRect.bottom,
+        gap:cardRect.top-masthead.bottom,
+        quickBeforeHero:shortcuts.bottom < cardRect.top,
       };
     });
     for (const side of ['headerLeft','headerRight','navyLeft','navyRight']) {
       expect(metrics[side], width+'px '+side).toBeCloseTo(8,0);
     }
-    expect(metrics.gap, width+'px card-to-quick-actions gap').toBeCloseTo(0,0);
+    expect(metrics.gap, width+'px card-to-header overlap').toBeCloseTo(-12,0);
+    expect(metrics.quickBeforeHero).toBe(true);
     const hero=page.locator('#phone-content > .rich-hero');
-    await expect(hero).toHaveCSS('border-radius','25px');
-    await expect(hero).toHaveCSS('padding-top','18px');
-    await expect(hero).toHaveCSS('border-top-color','rgb(237, 242, 248)');
+    await expect(hero).toHaveCSS('border-radius','24px');
+    await expect(hero).toHaveCSS('padding-top','16px');
+    await expect(hero).toHaveCSS('background-color','rgb(0, 29, 87)');
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
   }
 });

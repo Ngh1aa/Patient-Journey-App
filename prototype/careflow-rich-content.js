@@ -25,38 +25,74 @@
   const section = (title,html,extra='')=>`<section class="rich-section ${extra}"><h2 class="rich-heading">${H(title)}</h2>${html}</section>`;
   const empty = (title,copy,to='C1')=>`<div class="rich-empty"><span aria-hidden="true">✧</span><strong>${H(title)}</strong><p>${H(copy)}</p><button type="button" class="btn primary" data-action="book-nav">Đặt lịch khám</button><small>Bạn từng khám tại đây? Có thể chọn bác sĩ quen khi phòng khám hỗ trợ.</small></div>`;
   function homeHeader(s,p) {
-    const c=counts(s);
-    const tasks=c.a?2:0;
-    const name=firstName(p?.name);
-    return `<div class="rich-home-head"><div class="rich-greeting"><div><span class="rich-eyebrow">CAREFLOW+ · DỮ LIỆU DEMO</span><h1 id="screen-title" tabindex="-1">${greeting()}, ${H(name)}</h1><p>Hôm nay bạn có <strong>${c.a} lịch khám</strong> và <strong>${tasks} việc cần làm</strong>.</p></div><span class="avatar">${root.CareFlowAvatar(p?.id||'account',48)}</span></div><div class="rich-head-meta">${pill(c.notices+' thông báo chưa đọc',c.notices?'warning':'info')}<span>Lịch khám và thông báo được cập nhật trong bản demo.</span></div></div>`;
-  }
+  const soon=active(s)[0];
+  const name=firstName(p?.name);
+  const lead=soon?`Lịch khám tiếp theo: ${dateTextLite(soon.date)} · ${soon.slot||'Chờ xác nhận giờ'}.`:'Hôm nay bạn chưa có lịch khám.';
+  const shortcuts=[
+    ['calendar-plus','Đặt lịch','begin',null],
+    ['calendar','Lịch hẹn','go','D1'],
+    ['document-check','Kết quả','go','H7'],
+    ['headphones','Hỗ trợ','go','K5']
+  ];
+  return `<div class="rich-home-head cf-home-head">
+    <div class="rich-greeting"><div><h1 id="screen-title" tabindex="-1">${greeting()}, ${H(name)}</h1><p>${H(lead)}</p></div><span class="avatar">${root.CareFlowAvatar(p?.id||'account',48)}</span></div>
+    <section class="cf-home-quick" aria-label="Truy cập nhanh"><h2>Truy cập nhanh</h2>
+      <nav class="cf-home-quick-grid home-quick-actions" aria-label="Thao tác nhanh">
+        ${shortcuts.map(([icon,label,actionName,to])=>`<button type="button" data-action="${actionName}"${to?` data-to="${to}"`:''} aria-label="${H(label)}"><span class="cf-quick-icon">${root.CareFlowIcon(icon,25)}</span><small>${H(label)}</small></button>`).join('')}
+      </nav>
+    </section>
+  </div>`;
+}
   function home(s,v,h) {
-    const c=counts(s), vs=active(s), soon=vs[0];
-    let html='';
-    if (soon) {
-      const time=soon.slot||'—', date=h.dateText(soon);
-      const code=soon.id;
-      const left=soon.status==='pending'?'Lễ tân sẽ xác nhận khi kiểm tra yêu cầu.':soon.status==='confirmed'?'Lịch đã được phòng khám xác nhận.':h.VI.statuses[soon.status]?.[1]||'Phòng khám sẽ cập nhật trạng thái.';
-      html+=`<section class="rich-hero" aria-label="Lịch khám sắp tới"><div class="rich-hero-top">${pill('Sắp tới · '+(Math.max(0,Math.ceil((new Date(soon.date+'T00:00:00+07:00').getTime()-Date.now())/86400000)))+' ngày','info')}<span>${vs.length>1?'1 / '+vs.length:'LỊCH HẸN TIẾP THEO'}</span></div><button class="visit-card hero rich-hero-visit" type="button" data-action="open-visit" data-id="${H(code)}"><span class="rich-big-hour">${H(time)}</span><strong class="rich-hero-date">${H(date)}</strong><span class="rich-doctor">${root.CareFlowAvatar('doctor-ha',42)}<span><strong>${H(DEMO.doctor)}</strong><small>${H(DEMO.specialty)} · Thông tin demo</small></span></span><span class="rich-place">${h.I('map-pin',16)}${H(mode(soon))} · ${H(DEMO.clinic)}, ${H(DEMO.address)}</span><small>Mã lịch <strong>${H(code)}</strong></small><span class="rich-status">${h.status(soon)}<small>${H(left)}</small></span></button><div class="rich-hero-actions">${action('Xem chi tiết','D2','primary')}${['pending','confirmed','reminder','pre-lab'].includes(soon.status)?action('Đổi lịch','D3','secondary'):action('Theo dõi','D2','secondary')}<a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=45%20Nguyen%20Thi%20Minh%20Khai%20Quan%201" target="_blank" rel="noopener noreferrer">Tìm địa chỉ demo</a></div></section>`;
-    } else html+=`<section class="rich-hero rich-hero-empty" aria-label="Lịch khám sắp tới"><h2 class="rich-heading">Lịch khám sắp tới</h2>${empty('Chưa có lịch sắp tới','Đặt lịch chỉ cần vài bước; bạn cũng có thể đặt lại với bác sĩ từng khám.')}</section>`;
-    html+=`<nav class="home-quick-actions rich-shortcuts" aria-label="Thao tác nhanh">${[['calendar-plus','Đặt lịch','begin',null],['calendar','Lịch hẹn','go','D1'],['document-check','Kết quả','go','H7'],['headphones','Hỗ trợ','go','K5']].map(([ic,t,a,to])=>`<button type="button" data-action="${a}"${to?` data-to="${to}"`:''}><span>${h.I(ic,23)}</span><small>${H(t)}</small></button>`).join('')}</nav>`;
-    const tasks=soon?[
-      {title:'Kiểm tra giờ phòng khám gọi lại',meta:'Hôm nay · trước 17:00 (demo)',badge:'Ưu tiên',to:'K5',cta:'Liên hệ',kind:'danger'},
-      {title:'Xem lại triệu chứng trước khi khám',meta:'2 mục cần xem lại · 60% (demo)',badge:'Chuẩn bị khám',to:'D2',cta:'Xem phiếu',kind:'warning'},
-      {title:'Mang theo CCCD và thẻ BHYT',meta:dateTextLite(soon.date)+' · Nhắc trước khám',badge:'Nhắc nhở',to:'E1',cta:'Xem hướng dẫn',kind:'info'},
-    ]:[{title:'Chuẩn bị thông tin trước khi đặt lịch',meta:'Họ tên · triệu chứng · thời gian',badge:'Gợi ý',to:'C1',cta:'Bắt đầu',kind:'info'}];
-    html+=section('Việc cần làm',`<div class="home-tasks rich-task-rail">${tasks.map(t=>`<button class="row rich-task" type="button" data-action="go" data-to="${t.to}">${pill(t.badge,t.kind)}<strong>${H(t.title)}</strong><small>${H(t.meta)}</small><span class="rich-task-link">${H(t.cta)} ↗</span></button>`).join('')}</div><small class="rich-subnote">Vuốt để xem thêm · Các hạn giờ là ví dụ giao diện.</small>`,'rich-home-todo');
-    const completed=s.visits.find(x=>x.status==='completed');
-    html+=section('Chăm sóc sau khám',`<div class="rich-care-card"><div>${pill(completed?'Có lượt khám hoàn tất':'Nội dung minh họa','info')}<h3>Lần khám gần nhất: ${H(DEMO.lastVisit)}</h3><p>${H(DEMO.doctor)} · ${H(DEMO.specialty)}</p></div><div class="rich-care-facts"><span>2 lời dặn mẫu</span><span>1 đơn thuốc mẫu</span></div><p class="rich-med-line">${h.I('pill',19)} Tối nay · ${H(DEMO.lastDose)}</p><p class="rich-subnote">Đây là nội dung minh họa, không phải đơn thuốc hoặc lời dặn y tế của bạn.</p>${action(completed?'Xem lời dặn':'Xem lịch sử khám',completed?'H6':'K3','primary')}</div>`,'rich-aftercare');
-    html+=section('Mẹo sức khỏe',`<div class="rich-tips">${[
-      ['Chuẩn bị trước khi khám tổng quát','Mang giấy tờ, đơn thuốc và kết quả cũ; hỏi phòng khám nếu cần nhịn ăn.','E1','calendar'],
-      ['Cách vào phòng khám online','Kiểm tra mạng, camera và âm thanh trước giờ hẹn.','K5','video'],
-      ['Khi nào cần đến cấp cứu','Đau ngực dữ dội, khó thở nặng hoặc bất tỉnh: gọi 115.','K5','warning'],
-    ].map(([title,copy,to,ic])=>`<details class="rich-tip"><summary><span>${h.I(ic,24)}</span><strong>${H(title)}</strong><small>Chạm để đọc</small></summary><p>${H(copy)}</p>${action('Xem hỗ trợ',to,'text')}</details>`).join('')}</div>`,'rich-health-tips');
-    html+=`<div class="rich-support-line">${h.I('headphones',20)}<span><strong>Cần giúp?</strong><small>Giờ hỗ trợ demo · 7:30–19:00</small></span><button data-action="go" data-to="K5">Liên hệ ↗</button></div>`;
-    return html;
+  const visits=active(s);
+  const soon=visits[0];
+  const completed=s.visits.find(x=>x.status==='completed');
+  const taskCards=soon?[
+    {icon:'document',title:'Chuẩn bị thông tin',detail:'Triệu chứng · giấy tờ',actionName:'open-visit',id:soon.id},
+    {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:soon.mode==='online'?'open-visit':'go',id:soon.mode==='online'?soon.id:null,to:soon.mode==='online'?null:'D1'}
+  ]:[
+    {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'book-nav'},
+    {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'book-nav'}
+  ];
+  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'book-nav':'go'}"${to==='C1'?'':` data-to="${to}"`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Mẹo sức khỏe'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
+  let html='<section class="rich-hero cf-home-appointment" aria-label="Lịch khám sắp tới">';
+  html+=sectionHead('Lịch khám sắp tới','D1');
+  if(soon){
+    const online=soon.mode==='online';
+    html+=`<button type="button" class="visit-card cf-home-appointment-summary" data-action="open-visit" data-id="${H(soon.id)}"><span class="cf-home-appointment-info">
+      <span class="cf-home-appointment-avatar">${root.CareFlowAvatar('doctor-ha',44)}</span>
+      <span class="cf-home-appointment-doctor"><strong>${H(DEMO.doctor)}</strong><small>${H(DEMO.specialty)} · ${online?'Khám online':'Khám trực tiếp'}</small></span>
+    </span><span class="cf-home-appointment-summary-meta"><strong>${H(h.dateText(soon))} · ${H(soon.slot||'Chờ xác nhận giờ')}</strong><span class="cf-home-appointment-status">${h.status(soon)}</span></span></button>
+    <div class="cf-home-appointment-footer"><button type="button" class="cf-home-appointment-button" data-action="open-visit" data-id="${H(soon.id)}">Xem lịch</button></div>`;
+  }else{
+    html+=`<div class="cf-home-empty"><p>Bạn chưa có lịch khám sắp tới.</p><button type="button" class="cf-home-appointment-button" data-action="book-nav">Đặt lịch khám</button></div>`;
   }
-  function dateTextLite(iso) { const d=new Date(iso+'T12:00:00+07:00'); return Number.isNaN(d.getTime())?'Ngày khám':new Intl.DateTimeFormat('vi-VN',{day:'2-digit',month:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(d); }
+  html+='</section>';
+  html+=`<section class="rich-section cf-home-task-section">${sectionHead('Việc cần làm',soon?'D2':'C1')}
+    <div class="cf-home-card-grid">${taskCards.map(t=>`<button type="button" class="cf-home-task-card" data-action="${t.actionName}"${t.to?` data-to="${H(t.to)}"`:''}${t.id?` data-id="${H(t.id)}"`:''}>
+       <span class="cf-home-card-icon">${h.I(t.icon,22)}</span><strong>${H(t.title)}</strong><small>${H(t.detail)}</small>
+    </button>`).join('')}</div>
+  </section>`;
+  html+=`<section class="rich-section cf-home-care-section">${sectionHead('Chăm sóc sau khám',completed?'H6':'K3')}
+    <div class="cf-home-care-card">${completed?`
+      <div class="cf-home-care-title"><div><strong>Lần khám ${H(dateTextLite(completed.date))}</strong><small>${H(DEMO.doctor)} · ${H(DEMO.specialty)}</small></div><span class="cf-home-sample-label">Demo</span></div>
+      <p>Thông tin sau khám có thể xem trong phiếu khám.</p>
+      <div class="cf-home-care-foot"><small>Lời dặn và đơn thuốc (dữ liệu minh họa)</small>${action('Xem lời dặn','H6','primary')}</div>`:`
+      <div class="cf-home-care-title"><div><strong>Chưa có thông tin sau khám</strong><small>Lời dặn và đơn thuốc sẽ xuất hiện khi có kết quả được cập nhật.</small></div></div>
+      ${action('Xem lịch sử khám','K3','secondary')}`}</div>
+  </section>`;
+  html+=`<section class="rich-section cf-home-tips-section">${sectionHead('Mẹo sức khỏe','K5')}
+    <div class="cf-home-card-grid cf-home-tips">
+      <details class="cf-home-tip-card"><summary><strong>Chuẩn bị trước khi khám</strong><small>Giấy tờ, đơn thuốc, kết quả cũ</small><span>Đọc thêm ${h.I('chevron-right',15)}</span></summary><p>Chuẩn bị những thông tin bạn đã có. Nếu cần hướng dẫn riêng, hãy liên hệ phòng khám.</p></details>
+      <details class="cf-home-tip-card"><summary><strong>Vào phòng khám online</strong><small>Mạng, camera, âm thanh</small><span>Đọc thêm ${h.I('chevron-right',15)}</span></summary><p>Kiểm tra kết nối và thiết bị trước giờ hẹn. Mở phiếu lịch khám để xem hướng dẫn tham gia.</p></details>
+    </div>
+  </section>`;
+  html+=`<section class="rich-section cf-home-help-section">${sectionHead('Cần giúp?','K5')}
+    <div class="cf-home-support"><div><strong>Hỗ trợ 7:30–19:00</strong><small>Gọi lại hoặc nhắn tin cho phòng khám (demo)</small></div><button type="button" data-action="go" data-to="K5">Liên hệ</button></div>
+  </section>`;
+  return html;
+}
+    function dateTextLite(iso) { const d=new Date(iso+'T12:00:00+07:00'); return Number.isNaN(d.getTime())?'Ngày khám':new Intl.DateTimeFormat('vi-VN',{day:'2-digit',month:'2-digit',timeZone:'Asia/Ho_Chi_Minh'}).format(d); }
   function appointmentCard(s,v,h) {
     const profile=h.M.profile(s,v.patientId);
     const speciality=`${DEMO.doctor} · ${DEMO.specialty}`;
