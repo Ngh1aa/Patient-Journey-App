@@ -1,0 +1,257 @@
+/* CareFlow+ Card System V2
+   Canonical UI token source for patient and doctor renderers.
+   Existing legacy CSS is transitional and tracked in docs/card-audit.md.
+   No business transitions, synthetic state or patient data are defined here. */
+@font-face {
+  font-family:"Be Vietnam Pro";
+  src:url("../prototype/assets/fonts/BeVietnamPro-Regular.ttf") format("truetype");
+  font-style:normal;font-weight:400;font-display:swap;
+}
+@font-face {
+  font-family:"Be Vietnam Pro";
+  src:url("../prototype/assets/fonts/BeVietnamPro-SemiBold.ttf") format("truetype");
+  font-style:normal;font-weight:600;font-display:swap;
+}
+@font-face {
+  font-family:"Be Vietnam Pro";
+  src:url("../prototype/assets/fonts/BeVietnamPro-Bold.ttf") format("truetype");
+  font-style:normal;font-weight:700;font-display:swap;
+}
+:root {
+  --cf2-font:"Be Vietnam Pro",system-ui,sans-serif;
+  --cf2-page:#F3F6FB;
+  --cf2-surface:#FFFFFF;
+  --cf2-surface-tint:#E8F0FA;
+  --cf2-surface-muted:#F6F8FC;
+  --cf2-brand:#001D57;
+  --cf2-brand-hover:#15396F;
+  --cf2-on-brand:#FFFFFF;
+  --cf2-text:#122642;
+  --cf2-text-soft:#445871;
+  --cf2-text-muted:#52647E;
+  --cf2-border:#DFE6F0;
+  --cf2-focus:#3B77C8;
+  --cf2-success:#14633F;
+  --cf2-success-bg:#E5F4EC;
+  --cf2-warning:#775100;
+  --cf2-warning-bg:#FFF3D5;
+  --cf2-danger:#A72323;
+  --cf2-danger-bg:#FDEDEC;
+  --cf2-disabled:#66758A;
+  --cf2-shadow:0 7px 24px rgba(0,29,87,.055);
+  --cf2-shadow-press:0 2px 10px rgba(0,29,87,.1);
+  --cf2-space-1:4px;
+  --cf2-space-2:8px;
+  --cf2-space-3:12px;
+  --cf2-space-4:16px;
+  --cf2-space-5:20px;
+  --cf2-space-6:24px;
+  --cf2-space-8:32px;
+  --cf2-radius-card:22px;
+  --cf2-radius-inner:14px;
+  --cf2-radius-pill:999px;
+  --cf2-border-width:1px;
+  --cf2-fs-section:17px;
+  --cf2-lh-section:24px;
+  --cf2-fs-card:16px;
+  --cf2-lh-card:23px;
+  --cf2-fs-body:14px;
+  --cf2-lh-body:22px;
+  --cf2-fs-caption:12px;
+  --cf2-lh-caption:18px;
+  --cf2-fs-metric:30px;
+  --cf2-lh-metric:36px;
+  --cf2-fw-body:400;
+  --cf2-fw-medium:600;
+  --cf2-fw-bold:700;
+  --cf2-touch:44px;
+  --cf2-list-row:80px;
+  --cf2-page-inset:20px;
+  --cf2-grid-gap:12px;
+  --cf2-section-gap:24px;
+  --cf2-card-padding:16px;
+  --cf2-card-padding-lg:20px;
+}
+/* Two typography roles, one family. Inherited by dialog and inputs. */
+.phone,
+.phone :is(button,input,select,textarea),
+#app,
+#app :is(button,input,select,textarea) {
+  font-family:var(--cf2-font);
+}
+:is(.phone,#app) .cf2-section-title {
+  margin:0;
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-section)*var(--font-scale,1));
+  line-height:var(--cf2-lh-section);
+  font-weight:var(--cf2-fw-medium);
+  color:var(--cf2-text);
+  letter-spacing:normal;
+}
+:is(.phone,#app) .cf2-section {
+  min-width:0;
+  display:grid;
+  gap:var(--cf2-space-3);
+  margin-block:var(--cf2-section-gap);
+}
+:is(.phone,#app) .cf2-section-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--cf2-space-3);
+  min-width:0;
+}
+:is(.phone,#app) .cf2-section-container {
+  display:grid;
+  gap:var(--cf2-grid-gap);
+  min-width:0;
+  padding:var(--cf2-card-padding);
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  box-shadow:var(--cf2-shadow);
+}
+:is(.phone,#app) .cf2-section-container > :where(*){min-width:0;}
+:is(.phone,#app) .cf2-card {
+  min-width:0;
+  padding:var(--cf2-card-padding);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface);
+  color:var(--cf2-text);
+  box-shadow:var(--cf2-shadow);
+}
+:is(.phone,#app) .cf2-card[data-cf2-variant="hero"] {
+  color:var(--cf2-on-brand);background:var(--cf2-brand);
+  border-color:var(--cf2-brand);
+}
+:is(.phone,#app) .cf2-card[data-cf2-variant="tinted"]{
+  background:var(--cf2-surface-tint);
+  border-color:var(--cf2-surface-tint);
+  box-shadow:none;
+}
+:is(.phone,#app) .cf2-card :is(h2,h3,.cf2-card-title) {
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-card)*var(--font-scale,1));
+  line-height:var(--cf2-lh-card);
+  font-weight:var(--cf2-fw-medium);
+  margin:0;
+}
+:is(.phone,#app) .cf2-card :is(p,.cf2-card-body){
+  font-size:calc(var(--cf2-fs-body)*var(--font-scale,1));
+  line-height:var(--cf2-lh-body);
+  font-weight:var(--cf2-fw-body);
+}
+:is(.phone,#app) .cf2-caption{
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  line-height:var(--cf2-lh-caption);
+  color:var(--cf2-text-muted);
+  font-weight:var(--cf2-fw-medium);
+}
+:is(.phone,#app) .cf2-metric-value{
+  font-size:calc(var(--cf2-fs-metric)*var(--font-scale,1));
+  line-height:var(--cf2-lh-metric);
+  font-weight:var(--cf2-fw-bold);
+  color:var(--cf2-brand);
+  font-variant-numeric:tabular-nums;
+}
+:is(.phone,#app) .cf2-metric-value[data-zero="true"]{
+  color:var(--cf2-text-muted);
+  font-weight:var(--cf2-fw-medium);
+}
+:is(.phone,#app) .cf2-section-link,
+:is(.phone,#app) .cf2-button{
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  gap:var(--cf2-space-2);
+  min-inline-size:var(--cf2-touch);
+  min-block-size:var(--cf2-touch);
+  padding:var(--cf2-space-2) var(--cf2-space-4);
+  border:var(--cf2-border-width) solid transparent;
+  border-radius:var(--cf2-radius-pill);
+  background:var(--cf2-brand);
+  color:var(--cf2-on-brand);
+  text-decoration:none;
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-body)*var(--font-scale,1));
+  line-height:var(--cf2-lh-body);
+  font-weight:var(--cf2-fw-medium);
+  cursor:pointer;
+  text-align:center;
+}
+:is(.phone,#app) .cf2-section-link{background:transparent;color:var(--cf2-brand);padding-inline:var(--cf2-space-2);}
+:is(.phone,#app) .cf2-button[data-cf2-action="secondary"]{
+  background:var(--cf2-surface-tint);
+  color:var(--cf2-brand);
+  border-color:var(--cf2-border);
+}
+:is(.phone,#app) .cf2-button[data-cf2-action="tertiary"]{
+  background:transparent;
+  color:var(--cf2-brand);
+  border-color:transparent;
+}
+:is(.phone,#app) .cf2-button[data-cf2-action="danger"]{
+  background:var(--cf2-danger-bg);
+  color:var(--cf2-danger);
+  border-color:var(--cf2-danger);
+}
+:is(.phone,#app) :is(.cf2-button,.cf2-section-link):is(:hover,:active){
+  box-shadow:var(--cf2-shadow-press);
+}
+:is(.phone,#app) .cf2-card:is(:active,[data-cf2-state="pressed"]) {box-shadow:var(--cf2-shadow-press);}
+:is(.phone,#app) :is(.cf2-button,.cf2-section-link,.cf2-card):focus-visible{
+  outline:var(--cf2-border-width) solid var(--cf2-focus);
+  outline-offset:var(--cf2-space-1);
+}
+:is(.phone,#app) .cf2-button:disabled{
+  background:var(--cf2-surface-muted);color:var(--cf2-disabled);
+  border-color:var(--cf2-border);cursor:not-allowed;
+}
+:is(.phone,#app) .cf2-state {
+  display:flex;
+  gap:var(--cf2-space-3);
+  flex-direction:column;
+  min-width:0;
+  align-items:flex-start;
+  padding:var(--cf2-card-padding);
+  background:var(--cf2-surface-muted);
+  border-radius:var(--cf2-radius-inner);
+}
+:is(.phone,#app) .cf2-state strong{font-size:var(--cf2-fs-card);font-weight:var(--cf2-fw-medium);line-height:var(--cf2-lh-card);}
+:is(.phone,#app) .cf2-state p{margin:0;font-size:var(--cf2-fs-body);line-height:var(--cf2-lh-body);color:var(--cf2-text-soft);}
+:is(.phone,#app) .cf2-state[data-cf2-state="error"]{background:var(--cf2-danger-bg);}
+:is(.phone,#app) .cf2-state[data-cf2-state="zero"]{background:var(--cf2-surface-tint);}
+:is(.phone,#app) .cf2-state[data-cf2-state="unread"]{border-left:var(--cf2-space-1) solid var(--cf2-brand);}
+:is(.phone,#app) .cf2-state[data-cf2-state="loading"] .cf2-skeleton {
+  width:100%;min-height:var(--cf2-touch);
+  background:linear-gradient(110deg,var(--cf2-surface-tint),var(--cf2-surface-muted),var(--cf2-surface-tint));
+  border-radius:var(--cf2-radius-inner);
+  animation:cf2-loading 1.6s ease-in-out infinite;
+}
+@keyframes cf2-loading { 50% {opacity:.5} }
+:is(.phone,#app) .cf2-line-clamp {
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+:is(.phone.large-text,#app.large-text) .cf2-line-clamp,
+:is(.phone,#app) .cf2-card[data-cf2-critical="true"] .cf2-line-clamp {
+  display:block;-webkit-line-clamp:unset;overflow:visible;
+}
+:is(.phone,#app) .cf2-row-list{
+  display:grid;gap:0;min-width:0;
+}
+:is(.phone,#app) .cf2-row-list > * {
+  display:flex;align-items:center;gap:var(--cf2-space-3);
+  min-height:var(--cf2-list-row);
+  padding:var(--cf2-space-3) var(--cf2-space-4);
+}
+:is(.phone,#app) .cf2-row-list > * + * {border-top:var(--cf2-border-width) solid var(--cf2-border);}
+:is(.phone,#app) .cf2-grid {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--cf2-grid-gap);
+}
+:is(.phone,#app) .cf2-grid > * {min-width:0;}
+@media (max-width:360px) {
+  .phone .cf2-grid{grid-template-columns:minmax(0,1fr);}
+}
+@media (prefers-reduced-motion:reduce){
+  :is(.phone,#app) .cf2-state[data-cf2-state="loading"] .cf2-skeleton{animation:none;}
+}
