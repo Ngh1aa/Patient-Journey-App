@@ -58,7 +58,7 @@
 
   const panels = {
     B1: () => section('CHỌN CÁCH CHĂM SÓC', 'Tiện ích dành cho bạn',
-      grid(tip('users', 'Khám cho người thân', 'Chọn đúng hồ sơ trước khi gửi lịch khám.', 'K2', 'Xem hồ sơ'),
+      grid(tip('user', 'Khám cho người thân', 'Chọn đúng hồ sơ trước khi gửi lịch khám.', 'K2', 'Xem hồ sơ'),
         tip('message-circle', 'Có câu hỏi?', 'Hỏi phòng khám về giờ hẹn và chuẩn bị trước khám.', 'K5', 'Liên hệ'))),
     C1: () => section('BẮT ĐẦU ĐẶT LỊCH', 'Chọn đúng người đi khám',
       photo('consultation', 'Một nơi cho cả gia đình',
