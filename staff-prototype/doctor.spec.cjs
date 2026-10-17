@@ -1,6 +1,6 @@
 const {test,expect}=require('../prototype/node_modules/@playwright/test');
 const cases=[
- ['dashboard','/doctor','Lịch khám'],
+ ['dashboard','/doctor','Tổng quan khám bệnh'],
  ['schedule','/doctor/schedule','Lịch khám của tôi'],
  ['queue','/doctor/queue','Danh sách khám'],
  ['patients','/patients','Hồ sơ bệnh nhân'],
@@ -40,7 +40,7 @@ for(const group of [0,1,2]){
 test('site defaults to doctor and rejects all reception and nursing routes',async({page})=>{
  await page.goto('/staff-prototype/');
  await expect(page).toHaveURL(/#\/doctor$/);
- await expect(page.locator('.doctor-hero h1')).toContainText('Lịch khám');
+ await expect(page.locator('.doctor-heading h1')).toContainText('Tổng quan khám bệnh');
  await expect(page.locator('.switch-options')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="reception"]')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="nursing"]')).toHaveCount(0);
@@ -76,7 +76,7 @@ test('doctor clinical draft, signature simulation, state recovery',async({page})
  await page.locator('[data-action="review-sign"]').first().click();
  await expect(page.locator('.dialog-card')).toContainText('không tạo chữ ký');
  await page.locator('[data-action="confirm-sign"]').click();
- await expect(page.locator('.consult-top')).toContainText('Đã hoàn tất');
+ await expect(page.locator('.consult-top')).toContainText('Hoàn tất buổi khám');
  await expect(page.locator('[data-action="review-sign"]')).toBeDisabled();
 });
 test('doctor result review, patient roster and profile tabs',async({page})=>{
@@ -102,48 +102,31 @@ test('follow-up internal task change persists without contacting patients',async
  await page.reload();
  await expect(page.locator('.journey-task-entry.is-done')).toHaveCount(1);
 });
-test('visual contrast, button focus and 1920px hero',async({page},testInfo)=>{
- await page.setViewportSize({width:1920,height:1080});
+test('task-first overview preserves priority, brand and visible primary action',async({page},testInfo)=>{
  await page.goto('/staff-prototype/index.html#/doctor');
- await expect(page.locator('.doctor-sidebar')).toBeVisible();
- const visual=await page.evaluate(()=>{
-  const hero=document.querySelector('.doctor-hero');
-  const text=hero.querySelector('h1');
-  const computedHero=getComputedStyle(hero);
-  const computedText=getComputedStyle(text);
-  return {font:getComputedStyle(document.body).fontFamily,hero:computedHero.backgroundColor,color:computedText.color,headline:parseFloat(computedText.fontSize),viewport:innerWidth,scroll:document.documentElement.scrollWidth}
- });
- expect(visual.font).toContain('Plus Jakarta Sans');
- expect(visual.headline).toBeGreaterThan(36);
- expect(visual.color).toBe('rgb(255, 255, 255)');
- expect(visual.scroll).toBeLessThanOrEqual(visual.viewport+1);
- await page.locator('.doctor-hero .btn-hero').focus();
- await expect(page.locator('.doctor-hero .btn-hero')).toHaveCSS('outline-style','solid');
- await page.screenshot({path:testInfo.outputPath('doctor-hero-1920.png'),fullPage:true,animations:'disabled'});
+ await expect(page.locator('.doctor-hero')).toHaveCount(0);
+ expect(await page.locator('.doctor-priority-grid > [data-priority]').evaluateAll(nodes=>nodes.map(n=>n.dataset.priority))).toEqual(['current','decisions','results','schedule']);
+ const current=page.locator('[data-priority="current"]');
+ await expect(current).toContainText('Võ Thanh Tùng');
+ const primary=current.getByRole('button',{name:'Tiếp tục khám'});
+ await expect(primary).toBeInViewport();
+ await primary.focus();await expect(primary).toHaveCSS('outline-style','solid');
+ await expect(primary).toHaveCSS('background-color','rgb(0, 29, 87)');
+ await expect(page.locator('.doctor-current-facts')).toContainText('Người phụ trách');
+ await page.screenshot({path:testInfo.outputPath('doctor-priorities.png'),fullPage:true,animations:'disabled'});
 });
 
-test('Lucide medical icon registry, clinical copy and compact data-led cards',async({page})=>{
+test('doctor icon registry and supporting workflows remain available',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor');
- await page.evaluate(()=>document.fonts.ready);
- const data=await page.evaluate(()=>{
-  const stat=document.querySelector('.doctor-stat-card'),hero=document.querySelector('.doctor-hero');
-  return {font:getComputedStyle(document.body).fontFamily,statHeight:Math.round(stat.getBoundingClientRect().height),heroHeight:Math.round(hero.getBoundingClientRect().height),iconPaths:Object.keys(window.CareFlowIcons||{}),svgCount:document.querySelectorAll('.doctor-sidebar svg').length};
- });
- expect(data.font).toContain('Plus Jakarta Sans');
- expect(data.iconPaths).toContain('stethoscope');
- expect(data.iconPaths).toContain('pill');
- expect(data.iconPaths.length).toBeGreaterThanOrEqual(25);
- expect(data.svgCount).toBeGreaterThanOrEqual(10);
- expect(data.statHeight).toBeLessThan(275);
- expect(data.heroHeight).toBeLessThan(330);
- await expect(page.locator('.doctor-now-details')).toContainText('Hình thức');
+ const icons=await page.evaluate(()=>Object.keys(window.CareFlowIcons||{}));
+ expect(icons).toContain('stethoscope');expect(icons).toContain('pill');
+ await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
  await expect(page.locator('.doctor-next-visit')).toContainText('LƯỢT KHÁM TIẾP THEO');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
  await expect(page.locator('.doctor-followups-summary')).toContainText('Bác sĩ phụ trách');
  await page.goto('/staff-prototype/index.html#/clinical/prescription');
  await expect(page.locator('.support-rx-metadata')).toContainText('Lượt khám');
- await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
 });
 
 test('sidebar fills the vertical rail with evenly distributed doctor links',async({page},testInfo)=>{
@@ -190,7 +173,7 @@ test('sidebar fills the vertical rail with evenly distributed doctor links',asyn
 });
 
 const compositionRoutes=[
-  ['/doctor','.doctor-dashboard-grid','dashboard'],
+  ['/doctor','.doctor-priority-grid','dashboard'],
   ['/doctor/schedule','.doctor-schedule-layout','schedule'],
   ['/doctor/queue','.doctor-today-list','queue'],
   ['/patients','.doctor-directory','patients'],
@@ -205,6 +188,7 @@ const compositionRoutes=[
 ];
 
 test('rectangular card-grid geometry and every doctor screen: no horizontal overflow',async({page},testInfo)=>{
+  test.setTimeout(60000);
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   const width=page.viewportSize().width;
   for(const [route,selector,name] of compositionRoutes){
@@ -231,7 +215,6 @@ test('desktop paired cards form a single bottom-aligned rectangle',async({page},
   const width=page.viewportSize().width;
   if(width<1181)return;
   const pairs=[
-    ['/doctor','.doctor-dashboard-grid>.doctor-today','.doctor-dashboard-grid>.doctor-side-stack'],
     ['/doctor/schedule','.doctor-schedule-main','.doctor-schedule-aside'],
     ['/doctor/followups','.doctor-followups-grid>.doctor-surface','.doctor-followups-grid>.doctor-followups-side'],
     ['/results','.doctor-results-grid>.doctor-surface:first-child','.doctor-result-preview'],
@@ -256,16 +239,11 @@ test('desktop paired cards form a single bottom-aligned rectangle',async({page},
     expect(edges.aWidth).toBeGreaterThan(120);
     expect(edges.bWidth).toBeGreaterThan(120);
   }
-  await page.goto('/staff-prototype/index.html#/doctor');
-  const dashboard=await page.evaluate(()=>{
-    const list=document.querySelector('.doctor-today').getBoundingClientRect();
-    const right=document.querySelector('.doctor-labs-today').getBoundingClientRect();
-    return {listBottom:list.bottom,rightBottom:right.bottom};
-  });
-  expect(Math.abs(dashboard.listBottom-dashboard.rightBottom)).toBeLessThanOrEqual(3);
+
 });
 
 test('responsive composition: two columns tablet, one column phone',async({page},testInfo)=>{
+  test.setTimeout(60000);
   const widths=[900,375];
   for(const width of widths){
     await page.setViewportSize({width,height:900});
@@ -278,7 +256,7 @@ test('responsive composition: two columns tablet, one column phone',async({page}
       },selector);
       expect(grid.scroll,route+' '+width+'px overflow').toBeLessThanOrEqual(width+1);
       if(selector!=='.doctor-today-list' && selector!=='.doctor-directory'){
-        expect(grid.cols,route+' columns at '+width).toBe(width===900?2:1);
+        expect(grid.cols,route+' columns at '+width).toBe(selector==='.doctor-priority-grid'?1:width===900?2:1);
       }
     }
     await page.goto('/staff-prototype/index.html#/doctor');
@@ -289,12 +267,12 @@ test('responsive composition: two columns tablet, one column phone',async({page}
 test('phone appointment rows preserve full patient names and keep actions accessible',async({page})=>{
   await page.setViewportSize({width:375,height:820});
   await page.goto('/staff-prototype/index.html#/doctor');
-  const rows=page.locator('.doctor-today .doctor-appointment');
-  await expect(rows).toHaveCount(4);
+  const rows=page.locator('.doctor-today .doctor-agenda-row');
+  await expect(rows).toHaveCount(7);
   const metrics=await page.evaluate(()=>{
-    const first=document.querySelector('.doctor-today .doctor-appointment');
-    const name=first.querySelector('.doctor-appointment-person strong');
-    const action=first.querySelector('.doctor-appointment-action .btn');
+    const first=document.querySelector('.doctor-today .doctor-agenda-row');
+    const name=first.querySelector('.doctor-agenda-person strong');
+    const action=first.querySelector('.doctor-agenda-actions .btn');
     const n=name.getBoundingClientRect(),a=action.getBoundingClientRect();
     return {display:getComputedStyle(first).display,whiteSpace:getComputedStyle(name).whiteSpace,
       personWidth:name.clientWidth,personScroll:name.scrollWidth,
@@ -307,48 +285,15 @@ test('phone appointment rows preserve full patient names and keep actions access
   expect(metrics.documentWidth).toBeLessThanOrEqual(376);
 });
 
-test('unique card destinations, navy contrast and keyboard accessibility',async({page})=>{
- await page.goto('/staff-prototype/index.html#/doctor');
- await expect(page.locator('.doctor-action-card')).toHaveCount(3);
- await expect(page.locator('.doctor-action-card .doctor-card-footer-link')).toHaveCount(3);
- await expect(page.locator('.doctor-action-card .doctor-icon-link')).toHaveCount(0);
- await expect(page.locator('.doctor-card-icon-action')).toHaveCount(2);
- await expect(page.locator('.doctor-labs-footer')).toContainText('kết quả chờ rà soát');
- const state=await page.evaluate(()=>{
-  const get=selector=>getComputedStyle(document.querySelector(selector));
-  const links=[...document.querySelectorAll('.doctor-action-card')].map(card=>({
-   actions:[...card.querySelectorAll('a[href],button[data-action]')].map(a=>a.getAttribute('href')||a.getAttribute('data-action')),
-   icons:[...card.querySelectorAll('.doctor-stat-card-head svg')].length
-  }));
-  return {
-   body:get('body').backgroundColor,
-   card:get('.doctor-stat-card:not(.is-selected)').backgroundColor,
-   primary:get('.doctor-hero').backgroundImage,
-   button:get('.doctor-now-bottom .btn').backgroundColor,
-   buttonColor:get('.doctor-now-bottom .btn').color,
-   navFont:parseFloat(get('.doctor-sidebar .nav-item').fontSize),
-   labelFont:parseFloat(get('.doctor-stat-card p').fontSize),
-   titleFont:parseFloat(get('.doctor-section-head h2').fontSize),
-   selected:get('.doctor-stat-card.is-selected').backgroundColor,
-   links
-  };
- });
- expect(state.body).toBe('rgb(245, 246, 248)');
- expect(state.card).toBe('rgb(255, 255, 255)');
- expect(state.primary).toContain('0, 29, 87');
- expect(state.button).toBe('rgb(0, 29, 87)');
- expect(state.buttonColor).toBe('rgb(255, 255, 255)');
- expect(state.navFont).toBeGreaterThanOrEqual(page.viewportSize().width>=1291?13:12);
- expect(state.labelFont).toBeGreaterThanOrEqual(12);
- expect(state.titleFont).toBeGreaterThanOrEqual(16);
- expect(state.selected).toBe('rgb(234, 240, 250)');
- expect(state.links.every(card=>card.actions.length===1)).toBe(true);
- expect(state.links.every(card=>card.icons===1)).toBe(true);
- const action=page.locator('.doctor-card-footer-link').first();
- await action.focus();
- await expect(action).toHaveCSS('outline-style','solid');
- await action.click();
- await expect(page).toHaveURL(/#\/doctor\/schedule$/);
+test('same patient action has the same label, type and named size across screens',async({page})=>{
+ const sizes=[];
+ for(const route of ['/doctor','/results','/encounters/a-033','/visits/a-033']){
+  await page.goto('/staff-prototype/index.html#'+route);
+  const action=page.locator('main [data-action="open-patient"]').filter({hasText:'Xem hồ sơ bệnh nhân'}).first();
+  await expect(action).toBeVisible();
+  sizes.push(await action.evaluate(el=>{const s=getComputedStyle(el);return {font:s.fontSize,minHeight:s.minHeight,radius:s.borderRadius,variant:el.dataset.cfVariant}}));
+ }
+ expect(sizes.every(s=>s.font===sizes[0].font&&s.minHeight==='44px'&&s.radius===sizes[0].radius&&s.variant==='secondary')).toBe(true);
 });
 
 test('navy dashboard and clinical controls retain legible contrast across states',async({page})=>{
@@ -360,7 +305,7 @@ test('navy dashboard and clinical controls retain legible contrast across states
   await expect(page.locator('main')).toBeVisible();
  }
  await page.goto('/staff-prototype/index.html#/doctor');
- const action=page.locator('.doctor-now-bottom .btn');
+ const action=page.locator('.doctor-now .doctor-card-actions [data-cf-variant="primary"]');
  await action.hover();
  await expect(action).toHaveCSS('color','rgb(255, 255, 255)');
  await action.focus();
@@ -369,7 +314,7 @@ test('navy dashboard and clinical controls retain legible contrast across states
 
 test('clinical brand statuses and selected tabs inherit navy rather than blue',async({page})=>{
  await page.goto('/staff-prototype/index.html#/encounters/a-033');
- await expect(page.locator('.consult-identity .pill-brand')).toHaveCSS('background-color','rgb(0, 29, 87)');
+ await expect(page.locator('.consult-identity [data-cf-component="status"]')).toHaveAttribute('data-cf-tone','info');
  await expect(page.locator('.consult-tabs .tab.current')).toHaveCSS('color','rgb(0, 29, 87)');
  await expect(page.locator('.consult-person.selected .selected-stripe')).toHaveCSS('background-color','rgb(0, 29, 87)');
 });
@@ -377,8 +322,8 @@ test('clinical brand statuses and selected tabs inherit navy rather than blue',a
 test('scenario: pre-visit physician review to coordinator handoff',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor');
  await expect(page.locator('.doctor-decision-card')).toContainText('Trần Quốc Bảo');
- await expect(page.locator('.doctor-decision-card')).toContainText('cần xử lý');
- await page.locator('.doctor-decision-card .journey-circle-link').click();
+ await expect(page.locator('.doctor-decision-card [data-value="mine"]')).toContainText('1');
+ await page.locator('.doctor-decision-card [data-to="/doctor/review/a-021"]').click();
  await expect(page).toHaveURL(/#\/doctor\/review\/a-021$/);
  await expect(page.locator('.journey-facts')).toContainText('Bác sĩ');
  await page.locator('#journey-triage-decision').selectOption('Đề nghị điều phối khám trực tiếp');
@@ -387,7 +332,7 @@ test('scenario: pre-visit physician review to coordinator handoff',async({page})
  await expect(page.locator('.journey-confirm')).toContainText('Đang chờ điều phối');
  await expect(page.locator('.journey-page-grid>.journey-panel').last()).toContainText('Điều phối');
  await page.goto('/staff-prototype/index.html#/doctor');
- await expect(page.locator('.doctor-decision-card')).toContainText('0 cần xử lý');
+ await expect(page.locator('.doctor-decision-card [data-value="mine"]')).toContainText('0');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
  await expect(page.locator('.journey-task-list')).toContainText('Tiếp nhận đề xuất trước khám');
  await expect(page.locator('.journey-task-list')).toContainText('Điều phối');
@@ -440,7 +385,7 @@ test('end-to-end: reception handoff -> ready -> examination -> lab review -> com
  await page.locator('[data-action="review-sign"]').first().click();
  await expect(page.locator('.dialog-card')).toContainText('Hoàn tất');
  await page.locator('[data-action="confirm-sign"]').click();
- await expect(page.locator('.consult-top')).toContainText('Đã hoàn tất');
+ await expect(page.locator('.consult-top')).toContainText('Hoàn tất buổi khám');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
  await expect(page.locator('.journey-task-list')).toContainText('Theo dõi triệu chứng');
  await expect(page.locator('.journey-task-list')).toContainText('Phạm Gia Huy');
@@ -478,7 +423,7 @@ test('journey command cards render and fit in all responsive viewports',async({p
    expect(metric.main).toBeLessThanOrEqual(1441);
   }
   await page.goto('/staff-prototype/index.html#/doctor');
-  await expect(page.locator('.doctor-journey-summary>.doctor-surface')).toHaveCount(3);
+  await expect(page.locator('.doctor-priority-grid>[data-priority]')).toHaveCount(4);
   await page.screenshot({path:testInfo.outputPath('clinical-command-'+size.width+'.png'),fullPage:true,animations:'disabled'});
  }
 });

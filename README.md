@@ -15,11 +15,11 @@ File14/15, bản gốc11/12 và Deep Research UX Writing chưa tìm thấy trong
 
 ## CareFlow Clinic — Desktop portfolio showcase
 
-Bản **desktop hi-fi tương tác 8 màn** dành cho lễ tân và bác sĩ nằm trong [staff-prototype](staff-prototype/index.html). Đây là dự án portfolio với dữ liệu giả lập, dùng chung nền tảng màu và Be Vietnam Pro của CareFlow; không có backend, xác thực nhân viên thật hay tích hợp hệ thống y tế.
+Bản **desktop tương tác dành cho bác sĩ** nằm trong [staff-prototype](staff-prototype/index.html). Đây là dự án portfolio với dữ liệu giả lập; không có backend, xác thực nhân viên thật hay tích hợp hệ thống y tế. Desktop và mobile dùng chung nhãn, trạng thái và [component contract](docs/design-system.md); font theo vai trò là Plus Jakarta Sans / Be Vietnam Pro.
 
 ```sh
 node prototype/preview-server.cjs
 # http://127.0.0.1:4175/staff-prototype/index.html
 ```
 
-Các màn W01–W08: Tổng quan lễ tân, lịch tuần, danh sách bệnh nhân, hồ sơ, chi tiết lịch (drawer), tổng quan bác sĩ, buổi khám và kết quả. Có tương tác xác nhận/đổi giờ, tìm kiếm, lưu ghi nhận và xem kết quả, chỉ mô phỏng trong phiên. Xem [hướng dẫn desktop](staff-prototype/README.md) và workflow QA riêng.
+Các màn hiện tại gồm Tổng quan bác sĩ, lịch khám, danh sách khám, hồ sơ bệnh nhân, chi tiết lượt khám, buổi khám, kết quả và các bước bàn giao/theo dõi. Tổng quan ưu tiên buổi đang khám → việc cần quyết định → kết quả chưa xem → lịch trong ngày. Tương tác chỉ mô phỏng trong phiên và giữ quyền thao tác của bác sĩ. Xem [hướng dẫn desktop](staff-prototype/README.md) và workflow QA riêng.
