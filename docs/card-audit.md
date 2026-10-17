@@ -171,3 +171,32 @@ Ngày audit: 2026-10-17. Chụp source tại main `257c8989bf8aaf9a0c73f89e56231
 - [ ] Cập nhật cột 'Trạng thái sau' theo từng đợt, không tự đánh dấu DONE.
 
 Tổng **133 card/pattern audit rows** (47 mobile screens + 17 doctor route patterns). Đã kiểm kê trước khi sửa mã giao diện; QA thực tế NOT_RUN tại bước này.
+
+## Đợt chuyển đổi V2 — kiểm kê SAU (wave 1, source inspection)
+
+> Wave 1 là **PARTIAL**, không xác nhận 133 hàng đã sửa hết. Trạng thái theo source; bằng chứng Playwright phải gắn SHA tại lúc chạy. Không đổi kết quả baseline bảng trên.
+
+| Screen / card | Tình trạng | File đã đổi | Còn thiếu |
+|---|---|---|---|
+| B1 — Lịch khám tiếp theo | PARTIAL | `careflow-rich-content.js`, `design/cards-v2.css` | Visual QA hero/media, CTA hierarchy |
+| B1 — Tổng quan chăm sóc | CODE_UPDATED | `careflow-rich-content.js` | Đã bỏ leading 0; kiểm số 0, chữ lớn 200% |
+| B1 — Truy cập nhanh | CODE_UPDATED | `careflow-rich-content.js`, `design/cards-v2.css` | 2×2 + mô tả theo model; browser screenshot QA |
+| B1 — Việc cần làm, Chăm sóc sau khám, Cẩm nang, Hỗ trợ | PARTIAL | shared `cf2-section-container` + CSS | Mật độ nội dung, không CTA lặp trong từng state |
+| D1 — Empty Sắp tới/Đã khám/Đã hủy | CODE_UPDATED | `careflow-rich-content.js` | Tab Đã hủy -> thứ cấp 'Xem lịch sắp tới'; regression browser |
+| B1/D1 — Hồ sơ gia đình contextual | CODE_UPDATED | `careflow-experience.js` | Count theo hồ sơ thật; bố cục container, role constraints |
+| Mobile nhiều route — `section()` | CODE_UPDATED | `views.js` | Shared heading + single container; direct child selectors, a11y/render QA |
+| Mobile 36 contextual sections | CODE_UPDATED | `design/cards-v2.js` | 1 inner container; state readability & rendered QA |
+| Doctor dashboard — working cards | PARTIAL | `design/cards-v2.css/js`, `doctor-showcase.js` | Chưa chuyển hết cấu trúc header ngoài container; need before/after screenshots |
+| Doctor result unread and empty | CODE_UPDATED | `doctor-showcase.js` | `data-cf2-state`, icon/text status QA |
+| Mobile/doctor — unified font | CODE_UPDATED | `design/cards-v2.css`, `doctor-polish.css` | Font computed style; old explicit values and fallback audit |
+| All other source card patterns | NOT_DONE | — | Chưa được sửa content-by-screen; cần wave 2+ |
+
+### Hardcoded token debt (chưa đạt user acceptance)
+
+Static grep trước redesign phát hiện nhiều literal hex trong các CSS cũ (ví dụ mobile `solid-navy-polish.css` 218 lượt literal, `careflow-rich-content.css` 155; desktop `styles.css` 337, `doctor-navy-theme.css` 217, `doctor-showcase.css` 202). `design/tokens.json` là legacy spec với màu primary cũ; **runtime V2 canonical** là `design/cards-v2.css`. Toàn bộ giá trị mới trong styles V2 dùng `--cf2-*`, tuy nhiên việc loại bỏ TẤT CẢ literal của legacy chưa hoàn tất. Không được tick checklist này.
+
+### QA status
+
+- JavaScript source of `cards-v2.js`, `views.js`, `careflow-rich-content.js`, `doctor-showcase.js` đã qua parser JS khi commit. **Đây không phải bằng chứng browser visual pass.**
+- CI chạy localhost preview qua GitHub Actions, nhưng máy/container hội thoại hiện không truy cập DNS GitHub để checkout nên **chưa chạy localhost độc lập tại đây**. CI source `main` không được cập nhật.
+- Follow-up: đọc actual CI run status của PR #46, fix tận gốc; mobile 320–430 CSS px + large text, desktop 1280/1440/1920, contrast/focus, states, screenshots.
