@@ -1,8 +1,8 @@
 /* Wave 05 — Doctor UI editorial density and typography
-   Plus Jakarta Sans (Vietnamese), Lucide icon registry, content-led card sizing.
+   Unified Be Vietnam Pro token family, Lucide icon registry, content-led card sizing.
    Scope: staff-prototype only; intentionally loaded last. */
 :root{
- --doctor-font:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ --doctor-font:var(--cf2-font);
  --doctor-text:#193650;--doctor-secondary:#536b7f;--doctor-border:#dfe8f0;
  --doctor-space:18px;--doctor-card:20px;
 }
