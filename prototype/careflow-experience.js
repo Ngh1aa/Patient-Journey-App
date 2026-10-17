@@ -237,6 +237,35 @@
     if (status) status.textContent = done + '/' + boxes.length + ' đã chuẩn bị';
     group.classList.toggle('is-complete', done === boxes.length);
   }
+  function enrichExistingCards(content, s, id) {
+    if (id !== 'B1') return;
+    const upcoming = (s?.visits || [])
+      .filter(visit => !['completed', 'cancelled', 'no-show'].includes(visit.status))
+      .sort((a, b) => ((a.date || '') + (a.slot || '')).localeCompare((b.date || '') + (b.slot || '')))[0];
+    const footer = content.querySelector('.cf-home-appointment-footer');
+    if (upcoming && footer && upcoming.mode === 'onsite' &&
+        ['confirmed', 'reminder'].includes(upcoming.status)) {
+      const prepare = root.document.createElement('button');
+      prepare.type = 'button';
+      prepare.className = 'cfx-hero-secondary';
+      prepare.dataset.action = 'go';
+      prepare.dataset.to = 'E1';
+      prepare.dataset.id = upcoming.id;
+      prepare.textContent = 'Chuẩn bị trước khám';
+      footer.prepend(prepare);
+    }
+    const aftercare = content.querySelector('.cf-home-care-card');
+    const recent = (s?.visits || []).some(visit =>
+      visit.status === 'completed' && root.CareFlowModel.canViewResults(s, visit));
+    if (recent && aftercare) {
+      const tools = root.document.createElement('div');
+      tools.className = 'cfx-card-tools';
+      tools.innerHTML = '<span>Chưa rõ lời dặn hoặc đơn thuốc?</span>' +
+        '<button type="button" data-action="go" data-to="K5">Hỏi phòng khám ' +
+        icon('arrow-right', 14) + '</button>';
+      aftercare.append(tools);
+    }
+  }
   function decorate({id, s, u, guarded}) {
     const content = root.document.getElementById('phone-content');
     if (!content || guarded) return;
@@ -249,6 +278,7 @@
     if (id.startsWith('A')) applyRealPhoto(content, '.auth-scene img', 'clinician',
       'Ảnh minh họa bác sĩ từ Unsplash');
     (imagery[id] || []).forEach(([selector, key, alt]) => applyRealPhoto(content, selector, key, alt));
+    enrichExistingCards(content, s, id);
     const renderPanel = panels[id];
     if (!renderPanel) return;
     const panel = root.document.createElement('div');
