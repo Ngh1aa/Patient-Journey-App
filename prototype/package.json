@@ -7,7 +7,8 @@
     "test:model": "node tests.cjs",
     "test:e2e": "playwright test -c playwright.config.cjs",
     "test:all": "npm run check && npm run test:model && node check-contrast.cjs && npm run test:e2e",
-    "check": "node --check ../design/ui.js && node --check ../design/cards-v2.js && node --check model.js && node --check strings.vi.js && node --check icons.js && node --check views.js && node --check app.js && node --check journeys.js && node --check journey-behaviors.js && node --check careflow-rich-content.js && node --check careflow-experience.js"
+    "check": "node --check ../design/ui.js && node --check ../design/cards-v2.js && node --check model.js && node --check strings.vi.js && node --check icons.js && node --check views.js && node --check app.js && node --check journeys.js && node --check journey-behaviors.js && node --check careflow-rich-content.js && node --check careflow-experience.js && npm run check:cards:v2",
+    "check:cards:v2": "node ../design/validate-cards-v2.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
