@@ -12,6 +12,9 @@ test('HR appointment link opens reviewed cards without login and preserves the s
   await page.reload();
   await expect(page.locator('.ticket')).toContainText('BS. Lê Minh Quân');
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
+  // Native hash navigation can finish after click resolves. Let its render/save
+  // complete before editing the persisted fixture, so it cannot overwrite it.
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','D1');
   await page.evaluate(()=>{
     const saved=JSON.parse(sessionStorage.getItem('careflow.browser.v3'));
     saved.state.visits.find(v=>v.id==='CF-SAMPLE-02').status='cancelled';
