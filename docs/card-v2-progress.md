@@ -20,6 +20,13 @@
 - [x] Desktop doctor: Be Vietnam Pro family, tokenized surfaces, card empty và unread statuses; không đổi role/guards/workflow.
 - [ ] Hoàn tất migration *mọi* template đặc biệt, tokens legacy CSS, user states, visual QA, a11y và sự đồng ý người dùng.
 
+## Đợt 2 — Contextual cards mobile (đã triển khai, cần review)
+
+- [x] Các tile hướng dẫn/hỗ trợ trong `prototype/careflow-experience.js` dùng `cf2-card`, `cf2-grid` và `cf2-section`; vẫn giữ nguyên action routing và nội dung an toàn.
+- [x] `prototype/careflow-experience.css` chuyển màu, radius, spacing, typography, focus và hit-area chính sang token `--cf2-*`; không thêm dữ liệu lâm sàng.
+- [x] Kiểm tra trực tiếp Home mobile ở `#/home` và Doctor dashboard ở `#/doctor` trên localhost; nội dung thật/empty state vẫn hiển thị được.
+- [ ] Chưa hoàn tất migration toàn bộ CSS legacy còn lại; chưa có visual matrix cho đủ 47 màn mobile và mọi desktop route.
+
 ## Chạy trên máy bạn (từ repository root)
 
 ```powershell

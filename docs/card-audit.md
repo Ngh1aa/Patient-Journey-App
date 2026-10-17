@@ -4,6 +4,10 @@ Ngày audit: 2026-10-17. Chụp source tại main `257c8989bf8aaf9a0c73f89e56231
 
 > **Phạm vi:** Bảng liệt kê card theo **component pattern/slot per screen**, kể cả card render có điều kiện; không đếm các **instance** sinh lặp theo số lượt khám. Các hàng `Render pattern` là kiểm kê tĩnh invocation bổ sung, không có nghĩa từng invocation là card độc lập ngoài DOM. Các thẻ nhiều trạng thái cần audit trình duyệt sau khi render — `UNKNOWN` cho đến QA. Desktop công khai là **doctor-only**; các route lễ tân cũ là redirect, không sửa thành role mới.
 
+### Cập nhật sau wave 2
+
+Các nhóm `Phụ trợ · ...` trong mobile đã được chuyển sang shared section/container contract và card tokens v2. Nội dung, action route và guard nghiệp vụ giữ nguyên; phần visual QA đầy đủ theo từng state vẫn là **UNKNOWN** cho đến khi chạy ma trận trình duyệt. Các dòng này không được hiểu là toàn bộ 47 màn đã hoàn tất migration.
+
 ### Định nghĩa severity
 
 - **P0** — an toàn/sàng lọc, quyền truy cập, nghiệp vụ bác sĩ, payment/call, unread clinical hoặc lỗi thông tin quan trọng.

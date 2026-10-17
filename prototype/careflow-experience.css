@@ -1,7 +1,7 @@
 /* Contextual experience additions. Keep CareFlow's navy/white design grammar. */
 .phone #phone-content .cfx-insert {
   display:block;
-  margin-top:16px;
+  margin-top:var(--cf2-space-4);
   min-width:0;
 }
 .phone #phone-content .cfx-section {
@@ -10,44 +10,44 @@
 }
 .phone #phone-content .cfx-section-heading {
   padding:0 2px;
-  margin:0 0 12px;
+  margin:0 0 var(--cf2-space-3);
 }
 .cfx-section-heading>span {
   display:block;
-  color:#526e9b;
-  font-size:10px;
+  color:var(--cf2-text-muted);
+  font-size:var(--cf2-fs-caption);
   font-weight:750;
   letter-spacing:.10em;
   line-height:1.4;
 }
 .cfx-section-heading h2 {
   margin:4px 0 0;
-  color:#10213c;
-  font-size:calc(16px * var(--font-scale, 1));
+  color:var(--cf2-text);
+  font-size:calc(var(--cf2-fs-card) * var(--font-scale, 1));
   font-weight:750;
   line-height:1.35;
   letter-spacing:-.3px;
 }
 .cfx-section-heading p {
   margin:5px 0 0;
-  color:#52627b;
-  font-size:calc(12px * var(--font-scale, 1));
+  color:var(--cf2-text-soft);
+  font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   line-height:1.55;
 }
 .cfx-grid {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
+  gap:var(--cf2-space-3);
 }
 .cfx-tile {
   display:flex;
   flex-direction:column;
   align-items:flex-start;
   min-width:0;
-  padding:15px 13px 12px;
-  border:1px solid #e6eaf1;
-  border-radius:20px;
-  background:#fff;
+  padding:var(--cf2-card-padding);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface);
 }
 .cfx-tile-icon {
   display:grid;
@@ -55,22 +55,22 @@
   width:40px;
   height:40px;
   margin-bottom:13px;
-  color:#001d57;
-  background:#eaf0fa;
-  border-radius:14px;
+  color:var(--cf2-brand);
+  background:var(--cf2-surface-tint);
+  border-radius:var(--cf2-radius-inner);
 }
 .cfx-tile strong {
   display:block;
   color:#12294d;
-  font-size:calc(12px * var(--font-scale, 1));
+  font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   line-height:1.35;
   overflow-wrap:normal;
 }
 .cfx-tile p {
   flex:1;
-  margin:6px 0 12px;
-  color:#53647d;
-  font-size:calc(11px * var(--font-scale, 1));
+  margin:var(--cf2-space-2) 0 var(--cf2-space-3);
+  color:var(--cf2-text-soft);
+  font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.55;
 }
 .cfx-link {
@@ -78,15 +78,15 @@
   gap:4px;
   align-items:center;
   justify-content:center;
-  min-height:44px;
+  min-height:var(--cf2-touch);
   max-width:100%;
   padding:9px 13px;
   border:0;
   border-radius:22px;
-  background:#001d57;
-  color:#fff;
+  background:var(--cf2-brand);
+  color:var(--cf2-on-brand);
   font-family:inherit;
-  font-size:calc(11px * var(--font-scale, 1));
+  font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   font-weight:700;
   line-height:1.25;
   text-align:center;
@@ -96,8 +96,8 @@
 .cfx-link.is-subtle {
   margin-top:auto;
   padding:8px 0;
-  min-height:44px;
-  color:#001d57;
+  min-height:var(--cf2-touch);
+  color:var(--cf2-brand);
   background:transparent;
   text-align:left;
 }
@@ -105,43 +105,43 @@
 .cfx-disclosure summary:focus-visible,
 .cfx-check-row:focus-within,
 .phone .bottom-nav .nav-book:focus-visible {
-  outline:3px solid #5085d8;
+  outline:2px solid var(--cf2-focus);
   outline-offset:3px;
 }
 .cfx-disclosure {
   margin-top:10px;
   overflow:hidden;
-  background:#fff;
-  border:1px solid #e5eaf2;
-  border-radius:19px;
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
 }
 .cfx-disclosure>summary {
   display:grid;
   grid-template-columns:23px minmax(0,1fr) 18px;
   align-items:center;
-  gap:10px;
+  gap:var(--cf2-space-3);
   padding:13px 15px;
   list-style:none;
-  color:#001d57;
+  color:var(--cf2-brand);
   cursor:pointer;
   min-height:61px;
 }
 .cfx-disclosure>summary::-webkit-details-marker { display:none; }
 .cfx-disclosure summary>span:nth-child(2) { display:grid; gap:2px; }
 .cfx-disclosure summary strong {
-  font-size:calc(12px * var(--font-scale, 1));
+  font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   font-weight:700;
 }
 .cfx-disclosure summary small {
-  color:#65758d;
-  font-size:calc(11px * var(--font-scale, 1));
+  color:var(--cf2-text-muted);
+  font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
 }
 .cfx-disclosure summary>svg:last-child { transition:transform .18s; }
 .cfx-disclosure[open] summary>svg:last-child { transform:rotate(90deg); }
 .cfx-disclosure-body {
   padding:2px 15px 16px 48px;
-  color:#51617a;
-  font-size:calc(12px * var(--font-scale, 1));
+  color:var(--cf2-text-soft);
+  font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   line-height:1.65;
 }
 .cfx-bullets {
@@ -155,8 +155,8 @@
   gap:0;
   min-height:177px;
   overflow:hidden;
-  background:#fff;
-  border:1px solid #e6eaf1;
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
   border-radius:21px;
 }
 .cfx-photo-card>img {
@@ -176,47 +176,47 @@
 }
 .cfx-photo-copy>span {
   color:#59739c;
-  font-size:10px;
+  font-size:var(--cf2-fs-caption);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.07em;
 }
 .cfx-photo-copy strong {
   margin-top:5px;
-  color:#10213c;
+  color:var(--cf2-text);
   font-size:calc(14px * var(--font-scale, 1));
   line-height:1.35;
 }
 .cfx-photo-copy p {
   margin:6px 0 11px;
   color:#596983;
-  font-size:calc(11px * var(--font-scale, 1));
+  font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.55;
 }
 .cfx-photo-copy .cfx-link { margin-top:auto; }
 .cfx-checklist {
   padding:14px 16px 11px;
-  border-radius:20px;
-  background:#fff;
-  border:1px solid #e3eaf4;
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
 }
 .cfx-check-head {
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
-  gap:10px;
+  gap:var(--cf2-space-3);
   padding-bottom:12px;
   border-bottom:1px solid #e9edf4;
 }
 .cfx-check-head strong {
-  color:#10213c;
+  color:var(--cf2-text);
   font-size:calc(13px * var(--font-scale, 1));
   line-height:1.35;
 }
 .cfx-check-count {
   flex:none;
-  color:#52709b;
-  font-size:10px;
+  color:var(--cf2-text-muted);
+  font-size:var(--cf2-fs-caption);
   line-height:1.4;
   font-weight:700;
 }
@@ -228,8 +228,8 @@
   gap:9px;
   padding:12px 0;
   min-height:49px;
-  color:#34465f;
-  font-size:calc(12px * var(--font-scale, 1));
+  color:var(--cf2-text-soft);
+  font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   line-height:1.45;
   cursor:pointer;
 }
@@ -250,18 +250,18 @@
   border:1.5px solid #9babc1;
   border-radius:8px;
   color:transparent;
-  background:#fff;
+  background:var(--cf2-surface);
 }
 .cfx-check-row:has(input:checked) .cfx-check-mark {
-  border-color:#001d57;
-  background:#001d57;
+  border-color:var(--cf2-brand);
+  background:var(--cf2-brand);
   color:white;
 }
 .cfx-check-row:has(input:checked)>span:last-child { color:#60738d; }
 .cfx-check-foot {
   margin:8px 0 0;
   color:#69798f;
-  font-size:10px;
+  font-size:var(--cf2-fs-caption);
   line-height:1.5;
 }
 .cfx-checklist.is-complete .cfx-check-count { color:#28675d; }
@@ -271,25 +271,25 @@
   gap:8px;
   margin-top:10px;
   padding:12px;
-  background:#e8effa;
+  background:var(--cf2-surface-tint);
   border-radius:16px;
-  color:#001d57;
+  color:var(--cf2-brand);
 }
 .cfx-action-band>span { flex:none; }
 .cfx-action-band p {
   flex:1;
   min-width:0;
   margin:0;
-  font-size:calc(11px * var(--font-scale, 1));
+  font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.5;
 }
 .cfx-action-band .cfx-link {
   flex:none;
-  font-size:10px;
-  background:#fff;
-  color:#001d57;
+  font-size:var(--cf2-fs-caption);
+  background:var(--cf2-surface);
+  color:var(--cf2-brand);
   padding:7px 9px;
-  min-height:44px;
+  min-height:var(--cf2-touch);
 }
 .phone .bottom-nav:not([hidden]) {
   overflow:visible;
@@ -310,8 +310,8 @@
   border-radius:22px;
 }
 .phone .bottom-nav>a[aria-current="page"] {
-  background:#eaf0fa;
-  color:#001d57;
+  background:var(--cf2-surface-tint);
+  color:var(--cf2-brand);
 }
 .phone .bottom-nav .nav-book {
   position:relative;
@@ -329,7 +329,7 @@
   margin-top:-25px;
   border:0;
   border-radius:0;
-  color:#001d57;
+  color:var(--cf2-brand);
   background:transparent;
   transform:none;
   isolation:isolate;
@@ -342,8 +342,8 @@
   height:62px;
   border:4px solid #fff;
   border-radius:50%;
-  background:#001d57;
-  color:#fff;
+  background:var(--cf2-brand);
+  color:var(--cf2-on-brand);
   box-shadow:0 7px 17px #001d5740, 0 0 0 1px #d4e1f2;
   transition:transform .18s ease, box-shadow .18s ease;
 }
@@ -360,9 +360,9 @@
   white-space:nowrap;
   padding:3px 7px;
   border-radius:10px;
-  background:#fff;
-  color:#001d57;
-  font-size:10px;
+  background:var(--cf2-surface);
+  color:var(--cf2-brand);
+  font-size:var(--cf2-fs-caption);
   font-weight:800;
   line-height:1.3;
   box-shadow:0 2px 6px #001d5714;
@@ -397,10 +397,10 @@
 .cf-home-appointment-footer .cfx-hero-secondary {
   margin-right:auto;
   padding:8px 0;
-  min-height:44px;
+  min-height:var(--cf2-touch);
   border:0;
   border-radius:0;
-  color:#fff;
+  color:var(--cf2-on-brand);
   background:transparent;
   text-decoration:underline;
   text-underline-offset:3px;
@@ -429,11 +429,11 @@
   display:inline-flex;
   align-items:center;
   gap:5px;
-  min-height:44px;
+  min-height:var(--cf2-touch);
   padding:6px 0;
   border:0;
   background:transparent;
-  color:#001d57;
+  color:var(--cf2-brand);
   font-size:11px;
   font-weight:700;
   cursor:pointer;

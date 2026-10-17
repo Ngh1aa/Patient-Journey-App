@@ -18,15 +18,15 @@
     '" data-action="go" data-to="' + esc(to) + '">' + esc(label) +
     icon('arrow-right', 16) + '</button>';
   const tip = (name, title, description, to, label) =>
-    '<div class="cfx-tile"><span class="cfx-tile-icon">' + icon(name, 21) +
+    '<article class="cfx-tile cf2-card" data-cf2-variant="tinted" data-cf2-state="data"><span class="cfx-tile-icon">' + icon(name, 21) +
     '</span><strong>' + esc(title) + '</strong><p>' + esc(description) +
-    '</p>' + (to ? link(label || 'Xem thêm', to, true) : '') + '</div>';
+    '</p>' + (to ? link(label || 'Xem thêm', to, true) : '') + '</article>';
   const section = (eyebrow, title, html, description = '') =>
-    '<section class="cfx-section" aria-label="' + esc(title) + '">' +
+    '<section class="cfx-section cf2-section" aria-label="' + esc(title) + '">' +
     '<div class="cfx-section-heading"><span>' + esc(eyebrow) + '</span><h2>' +
     esc(title) + '</h2>' + (description ? '<p>' + esc(description) + '</p>' : '') +
     '</div>' + html + '</section>';
-  const grid = (...cards) => '<div class="cfx-grid">' + cards.join('') + '</div>';
+  const grid = (...cards) => '<div class="cfx-grid cf2-grid">' + cards.join('') + '</div>';
   const details = (title, content, subtitle = '') =>
     '<details class="cfx-disclosure"><summary><span>' +
     icon('info', 19) + '</span><span><strong>' + esc(title) + '</strong>' +
