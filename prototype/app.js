@@ -262,6 +262,9 @@
     const id = readRoute().id;
     u.screen = id;
     $('phone-frame').dataset.screen = id;
+    document.querySelector('.app-wordmark').innerHTML = id === 'B1'
+      ? '<span class="ref-header-avatar">' + window.CareFlowAvatar(M.accountProfile(s)?.id || 'account', 44) + '</span><span class="sr-only">CareFlow · Trang chủ</span>'
+      : 'CareFlow<span>+</span>';
     const g = guard(id);
     if (/^C[1-8]$/.test(id) && !g) u.bookingScreen = id;
     $('phone-frame').classList.toggle('large-text', !!s.settings.largeText);
@@ -319,6 +322,7 @@
       });
     updateDateSelection();
     updatePatientAction();
+    window.CareFlowCollections?.refresh($('phone-content'));
     if (u.notice) {
       const node = document.createElement('div');
       node.className = 'note';
@@ -701,6 +705,7 @@
       $('phone-main').focus();
     },
     go(el) {
+      if ($('dialog').open) $('dialog').close();
       if (el.dataset.id) s.activeVisitId = el.dataset.id;
       const to = el.dataset.to;
       if (el.dataset.reason) u.reportReason = el.dataset.reason;
@@ -818,6 +823,38 @@
       s.activeVisitId = el.dataset.id;
       u.labId = null;
       go('D2');
+    },
+    'notifications-read'() {
+      s.notifications.forEach(notification => { notification.read = true; });
+      render();
+    },
+    'care-entry'(el) {
+      const completed = s.visits.filter(v => v.status === 'completed' && M.canViewResults(s, v)).sort((a,b) => b.date.localeCompare(a.date))[0];
+      if (completed) {
+        s.activeVisitId = completed.id;
+        go(el.dataset.to);
+      } else {
+        dialog('Chưa có tài liệu sau khám', 'Bạn có thể xem kết quả, đơn thuốc và gửi câu hỏi khi phòng khám chia sẻ thông tin của một lượt khám đã hoàn tất.', V.go('Xem lịch sử khám', 'K3', 'primary') + V.btn('Đóng', 'close-dialog', {}, 'secondary'));
+      }
+    },
+    'open-guide'() {
+      const collection = $('phone-content').querySelector('[data-collection="guides"]');
+      collection.dataset.filter = 'all';
+      window.CareFlowCollections.refresh($('phone-content'));
+      document.dispatchEvent(new CustomEvent('careflow:collection', {detail:{key:'guides',filter:'all',query:''}}));
+      const guide = collection.querySelector('details');
+      guide.open = true;
+      guide.querySelector('summary').focus();
+    },
+    'guide-open'(el) {
+      if (el.dataset.category === 'online') {
+        u.appointmentMode = 'online';
+        u.appointmentPerson = 'all';
+        u.appointmentFilters = true;
+        u.filter = 'upcoming';
+        u.appointmentGroup = null;
+      }
+      go(el.dataset.to);
     },
     filter(el) {
       u.filter = el.dataset.filter;
@@ -1073,6 +1110,16 @@
       );
     },
   };
+  document.addEventListener('careflow:collection', (event) => {
+    const { key, filter, query, person } = event.detail;
+    if (key === 'appointments') {
+      u.appointmentMode = filter;
+      u.appointmentPerson = person;
+    } else {
+      u.collections = { ...u.collections, [key]: { filter, query } };
+    }
+    save();
+  });
   document.addEventListener('click', (event) => {
     const el = event.target.closest('[data-action]');
     if (!el || el.disabled) return;

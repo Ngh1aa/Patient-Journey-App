@@ -6,7 +6,7 @@ test('B1 empty-state cards preserve the main navigation and booking entry', asyn
   await page.goto('/prototype/index.html?scenario=empty#/home');
   await expect(home(page)).toBeVisible();
   await expect(home(page).locator('.cf-home-quick-grid button')).toHaveCount(4);
-  await expect(home(page).locator('.rich-greeting p')).toContainText('chưa có lịch khám');
+  await expect(home(page).locator('.rich-greeting p')).toContainText('Chào');
   await expect(home(page).locator('.cf-home-appointment')).toContainText('chưa có lịch khám sắp tới');
   await expect(home(page).locator('.cf-home-care-card')).toContainText('Chưa có thông tin sau khám');
   await expect(home(page).locator('.cf-home-task-card')).toHaveCount(2);
@@ -22,7 +22,7 @@ test('B1 upcoming appointment card opens the real visit detail', async ({ page }
   await expect(home(page).locator('.cf-home-appointment-info')).toContainText('BS. Trần Thu Hà');
   await expect(home(page).locator('.cf-home-appointment-status')).toBeVisible();
   await expect(home(page).locator('.cf-home-task-card')).toHaveCount(2);
-  await expect(home(page).locator('.cf-home-tip-card')).toHaveCount(2);
+  await expect(home(page).locator('.cf-home-tip-card')).toHaveCount(3);
   await home(page).locator('.cf-home-appointment-button').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'D2');
 });
@@ -39,7 +39,7 @@ test('B1 aftercare is conditional and does not show fictitious medication remind
 
 
 for (const width of [360, 390, 1440]) {
-  test('Home scroll seam stays navy while content scrolls at ' + width + 'px', async ({ page }, testInfo) => {
+  test('Home light chrome remains separate from scrolling content at ' + width + 'px', async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 852 });
     await page.goto('/prototype/index.html?scenario=upcoming#/home');
     const metrics = await page.locator('.phone-scroll').evaluate(el => {
@@ -50,7 +50,7 @@ for (const width of [360, 390, 1440]) {
         scrollTop: el.scrollTop,
         headerBottom: header.getBoundingClientRect().bottom,
         scrollTopEdge: el.getBoundingClientRect().top,
-        curtainPosition: curtain.position,
+        curtainContent: curtain.content, headerColor:getComputedStyle(header).backgroundColor,
         curtainTop: curtain.top,
         curtainHeight: curtain.height,
         curtainBackground: curtain.backgroundColor,
@@ -59,12 +59,9 @@ for (const width of [360, 390, 1440]) {
     });
     expect(metrics.scrollTop).toBeGreaterThan(100);
     expect(metrics.scrollTopEdge).toBeGreaterThanOrEqual(metrics.headerBottom - 1);
-    expect(metrics.curtainPosition).toBe('sticky');
-    expect(metrics.curtainTop).toBe('0px');
-    expect(metrics.curtainHeight).toBe('14px');
-    expect(metrics.curtainBackground).toBe('rgb(10, 31, 92)');
-    expect(metrics.curtainPointerEvents).toBe('none');
-    await page.screenshot({ path:testInfo.outputPath('navy-scroll-' + width + '.png') });
+    expect(metrics.curtainContent).toBe('none');
+    expect(metrics.headerColor).toBe('rgb(245, 246, 248)');
+    await page.screenshot({ path:testInfo.outputPath('light-scroll-' + width + '.png') });
     await expect(page.locator('#bottom-nav')).toBeVisible();
   });
 }

@@ -1,6 +1,26 @@
 /* Patient-journey progressive enhancements. Real forms, model guards and routes remain in app.js. */
 (function () {
   'use strict';
+  const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLocaleLowerCase('vi-VN');
+  function remember(detail) {
+    document.dispatchEvent(new CustomEvent('careflow:collection',{detail}));
+  }
+  function filterCollection(collection, persist = false) {
+    const filter = collection.dataset.filter || 'all';
+    const query = collection.querySelector('[data-collection-search]')?.value || '';
+    const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
+    const items = [...collection.querySelectorAll('[data-collection-item]')];
+    items.forEach(item => {
+      item.hidden = (filter !== 'all' && item.dataset.category !== filter) || !terms.every(term => normalize(item.dataset.search).includes(term));
+    });
+    collection.querySelectorAll('[data-collection-filter]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.collectionFilter === filter)));
+    const visible = items.filter(item => !item.hidden).length;
+    const count = collection.querySelector('[data-collection-count]');
+    count.textContent = `Hiển thị ${visible} / ${items.length}`;
+    collection.querySelector('.cf-collection-empty').hidden = visible > 0;
+    collection.querySelector('.cf-collection-meta [data-collection-reset]').hidden = filter === 'all' && !query;
+    if (persist) remember({key:collection.dataset.collection,filter,query});
+  }
   function filterAppointments(root) {
     const mode = root.querySelector('[data-visit-filter][aria-pressed="true"]')?.dataset.visitFilter || 'all';
     const person = root.querySelector('.rich-person-picker')?.dataset.person || 'all';
@@ -13,8 +33,43 @@
     });
     const empty = root.querySelector('.rich-filter-empty');
     if (empty) empty.hidden = cards.some(card => !card.hidden) || !cards.length;
+    const count = root.querySelector('[data-appointment-count]');
+    if(count) count.textContent = `${cards.filter(card=>!card.hidden).length} lịch hẹn`;
+    root.querySelectorAll('[data-appointment-reset]').forEach(button=>{
+      if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all';
+    });
+    remember({key:'appointments',filter:mode,person});
   }
+  window.CareFlowCollections = {refresh(root) {
+    root.querySelectorAll('[data-collection]').forEach(collection=>filterCollection(collection));
+    if(root.querySelector('.rich-appointment-list')) filterAppointments(root);
+  }};
   document.addEventListener('click', (event) => {
+    const collectionControl=event.target.closest('[data-collection-filter],[data-collection-reset]');
+    if(collectionControl) {
+      const collection=collectionControl.closest('[data-collection]');
+      collection.dataset.filter=collectionControl.hasAttribute('data-collection-reset')?'all':collectionControl.dataset.collectionFilter;
+      if(collectionControl.hasAttribute('data-collection-reset')) {
+        const input=collection.querySelector('[data-collection-search]');
+        if(input) input.value='';
+      }
+      filterCollection(collection,true);
+      // A reset inside the empty state becomes hidden after restoring content.
+      if(!collectionControl.getClientRects().length) collection.querySelector('[data-collection-search],[data-collection-filter]')?.focus({preventScroll:true});
+      return;
+    }
+    const reset=event.target.closest('[data-appointment-reset]');
+    if(reset) {
+      const root=reset.closest('#phone-content');
+      root.querySelectorAll('[data-visit-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.visitFilter==='all')));
+      const picker=root.querySelector('.rich-person-picker');
+      picker.dataset.person='all';
+      picker.querySelectorAll('[data-appointment-person]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.appointmentPerson==='all')));
+      picker.querySelector('summary span').textContent='Tất cả hồ sơ';
+      filterAppointments(root);
+      root.querySelector('[data-action="appointment-filters"]')?.focus({preventScroll:true});
+      return;
+    }
     const filter = event.target.closest('button[data-visit-filter]');
     if (filter) {
       const root = filter.closest('#phone-content');
@@ -62,6 +117,7 @@
     field.focus({ preventScroll: true });
   });
   document.addEventListener('input',(event)=>{
+    if(event.target.matches('[data-collection-search]')) filterCollection(event.target.closest('[data-collection]'),true);
     if(event.target.id==='support'){
       const count=document.getElementById('support-count');
       if(count) count.textContent=String(event.target.value.length);
@@ -82,5 +138,6 @@
   }
   window.addEventListener('hashchange', () => queueMicrotask(refreshCountdown));
   refreshCountdown();
+  window.CareFlowCollections.refresh(document.getElementById('phone-content'));
   setInterval(refreshCountdown, 30000);
 })();

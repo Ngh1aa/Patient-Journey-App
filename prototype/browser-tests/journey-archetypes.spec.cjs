@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('solid navy rounded masthead scrolls under sticky navy app header', async ({ page }) => {
+test('light greeting scrolls below the fixed light app header', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=upcoming');
   const result = await page.locator('.phone').evaluate(el => {
     const canvas=getComputedStyle(el,'::before');
@@ -15,24 +15,24 @@ test('solid navy rounded masthead scrolls under sticky navy app header', async (
       headerColor:getComputedStyle(header).backgroundColor};
   });
   expect(result.canvas).toBe('none');
-  expect(result.background).toBe('rgb(10, 31, 92)');
-  expect(result.radius).toBe('32px');
-  expect(result.headerColor).toBe('rgb(10, 31, 92)');
+  expect(result.background).toBe('rgba(0, 0, 0, 0)');
+  expect(result.radius).toBe('0px');
+  expect(result.headerColor).toBe('rgb(245, 246, 248)');
   expect(result.moved).toBeLessThan(-180);
   await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
   await expect(page.locator('.rich-stat-strip button')).toHaveCount(0);
-  await expect(page.locator('.cf-home-tip-card')).toHaveCount(2);
+  await expect(page.locator('.cf-home-tip-card')).toHaveCount(3);
   expect(await page.locator('.cf-home-card-grid').first().evaluate(el => getComputedStyle(el).display)).toBe('grid');
 });
 
-test('Home uses the reference section heading and an edge-to-edge navy masthead', async ({page}) => {
+test('Home puts the navy appointment before overview and quick access on light surfaces', async ({page}) => {
   for (const width of [360,375,430]) {
     await page.setViewportSize({width,height:852});
     await page.goto('/prototype/index.html?scenario=upcoming');
     const metrics = await page.locator('.phone').evaluate(frame => {
       const header=frame.querySelector('.phone-header').getBoundingClientRect();
       const masthead=frame.querySelector('.home-masthead').getBoundingClientRect();
-      const card=frame.querySelector('#phone-content > .rich-hero');
+      const card=frame.querySelector('#phone-content > .cf-home-appointment');
       const shortcuts=frame.querySelector('.cf-home-quick-grid').getBoundingClientRect();
       const cardRect=card.getBoundingClientRect();
       const phone=frame.getBoundingClientRect();
@@ -45,15 +45,14 @@ test('Home uses the reference section heading and an edge-to-edge navy masthead'
         quickBeforeHero:shortcuts.bottom < cardRect.top,
       };
     });
-    for (const side of ['headerLeft','headerRight','navyLeft','navyRight']) {
-      expect(metrics[side], width+'px '+side).toBeCloseTo(0,0);
-    }
-    expect(metrics.gap, width+'px section-to-header gap').toBeCloseTo(0,0);
-    expect(metrics.quickBeforeHero).toBe(true);
+    for (const side of ['headerLeft','headerRight']) expect(metrics[side],width+'px '+side).toBeCloseTo(0,0);
+    for (const side of ['navyLeft','navyRight']) expect(metrics[side],width+'px content gutter').toBeCloseTo(20,0);
+    expect(metrics.gap, width+'px greeting-to-appointment gap').toBeGreaterThanOrEqual(16);
+    expect(metrics.quickBeforeHero).toBe(false);
     const hero=page.locator('.cf-home-appointment-card');
     await expect(hero).toHaveCSS('border-radius','24px');
-    await expect(hero).toHaveCSS('padding-top','16px');
-    await expect(hero).toHaveCSS('background-color','rgb(0, 29, 87)');
+    expect(await hero.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+    await expect(hero).toHaveCSS('background-color','rgb(16, 33, 60)');
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
   }
 });
