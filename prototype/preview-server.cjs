@@ -3,7 +3,8 @@ const http = require('node:http'),
   fs = require('node:fs'),
   path = require('node:path');
 const root = path.resolve(__dirname, '..'),
-  port = Number(process.env.PORT || 4175);
+  port = Number(process.env.PORT || 4175),
+  host = process.env.HOST || '0.0.0.0';
 const types = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -47,8 +48,8 @@ http
       res.end(data);
     });
   })
-  .listen(port, '127.0.0.1', () =>
+  .listen(port, host, () =>
     console.log(
-      'CareFlow preview: http://127.0.0.1:' + port + '/prototype/index.html',
+      'CareFlow preview: http://' + host + ':' + port + '/prototype/index.html',
     ),
   );
