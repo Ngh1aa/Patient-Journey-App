@@ -94,9 +94,9 @@
     C9: () => section('TIẾP TỤC HÀNH TRÌNH', 'Bạn có thể làm ngay',
       grid(tip('calendar', 'Theo dõi lịch khám', 'Xem trạng thái yêu cầu và phiếu khám của bạn.', 'D1', 'Mở lịch hẹn'),
         tip('headphones', 'Hỏi phòng khám', 'Trao đổi khi muốn đổi giờ hoặc cần chuẩn bị đặc biệt.', 'K5', 'Liên hệ'))),
-    D1: () => section('QUẢN LÝ LỊCH KHÁM', 'Những việc thường cần',
-      grid(tip('calendar-plus', 'Đặt lịch tiếp theo', 'Tạo yêu cầu mới cho bản thân hoặc người thân.', 'C1', 'Đặt lịch'),
-        tip('user', 'Kiểm tra hồ sơ', 'Mỗi người có lịch khám và kết quả riêng.', 'K2', 'Hồ sơ'))),
+    D1: () => section('TIỆN ÍCH LỊCH KHÁM', 'Quản lý dễ dàng hơn',
+      grid(tip('user', 'Hồ sơ gia đình', 'Xem và chọn đúng hồ sơ khi đặt lịch cho người thân.', 'K2', 'Xem hồ sơ'),
+        tip('headphones', 'Cần tư vấn?', 'Liên hệ nếu bạn chưa rõ hình thức hoặc giờ khám.', 'K5', 'Liên hệ'))),
     D3: () => section('ĐỔI LỊCH', 'Cần lưu ý',
       details('Lịch mới chưa chắc được xác nhận',
         'Kiểm tra trạng thái phiếu khám sau khi gửi yêu cầu đổi giờ. ' +
