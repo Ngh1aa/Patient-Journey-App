@@ -255,3 +255,255 @@
 @media (prefers-reduced-motion:reduce){
   :is(.phone,#app) .cf2-state[data-cf2-state="loading"] .cf2-skeleton{animation:none;}
 }
+
+
+/* Migration layer — consumes ONLY the semantic values declared above.
+   This is intentionally loaded after both legacy style stacks. */
+:root { --doctor-font:var(--cf2-font); }
+.phone #phone-content[data-screen="B1"] :is(
+  .cf-home-appointment,.ref-overview,.cf-home-quick,.ref-discover,
+  .cf-home-task-section,.cf-home-care-section,.cf-home-tips-section,.cf-home-help-section
+) {
+  padding:0;
+  margin-block:var(--cf2-section-gap);
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.phone #phone-content[data-screen="B1"] .cf2-section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--cf2-space-3);margin:0;
+  padding:0;
+  background:transparent;
+}
+.phone #phone-content[data-screen="B1"] .cf2-section-header :is(h2,.rich-heading) {
+  margin:0;
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-section)*var(--font-scale,1));
+  line-height:var(--cf2-lh-section);
+  font-weight:var(--cf2-fw-medium);
+  color:var(--cf2-text);
+}
+.phone #phone-content[data-screen="B1"] .cf2-section-header button {
+  min-height:var(--cf2-touch);
+  min-width:var(--cf2-touch);
+  padding:var(--cf2-space-2);
+  background:transparent;
+  border:0;
+  color:var(--cf2-brand);
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  line-height:var(--cf2-lh-caption);
+  font-weight:var(--cf2-fw-medium);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-appointment-card{
+  padding:0;
+  overflow:hidden;
+  border:var(--cf2-border-width) solid var(--cf2-brand);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-brand);
+  box-shadow:var(--cf2-shadow);
+}
+.phone #phone-content[data-screen="B1"] .ref-overview-grid{
+  background:var(--cf2-surface-tint);
+  border-color:var(--cf2-border);
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  overflow:hidden;
+}
+.phone #phone-content[data-screen="B1"] .ref-overview-grid > button {
+  min-width:0;
+  padding:var(--cf2-space-2) var(--cf2-space-3);
+  text-align:left;
+}
+.phone #phone-content[data-screen="B1"] .ref-overview-grid > button > strong {
+  display:block;
+  font-family:var(--cf2-font);
+  font-size:calc(var(--cf2-fs-metric)*var(--font-scale,1));
+  line-height:var(--cf2-lh-metric);
+  font-weight:var(--cf2-fw-bold);
+  color:var(--cf2-brand);
+}
+.phone #phone-content[data-screen="B1"] .ref-overview-grid > button > strong[data-zero="true"] {
+  color:var(--cf2-text-muted);
+  font-weight:var(--cf2-fw-medium);
+}
+.phone #phone-content[data-screen="B1"] .ref-overview-grid small,
+.phone #phone-content[data-screen="B1"] .ref-overview-grid > button > span{
+  color:var(--cf2-text-soft);
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  line-height:var(--cf2-lh-caption);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--cf2-space-3);
+  background:var(--cf2-surface);
+  padding:var(--cf2-card-padding);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid > button {
+  display:flex;flex-direction:row;
+  align-items:center;justify-content:flex-start;
+  flex-wrap:wrap;
+  gap:var(--cf2-space-2);
+  min-width:0;min-height:var(--cf2-list-row);
+  padding:var(--cf2-space-3);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-inner);
+  background:var(--cf2-surface-muted);
+  color:var(--cf2-brand);
+  text-align:left;
+  box-shadow:none;
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid > button:first-child {
+  background:var(--cf2-surface-tint);
+  border-color:var(--cf2-border);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid .cf-quick-icon{
+  margin:0;display:grid;place-items:center;
+  background:var(--cf2-surface-tint);
+  border-radius:var(--cf2-radius-inner);
+  color:var(--cf2-brand);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid > button > small {
+  color:var(--cf2-text);
+  font-size:calc(var(--cf2-fs-body)*var(--font-scale,1));
+  line-height:var(--cf2-lh-body);
+  font-weight:var(--cf2-fw-medium);
+  min-width:0;
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid .cf2-quick-hint{
+  display:block;
+  width:100%;
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  line-height:var(--cf2-lh-caption);
+  color:var(--cf2-text-soft);
+  font-weight:var(--cf2-fw-body);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-task-section .cf-home-card-grid {
+  background:var(--cf2-surface);
+  padding:var(--cf2-card-padding);
+  gap:var(--cf2-grid-gap);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-task-card {
+  background:var(--cf2-surface-muted);
+  border-color:var(--cf2-border);
+  border-radius:var(--cf2-radius-inner);
+  min-height:var(--cf2-list-row);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-care-card,
+.phone #phone-content[data-screen="B1"] .cf-home-support {
+  background:var(--cf2-surface);
+  padding:var(--cf2-card-padding-lg);
+  border-color:var(--cf2-border);
+}
+.phone #phone-content[data-screen="B1"] .cf-home-quick-grid > button:active,
+.phone #phone-content[data-screen="B1"] .cf-home-task-card:active{
+  box-shadow:var(--cf2-shadow-press);
+  background:var(--cf2-surface-tint);
+}
+.phone #phone-content[data-screen="D1"] .cf-appt-empty-cta.cf2-empty-secondary {
+  background:var(--cf2-surface-tint);
+  color:var(--cf2-brand);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+}
+.phone #phone-content[data-screen] :is(
+  .cfx-tile,.rich-appt-card,.cf-reference-card,.cf-result-card,.cf-home-tip-card,
+  .rich-profile-card,.rich-support-hero
+){
+  border-radius:var(--cf2-radius-card);
+  border-color:var(--cf2-border);
+  box-shadow:var(--cf2-shadow);
+}
+.phone #phone-content[data-screen] .cfx-tile {
+  background:var(--cf2-surface-muted);
+  border-radius:var(--cf2-radius-inner);
+  padding:var(--cf2-card-padding);
+}
+.phone #phone-content[data-screen] .cfx-tile strong,
+.phone #phone-content[data-screen] :is(.rich-appt-card,.cf-reference-card) :is(h2,h3,strong) {
+  font-size:calc(var(--cf2-fs-body)*var(--font-scale,1));
+  line-height:var(--cf2-lh-body);
+  font-weight:var(--cf2-fw-medium);
+  color:var(--cf2-text);
+}
+.phone #phone-content[data-screen] .cfx-tile p {
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  line-height:var(--cf2-lh-caption);
+  color:var(--cf2-text-soft);
+}
+.phone #phone-content[data-screen] .cfx-link.is-subtle {
+  display:inline-flex;
+  justify-content:flex-start;
+  min-height:var(--cf2-touch);
+  color:var(--cf2-brand);
+  padding-block:var(--cf2-space-2);
+  font-size:calc(var(--cf2-fs-caption)*var(--font-scale,1));
+  font-weight:var(--cf2-fw-medium);
+}
+.phone #phone-content[data-screen] .cf2-section .cfx-section-heading {
+  margin:0;
+}
+.phone #phone-content[data-screen] .cf2-section .cfx-section-heading h2{
+  margin:0;
+  font-size:calc(var(--cf2-fs-section)*var(--font-scale,1));
+  line-height:var(--cf2-lh-section);
+  font-weight:var(--cf2-fw-medium);
+  color:var(--cf2-text);
+}
+.phone #phone-content[data-screen] .cfx-grid.cf2-section-container {
+  padding:var(--cf2-card-padding);
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+}
+.phone #phone-content[data-screen] :is(.card,.ticket,.facility-card,.checkin-qr-panel,.rich-result-list,.rich-settings-links) {
+  border-radius:var(--cf2-radius-card);
+}
+.phone #phone-content[data-screen] :is(.card,.rich-appt-card,.cfx-disclosure) {
+  border-color:var(--cf2-border);
+}
+/* Desktop doctor — preserve dashboard's clinical task order, normalize surfaces
+   and headings without moving route-owned controls or changing action handlers. */
+#app .doctor-screen :is(.doctor-card-heading h2,.doctor-card-heading h3,.panel-head h2),
+#app .support-screen :is(.panel-head h2,.support-panel h2){
+  font-family:var(--cf2-font);
+  font-size:var(--cf2-fs-section);
+  line-height:var(--cf2-lh-section);
+  font-weight:var(--cf2-fw-medium);
+  color:var(--cf2-brand);
+}
+#app :is(.doctor-surface,.support-panel,.panel,.doctor-stat-card,.metric-card) {
+  border-radius:var(--cf2-radius-card);
+  border-color:var(--cf2-border);
+  background:var(--cf2-surface);
+  box-shadow:var(--cf2-shadow);
+}
+#app .doctor-screen .doctor-card-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-width:0;
+  gap:var(--cf2-space-3);
+}
+#app .doctor-screen :is(.doctor-result-item,.doctor-agenda-row,.doctor-card-list>article){
+  min-width:0;
+}
+#app .doctor-screen :is(.doctor-card-empty,.doctor-card-footnote,.doctor-record-note){
+  color:var(--cf2-text-soft);
+  line-height:var(--cf2-lh-body);
+}
+#app .doctor-screen :is(.doctor-card-empty,.doctor-result-item,.doctor-encounter-context,.doctor-encounter-record){
+  border-radius:var(--cf2-radius-inner);
+}
+#app .doctor-screen :is(.btn-primary,.btn-secondary,.btn-soft,.btn-outline){
+  min-height:var(--cf2-touch);
+  font-family:var(--cf2-font);
+}
+#app .doctor-screen :is(.btn-primary,.btn-secondary,.btn-soft,.btn-outline):active {
+  box-shadow:var(--cf2-shadow-press);
+}
+@media(max-width:360px){
+  .phone #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:minmax(0,1fr);}
+}
