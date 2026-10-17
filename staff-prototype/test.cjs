@@ -16,11 +16,11 @@ test('doctor IA and core interactions are implemented',()=>{
 });
 test('consistent brand, responsive constraints and accessibility contracts',()=>{
  assert.match(html,/doctor-showcase\.css/);assert.match(html,/doctor-showcase\.js/);
- assert.match(css,/#0a67d1/i);assert.match(polish,/Plus Jakarta Sans/);
+ assert.match(read('../design/cards-v2.css'),/--cf2-brand:#001D57/);assert.match(polish,/--doctor-font:var\(--cf2-font\)/);
  assert.match(css,/@media\(max-width:1290px\)/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/:focus-visible/);
- assert.match(html,/Plus\+Jakarta\+Sans/);
+ assert.match(html,/cards-v2\.css/);
  assert.match(html,/doctor-icons\.js/);
  assert.match(html,/doctor-polish\.css/);
  assert.match(icons,/stethoscope/);
