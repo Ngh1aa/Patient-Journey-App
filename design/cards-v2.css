@@ -545,3 +545,29 @@
 #app :where(.doctor-appointment-status,.doctor-result-status,.doctor-task-status) {
   font-family:var(--cf2-font);
 }
+
+/* V3 mobile component pass: compact defaults for all non-critical card families. */
+.phone #phone-content :where(.card,.visit-card,.ticket,.list,.empty,.choice,.rich-detail-block,.rich-lab-summary) {
+  border-radius:var(--cf2-radius-card);
+  border-color:var(--cf2-border);
+  background:var(--cf2-surface);
+}
+.phone #phone-content :where(.card,.ticket):not(.danger):not(.warning):not(.urgent) {
+  box-shadow:var(--cf2-shadow);
+}
+.phone #phone-content .visit-card:not(.hero) {padding:var(--cf2-card-padding-lg);}
+.phone #phone-content .visit-card.hero {border-radius:var(--cf2-radius-card);}
+.phone #phone-content .choice {padding:14px;min-height:64px;}
+.phone #phone-content .choice:has(input:checked) {padding:13px;}
+.phone #phone-content .choice small,
+.phone #phone-content .details dt,
+.phone #phone-content .details dd,
+.phone #phone-content .row small {line-height:1.45;}
+.phone #phone-content .list {box-shadow:var(--cf2-shadow);}
+.phone #phone-content .list .row {min-height:var(--cf2-list-row);padding-block:10px;}
+.phone #phone-content .empty {padding:20px 16px;}
+.phone #phone-content .empty p {max-width:34ch;margin-inline:auto;}
+.phone #phone-content .ticket {padding:var(--cf2-card-padding-lg);}
+@media (max-width:360px) {
+  .phone #phone-content :where(.card,.ticket,.visit-card,.choice) {border-radius:var(--cf2-radius-inner);}
+}
