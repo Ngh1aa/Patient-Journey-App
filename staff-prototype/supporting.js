@@ -1,11 +1,12 @@
 /* CareFlow supporting showcase screens: synthetic UI only. */
 (function installSupporting(root){
   'use strict';
+  const A=root.CareFlowCopy.ui;
   const R={
     '/requests':'Yêu cầu đặt lịch','/booking/new':'Tạo lịch khám',
     '/checkin':'Tiếp nhận bệnh nhân','/queue':'Hàng chờ khám',
     '/clinical/orders':'Tạo chỉ định','/clinical/prescription':'Đơn thuốc',
-    '/clinical/review':'Xem lại buổi khám','/welcome':'Chọn không gian'
+    '/clinical/review':A.reviewEncounter,'/welcome':'Chọn không gian'
   };
   const routeNames=()=>R;
   const panel=(content,cls='')=>`<section class="panel support-panel ${cls}">${content}</section>`;

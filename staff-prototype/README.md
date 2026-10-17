@@ -1,12 +1,12 @@
 # CareFlow Doctor — Desktop Portfolio
 
-**Purpose:** A polished single-role desktop UI/UX prototype for a physician, created as a design portfolio showcase, not a deployed medical system. The user-facing site is **doctor-only**; reception, nursing, role picker and related routes redirect to the doctor's homepage. The patient mobile prototype is unchanged.
+**Purpose:** A single-role desktop UI/UX prototype for a physician, created as a design portfolio showcase, not a deployed medical system. The user-facing site is **doctor-only**; reception, nursing, role picker and related routes redirect to the doctor's homepage. The patient app lives in `../prototype/`; the two renderers share vocabulary and a component contract, with separate synthetic session data.
 
 ## Design direction
 
-**Premium Neo-Minimal Healthcare / Bold Editorial / Selective Soft Glass.** Inspired by the three user-provided mobile screenshots: large typographic contrasts, generous spacing, royal-blue highlights, pill controls and a floating frosted journey visual. Clinical workflows keep opaque reading surfaces and legible controls. It intentionally translates, rather than copies, mobile compositions for desktop.
+**Calm Clinical / task-first workspace.** Preserve the current navy brand, sidebar and physician workflows. The overview reading order is current encounter → decision → unreviewed results → daily agenda; online handoff and aftercare follow. Clinical workflows use opaque reading surfaces and legible controls. The overview has no marketing hero, decorative orb or statistic cards above the work.
 
-Brand source: `../design/tokens.json` (#0A67D1, #F2F6FB, Plus Jakarta Sans). Doctor-only presentation layer: `doctor-showcase.js` + `doctor-showcase.css`.
+Runtime component sources: `../design/ui.js`, `../design/components.css`, and `../prototype/strings.vi.js`; documented in `../docs/design-system.md`. Current navy is #001D57; Plus Jakarta Sans remains the doctor role font. Existing `btn` and `pill` helpers emit named component variants; page styles own composition only.
 
 ## Active screens
 
@@ -33,7 +33,9 @@ node --test staff-prototype/test.cjs
 node prototype/node_modules/@playwright/test/cli.js test --config=staff-prototype/playwright.config.cjs
 ```
 
-Active Playwright suite: `doctor.spec.cjs` at 1280, 1440, 1920px. Older `browser.spec.cjs`, `visual.spec.cjs`, `supporting.spec.cjs`, and `wave3.spec.cjs` are historical multi-role tests, intentionally excluded because the public showcase is doctor-only.
+Active Playwright suites: `doctor.spec.cjs` and `doctor-cards.spec.cjs` at 1280,1440,1920px. The card suite also exercises320–1920px pressure widths,200% text, long content, filtered/true empty states, offline local filtering, keyboard focus and axe. Older `browser.spec.cjs`, `visual.spec.cjs`, `supporting.spec.cjs`, and `wave3.spec.cjs` are historical multi-role tests, intentionally excluded because the public showcase is doctor-only.
+
+To run only the dashboard card journeys: append `doctor-cards.spec.cjs --project=chromium-1440` to the Playwright command above. The dashboard uses the existing synthetic session model; filtering is synchronous, so no artificial loading/server-error lifecycle is shown. Visit/result/decision actions lead to the existing guarded routes. The live call and clinical backend remain simulated.
 
 ## Design handoff
 
@@ -43,7 +45,7 @@ Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting it
 
 - Fonts: Plus Jakarta Sans, Google Fonts Vietnamese subset. System fallback always available; no font binaries committed.
 - Icon system: curated 35 Lucide SVG icons bundled as `doctor-icons.js`, under the Lucide ISC license (`LUCIDE-LICENSE.txt`). Use icons for navigation, actions and operational metrics; no icons attached to page/section headings.
-- Density: content-height statistics, smaller hero, condensed clinical forms, paired patient cards, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
+- Density: compact overview heading, visible current encounter action, condensed clinical forms, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
 - Terminology: bệnh nhân, lượt khám, khám lâm sàng, cận lâm sàng, nhận định lâm sàng, kế hoạch xử trí, hoàn tất hồ sơ. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.
 - Preserve clinical boundaries: no real prescriptions, results release, medical recommendations or EHR integration. 
 
@@ -62,4 +64,4 @@ Demo journeys (synthetic only, stored in sessionStorage):
 
 Safe transitions: only **ready** (or an already in-progress encounter) may open a new consultation; confirmed/arrived do not bypass reception and nursing handoff. Completion requires nonempty clinical symptom/exam, assessment, plan and review of any results currently waiting for the physician. All transitions re-check eligibility in the event handler, not only in the UI.
 
-**Portfolio boundary:** this is a local interaction prototype; it does not triage medical emergencies, prescribe, sign EHR records, send messages, call patients or confirm bookings. The original mobile patient prototype remains unchanged.
+**Portfolio boundary:** this is a local interaction prototype; it does not triage medical emergencies, prescribe, sign EHR records, send messages, call patients or confirm bookings. Shared presentation does not imply live synchronization with the patient prototype.

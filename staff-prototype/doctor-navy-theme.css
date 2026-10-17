@@ -69,7 +69,7 @@ html,body,.app-shell{background:#F5F6F8;color:var(--doctor-text)}
 .doctor-profile-chip{background:#F1F4F9;color:#001D57;border-color:#E0E7F0;font-size:12px}
 .doctor-profile-chip:hover{background:#E6EEF8}
 /* Typography: target 12–15px metadata, 15–19px card titles, 40px controls. */
-.doctor-screen .doctor-kicker,.doctor-overline,.doctor-overview-meta{font-size:11px;letter-spacing:.105em;color:#475F7C}
+.doctor-screen :is(.doctor-kicker,.doctor-overline),.doctor-overline,.doctor-overview-meta{font-size:11px;letter-spacing:.105em;color:#475F7C}
 .doctor-heading h1{color:#001D57}
 .doctor-heading p{font-size:14px;line-height:1.65;color:#4A5E75}
 .doctor-section-head h2{font-size:18px;line-height:1.4;font-weight:750;color:#001D57}
@@ -197,3 +197,7 @@ html,body,.app-shell{background:#F5F6F8;color:var(--doctor-text)}
 .pill-success{background:#E3F3EB;color:#186748}
 .pill-warning{background:#FFF3DA;color:#7A560B}
 .pill-danger{background:#FDE8E6;color:#972A23}
+
+/* Readable initials on the existing portrait surfaces. */
+.avatar.peach{color:#87492f}
+.avatar.mint{color:#206b56}

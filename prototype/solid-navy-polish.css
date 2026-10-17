@@ -160,8 +160,10 @@ body { background:#e9eaee; color:var(--ink); font-size:14px; }
 .ref-appointment-day { font-size:39px; line-height:1; font-weight:500; letter-spacing:-1px; }
 .ref-appointment-date { font-size:10px; color:#e2e6ed; max-width:70%; }
 .ref-appointment-time { font-size:14px; font-weight:500; }
-.cf-home-appointment-info { font-size:9px; color:#d3dce9; }
-.cf-home-appointment-footer { display:flex; position:absolute; right:15px; bottom:14px; z-index:2; }
+.cf-home-appointment-info { display:flex; align-items:center; gap:8px; font-size:11px; color:#d3dce9; }
+.cf-home-appointment-avatar { display:block; width:26px; height:26px; flex:none; overflow:hidden; border-radius:50%; }
+.cf-home-appointment-avatar svg { display:block; width:26px; height:26px; }
+.cf-home-appointment-footer { display:flex; justify-content:flex-end; position:relative; padding:0 19px 17px; z-index:2; }
 .cf-home-appointment-status .chip { background:#ffffff17; color:#f2f5fa; font-size:9px; padding:4px 8px; }
 .cf-home-appointment-status .chip.warning { color:#ffdfa4; background:#b57a2525; }
 .cf-home-appointment-button { display:flex; align-items:center; justify-content:center; gap:8px; min-height:44px; min-width:44px; padding:8px; color:var(--primary); background:#fff; border:0; border-radius:50%; font-size:11px; }
