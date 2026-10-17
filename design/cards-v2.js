@@ -66,15 +66,22 @@ function markSection(section){
   if(title)title.classList.add('cf2-section-title');
   // Existing directly-rendered cards keep their DOM and event wiring. Do not reparent
   // app-specific nodes unless their component already owns one content container.
-  const eligible=['.cf-home-card-grid','.cf-home-care-card','.cf-home-support','.cf-home-quick-grid','.cf-reference-card','.cfx-grid','.cf-collection'];
+  const eligible=['.cf-home-card-grid','.cf-home-care-card','.cf-home-support','.cf-home-quick-grid','.ref-overview-grid','.cf-reference-card','.cfx-grid','.cf-collection'];
   const children=[...section.children].filter(child=>child!==heading);
   if(children.length===1&&eligible.some(selector=>children[0].matches(selector))){
     children[0].classList.add('cf2-section-container');
+  } else if(section.classList.contains('cfx-section') && children.length){
+    // Contextual sections are self-contained by design: exactly one container,
+    // retaining delegated data-action controls and their original IDs.
+    const wrapper=section.ownerDocument.createElement('div');
+    wrapper.className='cf2-section-container';
+    heading.after(wrapper);
+    for(const node of children) wrapper.appendChild(node);
   }
 }
 function decoratePatient(rootNode){
   if(!rootNode)return;
-  rootNode.querySelectorAll('section.cf-home-task-section,section.cf-home-care-section,section.cf-home-help-section,section.cf-home-tips-section,section.cf-reference-section,section.cfx-section').forEach(markSection);
+  rootNode.querySelectorAll('section.cf-home-task-section,section.cf-home-care-section,section.cf-home-help-section,section.cf-home-tips-section,section.cf-reference-section,section.ref-overview,section.cfx-section').forEach(markSection);
   rootNode.querySelectorAll('.cf-home-appointment-card').forEach(el=>{
     el.dataset.cf2Variant='hero';
     el.dataset.cf2State='data';
