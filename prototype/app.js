@@ -287,6 +287,7 @@
     $('phone-content').innerHTML = g
       ? V.head(g[1], g[2]) + V.go(VI.common.continue, g[3], 'primary')
       : V.render(id, s, u);
+    window.CareFlowExperience?.decorate({ id, s, u, guarded: !!g });
     $('bottom-nav').hidden =
       !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id) || (s.draft && /^C[1-8]$/.test(id));
     $('bottom-nav').innerHTML = [
@@ -299,7 +300,7 @@
       .map(
         ([to, label, icon]) =>
           to === 'C1'
-            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption" hidden>${label}</span></button>`
+            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption">${label}</span></button>`
             : `<a href="#${routeFor(to)}" aria-label="${label}" title="${label}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span class="nav-caption" hidden>${label}</span></a>`,
       )
       .join('');
