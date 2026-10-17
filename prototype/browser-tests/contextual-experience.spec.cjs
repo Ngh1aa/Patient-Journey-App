@@ -43,7 +43,7 @@ test('mobile cards and center CTA do not cause horizontal overflow', async ({ pa
 });
 
 test('prep checklist is interactive and preserved within the demo tab', async ({ page }) => {
-  await page.goto('/prototype/index.html?scenario=upcoming#/appointments/CF-SAMPLE-01/prepare');
+  await page.goto('/prototype/index.html?scenario=appointments#/appointments/CF-SAMPLE-02/prepare');
   const checklist = page.locator('.cfx-screen-e1 [data-cfx-checklist="onsite"]');
   await expect(checklist).toBeVisible();
   await checklist.locator('input[data-cfx-index="0"]').check();
