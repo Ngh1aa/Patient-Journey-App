@@ -96,6 +96,7 @@ test('home aftercare selects the completed visit even when another visit is acti
   await expect(page).toHaveURL(/appointments\/CF-COMPLETED\/summary/);
   await expect(page.locator('.rich-aftercare-sample')).toContainText('không phải đơn thuốc của bạn');
   const before=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits);
+  await page.locator('.cf-sample-medication summary').click();
   await page.getByRole('checkbox',{name:'Đã uống (mẫu)'}).check();
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits)).toEqual(before);
 });
@@ -168,7 +169,7 @@ test('changed screens have no serious or critical automated accessibility findin
 test('appointment board uses reference data and each card opens the correct clinician and visit',async({page})=>{
   await page.goto('/prototype/?scenario=appointments#/appointments');
   await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
-  await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(0, 29, 87)');
+  await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(255, 255, 255)');
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
   await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
   await page.locator('[data-id="CF-SAMPLE-02"][data-to="D2"]').click();
@@ -188,25 +189,27 @@ test('appointment board uses reference data and each card opens the correct clin
   await expect(page.locator('.rich-appt-card')).toHaveCount(2);
 });
 
-test('Home gives booking a primary level and navy chrome has no gap on representative screens',async({page})=>{
+test('reference home and representative routes retain light chrome, useful targets and no overflow',async({page})=>{
   for(const width of [360,390,1440]) {
     await page.setViewportSize({width,height:900});
     await page.goto('/prototype/?scenario=empty#/home');
-    const metrics=await page.locator('.phone').evaluate(phone=>{
-      const bounds=phone.getBoundingClientRect(),head=phone.querySelector('.phone-header').getBoundingClientRect(),mast=phone.querySelector('.home-masthead').getBoundingClientRect();
-      const primary=phone.querySelector('.cf-quick-primary').getBoundingClientRect(),secondary=phone.querySelector('.cf-quick-secondary').getBoundingClientRect();
-      return {headLeft:head.left-bounds.left-phone.clientLeft,headRight:bounds.right-phone.clientLeft-head.right,mastLeft:mast.left-bounds.left-phone.clientLeft,mastRight:bounds.right-phone.clientLeft-mast.right,primaryWidth:primary.width,secondaryWidth:secondary.width};
-    });
-    for(const key of ['headLeft','headRight','mastLeft','mastRight']) expect(metrics[key],width+' '+key).toBeCloseTo(0,0);
-    expect(metrics.primaryWidth).toBeGreaterThan(metrics.secondaryWidth*2);
+    const targets=await page.locator('.cf-home-quick-grid button').evaluateAll(buttons=>buttons.map(button=>{const r=button.getBoundingClientRect();return {width:r.width,height:r.height};}));
+    expect(targets).toHaveLength(4);
+    for(const target of targets){expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44);}
     for(const route of ['/home','/appointments','/appointments/CF-1017-0042','/profile','/support','/book/patient']) {
       if(route==='/book/patient') {
         await page.goto('/prototype/?scenario=empty#/home');
         await page.locator('#bottom-nav .nav-book').click();
       } else await page.goto('/prototype/?scenario=upcoming#'+route);
-      const seam=await page.locator('.phone-header').evaluate(header=>({shadow:getComputedStyle(header).boxShadow,gap:document.querySelector('.screen-masthead').getBoundingClientRect().top-header.getBoundingClientRect().bottom}));
-      expect(seam.shadow,route).toBe('none');
-      expect(seam.gap,route).toBeCloseTo(0,0);
+      await expect(page.locator('#phone-content')).toHaveAttribute('data-guarded','');
+      const metrics=await page.locator('.phone').evaluate(frame=>({
+        overflow:frame.querySelector('.phone-scroll').scrollWidth>frame.querySelector('.phone-scroll').clientWidth+1,
+        headerColor:getComputedStyle(frame.querySelector('.phone-header')).color,
+        photo:!!frame.querySelector('.ref-detail-hero img'),
+      }));
+      expect(metrics.overflow,route).toBe(false);
+      if(route.includes('CF-1017-0042')) expect(metrics.photo).toBe(true);
+      await expect(page.locator('#screen-title')).toBeVisible();
     }
   }
 });

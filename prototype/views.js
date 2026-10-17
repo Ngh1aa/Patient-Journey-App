@@ -130,7 +130,7 @@
   }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
-    `<div class="auth-scene"><span class="auth-scene-circle" aria-hidden="true"></span><span class="auth-scene-ring" aria-hidden="true"></span><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 30)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
+    `<div class="auth-scene"><img src="./assets/images/imaging-suite.png" width="1536" height="1024" alt="Không gian phòng khám minh họa"><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
@@ -211,7 +211,7 @@
         break;
       case 'B1': {
         intro = R.homeHeader(s, p);
-        body = R.home(s, v, richH);
+        body = R.home(s, v, richH, u);
         break;
       }
       case 'C1':
@@ -259,7 +259,7 @@
         break;
       case 'C6':
         body =
-          form(
+          `<figure class="cf-context-photo"><img src="./assets/images/clinic-reception.webp" alt="Không gian tiếp đón minh họa" width="1200" height="800"><figcaption>Chọn cách khám phù hợp với lịch của bạn</figcaption></figure>` + form(
             'mode',
             choices(
               C.mode,
@@ -362,12 +362,12 @@
         break;
       case 'E1':
         body =
-          card(
+          `<figure class="cf-context-photo"><img src="./assets/images/clinic-reception.webp" alt="Khu tiếp nhận người bệnh minh họa" width="1200" height="800"><figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
             `<dl class="details">${[
               [T.time, v.slot + ' · ' + dateText(v)],
-              [T.arrival, C.notProvided],
-              [T.papers, C.notProvided],
-              [T.address, C.notProvided],
+              [T.arrival, 'Chưa có hướng dẫn thời gian đến riêng'],
+              [T.papers, 'Giấy tờ tùy thân và tài liệu y tế đang có'],
+              [T.address, 'Phòng khám chưa chia sẻ địa điểm của lượt này'],
               [C.fee, C.unknownFee],
             ]
               .map(
@@ -377,7 +377,7 @@
               .join('')}</dl>`,
           ) +
           note(T.note) +
-          nav(T.cta, 'D2', 'primary');
+          nav(T.cta, 'D2', 'primary') + nav('Hỏi thông tin đến khám','K5');
         break;
       case 'E2':
         body =
@@ -398,23 +398,15 @@
           nav(C.viewVisit, 'D2');
         break;
       case 'F1':
-        body = `<ol class="lab-stage-strip" aria-label="Tiến trình cận lâm sàng">${[['ordered','Đã chỉ định'],['scheduled','Đã hẹn'],['available','Có kết quả'],['awaiting-review','Chờ bác sĩ'],['reviewed','Đã xem']].map(([key,label],i) => `<li class="${['ordered','scheduled','available','awaiting-review','reviewed'].indexOf(v.labs[0]?.status) >= i ? 'reached' : ''}"><span>${i+1}</span><small>${label}</small></li>`).join('')}</ol>`;
-        body += v.labs.length
-          ? v.labs
-              .map((x) =>
-                row(x.name, VI.labs[x.status], 'F2', 'document', {
-                  'data-lab': x.id,
-                }),
-              )
-              .join('')
-          : empty(T.empty, T.emptyLead);
+        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card"><img src="./assets/images/${R.labImage(x)}" alt="" width="1536" height="1024" loading="lazy"><div class="cf-lab-content"><div class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</div><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<p>${esc(x.status==='ordered'?'Chọn lịch thực hiện hoặc gửi kết quả bạn đã có.':x.status==='scheduled'?'Bạn đã chọn lịch thực hiện. Mở chi tiết để kiểm tra và gửi tệp.':x.status==='reviewed'?'Bác sĩ đã xem kết quả. Bạn có thể mở tài liệu và lời giải thích.':'Phòng khám sẽ kiểm tra và cập nhật bước tiếp theo.')}</p><div class="cf-card-actions">${go(x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả','F2','primary',{'data-lab':x.id})}${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','secondary',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) : empty(T.empty,T.emptyLead);
         body += nav(C.returnVisit, 'D2');
         break;
       case 'F2':
         body =
           card(
-            `<h2 class="card-heading">${I('document',24)}<span>${esc(l.name)}</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
+            `<img class="cf-document-photo" src="./assets/images/${R.labImage(l)}" alt="Không gian thực hiện cận lâm sàng minh họa" width="1200" height="800"><h2 class="card-heading">${I('document',24)}<span>${esc(l.name)}</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
           ) +
+          (l.appointmentDate ? card(`<h2>Thời gian bạn đã chọn</h2><dl class="details cf-lab-schedule"><div><dt>Ngày thực hiện</dt><dd>${esc(dateText({date:l.appointmentDate}))}</dd></div><div><dt>Giờ mong muốn</dt><dd>${esc(l.appointmentTime||'Chờ sắp xếp')}</dd></div></dl>${l.coordinator?'<p>Đã nhờ điều dưỡng liên hệ để sắp xếp.</p>':''}`) : '') +
           section(T.prepare, `<p>${esc(C.noClinical)}</p>`) +
           (l.timing === 'pre' && !l.continuation ? form(
             'lab-path',
@@ -433,7 +425,7 @@
           body += nav(T.upload, 'F4');
         if (l.file)
           body += card(
-            `<h2 class="card-heading">${I('document-check',24)}<span>${esc(l.file.name)}</span></h2><p>${esc(VI.labs[l.status])}</p>`,
+            `<div class="cf-file-summary"><h2 class="card-heading">${I('document-check',24)}<span>${esc(l.file.name)}</span></h2><p>${esc(l.file.type==='application/pdf'?'PDF':'Ảnh kết quả')} · ${Math.max(1,Math.round(l.file.size/1024))} KB</p><small>${esc(VI.labs[l.status])}</small></div>`,
           );
         if (['available','awaiting-review','reviewed'].includes(l.status) && l.timing === 'pre') {
           if (l.continuation === 'review-during') body += note('Phòng khám đã nhận kết quả. Bác sĩ sẽ xem cùng bạn trong buổi khám.') + nav('Theo dõi bước tiếp nhận', 'E3', 'primary');
@@ -581,20 +573,14 @@
       case 'H6':
         body =
           section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
-          section(T.medicine, card(`<p>${esc(C.noClinical)}</p>`), '', 'pill') +
+          section(T.medicine, `<div class="cf-document-empty">${I('pill',24)}<div><strong>Chưa có đơn thuốc được chia sẻ</strong><p>Đơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.</p></div></div>`, '', 'pill') +
           section(T.instructions, `<p>${esc(C.noClinical)}</p>`) + R.aftercare(v,richH) +
           nav(T.question, 'I1', 'primary') +
           nav(T.followup, 'J1');
         break;
       case 'H7':
         body =
-          v.labs
-            .map((x) =>
-              row(x.name, VI.labs[x.status], 'F2', 'document', {
-                'data-lab': x.id,
-              }),
-            )
-            .join('') +
+          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card"><span class="cf-result-icon">${I('document-check',24)}</span><div><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}${go('Mở chi tiết','F2','secondary',{'data-lab':x.id})}</div></article>`})),{label:'kết quả',search:'Tìm kết quả',placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
           card(
             `<dl class="details"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
           );
@@ -702,15 +688,9 @@
           btn(T.cta, 'rebook', { 'data-purpose': 'followup' }, 'primary');
         break;
       case 'K1':
-        body =
-          (s.notifications.length
-            ? s.notifications
-                .map(
-                  (n,i,all) =>
-                    `${i === 0 || Boolean(n.at && new Date(n.at).toDateString() === new Date().toDateString()) !== Boolean(all[i-1]?.at && new Date(all[i-1].at).toDateString() === new Date().toDateString()) ? `<h2 class="notification-day">${n.at && new Date(n.at).toDateString() === new Date().toDateString() ? 'Hôm nay' : 'Trước đó'}</h2>` : ''}<button class="notification row ${n.read ? 'read' : ''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="read-dot" aria-hidden="true"></span><span class="row-icon">${I('bell')}</span><span class="row-text"><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right', 18)}</button>`,
-                )
-                .join('')
-            : empty(T.empty, '')) + note(T.note);
+        body = (s.notifications.length
+          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?' · '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
+          : empty(T.empty,'')) + note(T.note);
         break;
       case 'K2':
         intro = head(T.heading,'') + R.profileHeader(s,richH);
@@ -721,7 +701,7 @@
           ['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body = old.length
-          ? old.map((x) => visitCard(s, x)).join('')
+          ? R.collection('history',u,old.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>({category:x.status==='completed'?'completed':'stopped',search:[M.profile(s,x.patientId)?.name,R.clinician(x).name,x.reason,dateText(x)].join(' '),html:R.appointmentCard(s,x,richH)})),{label:'lượt khám',search:'Tìm trong lịch sử',placeholder:'Tên người khám, bác sĩ, lý do khám',filters:[['all','Tất cả'],['completed','Đã khám'],['stopped','Đã dừng']]})
           : empty(T.empty, '');
         break;
       }
@@ -752,6 +732,7 @@
       !['C1', 'C4', 'I1'].includes(id)
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
         : '');
+    if (id === 'D2') return `<div class="ref-detail-hero"><img src="./assets/images/consultation-room.png" width="1536" height="1024" alt="Phòng khám minh họa"></div><div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}<div class="ref-clinician"><span>${root.CareFlowAvatar('doctor-ha',40)}</span><div><strong>${esc(R.clinician(v).name)}</strong><small>${esc(R.clinician(v).specialty)}</small></div>${I(v.mode==='online'?'video':'map-pin',22)}</div></div>${body}</div>`;
     if (id === 'B1') return `<div class="screen-masthead home-masthead">${intro}</div>${body}`;
     if (['C1','D1','K2','K5'].includes(id)) return `<div class="screen-masthead compact-masthead">${intro}${id==='C1' && s.draft ? bookingProgress(id) : ''}</div>${body}`;
     if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;

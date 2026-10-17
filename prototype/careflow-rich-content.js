@@ -24,71 +24,64 @@
   const pill = (label,cls='info')=>`<span class="chip ${cls}">${H(label)}</span>`;
   const section = (title,html,extra='')=>`<section class="rich-section ${extra}"><h2 class="rich-heading">${H(title)}</h2>${html}</section>`;
   const empty = (title,copy,to='C1')=>`<div class="rich-empty"><span aria-hidden="true">✧</span><strong>${H(title)}</strong><p>${H(copy)}</p><button type="button" class="btn primary" data-action="book-nav">Đặt lịch khám</button><small>Bạn từng khám tại đây? Có thể chọn bác sĩ quen khi phòng khám hỗ trợ.</small></div>`;
+  const labImage = lab => /MRI|CT|X.quang|chụp|siêu âm/i.test(lab.name) ? 'imaging-suite.png' : 'laboratory.webp';
+  function collection(key,u,items,options={}) {
+    const current=u.collections?.[key]||{};
+    const selected=current.filter||'all';
+    const query=current.query||'';
+    const filters=options.filters||[];
+    return `<section class="cf-collection" data-collection="${H(key)}" data-filter="${H(selected)}" aria-label="Danh sách ${H(options.label||'nội dung')}">
+      ${options.search?`<div class="cf-collection-search"><label for="search-${key}">${H(options.search)}</label><input id="search-${key}" type="search" data-collection-search value="${H(query)}" placeholder="${H(options.placeholder||'Nhập từ khóa')}" autocomplete="off"></div>`:''}
+      ${filters.length?`<div class="rich-filter-chips cf-collection-filters" role="group" aria-label="Phân loại ${H(options.label||'nội dung')}">${filters.map(([value,label])=>`<button type="button" data-collection-filter="${H(value)}" aria-pressed="${value===selected}">${H(label)}</button>`).join('')}</div>`:''}
+      <div class="cf-collection-meta"><span data-collection-count role="status" aria-live="polite">${items.length} ${H(options.label||'mục')}</span><button type="button" data-collection-reset hidden>Xóa bộ lọc</button></div>
+      <div class="cf-collection-items">${items.map(item=>`<div data-collection-item data-category="${H(item.category)}" data-search="${H(item.search)}">${item.html}</div>`).join('')}</div>
+      <div class="cf-collection-empty" hidden><strong>Không tìm thấy nội dung phù hợp</strong><p>Thử từ khóa khác hoặc xóa bộ lọc để xem tất cả.</p><button type="button" class="btn secondary" data-collection-reset>Xóa bộ lọc</button></div></section>`;
+  }
   function homeHeader(s,p) {
-  const soon=active(s)[0];
-  const name=firstName(p?.name);
-  const days=soon?Math.round((Date.parse(soon.date+'T12:00:00+07:00')-Date.parse(root.CareFlowModel.localDate()+'T12:00:00+07:00'))/86400000):0;
-  const lead=soon?(days>0?`Lịch khám tiếp theo còn ${days} ngày.`:days===0?'Bạn có lịch khám hôm nay.':'Lịch hẹn đã qua giờ. Mở phiếu để xem cập nhật.'):'Hôm nay bạn chưa có lịch khám.';
-  const shortcuts=[
-    ['calendar-plus','Đặt lịch','begin',null],
-    ['calendar','Lịch hẹn','go','D1'],
-    ['document-check','Kết quả','go','H7'],
-    ['headphones','Hỗ trợ','go','K5']
-  ];
-  return `<div class="rich-home-head cf-home-head">
-    <div class="rich-greeting"><div><h1 id="screen-title" tabindex="-1">${greeting()}, ${H(name)}</h1><p>${H(lead)}</p></div><span class="avatar">${root.CareFlowAvatar(p?.id||'account',48)}</span></div>
-    <section class="cf-home-quick" aria-label="Truy cập nhanh"><h2>Truy cập nhanh</h2>
-      <nav class="cf-home-quick-grid home-quick-actions" aria-label="Thao tác nhanh">
-        ${shortcuts.map(([icon,label,actionName,to],i)=>`<button type="button" class="${i===0?'cf-quick-primary':'cf-quick-secondary'}" data-action="${actionName}"${to?` data-to="${to}"`:''} aria-label="${H(i===0?'Đặt lịch khám':label)}"><span class="cf-quick-icon">${root.CareFlowIcon(icon,24)}</span>${i===0?`<span class="cf-quick-primary-copy"><strong>Đặt lịch khám</strong><small>Chọn người khám và thời gian</small></span>${root.CareFlowIcon('arrow-right',20)}`:`<small>${H(label)}</small>`}</button>`).join('')}
-      </nav>
-    </section>
-  </div>`;
-}
-  function home(s,v,h) {
+    return `<div class="rich-home-head cf-home-head"><div class="rich-greeting"><div><p>${greeting()},</p><h1 id="screen-title" tabindex="-1">${H(p?.name || 'bạn')}</h1></div></div></div>`;
+  }
+  function home(s,v,h,u={}) {
   const visits=active(s);
   const soon=visits[0];
-  const completed=s.visits.filter(x=>x.status==='completed').sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const completed=s.visits.filter(x=>x.status==='completed'&&h.M.canViewResults(s,x)).sort((a,b)=>b.date.localeCompare(a.date))[0];
   const taskCards=soon?[
-    {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'open-visit',id:soon.id},
+    {icon:'document',title:'Chuẩn bị cho buổi khám',detail:'Giấy tờ · thông tin cần kiểm tra',actionName:'go',id:soon.id,to:'E1'},
     {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:soon.mode==='online'?'open-visit':'go',id:soon.mode==='online'?soon.id:null,to:soon.mode==='online'?null:'D1'}
   ]:[
-    {icon:'document',title:'Chuẩn bị thông tin',detail:'Họ tên · triệu chứng',actionName:'book-nav'},
+    {icon:'document',title:'Chuẩn bị đi khám',detail:'Xem giấy tờ và thông tin cần mang',actionName:'open-guide'},
     {icon:'calendar-plus',title:'Đặt lịch khám',detail:'Chọn bác sĩ và giờ khám',actionName:'book-nav'}
   ];
-  if (completed) taskCards[1]={icon:'clock',title:'Thuốc A · mẫu',detail:'Giờ minh họa · 20:00',actionName:'go',id:completed.id,to:'H6'};
-  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'book-nav':'go'}"${to==='C1'?'':` data-to="${to}"${to==='H6'&&completed?` data-id="${H(completed.id)}"`:to==='D2'&&soon?` data-id="${H(soon.id)}"`:''}`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Mẹo sức khỏe'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
-  let html='<section class="rich-hero cf-home-appointment" aria-label="Lịch khám sắp tới">';
-  html+=sectionHead('Lịch khám sắp tới','D1');
-  html+='<div class="cf-home-appointment-card">';
-  if(soon){
-    const online=soon.mode==='online';
-    html+=`<button type="button" class="visit-card cf-home-appointment-summary" data-action="open-visit" data-id="${H(soon.id)}"><span class="cf-home-appointment-info">
-      <span class="cf-home-appointment-avatar">${root.CareFlowAvatar('doctor-ha',44)}</span>
-      <span class="cf-home-appointment-doctor"><strong>${H(clinician(soon).name)}</strong><small>${H(clinician(soon).specialty)} · ${online?'Khám online':'Khám trực tiếp'}</small></span>
-    </span><span class="cf-home-appointment-summary-meta"><strong>${H(h.dateText(soon))} · ${H(soon.slot||'Chờ xác nhận giờ')}</strong><span class="cf-home-appointment-status">${h.status(soon)}</span></span></button>
-    <div class="cf-home-appointment-footer"><button type="button" class="cf-home-appointment-button" data-action="go" data-to="${online&&!['pending','mode-review'].includes(soon.status)?h.M.nextAction(soon)[0]:'D2'}" data-id="${H(soon.id)}">${online&&!['pending','mode-review'].includes(soon.status)?'Vào khám':'Xem phiếu khám'}</button></div>`;
-  }else{
-    html+=`<div class="cf-home-empty"><p>Bạn chưa có lịch khám sắp tới.</p><button type="button" class="cf-home-appointment-button" data-action="book-nav">Đặt lịch khám</button></div>`;
-  }
-  html+='</div></section>';
+  if (completed) taskCards[1]={icon:'document-check',title:'Xem lại buổi khám',detail:`${dateTextLite(completed.date)} · Lời dặn và tài liệu`,actionName:'go',id:completed.id,to:'H6'};
+  const sectionHead=(title,to)=>`<div class="cf-home-section-head"><h2>${H(title)}</h2><button type="button" data-action="${to==='C1'?'book-nav':'go'}"${to==='C1'?'':` data-to="${to}"${to==='H6'&&completed?` data-id="${H(completed.id)}"`:to==='D2'&&soon?` data-id="${H(soon.id)}"`:''}`}>${title==='Việc cần làm'?(soon?'Xem chi tiết':'Đặt lịch'):title==='Chăm sóc sau khám'?(completed?'Xem lời dặn':'Lịch sử'):title==='Cẩm nang đi khám'?'Hỏi phòng khám':title==='Cần giúp?'?'Liên hệ':'Xem tất cả'} ${h.I('chevron-right',16)}</button></div>`;
+  const shortcuts=[['user','Đặt lịch','begin',''],['heart-pulse','Theo dõi','care-entry','I1'],['pill','Đơn thuốc','care-entry','H6'],['document-check','Kết quả','care-entry','H7']];
+  const results=s.visits.reduce((total,item)=>total+item.labs.filter(l=>['available','awaiting-review','reviewed'].includes(l.status)).length,0);
+  let html=`<section class="cf-home-appointment" aria-label="Lịch khám sắp tới"><div class="cf-home-appointment-card">
+    <img class="appointment-object" src="./assets/images/stethoscope.png" alt="" width="1536" height="1024">
+    ${soon?`<button type="button" class="visit-card cf-home-appointment-summary" data-action="open-visit" data-id="${H(soon.id)}"><small class="ref-appointment-label">Lịch hẹn tiếp theo</small><strong class="ref-appointment-day">${H(soon.date.slice(8))}</strong><span class="ref-appointment-date">${H(h.dateText(soon))}</span><strong class="ref-appointment-time">${H(soon.slot)}</strong><span class="cf-home-appointment-info">${H(clinician(soon).name)}</span><span class="cf-home-appointment-status">${h.status(soon)}</span></button><div class="cf-home-appointment-footer"><button type="button" class="cf-home-appointment-button" aria-label="Xem phiếu khám" data-action="go" data-to="D2" data-id="${H(soon.id)}">${h.I('arrow-right',18)}</button></div>`:`<div class="cf-home-empty"><small>Lịch hẹn tiếp theo</small><h2>Chăm sóc bạn,<br>từ hôm nay.</h2><p>Bạn chưa có lịch khám sắp tới.</p><button type="button" class="cf-home-appointment-button" data-action="book-nav">Đặt lịch ${h.I('arrow-right',16)}</button></div>`}
+    </div></section>
+    <section class="ref-overview" aria-label="Tổng quan chăm sóc"><div class="ref-section-heading"><h2>Tổng quan chăm sóc</h2><span>Của bạn</span></div><div class="ref-overview-grid">${[[active(s).length,'Lịch hẹn','calendar'],[s.profiles.length,'Hồ sơ','user'],[results,'Kết quả','document-check']].map(([value,label,icon])=>`<button type="button" data-action="${label==='Kết quả'?'care-entry':'go'}" data-to="${label==='Lịch hẹn'?'D1':label==='Hồ sơ'?'K2':'H7'}"><small>${label}</small><strong>${String(value).padStart(2,'0')}</strong><span>${h.I(icon,16)}<span>${label==='Lịch hẹn'?'Sắp tới':label==='Hồ sơ'?'Đã lưu':'Có kết quả'}</span></span></button>`).join('')}</div></section>
+    <section class="cf-home-quick" aria-label="Truy cập nhanh"><h2>Truy cập nhanh</h2><nav class="cf-home-quick-grid home-quick-actions" aria-label="Thao tác nhanh">${shortcuts.map(([icon,label,actionName,to],i)=>`<button type="button" class="${i===0?'cf-quick-primary':'cf-quick-secondary'}" data-action="${actionName}"${to?` data-to="${to}"`:''} aria-label="${i===0?'Đặt lịch khám':label}"><span class="cf-quick-icon">${h.I(icon,23)}</span><small>${label}</small></button>`).join('')}</nav></section>
+    <section class="ref-discover"><div class="ref-section-heading"><h2>Chăm sóc phù hợp với bạn</h2><button type="button" data-action="book-nav" aria-label="Khám phá dịch vụ">${h.I('arrow-right',18)}</button></div><button type="button" class="ref-discover-image" data-action="book-nav"><img src="./assets/images/imaging-suite.png" width="1536" height="1024" alt="Không gian chẩn đoán hình ảnh minh họa" loading="lazy"><span><strong>Chủ động thăm khám</strong><small>Kết nối với đội ngũ chăm sóc</small></span><span class="ref-round-arrow">${h.I('arrow-right',18)}</span></button></section>`;
   html+=`<section class="rich-section cf-home-task-section">${sectionHead('Việc cần làm',soon?'D2':'C1')}
     <div class="cf-home-card-grid">${taskCards.map(t=>`<button type="button" class="cf-home-task-card" data-action="${t.actionName}"${t.to?` data-to="${H(t.to)}"`:''}${t.id?` data-id="${H(t.id)}"`:''}>
-       <span class="cf-home-card-icon">${h.I(t.icon,22)}</span><strong>${H(t.title)}</strong><small>${H(t.detail)}</small>
+       <span class="cf-home-card-icon">${h.I(t.icon,22)}</span><span class="cf-task-copy"><strong>${H(t.title)}</strong><small>${H(t.detail)}</small></span><span class="cf-task-arrow">${h.I('chevron-right',18)}</span>
     </button>`).join('')}</div>
   </section>`;
   html+=`<section class="rich-section cf-home-care-section">${sectionHead('Chăm sóc sau khám',completed?'H6':'K3')}
     <div class="cf-home-care-card">${completed?`
-      <div class="cf-home-care-title"><div><strong>Lần khám ${H(dateTextLite(completed.date))}</strong><small>${H(clinician(completed).name)} · ${H(clinician(completed).specialty)}</small></div><span class="cf-home-sample-label">Demo</span></div>
-      <p>2 lời dặn · 1 đơn thuốc mẫu</p>
+      <div class="cf-home-care-title"><div><strong>Lần khám ${H(dateTextLite(completed.date))}</strong><small>${H(clinician(completed).name)} · ${H(clinician(completed).specialty)}</small></div><span class="cf-home-sample-label">Đã khám</span></div>
+      <p>${H(completed.summary?.note||'Xem thông tin bác sĩ đã chia sẻ và hỏi lại khi cần.')}</p>
       <div class="cf-home-care-foot"><small>Lời dặn và đơn thuốc (dữ liệu minh họa)</small>${visitAction('Xem lời dặn',completed,'H6','primary')}</div>`:`
       <div class="cf-home-care-title"><div><strong>Chưa có thông tin sau khám</strong><small>Lời dặn và đơn thuốc sẽ xuất hiện khi có kết quả được cập nhật.</small></div></div>
       ${action('Xem lịch sử khám','K3','secondary')}`}</div>
   </section>`;
-  html+=`<section class="rich-section cf-home-tips-section">${sectionHead('Mẹo sức khỏe','K5')}
-    <div class="cf-home-card-grid cf-home-tips">
-      <details class="cf-home-tip-card"><summary><strong>Chuẩn bị trước khi khám</strong><small>Giấy tờ, đơn thuốc, kết quả cũ</small><span>Đọc thêm ${h.I('chevron-right',15)}</span></summary><p>Chuẩn bị những thông tin bạn đã có. Nếu cần hướng dẫn riêng, hãy liên hệ phòng khám.</p></details>
-      <details class="cf-home-tip-card"><summary><strong>Vào phòng khám online</strong><small>Mạng, camera, âm thanh</small><span>Đọc thêm ${h.I('chevron-right',15)}</span></summary><p>Kiểm tra kết nối và thiết bị trước giờ hẹn. Mở phiếu lịch khám để xem hướng dẫn tham gia.</p></details>
-    </div>
+  const guides=[
+    {category:'onsite',title:'Chuẩn bị trước khi khám',description:'Giấy tờ, đơn thuốc và kết quả cũ',icon:'document',steps:['Kiểm tra họ tên, ngày và giờ trên phiếu khám.','Chuẩn bị giấy tờ và tài liệu y tế bạn đang có.','Hỏi phòng khám về yêu cầu riêng trước khi đến.'],cta:'Xem lịch hẹn',to:'D1'},
+    {category:'online',title:'Vào phòng khám online',description:'Kết nối, camera và không gian riêng tư',icon:'video',steps:['Chọn nơi yên tĩnh và có kết nối ổn định.','Mở lịch khám online để kiểm tra camera, micro.','Làm theo trạng thái tiếp nhận trên phiếu khám.'],cta:'Tìm lịch khám online',to:'D1'},
+    {category:'aftercare',title:'Tìm lại thông tin sau khám',description:'Kết quả, lời dặn và câu hỏi cho phòng khám',icon:'document-check',steps:['Mở lượt khám đã hoàn tất của đúng người.','Xem tài liệu phòng khám đã chia sẻ.','Gửi câu hỏi nếu bạn chưa hiểu nội dung được cung cấp.'],cta:'Mở lịch sử khám',to:'K3'}
+  ];
+  html+=`<section class="rich-section cf-home-tips-section">${sectionHead('Cẩm nang đi khám','K5')}
+    ${collection('guides',u,guides.map(g=>({category:g.category,search:g.title+' '+g.description,html:`<details class="cf-home-tip-card"><summary><span class="cf-guide-icon">${h.I(g.icon,22)}</span><span class="cf-guide-copy"><strong>${H(g.title)}</strong><small>${H(g.description)}</small></span><span class="cf-guide-toggle">${h.I('chevron-right',18)}</span></summary><div class="cf-guide-body"><ol>${g.steps.map(step=>`<li>${H(step)}</li>`).join('')}</ol><button type="button" class="btn secondary" data-action="guide-open" data-to="${g.to}" data-category="${g.category}">${g.cta} ${h.I('arrow-right',16)}</button></div></details>`})),{label:'hướng dẫn',filters:[['all','Tất cả'],['onsite','Đi khám'],['online','Online'],['aftercare','Sau khám']]})}
   </section>`;
   html+=`<section class="rich-section cf-home-help-section">${sectionHead('Cần giúp?','K5')}
     <div class="cf-home-support"><div><strong>Hỗ trợ 7:30–19:00</strong><small>Gọi lại hoặc nhắn tin cho phòng khám (demo)</small></div><button type="button" data-action="go" data-to="K5">Liên hệ</button></div>
@@ -101,7 +94,7 @@
   const clinician = v => v?.clinician || {name:DEMO.doctor,specialty:DEMO.specialty,initials:'TH'};
   function appointmentTabs(s,u) {
     const c=counts(s);
-    return `<div class="segments rich-appt-tabs" role="group" aria-label="Trạng thái lịch">${[['upcoming','Sắp tới',c.a],['past','Đã khám',c.done],['cancelled','Đã hủy',c.cancelled]].map(([key,label,count])=>`<button type="button" class="btn ${u.filter===key?'selected':'text'}" data-action="filter" data-filter="${key}" aria-pressed="${u.filter===key}" aria-label="${label} (${count})">${label}</button>`).join('')}</div>`;
+    return `<div class="segments rich-appt-tabs" role="group" aria-label="Trạng thái lịch">${[['upcoming','Sắp tới',c.a],['past','Đã khám',c.done],['cancelled','Đã hủy',c.cancelled]].map(([key,label,count])=>`<button type="button" class="btn ${u.filter===key?'selected':'text'}" data-action="filter" data-filter="${key}" aria-pressed="${u.filter===key}" aria-label="${label} (${count})">${label}<span class="cf-tab-count">${count}</span></button>`).join('')}</div>`;
   }
   function appointmentCard(s,v,h,featured=false) {
     const doctor=clinician(v);
@@ -112,12 +105,14 @@
     const online=v.mode==='online';
     const days=Math.round((Date.parse(v.date+'T12:00:00+07:00')-Date.parse(h.M.localDate()+'T12:00:00+07:00'))/86400000);
     const badge=pending?'Chờ phòng khám':featured&&v.status==='confirmed'?(days>0?'Còn '+days+' ngày':days===0?'Hôm nay':'Đã qua giờ hẹn'):h.VI.statuses[v.status][0];
-    const primary=done?visitAction('Xem kết quả',v,'H7','primary'):visitAction(online&&!pending&&!stopped?'Vào khám':'Xem phiếu',v,online&&!pending&&!stopped?h.M.nextAction(v)[0]:'D2','primary');
+    const next=h.M.nextAction(v);
+    const primary=done?visitAction('Xem kết quả',v,'H7','primary'):visitAction(online&&!pending&&!stopped?h.VI.actions[next[1]]:'Xem phiếu',v,online&&!pending&&!stopped?h.M.nextAction(v)[0]:'D2','primary');
     const secondary=done||stopped?visitAction('Đặt lại',v,'C1','secondary','rebook'):(h.M.TRANSITIONS[v.status]||[]).includes('cancelled')?visitAction(pending?'Hủy lịch':'Đổi lịch',v,pending?'D4':'D3'):'';
     return `<article class="rich-appt-card state-${H(tone(v))}${featured?' cf-appt-featured':''}" aria-label="${H(doctor.name+' · '+h.dateText(v))}">
-      <div class="rich-appt-top"><button type="button" class="cf-appt-open" data-action="open-visit" data-id="${H(v.id)}" aria-label="Chi tiết lịch ${H(doctor.name)}"><span class="cf-clinician-avatar" aria-hidden="true">${H(doctor.initials)}</span><span class="cf-clinician-copy"><strong>${H(doctor.name)}</strong><small>${H(doctor.specialty)} · ${online?'Khám online':'Tại phòng khám'}</small></span></button><span class="cf-appt-badge${pending?' is-pending':''}">${H(badge)}</span></div>
-      ${person&&person.id!==h.M.accountProfile(s)?.id?`<p class="rich-appt-person">Khám cho ${H(person.name)}</p>`:''}
-      <div class="rich-appt-date">${h.I('calendar',15)}<strong>${H(h.dateText(v).replace('/'+v.date.slice(0,4),''))} · ${H(v.slot||'Chờ xác nhận giờ')}</strong></div>
+      <div class="rich-appt-top"><button type="button" class="cf-appt-open" data-action="open-visit" data-id="${H(v.id)}" aria-label="Chi tiết lịch ${H(doctor.name)}"><span class="cf-clinician-avatar" aria-hidden="true">${H(doctor.initials)}</span><span class="cf-clinician-copy"><strong>${H(doctor.name)}</strong><small>${H(doctor.specialty)} · ${online?'Khám online':'Tại phòng khám'}</small></span></button><span class="cf-appt-badge is-${tone(v)}${pending?' is-pending':''}">${H(badge)}</span></div>
+      <div class="cf-appt-facts"><p>${h.I('user',15)}<span>${H(person?.name||'Chưa có hồ sơ')}</span></p><p>${h.I('calendar',15)}<strong>${H(h.dateText(v).replace('/'+v.date.slice(0,4),''))} · ${H(v.slot||'Chờ xác nhận giờ')}</strong></p><p>${h.I(online?'video':'map-pin',15)}<span>${online?'Trực tuyến · mở phiếu để kiểm tra thiết bị':'Tại phòng khám · xem địa điểm trên phiếu'}</span></p></div>
+      <p class="cf-appt-reason"><span>Lý do khám</span>${H(v.reason||'Chưa cung cấp thông tin')}</p>
+      ${pending?'<p class="cf-appt-note">Yêu cầu đang chờ phòng khám xác nhận. Bạn chưa cần vào khám.</p>':''}
       <div class="rich-appt-actions">${secondary}${primary}</div>
     </article>`;
   }
@@ -127,14 +122,16 @@
     const upcoming=active(s).filter(v=>!waiting(v));
     let groups=u.filter==='past'?[['Đã khám',completed,'past']]:u.filter==='cancelled'?[['Đã hủy / Chưa đến khám',s.visits.filter(v=>['cancelled','no-show'].includes(v.status)),'cancelled']]:[['Sắp tới',upcoming,'upcoming'],['Chờ xác nhận',active(s).filter(waiting),'pending'],['Đã khám gần đây',completed.slice(0,2),'recent']];
     if(u.appointmentGroup) groups=groups.filter(([, ,key])=>key===u.appointmentGroup);
-    const person=s.profiles.find(p=>p.relation==='self')||s.profiles[0];
+    const person=s.profiles.find(p=>p.id===u.appointmentPerson);
+    const personFilter=u.appointmentPerson||'all';
+    const modeFilter=u.appointmentMode||'all';
     const recentCard=v=>{const doctor=clinician(v);return `<button type="button" class="cf-appointment-history" data-action="go" data-to="H7" data-id="${H(v.id)}"><strong>${H(v.date.split('-').reverse().join('/'))}</strong><small>${H(doctor.name)} · ${H(doctor.specialty)}</small><span class="cf-appt-badge">Hoàn tất</span></button>`;};
     return `<div class="cf-appointments"><div id="appointment-filters" class="cf-appointment-filter-panel"${u.appointmentFilters?'':' hidden'}>
-      <details class="rich-person-picker"><summary>${root.CareFlowAvatar(person?.id||'account',32)}<span>Tất cả hồ sơ</span>${h.I('chevron-right',18)}</summary><div class="rich-person-options" role="group" aria-label="Lọc theo người đi khám"><button type="button" data-appointment-person="all" aria-pressed="true">Tất cả hồ sơ</button>${s.profiles.map(p=>`<button type="button" data-appointment-person="${H(p.id)}" aria-pressed="false">${H(p.name)}</button>`).join('')}</div></details>
-      <div class="rich-filter-chips" role="group" aria-label="Lọc hình thức">${[['all','Tất cả'],['onsite','Tại phòng khám'],['online','Khám online']].map(([key,label])=>`<button type="button" data-visit-filter="${key}" aria-pressed="${key==='all'}">${label}</button>`).join('')}</div></div>
+      <details class="rich-person-picker" data-person="${H(personFilter)}"><summary>${root.CareFlowAvatar(person?.id||'account',32)}<span>${H(person?.name||'Tất cả hồ sơ')}</span>${h.I('chevron-right',18)}</summary><div class="rich-person-options" role="group" aria-label="Lọc theo người đi khám"><button type="button" data-appointment-person="all" aria-pressed="${personFilter==='all'}">Tất cả hồ sơ</button>${s.profiles.map(p=>`<button type="button" data-appointment-person="${H(p.id)}" aria-pressed="${personFilter===p.id}">${H(p.name)}</button>`).join('')}</div></details>
+      <div class="rich-filter-chips" role="group" aria-label="Lọc hình thức">${[['all','Tất cả'],['onsite','Tại phòng khám'],['online','Khám online']].map(([key,label])=>`<button type="button" data-visit-filter="${key}" aria-pressed="${key===modeFilter}">${label}</button>`).join('')}</div></div>
       ${u.appointmentGroup?`<button type="button" class="btn text cf-appt-show-all" data-action="filter" data-filter="upcoming">${h.I('chevron-left',16)} Tất cả lịch sắp tới</button>`:''}
-      <div class="rich-appointment-list">${groups.filter(([,visits])=>visits.length).map(([title,visits,key])=>`<section class="rich-appointment-group"><div class="cf-appointment-section-head"><h2 class="rich-heading">${H(title)}</h2>${u.appointmentGroup?'':`<button type="button" data-action="${key==='recent'?'filter':'appointment-group'}" ${key==='recent'?'data-filter="past"':`data-group="${key}"`} aria-label="Xem tất cả ${H(title.toLocaleLowerCase('vi-VN'))}">Xem tất cả ${h.I('chevron-right',14)}</button>`}</div><div class="${key==='recent'?'cf-appointment-history-grid':'cf-appointment-cards'}">${visits.map((v,i)=>`<div class="rich-filterable" data-mode="${v.mode}" data-person="${H(v.patientId)}">${key==='recent'?recentCard(v):appointmentCard(s,v,h,key==='upcoming'&&i===0)}</div>`).join('')}</div></section>`).join('')||empty(u.filter==='upcoming'?'Chưa có lịch sắp tới':u.filter==='past'?'Chưa có lượt khám đã hoàn tất':'Chưa có lịch đã hủy','Bạn có thể đặt lịch mới hoặc đặt lại với bác sĩ quen.')}</div>
-      <div class="rich-filter-empty" role="status" hidden>Không có lịch phù hợp. Hãy thử bộ lọc khác.</div>
+      <div class="cf-appointment-filter-summary"><span data-appointment-count role="status" aria-live="polite"></span><button type="button" data-appointment-reset hidden>Xóa bộ lọc</button></div><div class="rich-appointment-list">${groups.filter(([,visits])=>visits.length).map(([title,visits,key])=>`<section class="rich-appointment-group"><div class="cf-appointment-section-head"><h2 class="rich-heading">${H(title)}</h2>${u.appointmentGroup?'':`<button type="button" data-action="${key==='recent'?'filter':'appointment-group'}" ${key==='recent'?'data-filter="past"':`data-group="${key}"`} aria-label="Xem tất cả ${H(title.toLocaleLowerCase('vi-VN'))}">Xem tất cả ${h.I('chevron-right',14)}</button>`}</div><div class="${key==='recent'?'cf-appointment-history-grid':'cf-appointment-cards'}">${visits.map((v,i)=>`<div class="rich-filterable" data-mode="${v.mode}" data-person="${H(v.patientId)}">${key==='recent'?recentCard(v):appointmentCard(s,v,h,key==='upcoming'&&i===0)}</div>`).join('')}</div></section>`).join('')||empty(u.filter==='upcoming'?'Chưa có lịch sắp tới':u.filter==='past'?'Chưa có lượt khám đã hoàn tất':'Chưa có lịch đã hủy','Bạn có thể đặt lịch mới hoặc đặt lại với bác sĩ quen.')}</div>
+      <div class="rich-filter-empty" role="status" hidden><strong>Không có lịch phù hợp</strong><p>Thử hồ sơ hoặc hình thức khác để tìm lịch của bạn.</p><button type="button" class="btn secondary" data-appointment-reset>Xóa bộ lọc</button></div>
       <button type="button" class="btn primary rich-new-booking" data-action="book-nav">Đặt lịch khám mới</button></div>`;
   }
   function patient(s,d,h) {
@@ -150,12 +147,13 @@
       `<p class="rich-subnote">Chọn đúng người đi khám để thông tin và lịch hẹn được lưu vào đúng hồ sơ.</p>`;
   }
   function visitExtras(s,v,h) {
-    const steps=[['pending','Đã đặt'],['confirmed','Phòng khám xác nhận'],['arrived','Đến phòng khám'],['received','Tiếp nhận'],['ready','Sẵn sàng khám'],['in-consult','Đang khám'],['completed','Hoàn tất']];
+    const steps=v.mode==='online'?[['pending','Đã đặt'],['confirmed','Phòng khám xác nhận'],['online-wait','Chờ bác sĩ gọi'],[v.status==='unreachable'?'unreachable':'calling',v.status==='unreachable'?'Chờ kết nối lại':'Bác sĩ gọi'],['in-consult','Đang khám'],['completed','Hoàn tất']]:[['pending','Đã đặt'],['confirmed','Phòng khám xác nhận'],['arrived','Đến phòng khám'],['received','Tiếp nhận'],['ready','Sẵn sàng khám'],['in-consult','Đang khám'],['completed','Hoàn tất']];
     let idx=steps.findIndex(z=>z[0]===v.status);
     if(['reminder','pre-lab'].includes(v.status))idx=1;
-    if(idx<0)idx=v.status==='online-wait'?2:0;
-    return section('Tiến trình lượt khám',`<ol class="rich-progress-steps">${steps.map(([id,label],i)=>`<li class="${i<idx?'done':i===idx?'current':'later'}"><span>${i<idx?'✓':i+1}</span><strong>${H(label)}</strong></li>`).join('')}</ol><p class="rich-subnote">${['cancelled','no-show'].includes(v.status)?'Lượt khám đã dừng. Các bước còn lại không được thực hiện.':'Các bước thay đổi theo tình huống và hướng dẫn của phòng khám.'}</p>`,'rich-detailed-progress')+
-      section('Cần chuẩn bị',`<div class="rich-mini-grid"><div><strong>${h.I('document',18)} Giấy tờ</strong><small>CCCD, BHYT nếu có</small></div><div><strong>${h.I('clipboard',18)} Kết quả cũ</strong><small>Mang theo kết quả gần nhất</small></div><div><strong>${h.I('clock',18)} Nhịn ăn?</strong><small>Hỏi phòng khám trước, không tự nhịn ăn.</small></div></div>${action('Xem hướng dẫn trước khám','E1','text')}`,'rich-prepare')+
+    if(idx<0)idx=0;
+    const stopped=['cancelled','no-show'].includes(v.status);
+    return section('Tiến trình lượt khám',`<ol class="rich-progress-steps">${steps.map(([id,label],i)=>`<li class="${stopped?'later':i<idx?'done':i===idx?'current':'later'}"${!stopped&&i===idx?' aria-current="step"':''}><span>${!stopped&&i<idx?'✓':i+1}</span><strong>${H(label)}</strong></li>`).join('')}</ol><p class="rich-subnote">${['cancelled','no-show'].includes(v.status)?'Lượt khám đã dừng. Các bước còn lại không được thực hiện.':'Các bước thay đổi theo tình huống và hướng dẫn của phòng khám.'}</p>`,'rich-detailed-progress')+
+      section('Cần chuẩn bị',`<div class="cf-preparation-list"><p>${h.I('document',20)}<span><strong>Giấy tờ và hồ sơ</strong><small>Giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.</small></span></p><p>${h.I(v.mode==='online'?'video':'map-pin',20)}<span><strong>${v.mode==='online'?'Thiết bị và kết nối':'Thời gian và địa điểm'}</strong><small>${v.mode==='online'?'Mở phiếu khám và kiểm tra camera, micro trước giờ hẹn.':'Kiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có địa chỉ.'}</small></span></p><p>${h.I('info',20)}<span><strong>Yêu cầu riêng trước khám</strong><small>Hỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang dùng.</small></span></p></div>${visitAction('Xem hướng dẫn trước khám',v,'E1','secondary')}`,'rich-prepare')+
       section('Thông tin đã khai',`<div class="rich-detail-block"><strong>Triệu chứng</strong><p>${H(v.reason||'Chưa có')}</p><strong>Ghi chú y tế</strong><p>${H(v.medicalHistory||'Chưa cung cấp')}</p></div>`,'rich-declared')+
       (v.labs.length?section('Chỉ định liên quan',`<div class="rich-lab-summary">${v.labs.map(l=>`<div>${pill(h.VI.labs[l.status],l.status==='reviewed'?'success':'warning')}<strong>${H(l.name)}</strong></div>`).join('')}${action('Xem cận lâm sàng','F1','text')}</div>`):section('Chỉ định liên quan',`<div class="rich-detail-block"><p>Chưa có chỉ định cận lâm sàng trong lượt khám này.</p>${action('Xem chi tiết','F1','text')}</div>`))+
       `<div class="rich-policy">${h.I('info',18)}Đổi hoặc hủy lịch phụ thuộc trạng thái xác nhận của phòng khám. ${action('Xem hỗ trợ','K5','text')}</div>`;
@@ -182,8 +180,8 @@
     if(v.status!=='completed') return '';
     return `<section class="rich-section rich-aftercare-sample" aria-label="Nội dung sau khám minh họa"><h2 class="rich-heading">Mẫu chăm sóc sau khám</h2>
       <p class="rich-subnote">Nội dung minh họa, không phải đơn thuốc của bạn.</p>
-      <div class="rich-care-facts"><span>2 lời dặn mẫu</span><span>1 đơn thuốc mẫu</span></div>
-      <div class="rich-med-line"><div><strong>Thuốc A</strong><small>Giờ mẫu · 20:00</small></div><label class="check"><input type="checkbox"><span>Đã uống (mẫu)</span></label></div>
+      <div class="rich-care-facts"><span>Tài liệu minh họa</span><span>Chưa có đơn thuốc thật</span></div>
+      <details class="cf-sample-medication"><summary>Xem thử cách ghi nhận dùng thuốc</summary><div class="rich-med-line"><div><strong>Thuốc A · minh họa</strong><small>Giờ mẫu · 20:00</small></div><label class="check"><input type="checkbox"><span>Đã uống (mẫu)</span></label></div></details>
       <ol class="rich-sample-instructions"><li>Xem lại hướng dẫn đã được bác sĩ cung cấp.</li><li>Hỏi phòng khám nếu có điều chưa rõ.</li></ol>
       ${action('Hỏi phòng khám','I1','primary')}</section>`;
   }
@@ -201,7 +199,7 @@
     const faqs=[['Cách vào phòng khám online','Mở lịch khám online, kiểm tra thiết bị và làm theo hướng dẫn trên phiếu khám.'],['Cần mang gì khi đi khám?','Mang giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có. Xem thêm hướng dẫn trên phiếu khám.'],['Đổi hoặc hủy lịch thế nào?','Mở Lịch hẹn → Phiếu khám để chọn đổi hoặc hủy theo trạng thái hiện tại. Lịch thay thế cần phòng khám xác nhận.'],['Khi nào có kết quả?','Thời gian tùy từng xét nghiệm. Theo dõi mục Kết quả hoặc hỏi phòng khám.'],['Cần hỗ trợ thanh toán?','Chọn chủ đề Thanh toán và gửi yêu cầu để phòng khám kiểm tra lượt khám của bạn.']];
     const faqList=`<div class="rich-faqs cf-reference-card">${faqs.slice(0,u.supportFaqs?faqs.length:3).map(([question,answer])=>`<details class="faq"><summary>${H(question)}${h.I('chevron-right',16)}</summary><p>${H(answer)}</p></details>`).join('')}</div>`;
     const previews=messages.length?`<div class="rich-settings-links">${messages.slice(u.supportMessagesAll?-messages.length:-1).reverse().map(message=>`<div class="rich-message-preview cf-reference-card"><span class="cf-reference-avatar" aria-hidden="true">${message.from==='staff'?'PK':H(initials(h.M.profile(s,message.patientId)?.name||h.M.accountProfile(s)?.name))}</span><div><strong>${message.from==='staff'?'Phòng khám':'Bạn'}</strong><p>${H(message.text)}</p></div></div>`).join('')}</div>`:`<div class="cf-reference-card cf-message-empty"><p>Chưa có tin nhắn. Bạn có thể gửi yêu cầu ở trên.</p></div>`;
-    return `<div class="cf-support-content">${referenceSection('Liên hệ nhanh',quick,h,'support-channels')}${referenceSection('Gửi yêu cầu',`<div class="cf-reference-card cf-support-request-card">${h.form('support',helpContent,'Gửi yêu cầu','primary')}</div>`,h,'support-requests')}${waiting?`<aside class="rich-support-request" role="status"><strong>Đang chờ phòng khám tiếp nhận</strong><p>${H(waiting.type==='callback'?'Yêu cầu gọi lại':waiting.topic||'Yêu cầu hỗ trợ')}</p></aside>`:''}${referenceSection('Câu hỏi thường gặp',faqList,h,'support-faqs')}${referenceSection('Tin nhắn gần đây',previews,h,'support-messages')}<details class="rich-emergency cf-support-emergency"><summary>${h.I('warning',18)} Cần trợ giúp khẩn cấp?</summary><p>Gọi cấp cứu <strong>115</strong> hoặc đến cơ sở y tế gần nhất. Đừng chờ phản hồi qua ứng dụng.</p><button class="btn secondary" type="button" data-action="emergency">Gọi 115 / Xem hướng dẫn</button></details></div>`;
+    return `<div class="cf-support-content"><figure class="cf-context-photo"><img src="./assets/images/clinic-reception.webp" alt="Khu tiếp đón minh họa" width="1200" height="800" loading="lazy"><figcaption>Hỗ trợ từ lúc đặt lịch đến sau buổi khám</figcaption></figure>${referenceSection('Liên hệ nhanh',quick,h,'support-channels')}${referenceSection('Gửi yêu cầu',`<div class="cf-reference-card cf-support-request-card">${h.form('support',helpContent,'Gửi yêu cầu','primary')}</div>`,h,'support-requests')}${waiting?`<aside class="rich-support-request" role="status"><strong>Đang chờ phòng khám tiếp nhận</strong><p>${H(waiting.type==='callback'?'Yêu cầu gọi lại':waiting.topic||'Yêu cầu hỗ trợ')}</p></aside>`:''}${referenceSection('Câu hỏi thường gặp',faqList,h,'support-faqs')}${referenceSection('Tin nhắn gần đây',previews,h,'support-messages')}<details class="rich-emergency cf-support-emergency"><summary>${h.I('warning',18)} Cần trợ giúp khẩn cấp?</summary><p>Gọi cấp cứu <strong>115</strong> hoặc đến cơ sở y tế gần nhất. Đừng chờ phản hồi qua ứng dụng.</p><button class="btn secondary" type="button" data-action="emergency">Gọi 115 / Xem hướng dẫn</button></details></div>`;
   }
-  root.CareFlowRich = {homeHeader,home,appointments,patient,visitExtras,profile,support,aftercare,appointmentTabs,clinician,profileHeader,supportMessages,DEMO};
+  root.CareFlowRich = {collection,labImage,appointmentCard,homeHeader,home,appointments,patient,visitExtras,profile,support,aftercare,appointmentTabs,clinician,profileHeader,supportMessages,DEMO};
 })(window);

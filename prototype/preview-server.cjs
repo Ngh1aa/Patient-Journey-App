@@ -12,6 +12,7 @@ const types = {
   '.svg': 'image/svg+xml',
   '.ttf': 'font/ttf',
   '.png': 'image/png',
+  '.webp': 'image/webp',
 };
 http
   .createServer((req, res) => {

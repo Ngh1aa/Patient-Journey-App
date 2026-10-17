@@ -926,7 +926,7 @@ test('desktop frame, project subpath assets, self-hosted Vietnamese font', async
       document.fonts.check('16px "Be Vietnam Pro"', 'Chăm sóc sức khỏe'),
     ),
   ).toBe(true);
-  await expect(page.locator('.phone')).toHaveCSS('width', '402px');
+  await expect(page.locator('.phone')).toHaveCSS('width', '390px');
   await action(page, 'begin').first().click();
   await screen(page, 'C1');
   await page.reload();
@@ -1116,7 +1116,7 @@ test('F9 fee-free completion and F10 summary/additional-lab actions use the righ
   await staff(page, 'lab:post');
   await go(page, 'F1');
   await expect(content(page).locator('[data-to=F2]')).toHaveCount(2);
-  await content(page).locator('[data-lab=lab-2]').click();
+  await content(page).locator('[data-lab=lab-2][data-to=F2]').click();
   await screen(page, 'F2');
   expect((await current(page)).labs[1].status).toBe('ordered');
 });
@@ -1217,7 +1217,8 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
   await submit(page);
   await screen(page, 'B1');
-  await expect(content(page).locator('h1')).toHaveText(/^Chào buổi (sáng|chiều|tối), Minh Anh$/);
+  await expect(content(page).locator('h1')).toHaveText('Nguyễn Minh Anh');
+  await expect(content(page).locator('.rich-greeting p')).toHaveText(/^Chào buổi (sáng|chiều|tối),$/);
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });

@@ -68,11 +68,17 @@ const colorPairs = pairs.map(([fg, bg, target]) => {
     throw new Error('Missing CSS token ' + fg + '/' + bg);
   return { name: fg + ' / ' + bg, fg: tokens[fg], bg: tokens[bg], target };
 });
-// Check the actual translucent stops over the white card backing, including
-// muted secondary text. Token checks against plain white alone miss this case.
+// Read the winning declaration in stylesheet order. Surfaces can be solid or
+// translucent gradients; both need their actual backgrounds checked.
 for (const token of ['card-gradient', 'child-gradient', 'selected-gradient']) {
-  const declaration = css.match(new RegExp('--' + token + ':([^;]+);'))?.[1];
+  const declaration = [...css.matchAll(new RegExp('--' + token + ':([^;]+);', 'g'))].at(-1)?.[1].trim();
   if (!declaration) throw new Error('Missing CSS gradient ' + token);
+  if (/^#[a-f0-9]{3}(?:[a-f0-9]{3})?$/i.test(declaration)) {
+    for (const fg of ['heading', 'muted', 'primary']) {
+      colorPairs.push({name: `${fg} / ${token} solid surface`, fg: tokens[fg], bg: declaration, target: 4.5});
+    }
+    continue;
+  }
   const stops = [...declaration.matchAll(/rgba\((\d+),(\d+),(\d+),([.\d]+)\)/g)];
   if (!stops.length) throw new Error('Missing translucent stops for ' + token);
   for (const [index, stop] of stops.entries()) {
