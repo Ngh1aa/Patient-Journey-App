@@ -50,9 +50,9 @@ test('Home puts the navy appointment before overview and quick access on light s
     expect(metrics.gap, width+'px greeting-to-appointment gap').toBeGreaterThanOrEqual(16);
     expect(metrics.quickBeforeHero).toBe(false);
     const hero=page.locator('.cf-home-appointment-card');
-    await expect(hero).toHaveCSS('border-radius','24px');
+    await expect(hero).toHaveCSS('border-radius','22px');
     expect(await hero.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
-    await expect(hero).toHaveCSS('background-color','rgb(16, 33, 60)');
+    await expect(hero).toHaveCSS('background-color','rgb(0, 29, 87)');
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
   }
 });
