@@ -511,6 +511,7 @@ body { background:#e9eaee; color:var(--ink); font-size:14px; }
 .phone.large-text { --font-scale:2; }
 .large-text .cf-home-card-grid,.large-text .rich-mini-grid { grid-template-columns:1fr; }
 .large-text .choice,.large-text .rich-appt-top { flex-wrap:wrap; }
+.large-text .cf-appt-open { flex-basis:100%; width:100%; }
 .large-text .details,.large-text .rich-appt-actions { grid-template-columns:minmax(0,1fr); }
 /* Reviewer controls are outside the product viewport. */
 .journey-panel { width:285px; flex:none; align-self:center; }
