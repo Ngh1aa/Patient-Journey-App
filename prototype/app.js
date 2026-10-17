@@ -1196,14 +1196,14 @@
       case 'booking': {
         if (!data.has('consent')) return error('CONSENT', 'consent');
         cta.disabled = true;
-        cta.textContent = 'Đang gửi…';
+        cta.querySelector('span').textContent = VI.ui.sending;
         form.setAttribute('aria-busy', 'true');
         // Commit the local request before navigation can replace this form.
         const result = M.submitBooking(s, $('booking-outcome').value);
         if (result.ok) complete(result, 'C9');
         else {
           cta.disabled = false;
-          cta.textContent = VI.screen.C8.send;
+          cta.querySelector('span').textContent = VI.screen.C8.send;
           form.removeAttribute('aria-busy');
           save();
           error(result.code);

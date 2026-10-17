@@ -4,6 +4,7 @@
   const R = root.CareFlowRich,
     M = root.CareFlowModel,
     VI = root.CareFlowCopy,
+    UI = root.CareFlowUI,
     C = VI.common,
     I = (name, size = 22) => root.CareFlowIcon(name, size).replace('<svg ', '<svg aria-hidden="true" ');
   const esc = (x) =>
@@ -24,10 +25,10 @@
     variant = 'secondary',
     disabled = false,
   ) =>
-    `<button type="button" class="btn ${variant}" data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${['device', 'clinic-call', 'callback', 'rebook', 'arrive', 'directions'].includes(action) ? I(({device:'video','clinic-call':'phone',callback:'phone',rebook:'calendar',arrive:'map-pin',directions:'map-pin'})[action],20) : ''}${variant.includes('change-visit') ? I('refresh',20) : variant.includes('cancel-visit') ? I('cross',20) : variant.includes('add-relative-inline') ? I('plus',20) : ''}<span>${esc(label)}</span>${variant.includes('primary') && action === 'go' ? I('arrow-right',20) : ''}</button>`;
+    `<button type="button" class="btn ${variant}" ${UI.buttonAttrs(variant)} data-action="${action}"${attrs(data)}${disabled ? ' disabled' : ''}>${['device', 'clinic-call', 'callback', 'rebook', 'arrive', 'directions'].includes(action) ? I(({device:'video','clinic-call':'phone',callback:'phone',rebook:'calendar',arrive:'map-pin',directions:'map-pin'})[action],20) : ''}${variant.includes('change-visit') ? I('refresh',20) : variant.includes('cancel-visit') ? I('cross',20) : variant.includes('add-relative-inline') ? I('plus',20) : ''}<span>${esc(label)}</span>${variant.includes('primary') && action === 'go' ? I('arrow-right',20) : ''}</button>`;
   const go = (label, to, variant = 'secondary', extra = {}) =>
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
-  const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
+  const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" ${UI.buttonAttrs(variant)} href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
   const facilityCard = () => `<section class="facility-card"><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
   const row = (title, hint, to, icon = 'chevron-right', extra = {}) => {
     const description = hint || VI.layout.rowHints[to];
@@ -50,24 +51,14 @@
     return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
   };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
-    `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
+    `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" ${UI.buttonAttrs(variant, 'lg')} type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html, cls = '', icon = 'document') =>
     `<section class="section ${cls}"><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
-    `<span class="chip ${tone}">${esc(text)}</span>`;
-  const status = (v) =>
-    chip(
-      VI.statuses[v.status][0],
-      ['cancelled', 'no-show'].includes(v.status)
-        ? 'neutral'
-        : ['mode-review', 'pending', 'unreachable'].includes(v.status)
-          ? 'warning'
-          : ['completed', 'confirmed', 'reminder', 'ready'].includes(v.status)
-            ? 'success'
-            : 'info',
-    );
+    `<span class="chip ${tone}" data-cf-component="status" data-cf-tone="${tone}">${esc(text)}</span>`;
+  const status = (v) => { const state = UI.status(v.status); return chip(state.label, state.tone); };
   const dateText = (v) => {
     if (!v?.date) return C.notProvided;
     const date = new Date(v.date + 'T12:00:00+07:00');
@@ -79,14 +70,14 @@
       timeZone: 'Asia/Ho_Chi_Minh',
     }).format(date);
   };
-  const modeText = (mode) => (mode === 'online' ? C.online : C.onsite);
+  const modeText = UI.modeText;
   const details = (s, v) =>
-    `<dl class="details">${v.status?`<div><dt>${I('user',14)}Bác sĩ</dt><dd>${esc(R.clinician(v).name)} · ${esc(R.clinician(v).specialty)}</dd></div>`:''}<div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
+    `<dl class="details" data-cf-component="facts">${v.status?`<div><dt>${I('user',14)}Bác sĩ</dt><dd>${esc(R.clinician(v).name)} · ${esc(R.clinician(v).specialty)}</dd></div>`:''}<div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
     const date = new Date(v.date + 'T12:00:00+07:00');
     const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
     const month = new Intl.DateTimeFormat('vi-VN', { month: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
-    return `<button class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${root.CareFlowAvatar(v.patientId,36)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
+    return `<button data-cf-component="appointment" data-cf-variant="card" class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${root.CareFlowAvatar(v.patientId,36)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
   }
   function timeline(v) {
     return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
@@ -363,7 +354,7 @@
       case 'E1':
         body =
           card(
-            `<dl class="details">${[
+            `<dl class="details" data-cf-component="facts">${[
               [T.time, v.slot + ' · ' + dateText(v)],
               [T.arrival, C.notProvided],
               [T.papers, C.notProvided],
@@ -564,7 +555,7 @@
           chip(VI.payments[v.payment.status]) +
             `<h2 class="card-heading">${I('document-check',24)}<span>${esc(T.receipt)}</span></h2>` +
             (['paid', 'refunding', 'refunded'].includes(v.payment.status)
-              ? `<dl class="details"><div><dt>${esc(T.number)}</dt><dd>${esc('RC-' + v.id)}</dd></div><div><dt>${esc(C.fee)}</dt><dd>${esc(C.unknownFee)}</dd></div></dl>`
+              ? `<dl class="details" data-cf-component="facts"><div><dt>${esc(T.number)}</dt><dd>${esc('RC-' + v.id)}</dd></div><div><dt>${esc(C.fee)}</dt><dd>${esc(C.unknownFee)}</dd></div></dl>`
               : `<p>${esc(T.empty)}</p>`),
         );
         if (v.payment.dueDate)
@@ -596,7 +587,7 @@
             )
             .join('') +
           card(
-            `<dl class="details"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
+            `<dl class="details" data-cf-component="facts"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
           );
         if (v.labs.some((x) => x.status === 'reviewed'))
           body +=

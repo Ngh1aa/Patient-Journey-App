@@ -1,11 +1,33 @@
 # CareFlow design system và handoff
 
-Giao diện hiện tại: **Calm Clinical**, chuyển bố cục từ hai ảnh tham khảo ngày 16/10/2026, giữ màu xanh `#075FE8`. Mã nguồn dùng chung cho 47 màn trong `prototype/views.js`; foundation ở `styles.css`, layout hiện tại ở `editorial-soft-glass.css`, auth ở `auth-editorial.css`.
+## Shared component contract — patient and doctor
+
+Runtime vocabulary: `prototype/strings.vi.js` (`common`, `ui`, `statuses`, `labs`).
+Presentation helpers: `design/ui.js`. Component primitives: `design/components.css`, loaded after the existing page layout styles in both entry points. Keep layout hooks in the existing renderers; do not add per-screen button font sizes or new polish stylesheets.
+
+| Component | Named variants / sizes | Contract |
+|---|---|---|
+| Button | primary, secondary, inverse, danger, text; md, lg | Existing `btn`, `form`, `visitAction` helpers emit `data-cf-component`, `data-cf-variant`, `data-cf-size`. Default md is 44px on doctor / 48px on patient; lg is 52px for form submission. Height may grow for wrapping/large text. Font is 14px doctor / 15px patient, weight 600, line-height 1.5. |
+| Link | text | Keep native anchors for known URLs and buttons for event-driven routing. Text variant has an underline and the same named control type scale; do not abbreviate labels per screen. |
+| Tab / filter | underline, segmented | Tabs expose selected state and a labelled panel; arrow keys/Home/End move focus and activate the tab. Independent list filters remain `role=group` with `aria-pressed`. |
+| Status | info, warning, success, neutral, danger | Use `CareFlowUI.status(value, domain)`. Visit `ready` means ready to consult; result `ready` means awaiting physician review. Never infer a medical state from color. |
+| Appointment | row (doctor), card (patient) | Preserve patient/visit ID, clinician, mode, date/time and state. One clinician has one stable portrait seed. Layout differs by role; action labels and tokens are shared. |
+| Label/value | facts | Use `dl/dt/dd`; 13px labels, 14px values, line-height 1.5. Two columns where space permits, one column for large text or narrow clinical context. |
+
+Canonical actions: **Xem hồ sơ bệnh nhân**, **Xem phiếu khám**, **Xem kết quả**, **Xem lịch khám**, **Xem danh sách khám**, **Xem công việc theo dõi**, **Rà soát hồ sơ khám**. Modes are **Tại phòng khám** / **Khám trực tuyến**. Existing stored fixture mode values are retained and normalized for display only.
+
+Doctor overview DOM and reading order: **current encounter → physician decision → unreviewed result → daily agenda**, followed by online handoff and aftercare. No marketing hero or decorative statistic row precedes the work. Every empty group retains its destination. Existing clinical authority/transition guards remain model-owned.
+
+States: visible focus, hover/active, disabled, form `aria-busy` plus submitting label, persistent draft and inline validation/recovery. Loading is attached to the real local submission, with no artificial delay. The patient large-text setting scales shared type to 200%; controls grow and cards/facts stack. Browser tests are technical evidence, not clinical approval or direct-user validation.
+
+Role fonts remain intentional: Be Vietnam Pro self-hosted for patients; Plus Jakarta Sans with system fallback for the doctor workspace. Separate role fonts do not permit per-screen control sizes or vocabulary.
+
+Giao diện hiện tại: **Calm Clinical**, chuyển bố cục từ hai ảnh tham khảo ngày 16/10/2026, dùng navy hiện tại `#001D57`. Mã nguồn dùng chung cho 47 màn trong `prototype/views.js`; foundation ở `styles.css`, layout hiện tại ở `editorial-soft-glass.css`, auth ở `auth-editorial.css`.
 
 Browser prototype với dữ liệu thử nghiệm. Đây là quyết định thiết kế từ yêu cầu người dùng và source audit; chưa có nghiên cứu người dùng hoặc phê duyệt lâm sàng mới.
 
 ## Typography và geometry
-Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL OFL, license kèm assets/fonts). Body/form 16px, CTA15px, heading29px, status11px; large text nhân 2 mọi font size trong phone. 44px minimum hit targets, CTA52px. Khoảng cách 4/8/12/16/20/24/32/40/48px. Card R26, input R16, CTA pill, nav R30. Lịch khám có ngày/giờ tách nhóm, thông tin chi tiết hai cột và lý do khám chiếm trọn hàng; chữ lớn chuyển về một cột. Shadow nhẹ chỉ cho container nổi có ý nghĩa. WCAG contrast/reflow là technical QA, không tuyên bố chứng nhận accessibility.
+Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL OFL, license kèm assets/fonts). Body/form 16px, CTA15px, heading29px, status12px; large text nhân 2 mọi font size trong phone. 44px minimum hit targets, CTA52px. Khoảng cách 4/8/12/16/20/24/32/40/48px. Card R26, input R16, CTA pill, nav R30. Lịch khám có ngày/giờ tách nhóm, thông tin chi tiết hai cột và lý do khám chiếm trọn hàng; chữ lớn chuyển về một cột. Shadow nhẹ chỉ cho container nổi có ý nghĩa. WCAG contrast/reflow là technical QA, không tuyên bố chứng nhận accessibility.
 
 ## Owners và contracts
 | Component | Owner | Variants / behavior |
@@ -43,3 +65,19 @@ iOS/Android ở đây là browser presentation. Không có native permission, ap
 - Reviewer controls nằm ngoài viewport ứng dụng, có hàng riêng trên mobile để không che nút đăng nhập. Kiểm tra trực tiếp bằng click, không bỏ qua hit testing.
 
 Nguồn quy trình: `uiux-ai-workspace` với flow `mobile-web-preview`, các skill mobile-app-design, mobile-navigation-and-state-ux và mobile-design-system-and-handoff. Thẩm quyền hiện tại: sửa local và browser QA; chưa publish bản thiết kế này.
+# Doctor dashboard: object-specific card variants
+
+The `/doctor` dashboard reuses canonical button/status/facts components and the existing journey model. Each surface has a distinct job:
+
+| Variant / source owner | Content and action contract |
+| --- | --- |
+| Encounter workspace / `doctor-showcase.js` | Assigned patient, visit ID, appointment time, reason/history, actual draft completeness; continue encounter or open patient. A selector preserves access when multiple encounters remain open. |
+| Decision brief / `doctor-journeys.js` | Request, reason, owner and saved handoff detail; filter doctor-owned/delegated/all; open the guarded review route. |
+| Result register / `doctor-showcase.js` | Type/code, patient, record date and state; filter unread/waiting/reviewed; open exact result. Opening does not mark reviewed. |
+| Appointment agenda / `doctor-showcase.js` | Search name/patient/visit ID without requiring accents; combine state/mode filters and time sort; contextual guarded action per row. |
+| Online session / `doctor-journeys.js` | Appointment time/date, identity, reason, named connection state and owner; separate preparation from support/handoff. Ready appointment does not imply a connected call. |
+| Accountable task / `doctor-journeys.js` | Category, patient, due date, owner, next step and exact destination; filter owner/status; doctor-owned tasks can complete/reopen; delegated tasks expose no completion control. |
+
+`data-cf-component="tab" data-cf-variant="filter"` is a set of native toggle buttons with `aria-pressed`, not a tabpanel. `data-cf-component="appointment" data-cf-variant="agenda"` is a semantic table row that reflows into labelled records at800px. Filters restore focus/search caret after render and persist during hash navigation; they reset on reload. Clinical edits retain the existing session persistence.
+
+Dashboard style ownership stays in `doctor-content-grid.css` (page topology) and `doctor-journeys.css` (object anatomy). Surfaces follow content height,14px corner radius and16px padding; existing brand/font/control sizes remain. Facts have at most two columns and stack when large text needs space. No new library, photo, chart or fake live metric is required.
