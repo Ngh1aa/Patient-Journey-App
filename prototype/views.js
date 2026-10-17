@@ -55,7 +55,7 @@
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html, cls = '', icon = 'document') =>
-    `<section class="section ${cls}"><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
+    `<section class="section cf2-section ${cls}"><header class="cf2-section-header"><h2 class="section-heading cf2-section-title"><span>${esc(title)}</span></h2></header><div class="cf2-section-container">${html}</div></section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}" data-cf-component="status" data-cf-tone="${tone}">${esc(text)}</span>`;
   const status = (v) => { const state = UI.status(v.status); return chip(state.label, state.tone); };
