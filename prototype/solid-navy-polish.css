@@ -4,7 +4,7 @@
 :root {
   --bg:#f5f6f8; --surface:#fff; --primary:#10213c; --primary-hover:#1d3456;
   --careflow-navy:#10213c; --navy:#10213c; --navy-deep:#0b182d;
-  --ink:#172234; --heading:#142034; --muted:#67717f; --subtle:#67717f;
+  --ink:#172234; --heading:#142034; --muted:#5e6876; --subtle:#67717f;
   --border:#e7eaf0; --input-border:#8591a2; --blue-soft:#e7edf8;
   --success:#286443; --success-soft:#e7f2eb; --warning:#80570f; --warning-soft:#faf0db;
   --danger:#a73f3a; --danger-soft:#fbece9; --focus:#2e579a;
