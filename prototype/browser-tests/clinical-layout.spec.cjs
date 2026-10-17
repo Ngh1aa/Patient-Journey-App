@@ -3,12 +3,14 @@ const AxeBuilder = require('@axe-core/playwright').default;
 const state = page => page.evaluate(() => JSON.parse(sessionStorage.getItem('careflow.browser.v3')));
 const submit = page => page.locator('#phone-content form [type=submit]').click();
 
-test('icon navigation is compact, named for screen readers and profile add follows the selection', async ({page}) => {
+test('center booking navigation is named, clearly labelled, and profile add follows the selection', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=empty');
   const nav=page.locator('#bottom-nav');
-  expect((await nav.boundingBox()).height).toBeLessThanOrEqual(64);
+  expect((await nav.boundingBox()).height).toBeLessThanOrEqual(74);
   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
-  for(const caption of await nav.locator('.nav-caption').all()) await expect(caption).toBeHidden();
+  for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeHidden();
+  await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();
+  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label', 'Đặt lịch khám');
   await nav.locator('.nav-book').click();
   await expect(page.locator('.selection-reminder')).toHaveCount(0);
   await expect(page.locator('#bottom-nav')).toBeHidden();
