@@ -57,9 +57,9 @@
     '</span><p>' + esc(text) + '</p>' + link(action || 'Hỗ trợ', to || 'K5') + '</div>';
 
   const panels = {
-    B1: () => section('CHỌN CÁCH CHĂM SÓC', 'Tiện ích dành cho bạn',
-      grid(tip('user', 'Khám cho người thân', 'Chọn đúng hồ sơ trước khi gửi lịch khám.', 'K2', 'Xem hồ sơ'),
-        tip('message-circle', 'Có câu hỏi?', 'Hỏi phòng khám về giờ hẹn và chuẩn bị trước khám.', 'K5', 'Liên hệ'))),
+    B1: ({s}) => section('CHỌN CÁCH CHĂM SÓC', 'Tiện ích dành cho bạn',
+      grid(tip('user', 'Hồ sơ gia đình', (s.profiles?.length || 0) + ' hồ sơ đã lưu. Xem danh sách và chọn đúng người đi khám.', 'K2', 'Xem hồ sơ'),
+        tip('message-circle', 'Cần hỗ trợ lịch khám?', 'Hỏi phòng khám về giờ hẹn hoặc hướng dẫn chuẩn bị.', 'K5', 'Liên hệ'))),
     C1: () => section('BẮT ĐẦU ĐẶT LỊCH', 'Chọn đúng người đi khám',
       photo('consultation', 'Một nơi cho cả gia đình',
         'Hồ sơ của mỗi người được tách riêng để hạn chế nhầm lịch hẹn và kết quả.', 'K2', 'Quản lý hồ sơ') +
@@ -94,9 +94,9 @@
     C9: () => section('TIẾP TỤC HÀNH TRÌNH', 'Bạn có thể làm ngay',
       grid(tip('calendar', 'Theo dõi lịch khám', 'Xem trạng thái yêu cầu và phiếu khám của bạn.', 'D1', 'Mở lịch hẹn'),
         tip('headphones', 'Hỏi phòng khám', 'Trao đổi khi muốn đổi giờ hoặc cần chuẩn bị đặc biệt.', 'K5', 'Liên hệ'))),
-    D1: () => section('TIỆN ÍCH LỊCH KHÁM', 'Quản lý dễ dàng hơn',
-      grid(tip('user', 'Hồ sơ gia đình', 'Xem và chọn đúng hồ sơ khi đặt lịch cho người thân.', 'K2', 'Xem hồ sơ'),
-        tip('headphones', 'Cần tư vấn?', 'Liên hệ nếu bạn chưa rõ hình thức hoặc giờ khám.', 'K5', 'Liên hệ'))),
+    D1: ({s}) => section('TIỆN ÍCH LỊCH KHÁM', 'Quản lý dễ dàng hơn',
+      grid(tip('user', 'Hồ sơ gia đình', (s.profiles?.length || 0) + ' hồ sơ đang quản lý. Kiểm tra người đi khám trước khi gửi lịch.', 'K2', 'Xem hồ sơ'),
+        tip('headphones', 'Hỏi về giờ khám', 'Nhận hướng dẫn trước khi tới phòng khám hoặc kết nối trực tuyến.', 'K5', 'Liên hệ'))),
     D3: () => section('ĐỔI LỊCH', 'Cần lưu ý',
       details('Lịch mới chưa chắc được xác nhận',
         'Kiểm tra trạng thái phiếu khám sau khi gửi yêu cầu đổi giờ. ' +
@@ -283,7 +283,7 @@
     if (!renderPanel) return;
     const panel = root.document.createElement('div');
     panel.className = 'cfx-insert cfx-screen-' + id.toLowerCase();
-    panel.innerHTML = renderPanel();
+    panel.innerHTML = renderPanel({s, u});
     if (id === 'B1') {
       const anchor = content.querySelector('.cf-home-task-section');
       if (anchor) anchor.before(panel);
