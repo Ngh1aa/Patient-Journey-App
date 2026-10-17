@@ -1,12 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
-test('central Đặt lịch khám CTA is visibly labelled and opens the existing booking flow', async ({ page }) => {
+test('central booking icon is prominent and opens the existing booking flow', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=empty#/home');
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'B1');
   const nav = page.locator('#bottom-nav');
   const booking = nav.locator('.nav-book');
   await expect(nav.locator('a,button')).toHaveCount(5);
-  await expect(booking.locator('.nav-caption')).toBeVisible();
+  await expect(booking.locator('.nav-caption')).toHaveCount(0);
   await expect(booking).toHaveAttribute('aria-label', 'Đặt lịch khám');
   const box = await booking.boundingBox();
   const navBox = await nav.boundingBox();
