@@ -53,11 +53,11 @@
     return `<label class="doctor-control"><span>${x.e(title)}</span><select data-dashboard-field="${key}">${items.map(([id,text])=>`<option value="${id}" ${value===id?'selected':''}>${x.e(text)}</option>`).join('')}</select></label>`;
   }
   function cardHeading(x,number,title,detail,count,id){return `<header class="doctor-card-heading"><div><span class="doctor-overline">${number}</span><h2 id="${id}">${title}</h2>${detail?`<p>${x.e(detail)}</p>`:''}</div>${count==null?'':`<span class="doctor-card-count" aria-label="${count} mục">${count}</span>`}</header>`}
-  function emptyCard(x,title,detail,reset=false){return `<div class="doctor-card-empty"><strong>${x.e(title)}</strong><p>${x.e(detail)}</p>${reset?x.btn('Xóa bộ lọc','doc-dashboard-reset','btn-soft'):''}</div>`}
+  function emptyCard(x,title,detail,reset=false,actions=''){return `<div class="doctor-card-empty"><strong>${x.e(title)}</strong><p>${x.e(detail)}</p>${reset?x.btn('Xóa bộ lọc','doc-dashboard-reset','btn-soft'):''}${actions}</div>`}
   function encounterCard(x,visits){
     const active=visits.filter(a=>a.status==='in-consult');
     const doing=active.find(a=>a.id===dashboardState(x).currentEncounter)||active[0];
-    if(!doing)return `<section class="doctor-surface doctor-now" data-priority="current" aria-labelledby="current-encounter-title">${cardHeading(x,'01 / ĐANG KHÁM','Buổi khám đang thực hiện','',null,'current-encounter-title')}${emptyCard(x,'Chưa có buổi khám đang thực hiện','Chọn lượt sẵn sàng trong lịch bên dưới để bắt đầu.')}</section>`;
+    if(!doing)return `<section class="doctor-surface doctor-now" data-priority="current" aria-labelledby="current-encounter-title">${cardHeading(x,'01 / ĐANG KHÁM','Buổi khám đang thực hiện','',null,'current-encounter-title')}${emptyCard(x,'Chưa có buổi khám đang thực hiện','Chọn lượt sẵn sàng trong danh sách khám để bắt đầu.',false,x.btn(A.viewQueue,'go','btn-secondary','data-to="/doctor/queue"'))}</section>`;
     const p=x.person(doing.personId),draft=x.data.drafts?.[doing.id]||{},fields=[['symptom','Triệu chứng'],['assessment','Nhận định'],['plan','Kế hoạch xử trí']];
     const complete=fields.filter(([key])=>String(draft[key]||'').trim()).length;
     const unread=results(x).filter(r=>r.personId===p.id&&r.status==='ready');
