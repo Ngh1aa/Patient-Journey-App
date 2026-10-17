@@ -55,25 +55,27 @@ async function factLayout(page, screen) {
 test('C8 booking review facts keep readable labels at 390px', async ({ page }) => {
   await page.setViewportSize({width:390,height:844});
   await page.goto('/prototype/index.html?scenario=empty#/home');
-  await page.evaluate(() => {
-    const key='careflow.browser.v3';
-    const saved=JSON.parse(sessionStorage.getItem(key));
-    const model=window.CareFlowModel;
-    model.beginBooking(saved.state);
-    Object.assign(saved.state.draft,{
-      reason:'Đau đầu hai ngày, ngủ không ngon.',
-      safety:'normal',
-      mode:'online',
-      date:model.localDate(1),
-      slot:'08:00'
-    });
-    saved.state.request=null;
-    sessionStorage.setItem(key,JSON.stringify(saved));
-  });
-  await page.goto('/prototype/index.html#/book/review');
+  const content=page.locator('#phone-content');
+  const screen=async id => expect(content).toHaveAttribute('data-screen',id);
+  const submit=async () => content.locator('form [type=submit]').click();
+  await content.locator('[data-action=begin]').first().click();
+  await screen('C1');
+  await submit();
+  await screen('C2');
+  await page.locator('#reason').fill('Đau đầu hai ngày, ngủ không ngon.');
+  await submit();
+  await screen('C3');
+  await content.locator('input[value=normal]').check();
+  await submit();
+  await screen('C6');
+  await content.locator('input[value=online]').check();
+  await submit();
+  await screen('C7');
+  await content.locator('input[name=slot][value="08:00"]').check();
+  await submit();
+  await screen('C8');
   await factLayout(page,'C8');
 });
-
 test('C9 booking confirmation facts keep readable labels at 390px', async ({ page }) => {
   await page.setViewportSize({width:390,height:844});
   await page.goto('/prototype/index.html?scenario=upcoming#/book/done/CF-1017-0042');
