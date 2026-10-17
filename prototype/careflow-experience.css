@@ -392,3 +392,54 @@
   .phone .bottom-nav .nav-plus,
   .cfx-disclosure summary>svg:last-child { transition:none; }
 }
+
+/* Actions placed inside the real appointment/aftercare cards, never over the primary CTA. */
+.cf-home-appointment-footer .cfx-hero-secondary {
+  margin-right:auto;
+  padding:8px 0;
+  min-height:44px;
+  border:0;
+  border-radius:0;
+  color:#fff;
+  background:transparent;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.4;
+  font-family:inherit;
+  cursor:pointer;
+}
+.cfx-card-tools {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:9px;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid #e6eaf1;
+}
+.cfx-card-tools span {
+  font-size:11px;
+  line-height:1.5;
+  color:#60738a;
+}
+.cfx-card-tools button {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  min-height:36px;
+  padding:6px 0;
+  border:0;
+  background:transparent;
+  color:#001d57;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.cfx-hero-secondary:focus-visible,
+.cfx-card-tools button:focus-visible {
+  outline:3px solid #8fb8f9;
+  outline-offset:2px;
+}
