@@ -167,7 +167,7 @@
          'Đã lưu câu hỏi cần hỏi lại bác sĩ.',
          'Đã kiểm tra ngày tái khám nếu được yêu cầu.'])),
     H7: () => section('KẾT QUẢ VÀ THEO DÕI', 'Thông tin bạn cần',
-      grid(tip('document-check', 'Xem lời dặn', 'Đọc kết luận và chỉ dẫn được chia sẻ.', 'H6', 'Mở lời dặn'),
+      grid(tip('document-check', 'Xem lời dặn', 'Đọc kết luận và chỉ dẫn được chia sẻ trong phần trên.'),
         tip('message-circle', 'Còn câu hỏi?', 'Gửi câu hỏi cho phòng khám về kết quả.', 'K5', 'Liên hệ'))),
     I1: () => section('GIỮ LIÊN LẠC', 'Chọn đúng kênh hỗ trợ',
       grid(tip('message-circle', 'Gửi câu hỏi', 'Ghi rõ điều chưa hiểu để phòng khám phản hồi.', 'I5', 'Tin nhắn'),
