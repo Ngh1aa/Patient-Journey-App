@@ -27,6 +27,13 @@
 - [x] Kiểm tra trực tiếp Home mobile ở `#/home` và Doctor dashboard ở `#/doctor` trên localhost; nội dung thật/empty state vẫn hiển thị được.
 - [ ] Chưa hoàn tất migration toàn bộ CSS legacy còn lại; chưa có visual matrix cho đủ 47 màn mobile và mọi desktop route.
 
+## Đợt 3 — Compact editorial visual pass (đã triển khai, cần review)
+
+- [x] Đồng bộ page/surface/text/border/shadow/radius/spacing token trong `design/cards-v2.css` và `design/tokens.json`.
+- [x] Rút gọn Home và appointment rich cards bằng line-clamp, task rail density và compact list spacing; không cắt nội dung safety/critical.
+- [x] Áp dụng surface language chung cho các doctor dashboard card legacy; kiểm tra trực tiếp `#/home`, `#/appointments`, `#/doctor` trên HTTPS preview.
+- [ ] Chưa migrate hết hardcoded literals trong legacy CSS; chưa rà đủ mọi route/state.
+
 ## Chạy trên máy bạn (từ repository root)
 
 ```powershell

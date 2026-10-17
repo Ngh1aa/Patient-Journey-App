@@ -13,7 +13,7 @@
   margin:0 0 var(--cf2-space-3);
 }
 .cfx-section-heading>span {
-  display:block;
+  display:none;
   color:var(--cf2-text-muted);
   font-size:var(--cf2-fs-caption);
   font-weight:750;
@@ -21,7 +21,7 @@
   line-height:1.4;
 }
 .cfx-section-heading h2 {
-  margin:4px 0 0;
+  margin:0;
   color:var(--cf2-text);
   font-size:calc(var(--cf2-fs-card) * var(--font-scale, 1));
   font-weight:750;
@@ -29,7 +29,7 @@
   letter-spacing:-.3px;
 }
 .cfx-section-heading p {
-  margin:5px 0 0;
+  margin:4px 0 0;
   color:var(--cf2-text-soft);
   font-size:calc(var(--cf2-fs-caption) * var(--font-scale, 1));
   line-height:1.55;
@@ -72,6 +72,10 @@
   color:var(--cf2-text-soft);
   font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.55;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
 }
 .cfx-link {
   display:inline-flex;
@@ -189,9 +193,13 @@
 }
 .cfx-photo-copy p {
   margin:6px 0 11px;
-  color:#596983;
+  color:var(--cf2-text-soft);
   font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.55;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
 }
 .cfx-photo-copy .cfx-link { margin-top:auto; }
 .cfx-checklist {
@@ -282,6 +290,10 @@
   margin:0;
   font-size:calc(var(--cf2-fs-body) * var(--font-scale, 1));
   line-height:1.5;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
 }
 .cfx-action-band .cfx-link {
   flex:none;

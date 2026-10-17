@@ -24,10 +24,10 @@
 - **Kiểu chữ duy nhất:** `Be Vietnam Pro` cho cả heading + body mobile/desktop (hai vai trò typography trên cùng một font family, font-weight khác nhau). Desktop hiện dùng Plus Jakarta Sans, cần migration có kiểm thử screenshot.
 - **Scale:** section heading 17/24 semibold; card heading 16/23 semibold; body 14/22 regular; supporting 12/18 medium; prominent metric 30/36 bold. Large text override ưu tiên đọc được hơn line-clamp.
 - **Spacing:** 4/8/12/16/20/24/32; screen horizontal 20 mobile, 24 desktop grid gap; padding 16/20; card radius 22, inner radius 14. Đây là lựa chọn thống nhất CareFlow, không phải quy định Apple/Google.
-- **Màu:** primary `#001D57`, white `#FFFFFF`, page `#F3F6FB`, tint `#E8F0FA`; sắc thái success/warning/danger chỉ dùng khi nghĩa của trạng thái đúng.
+- **Màu:** primary `#001D57`, white `#FFFFFF`, page `#EEF3F9`, tint `#EDF4FC`; text primary `#0D2344`, text secondary `#405875`; sắc thái success/warning/danger chỉ dùng khi nghĩa của trạng thái đúng.
 - **Format:** `T5, 17/10 · 09:30` cho ngày giờ; `3` thay vì `03` cho số lượng.
 - **Section contract:** một heading row bên ngoài, một container bọc toàn nhóm bên trong. Riêng cảnh báo cấp cứu/permission/error, cấu trúc có thể đặc thù vì an toàn nhưng vẫn có vùng container rõ ràng.
-- **Mật độ:** tránh hai card giống nhau/CTA lặp. Empty tab Đã hủy: “Bạn chưa hủy lịch nào” + `Xem lịch sắp tới` **secondary**; không đẩy hành động đặt lịch như primary ở mọi empty state.
+- **Mật độ:** tránh hai card giống nhau/CTA lặp. Dữ liệu đồng loại dùng list row 72–88px; card chỉ giữ summary và next action. Empty tab Đã hủy: “Bạn chưa hủy lịch nào” + `Xem lịch sắp tới` **secondary**; không đẩy hành động đặt lịch như primary ở mọi empty state.
 
 ## Thành phần và states phải có
 
@@ -48,4 +48,4 @@
 - Nielsen Norman Group, *Cards: UI-Component Definition*.
 - W3C WCAG 2.1, SC 1.4.1, 1.4.3, 1.4.10, 1.4.4, 2.5.5 (AAA), 4.1.3.
 
-**Trạng thái:** RESEARCH_COMPLETE (chỉ desk evidence). Visual/user research & WCAG full conformance: NOT_VERIFIED.
+**Trạng thái:** RESEARCH_COMPLETE (desk evidence đã đọc trực tiếp từ Apple HIG Lists and tables/Buttons, Material Design 3 Cards, NN/g Cards và W3C WCAG 2.1 Contrast/Reflow). Visual/user research & WCAG full conformance: NOT_VERIFIED.

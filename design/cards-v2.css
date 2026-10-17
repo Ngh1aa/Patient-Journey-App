@@ -19,18 +19,18 @@
 }
 :root {
   --cf2-font:"Be Vietnam Pro",system-ui,sans-serif;
-  --cf2-page:#F3F6FB;
+  --cf2-page:#EEF3F9;
   --cf2-surface:#FFFFFF;
-  --cf2-surface-tint:#E8F0FA;
-  --cf2-surface-muted:#F6F8FC;
+  --cf2-surface-tint:#EDF4FC;
+  --cf2-surface-muted:#F4F7FB;
   --cf2-brand:#001D57;
   --cf2-brand-hover:#15396F;
   --cf2-on-brand:#FFFFFF;
-  --cf2-text:#122642;
-  --cf2-text-soft:#445871;
-  --cf2-text-muted:#52647E;
-  --cf2-border:#DFE6F0;
-  --cf2-focus:#3B77C8;
+  --cf2-text:#0D2344;
+  --cf2-text-soft:#405875;
+  --cf2-text-muted:#5A6D85;
+  --cf2-border:#D4E0EE;
+  --cf2-focus:#2C69B7;
   --cf2-success:#14633F;
   --cf2-success-bg:#E5F4EC;
   --cf2-warning:#775100;
@@ -38,8 +38,8 @@
   --cf2-danger:#A72323;
   --cf2-danger-bg:#FDEDEC;
   --cf2-disabled:#66758A;
-  --cf2-shadow:0 7px 24px rgba(0,29,87,.055);
-  --cf2-shadow-press:0 2px 10px rgba(0,29,87,.1);
+  --cf2-shadow:0 8px 22px rgba(0,29,87,.075);
+  --cf2-shadow-press:0 3px 12px rgba(0,29,87,.16);
   --cf2-space-1:4px;
   --cf2-space-2:8px;
   --cf2-space-3:12px;
@@ -47,8 +47,8 @@
   --cf2-space-5:20px;
   --cf2-space-6:24px;
   --cf2-space-8:32px;
-  --cf2-radius-card:22px;
-  --cf2-radius-inner:14px;
+  --cf2-radius-card:20px;
+  --cf2-radius-inner:12px;
   --cf2-radius-pill:999px;
   --cf2-border-width:1px;
   --cf2-fs-section:17px;
@@ -68,9 +68,9 @@
   --cf2-list-row:80px;
   --cf2-page-inset:20px;
   --cf2-grid-gap:12px;
-  --cf2-section-gap:24px;
-  --cf2-card-padding:16px;
-  --cf2-card-padding-lg:20px;
+  --cf2-section-gap:20px;
+  --cf2-card-padding:14px;
+  --cf2-card-padding-lg:18px;
 }
 /* Two typography roles, one family. Inherited by dialog and inputs. */
 .phone,
@@ -506,4 +506,42 @@
 }
 @media(max-width:360px){
   .phone #phone-content[data-screen="B1"] .cf-home-quick-grid{grid-template-columns:minmax(0,1fr);}
+}
+
+/* V3 visual pass: shared surface language for the doctor workspace. */
+#app :where(.doctor-surface,.doctor-stat-card,.panel,.support-panel,.wave-panel,.profile-banner,.doctor-tip) {
+  background:var(--cf2-surface);
+  border:var(--cf2-border-width) solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  box-shadow:var(--cf2-shadow);
+  color:var(--cf2-text);
+}
+#app :where(.doctor-section-head,.panel-head,.doctor-card-heading) {
+  border-color:var(--cf2-border);
+}
+#app :where(.doctor-section-head h2,.panel-head h2,.doctor-card-heading h2) {
+  color:var(--cf2-text);
+  font-family:var(--cf2-font);
+  letter-spacing:-.015em;
+}
+#app :where(.doctor-section-head p,.panel-head p,.doctor-card-hint,.doctor-empty p) {
+  color:var(--cf2-text-soft);
+}
+#app :where(.doctor-stat-card.is-selected,.doctor-card-icon,.doctor-icon) {
+  background:var(--cf2-surface-tint);
+  border-color:var(--cf2-border);
+  color:var(--cf2-brand);
+}
+#app :where(.doctor-card-footer-link,.doctor-card-icon-action,.doctor-text-link) {
+  color:var(--cf2-brand);
+}
+#app :where(.doctor-card-footer-link,.doctor-card-icon-action):focus-visible {
+  outline:2px solid var(--cf2-focus);
+  outline-offset:2px;
+}
+#app :where(.doctor-appointment,.doctor-lab-row,.doctor-task,.doctor-result-row) {
+  border-color:var(--cf2-border);
+}
+#app :where(.doctor-appointment-status,.doctor-result-status,.doctor-task-status) {
+  font-family:var(--cf2-font);
 }

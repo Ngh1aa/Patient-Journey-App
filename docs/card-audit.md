@@ -8,6 +8,10 @@ Ngày audit: 2026-10-17. Chụp source tại main `257c8989bf8aaf9a0c73f89e56231
 
 Các nhóm `Phụ trợ · ...` trong mobile đã được chuyển sang shared section/container contract và card tokens v2. Nội dung, action route và guard nghiệp vụ giữ nguyên; phần visual QA đầy đủ theo từng state vẫn là **UNKNOWN** cho đến khi chạy ma trận trình duyệt. Các dòng này không được hiểu là toàn bộ 47 màn đã hoàn tất migration.
 
+### Cập nhật sau Wave 3
+
+Shared visual layer đã được điều chỉnh theo hướng compact editorial: navy làm anchor, surface/tint dùng để phân nhóm, list row dùng cho dữ liệu lặp, line-clamp chỉ áp dụng cho copy không critical. Đã kiểm tra Home, Lịch hẹn và Doctor dashboard trên preview; các route/state còn lại vẫn **Chưa sửa/UNKNOWN** cho đến khi review theo matrix.
+
 ### Định nghĩa severity
 
 - **P0** — an toàn/sàng lọc, quyền truy cập, nghiệp vụ bác sĩ, payment/call, unread clinical hoặc lỗi thông tin quan trọng.
