@@ -571,3 +571,153 @@
 @media (max-width:360px) {
   .phone #phone-content :where(.card,.ticket,.visit-card,.choice) {border-radius:var(--cf2-radius-inner);}
 }
+
+/* V4 visual reset: one deliberate card language across the whole prototype. */
+:root {
+  --cf2-accent:var(--cf2-focus);
+  --cf2-accent-soft:var(--cf2-surface-tint);
+  --cf2-ink-quiet:var(--cf2-text-muted);
+  --cf2-divider:var(--cf2-border);
+  --cf2-radius-compact:16px;
+}
+.phone #phone-content,
+#app {
+  color:var(--cf2-text);
+}
+.phone #phone-content :where(.card,.visit-card,.panel,.list,.empty,.choice,.cf-lab-card,.cf-result-card,.cf-relative-card,.facility-card,.ticket,.checkin-qr-panel,.cf-reference-card,.rich-appt-card,.rich-empty) {
+  border:1px solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface);
+  box-shadow:var(--cf2-shadow);
+}
+.phone #phone-content :where(.card,.panel,.cf-reference-card,.ticket,.checkin-qr-panel) {
+  padding:var(--cf2-card-padding-lg);
+}
+.phone #phone-content :where(.card-heading,.rich-heading,.section-title-row h2,.cf-card-heading) {
+  color:var(--cf2-text);
+  letter-spacing:-.018em;
+}
+.phone #phone-content :where(.eyebrow,.cf-card-kicker,.rich-eyebrow) {
+  color:var(--cf2-accent);
+  letter-spacing:.08em;
+  font-weight:700;
+}
+.phone #phone-content :where(.row,.result-row,.record-row,.patient-row,.support-row,.notification) {
+  min-height:var(--cf2-list-row);
+  border-color:var(--cf2-divider);
+}
+.phone #phone-content :where(.row-text small,.result-row small,.record-row small,.patient-row small,.cf-lab-content p,.cf-result-card p) {
+  color:var(--cf2-ink-quiet);
+}
+.phone #phone-content :where(.cf-lab-card,.cf-result-card,.cf-relative-card,.facility-card) {
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr);
+  gap:12px;
+  padding:13px;
+  align-items:start;
+}
+.phone #phone-content :where(.cf-lab-card img,.cf-relative-card img,.facility-card img) {
+  width:48px;
+  height:48px;
+  object-fit:cover;
+  border-radius:14px;
+}
+.phone #phone-content :where(.cf-lab-content h2,.cf-result-card h2,.cf-relative-card h2,.facility-card h3) {
+  margin:0;
+  font-size:15px;
+  line-height:1.35;
+  color:var(--cf2-text);
+}
+.phone #phone-content :where(.cf-lab-content p,.cf-result-card p,.cf-relative-card p,.facility-card p) {
+  margin:4px 0 0;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+}
+.phone #phone-content :where(.cf-card-actions,.inline-actions,.rich-appt-actions) {
+  gap:8px;
+}
+.phone #phone-content :where(.cf-card-actions,.inline-actions,.rich-appt-actions) .btn {
+  min-height:44px;
+  border-radius:999px;
+  font-weight:600;
+}
+.phone #phone-content :where(.cf-card-actions,.inline-actions,.rich-appt-actions) .btn.primary {
+  background:var(--cf2-brand);
+  border-color:var(--cf2-brand);
+}
+.phone #phone-content :where(.cf-card-actions,.inline-actions,.rich-appt-actions) .btn.secondary {
+  background:var(--cf2-accent-soft);
+  border-color:var(--cf2-border);
+  color:var(--cf2-brand);
+}
+.phone #phone-content :where(.cf-home-card-grid,.cf-home-care-card,.cf-home-task-card,.cf-home-tip-card) {
+  border-color:var(--cf2-border);
+  box-shadow:none;
+}
+.phone #phone-content .cf-home-card-grid {
+  background:var(--cf2-surface);
+  border-radius:var(--cf2-radius-card);
+  padding:10px;
+}
+.phone #phone-content :where(.cf-home-task-card,.cf-home-tip-card) {
+  min-height:0;
+  padding:13px;
+}
+.phone #phone-content :where(.cf-appt-empty,.cf-collection-empty,.cf-document-empty,.clinical-empty,.support-empty) {
+  padding:18px 15px;
+  border:1px dashed var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface-muted);
+  text-align:left;
+}
+.phone #phone-content :where(.cf-appt-empty h2,.cf-collection-empty h2,.cf-document-empty h2,.clinical-empty h2,.support-empty h2) {
+  margin:0;
+  color:var(--cf2-text);
+  font-size:16px;
+}
+.phone #phone-content :where(.cf-appt-empty p,.cf-collection-empty p,.cf-document-empty p,.clinical-empty p,.support-empty p) {
+  max-width:38ch;
+  color:var(--cf2-text-soft);
+}
+.phone #phone-content :where(.danger,.warning,.urgent,[data-critical="true"]) {
+  box-shadow:none;
+}
+#app :where(.doctor-surface,.panel,.consult-subpanel,.support-queue-card,.support-floating-card,.wave-panel,.doctor-card-empty,.doctor-card-list,.doctor-agenda-row,.doctor-lab-row,.doctor-record-checklist) {
+  border:1px solid var(--cf2-border);
+  border-radius:var(--cf2-radius-card);
+  background:var(--cf2-surface);
+  box-shadow:var(--cf2-shadow);
+}
+#app :where(.panel,.doctor-surface,.support-queue-card,.support-floating-card,.wave-panel) {
+  padding:var(--cf2-card-padding-lg);
+}
+#app :where(.panel-head,.doctor-card-heading,.wave-panel-head) {
+  padding-bottom:12px;
+  margin-bottom:12px;
+  border-bottom:1px solid var(--cf2-divider);
+}
+#app :where(.panel-head h2,.doctor-card-heading h2,.wave-panel-head h2) {
+  margin:0;
+  color:var(--cf2-text);
+  letter-spacing:-.02em;
+}
+#app :where(.doctor-agenda-row,.doctor-lab-row,.doctor-record-checklist > *, .doctor-today-list > *) {
+  min-height:var(--cf2-list-row);
+  border-color:var(--cf2-divider);
+}
+#app :where(.doctor-card-count,.doctor-card-badge,.doctor-item-eyebrow) {
+  color:var(--cf2-accent);
+}
+#app :where(.doctor-card-actions,.support-card-actions,.doctor-card-footer) .btn,
+#app :where(.doctor-card-actions,.support-card-actions,.doctor-card-footer) button {
+  min-height:44px;
+  border-radius:999px;
+}
+@media (max-width:720px) {
+  #app :where(.panel,.doctor-surface,.support-queue-card,.support-floating-card,.wave-panel) {
+    padding:14px;
+    border-radius:var(--cf2-radius-inner);
+  }
+}

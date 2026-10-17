@@ -16,6 +16,10 @@ Thiết kế lại toàn bộ card của prototype bệnh nhân (`prototype/`) v
 
 **Calm Clinical / compact editorial**: nền xanh xám rất nhạt, surface trắng, navy `#001D57` làm anchor, một màu tint xanh làm grouping và trạng thái chỉ xuất hiện khi có nghĩa. Card nổi bằng viền + shadow nhẹ, không dùng nhiều gradient hoặc ảnh trang trí trong các màn tác vụ.
 
+### V4 reset sau review giao diện
+
+Các lớp visual cũ tạo cảm giác card bị ghép từ nhiều hệ thống: nhiều radius, nhiều accent xanh, panel/card/list cùng có shadow và copy cạnh tranh nhau. V4 không tiếp tục chỉnh từng màu lẻ; `design/cards-v2.css` được dùng như lớp cuối để reset toàn bộ card family về cùng anatomy: surface, list-row, choice, empty, alert và hero. Các nhóm dữ liệu lặp được ép về row density; ảnh chỉ còn giữ ở hero/context card, không dùng để trang trí cho task card.
+
 ### Nguyên tắc thị giác
 
 1. Một section có một header và một container; container có rhythm rõ, không để card rời.

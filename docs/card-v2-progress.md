@@ -34,6 +34,13 @@
 - [x] Áp dụng surface language chung cho các doctor dashboard card legacy; kiểm tra trực tiếp `#/home`, `#/appointments`, `#/doctor` trên HTTPS preview.
 - [ ] Chưa migrate hết hardcoded literals trong legacy CSS; chưa rà đủ mọi route/state.
 
+## Đợt 4 — V4 visual reset (đã triển khai, cần review)
+
+- [x] Dùng một lớp reset cuối trong `design/cards-v2.css` để thống nhất surface, list-row, choice, empty, alert, hero cho cả patient và doctor workspace.
+- [x] Chuẩn hóa các nhóm lab/result/profile/appointment và doctor agenda/result/task về border, radius, shadow, padding và action hit-area chung.
+- [x] Validator token, 49 model tests và 3 desktop tests pass; Home mobile và Doctor dashboard đã kiểm tra trực tiếp sau reset.
+- [ ] Chưa hoàn tất visual matrix toàn bộ 47 màn; các hardcoded literals legacy còn lại được giữ trong debt list để xử lý theo từng nhóm, không bỏ qua safety UI.
+
 ## Chạy trên máy bạn (từ repository root)
 
 ```powershell
