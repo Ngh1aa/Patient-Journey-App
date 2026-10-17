@@ -22,7 +22,7 @@ function dateTime(date,time) {
   if(Number.isNaN(value.getTime())) return 'Chưa xác định';
   const d = value.getUTCDay();
   const weekday = d===0 ? 'CN' : 'T'+(d+1);
-  return weekday+', '+value.toLocaleDateString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',day:'2-digit',month:'2-digit'}) +
+  return weekday+', '+date.slice(8,10)+'/'+date.slice(5,7) +
     (time && /^\d{2}:\d{2}$/.test(time) ? ' · '+time:'');
 }
 function card(body,{variant='surface',state='data',label='',critical=false}={}){
