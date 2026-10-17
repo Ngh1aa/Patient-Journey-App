@@ -288,6 +288,7 @@
       ? V.head(g[1], g[2]) + V.go(VI.common.continue, g[3], 'primary')
       : V.render(id, s, u);
     window.CareFlowExperience?.decorate({ id, s, u, guarded: !!g });
+    window.CareFlowCardsV2?.decoratePatient($('phone-content'));
     $('bottom-nav').hidden =
       !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id) || (s.draft && /^C[1-8]$/.test(id));
     $('bottom-nav').innerHTML = [
