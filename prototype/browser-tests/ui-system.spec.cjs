@@ -13,7 +13,9 @@ test('patient appointment action preserves its name, type scale and clinician ac
   const home=await geometry(homeAction);
   const avatar=await phone(page).locator('.cf-home-appointment-avatar').innerHTML();
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
+  await expect(phone(page)).toHaveAttribute('data-screen','D1');
   const listAction=phone(page).getByRole('button',{name:'Xem phiếu khám',exact:true});
+  await expect(listAction).toBeVisible();
   expect(await geometry(listAction)).toEqual(home);
   expect(await phone(page).locator('.cf-clinician-avatar').innerHTML()).toBe(avatar);
   await listAction.click();await expect(phone(page)).toHaveAttribute('data-screen','D2');
