@@ -78,7 +78,7 @@
   gap:4px;
   align-items:center;
   justify-content:center;
-  min-height:40px;
+  min-height:44px;
   max-width:100%;
   padding:9px 13px;
   border:0;
@@ -96,7 +96,7 @@
 .cfx-link.is-subtle {
   margin-top:auto;
   padding:8px 0;
-  min-height:38px;
+  min-height:44px;
   color:#001d57;
   background:transparent;
   text-align:left;
@@ -289,7 +289,7 @@
   background:#fff;
   color:#001d57;
   padding:7px 9px;
-  min-height:37px;
+  min-height:44px;
 }
 .phone .bottom-nav:not([hidden]) {
   overflow:visible;
@@ -429,7 +429,7 @@
   display:inline-flex;
   align-items:center;
   gap:5px;
-  min-height:36px;
+  min-height:44px;
   padding:6px 0;
   border:0;
   background:transparent;
