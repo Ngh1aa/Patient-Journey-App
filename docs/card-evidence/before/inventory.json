@@ -1,0 +1,1753 @@
+{
+  "phase": "before",
+  "time": "2026-10-18T09:05:12.233Z",
+  "screens": [
+    {
+      "area": "patient",
+      "id": "A1",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "A2",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "A3",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "B1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "visit-card cf-home-appointment-summary",
+          "title": "19",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "ref-overview",
+          "title": "Tổng quan chăm sóc",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "cf-home-quick",
+          "title": "Truy cập nhanh",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "ref-discover",
+          "title": "Chăm sóc phù hợp với bạn",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "rich-section cf-home-task-section",
+          "title": "Việc cần làm",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 5,
+          "selector": "cf-home-task-card",
+          "title": "Chuẩn bị cho buổi khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 6,
+          "selector": "cf-home-task-card",
+          "title": "Xem lịch hẹn",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 7,
+          "selector": "rich-section cf-home-care-section",
+          "title": "Chăm sóc sau khám",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 8,
+          "selector": "cf-home-care-card",
+          "title": "Chưa có thông tin sau khám",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 9,
+          "selector": "rich-section cf-home-tips-section",
+          "title": "Cẩm nang đi khám",
+          "type": "content",
+          "actions": 13,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 10,
+          "selector": "cf-home-tip-card",
+          "title": "Chuẩn bị trước khi khámGiấy tờ, đơn thuốc và kết quả cũ",
+          "type": "disclosure",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 11,
+          "selector": "cf-home-tip-card",
+          "title": "Vào phòng khám onlineKết nối, camera và không gian riêng tư",
+          "type": "disclosure",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 12,
+          "selector": "cf-home-tip-card",
+          "title": "Tìm lại thông tin sau khámKết quả, lời dặn và câu hỏi cho phòng khám",
+          "type": "disclosure",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 13,
+          "selector": "rich-section cf-home-help-section",
+          "title": "Cần giúp?",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "choice patient-choice rich-patient-choice selected",
+          "title": "Nguyễn Minh Anh",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "choice patient-choice rich-patient-choice ",
+          "title": "Trần Thị Mai",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C2",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "C3",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "choice selected ",
+          "title": "Không, tiếp tục đặt lịch",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "choice  ",
+          "title": "Có hoặc chưa rõ",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C4",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "note danger",
+          "title": "Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C5",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "note warning",
+          "title": "Yêu cầu của bạn chưa phải lịch khám đã được xác nhận.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C6",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "choice selected ",
+          "title": "Tại phòng khám",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "choice  ",
+          "title": "Khám online",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C7",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "C8",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Người đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Giờ khám09:00Hình thứcTại phòng khámLý ",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "C9",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ticket",
+          "title": "CF-0001",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "D1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "rich-appt-card state-success cf-appt-featured",
+          "title": "BS. Trần Thu Hà",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "D2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card next-step",
+          "title": "Đang chờ bạn",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "card ticket",
+          "title": "CF-1017-0042",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "facility-card",
+          "title": "Bệnh viện Nhân dân 115",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "note info",
+          "title": "Phòng khám sẽ thông báo trước khi thu phí",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "section ",
+          "title": "Thông tin liên quan",
+          "type": "content",
+          "actions": 5,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 5,
+          "selector": "row",
+          "title": "Xét nghiệm, chụp chiếu",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 6,
+          "selector": "row",
+          "title": "Phí khám và biên lai",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 7,
+          "selector": "row",
+          "title": "Kết luận và đơn thuốc",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 8,
+          "selector": "row",
+          "title": "Kết quả và việc tiếp theo",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 9,
+          "selector": "row",
+          "title": "Trao đổi sau khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 10,
+          "selector": "section ",
+          "title": "Các bước của lượt khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 11,
+          "selector": "rich-section rich-detailed-progress",
+          "title": "Tiến trình lượt khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 12,
+          "selector": "rich-section rich-prepare",
+          "title": "Cần chuẩn bị",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 13,
+          "selector": "rich-section rich-declared",
+          "title": "Thông tin đã khai",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 14,
+          "selector": "rich-section ",
+          "title": "Chỉ định liên quan",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "D3",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "D4",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "choice selected ",
+          "title": "Tôi bận vào thời gian này",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "choice  ",
+          "title": "Tôi muốn chọn ngày khác",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "choice  ",
+          "title": "Lý do khác",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "note info",
+          "title": "Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "E1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Giờ hẹn08:00 · Thứ Hai, 19/10/2026Giờ nên có mặtChưa có hướng dẫn thời gian đến riêngGiấy tờ cầ",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "E2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "E3",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card center",
+          "title": "Bạn đã đến",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "section ",
+          "title": "Số thứ tự",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "section ",
+          "title": "Các bước của lượt khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "F1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "cf-lab-card",
+          "title": "Xét nghiệm theo chỉ định",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "F2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Xét nghiệm theo chỉ định",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "section ",
+          "title": "Hướng dẫn chuẩn bị",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "choice selected ",
+          "title": "Quay lại lượt khám hiện tại",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "choice  ",
+          "title": "Để bác sĩ xem trong buổi khám",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "F3",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "F4",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "G1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Chưa kiểm tra",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "G2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card center",
+          "title": "Chờ bác sĩ gọi",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "G3",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "G4",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "G5",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "note info",
+          "title": "Đang chờ phòng khám liên hệ lại",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note warning",
+          "title": "Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Hoàn tất buổi khámNguyễn Minh Anh · Thứ Hai, 19/10/2026",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Bác sĩ đã ký và hoàn tất hồ sơ buổi khám",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "row",
+          "title": "Kết luận và đơn thuốc",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "row",
+          "title": "Xét nghiệm sau khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "row",
+          "title": "Hỏi phòng khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 5,
+          "selector": "row",
+          "title": "Đặt lịch tái khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Phòng khám sẽ thông báo",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H3",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "H4",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Chưa có mã thanh toán",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note warning",
+          "title": "Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông ",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H5",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Biên lai",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H6",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "section ",
+          "title": "Kết luận buổi khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Chưa có tài liệu được phòng khám chia sẻ.",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "section ",
+          "title": "Đơn thuốc",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "section ",
+          "title": "Hướng dẫn chăm sóc",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "rich-section rich-aftercare-sample",
+          "title": "Mẫu chăm sóc sau khám",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "H7",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Thông báo kết quảĐã gửi thông báoGiải thích kết quảChưa ghi nhận đã giải thích",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "I1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "section ",
+          "title": "Lượt đã khám",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "choice selected ",
+          "title": "Nguyễn Minh Anh",
+          "type": "choice",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "row",
+          "title": "Phản hồi về đơn thuốc",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "row",
+          "title": "Hỏi lại, dùng thuốc",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "row",
+          "title": "Triệu chứng mới, chưa cải thiện",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 5,
+          "selector": "row",
+          "title": "Theo dõi triệu chứng",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 6,
+          "selector": "row",
+          "title": "Chuyển chuyên khoa",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 7,
+          "selector": "row",
+          "title": "Tin nhắn với phòng khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "I2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "note warning",
+          "title": "Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "I3",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "section ",
+          "title": "Theo dõi triệu chứng",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "I4",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "I5",
+      "cards": []
+    },
+    {
+      "area": "patient",
+      "id": "J1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "section ",
+          "title": "Ngày gợi ý từ phòng khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "K1",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "notification row ",
+          "title": "Có cập nhật về lượt khám",
+          "type": "action",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Nội dung sức khỏe không xuất hiện trong bản xem trước.",
+          "type": "notice",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "K2",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "cf-reference-section ",
+          "title": "Thông tin cá nhân",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "cf-reference-section ",
+          "title": "Người thân",
+          "type": "content",
+          "actions": 6,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "cf-reference-section ",
+          "title": "Cài đặt",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "K3",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "rich-appt-card state-success",
+          "title": "BS. Trần Thu Hà",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "K4",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "section ",
+          "title": "Quyền riêng tư",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "patient",
+      "id": "K5",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "cf-reference-section ",
+          "title": "Liên hệ nhanh",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "cf-reference-section ",
+          "title": "Gửi yêu cầu",
+          "type": "content",
+          "actions": 8,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "cf-reference-section ",
+          "title": "Câu hỏi thường gặp",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "cf-reference-section ",
+          "title": "Tin nhắn gần đây",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface doctor-now",
+          "title": "Buổi khám đang thực hiện",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface doctor-decision-card",
+          "title": "Yêu cầu trước khám",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "doctor-surface doctor-labs-today",
+          "title": "Kết quả cận lâm sàng",
+          "type": "content",
+          "actions": 5,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "doctor-result-item",
+          "title": "Công thức máu",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 4,
+          "selector": "doctor-result-item",
+          "title": "Tổng phân tích nước tiểu",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 5,
+          "selector": "doctor-surface doctor-today",
+          "title": "Lịch khám trong ngày",
+          "type": "content",
+          "actions": 11,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 6,
+          "selector": "doctor-agenda-row",
+          "title": "08:45",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 7,
+          "selector": "doctor-agenda-row",
+          "title": "09:00",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 8,
+          "selector": "doctor-agenda-row",
+          "title": "09:30",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 9,
+          "selector": "doctor-agenda-row",
+          "title": "10:30",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 10,
+          "selector": "doctor-agenda-row",
+          "title": "11:45",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 11,
+          "selector": "doctor-agenda-row",
+          "title": "14:00",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 12,
+          "selector": "doctor-agenda-row",
+          "title": "14:30",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 13,
+          "selector": "doctor-surface doctor-online-card",
+          "title": "Kết nối buổi khám",
+          "type": "content",
+          "actions": 5,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 14,
+          "selector": "doctor-surface doctor-aftercare-card",
+          "title": "Công việc theo hồ sơ",
+          "type": "content",
+          "actions": 9,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 15,
+          "selector": "doctor-task-item ",
+          "title": "Rà soát kết quả cận lâm sàng",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 16,
+          "selector": "doctor-task-item ",
+          "title": "Theo dõi sau tái khám",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/schedule",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface doctor-schedule-main",
+          "title": "12 — 18 tháng 10, 2026",
+          "type": "content",
+          "actions": 17,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface doctor-schedule-summary",
+          "title": "BS. Nguyễn Văn An",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "doctor-surface doctor-next-visit",
+          "title": "Phạm Gia Huy",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/queue",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface",
+          "title": "Lượt khám hôm nay",
+          "type": "content",
+          "actions": 11,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/patients",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface",
+          "title": "7 hồ sơ được hiển thị",
+          "type": "content",
+          "actions": 8,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/patients/p-001",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "profile-banner",
+          "title": "MAHỒ SƠ BỆNH NHÂN · BN-2041Nguyễn Minh Anh29 tuổi · Nữ · 09•• ••• 123Đã từng khám Xem lịch khám",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": true
+        },
+        {
+          "index": 1,
+          "selector": "panel",
+          "title": "Thông tin cơ bản",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "panel",
+          "title": "Tổng quan chăm sóc",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "panel note-panel",
+          "title": "Ghi chú hồ sơ",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/visits/a-027",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface doctor-result-preview",
+          "title": "Phạm Gia Huy",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface doctor-result-preview",
+          "title": "Hồ sơ & kết quả",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/encounters/a-033",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "panel consult-queue",
+          "title": "Danh sách khám",
+          "type": "content",
+          "actions": 7,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "panel consult-editor",
+          "title": "Khám lâm sàngCận lâm sàngKết quảĐơn thuốcLý do khám (người bệnh cung cấp)Tái khámTriệu chứng và",
+          "type": "content",
+          "actions": 7,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 2,
+          "selector": "panel",
+          "title": "Thông tin liên quan",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 3,
+          "selector": "panel followup-panel",
+          "title": "Rà soát ghi nhận",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/results",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface",
+          "title": "Danh sách kết quả",
+          "type": "content",
+          "actions": 6,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface doctor-result-preview",
+          "title": "Công thức máu",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/clinical/orders",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "panel support-panel ",
+          "title": "Danh sách chỉ định",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "panel support-panel support-form-panel",
+          "title": "Dự thảo chỉ định",
+          "type": "content",
+          "actions": 4,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/clinical/prescription",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "panel support-panel support-document-panel",
+          "title": "Thông tin lượt khám",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "panel support-panel support-form-panel",
+          "title": "Ghi chú hồ sơ",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/clinical/review",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "panel support-panel ",
+          "title": "Thông tin buổi khám",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "panel support-panel support-guidance",
+          "title": "Kiểm tra trước khi hoàn tất",
+          "type": "content",
+          "actions": 0,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/followups",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface",
+          "title": "3 việc đang chờ xử lý",
+          "type": "content",
+          "actions": 5,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface doctor-followups-summary",
+          "title": "2",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/review/a-021",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface journey-panel",
+          "title": "Trần Quốc Bảo",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface journey-panel",
+          "title": "Ghi nhận đề xuất cho điều phối",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/online/a-040",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface journey-panel",
+          "title": "Hoàng Nhật Nam",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface journey-panel",
+          "title": "Xử lý kết nối",
+          "type": "content",
+          "actions": 3,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "area": "doctor",
+      "id": "/doctor/online/a-041",
+      "cards": [
+        {
+          "index": 0,
+          "selector": "doctor-surface journey-panel",
+          "title": "Mai Khánh Vy",
+          "type": "content",
+          "actions": 1,
+          "shared": false,
+          "overflow": false
+        },
+        {
+          "index": 1,
+          "selector": "doctor-surface journey-panel",
+          "title": "Xử lý kết nối",
+          "type": "content",
+          "actions": 2,
+          "shared": false,
+          "overflow": false
+        }
+      ]
+    }
+  ]
+}
