@@ -85,7 +85,7 @@ Dashboard style ownership stays in `doctor-content-grid.css` (page topology) and
 
 ## Card v2 shared contract (18/10/2026)
 
-Canonical foundations: `design/tokens.css`, imported by `design/components.css`. Both patient and doctor reuse `CareFlowUI.card(content, classes, variant)` or `cardAttrs(variant)` for existing semantic templates. No DOM post-processor or parallel renderer. Only trusted markup is accepted as content; plain text is escaped by each existing renderer.
+Canonical foundations: `design/tokens.css`, loaded before `design/components.css` by both HTML entry points. Both patient and doctor reuse `CareFlowUI.card(content, classes, variant)` or `cardAttrs(variant)` for existing semantic templates. No DOM post-processor or parallel renderer. Only trusted markup is accepted as content; plain text is escaped by each existing renderer.
 
 | Variant | Role | Composition |
 |---|---|---|

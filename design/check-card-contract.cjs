@@ -4,7 +4,10 @@ const root=path.resolve(__dirname,'..');
 const css=fs.readFileSync(path.join(__dirname,'components.css'),'utf8');
 const tokens=fs.readFileSync(path.join(__dirname,'tokens.css'),'utf8');
 const checks=[];
-checks.push({name:'shared card CSS imports semantic tokens',pass:css.startsWith('@import url("./tokens.css");')});
+checks.push({name:'both entry points load tokens before shared components',pass:['prototype','staff-prototype'].every(folder=>{
+  const html=fs.readFileSync(path.join(root,folder,'index.html'),'utf8');
+  return html.indexOf('../design/tokens.css')>=0&&html.indexOf('../design/tokens.css')<html.indexOf('../design/components.css');
+})});
 checks.push({name:'navy preserved',pass:/--cf-brand:\s*#001d57;/i.test(tokens)});
 checks.push({name:'no raw color in shared component owner',pass:!/(#[a-f\d]{3,8}\b|rgba?\()/i.test(css)});
 checks.push({name:'card API uses existing presentation owner',pass:fs.readFileSync(path.join(__dirname,'ui.js'),'utf8').includes('cardAttrs, card')});

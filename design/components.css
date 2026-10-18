@@ -1,4 +1,3 @@
-@import url("./tokens.css");
 /* Canonical component layer, shared by patient and doctor renderers.
    Legacy classes remain hooks for layout and events; data-cf-* owns primitives. */
 /* Specificity is bounded to the two renderer roots, not individual screens. */
