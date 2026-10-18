@@ -70,5 +70,14 @@
     "license": "https://unsplash.com/license",
     "purpose": "Stock avatar for the synthetic demo account only; not verified account identity",
     "retrieved": "2026-10-18"
+  },
+  {
+    "file": "care-team.webp",
+    "photographer": "National Cancer Institute",
+    "photo": "https://unsplash.com/photos/tl447mekwuQ",
+    "image": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative care interaction; not CareFlow staff or a real consultation record",
+    "retrieved": "2026-10-18"
   }
 ]
