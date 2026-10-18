@@ -420,3 +420,34 @@ Bản photo-led giữ62representative states:47patient+15doctor. Inventory thự
 | Doctor15states | Existing cards | existing | Không thuộc yêu cầu mobile photo-led | Không redesign desktop;model/shared-role regressions giữ nguyên | UNCHANGED |
 
 Chi tiết7AI-sign checklist,crop/contrast và đối soát test: `photo-led-review.md`.
+
+## Delta hiện tại — reference Docthea / editorial pastel
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Welcome / lịch tiếp theo | hero + task | Chưa có hero người thật; dark card chiếm ưu tiên | Hero pastel copy/portrait tách vùng, CTA đặt lịch; phiếu hẹn trắng + navy pill | RESOLVED/P1 |
+| B1 | Việc cần làm / khám phá | note + media | Mọi action dùng cùng ảnh/blur footer tối | Note pastel/icon xen photo tile; caption sáng, arrow/nav giữ functional labels | RESOLVED/P2 |
+| D1,K3 | Appointment | multi-action media | Navy caption dài, inverse CTA trên white direction | Cover gọn 160px; white caption + dark text; primary CTA cùng home | RESOLVED/P1 |
+| F1,H7,C6,H1,I1,J1 | Lab/result/mode/navigation | media | Dark/glass lặp qua page roles | White .96 captions; F1 pastel task header, giữ filter/selected/labId | RESOLVED/P2 |
+| K2 | Account | banner + rows | Photo cover tối không còn phù hợp reference | Pastel/stock avatar, personal-data rows; bỏ cover request ẩn | RESOLVED/P2 |
+| A,C,D,E,G,H,I,K | Shared surfaces/states | utility | Cần kiểm tác động token patient | 47 route × 3 widths + 47 large-text captures, semantic status/flows giữ nguyên | VERIFIED/QA |
+
+Không lập lại inventory component để tăng số lượng: đây là thay presentation trên inventory đã có. Scope patient, không redesign staff trong đợt style này. Evidence: `card-evidence/editorial-pastel/`.
+
+## Hiện tại — toàn bộ card navy reference, 19/10/2026
+
+Before: `navy-reference-before/inventory.json`, 195 instances/62states. After: `navy-reference/inventory.json`, 197 instances/62states, 0 snapshot overflow. Shared surface rollout bao phủ patient và staff; table liệt kê family owners, JSON giữ từng screen/card/type/actions để đối chiếu đầy đủ.
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Overview/network | metric/action | Summary ngang, chưa có orbit | Count thực cỡ lớn + navy field; orbit stock minh họa + K5 named action | RESOLVED/P1 |
+| B1,D1,F2 | Lịch/phiếu | schedule/data | Facts phẳng, không có layered-paper grammar | Schedule/clinician sheets trên B1; paper data cards D1/F2 giữ facts/CTA/visit | RESOLVED/P1 |
+| B1,F1,H1,I1 | Task/help/aftercare | topic/stack/network | Chủ yếu photo/footer giống nhau | Sáu anatomy dùng theo task; art không có fake controls, IDs/reason/lab giữ nguyên | RESOLVED/P1 |
+| B1/J1/H1/I1,guide | Photo navigation | media | Caption sáng/pastel | Navy gradient/white caption + circle arrow; crop NCI vẫn kiểm bằng geometry/ảnh | RESOLVED/P2 |
+| F1,H7,C6,E3,G2 | Clinical object/mode/waiting | media/choice | White caption rời | Paper/blue wash + trạng thái thật; radio native và actions đầy đủ | RESOLVED/P2 |
+| K2,K5 | Account/support | identity/network | Pastel banner/photo header | Blue gradient banner, avatar; support network + contact actions/form | RESOLVED/P2 |
+| A,C,D,E,F,G,H,I,K | Ordinary cards, QR, empty, form | surface/tonal | Owner styles khác nhau | Shared white-paper/blue gradient, unified type/insets/CTA. Notice giữ semantic mapping vì severity, rows/sections không thêm shell | RESOLVED/P1 |
+| Staff 15states | Doctor/panel/result/profile | surface/tonal/row | Chưa kế thừa navy-paper grammar | Shared card wash/gradient CTA, summary metric treatment; clinical forms/tables vẫn dùng data layout | RESOLVED/P2 |
+| B1,F1,H1,I1 | Arrow/mini-sheet | craft | Caption filter tạo containing block; footer padding ăn vào art text | Bỏ filter vô ích, thu selector, thêm arrow/title collision assertion và inspect ảnh sau sửa | RESOLVED/P1 |
+
+QA không chứng minh user preference: các giá trị từ reference là quyết định thiết kế; số liệu nội dung từ model. Chi tiết 114/12 patient runs, staff reruns và 7-dấu-hiệu checklist: `photo-led-review.md`.

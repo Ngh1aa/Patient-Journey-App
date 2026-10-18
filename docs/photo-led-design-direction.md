@@ -1,5 +1,44 @@
 # Photo-led CareFlow — hướng sửa theo ảnh người dùng
 
+## Hiện tại — toàn bộ card theo reference navy, 19/10/2026
+
+Hai crop người dùng gửi `df745a9b...png` / `3934c010...png` khóa anatomy: metric + gradient pillar, avatar orbit, portrait, overlapping appointment sheets, icon/category poster, compact CTA banner. Phải thực thi các anatomy này trên dữ liệu thật của prototype, không chỉ đổi màu bản pastel. Reference là visual constraint, không phải bằng chứng usability hoặc dữ liệu y tế.
+
+Before inventory: `card-evidence/navy-reference-before/inventory.json` — 62 states, 195 card/section instances, 0 measured overflow. Working tree chứa bản editorial-pastel từ đợt trước; giữ thay đổi này và Factory edits ngoài target, không reset hoặc merge. Tiếp tục `redesign/cards-v2`.
+
+| Card family / user job | Transfer từ reference / role | Giá trị và composition proof trước code | Rollout |
+|---|---|---|---|
+| Metric / nhìn lượng việc | Số lớn, nền pillar, label nhỏ | Số lịch/hồ sơ/kết quả thực; title 18, value 36, metadata 13; hai cột 1:1 ở home, 200% một cột | B1 summary, staff stats |
+| Connection / biết nơi liên hệ | Avatar quanh tâm, copy ở dưới | 3 stock/care image crops chỉ làm minh họa; không gán tên bác sĩ/online; orbit 120px, circle 30–48px; một named action tới K5 | B1, K5 |
+| Portrait / nhận biết bối cảnh | Người bên phải, copy trái | Stock portrait hiện có, no-cut x350..600/y30..315; giữ proof cover46%top và 200% contain; đổi nền sang blue/navy wash | B1, media utility |
+| Schedule / xem lịch thật | Hai sheet chồng lệch | `.cf-home-schedule` và clinician info là nội dung thật, chỉ nghiêng 2–3deg; CTA riêng, không nested button; 200% bỏ transform | B1, D1 date area, F2 schedule |
+| Topic / chọn một việc | Gradient poster + nhóm icon | Navy #001D57 → #264F86, white/soft blue text; icon 20–24px trong white circles; màu không gán status | Discovery/task/aftercare/support tiles |
+| Utility / nhập hoặc đọc dữ liệu | White panel, soft blue gradient góc đáy | Form/facts có nền sáng ổn định, h2 18/body14/inset16, không đẩy ảnh vào chỗ nhập; row có divider, section không thêm khung | Tất cả patient/staff surface/tonal/media/form/notice families |
+
+Page proofs: **B1** = metric/orbit pair → real overlapping appointment → quick actions → portrait/discovery; **F1/D1** = task header/search/filter → media object + readable facts/CTA; **K2/staff** = identity gradient/header → row/data cards. Mỗi nhóm dùng chung tokens/radius/typography nhưng không ép mọi trang thành cùng một hero.
+
+Shared palette: #001D57 brand, #16386C midpoint, #264F86 end; light wash #F5F8FE → #E1EAF7 → #D2DFF1. Heading/body dùng dark ink trên light wash, white chỉ trên navy. White fields/warnings giữ semantic contrast. Radius 20px, inset16/20px, gap12/16px, targets>=44px. Không pastel peach/lilac trong active styles. CTA/banner dùng navy có vai trò; không thêm glow, hạt bụi, rating hoặc fake success.
+
+Sources read: [NN/g cards](https://www.nngroup.com/articles/cards-component/) cho grouping theo một subject và action; [WCAG contrast](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) cho foreground/background. Material3 overview chỉ trả shell JavaScript, không dùng làm bằng chứng đã đọc guidance chi tiết. Composition theo ảnh user và current source; numeric scale là working design choice.
+
+Acceptance: tất cả 47 patient routes + 15 staff states được scan visibility/overflow; render 360/390/1440 và 200%; kiểm state controls, filters, exact visit/lab ownership; mở ảnh proof/contact sheets; checklist đủ 7 dấu hiệu theo route/viewport/state; không merge trước đúng từ `chốt`.
+
+## Điều chỉnh theo reference Docthea — 18/10/2026
+
+Reference mới `codex-clipboard-20db6eea-0026-4523-a9e1-ce021ce14d49.png` thay hướng navy caption trước đó. Đây là yêu cầu trực tiếp về style, không phải bằng chứng usability. Giữ flow và navy #001D57, Plus Jakarta Sans; đổi grammar sang editorial sáng, pastel xanh/lilac/peach, typography 400–600, card trắng xen ảnh và CTA pill. Không sao chép thương hiệu, số 99%, xếp hạng hoặc số bác sĩ trong ảnh mẫu.
+
+| Page role / câu hỏi | Composition proof trước code | Chuyển sang mobile / số áp dụng |
+|---|---|---|
+| B1 — đặt lịch hay tiếp tục việc đang có? | Greeting → hero pastel/copy trái/stock portrait phải/CTA đặt lịch → phiếu hẹn gọn → quick actions/summary → gallery hai cột | Hero tối thiểu 248px; copy 56%, portrait 44%; title 24px/500; chữ lớn chuyển ảnh và copy thành hai hàng, giữ khuôn mặt; CTA 48px. |
+| D1/F1 — chọn đúng lượt/chỉ định nào? | Heading sáng → search/filter → ảnh bối cảnh nhỏ hơn → white caption với tên/status/facts/CTA | Không hero quảng cáo lặp; photo header 140–160px, footer không giới hạn cao; gutter/inset 16px, body 14px, meta 13px, section 18px. |
+| D2/F2/K2 — thông tin chi tiết và hành động kế tiếp? | Detail ảnh + sheet trắng / profile portrait trong banner pastel → icon shortcuts → thông tin dạng rows | Detail giữ route/actions; profile không dùng cover tối; 4 shortcuts chuyển 2 cột khi chữ lớn; headings cùng role 24/18/16px. |
+
+Signature: nền gần trắng, pastel dành cho hero/khu vực khám phá, ảnh người thật, tiêu đề nhẹ và navy pill; status chỉ dùng semantic tone. So sánh với ảnh chụp đợt trước để đánh giá sự thay đổi composition, không chỉ đổi màu. Đây là hướng user chọn; không yêu cầu duyệt thêm phương án.
+
+Crop contract: `doctor-portrait.webp` (Usman Yousaf, nguồn đã lưu) dùng cover 46% top trong vùng ảnh riêng 45% chiều rộng hero; chữ lớn chuyển thành ảnh contain ở hàng riêng. No-cut head vùng x350..600/y30..315 trên source 1000×667; kiểm geometry giữa vùng đầu và mép copy. Ảnh stock không gán thành BS. Trần Thu Hà. Giữ ảnh NCI trong gallery và inspect lại tại 360/390/1440 và 200%.
+
+Màu working tokens: page #f7f8fa, caption trắng .96, ink #182b49, muted #526176; pastel #e7edfc / #efe8f6 / #f6d8cf chỉ làm nền. Áp dụng trong `.phone` để không đổi dashboard staff. [WCAG contrast minimum](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) làm cơ sở kiểm chữ; chính reference quyết định style. QA cần render ảnh, kiểm crop/insets/CTA và các flow chọn lịch, chỉ định, hỗ trợ hiện có.
+
 ## Bằng chứng và ràng buộc trước code
 
 Người dùng yêu cầu đổi mạnh bản nháp ngày18/10: card ảnh phủ toàn diện tích, nội dung trên lớp mờ ở đáy ảnh, icon mũi tên tròn bên phải; nhiều hình ảnh/icon, density gần ba màn ý tưởng. Hai ảnh tham chiếu mới và ảnh tổng hợp ba màn trước đó là ràng buộc thẩm mỹ trực tiếp, thay quyết định side-by-side của đợt trước.
