@@ -46,7 +46,7 @@ test('Home puts the navy appointment before overview and quick access on light s
       };
     });
     for (const side of ['headerLeft','headerRight']) expect(metrics[side],width+'px '+side).toBeCloseTo(0,0);
-    for (const side of ['navyLeft','navyRight']) expect(metrics[side],width+'px content gutter').toBeCloseTo(20,0);
+    for (const side of ['navyLeft','navyRight']) expect(metrics[side],width+'px content gutter').toBeCloseTo(16,0);
     expect(metrics.gap, width+'px greeting-to-appointment gap').toBeGreaterThanOrEqual(16);
     expect(metrics.quickBeforeHero).toBe(false);
     const hero=page.locator('.cf-home-appointment-card');

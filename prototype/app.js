@@ -862,8 +862,8 @@
       guide.querySelector('summary').focus();
     },
     'guide-open'(el) {
-      if (el.dataset.category === 'online') {
-        u.appointmentMode = 'online';
+      if (['online','onsite'].includes(el.dataset.category)) {
+        u.appointmentMode = el.dataset.category;
         u.appointmentPerson = 'all';
         u.appointmentFilters = true;
         u.filter = 'upcoming';

@@ -916,14 +916,14 @@ test('desktop frame, project subpath assets, self-hosted Vietnamese font', async
   expect(
     (
       await page.request.get(
-        '/Patient-Journey-App/prototype/assets/fonts/BeVietnamPro-Regular.ttf',
+        '/Patient-Journey-App/prototype/assets/fonts/PlusJakartaSans-Variable.ttf',
       )
     ).status(),
   ).toBe(200);
   await page.evaluate(() => document.fonts.ready);
   expect(
     await page.evaluate(() =>
-      document.fonts.check('16px "Be Vietnam Pro"', 'Chăm sóc sức khỏe'),
+      document.fonts.check('16px "Plus Jakarta Sans"', 'Chăm sóc sức khỏe'),
     ),
   ).toBe(true);
   await expect(page.locator('.phone')).toHaveCSS('width', '390px');

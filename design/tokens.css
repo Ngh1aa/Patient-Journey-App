@@ -9,6 +9,10 @@
   --cf-text-muted: #526176;
   --cf-line: #ccd7e6;
   --cf-nav-ring: #aeb8c6;
+  --cf-media-surface: #0b2447;
+  --cf-media-caption: rgba(6, 27, 58, .78);
+  --cf-media-muted: #e4edf9;
+  --cf-media-blur: 12px;
   --cf-input-line: #74869e;
   --cf-control-pad-block: 10px;
   --cf-danger-line: #d78078;
@@ -50,7 +54,8 @@
   --cf-nav-height: 64px;
 }
 .phone {
+  --cf-page-title-font: 24px;
   --cf-control-font: 15px;
   --cf-control-height: 48px;
-  --cf-card-padding: var(--cf-space-5);
+  --cf-card-padding: var(--cf-space-4);
 }

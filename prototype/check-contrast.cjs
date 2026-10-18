@@ -110,6 +110,13 @@ colorPairs.push({
   bg: '#0F253D',
   target: 4.5,
 });
+// A white source pixel is the brightest possible photograph under the caption.
+// Blur may change the image, but must never be the only source of readability.
+const caption = sharedCSS.match(/--cf-media-caption:\s*rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\s*\)/);
+if (!caption) throw new Error('Missing media caption material');
+const captionAlpha=Number(caption[4]);
+const brightestCaption='#'+caption.slice(1,4).map(value=>Math.round(Number(value)*captionAlpha+255*(1-captionAlpha)).toString(16).padStart(2,'0')).join('');
+for(const fg of ['cf-on-brand','cf-media-muted'])colorPairs.push({name:fg+' / photo caption over white',fg:sharedTokens[fg],bg:brightestCaption,target:4.5});
 
 console.log('=== BÁO CÁO KIỂM TRA ĐỘ TƯƠNG PHẢN MÀU (WCAG 2.1 AA) ===\n');
 let allPass = true;

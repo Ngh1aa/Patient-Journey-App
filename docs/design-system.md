@@ -102,3 +102,9 @@ Patient `u.preparation[visitId]` and `u.visitNotes[visitId]` are session-only vi
 Doctor followup filters are view state only; completion still checks owner==='Bác sĩ' in the original action. Real clinical state remains in each model, with no cross-app backend synchronization. Loading uses aria-busy only for genuine pending work; synchronous filtering has no fake spinner. For visual state contracts, see `card-design-rules.md` and browser `cards-v2.spec.cjs`/`ui-system.spec.cjs`.
 
 Source-only gate: `node design/check-card-contract.cjs`. This reports remaining legacy composition hardcoding rather than claiming that the whole CSS tree has zero literals. Decorative hairline `--cf-line` is distinct from3:1 input boundary `--cf-input-line`. Native point/device and screen-reader verification remain separate from browser CSS pixels/axe.
+
+## Photo-led patient composition —18/10/2026
+
+Patient dùng Plus Jakarta Sans self-hosted (OFL,Vietnamese),page24/section18/card16/body14/caption13/CTA15px,scale200%. `media` là cardAttrs variant mới; patient `photoCard` có ảnh absolute full-inset,caption material `rgba(6,27,58,.78)` và arrow36px bên trong named control. Card nhiều actions như appointment dùng cover220px+caption thực tế; detail hero260px+sheet. Photo source/crop không đồng nhất với chứng minh bác sĩ/cơ sở thật.
+
+Spacing patient16px gutters/inset,12px card gaps; photo radius20px,hero24px. Giữ brand#001D57,nav-book56px/vòng xám3px/accessible name. Generic form/finance/warning vẫn dùng surface. Source: `photo-led-design-direction.md`; verified screenshots,caption width/x and crop geometry: `card-evidence/photo-led/` và `photo-led.spec.cjs`.

@@ -3,6 +3,16 @@
     const s = size;
     const common = `width="${s}" height="${s}" class="cf-icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
     switch (name) {
+      case 'search':
+        return `<svg ${common}><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="m16 16 5 5"></path></svg>`;
+      case 'upload':
+        return `<svg ${common}><path d="M12 16V3m-5 5 5-5 5 5M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"></path></svg>`;
+      case 'flask':
+        return `<svg ${common}><path d="M9 3h6m-5 0v6L4 19a1.3 1.3 0 0 0 1 2h14a1.3 1.3 0 0 0 1-2L14 9V3M7 15h10"></path></svg>`;
+      case 'stethoscope':
+        return `<svg ${common}><path d="M5 3v5a5 5 0 0 0 10 0V3M3 3h4m6 0h4M10 13v3a5 5 0 0 0 10 0v-2"></path><circle cx="20" cy="11" r="3"></circle></svg>`;
+      case 'users':
+        return `<svg ${common}><circle cx="9" cy="7" r="3"></circle><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v3"></path></svg>`;
       case 'plus':
         return `<svg ${common}><path d="M12 5v14M5 12h14"></path></svg>`;
       case 'settings':

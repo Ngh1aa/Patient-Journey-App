@@ -31,8 +31,8 @@ for(const width of [360,390,1440]) test(`draft type roles, card insets and real 
   const columns=await profile.locator(':scope > div').evaluateAll(nodes=>nodes.map(el=>Math.round(el.getBoundingClientRect().x)));
   expect(new Set(columns).size).toBe(1);
   await page.goto('/prototype/#/home');
-  const insets=await main(page).locator('.cf-home-task-card,.cf-home-tip-card > summary').evaluateAll(nodes=>nodes.map(el=>{const s=getComputedStyle(el);return {left:parseFloat(s.paddingLeft),right:parseFloat(s.paddingRight)}}));
-  expect(insets.length).toBeGreaterThanOrEqual(5);insets.forEach(s=>{expect(s.left).toBeGreaterThanOrEqual(20);expect(s.right).toBeGreaterThanOrEqual(20)});
+  const insets=await main(page).locator('.cf-home-task-card .cf-photo-content,.cf-home-tip-card > summary .cf-photo-content').evaluateAll(nodes=>nodes.map(el=>{const s=getComputedStyle(el);return {left:parseFloat(s.paddingLeft),right:parseFloat(s.paddingRight)}}));
+  expect(insets.length).toBeGreaterThanOrEqual(5);insets.forEach(s=>{expect(s.left).toBeGreaterThanOrEqual(12);expect(s.right).toBeGreaterThanOrEqual(12)});
   const guide=main(page).locator('.cf-home-tip-card').first();
   await guide.locator('summary').focus();await page.keyboard.press('Enter');
   await expect(guide).toHaveAttribute('open','');
@@ -48,7 +48,7 @@ test('stock assets have local bytes, explicit provenance and a decorative accoun
     expect(response.ok()).toBe(true);expect((await response.body()).length).toBeGreaterThan(1000);
   }
   await page.goto('/prototype/?scenario=upcoming#/profile');
-  const avatar=page.locator('.cf-profile-masthead-account img');
+  const avatar=page.locator('.cf-profile-masthead-account .cf-avatar-photo');
   await expect(avatar).toHaveAttribute('alt','');
   await expect(avatar).toHaveAttribute('title','Ảnh đại diện minh họa');
 });
