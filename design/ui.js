@@ -32,7 +32,7 @@
   function facts(items, escape, classes = 'details') {
     return `<dl class="${classes}" data-cf-component="facts">${items.map(([label, value]) => `<div><dt>${escape(label)}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl>`;
   }
-  const cardVariants = ['surface', 'tonal', 'inverse', 'row', 'section'];
+  const cardVariants = ['surface', 'tonal', 'row', 'section'];
   function cardAttrs(variant = 'surface') {
     return `data-cf-card="${cardVariants.includes(variant) ? variant : 'surface'}"`;
   }

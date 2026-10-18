@@ -1,0 +1,15 @@
+
+Running 2 tests using 2 workers
+
+(node:21496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [Chromium] › prototype\browser-tests\journeys.spec.cjs:863:1 › accessibility: axe WCAG A/AA and keyboard labels in 16 representative states (55.7s)
+  ok 2 [WebKit] › prototype\browser-tests\journeys.spec.cjs:863:1 › accessibility: axe WCAG A/AA and keyboard labels in 16 representative states (1.2m)
+
+  2 passed (1.4m)

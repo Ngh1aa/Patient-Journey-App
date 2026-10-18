@@ -93,7 +93,7 @@ Canonical foundations: `design/tokens.css`, loaded before `design/components.css
 | tonal | Administrative utility, private checklist or booking guidance | Paired muted surface/text, same padding; no decorative shadow |
 | row | Repeated result, task or patient record | Divider and predictable alignment; no additional outer card |
 | section | Section heading + its content | Transparent shell, no repeated border/padding |
-| inverse | Reserved next-appointment composition | Navy plus white foreground; booking nav uses same brand emphasis |
+| inverse composition (layout owner, not cardAttrs variant) | Reserved next-appointment composition | Navy plus white foreground; booking nav uses same brand emphasis |
 
 Preserve existing `data-cf-component` for button/status/appointment/facts; `data-cf-card` owns surfaces only. Facts labels sit above values to avoid four competing narrow columns on mobile. Direct desktop section/card headings do not add a second layer of padding.
 

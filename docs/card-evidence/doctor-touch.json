@@ -1,0 +1,144 @@
+{
+  "checks": [
+    {
+      "width": 375,
+      "route": "/doctor",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/doctor/schedule",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/doctor/queue",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/patients",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/patients/p-001",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/visits/a-027",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/encounters/a-033",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/results",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/clinical/orders",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/clinical/prescription",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/clinical/review",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/doctor/followups",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/doctor/review/a-021",
+      "small": []
+    },
+    {
+      "width": 375,
+      "route": "/doctor/online/a-040",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor/schedule",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor/queue",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/patients",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/patients/p-001",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/visits/a-027",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/encounters/a-033",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/results",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/clinical/orders",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/clinical/prescription",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/clinical/review",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor/followups",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor/review/a-021",
+      "small": []
+    },
+    {
+      "width": 1440,
+      "route": "/doctor/online/a-040",
+      "small": []
+    }
+  ]
+}

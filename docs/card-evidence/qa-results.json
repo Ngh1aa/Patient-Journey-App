@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-18",
+  "branch": "redesign/cards-v2",
+  "release": "LOCAL_ONLY_NOT_MERGED",
+  "main_base": "25dfe12208299b2d40ecf1c4f59441302c1ba9c5",
+  "runs": {
+    "patient-full-initial": {
+      "status": "FAILED_BEFORE_REPAIR",
+      "passed": 301,
+      "failed": 7,
+      "skipped": 2,
+      "log": "patient-full-initial.txt",
+      "sha256": "5baadb27e32c7478f3971e0575f003c10f72f1865fd29cc866db44dc5172d056"
+    },
+    "patient-affected-regression": {
+      "status": "PASS_WITH_EXPLICIT_BASELINE_SKIPS",
+      "passed": 46,
+      "failed": 0,
+      "skipped": 4,
+      "log": "patient-affected-regression.txt",
+      "sha256": "d73533c2b29534beabd438616f3fd3fdc2b72f73cf8d2a3946c5b9b7105d0a7b"
+    },
+    "patient-new-card-context": {
+      "status": "PASS",
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "log": "patient-new-card-context.txt",
+      "sha256": "2cb4acaa72ae7a96dbb8efc392eb832ecef1228fac59029e7e3b73c724f8474d"
+    },
+    "patient-axe-16-states-per-engine": {
+      "status": "PASS",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "log": "patient-axe-16-states-per-engine.txt",
+      "sha256": "b0811a7313eb6261f7a0bfa7a504cb2990e884b06851d75f0898a2c8dad5bf0b"
+    },
+    "doctor-full": {
+      "status": "PASS",
+      "passed": 132,
+      "failed": 0,
+      "skipped": 0,
+      "log": "doctor-full.txt",
+      "sha256": "e5b7fcf249b53157c477ab23b4c5ab57b7d1dd20a4d6a42bdec878be9d8a52bf"
+    },
+    "doctor-responsive-after-touch-fix": {
+      "status": "PASS",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "log": "doctor-responsive-after-touch-fix.txt",
+      "sha256": "b2e97b966048eaf08571cf981978b73a19b62951dee5cc934cb8db657308c932"
+    }
+  },
+  "unresolved_product_failures": [],
+  "limitations": [
+    "Initial full patient run was not green; all seven findings reconciled by the listed targeted reruns. Do not present it as a green full run.",
+    "Historical two-server before/after utility requires CAREFLOW_BASELINE_URL and is explicitly skipped otherwise. V2 baseline/current captures are saved independently.",
+    "No native iOS, real-user sessions or screen-reader certification. No production service integration or release."
+  ],
+  "resolved_initial_findings": [
+    {
+      "finding": "Hidden booking label and old hero color expectations",
+      "resolution": "Update assertions for visible booking and #001D57; stronger current tests",
+      "evidence": "patient-affected-regression"
+    },
+    {
+      "finding": "Relative CSS @import fetched /prototype/tokens.css during axe analysis, HTTP404",
+      "resolution": "Both HTML entrypoints explicitly load ../design/tokens.css before components, no path alias or error suppression",
+      "evidence": "patient-axe-16-states-per-engine"
+    },
+    {
+      "finding": "Historical port4176 absent",
+      "resolution": "Explicit baseline prerequisite via CAREFLOW_BASELINE_URL; current v2 before/after inventory saved separately",
+      "evidence": "patient-affected-regression"
+    },
+    {
+      "finding": "Worker could not find a test title edited while the full run was active",
+      "resolution": "Stable test source; affected suites rerun after edit finished",
+      "evidence": "patient-affected-regression"
+    }
+  ],
+  "contrast": {
+    "tested_pairs": 34,
+    "failed_pairs": 0
+  },
+  "touch": {
+    "doctor_route_viewport_checks": 28,
+    "below_44_css_px": 0
+  },
+  "patient_visual_matrix": {
+    "checks": 141,
+    "runtime_errors": [],
+    "overflow": 0,
+    "broken_images": 0,
+    "undersized_controls": 0
+  },
+  "log_normalization": "UTF-8 LF and trailing-space normalization; test output content retained."
+}
