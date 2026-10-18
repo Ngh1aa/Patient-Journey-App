@@ -39,7 +39,7 @@
   const note = (text, type = 'info') =>
     `<div class="note ${type}">${I(type === 'danger' ? 'warning' : 'info', 19)}<p>${esc(text)}</p></div>`;
   const empty = (title, lead, action = '') =>
-    `<div class="empty"><span class="empty-icon">${I('document', 38)}</span><h2>${esc(title)}</h2>${lead ? `<p>${esc(lead)}</p>` : ''}${action}</div>`;
+    `<div class="empty" data-cf-card="surface" data-cf-state="empty"><span class="empty-icon">${I('document', 38)}</span><h2>${esc(title)}</h2>${lead ? `<p>${esc(lead)}</p>` : ''}${action}</div>`;
   const field = (id, label, value = '', type = 'text', extra = {}) =>
     `<div class="field"><label for="${id}">${esc(label)}</label><input id="${id}" name="${id}" type="${type}" value="${esc(value)}"${attrs(extra)}></div>`;
   const textarea = (id, label, value = '', extra = {}) =>
@@ -718,6 +718,7 @@
           nav(C.home, 'B1', 'primary'),
         );
     }
+    body += R.journeyCompanion(id,s,v,u,richH);
     const personContext = (s.authenticated &&
       /[C-J]/.test(id[0]) &&
       !['C1', 'C4', 'I1'].includes(id)

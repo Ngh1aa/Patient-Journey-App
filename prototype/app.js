@@ -299,7 +299,7 @@
       .map(
         ([to, label, icon]) =>
           to === 'C1'
-            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption" hidden>${label}</span></button>`
+            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption">${label}</span></button>`
             : `<a href="#${routeFor(to)}" aria-label="${label}" title="${label}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span class="nav-caption" hidden>${label}</span></a>`,
       )
       .join('');
@@ -685,6 +685,21 @@
     } else demo('Cập nhật bị chặn: ' + (VI.errors[result.code] || result.code));
   }
   const actions = {
+    'save-calendar'(el) {
+      const v=s.visits.find(item=>item.id===el.dataset.id);
+      if(!v || !/^\d{4}-\d{2}-\d{2}$/.test(v.date) || !/^\d{2}:\d{2}$/.test(v.slot)) return;
+      // Administrative details only; no symptom, patient name or medical notes in the export.
+      const start=new Date(v.date+'T'+v.slot+':00+07:00').toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z/,'Z');
+      const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z/,'Z');
+      const calendar=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//CareFlow//Appointment//VI','BEGIN:VEVENT',`UID:${v.id.replace(/[^a-zA-Z0-9-]/g,'')}@careflow.local`,`DTSTAMP:${stamp}`,`DTSTART:${start}`,'SUMMARY:Lich kham CareFlow',`DESCRIPTION:Ma luot kham ${v.id.replace(/[^a-zA-Z0-9-]/g,'')}. Kiem tra phieu kham truoc gio hen.`,'END:VEVENT','END:VCALENDAR',''].join('\r\n');
+      const url=URL.createObjectURL(new Blob([calendar],{type:'text/calendar;charset=utf-8'}));
+      const link=document.createElement('a');link.href=url;link.download=v.id.replace(/[^a-zA-Z0-9-]/g,'')+'.ics';
+      document.body.append(link);link.click();link.remove();
+      // The browser has accepted the download before releasing the object URL.
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      const feedback=el.closest('[data-visit-tools]')?.querySelector('[data-calendar-feedback]');
+      if(feedback)feedback.textContent='Đã tạo tệp lịch. Mở tệp vừa tải để thêm vào lịch cá nhân.';
+    },
     'journey-select'(el) { startJourney(el.dataset.flow); },
     'journey-branch'(el) { startJourney(u.journey.id,el.dataset.branch); },
     'journey-restart'() { startJourney(u.journey.id,u.journey.variant); },
@@ -1092,6 +1107,8 @@
     logout() {
       if ($('dialog').open) $('dialog').close();
       s.authenticated = false;
+      u.visitNotes = {};
+      u.preparation = {};
       u.forms = {};
       u.otpSent = false;
       save();
@@ -1115,6 +1132,7 @@
     if (key === 'appointments') {
       u.appointmentMode = filter;
       u.appointmentPerson = person;
+      u.appointmentQuery = query || '';
     } else {
       u.collections = { ...u.collections, [key]: { filter, query } };
     }
@@ -1132,12 +1150,32 @@
   document.addEventListener('input', (event) => {
     const el = event.target,
       form = el.closest('form[data-form]');
+    if(el.matches('[data-visit-note]')) {
+      const id=el.dataset.visitNote;
+      if(!s.authenticated || !s.visits.some(v=>v.id===id)) return;
+      u.visitNotes={...u.visitNotes,[id]:el.value.slice(0,1000)};
+      const feedback=el.closest('.cf-private-note').querySelector('[data-note-feedback]');
+      feedback.textContent='Đã lưu ghi chú trong phiên này';
+      save();return;
+    }
     if (!form || el.type === 'file') return;
     const name = form.dataset.form;
     u.forms[name] ??= {};
     u.forms[name][el.name] = el.type === 'checkbox' ? el.checked : el.value;
     el.removeAttribute('aria-invalid');
     if ($('form-error')) $('form-error').textContent = '';
+    save();
+  });
+
+  document.addEventListener('change',(event)=>{
+    const el=event.target;
+    if(!el.matches('[data-preparation]')) return;
+    const v=s.visits.find(v=>v.id===el.dataset.visit);
+    if(!s.authenticated || !v || !window.CareFlowRich.preparationItems(v).some(([key])=>key===el.dataset.preparation)) return;
+    u.preparation??={};u.preparation[v.id]??={};
+    u.preparation[v.id][el.dataset.preparation]=el.checked;
+    const container=el.closest('[data-visit-tools]');
+    container.querySelector('[data-preparation-count]').textContent=`${container.querySelectorAll('[data-preparation]:checked').length}/3 đã chuẩn bị`;
     save();
   });
 
