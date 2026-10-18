@@ -1,19 +1,6 @@
+@import url("./tokens.css");
 /* Canonical component layer, shared by patient and doctor renderers.
    Legacy classes remain hooks for layout and events; data-cf-* owns primitives. */
-:root {
-  --cf-brand: #001d57;
-  --cf-on-brand: #fff;
-  --cf-control-font: 14px;
-  --cf-label-font: 13px;
-  --cf-value-font: 14px;
-  --cf-status-font: 12px;
-  --cf-control-height: 44px;
-  --cf-control-large: 52px;
-  --cf-radius-control: 999px;
-  --cf-radius-card: 20px;
-  --cf-line: #ccd7e6;
-}
-.phone { --cf-control-font: 15px; --cf-control-height: 48px; }
 /* Specificity is bounded to the two renderer roots, not individual screens. */
 #app [data-cf-component="button"][data-cf-size],
 .phone #phone-content[data-screen] [data-cf-component="button"][data-cf-size],
@@ -108,5 +95,111 @@
 .doctor-priority-grid .doctor-section-head > [data-cf-component="status"] { flex-shrink: 0; }
 #app .consult-quickfacts[data-cf-component="facts"] { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 374px) { .phone #phone-content[data-screen] .rich-appt-actions { grid-template-columns: minmax(0, 1fr); } }
+
+/* Card v2: one subject per surface. Rows and sections deliberately have no extra shell. */
+#app [data-cf-card], .phone #phone-content[data-screen] [data-cf-card] {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+#app [data-cf-card="surface"], .phone #phone-content[data-screen] [data-cf-card="surface"],
+#app [data-cf-card="tonal"], .phone #phone-content[data-screen] [data-cf-card="tonal"] {
+  color: var(--cf-text);
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-line);
+  border-radius: var(--cf-radius-card);
+  padding: var(--cf-card-padding);
+  box-shadow: none;
+}
+#app [data-cf-card="tonal"], .phone #phone-content[data-screen] [data-cf-card="tonal"] {
+  background: var(--cf-surface-tonal);
+}
+#app [data-cf-card="row"], .phone #phone-content[data-screen] [data-cf-card="row"] {
+  border-radius: 0;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid var(--cf-line);
+  background: transparent;
+}
+#app [data-cf-card="section"], .phone #phone-content[data-screen] [data-cf-card="section"] {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+[data-cf-card] > :is(h2,h3,p):first-child { margin-top: 0; }
+[data-cf-card] > :last-child { margin-bottom: 0; }
+[data-cf-card] :is(h2,h3,strong,small,p,dd) { overflow-wrap: anywhere; }
+[data-cf-card] :is(button,a,summary):focus-visible { outline: 3px solid var(--cf-focus); outline-offset: 3px; }
+[data-cf-card]:is(button,a,summary):active,
+[data-cf-card] :is(button,a,summary):active { filter: brightness(.94); }
+.phone #phone-content[data-screen] .rich-appt-card[data-cf-component="appointment"] {
+  padding: var(--cf-card-padding); background: var(--cf-surface);
+  color: var(--cf-text); border: 1px solid var(--cf-line); border-radius: var(--cf-radius-card);
+}
+.phone #phone-content[data-screen] .rich-appt-card .rich-appt-actions { padding-top: var(--cf-space-3); }
+/* Inverse is reserved for the next appointment, paired with its own foreground. */
+.phone #phone-content[data-screen] .cf-home-appointment-card { background: var(--cf-brand); color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-lab-card { padding: 0; overflow: hidden; }
+.phone #phone-content[data-screen] .cf-lab-content { padding: var(--cf-card-padding); }
+.phone #phone-content[data-screen] .cf-home-tip-card { padding: 0; }
+.phone #phone-content[data-screen] .cf-reference-section { margin-top: var(--cf-space-4); }
+.phone #phone-content[data-screen] .cf-home-task-card {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto;
+  gap: var(--cf-space-3); align-items: center; text-align: left;
+}
+.phone #phone-content[data-screen] .cf-home-card-grid { grid-template-columns: minmax(0,1fr); gap: var(--cf-space-2); }
+.phone #phone-content[data-screen] .cf-home-task-card :is(strong,small) { display: block; }
+.phone #phone-content[data-screen] .cf-task-copy small { margin-top: var(--cf-space-1); }
+.cf-card-header { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: var(--cf-space-2); }
+.cf-card-header h2 { margin: 0; font-size: calc(var(--cf-title-font) * var(--font-scale,1)); line-height: 1.4; }
+.cf-card-subtitle { font-size: calc(var(--cf-label-font) * var(--font-scale,1)); line-height: 1.5; color: var(--cf-text-muted); margin: var(--cf-space-2) 0 var(--cf-space-3); }
+.cf-visit-tools { display: grid; gap: var(--cf-space-3); margin-top: var(--cf-space-4); }
+.cf-preparation-checks { display: grid; gap: var(--cf-space-1); padding: 0; margin: 0; border: 0; }
+.cf-preparation-checks label { display: flex; align-items: start; gap: var(--cf-space-3); min-height: var(--cf-control-height); padding: var(--cf-space-2) 0; cursor: pointer; }
+.cf-preparation-checks input { width: 20px; height: 20px; flex: none; margin-top: var(--cf-space-1); accent-color: var(--cf-brand); }
+.cf-preparation-checks label:has(input:checked) span { color: var(--cf-success); }
+.cf-preparation-progress { font-size: calc(var(--cf-label-font) * var(--font-scale,1)); color: var(--cf-success); }
+.cf-private-note { display: grid; gap: var(--cf-space-2); }
+.cf-private-note textarea { width: 100%; min-height: 96px; resize: vertical; font: inherit; line-height: 1.5; border: 1px solid var(--cf-line); border-radius: var(--cf-radius-inner); padding: var(--cf-space-3); background: var(--cf-surface); color: var(--cf-text); }
+.cf-local-feedback { color: var(--cf-text-muted); font-size: calc(var(--cf-label-font) * var(--font-scale,1)); min-height: 1.5em; }
+.cf-card-utility-actions { display: flex; flex-wrap: wrap; gap: var(--cf-space-2); margin-top: var(--cf-space-3); }
+.cf-journey-summary { display: grid; gap: var(--cf-space-2); margin-top: var(--cf-space-4); }
+.cf-journey-summary h2 { font-size: calc(var(--cf-title-font) * var(--font-scale,1)); margin: 0; }
+.cf-journey-summary ol { padding-left: var(--cf-space-5); line-height: 1.6; margin: 0; }
+.cf-appointment-search { display: grid; gap: var(--cf-space-2); margin: var(--cf-space-3) 0; font-size: calc(var(--cf-label-font) * var(--font-scale,1)); }
+.cf-appointment-search input { width: 100%; min-height: var(--cf-control-height); border: 1px solid var(--cf-line); border-radius: var(--cf-radius-inner); padding: var(--cf-space-3); font: inherit; background: var(--cf-surface); color: var(--cf-text); }
+.cf-context-photo figcaption { color: var(--cf-text-muted); }
+/* Five destinations remain available; central booking owns the strongest emphasis. */
+.phone:has(.bottom-nav:not([hidden])) .phone-scroll { margin-bottom: calc(var(--cf-nav-height) + var(--cf-space-8)); }
+.phone .bottom-nav { height: var(--cf-nav-height); min-height: var(--cf-nav-height); gap: var(--cf-space-1); }
+.phone .bottom-nav .nav-book {
+  display: flex; flex-direction: row; flex: 0 0 auto; gap: var(--cf-space-1);
+  min-width: 96px; max-width: 128px; min-height: 48px; padding: var(--cf-space-2) var(--cf-space-3);
+  background: var(--cf-brand); color: var(--cf-on-brand); border-radius: var(--cf-radius-control);
+}
+.phone .bottom-nav .nav-plus { width: 24px; height: 24px; background: transparent; color: inherit; }
+.phone .bottom-nav .nav-caption { font-size: 13px; font-weight: 700; line-height: 1.35; }
+.phone .bottom-nav > a[aria-current] { background: var(--cf-surface-tonal); color: var(--cf-brand); }
+.phone .bottom-nav .nav-book:focus-visible { outline: 3px solid var(--cf-focus); outline-offset: 3px; }
+/* Desktop lists use rules, not a second layer of padded cards. */
+#app .doctor-card-list [data-cf-card="row"], #app .doctor-task-item[data-cf-card="row"] { padding: var(--cf-space-3) 0; }
+#app .doctor-surface > .doctor-card-heading { margin-bottom: var(--cf-space-4); }
+#app .profile-banner { display: flex; flex-wrap: wrap; height: auto; min-width: 0; }
+#app .profile-head-details { flex: 1 1 220px; min-width: 0; }
+#app .profile-head-action { max-width: 100%; }
+#app .profile-head-action .btn { max-width: 100%; }
+#app .doctor-result-preview h2 { font-size: var(--cf-title-font); }
+#app .doctor-card-footer { margin-top: var(--cf-space-4); padding-top: var(--cf-space-3); border-top: 1px solid var(--cf-line); }
+#app .doctor-task-item .doctor-item-bottom { flex-wrap: wrap; }
+#app :is(.doctor-surface,.panel) > :is(.doctor-surface,.panel) { border: 0; padding: 0; border-radius: 0; }
+@media (max-width: 480px) {
+  #app { --cf-card-padding: var(--cf-space-4); }
+  #app .profile-banner { align-items: start; }
+  .phone .bottom-nav { left: var(--cf-space-3); right: var(--cf-space-3); }
+}
+@media (prefers-reduced-motion: reduce) { [data-cf-card] * { animation: none; transition: none; } }
 @media (max-width: 700px) { #app [data-cf-component="facts"] { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { [data-cf-component] { transition: none; } [aria-busy="true"] [data-cf-component="button"]::after { animation: none; } }

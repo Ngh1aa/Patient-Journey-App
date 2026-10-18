@@ -49,7 +49,7 @@ Mỗi dấu hiệu phải ghi **không xuất hiện / có mục đích rõ / c�
 3. Emoji thay icon: nghĩa/độ nhất quán, accessible name?
 4. Purple gradient: có cơ sở brand/vai trò đọc ảnh hay không?
 5. Card mọi nơi/nested: subject, grouping, action hoặc nhu cầu so sánh?
-6. Câu chữ AI rỗng: nội dung có giúp quyết định và hành động thực?
+6. Multicolored side tabs: màu ở cạnh/tabs phân loại có nghĩa hay chỉ trang trí? Kiểm màu, nhãn và selected state.
 7. Status/badge trang trí: lấy từ trạng thái thật nào, ai phụ trách, bước tiếp theo?
 
 Human usability, native iOS QA và độ cải thiện hiệu quả tác vụ: UNKNOWN, chưa có participant session. Local visual/test evidence sẽ cập nhật sau triển khai.

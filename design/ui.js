@@ -32,5 +32,14 @@
   function facts(items, escape, classes = 'details') {
     return `<dl class="${classes}" data-cf-component="facts">${items.map(([label, value]) => `<div><dt>${escape(label)}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl>`;
   }
-  root.CareFlowUI = { status, buttonAttrs, modeText, facts };
+  const cardVariants = ['surface', 'tonal', 'inverse', 'row', 'section'];
+  function cardAttrs(variant = 'surface') {
+    return `data-cf-card="${cardVariants.includes(variant) ? variant : 'surface'}"`;
+  }
+  // Content is trusted renderer markup. Plain text must be escaped by the caller.
+  function card(content, classes = '', variant = 'surface') {
+    const safeClasses = classes.replace(/[^a-zA-Z0-9_ -]/g, '');
+    return `<section class="card ${safeClasses}" ${cardAttrs(variant)}>${content}</section>`;
+  }
+  root.CareFlowUI = { status, buttonAttrs, modeText, facts, cardAttrs, card };
 })(typeof window !== 'undefined' ? window : globalThis);

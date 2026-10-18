@@ -9,7 +9,7 @@
     '/clinical/review':A.reviewEncounter,'/welcome':'Chọn không gian'
   };
   const routeNames=()=>R;
-  const panel=(content,cls='')=>`<section class="panel support-panel ${cls}">${content}</section>`;
+  const panel=(content,cls='')=>`<section class="panel support-panel ${cls}" ${root.CareFlowUI.cardAttrs('surface')}>${content}</section>`;
   const hero=(k,title,desc,actions='')=>`<header class="support-hero"><div><div class="eyebrow">${k}</div><h1>${title}</h1><p>${desc}</p></div><div class="support-hero-actions">${actions}</div></header>`;
   const formField=(id,label,content,hint='')=>`<label class="support-field" for="${id}"><span class="support-label">${label}</span>${content}${hint?`<small>${hint}</small>`:''}</label>`;
   const empty=msg=>`<div class="support-empty">${msg}</div>`;

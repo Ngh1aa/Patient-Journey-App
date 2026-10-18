@@ -29,13 +29,13 @@
   const go = (label, to, variant = 'secondary', extra = {}) =>
     btn(label, 'go', { 'data-to': to, ...extra }, variant);
   const external = (label, href, variant = 'primary') => `<a class="btn ${variant}" ${UI.buttonAttrs(variant)} href="${esc(href)}"${href.startsWith('https:') ? ' target="_blank" rel="noopener noreferrer"' : ''} data-action="external-support">${esc(label)}</a>`;
-  const facilityCard = () => `<section class="facility-card"><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
+  const facilityCard = () => `<section class="facility-card" ${UI.cardAttrs('surface')}><span class="facility-icon">${I('document',28)}</span><div><h3>${esc(VI.facility.name)}</h3><p>${esc(VI.facility.address)}</p><span class="chip">${esc(VI.facility.entrance)}</span></div></section>`;
   const row = (title, hint, to, icon = 'chevron-right', extra = {}) => {
     const description = hint || VI.layout.rowHints[to];
-    return `<button type="button" class="row" data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${description ? `<small>${esc(description)}</small>` : ''}</span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`;
+    return `<button type="button" class="row" ${UI.cardAttrs('row')} data-action="go" data-to="${to}"${attrs(extra)}><span class="row-icon">${I(icon)}</span><span class="row-text"><strong>${esc(title)}</strong>${description ? `<small>${esc(description)}</small>` : ''}</span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`;
   };
   const card = (content, cls = '') =>
-    `<section class="card ${cls}">${content}</section>`;
+    UI.card(content, cls);
   const note = (text, type = 'info') =>
     `<div class="note ${type}">${I(type === 'danger' ? 'warning' : 'info', 19)}<p>${esc(text)}</p></div>`;
   const empty = (title, lead, action = '') =>
@@ -48,14 +48,14 @@
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
   const choices = (name, items, selected, inlineAction = '') => {
     const icons = { onsite: 'map-pin', online: 'video', normal: 'shield', warning: 'warning' };
-    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}"><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
+    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}" ${UI.cardAttrs('tonal')}><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
   };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
     `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" ${UI.buttonAttrs(variant, 'lg')} type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
   const head = (t, lead) =>
     `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(t)}</h1><p>${esc(lead || '')}</p></div>`;
   const section = (title, html, cls = '', icon = 'document') =>
-    `<section class="section ${cls}"><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
+    `<section class="section ${cls}" ${UI.cardAttrs('section')}><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
     `<span class="chip ${tone}" data-cf-component="status" data-cf-tone="${tone}">${esc(text)}</span>`;
   const status = (v) => { const state = UI.status(v.status); return chip(state.label, state.tone); };
@@ -123,7 +123,7 @@
   const authVisual = () =>
     `<div class="auth-scene"><img src="./assets/images/imaging-suite.png" width="1536" height="1024" alt="Không gian phòng khám minh họa"><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
   const authPanel = (title, lead, controls, variant = '') =>
-    `<section class="auth-panel ${esc(variant)}" aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
+    `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
     const T = VI.screen[id],
       v = M.visit(s),
@@ -372,7 +372,7 @@
         break;
       case 'E2':
         body =
-          `<section class="checkin-qr-panel" aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận vẫn do lễ tân xác nhận.</p></section>` +
+          `<section class="checkin-qr-panel" ${UI.cardAttrs('surface')} aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận vẫn do lễ tân xác nhận.</p></section>` +
           card(details(s, v)) +
           note(T.note) +
           btn(T.cta, 'arrive', {}, 'primary');
@@ -389,7 +389,7 @@
           nav(C.viewVisit, 'D2');
         break;
       case 'F1':
-        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card"><img src="./assets/images/${R.labImage(x)}" alt="" width="1536" height="1024" loading="lazy"><div class="cf-lab-content"><div class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</div><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<p>${esc(x.status==='ordered'?'Chọn lịch thực hiện hoặc gửi kết quả bạn đã có.':x.status==='scheduled'?'Bạn đã chọn lịch thực hiện. Mở chi tiết để kiểm tra và gửi tệp.':x.status==='reviewed'?'Bác sĩ đã xem kết quả. Bạn có thể mở tài liệu và lời giải thích.':'Phòng khám sẽ kiểm tra và cập nhật bước tiếp theo.')}</p><div class="cf-card-actions">${go(x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả','F2','primary',{'data-lab':x.id})}${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','secondary',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) : empty(T.empty,T.emptyLead);
+        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card" ${UI.cardAttrs('surface')}><img src="./assets/images/${R.labImage(x)}" alt="" width="1536" height="1024" loading="lazy"><div class="cf-lab-content"><div class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</div><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<p>${esc(x.status==='ordered'?'Chọn lịch thực hiện hoặc gửi kết quả bạn đã có.':x.status==='scheduled'?'Bạn đã chọn lịch thực hiện. Mở chi tiết để kiểm tra và gửi tệp.':x.status==='reviewed'?'Bác sĩ đã xem kết quả. Bạn có thể mở tài liệu và lời giải thích.':'Phòng khám sẽ kiểm tra và cập nhật bước tiếp theo.')}</p><div class="cf-card-actions">${go(x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả','F2','primary',{'data-lab':x.id})}${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','secondary',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) : empty(T.empty,T.emptyLead);
         body += nav(C.returnVisit, 'D2');
         break;
       case 'F2':
@@ -571,7 +571,7 @@
         break;
       case 'H7':
         body =
-          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card"><span class="cf-result-icon">${I('document-check',24)}</span><div><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}${go('Mở chi tiết','F2','secondary',{'data-lab':x.id})}</div></article>`})),{label:'kết quả',search:'Tìm kết quả',placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
+          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card" ${UI.cardAttrs('surface')}><span class="cf-result-icon">${I('document-check',24)}</span><div><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}${go('Mở chi tiết','F2','secondary',{'data-lab':x.id})}</div></article>`})),{label:'kết quả',search:'Tìm kết quả',placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
           card(
             `<dl class="details" data-cf-component="facts"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
           );
@@ -680,7 +680,7 @@
         break;
       case 'K1':
         body = (s.notifications.length
-          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?' · '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
+          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" ${UI.cardAttrs('row')} type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?' · '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
           : empty(T.empty,'')) + note(T.note);
         break;
       case 'K2':

@@ -1,0 +1,44 @@
+/* Shared semantic foundations. Patient and doctor composition stays in each renderer. */
+:root {
+  --cf-brand: #001d57;
+  --cf-on-brand: #ffffff;
+  --cf-surface: #ffffff;
+  --cf-surface-page: #f5f7fb;
+  --cf-surface-tonal: #edf2fa;
+  --cf-text: #182b49;
+  --cf-text-muted: #526176;
+  --cf-line: #ccd7e6;
+  --cf-focus: #2879d0;
+  --cf-success: #14633f;
+  --cf-success-surface: #e4f5ec;
+  --cf-warning: #755000;
+  --cf-warning-surface: #fff4d6;
+  --cf-danger: #b42318;
+  --cf-danger-surface: #fff4f2;
+  --cf-space-1: 4px;
+  --cf-space-2: 8px;
+  --cf-space-3: 12px;
+  --cf-space-4: 16px;
+  --cf-space-5: 20px;
+  --cf-space-6: 24px;
+  --cf-space-8: 32px;
+  --cf-control-font: 14px;
+  --cf-label-font: 13px;
+  --cf-value-font: 14px;
+  --cf-status-font: 12px;
+  --cf-title-font: 18px;
+  --cf-control-height: 44px;
+  --cf-control-large: 52px;
+  --cf-radius-control: 999px;
+  --cf-radius-card: 20px;
+  --cf-radius-inner: 12px;
+  --cf-card-padding: var(--cf-space-5);
+  --cf-card-gap: var(--cf-space-3);
+  --cf-motion-fast: 120ms;
+  --cf-nav-height: 64px;
+}
+.phone {
+  --cf-control-font: 15px;
+  --cf-control-height: 48px;
+  --cf-card-padding: var(--cf-space-4);
+}
