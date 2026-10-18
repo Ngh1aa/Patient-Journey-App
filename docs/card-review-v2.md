@@ -1,5 +1,7 @@
 # Card redesign v2 — review ảnh và trạng thái
 
+> Hướng photo-led mới theo ảnh user và kết quả hiện tại: [photo-led-review.md](photo-led-review.md). Tài liệu dưới đây giữ lịch sử đợt trước.
+
 Review ngày18/10/2026. Đây là kiểm tra của agent trên ảnh render/source; không phải phiên usability test hoặc xác nhận native iOS. Người dùng chưa nhắn “chốt”; không có merge/publication.
 
 ## Phạm vi và artifact

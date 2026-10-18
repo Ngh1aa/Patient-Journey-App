@@ -1,5 +1,7 @@
 # Bản nháp: typography, layout và ảnh thật — 18/10/2026
 
+> Hướng photo-led mới theo ảnh user và kết quả hiện tại: [photo-led-review.md](photo-led-review.md). Tài liệu dưới đây giữ lịch sử đợt trước.
+
 ## Cơ sở trước khi sửa UI
 
 Đã đọc lại START-HERE của `Ngh1aa/uiux-ai-workspace`, dùng flow `professional-website-redesign` đã resolve trong `work/cards-v2-manifest.json` và hướng dẫn `asset-media-and-art-direction`. Đây là chỉnh sửa prototype trên `redesign/cards-v2`; main chưa được phép merge trước từ khóa **chốt**.

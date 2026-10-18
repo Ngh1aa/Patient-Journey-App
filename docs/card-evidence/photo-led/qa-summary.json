@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-18",
+  "branch": "redesign/cards-v2",
+  "main": "25dfe12208299b2d40ecf1c4f59441302c1ba9c5",
+  "local_only": true,
+  "initial_browser": {
+    "total": 138,
+    "passed": 133,
+    "failed": 5,
+    "duration": "8.0m"
+  },
+  "corrected_browser": {
+    "total": 60,
+    "passed": 60,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "duration": "1.8m"
+  },
+  "final_crop_font_axe": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "duration": "40.3s",
+    "axe_states_per_engine": 16,
+    "fonts": "self-hosted Plus Jakarta Sans, Vietnamese, project subpath"
+  },
+  "model": {
+    "patient_passed": 49,
+    "doctor_passed": 3
+  },
+  "contrast": {
+    "passed": 36,
+    "photo_caption_white": 8.58,
+    "photo_caption_muted": 7.26
+  },
+  "responsive": {
+    "screens": 47,
+    "widths": [
+      360,
+      390,
+      1440
+    ],
+    "checks": 141,
+    "errors": 0,
+    "overflow": 0,
+    "broken": 0,
+    "small_tested_controls": 0
+  },
+  "large_text": {
+    "screens": 47,
+    "width": 360,
+    "scale": 2,
+    "errors": 0,
+    "overflow": 0,
+    "broken": 0,
+    "small_tested_controls": 0
+  },
+  "inventory": {
+    "representative_states": 62,
+    "baseline_instances": 189,
+    "current_instances": 195
+  },
+  "overlap_note": "Do not add browser run totals as unique cases; initial run was not all green.",
+  "human_validation": "UNKNOWN",
+  "native_validation": "NOT_RUN",
+  "report": "docs/photo-led-review.md"
+}

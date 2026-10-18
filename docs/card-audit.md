@@ -401,3 +401,22 @@ Giữ nguyên inventory62screen states ở trên; bảng sau ghi delta trước/
 | E1,G1,K5,H6 | Chuẩn bị/online/hỗ trợ/sau khám | contextual media | Ít ảnh hoặc lặp ảnh generate | Unsplash theo đúng ngữ cảnh, không đổi hướng dẫn y tế hoặc giả danh cơ sở | RESOLVED/P2 |
 | K2 | Thông tin cá nhân | fact rows | Shared facts2cols làm tên/giá trị hẹp; inset lồng |1col,rows/rules,không thêm shell/cardpadding lồng | RESOLVED/P1 |
 | All47patient routes | Heading/body/CTA | shared roles | Font-size rời10–17px cùng chức năng | Semantic tokens + cùng font; page26/section18/card16/body14/caption13/control15,scale200% | RESOLVED/P1 |
+
+## Photo-led redesign theo ảnh user — sau commitc1013ad
+
+Bản photo-led giữ62representative states:47patient+15doctor. Inventory thực tế189→195card/section instances,0snapshot overflow; không coi đây là195component độc lập. Nguồn before: `card-evidence/after/inventory.json` và `card-evidence/draft-refinement/`; after: `card-evidence/photo-led/inventory.json`,141responsive captures và47large-text checks. Hướng mới thay text-first/side-by-side theo yêu cầu user.
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Khám phá,hướng dẫn,tasks,sau khám | media/disclosure | White/text-first,ảnh nhỏ cạnh chữ,chiều cao summary | Ảnh full-card,footer material full-width,circle arrow;1feature+2tiles | RESOLVED/P1 |
+| D1,K3 | Appointment | multi-action media | Photo thumbnail/tách khỏi title,facts rời | Photo cover,caption clinician/status/facts/actions;lab/visit identity giữ nguyên | RESOLVED/P1 |
+| D2,F2 | Detail | photo+sheet | Generic/detail ảnh nhỏ hoặc nhiều card chữ | Hero260px,overlap sheet,4icon actions,next-step rõ | RESOLVED/P1 |
+| C6 | Mode | native radio media | Thumbnail64px cạnh copy |2ảnh full-width tile,caption đáy,radio state rõ;200%1cột | RESOLVED/P1 |
+| F1,H7 | Lab/result | media object | Image+white content block | Full-width photo+blur caption,arrow dùng đúng labId,upload/filter giữ hoạt động | RESOLVED/P1 |
+| E1,E3,G1,G2 | Preparation/waiting | context/waiting media | Trống/white status text | Context photo/overlay,icon chờ,status thật;không bịa queue/ETA | RESOLVED/P2 |
+| H1,I1,J1 | Aftercare/navigation | media action | Rows chữ liên tiếp | Photo tiles theo tác vụ thật;followup purpose/care reason được giữ | RESOLVED/P2 |
+| K2,K5 | Profile/support | banner+rows | Initials/text-only grouping | Stock account avatar,banner/photo care-team,contact icons,các row dữ liệu scan được | RESOLVED/P2 |
+| A,C,D3/D4,F3/F4,H2–H5,I2–I5,K1/K4 | Form/finance/notice | surface/row | Typography rời,CTA đơn điệu | Plus Jakarta,icon labels,form panels,circle-arrow CTA;surface rõ cho dữ liệu/warning | RESOLVED/P2 |
+| Doctor15states | Existing cards | existing | Không thuộc yêu cầu mobile photo-led | Không redesign desktop;model/shared-role regressions giữ nguyên | UNCHANGED |
+
+Chi tiết7AI-sign checklist,crop/contrast và đối soát test: `photo-led-review.md`.

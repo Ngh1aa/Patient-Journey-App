@@ -1,0 +1,131 @@
+{
+  "checks": [
+    {
+      "name": "both entry points load tokens before shared components",
+      "pass": true
+    },
+    {
+      "name": "navy preserved",
+      "pass": true
+    },
+    {
+      "name": "no raw color in shared component owner",
+      "pass": true
+    },
+    {
+      "name": "card API uses existing presentation owner",
+      "pass": true
+    }
+  ],
+  "hardcoding": [
+    {
+      "file": "design/components.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 114,
+      "owner": "shared"
+    },
+    {
+      "file": "design/tokens.css",
+      "colorLiterals": 25,
+      "pixelLiterals": 27,
+      "owner": "shared"
+    },
+    {
+      "file": "prototype/auth-editorial.css",
+      "colorLiterals": 31,
+      "pixelLiterals": 125,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "prototype/careflow-rich-content.css",
+      "colorLiterals": 155,
+      "pixelLiterals": 331,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "prototype/editorial-soft-glass.css",
+      "colorLiterals": 136,
+      "pixelLiterals": 536,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "prototype/journey-archetypes.css",
+      "colorLiterals": 93,
+      "pixelLiterals": 248,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "prototype/solid-navy-polish.css",
+      "colorLiterals": 212,
+      "pixelLiterals": 702,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "prototype/styles.css",
+      "colorLiterals": 91,
+      "pixelLiterals": 599,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-card-actions.css",
+      "colorLiterals": 11,
+      "pixelLiterals": 30,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-content-grid.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 23,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-journeys.css",
+      "colorLiterals": 114,
+      "pixelLiterals": 262,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-navy-theme.css",
+      "colorLiterals": 227,
+      "pixelLiterals": 96,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-polish.css",
+      "colorLiterals": 29,
+      "pixelLiterals": 392,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/doctor-showcase.css",
+      "colorLiterals": 208,
+      "pixelLiterals": 505,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/styles.css",
+      "colorLiterals": 341,
+      "pixelLiterals": 813,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/supporting.css",
+      "colorLiterals": 50,
+      "pixelLiterals": 242,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/visual-foundations.css",
+      "colorLiterals": 142,
+      "pixelLiterals": 235,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    },
+    {
+      "file": "staff-prototype/wave3.css",
+      "colorLiterals": 105,
+      "pixelLiterals": 269,
+      "owner": "legacy composition (not zeroed; inspect affected usage)"
+    }
+  ],
+  "boundary": "Source checks only. Existing composition/media sizes remain; rendered evidence owns layout acceptance."
+}

@@ -1,5 +1,7 @@
 # Card v2 — QA và chạy local
 
+> Hướng photo-led mới theo ảnh user và kết quả hiện tại: [photo-led-review.md](photo-led-review.md). Tài liệu dưới đây giữ lịch sử đợt trước.
+
 Ngày18/10/2026; nhánh redesign/cards-v2; main vẫn ở25dfe12208299b2d40ecf1c4f59441302c1ba9c5. Local only, chưa push/PR/merge. Chờ đúng từ “chốt” trước khi merge.
 
 Bản nháp chỉnh tiếp ngày18/10 (icon-only navigation, ảnh Unsplash, typography/layout) có kết quả riêng tại [draft-layout-refinement.md](draft-layout-refinement.md) và `card-evidence/draft-refinement/qa-summary.json`. Các số liệu dưới đây là baseline card-v2 trước lần chỉnh nháp đó.
