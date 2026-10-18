@@ -53,7 +53,7 @@
     return `<label class="doctor-control"><span>${x.e(title)}</span><select data-dashboard-field="${key}">${items.map(([id,text])=>`<option value="${id}" ${value===id?'selected':''}>${x.e(text)}</option>`).join('')}</select></label>`;
   }
   function cardHeading(x,number,title,detail,count,id){return `<header class="doctor-card-heading"><div><span class="doctor-overline">${number}</span><h2 id="${id}">${title}</h2>${detail?`<p>${x.e(detail)}</p>`:''}</div>${count==null?'':`<span class="doctor-card-count" aria-label="${count} mục">${count}</span>`}</header>`}
-  function emptyCard(x,title,detail,reset=false,actions=''){return `<div class="doctor-card-empty"><strong>${x.e(title)}</strong><p>${x.e(detail)}</p>${reset?x.btn('Xóa bộ lọc','doc-dashboard-reset','btn-soft'):''}${actions}</div>`}
+  function emptyCard(x,title,detail,reset=false,actions=''){return `<div class="doctor-card-empty" data-cf-state="empty"><strong>${x.e(title)}</strong><p>${x.e(detail)}</p>${reset?x.btn('Xóa bộ lọc','doc-dashboard-reset','btn-soft'):''}${actions}</div>`}
   function encounterCard(x,visits){
     const active=visits.filter(a=>a.status==='in-consult');
     const doing=active.find(a=>a.id===dashboardState(x).currentEncounter)||active[0];
@@ -105,12 +105,14 @@
   }
   function restoreDashboardFocus(selector){document.querySelector(selector)?.focus({preventScroll:true})}
   function input(event,x){
+    if(root.CareFlowJourneys.filterInput(event,x))return true;
     if(!event.target.matches('[data-dashboard-search]'))return false;
     const pos=event.target.selectionStart;
     dashboardState(x).agendaSearch=event.target.value;x.render();
     const field=document.getElementById('doctor-agenda-search');field?.focus({preventScroll:true});if(field&&field.type==='text')field.setSelectionRange(pos,pos);return true;
   }
   function change(event,x){
+    if(root.CareFlowJourneys.filterInput(event,x))return true;
     const key=event.target.dataset.dashboardField,value=event.target.value;
     if(key==='currentEncounter'&&yours(x).some(a=>a.id===value&&a.status==='in-consult')){dashboardState(x)[key]=value;x.render();restoreDashboardFocus('[data-dashboard-field="currentEncounter"]');return true}
     if(!dashboardChoices[key]?.includes(value))return false;
@@ -140,12 +142,13 @@
     const f=x.ui.docQueueFilter||'all';
     const visits=yours(x), display=visits.filter(a=>f==='all'||(f==='ready'?['ready','arrived','confirmed'].includes(a.status):f==='in-consult'?a.status==='in-consult':a.status==='completed'));
     return `<section class="screen doctor-screen">${intro('DANH SÁCH KHÁM / HÔM NAY','Danh sách khám','Theo dõi bệnh nhân đang chờ, trong buổi khám và những lượt đã hoàn tất.') }
-      <section class="doctor-surface" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">LƯỢT KHÁM</span><h2>Lượt khám hôm nay</h2><p>Chọn bệnh nhân để tiếp tục bước phù hợp</p></div><div class="doctor-filter" role="group" aria-label="Lọc danh sách khám">${[['all','Tất cả'],['ready','Sẵn sàng'],['in-consult','Đang khám'],['completed','Hoàn tất']].map(([value,t])=>`<button data-cf-component="tab" data-cf-variant="segmented" data-action="doc-filter-queue" data-value="${value}" aria-pressed="${f===value}" class="${f===value?'selected':''}">${t}</button>`).join('')}</div></div><div class="doctor-today-list">${display.length?display.map(a=>row(x,a)).join(''):`<div class="doctor-empty">${x.icon('users',28)}<strong>Chưa có lượt phù hợp</strong><p>Thử bộ lọc khác để tiếp tục.</p></div>`}</div></section></section>`;
+      <section class="doctor-surface" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">LƯỢT KHÁM</span><h2>Lượt khám hôm nay</h2><p>Chọn bệnh nhân để tiếp tục bước phù hợp</p></div><div class="doctor-filter" role="group" aria-label="Lọc danh sách khám">${[['all','Tất cả'],['ready','Sẵn sàng'],['in-consult','Đang khám'],['completed','Hoàn tất']].map(([value,t])=>`<button data-cf-component="tab" data-cf-variant="segmented" data-action="doc-filter-queue" data-value="${value}" aria-pressed="${f===value}" class="${f===value?'selected':''}">${t}</button>`).join('')}</div></div><div class="doctor-today-list">${display.length?display.map(a=>row(x,a)).join(''):`<div class="doctor-empty">${x.icon('users',28)}<strong>Chưa có lượt phù hợp</strong><p>Thử bộ lọc khác để tiếp tục.</p>${x.btn('Xem tất cả lượt khám','doc-filter-queue','btn-soft','data-value="all"')}</div>`}</div></section></section>`;
   }
   function patients(x){
-    const search=(x.ui.docSearch||'').toLocaleLowerCase('vi');
+    const fold=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLocaleLowerCase('vi');
+    const search=fold(x.ui.docSearch);
     const ids=new Set(yours(x).map(a=>a.personId));
-    const people=x.people.filter(p=>ids.has(p.id)&&(p.name.toLocaleLowerCase('vi').includes(search)||p.code.toLowerCase().includes(search)));
+    const people=x.people.filter(p=>ids.has(p.id)&&(fold(p.name).includes(search)||fold(p.code).includes(search)));
     return `<section class="screen doctor-screen">${intro('HỒ SƠ / BỆNH NHÂN','Hồ sơ bệnh nhân','Danh sách bệnh nhân trong lịch của bác sĩ. Truy cập lịch sử và các kết quả liên quan.')}
       <section class="doctor-surface" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">BỆNH NHÂN THEO LỊCH</span><h2>${people.length} hồ sơ được hiển thị</h2></div><label class="doctor-search">${x.icon('search',18)}<input id="doctor-search" data-search="doctor-patients" placeholder="Tìm bệnh nhân, mã hồ sơ…" value="${x.e(x.ui.docSearch||'')}" aria-label="Tìm bệnh nhân"></label></div>
       <div class="doctor-directory">${people.length?people.map(p=>{const a=yours(x).find(a=>a.personId===p.id);return `<article class="doctor-directory-row" ${UI.cardAttrs('row')}>${x.avatar(p,'large')}<div><strong>${x.e(p.name)}</strong><span>${x.e(p.code)} · ${p.age} tuổi · ${x.e(p.gender)}</span></div><div class="doctor-directory-status">${stepLabel(x,a)}</div><button class="doctor-directory-open" data-action="open-patient" data-id="${x.e(p.id)}" aria-label="Mở hồ sơ ${x.e(p.name)}">${x.icon('arrow',19)}</button></article>`}).join(''):`<div class="doctor-empty">Không tìm thấy bệnh nhân phù hợp.</div>`}</div></section></section>`;
