@@ -9,13 +9,13 @@ test('navigation names all destinations, exposes booking and profile add follows
   expect((await nav.boundingBox()).height).toBeLessThanOrEqual(64);
   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeHidden();
-  await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();
+  await expect(nav.locator('.nav-book .nav-caption')).toBeHidden();
   await expect(nav.locator('.nav-book')).toHaveCSS('background-color','rgb(0, 29, 87)');
   await nav.locator('.nav-book').click();
   await expect(page.locator('.selection-reminder')).toHaveCount(0);
   await expect(page.locator('#bottom-nav')).toBeHidden();
   await expect(page.locator('.patient-group')).toContainText('Ngày sinh · 15/08/1994');
-  await expect(page.locator('.patient-group .choice-visual svg')).toHaveCount(2);
+  await expect(page.locator('.patient-group .choice-visual svg, .patient-group .choice-visual img')).toHaveCount(2);
   const portrait=await page.locator('.patient-choice .choice-visual').first().innerHTML();
   await page.locator('.patient-group input[value=p2]').check();
   const person=await page.locator('.patient-group input[value=p2]').locator('..').locator('strong').textContent();

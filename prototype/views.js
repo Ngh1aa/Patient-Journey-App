@@ -48,7 +48,7 @@
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
   const choices = (name, items, selected, inlineAction = '') => {
     const icons = { onsite: 'map-pin', online: 'video', normal: 'shield', warning: 'warning' };
-    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''}" ${UI.cardAttrs('tonal')}><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
+    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''} ${name === C.mode ? 'cf-mode-choice' : ''}" ${UI.cardAttrs('tonal')}><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${name===C.mode?`<img class="cf-mode-thumbnail" src="./assets/images/unsplash/${v==='online'?'consultation':'clinic'}.webp" width="80" height="88" alt="" loading="lazy">`:icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
   };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
     `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" ${UI.buttonAttrs(variant, 'lg')} type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
@@ -121,7 +121,7 @@
   }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
-    `<div class="auth-scene"><img src="./assets/images/imaging-suite.png" width="1536" height="1024" alt="Không gian phòng khám minh họa"><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
+    `<div class="auth-scene"><img src="./assets/images/unsplash/clinic.webp" width="1000" height="649" alt="Không gian phòng khám minh họa từ Unsplash"><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
@@ -250,7 +250,7 @@
         break;
       case 'C6':
         body =
-          `<figure class="cf-context-photo"><img src="./assets/images/clinic-reception.webp" alt="Không gian tiếp đón minh họa" width="1200" height="800"><figcaption>Chọn cách khám phù hợp với lịch của bạn</figcaption></figure>` + form(
+          form(
             'mode',
             choices(
               C.mode,
@@ -353,7 +353,7 @@
         break;
       case 'E1':
         body =
-          `<figure class="cf-context-photo"><img src="./assets/images/clinic-reception.webp" alt="Khu tiếp nhận người bệnh minh họa" width="1200" height="800"><figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
+          `<figure class="cf-context-photo"><img src="./assets/images/unsplash/hospital.webp" alt="Khu tiếp nhận minh họa từ Unsplash" width="1000" height="681"><figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
             `<dl class="details" data-cf-component="facts">${[
               [T.time, v.slot + ' · ' + dateText(v)],
               [T.arrival, 'Chưa có hướng dẫn thời gian đến riêng'],
@@ -445,6 +445,7 @@
         break;
       case 'G1':
         body =
+          `<figure class="cf-context-photo"><img src="./assets/images/unsplash/consultation.webp" alt="Máy tính dùng trong chăm sóc y tế minh họa" width="1000" height="667"><figcaption>Sẵn sàng thiết bị và không gian riêng tư</figcaption></figure>` +
           `<div class="online-prepare-list" aria-label="Chuẩn bị khám trực tuyến"><div>1 <span>Kiểm tra camera và micro</span></div><div>2 <span>Kiểm tra kết nối Internet</span></div><div>3 <span>Chờ phòng khám mở phòng khám trực tuyến</span></div></div>` +
           card(
             `<div class="video-preview">${I('video', 44)}<strong>${esc(u.deviceReady ? T.ready : T.waiting)}</strong></div>`,
@@ -724,7 +725,7 @@
       !['C1', 'C4', 'I1'].includes(id)
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
         : '');
-    if (id === 'D2') return `<div class="ref-detail-hero"><img src="./assets/images/consultation-room.png" width="1536" height="1024" alt="Phòng khám minh họa"></div><div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}<div class="ref-clinician"><span>${root.CareFlowAvatar('doctor-ha',40)}</span><div><strong>${esc(R.clinician(v).name)}</strong><small>${esc(R.clinician(v).specialty)}</small></div>${I(v.mode==='online'?'video':'map-pin',22)}</div></div>${body}</div>`;
+    if (id === 'D2') return `<div class="ref-detail-hero"><img src="./assets/images/unsplash/${v.mode==='online'?'consultation':'clinic'}.webp" width="1000" height="667" alt="Ảnh bối cảnh khám minh họa từ Unsplash"></div><div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}<div class="ref-clinician"><span>${root.CareFlowAvatar('doctor-ha',40)}</span><div><strong>${esc(R.clinician(v).name)}</strong><small>${esc(R.clinician(v).specialty)}</small></div>${I(v.mode==='online'?'video':'map-pin',22)}</div></div>${body}</div>`;
     if (id === 'B1') return `<div class="screen-masthead home-masthead">${intro}</div>${body}`;
     if (['C1','D1','K2','K5'].includes(id)) return `<div class="screen-masthead compact-masthead">${intro}${id==='C1' && s.draft ? bookingProgress(id) : ''}</div>${body}`;
     if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;

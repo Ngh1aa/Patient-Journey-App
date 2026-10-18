@@ -176,18 +176,56 @@
 .cf-appointment-search { display: grid; gap: var(--cf-space-2); margin: var(--cf-space-3) 0; font-size: calc(var(--cf-label-font) * var(--font-scale,1)); }
 .cf-appointment-search input { width: 100%; min-height: var(--cf-control-height); border: 1px solid var(--cf-input-line); border-radius: var(--cf-radius-inner); padding: var(--cf-space-3); font: inherit; background: var(--cf-surface); color: var(--cf-text); }
 .cf-context-photo figcaption { color: var(--cf-text-muted); }
+/* Patient type roles are shared across compositions, including legacy render hooks. */
+.phone #phone-content[data-screen] { font-size: calc(var(--cf-body-font) * var(--font-scale,1)); line-height: 1.6; }
+.phone #phone-content[data-screen] :is(button,input,textarea,select,summary) { font-family: inherit; }
+.phone #phone-content[data-screen] :is(.screen-intro h1,.cf-home-head h1) { font-size: calc(var(--cf-page-title-font) * var(--font-scale,1)); line-height: 1.3; letter-spacing: -.02em; font-weight: 600; }
+.phone #phone-content[data-screen] h2 { font-size: calc(var(--cf-title-font) * var(--font-scale,1)); line-height: 1.4; letter-spacing: 0; font-weight: 600; }
+.phone #phone-content[data-screen] :is(h3,.choice-copy strong,.cf-task-copy strong,.cf-guide-copy strong,.cf-clinician-copy strong,.cf-home-care-title strong,.cf-preparation-list strong,.row-text strong) { font-size: calc(var(--cf-card-title-font) * var(--font-scale,1)); line-height: 1.45; letter-spacing: 0; font-weight: 600; }
+.phone #phone-content[data-screen] :is(p,.screen-intro p,.cf-guide-body ol,.rich-sample-instructions) { font-size: calc(var(--cf-body-font) * var(--font-scale,1)); line-height: 1.6; }
+.phone #phone-content[data-screen] :is(small,figcaption,.cf-card-subtitle,.cf-card-kicker,.hint,.rich-subnote) { font-size: calc(var(--cf-caption-font) * var(--font-scale,1)); line-height: 1.5; }
+.phone #phone-content[data-screen] :is(.ref-section-heading,.cf-home-section-head,.cf-reference-section-head) { gap: var(--cf-space-3); align-items: center; flex-wrap: wrap; }
+.phone #phone-content[data-screen] :is(.ref-section-heading,.cf-home-section-head,.cf-reference-section-head) h2 { flex: 1 1 140px; }
+.phone #phone-content[data-screen] :is(.ref-section-heading,.cf-home-section-head,.cf-reference-section-head) > button { flex: 0 1 auto; font-size: calc(var(--cf-caption-font) * var(--font-scale,1)); }
+.phone #phone-content[data-screen] .cf-home-tip-card > summary { padding: var(--cf-card-padding); }
+.phone #phone-content[data-screen] .cf-home-care-foot { flex-wrap: wrap; align-items: start; gap: var(--cf-space-3); }
+.cf-guide-thumbnail { display: block; width: 56px; height: 72px; border-radius: var(--cf-radius-inner); object-fit: cover; }
+.cf-avatar-photo { display: block; border-radius: 50%; object-fit: cover; object-position: center 24%; flex: none; }
+.phone .cf-profile-masthead-account .cf-reference-avatar { width: 64px; height: 64px; overflow: hidden; }
+.phone #phone-content[data-screen] .rich-profile-details[data-cf-component="facts"] { grid-template-columns: minmax(0,1fr); gap: 0; }
+.phone #phone-content[data-screen] .cf-reference-section > .cf-reference-card { padding: 0; border-radius: 0; background: transparent; }
+.phone #phone-content[data-screen] :is(.rich-profile-details,.cf-settings-list) strong { font-size: calc(var(--cf-body-font) * var(--font-scale,1)); font-weight: 600; }
+.phone #phone-content[data-screen] .cf-relative-grid { grid-template-columns: minmax(0,1fr); }
+.phone #phone-content[data-screen] .cf-relative-card { padding: var(--cf-space-3) 0; }
+.phone #phone-content[data-screen] .cf-relative-add > summary { min-height: var(--cf-control-height); padding: var(--cf-space-3); }
+.phone #phone-content[data-screen] .cf-mode-choice { display: grid; grid-template-columns: 20px 64px minmax(0,1fr); align-items: center; gap: var(--cf-space-3); }
+.cf-mode-thumbnail { display: block; width: 64px; height: 88px; object-fit: cover; border-radius: var(--cf-radius-inner); }
+.phone #phone-content[data-screen] .cf-appt-context { margin: 0 0 var(--cf-space-4); border-radius: var(--cf-radius-inner); overflow: hidden; background: var(--cf-surface-tonal); }
+.cf-appt-context img { display: block; width: 100%; height: 112px; object-fit: cover; }
+.cf-appt-context figcaption { padding: var(--cf-space-2) var(--cf-space-3); color: var(--cf-text-muted); }
+.phone.large-text #phone-content[data-screen] .cf-mode-choice { grid-template-columns: 20px minmax(0,1fr); }
+.phone.large-text .cf-mode-thumbnail { grid-column: 2; width: 100%; height: 100px; }
+.phone.large-text .cf-mode-choice .choice-copy { grid-column: 2; }
+.phone.large-text #phone-content[data-screen] .cf-home-tip-card > summary { grid-template-columns: minmax(0,1fr) 18px; }
+.phone.large-text .cf-guide-thumbnail { display: none; }
+.phone.large-text .ref-discover-image { grid-template-columns: minmax(0,1fr); }
+.phone.large-text .ref-discover-image img { width: 100%; height: auto; max-height: none; object-fit: contain; }
+.phone.large-text .ref-discover-image .cf-discover-copy { padding: var(--cf-space-4); }
 /* Five destinations remain available; central booking owns the strongest emphasis. */
 .phone:has(.bottom-nav:not([hidden])) .phone-scroll { margin-bottom: calc(var(--cf-nav-height) + var(--cf-space-8)); }
 .phone .bottom-nav { height: var(--cf-nav-height); min-height: var(--cf-nav-height); gap: var(--cf-space-1); }
 .phone .bottom-nav .nav-book {
-  display: flex; flex-direction: row; flex: 0 0 auto; gap: var(--cf-space-1);
-  min-width: 96px; max-width: 128px; min-height: 48px; padding: var(--cf-space-2) var(--cf-space-3);
-  background: var(--cf-brand); color: var(--cf-on-brand); border-radius: var(--cf-radius-control);
+  display: grid; place-items: center; flex: 0 0 56px;
+  width: 56px; height: 56px; min-width: 56px; max-width: 56px; min-height: 56px; padding: var(--cf-space-1);
+  background: var(--cf-brand); color: var(--cf-on-brand); border: 3px solid var(--cf-nav-ring); border-radius: 50%;
+  outline: 3px solid var(--cf-surface); outline-offset: 0;
 }
 .phone .bottom-nav .nav-plus { width: 24px; height: 24px; background: transparent; color: inherit; }
 .phone .bottom-nav .nav-caption { font-size: calc(var(--cf-label-font) * var(--font-scale,1)); font-weight: 700; line-height: 1.35; }
 .phone .bottom-nav > a[aria-current] { background: var(--cf-surface-tonal); color: var(--cf-brand); }
 .phone .bottom-nav .nav-book:focus-visible { outline: 3px solid var(--cf-focus); outline-offset: 3px; }
+.phone .bottom-nav .nav-book:hover { border-color: var(--cf-text-muted); }
+.phone .bottom-nav .nav-book:active { transform: scale(.95); }
 /* Desktop lists use rules, not a second layer of padded cards. */
 #app .doctor-card-list [data-cf-card="row"], #app .doctor-task-item[data-cf-card="row"] { padding: var(--cf-space-3) 0; }
 #app .doctor-surface > .doctor-card-heading { margin-bottom: var(--cf-space-4); }
@@ -229,7 +267,3 @@
 @media (prefers-reduced-motion: reduce) { [data-cf-card] * { animation: none; transition: none; } }
 @media (max-width: 700px) { #app [data-cf-component="facts"] { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { [data-cf-component] { transition: none; } [aria-busy="true"] [data-cf-component="button"]::after { animation: none; } }
-
-.phone.large-text { --cf-nav-height: 96px; }
-.phone.large-text .bottom-nav .nav-book { flex-direction: column; gap: 0; min-width: 96px; max-width: 108px; padding: var(--cf-space-1); }
-.phone.large-text .bottom-nav .nav-caption { overflow-wrap: normal; }

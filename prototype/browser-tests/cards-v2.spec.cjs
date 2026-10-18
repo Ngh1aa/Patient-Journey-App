@@ -72,7 +72,7 @@ for(const width of [320,360,390,1440])test('booking nav and card facts remain re
   await page.setViewportSize({width,height:900});
   await page.goto('/prototype/?scenario=upcoming#/home');
   const book=page.locator('#bottom-nav .nav-book');
-  await expect(book.locator('.nav-caption')).toBeVisible();
+  await expect(book.locator('.nav-caption')).toBeHidden();
   await expect(book).toHaveCSS('background-color','rgb(0, 29, 87)');
   const targets=await page.locator('#bottom-nav > *').evaluateAll(nodes=>nodes.map(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));
   expect(targets).toHaveLength(5);targets.forEach(t=>{expect(t.w).toBeGreaterThanOrEqual(44);expect(t.h).toBeGreaterThanOrEqual(44)});
@@ -122,7 +122,9 @@ test('200 percent booking label and private tools reflow and remain usable offli
     sessionStorage.setItem(key,JSON.stringify(saved));
   });
   await page.reload();
-  await expect(page.locator('.nav-book .nav-caption')).toHaveCSS('font-size','26px');
+  await expect(page.locator('.nav-book .nav-caption')).toBeHidden();
+  await expect(page.locator('.nav-book')).toHaveAccessibleName('Đặt lịch khám');
+  await expect(page.locator('.nav-book')).toHaveCSS('border-width','3px');
   await route(page,'E1');
   const tools=page.locator('[data-visit-tools]');
   await tools.locator('[data-preparation="details"]').focus();await page.keyboard.press('Space');

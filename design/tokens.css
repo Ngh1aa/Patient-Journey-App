@@ -8,6 +8,7 @@
   --cf-text: #182b49;
   --cf-text-muted: #526176;
   --cf-line: #ccd7e6;
+  --cf-nav-ring: #aeb8c6;
   --cf-input-line: #74869e;
   --cf-control-pad-block: 10px;
   --cf-danger-line: #d78078;
@@ -34,6 +35,10 @@
   --cf-value-font: 14px;
   --cf-status-font: 12px;
   --cf-title-font: 18px;
+  --cf-page-title-font: 26px;
+  --cf-card-title-font: 16px;
+  --cf-body-font: 14px;
+  --cf-caption-font: 13px;
   --cf-control-height: 44px;
   --cf-control-large: 52px;
   --cf-radius-control: 999px;
@@ -47,5 +52,5 @@
 .phone {
   --cf-control-font: 15px;
   --cf-control-height: 48px;
-  --cf-card-padding: var(--cf-space-4);
+  --cf-card-padding: var(--cf-space-5);
 }

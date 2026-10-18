@@ -82,8 +82,12 @@
     }
   }
 
-  // Local illustrated portraits: varied by profile, stable across navigation/reload.
+  // Stock portrait belongs only to the synthetic demo account. Unknown people keep
+  // a stable illustration; never assign a stock clinician photo to a named doctor.
   window.CareFlowAvatar = function (seed, size = 44) {
+    if (['p1', 'account'].includes(String(seed))) {
+      return `<img class="cf-avatar-photo" src="./assets/images/unsplash/account-portrait.webp" width="${size}" height="${size}" alt="" title="Ảnh đại diện minh họa" decoding="async">`;
+    }
     const hash = Array.from(String(seed)).reduce((n,c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
     const palettes = [['#dceaff','#f3c5aa','#29394f','#001d57'],['#e8e5fb','#bd886b','#242c3e','#7860aa'],['#dff1eb','#edb798','#473931','#368875'],['#f6e6e1','#d6a27b','#354057','#c07466']];
     const [bg,skin,hair,shirt] = palettes[hash % palettes.length];

@@ -32,7 +32,7 @@ Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL
 ## Owners và contracts
 | Component | Owner | Variants / behavior |
 |---|---|---|
-| App shell / header / 4 destinations + booking action | index.html, app.js render | safe area, mobile full viewport / desktop centered phone; auth/video hides tabs; Back hash history; Trang chủ · Lịch hẹn · [+ Đặt lịch] · Hồ sơ · Hỗ trợ; central action resumes the unsent draft |
+| App shell / header / 4 destinations + booking action | index.html, app.js render | safe area, mobile full viewport / desktop centered phone; auth/video hides tabs; Back hash history; Trang chủ · Lịch hẹn · [+ / accessible name Đặt lịch khám] · Hồ sơ · Hỗ trợ; central action resumes the unsent draft |
 | Phiếu khám, visitCard, details | views.js | đúng patientId/id/date/mode/status; D2 hub; QR contains CAREFLOW-DEMO:id only |
 | Timeline / status chip | views.js + model.TRANSITIONS | nhãn và owner từ strings.vi.js, màu không là tín hiệu duy nhất |
 | Form / choices / slots / check | views.js + app.js | labels, selected/focus/error/disabled/loading; 5-stage booking progress, 5 quick dates synced to the real date field; form cache restored on Back/reload |

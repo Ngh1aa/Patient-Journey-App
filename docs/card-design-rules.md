@@ -34,7 +34,7 @@ Anatomy: context/status → heading → facts/supporting content → action. Gro
 
 Tokens: 4/8/12/16/20/24/32px space; card padding patient16/desktop20; radius20 outer,12 inner; text body15–16 patient/14–15 doctor, heading18–20, meta12–13, line-height1.5. Đây là giả thuyết thiết kế dựa trên nội dung thực, không phải số bắt buộc từ chuẩn.
 
-Variants: surface để chứa đối tượng; tonal cho tiện ích liên quan; inverse chỉ phiếu khám ưu tiên; row cho danh sách scan nhanh. Card padding không cộng dồn khi card nằm trong card; không dùng shadow cho tất cả. Primary booking nav có nhãn hiện và filled navy; current tab nhẹ hơn để không cạnh tranh. Không glow/pulse trang trí.
+Variants: surface để chứa đối tượng; tonal cho tiện ích liên quan; inverse chỉ phiếu khám ưu tiên; row cho danh sách scan nhanh. Card padding không cộng dồn khi card nằm trong card; không dùng shadow cho tất cả. Primary booking nav có icon +, lõi filled navy, vòng xám và accessible name “Đặt lịch khám”; caption ẩn theo yêu cầu cập nhật18/10; current tab nhẹ hơn để không cạnh tranh. Không glow/pulse trang trí.
 
 Density decisions: chọn **task-first** (facts + checklist + actions cùng đối tượng) thay cho **gallery-first** (ảnh lớn + grid đồng chiều cao). Patient cần hoàn thành từng bước; doctor cần so sánh rows/table. Media chỉ ở entry/lab/guide; không thêm ảnh vào màn cấp cứu/cuộc gọi hay clinical table để lấp chỗ trống. Ảnh dùng alt mô tả bối cảnh, không giả danh cơ sở.
 
