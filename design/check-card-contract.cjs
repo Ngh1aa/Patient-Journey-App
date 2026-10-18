@@ -1,0 +1,20 @@
+/* A bounded source gate, not visual or WCAG certification. Legacy CSS is reported explicitly. */
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const css=fs.readFileSync(path.join(__dirname,'components.css'),'utf8');
+const tokens=fs.readFileSync(path.join(__dirname,'tokens.css'),'utf8');
+const checks=[];
+checks.push({name:'shared card CSS imports semantic tokens',pass:css.startsWith('@import url("./tokens.css");')});
+checks.push({name:'navy preserved',pass:/--cf-brand:\s*#001d57;/i.test(tokens)});
+checks.push({name:'no raw color in shared component owner',pass:!/(#[a-f\d]{3,8}\b|rgba?\()/i.test(css)});
+checks.push({name:'card API uses existing presentation owner',pass:fs.readFileSync(path.join(__dirname,'ui.js'),'utf8').includes('cardAttrs, card')});
+const hardcoding=[];
+for(const folder of ['design','prototype','staff-prototype']){
+  for(const file of fs.readdirSync(path.join(root,folder)).filter(f=>f.endsWith('.css'))){
+    const text=fs.readFileSync(path.join(root,folder,file),'utf8');
+    hardcoding.push({file:folder+'/'+file,colorLiterals:[...text.matchAll(/#[a-f\d]{3,8}\b|rgba?\(/gi)].length,pixelLiterals:[...text.matchAll(/\b\d+(?:\.\d+)?px\b/g)].length,
+      owner:folder==='design'?'shared':'legacy composition (not zeroed; inspect affected usage)'});
+  }
+}
+console.log(JSON.stringify({checks,hardcoding,boundary:'Source checks only. Existing composition/media sizes remain; rendered evidence owns layout acceptance.'},null,2));
+if(checks.some(c=>!c.pass))process.exitCode=1;

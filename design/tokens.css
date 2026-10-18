@@ -8,6 +8,13 @@
   --cf-text: #182b49;
   --cf-text-muted: #526176;
   --cf-line: #ccd7e6;
+  --cf-input-line: #74869e;
+  --cf-control-pad-block: 10px;
+  --cf-danger-line: #d78078;
+  --cf-info: #17417c;
+  --cf-info-surface: #eaf0fa;
+  --cf-neutral: #4b5563;
+  --cf-neutral-surface: #edf0f4;
   --cf-focus: #2879d0;
   --cf-success: #14633f;
   --cf-success-surface: #e4f5ec;

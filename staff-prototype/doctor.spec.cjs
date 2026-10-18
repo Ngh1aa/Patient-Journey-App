@@ -410,6 +410,8 @@ test('doctor cannot bypass arrival/handoff and cannot finish empty encounter',as
 });
 
 test('journey command cards render and fit in all responsive viewports',async({page},testInfo)=>{
+ // Twenty-five route loads and five captures are a matrix, not a single page latency budget.
+ test.setTimeout(90000);
  const sizes=[{width:375,height:812},{width:900,height:900},{width:1280,height:900},{width:1440,height:900},{width:1920,height:1080}];
  for(const size of sizes){
   await page.setViewportSize(size);

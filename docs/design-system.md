@@ -81,3 +81,24 @@ The `/doctor` dashboard reuses canonical button/status/facts components and the 
 `data-cf-component="tab" data-cf-variant="filter"` is a set of native toggle buttons with `aria-pressed`, not a tabpanel. `data-cf-component="appointment" data-cf-variant="agenda"` is a semantic table row that reflows into labelled records at800px. Filters restore focus/search caret after render and persist during hash navigation; they reset on reload. Clinical edits retain the existing session persistence.
 
 Dashboard style ownership stays in `doctor-content-grid.css` (page topology) and `doctor-journeys.css` (object anatomy). Surfaces follow content height,14px corner radius and16px padding; existing brand/font/control sizes remain. Facts have at most two columns and stack when large text needs space. No new library, photo, chart or fake live metric is required.
+
+
+## Card v2 shared contract (18/10/2026)
+
+Canonical foundations: `design/tokens.css`, imported by `design/components.css`. Both patient and doctor reuse `CareFlowUI.card(content, classes, variant)` or `cardAttrs(variant)` for existing semantic templates. No DOM post-processor or parallel renderer. Only trusted markup is accepted as content; plain text is escaped by each existing renderer.
+
+| Variant | Role | Composition |
+|---|---|---|
+| surface | Independent appointment, lab, profile or work surface | Opaque surface, hairline boundary,20px radius;16px patient/20px doctor padding |
+| tonal | Administrative utility, private checklist or draft summary | Paired muted surface/text, same padding; no decorative shadow |
+| row | Repeated result, task or patient record | Divider and predictable alignment; no additional outer card |
+| section | Section heading + its content | Transparent shell, no repeated border/padding |
+| inverse | Reserved next-appointment composition | Navy plus white foreground; booking nav uses same brand emphasis |
+
+Preserve existing `data-cf-component` for button/status/appointment/facts; `data-cf-card` owns surfaces only. Facts labels sit above values to avoid four competing narrow columns on mobile. Direct desktop section/card headings do not add a second layer of padding.
+
+Patient `u.preparation[visitId]` and `u.visitNotes[visitId]` are session-only view data. No clinical transition, message or request is created by checking/typing. Logout clears these two stores. Calendar export contains appointment time and administrative code, excludes symptoms, private notes and patient name. `u.appointmentQuery` composes with existing mode/person filters and persists across reload.
+
+Doctor followup filters are view state only; completion still checks owner==='Bác sĩ' in the original action. Real clinical state remains in each model, with no cross-app backend synchronization. Loading uses aria-busy only for genuine pending work; synchronous filtering has no fake spinner. For visual state contracts, see `card-design-rules.md` and browser `cards-v2.spec.cjs`/`ui-system.spec.cjs`.
+
+Source-only gate: `node design/check-card-contract.cjs`. This reports remaining legacy composition hardcoding rather than claiming that the whole CSS tree has zero literals. Decorative hairline `--cf-line` is distinct from3:1 input boundary `--cf-input-line`. Native point/device and screen-reader verification remain separate from browser CSS pixels/axe.

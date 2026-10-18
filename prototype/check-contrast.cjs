@@ -68,6 +68,19 @@ const colorPairs = pairs.map(([fg, bg, target]) => {
     throw new Error('Missing CSS token ' + fg + '/' + bg);
   return { name: fg + ' / ' + bg, fg: tokens[fg], bg: tokens[bg], target };
 });
+// Check the actual shared v2 token owner, including surfaces used by both roles.
+const sharedCSS = require('node:fs').readFileSync(require('node:path').join(__dirname,'../design/tokens.css'),'utf8');
+const sharedTokens = Object.fromEntries([...sharedCSS.matchAll(/--(cf-[\w-]+):\s*(#[a-f\d]{3,6})\s*;/gi)].map(m=>[m[1],m[2]]));
+for (const [fg,bg,target] of [
+  ['cf-on-brand','cf-brand',4.5],['cf-text','cf-surface',4.5],
+  ['cf-text-muted','cf-surface',4.5],['cf-text','cf-surface-tonal',4.5],
+  ['cf-text-muted','cf-surface-tonal',4.5],['cf-brand','cf-surface-tonal',4.5],
+  ['cf-success','cf-success-surface',4.5],['cf-warning','cf-warning-surface',4.5],
+  ['cf-danger','cf-danger-surface',4.5],['cf-focus','cf-surface',3],['cf-input-line','cf-surface',3],
+]) {
+  if(!sharedTokens[fg]||!sharedTokens[bg])throw new Error('Missing shared token '+fg+'/'+bg);
+  colorPairs.push({name:fg+' / '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target});
+}
 // Read the winning declaration in stylesheet order. Surfaces can be solid or
 // translucent gradients; both need their actual backgrounds checked.
 for (const token of ['card-gradient', 'child-gradient', 'selected-gradient']) {
