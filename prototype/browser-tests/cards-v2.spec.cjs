@@ -136,3 +136,15 @@ test('200 percent booking label and private tools reflow and remain usable offli
   const rect=await tools.locator('.cf-preparation-checks label').first().boundingBox();expect(rect.height).toBeGreaterThanOrEqual(44);
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.requests.length)).toBe(0);
 });
+
+test('online preparation leads to device checks and completed visits show aftercare notes',async({page})=>{
+  await page.goto('/prototype/?scenario=online#/home');
+  await page.getByRole('button',{name:/Chuẩn bị cho buổi khám/}).click();
+  await expect(main(page)).toHaveAttribute('data-screen','G1');
+  await expect(main(page)).toHaveAttribute('data-guarded','');
+  await page.goto('/prototype/?scenario=completed#/home');
+  await route(page,'D2');
+  await expect(page.locator('[data-visit-tools] h2')).toHaveText('Câu hỏi cho lần trao đổi tới');
+  await expect(page.locator('[data-visit-tools] [data-preparation]')).toHaveCount(0);
+  await expect(page.locator('[data-action="save-calendar"]')).toHaveCount(0);
+});

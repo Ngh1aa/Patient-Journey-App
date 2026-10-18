@@ -195,8 +195,10 @@
 #app .doctor-surface > :is(.doctor-card-heading,.doctor-section-head) { padding: 0 0 var(--cf-space-3); }
 #app .doctor-surface > :is(.doctor-card-list,.doctor-directory,.doctor-today-list,.doctor-lab-list) { padding-inline: 0; }
 #app .doctor-section-head { flex-wrap: wrap; }
-#app .doctor-search { min-width: 0; width: 100%; max-width: 100%; }
-#app .doctor-search input { min-width: 0; width: 100%; }
+#app .doctor-search { min-width: 0; width: 100%; max-width: 100%; min-height: var(--cf-control-height); height: auto; padding-block: 0; }
+#app .doctor-search input { min-width: 0; width: 100%; min-height: var(--cf-control-height); }
+#app .doctor-week-days { grid-template-columns: repeat(7,minmax(44px,1fr)); overflow-x: auto; scroll-snap-type: x proximity; }
+#app .doctor-day { min-width: 44px; scroll-snap-align: start; }
 #app .profile-banner { display: flex; flex-wrap: wrap; height: auto; min-width: 0; }
 #app .profile-banner::after { content: none; }
 #app .profile-head-details { flex: 1 1 220px; min-width: 0; }
@@ -205,6 +207,7 @@
 #app .doctor-result-preview h2 { font-size: var(--cf-title-font); }
 #app .doctor-card-footer { margin-top: var(--cf-space-4); padding-top: var(--cf-space-3); border-top: 1px solid var(--cf-line); }
 #app .doctor-task-item .doctor-item-bottom { flex-wrap: wrap; }
+#app :is(.icon-button,.doctor-icon-button,.doctor-week-today,.doctor-profile-chip,.footer-reset,.text-link) { min-width: 44px; min-height: 44px; }
 #app .cf-task-controls { display: grid; grid-template-columns: minmax(0,2fr) repeat(2,minmax(0,1fr)); gap: var(--cf-space-3); margin: var(--cf-space-4) 0; }
 #app .cf-task-controls label { display: grid; gap: var(--cf-space-2); min-width: 0; font-size: var(--cf-label-font); color: var(--cf-text-muted); }
 #app .cf-task-controls :is(input,select) { width: 100%; min-height: var(--cf-control-height); border: 1px solid var(--cf-input-line); border-radius: var(--cf-radius-inner); padding: var(--cf-space-2); font: inherit; background: var(--cf-surface); color: var(--cf-text); }

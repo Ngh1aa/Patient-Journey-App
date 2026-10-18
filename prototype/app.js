@@ -360,7 +360,7 @@
     const selected = variant || flow.variants?.[0][0] || 'default';
     guideEnabled = true;
     s = window.CareFlowJourney.seed(flow, selected);
-    u = {...u, inspection:false, appointmentShowcase:false, journey:{id:flow.id,variant:selected,index:0},forms:{},otpSent:false,deviceReady:false,emergencyOpened:false,emergencyAccessed:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
+    u = {...u, inspection:false, appointmentShowcase:false, journey:{id:flow.id,variant:selected,index:0},preparation:{},visitNotes:{},forms:{},otpSent:false,deviceReady:false,emergencyOpened:false,emergencyAccessed:false,phone:'',labId:null,reportReason:selected==='urgent'?'symptoms':['medicine','question','symptoms'].includes(selected)?selected:'medicine',urgentAftercare:false,notice:''};
     const params = new URLSearchParams(location.search);
     params.set('journey', flow.id);
     params.set('branch', selected);
@@ -1489,6 +1489,8 @@
       filter: 'upcoming',
       appointmentGroup: null,
       appointmentFilters: false,
+      preparation: {},
+      visitNotes: {},
       forms: {},
       otpSent: false,
       phone: '',
@@ -1511,7 +1513,7 @@
   const appointmentShowcaseSession = reviewLinkParams && u.appointmentShowcase && !u.journey;
   if (appointmentShowcaseLink && !appointmentShowcaseSession) {
     s = M.fixture('appointments');
-    u = {...u, inspection:true, appointmentShowcase:true, journey:null, filter:'upcoming', appointmentGroup:null, appointmentFilters:false, forms:{}, otpSent:false, phone:'', deviceReady:false, labId:null, urgentAftercare:false};
+    u = {...u, inspection:true, appointmentShowcase:true, journey:null, filter:'upcoming', appointmentGroup:null, appointmentFilters:false, preparation:{}, visitNotes:{}, forms:{}, otpSent:false, phone:'', deviceReady:false, labId:null, urgentAftercare:false};
   }
   if(params.has('inspect'))u.inspection=true;
   guideEnabled = !appointmentShowcaseLink && !appointmentShowcaseSession && !params.has('scenario') && !params.has('inspect') && (params.has('journey') || !location.hash || !!u.journey || !u.inspection);

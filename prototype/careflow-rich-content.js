@@ -46,7 +46,7 @@
   const soon=visits[0];
   const completed=s.visits.filter(x=>x.status==='completed'&&h.M.canViewResults(s,x)).sort((a,b)=>b.date.localeCompare(a.date))[0];
   const taskCards=soon?[
-    {icon:'document',title:'Chuẩn bị cho buổi khám',detail:'Giấy tờ · thông tin cần kiểm tra',actionName:'go',id:soon.id,to:'E1'},
+    {icon:'document',title:'Chuẩn bị cho buổi khám',detail:'Giấy tờ · thông tin cần kiểm tra',actionName:'go',id:soon.id,to:soon.mode==='online'?(['confirmed','reminder','online-wait'].includes(soon.status)?'G1':'D2'):'E1'},
     {icon:soon.mode==='online'?'video':'calendar',title:soon.mode==='online'?'Chuẩn bị khám online':'Xem lịch hẹn',detail:soon.mode==='online'?'Mạng · camera · âm thanh':`${dateTextLite(soon.date)} · ${soon.slot||'Chờ giờ'}`,actionName:soon.mode==='online'?'open-visit':'go',id:soon.mode==='online'?soon.id:null,to:soon.mode==='online'?null:'D1'}
   ]:[
     {icon:'document',title:'Chuẩn bị đi khám',detail:'Xem giấy tờ và thông tin cần mang',actionName:'open-guide'},
@@ -151,8 +151,13 @@
     if(['reminder','pre-lab'].includes(v.status))idx=1;
     if(idx<0)idx=0;
     const stopped=['cancelled','no-show'].includes(v.status);
+    const onlineReady=['confirmed','reminder','online-wait'].includes(v.status);
+    const preparationAction=v.mode==='online'
+      ? onlineReady?visitAction('Kiểm tra thiết bị khám online',v,'G1','secondary'):'<p class="cf-card-subtitle">Theo dõi bước tiếp theo trên phiếu khám trước khi kiểm tra kết nối.</p>'
+      : visitAction('Xem hướng dẫn trước khám',v,'E1','secondary');
+    const preparationSection=stopped||v.status==='completed'?'':section('Cần chuẩn bị',`<div class="cf-preparation-list"><p>${h.I('document',20)}<span><strong>Giấy tờ và hồ sơ</strong><small>Giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.</small></span></p><p>${h.I(v.mode==='online'?'video':'map-pin',20)}<span><strong>${v.mode==='online'?'Thiết bị và kết nối':'Thời gian và địa điểm'}</strong><small>${v.mode==='online'?'Mở phiếu khám và kiểm tra camera, micro trước giờ hẹn.':'Kiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có địa chỉ.'}</small></span></p><p>${h.I('info',20)}<span><strong>Yêu cầu riêng trước khám</strong><small>Hỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang dùng.</small></span></p></div>${preparationAction}`,'rich-prepare');
     return section('Tiến trình lượt khám',`<ol class="rich-progress-steps">${steps.map(([id,label],i)=>`<li class="${stopped?'later':i<idx?'done':i===idx?'current':'later'}"${!stopped&&i===idx?' aria-current="step"':''}><span>${!stopped&&i<idx?'✓':i+1}</span><strong>${H(label)}</strong></li>`).join('')}</ol><p class="rich-subnote">${['cancelled','no-show'].includes(v.status)?'Lượt khám đã dừng. Các bước còn lại không được thực hiện.':'Các bước thay đổi theo tình huống và hướng dẫn của phòng khám.'}</p>`,'rich-detailed-progress')+
-      section('Cần chuẩn bị',`<div class="cf-preparation-list"><p>${h.I('document',20)}<span><strong>Giấy tờ và hồ sơ</strong><small>Giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.</small></span></p><p>${h.I(v.mode==='online'?'video':'map-pin',20)}<span><strong>${v.mode==='online'?'Thiết bị và kết nối':'Thời gian và địa điểm'}</strong><small>${v.mode==='online'?'Mở phiếu khám và kiểm tra camera, micro trước giờ hẹn.':'Kiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có địa chỉ.'}</small></span></p><p>${h.I('info',20)}<span><strong>Yêu cầu riêng trước khám</strong><small>Hỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang dùng.</small></span></p></div>${visitAction('Xem hướng dẫn trước khám',v,'E1','secondary')}`,'rich-prepare')+
+      preparationSection+
       section('Thông tin đã khai',`<div class="rich-detail-block"><strong>Triệu chứng</strong><p>${H(v.reason||'Chưa có')}</p><strong>Ghi chú y tế</strong><p>${H(v.medicalHistory||'Chưa cung cấp')}</p></div>`,'rich-declared')+
       (v.labs.length?section('Chỉ định liên quan',`<div class="rich-lab-summary">${v.labs.map(l=>`<div>${pill(h.VI.labs[l.status],l.status==='reviewed'?'success':'warning')}<strong>${H(l.name)}</strong></div>`).join('')}${action('Xem cận lâm sàng','F1','text')}</div>`):section('Chỉ định liên quan',`<div class="rich-detail-block"><p>Chưa có chỉ định cận lâm sàng trong lượt khám này.</p>${action('Xem chi tiết','F1','text')}</div>`))+
       `<div class="rich-policy">${h.I('info',18)}Đổi hoặc hủy lịch phụ thuộc trạng thái xác nhận của phòng khám. ${action('Xem hỗ trợ','K5','text')}</div>`;
@@ -219,7 +224,7 @@
       <div class="cf-card-utility-actions">${kind==='prepare'?`<button type="button" class="btn secondary" ${UI.buttonAttrs('secondary')} data-action="save-calendar" data-id="${H(v.id)}">${h.I('calendar-plus',18)}Lưu lịch cá nhân</button>`:''}${visitAction(kind==='prepare'?'Hỏi phòng khám':'Gửi câu hỏi sau khám',v,kind==='prepare'?'K5':'I1','text')}</div><span class="cf-local-feedback" data-calendar-feedback role="status" aria-live="polite"></span>`, 'cf-preparation-card', 'tonal')}</div>`;
   }
   function journeyCompanion(id,s,v,u,h) {
-    if(['D2','E1','G1'].includes(id))return visitTools(s,v,u,h);
+    if(['D2','E1','G1'].includes(id))return v?.status==='completed'?(h.M.canViewResults(s,v)?visitTools(s,v,u,h,'notes'):''):visitTools(s,v,u,h);
     if(['H6','I3','I5'].includes(id)&&h.M.canViewResults(s,v))return visitTools(s,v,u,h,'notes');
     const bookingGuides={
       C1:{title:'Thông tin theo đúng hồ sơ',steps:['Lịch hẹn được lưu cho người đi khám bạn chọn ở bước này.','Có thể thêm người thân trước khi tiếp tục.','Quyền xem kết quả phụ thuộc quyền truy cập của từng hồ sơ.']},
