@@ -221,11 +221,14 @@
   function journeyCompanion(id,s,v,u,h) {
     if(['D2','E1','G1'].includes(id))return visitTools(s,v,u,h);
     if(['H6','I3','I5'].includes(id)&&h.M.canViewResults(s,v))return visitTools(s,v,u,h,'notes');
-    const d=s.draft,person=d&&h.M.profile(s,d.patientId);
-    if(['C1','C2','C6','C7','C8'].includes(id)&&d) {
-      const next=id==='C1'?'Chọn hồ sơ → Khai thông tin → Chọn lịch':id==='C2'?'Kiểm tra an toàn → Chọn hình thức → Chọn lịch':'Kiểm tra yêu cầu → Phòng khám xác nhận → Chuẩn bị khám';
-      return UI.card(`<h2>Yêu cầu khám của bạn</h2><p class="cf-card-subtitle">${H(person?.name||'Chưa chọn người đi khám')} · Bản nháp chưa gửi</p>${UI.facts([['Lý do khám',d.reason||'Chưa cung cấp'],['Hình thức',d.risk?'Chờ phòng khám xem xét':mode(d)],['Ngày mong muốn',d.date?dateTextLite(d.date):'Chưa chọn'],['Giờ mong muốn',d.slot||'Chưa chọn']],H)}<p class="cf-card-subtitle">${H(next)}</p><p>Yêu cầu chỉ được gửi ở bước xác nhận cuối. Giờ khám cần được phòng khám xác nhận.</p>`,'cf-journey-summary','tonal');
-    }
+    const bookingGuides={
+      C1:{title:'Thông tin theo đúng hồ sơ',steps:['Lịch hẹn được lưu cho người đi khám bạn chọn ở bước này.','Có thể thêm người thân trước khi tiếp tục.','Quyền xem kết quả phụ thuộc quyền truy cập của từng hồ sơ.']},
+      C2:{title:'Ghi thông tin để phòng khám chuẩn bị',steps:['Nêu thời điểm bắt đầu và điều khiến bạn muốn đi khám.','Ghi những thay đổi bạn nhận thấy gần đây.','Bổ sung thuốc đang dùng hoặc thông tin y tế liên quan nếu có.']},
+      C6:{title:'Chuẩn bị theo hình thức khám',steps:['Tại phòng khám: kiểm tra địa điểm khi nhận phiếu khám.','Trực tuyến: cần thiết bị, mạng và không gian riêng tư.','Phòng khám có thể xem xét lại hình thức dựa trên thông tin bạn gửi.']},
+      C7:{title:'Sau khi chọn giờ khám',steps:['Kiểm tra lại ngày và khung giờ mong muốn.','Xem toàn bộ thông tin ở bước xác nhận cuối trước khi gửi.','Theo dõi phiếu khám để nhận xác nhận từ phòng khám.']},
+    };
+    const guide=bookingGuides[id];
+    if(guide&&s.draft)return UI.card(`<h2>${guide.title}</h2><ol>${guide.steps.map(step=>`<li>${H(step)}</li>`).join('')}</ol>`,'cf-journey-summary','tonal');
     if(['F3','F4'].includes(id))return UI.card(`<h2>${id==='F3'?'Kiểm tra trước khi chọn lịch':'Chuẩn bị tệp kết quả'}</h2><ol>${(id==='F3'?['Đối chiếu đúng tên chỉ định và người đi khám.','Giờ bạn chọn là mong muốn để điều phối sắp xếp.','Hỏi phòng khám nếu chưa có hướng dẫn chuẩn bị riêng.']:['Chọn tệp PDF, JPG hoặc PNG, tối đa 10 MB.','Kiểm tra ảnh rõ, đủ trang và đúng người đi khám.','Tệp cần được phòng khám kiểm tra trước khi cập nhật kết quả.']).map(text=>`<li>${text}</li>`).join('')}</ol>${visitAction('Xem lại chỉ định',v,'F2','text')}`,'cf-journey-summary','tonal');
     if(['H2','H3','H4','H5'].includes(id))return UI.card(`<h2>Thông tin khoản thu</h2>${UI.facts([['Lượt khám',v.id],['Trạng thái',h.VI.payments[v.payment.status]||'Chưa có thông tin'],['Số tiền',h.C.unknownFee]],H)}<p class="cf-card-subtitle">Cần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.</p>${visitAction('Hỏi về thanh toán',v,'K5','secondary')}`,'cf-journey-summary','tonal');
     if(id==='K4')return UI.card(`<h2>Dữ liệu trên thiết bị này</h2><p>Ghi chú, checklist và lựa chọn được giữ trong phiên trình duyệt hiện tại. Đăng xuất sẽ kết thúc phiên và xóa các mục riêng đã lưu.</p>${action('Xem hồ sơ đang sử dụng','K2','secondary')}`,'cf-journey-summary','tonal');

@@ -18,6 +18,8 @@ test('navigation names all destinations, exposes booking and profile add follows
   await expect(page.locator('.patient-group .choice-visual svg')).toHaveCount(2);
   const portrait=await page.locator('.patient-choice .choice-visual').first().innerHTML();
   await page.locator('.patient-group input[value=p2]').check();
+  const person=await page.locator('.patient-group input[value=p2]').locator('..').locator('strong').textContent();
+  await expect(page.locator('form [type="submit"]')).toContainText(person.trim().split(/\s+/).slice(-2).join(' '));
   expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');
   await page.reload();
   expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');

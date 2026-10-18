@@ -1475,6 +1475,9 @@
     const selected = group?.querySelector('.choice input:checked')?.closest('.choice');
     const add = group?.querySelector('.add-relative-inline');
     if (selected && add) selected.after(add);
+    const label=selected?.querySelector('strong')?.textContent.trim();
+    const caption=group?.closest('form')?.querySelector('[type="submit"] span');
+    if(label&&caption) caption.textContent='Tiếp tục với '+label.split(/\s+/).slice(-2).join(' ');
   }
   function loadScenario(name) {
     s = name === 'new' ? M.initial() : M.fixture(name);

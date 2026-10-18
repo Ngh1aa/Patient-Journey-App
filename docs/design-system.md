@@ -90,7 +90,7 @@ Canonical foundations: `design/tokens.css`, imported by `design/components.css`.
 | Variant | Role | Composition |
 |---|---|---|
 | surface | Independent appointment, lab, profile or work surface | Opaque surface, hairline boundary,20px radius;16px patient/20px doctor padding |
-| tonal | Administrative utility, private checklist or draft summary | Paired muted surface/text, same padding; no decorative shadow |
+| tonal | Administrative utility, private checklist or booking guidance | Paired muted surface/text, same padding; no decorative shadow |
 | row | Repeated result, task or patient record | Divider and predictable alignment; no additional outer card |
 | section | Section heading + its content | Transparent shell, no repeated border/padding |
 | inverse | Reserved next-appointment composition | Navy plus white foreground; booking nav uses same brand emphasis |

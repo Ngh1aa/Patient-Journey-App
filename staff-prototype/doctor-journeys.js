@@ -133,12 +133,16 @@
   function page(path,x){if(path.startsWith('/doctor/review/'))return triage(path,x);if(path.startsWith('/doctor/online/'))return onlinePage(path,x);return null}
   function filterInput(event,x){
     if(!event.target.matches('[data-followup-query],[data-followup-field]'))return false;
-    const el=event.target,key=el.dataset.followupField||'query';
+    const el=event.target,key=el.dataset.followupField||'query',caret=el.selectionStart;
     const values={status:['all','open','done'],owner:['all','mine','delegated']};
     if(key!=='query'&&!values[key]?.includes(el.value))return false;
     x.ui.followupFilter??={status:'all',owner:'all',query:''};
     x.ui.followupFilter[key]=el.value;
-    x.render();document.querySelector(key==='query'?'[data-followup-query]':`[data-followup-field="${key}"]`)?.focus({preventScroll:true});return true;
+    x.render();
+    const field=document.querySelector(key==='query'?'[data-followup-query]':`[data-followup-field="${key}"]`);
+    field?.focus({preventScroll:true});
+    if(key==='query'&&caret!=null)field?.setSelectionRange(caret,caret);
+    return true;
   }
   root.CareFlowJourneys={summary,followups,afterResult,page,action,filterInput};
 })(window);
