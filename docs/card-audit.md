@@ -385,3 +385,19 @@ Bao gồm legacy không load; source references không phải runtime evidence.
 - `staff-prototype\doctor-showcase.js`: `doctor-card-actions`, `doctor-card-count`, `doctor-card-empty`, `doctor-card-filters`, `doctor-card-heading`, `doctor-card-list`, `doctor-surface`
 - `staff-prototype\supporting.js`: `support-card-actions`, `support-document-panel`, `support-floating-card`, `support-form-panel`, `support-panel`, `support-queue-card`, `support-role-cards`
 - `staff-prototype\wave3.js`: `wave-cancel-panel`, `wave-discard`, `wave-panel`, `wave-panel-foot`, `wave-panel-head`, `wave-side-panel`
+
+## Đợt chỉnh nháp typography/layout18/10 — sau card-v2
+
+Giữ nguyên inventory62screen states ở trên; bảng sau ghi delta trước/sau của các nhóm sửa lần này, không cộng thành component count mới. Kiểm tra responsive mới trên47route patient và3widths lưu tại `card-evidence/draft-refinement/`.
+
+| Screen | Card | Type | Trước / issues | Sau | Priority |
+|---|---|---|---|---|---|
+| B1 + shared nav | Đặt lịch | action | Nhãn hiện làm nút chiếm nhiều ngang; user muốn icon-only | Circle56px,gray ring3px,navy,accessible name; keyboard/pressed | RESOLVED/P1 |
+| B1 | Cẩm nang | expandable guide | Text-only, inset wrapper/summary không cùng owner | Photo56×72,copy linh hoạt,summary20px,body mở có CTA hoạt động | RESOLVED/P1 |
+| B1 | Dịch vụ | media action | Ảnh thiết bị chiếm toàn nền, nội dung ở overlay | Bác sĩ stock bên trái,copy/CTA bên phải; mặt không bị chữ đè | RESOLVED/P2 |
+| C1,K2 | Account | profile | Avatar illustration/initials, không có ảnh người thật | Avatar stock mẫu nhất quán ở home/chọn người/profile; người chưa có ảnh giữ fallback | RESOLVED/P2 |
+| C6 | Hình thức khám | choice | Ảnh chung tách khỏi2option | Thumbnail đúng onsite/online đặt trong option; giữ native radio/flow | RESOLVED/P2 |
+| D1,D2 | Lịch/phiếu | appointment | Ảnh generic, ảnh đầu phiếu quá cao; CTA có nguy cơ wrap khi thêm icon | Ảnh theo mode; hero200px; cùng role CTA48px với home ở cỡ chữ thường | RESOLVED/P1 |
+| E1,G1,K5,H6 | Chuẩn bị/online/hỗ trợ/sau khám | contextual media | Ít ảnh hoặc lặp ảnh generate | Unsplash theo đúng ngữ cảnh, không đổi hướng dẫn y tế hoặc giả danh cơ sở | RESOLVED/P2 |
+| K2 | Thông tin cá nhân | fact rows | Shared facts2cols làm tên/giá trị hẹp; inset lồng |1col,rows/rules,không thêm shell/cardpadding lồng | RESOLVED/P1 |
+| All47patient routes | Heading/body/CTA | shared roles | Font-size rời10–17px cùng chức năng | Semantic tokens + cùng font; page26/section18/card16/body14/caption13/control15,scale200% | RESOLVED/P1 |

@@ -17,7 +17,7 @@ Review ngày18/10/2026. Đây là kiểm tra của agent trên ảnh render/sour
 |3. Emoji dùng làm icon/nav | không xuất hiện | Patient quick access/nav;doctor sidebar/action | Dùng bộ SVG hiện có, có accessible name; biểu tượng trang trí không được dùng thay nhãn tác vụ. |
 |4. Purple gradient mọi nơi | không xuất hiện | Shared card surfaces;D1/F1/H7;doctor surfaces | Không dùng purple như default theme. Gradient overlay ảnh còn lại có vai trò tương phản, không coi mọi gradient là lỗi. |
 |5. Card cho mọi block/nested card | có mục đích rõ | E1 prep;F1 lab;doctor results/tasks;C1–C7 guidance | Surface cho một subject hoặc tiện ích độc lập; section trong suốt; rows cho danh sách đồng nhất. Dữ liệu facts label/value không bọc thêm card. Direct desktop headers không cộng padding hai lần. |
-|6. Multicolored side tabs trên mọi block | có mục đích rõ | D1 status/mode filters;doctor results/followups/agenda | Tabs dùng nhãn + pressed/selected; không rainbow cạnh tranh. Trạng thái chờ/đã xem/đã dừng do model cung cấp. Màu không thay thế nội dung và quyền tác vụ. |
+|6. Multicolored side tabs trên mọi block | không xuất hiện | B1 guide filters;D1 status/mode filters;doctor results/followups/agenda | Các filter hiện tại dùng một màu selected có nhãn + pressed, không phải nhiều side tab màu cạnh tranh. Nếu dùng side tab màu trong tương lai phải giải thích phân loại/ý nghĩa, không cấm phong cách tuyệt đối. |
 |7. Status dots không mang nghĩa | có mục đích rõ | B1 notification count;K1 unread text;D2 next step;doctor results/task owners | Unread lấy từ n.read; badge lấy từ UI.status/domain; progress dựa visit history; người phụ trách/bước tiếp lấy từ model. Không thêm “Online/đã đồng bộ” giả. Clinical transitions vẫn kiểm lại ở action handler. |
 
 Không còn mục “cần sửa” từ7 dấu hiệu trên trong các ảnh đại diện đã xem. Đây là phạm vi review ảnh cụ thể, không phải khẳng định mọi pixel/mọi dữ liệu tương lai đều đạt.
@@ -25,9 +25,9 @@ Không còn mục “cần sửa” từ7 dấu hiệu trên trong các ảnh đ
 ## Các lỗi cụ thể đã sửa
 | Trước | Root cause | Sau | Kiểm chứng |
 |---|---|---|---|
-| Ảnh người dùng: title/description/CTA thành cột hẹp | Các vùng ngang tranh width; không có minmax và progressive disclosure | Guide summary: icon + text co giãn + chevron; body mở theo Enter; task card chia rows | card-usability 360/390/1440, screenshots |
+| Ảnh người dùng: title/description/CTA thành cột hẹp | Các vùng ngang tranh width; không có minmax và progressive disclosure | Guide summary: thumbnail + text co giãn + chevron; body mở theo Enter; task card chia rows | card-usability 360/390/1440, screenshots |
 | E1 label/value bị chia thành nhiều cột ký tự | Parent facts2cols + mỗi item vẫn có layout label/value ngang | Mỗi item stack label trên value; large text1col | cards-v2 facts width + captureE1 |
-| Booking chỉ là dấu cộng nhạt | Không có nhãn hiện, active tab tranh mức nhấn | Filled navy, “Đặt lịch” hiện, năm destinations giữ nguyên; 200% có nav-height riêng | cards-v2 nav320/360/390/1440 + offline200% |
+| Booking chỉ là dấu cộng nhạt | Không có nhãn hiện, active tab tranh mức nhấn | Theo yêu cầu mới: icon + với vòng xám, filled navy, caption ẩn nhưng giữ accessible name; năm destinations giữ nguyên | cards-v2 nav320/360/390/1440 + offline200% |
 | Doctor patient search tràn ở375px; tên dài hẹp | Container padding cộng dồn và flex item nhường width cho badge | Shared padding owner; search min-width0; avatar/name/action grid + status hàng riêng | doctor responsive matrix + touch audit |
 | Profile banner scrollWidth dư | Decorative pseudo orb đặt ra ngoài mép | Loại orb không có ý nghĩa; giữ nội dung và action | card inventory after no overflow |
 | Calendar ngày chạm hẹp trên phone | Ép7 ngày vào chiều ngang còn lại sau sidebar | Min44px; rail cuộn nội bộ khi cần, native focus tự đưa ngày vào view | doctor schedule test + touch audit |
