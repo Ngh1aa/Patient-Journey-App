@@ -1,0 +1,733 @@
+{
+  "routes": [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "E1",
+    "E2",
+    "E3",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "H1",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H6",
+    "H7",
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "J1",
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "K5",
+    "/doctor",
+    "/doctor/schedule",
+    "/doctor/queue",
+    "/patients",
+    "/patients/p-001",
+    "/visits/a-027",
+    "/encounters/a-033",
+    "/results",
+    "/clinical/orders",
+    "/clinical/prescription",
+    "/clinical/review",
+    "/doctor/followups",
+    "/doctor/review/a-021",
+    "/doctor/online/a-040",
+    "/doctor/online/a-041"
+  ],
+  "issues": [],
+  "states": [
+    {
+      "id": "B1",
+      "key": "go",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "care-entry",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-photo-card cf-layout-network cf-home-network",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "visit-card cf-home-appointment-summary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-home-appointment-button",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-quick-primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-quick-secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "book-nav",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-photo-card cf-layout-photo ref-discover-image cf-photo-featured",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-photo-card cf-layout-photo ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-photo-card cf-layout-topic cf-home-task-card cf-task-note",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-photo-card cf-layout-stack cf-home-task-card",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn selected",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "appointment-group",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "cf-appt-open",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn primary rich-new-booking",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-photo-arrow-action",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "btn inverse",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-photo-card cf-layout-topic ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-photo-card cf-layout-network ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "go",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "cf-photo-arrow-action",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "notification row ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "cf-appt-open",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-channels",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "clinic-call",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-compose",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-requests",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-faqs",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-messages",
+      "state": "hover-focus"
+    }
+  ],
+  "media": [
+    {
+      "id": "A1",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "elements": [
+        {
+          "text": "Chưa có thông tin sau khám",
+          "selector": "STRONG.",
+          "fg": "rgb(24, 43, 73)"
+        },
+        {
+          "text": "Lời dặn và đơn thuốc sẽ xuất hiện khi có kết quả được cập nhật.",
+          "selector": "SMALL.",
+          "fg": "rgb(82, 97, 118)"
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "elements": [
+        {
+          "text": "Kiểm tra thông tin trước khi đến khám",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    },
+    {
+      "id": "G1",
+      "elements": [
+        {
+          "text": "Sẵn sàng thiết bị và không gian riêng tư",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "elements": [
+        {
+          "text": "Lưu lại câu hỏi, xem lại hướng dẫn sau buổi khám",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "A1",
+      "count": 7,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "A2",
+      "count": 10,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "A3",
+      "count": 9,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "B1",
+      "count": 79,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "C1",
+      "count": 31,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C2",
+      "count": 40,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C3",
+      "count": 21,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C4",
+      "count": 20,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C5",
+      "count": 20,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C6",
+      "count": 30,
+      "minRatio": 3.79673069072465
+    },
+    {
+      "id": "C7",
+      "count": 41,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "C8",
+      "count": 32,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "C9",
+      "count": 24,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "D1",
+      "count": 25,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "D2",
+      "count": 96,
+      "minRatio": 4.037292741600642
+    },
+    {
+      "id": "D3",
+      "count": 20,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "D4",
+      "count": 15,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "E1",
+      "count": 31,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "E2",
+      "count": 23,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "E3",
+      "count": 22,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "F1",
+      "count": 20,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "F2",
+      "count": 19,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "F3",
+      "count": 16,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "F4",
+      "count": 17,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "G1",
+      "count": 29,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "G2",
+      "count": 11,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "G3",
+      "count": 9,
+      "minRatio": 6.096692976518706
+    },
+    {
+      "id": "G4",
+      "count": 13,
+      "minRatio": 6.096692976518706
+    },
+    {
+      "id": "G5",
+      "count": 12,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "H1",
+      "count": 29,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "H2",
+      "count": 25,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "H3",
+      "count": 19,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "H4",
+      "count": 22,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "H5",
+      "count": 24,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "H6",
+      "count": 32,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "H7",
+      "count": 24,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "I1",
+      "count": 22,
+      "minRatio": 4.176125966966087
+    },
+    {
+      "id": "I2",
+      "count": 11,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "I3",
+      "count": 17,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "I4",
+      "count": 13,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "I5",
+      "count": 17,
+      "minRatio": 4.1869233486046555
+    },
+    {
+      "id": "J1",
+      "count": 24,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "K1",
+      "count": 14,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "K2",
+      "count": 33,
+      "minRatio": 4.674000216913878
+    },
+    {
+      "id": "K3",
+      "count": 20,
+      "minRatio": 5.31576261020716
+    },
+    {
+      "id": "K4",
+      "count": 17,
+      "minRatio": 5.309949820738985
+    },
+    {
+      "id": "K5",
+      "count": 37,
+      "minRatio": 4.357009513770479
+    },
+    {
+      "id": "/doctor",
+      "count": 247,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/doctor/schedule",
+      "count": 117,
+      "minRatio": 3.0568735365850586
+    },
+    {
+      "id": "/doctor/queue",
+      "count": 80,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/patients",
+      "count": 61,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/patients/p-001",
+      "count": 72,
+      "minRatio": 1.723828165730101
+    },
+    {
+      "id": "/visits/a-027",
+      "count": 56,
+      "minRatio": 3.3772646768973678
+    },
+    {
+      "id": "/encounters/a-033",
+      "count": 94,
+      "minRatio": 1.6402584465027126
+    },
+    {
+      "id": "/results",
+      "count": 65,
+      "minRatio": 3.3772646768973678
+    },
+    {
+      "id": "/clinical/orders",
+      "count": 54,
+      "minRatio": 2.957565650113195
+    },
+    {
+      "id": "/clinical/prescription",
+      "count": 51,
+      "minRatio": 2.957565650113195
+    },
+    {
+      "id": "/clinical/review",
+      "count": 53,
+      "minRatio": 2.957565650113195
+    },
+    {
+      "id": "/doctor/followups",
+      "count": 96,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/doctor/review/a-021",
+      "count": 51,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/doctor/online/a-040",
+      "count": 48,
+      "minRatio": 3.5284282795607274
+    },
+    {
+      "id": "/doctor/online/a-041",
+      "count": 47,
+      "minRatio": 3.5284282795607274
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+=== BÁO CÁO KIỂM TRA ĐỘ TƯƠNG PHẢN MÀU (WCAG 2.1 AA) ===
+
+PASS | Ratio: 15.99:1 (Mục tiêu >= 4.5:1) | primary / surface
+PASS | Ratio: 4.95:1 (Mục tiêu >= 4.5:1) | subtle / surface
+PASS | Ratio: 15.97:1 (Mục tiêu >= 4.5:1) | ink / surface
+PASS | Ratio: 15.03:1 (Mục tiêu >= 4.5:1) | ink / bg
+PASS | Ratio: 5.65:1 (Mục tiêu >= 4.5:1) | muted / surface
+PASS | Ratio: 5.32:1 (Mục tiêu >= 4.5:1) | muted / bg
+PASS | Ratio: 16.33:1 (Mục tiêu >= 4.5:1) | heading / surface
+PASS | Ratio: 5.35:1 (Mục tiêu >= 4.5:1) | danger / danger-soft
+PASS | Ratio: 6.11:1 (Mục tiêu >= 4.5:1) | success / success-soft
+PASS | Ratio: 5.64:1 (Mục tiêu >= 4.5:1) | warning / warning-soft
+PASS | Ratio: 13.60:1 (Mục tiêu >= 4.5:1) | primary / blue-soft
+PASS | Ratio: 3.20:1 (Mục tiêu >= 3:1) | input-border / surface
+PASS | Ratio: 7.13:1 (Mục tiêu >= 3:1) | focus / surface
+PASS | Ratio: 15.99:1 (Mục tiêu >= 4.5:1) | cf-on-brand / cf-brand
+PASS | Ratio: 14.18:1 (Mục tiêu >= 4.5:1) | cf-text / cf-surface
+PASS | Ratio: 6.31:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-surface
+PASS | Ratio: 12.54:1 (Mục tiêu >= 4.5:1) | cf-text / cf-surface-tonal
+PASS | Ratio: 5.58:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-surface-tonal
+PASS | Ratio: 14.14:1 (Mục tiêu >= 4.5:1) | cf-brand / cf-surface-tonal
+PASS | Ratio: 6.43:1 (Mục tiêu >= 4.5:1) | cf-success / cf-success-surface
+PASS | Ratio: 6.60:1 (Mục tiêu >= 4.5:1) | cf-warning / cf-warning-surface
+PASS | Ratio: 6.10:1 (Mục tiêu >= 4.5:1) | cf-danger / cf-danger-surface
+PASS | Ratio: 4.43:1 (Mục tiêu >= 3:1) | cf-focus / cf-surface
+PASS | Ratio: 3.72:1 (Mục tiêu >= 3:1) | cf-input-line / cf-surface
+PASS | Ratio: 16.33:1 (Mục tiêu >= 4.5:1) | heading / card-gradient solid surface
+PASS | Ratio: 5.65:1 (Mục tiêu >= 4.5:1) | muted / card-gradient solid surface
+PASS | Ratio: 15.99:1 (Mục tiêu >= 4.5:1) | primary / card-gradient solid surface
+PASS | Ratio: 16.33:1 (Mục tiêu >= 4.5:1) | heading / child-gradient solid surface
+PASS | Ratio: 5.65:1 (Mục tiêu >= 4.5:1) | muted / child-gradient solid surface
+PASS | Ratio: 15.99:1 (Mục tiêu >= 4.5:1) | primary / child-gradient solid surface
+PASS | Ratio: 13.89:1 (Mục tiêu >= 4.5:1) | heading / selected-gradient solid surface
+PASS | Ratio: 4.81:1 (Mục tiêu >= 4.5:1) | muted / selected-gradient solid surface
+PASS | Ratio: 13.60:1 (Mục tiêu >= 4.5:1) | primary / selected-gradient solid surface
+PASS | Ratio: 11.52:1 (Mục tiêu >= 4.5:1) | Video text / stage
+PASS | Ratio: 13.01:1 (Mục tiêu >= 4.5:1) | cf-media-ink / patient caption over black
+PASS | Ratio: 5.78:1 (Mục tiêu >= 4.5:1) | cf-media-muted / patient caption over black
+PASS | Ratio: 14.18:1 (Mục tiêu >= 4.5:1) | cf-media-ink / patient caption over white
+PASS | Ratio: 6.31:1 (Mục tiêu >= 4.5:1) | cf-media-muted / patient caption over white
+PASS | Ratio: 12.10:1 (Mục tiêu >= 4.5:1) | cf-text / cf-pastel-blue
+PASS | Ratio: 5.38:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-pastel-blue
+PASS | Ratio: 13.64:1 (Mục tiêu >= 4.5:1) | cf-brand / cf-pastel-blue
+PASS | Ratio: 11.85:1 (Mục tiêu >= 4.5:1) | cf-text / cf-pastel-lilac
+PASS | Ratio: 5.27:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-pastel-lilac
+PASS | Ratio: 13.36:1 (Mục tiêu >= 4.5:1) | cf-brand / cf-pastel-lilac
+PASS | Ratio: 10.56:1 (Mục tiêu >= 4.5:1) | cf-text / cf-pastel-peach
+PASS | Ratio: 4.70:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-pastel-peach
+PASS | Ratio: 11.91:1 (Mục tiêu >= 4.5:1) | cf-brand / cf-pastel-peach
+PASS | Ratio: 12.59:1 (Mục tiêu >= 4.5:1) | cf-text / cf-pastel-cream
+PASS | Ratio: 5.60:1 (Mục tiêu >= 4.5:1) | cf-text-muted / cf-pastel-cream
+PASS | Ratio: 14.19:1 (Mục tiêu >= 4.5:1) | cf-brand / cf-pastel-cream
+
+========================================================
+KẾT LUẬN: CÁC CẶP TOKEN ĐÃ KIỂM TRA ĐẠT MỤC TIÊU; XEM THÊM AXE RENDERED QA.
