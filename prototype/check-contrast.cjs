@@ -110,13 +110,22 @@ colorPairs.push({
   bg: '#0F253D',
   target: 4.5,
 });
-// A white source pixel is the brightest possible photograph under the caption.
-// Blur may change the image, but must never be the only source of readability.
-const caption = sharedCSS.match(/--cf-media-caption:\s*rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\s*\)/);
+// The last declaration belongs to the patient light material. Test both image
+// extremes: a solid dark source is worst for dark text, white is brightest.
+const caption = [...sharedCSS.matchAll(/--cf-media-caption:\s*rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\s*\)/g)].at(-1);
 if (!caption) throw new Error('Missing media caption material');
 const captionAlpha=Number(caption[4]);
-const brightestCaption='#'+caption.slice(1,4).map(value=>Math.round(Number(value)*captionAlpha+255*(1-captionAlpha)).toString(16).padStart(2,'0')).join('');
-for(const fg of ['cf-on-brand','cf-media-muted'])colorPairs.push({name:fg+' / photo caption over white',fg:sharedTokens[fg],bg:brightestCaption,target:4.5});
+for(const pixel of [0,255]) {
+  const composited='#'+caption.slice(1,4).map(value=>Math.round(Number(value)*captionAlpha+pixel*(1-captionAlpha)).toString(16).padStart(2,'0')).join('');
+  for(const fg of ['cf-media-ink','cf-media-muted'])colorPairs.push({name:fg+' / patient caption over '+(pixel?'white':'black'),fg:sharedTokens[fg],bg:composited,target:4.5});
+}
+for(const bg of ['cf-blue-mist','cf-blue-sky','cf-blue-cloud','cf-blue-paper']) {
+  for(const fg of ['cf-text','cf-text-muted','cf-brand'])colorPairs.push({name:fg+' / '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target:4.5});
+}
+// Navy topic/media/banner surfaces pair white or soft blue with every gradient stop.
+for(const bg of ['cf-brand','cf-navy-mid','cf-navy-end']) {
+  for(const fg of ['cf-on-brand','cf-info-surface'])colorPairs.push({name:fg+' / navy gradient '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target:4.5});
+}
 
 console.log('=== BÁO CÁO KIỂM TRA ĐỘ TƯƠNG PHẢN MÀU (WCAG 2.1 AA) ===\n');
 let allPass = true;

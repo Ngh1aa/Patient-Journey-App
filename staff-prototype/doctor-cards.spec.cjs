@@ -100,7 +100,10 @@ test('online sessions separate connection preparation from coordinator support',
  await expect(page.locator('.doctor-online-item')).toContainText('Phụ trách: Điều phối');
  await expect(page.locator('.doctor-online-item [data-action="start-consult"]')).toHaveCount(0);
  await filter(page,'online','prepare').click();
+ await expect(filter(page,'online','prepare')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('.doctor-online-item')).toContainText('Hoàng Nhật Nam');
  await page.locator('.doctor-online-item button').click();
+ await expect(page).toHaveURL(/doctor\/online\/a-040$/);
  await expect(page.locator('[data-action="start-consult"]')).toHaveCount(0);
  await page.locator('[data-action="doc-online-connect"]').click();
  await page.goBack();

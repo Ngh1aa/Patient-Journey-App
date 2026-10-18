@@ -2,7 +2,7 @@
    The screenshot supplies white/navy surfaces, quiet blue summaries, soft geometry
    and clinical photography. Existing model, routes and data remain authoritative. */
 :root {
-  --bg:#f5f6f8; --surface:#fff; --primary:#10213c; --primary-hover:#1d3456;
+  --bg:#f7f8fa; --surface:#fff; --primary:#001d57; --primary-hover:#102c65;
   --careflow-navy:#10213c; --navy:#10213c; --navy-deep:#0b182d;
   --ink:#172234; --heading:#142034; --muted:#5e6876; --subtle:#67717f;
   --border:#e7eaf0; --input-border:#8591a2; --blue-soft:#e7edf8;
@@ -11,7 +11,7 @@
   --r-card:24px; --r-button:25px; --r-input:16px; --shadow:0 5px 18px #14243b05;
   --card-gradient:#fff; --child-gradient:#fff; --selected-gradient:#e7edf8; --layout-gutter:16px;
 }
-body { background:#e9eaee; color:var(--ink); font-size:calc(var(--cf-body-font) * var(--font-scale,1)); }
+body { background:#efefef; color:var(--ink); font-size:calc(var(--cf-body-font) * var(--font-scale,1)); }
 .workspace { max-width:1180px; gap:72px; padding:32px 24px; align-items:center; min-height:100dvh; }
 .stage { width:390px; flex:none; }
 .presentation-note,.stage-label,.stage-caption { display:none; }
@@ -151,10 +151,9 @@ body { background:#e9eaee; color:var(--ink); font-size:calc(var(--cf-body-font) 
 #phone-content .rich-home-head { color:var(--ink); padding:0; }
 #phone-content .rich-greeting p { margin:0 0 4px; color:var(--muted); font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); }
 #phone-content .rich-greeting h1 { margin:0; color:var(--heading); font-size:calc(23px * var(--font-scale,1)); line-height:1.3; font-weight:600; letter-spacing:-.7px; }
-#phone-content .cf-home-appointment { margin:0; border:0; padding:0; background:none; border-radius:24px; box-shadow:none; }
+#phone-content .cf-home-appointment { margin:16px 0 0; border:0; padding:0; background:none; border-radius:24px; box-shadow:none; }
 .cf-home-appointment-card { position:relative; min-height:180px; border-radius:24px; overflow:hidden; background:#10213c; color:#fff; }
-.appointment-object { position:absolute; top:0; right:0; width:100%; height:100%; object-fit:cover; object-position:65% center; opacity:.83; pointer-events:none; }
-.cf-home-appointment-card::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,#10213c 3%,#10213cf2 30%,#10213c18 100%); }
+.cf-home-appointment-card::after { content:none; }
 .phone .cf-home-appointment-summary { position:relative; z-index:1; display:grid; justify-items:start; gap:4px; width:100%; min-height:149px; margin:0; padding:17px 19px 10px; border:0; border-radius:0; background:transparent; color:white; box-shadow:none; text-align:left; }
 .cf-home-appointment-summary .ref-appointment-label { color:#e4e9f0; font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); margin-bottom:10px; }
 .ref-appointment-day { font-size:39px; line-height:1; font-weight:500; letter-spacing:-1px; }
@@ -332,7 +331,7 @@ body { background:#e9eaee; color:var(--ink); font-size:calc(var(--cf-body-font) 
 .cf-collection-empty p { font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); color:var(--muted); line-height:1.65; margin:8px 0 16px; }
 .cf-context-photo { position:relative; margin:0 0 16px; overflow:hidden; border-radius:20px; background:#e5ebf2; }
 .cf-context-photo img { display:block; width:100%; height:200px; object-fit:cover; }
-.cf-context-photo figcaption { position:absolute; left:0; right:0; bottom:0; background:var(--cf-media-caption); color:var(--cf-on-brand); backdrop-filter:blur(var(--cf-media-blur)); font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); color:#354b68; padding:12px 15px; line-height:1.6; }
+.cf-context-photo figcaption { position:absolute; left:0; right:0; bottom:0; background:var(--cf-media-caption); color:var(--cf-media-ink); backdrop-filter:blur(var(--cf-media-blur)); font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); padding:12px 15px; line-height:1.6; }
 .cf-lab-card { border-radius:22px; overflow:hidden; background:#fff; }
 .cf-lab-card>img { display:block; width:100%; height:155px; object-fit:cover; object-position:35% center; }
 .cf-document-photo { display:block; width:100%; height:130px; object-fit:cover; border-radius:13px; }
@@ -368,12 +367,14 @@ body { background:#e9eaee; color:var(--ink); font-size:calc(var(--cf-body-font) 
 .rich-person-picker>summary::-webkit-details-marker { display:none; }
 .rich-person-picker[open]>summary>svg:last-child { transform:rotate(90deg); }
 /* Service/results media is bound to actual lab items and existing actions. */
-.phone[data-screen=F1] .phone-top,.phone[data-screen=F1] .phone-header { background:var(--primary); color:white; }
-.phone[data-screen=F1] .phone-header .app-wordmark,.phone[data-screen=F1] .app-wordmark span { color:white; }
-.phone[data-screen=F1] .phone-header .icon-btn { color:white; background:#ffffff14; }
-#phone-content[data-screen=F1]>.screen-masthead { background:var(--primary); margin:-8px -16px 0; padding:12px 16px 16px; border-radius:0 0 25px 25px; }
-#phone-content[data-screen=F1] .screen-intro h1,#phone-content[data-screen=F1] .screen-intro p,#phone-content[data-screen=F1] .context,#phone-content[data-screen=F1] .context small { color:#fff; }
-#phone-content[data-screen=F1] .screen-intro p { opacity:.8; }
+/* Search pages lead with their task rather than a dark promotional masthead. */
+.phone[data-screen=F1] .phone-top,.phone[data-screen=F1] .phone-header { background:var(--bg); color:var(--ink); }
+.phone[data-screen=F1] .phone-header .app-wordmark,.phone[data-screen=F1] .app-wordmark span { color:var(--primary); }
+.phone[data-screen=F1] .phone-header .icon-btn { color:var(--ink); background:var(--surface); }
+#phone-content[data-screen=F1]>.screen-masthead { background:var(--cf-feature-wash); margin:0; padding:20px 16px; border-radius:24px; }
+#phone-content[data-screen=F1] .screen-intro h1 { color:var(--heading); }
+#phone-content[data-screen=F1] .screen-intro p,#phone-content[data-screen=F1] .context,#phone-content[data-screen=F1] .context small { color:var(--cf-text-muted); }
+
 .phone .ref-media-service { position:relative; display:block; padding:0; height:221px; border:0; overflow:hidden; border-radius:23px; text-align:left; background:#d5e0ed; }
 .ref-media-service>img { display:block; width:100%; height:100%; object-fit:cover; object-position:35% center; }
 .ref-media-service-copy { position:absolute; bottom:20px; left:18px; right:58px; z-index:1; display:grid; gap:5px; }

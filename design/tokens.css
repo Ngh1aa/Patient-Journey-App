@@ -2,14 +2,25 @@
 :root {
   --cf-brand: #001d57;
   --cf-on-brand: #ffffff;
+  --cf-navy-mid: #16386c;
+  --cf-navy-end: #264f86;
+  --cf-navy-gradient: linear-gradient(140deg, var(--cf-brand), var(--cf-navy-mid) 52%, var(--cf-navy-end));
+  --cf-blue-cloud: #f5f8fe;
+  --cf-blue-mist: #e1eaf7;
+  --cf-blue-sky: #d2dff1;
+  --cf-blue-paper: #edf3fb;
+  --cf-card-wash: linear-gradient(145deg, var(--cf-surface) 55%, var(--cf-blue-cloud));
+  --cf-feature-wash: linear-gradient(145deg, var(--cf-blue-cloud), var(--cf-blue-mist) 55%, var(--cf-blue-sky));
+  --cf-card-shadow: 0 4px 20px #001d5705;
   --cf-surface: #ffffff;
   --cf-surface-page: #f5f7fb;
   --cf-surface-tonal: #edf2fa;
   --cf-text: #182b49;
   --cf-text-muted: #526176;
-  --cf-line: #ccd7e6;
+  --cf-line: #d8e0eb;
   --cf-nav-ring: #aeb8c6;
   --cf-media-surface: #0b2447;
+  --cf-media-ink: #ffffff;
   --cf-media-caption: rgba(6, 27, 58, .78);
   --cf-media-muted: #e4edf9;
   --cf-media-blur: 12px;
@@ -54,6 +65,12 @@
   --cf-nav-height: 64px;
 }
 .phone {
+  --cf-surface-page: #f7f8fa;
+  --cf-surface-tonal: #eef1f8;
+  --cf-media-surface: #ffffff;
+  --cf-media-caption: rgba(255, 255, 255, .96);
+  --cf-media-ink: #182b49;
+  --cf-media-muted: #526176;
   --cf-page-title-font: 24px;
   --cf-control-font: 15px;
   --cf-control-height: 48px;

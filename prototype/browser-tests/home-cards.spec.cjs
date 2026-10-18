@@ -60,7 +60,7 @@ for (const width of [360, 390, 1440]) {
     expect(metrics.scrollTop).toBeGreaterThan(100);
     expect(metrics.scrollTopEdge).toBeGreaterThanOrEqual(metrics.headerBottom - 1);
     expect(metrics.curtainContent).toBe('none');
-    expect(metrics.headerColor).toBe('rgb(245, 246, 248)');
+    expect(metrics.headerColor).toBe('rgb(247, 248, 250)');
     await page.screenshot({ path:testInfo.outputPath('light-scroll-' + width + '.png') });
     await expect(page.locator('#bottom-nav')).toBeVisible();
   });

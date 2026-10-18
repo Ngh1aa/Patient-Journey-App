@@ -30,7 +30,7 @@
 .phone #phone-content[data-screen] [data-cf-component="button"][data-cf-size="lg"] { min-height: var(--cf-control-large); }
 #app [data-cf-component="button"][data-cf-variant="primary"],
 .phone #phone-content[data-screen] [data-cf-component="button"][data-cf-variant="primary"],
-#dialog [data-cf-component="button"][data-cf-variant="primary"] { background: var(--cf-brand); color: var(--cf-on-brand); }
+#dialog [data-cf-component="button"][data-cf-variant="primary"] { background: var(--cf-brand); background-image: var(--cf-navy-gradient); color: var(--cf-on-brand); }
 #app [data-cf-component="button"][data-cf-variant="secondary"],
 .phone #phone-content[data-screen] [data-cf-component="button"][data-cf-variant="secondary"],
 #dialog [data-cf-component="button"][data-cf-variant="secondary"] { background: var(--cf-surface-tonal); color: var(--cf-brand); border-color: var(--cf-line); }
@@ -109,14 +109,14 @@
 #app [data-cf-card="surface"], .phone #phone-content[data-screen] [data-cf-card="surface"],
 #app [data-cf-card="tonal"], .phone #phone-content[data-screen] [data-cf-card="tonal"] {
   color: var(--cf-text);
-  background: var(--cf-surface);
+  background: var(--cf-card-wash);
   border: 1px solid var(--cf-line);
   border-radius: var(--cf-radius-card);
   padding: var(--cf-card-padding);
-  box-shadow: none;
+  box-shadow: var(--cf-card-shadow);
 }
 #app [data-cf-card="tonal"], .phone #phone-content[data-screen] [data-cf-card="tonal"] {
-  background: var(--cf-surface-tonal);
+  background: var(--cf-feature-wash);
 }
 #app [data-cf-card="row"], .phone #phone-content[data-screen] [data-cf-card="row"] {
   border-radius: 0;
@@ -144,8 +144,8 @@
 }
 .phone #phone-content[data-screen] .rich-appt-card .rich-appt-actions { padding-top: var(--cf-space-3); }
 .phone #phone-content[data-screen] .rich-appt-card [data-cf-variant="inverse"] { border-color: var(--cf-brand); }
-/* Inverse is reserved for the next appointment, paired with its own foreground. */
-.phone #phone-content[data-screen] .cf-home-appointment-card { background: var(--cf-brand); color: var(--cf-on-brand); }
+/* Current appointments pair a white task surface with a primary navy action. */
+.phone #phone-content[data-screen] .cf-home-appointment-card { background: var(--cf-surface); color: var(--cf-text); border: 1px solid var(--cf-line); }
 .phone #phone-content[data-screen] .cf-lab-card { padding: 0; overflow: hidden; }
 .phone #phone-content[data-screen] .cf-lab-content { padding: var(--cf-card-padding); }
 .phone #phone-content[data-screen] .cf-home-tip-card { padding: 0; }
@@ -169,7 +169,7 @@
 .cf-journey-summary ol { padding-left: var(--cf-space-5); line-height: 1.6; margin: 0; }
 .cf-appointment-search { display: grid; gap: var(--cf-space-2); margin: var(--cf-space-3) 0; font-size: calc(var(--cf-label-font) * var(--font-scale,1)); }
 .cf-appointment-search input { width: 100%; min-height: var(--cf-control-height); border: 1px solid var(--cf-input-line); border-radius: var(--cf-radius-inner); padding: var(--cf-space-3); font: inherit; background: var(--cf-surface); color: var(--cf-text); }
-.cf-context-photo figcaption { color: var(--cf-on-brand); }
+.cf-context-photo figcaption { color: var(--cf-media-ink); }
 /* Patient type roles are shared across compositions, including legacy render hooks. */
 .phone #phone-content[data-screen] { font-size: calc(var(--cf-body-font) * var(--font-scale,1)); line-height: 1.6; }
 .phone #phone-content[data-screen] :is(button,input,textarea,select,summary) { font-family: inherit; }
@@ -191,19 +191,19 @@
 .phone #phone-content[data-screen] .cf-relative-grid { grid-template-columns: minmax(0,1fr); }
 .phone #phone-content[data-screen] .cf-relative-card { padding: var(--cf-space-3) 0; }
 .phone #phone-content[data-screen] .cf-relative-add > summary { min-height: var(--cf-control-height); padding: var(--cf-space-3); }
-.phone #phone-content[data-screen] .cf-mode-choice { position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: end; min-height: 200px; padding: 0; gap: 0; overflow: hidden; background: var(--cf-media-surface); color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-mode-choice { position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: end; min-height: 200px; padding: 0; gap: 0; overflow: hidden; background: var(--cf-media-surface); color: var(--cf-media-ink); }
 .phone #phone-content[data-screen] .cf-mode-choice > input { position: absolute; top: var(--cf-space-3); right: var(--cf-space-3); z-index: 2; width: 24px; height: 24px; margin: 0; accent-color: var(--cf-brand); }
 .phone #phone-content[data-screen] .cf-mode-choice > .cf-mode-thumbnail { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
-.phone #phone-content[data-screen] .cf-mode-caption { position: relative; z-index: 1; display: grid; gap: var(--cf-space-1); width: 100%; margin-top: 104px; padding: var(--cf-space-4); background: var(--cf-media-caption); color: var(--cf-on-brand); backdrop-filter: blur(var(--cf-media-blur)); }
-.phone #phone-content[data-screen] .cf-mode-caption strong { color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-mode-caption { position: relative; z-index: 1; display: grid; gap: var(--cf-space-1); width: 100%; margin-top: 104px; padding: var(--cf-space-4); background: var(--cf-media-caption); color: var(--cf-media-ink); }
+.phone #phone-content[data-screen] .cf-mode-caption strong { color: var(--cf-media-ink); }
 .phone #phone-content[data-screen] .cf-mode-caption small { color: var(--cf-media-muted); }
 .phone.large-text #phone-content[data-screen] .cf-home-tip-card > summary { grid-template-columns: minmax(0,1fr) 18px; }
-/* Photo-led patient cards. Caption has a reliable dark surface even without blur. */
+/* Photo cards use a reliable light caption surface; staff media tokens stay separate. */
 .phone #phone-content[data-screen] :is(.cf-photo-card,.cf-photo-panel) {
   position: relative; isolation: isolate; display: flex; flex-direction: column;
   justify-content: flex-end; align-items: stretch; width: 100%; min-width: 0; min-height: 200px;
   padding: 0; border: 0; border-radius: var(--cf-radius-card); overflow: hidden;
-  background: var(--cf-media-surface); color: var(--cf-on-brand); text-align: left;
+  background: var(--cf-media-surface); color: var(--cf-media-ink); text-align: left;
 }
 .phone #phone-content[data-screen] .cf-photo-image {
   display: block; position: absolute; inset: 0; width: 100%; height: 100%;
@@ -212,12 +212,11 @@
 .phone #phone-content[data-screen] :is(.cf-photo-content,.cf-photo-panel-content) {
   position: relative; z-index: 1; margin-top: 90px; padding: var(--cf-space-3);
   display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: end; gap: var(--cf-space-2);
-  color: var(--cf-on-brand); background: var(--cf-media-caption);
-  -webkit-backdrop-filter: blur(var(--cf-media-blur)); backdrop-filter: blur(var(--cf-media-blur));
+  color: var(--cf-media-ink); background: var(--cf-media-caption);
 }
 .phone #phone-content[data-screen] .cf-photo-copy { display: grid; gap: var(--cf-space-1); min-width: 0; }
 .phone #phone-content[data-screen] :is(.cf-photo-content,.cf-photo-panel-content) :is(strong,h2,h3) {
-  color: var(--cf-on-brand); font-size: calc(var(--cf-card-title-font) * var(--font-scale,1));
+  color: var(--cf-media-ink); font-size: calc(var(--cf-card-title-font) * var(--font-scale,1));
   font-weight: 600; line-height: 1.45; margin: 0;
 }
 .phone #phone-content[data-screen] :is(.cf-photo-content,.cf-photo-panel-content) :is(small,p,.cf-card-kicker) { color: var(--cf-media-muted); margin: 0; }
@@ -225,7 +224,7 @@
   display: grid; place-items: center; width: 36px; height: 36px; flex: none;
   border-radius: 50%; color: var(--cf-brand); background: var(--cf-surface);
 }
-.phone #phone-content[data-screen] .cf-photo-label { display: flex; margin-bottom: var(--cf-space-1); color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-photo-label { display: flex; margin-bottom: var(--cf-space-1); color: var(--cf-media-ink); }
 .phone #phone-content[data-screen] .cf-photo-featured { min-height: 232px; grid-column: 1 / -1; }
 .cf-photo-grid,.cf-discovery-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--cf-space-3); }
 .phone #phone-content[data-screen] .cf-discovery-grid > .cf-photo-card:not(.cf-photo-featured) .cf-photo-content,
@@ -233,7 +232,7 @@
 .phone #phone-content[data-screen] .cf-discovery-grid > .cf-photo-card:not(.cf-photo-featured) .cf-photo-arrow,
 .phone #phone-content[data-screen] .cf-home-task-card .cf-photo-arrow { position: absolute; right: var(--cf-space-3); bottom: var(--cf-space-3); width: 32px; height: 32px; }
 .phone #phone-content[data-screen] .cf-discovery-grid > .cf-photo-card:not(.cf-photo-featured) small,
-.phone #phone-content[data-screen] .cf-home-task-card small { padding-right: 36px; }
+.phone #phone-content[data-screen] .cf-home-task-card .cf-photo-copy > small { padding-right: 36px; }
 .phone #phone-content[data-screen] .cf-home-task-card { min-height: 208px; }
 .phone #phone-content[data-screen] .cf-guide-media > summary { min-height: 194px; border-radius: var(--cf-radius-card); }
 .phone #phone-content[data-screen] .cf-guide-media[open] > summary { border-radius: var(--cf-radius-card) var(--cf-radius-card) 0 0; }
@@ -245,14 +244,14 @@
 .phone #phone-content[data-screen] .cf-lab-content > [data-cf-component="status"] { justify-self: start; }
 .phone #phone-content[data-screen] .cf-lab-content .cf-card-actions { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--cf-space-2); }
 .phone #phone-content[data-screen] .cf-lab-content .cf-card-actions > .btn { width: auto; flex: 1 1 160px; }
-.phone #phone-content[data-screen] .cf-lab-content .cf-card-actions > .btn[data-cf-component] { color: var(--cf-on-brand); background: transparent; padding-inline: 0; justify-content: start; }
+.phone #phone-content[data-screen] .cf-lab-content .cf-card-actions > .btn[data-cf-component] { color: var(--cf-media-ink); background: transparent; padding-inline: 0; justify-content: start; }
 .phone #phone-content[data-screen] .cf-lab-content .cf-photo-arrow-action { order: 2; margin-left: auto; }
 .phone #phone-content[data-screen] .cf-photo-arrow-action[data-cf-component="button"] { width: 44px; height: 44px; min-height: 44px; padding: var(--cf-space-2); border-radius: 50%; }
 .cf-lab-utilities { margin-top: var(--cf-space-4); }
 .phone #phone-content[data-screen] .cf-detail-shortcuts { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: var(--cf-space-2); padding-block: var(--cf-space-2); }
 .cf-detail-shortcuts > button { display: grid; justify-items: center; gap: var(--cf-space-2); align-content: start; min-height: 72px; min-width: 44px; border: 0; padding: var(--cf-space-2) 0; background: transparent; color: var(--cf-brand); }
 .cf-detail-shortcuts > button > span { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--cf-surface-tonal); }
-.phone #phone-content[data-screen] .cf-home-appointment-summary { min-height: 192px; gap: var(--cf-space-2); padding: var(--cf-space-4); align-content: start; }
+.phone #phone-content[data-screen] .cf-home-appointment-summary { min-height: 176px; gap: var(--cf-space-2); padding: var(--cf-space-4); align-content: start; }
 .cf-home-schedule { display: flex; gap: var(--cf-space-3); align-items: center; }
 .cf-home-schedule > span { display: grid; gap: var(--cf-space-1); }
 .phone #phone-content[data-screen] .ref-appointment-date { max-width: 100%; }
@@ -287,12 +286,11 @@
 .phone.large-text #phone-content[data-screen] .ref-overview-grid { grid-template-columns: minmax(0,1fr); }
 .phone.large-text #phone-content[data-screen] .ref-overview-grid button { border-left: 0; padding-block: var(--cf-space-2); }
 .phone #phone-content[data-screen] .cf-appointment-caption {
-  position: relative; z-index: 1; margin-top: 160px; padding: var(--cf-space-4);
-  color: var(--cf-on-brand); background: var(--cf-media-caption);
-  -webkit-backdrop-filter: blur(var(--cf-media-blur)); backdrop-filter: blur(var(--cf-media-blur));
+  position: relative; z-index: 1; margin-top: 128px; padding: var(--cf-space-4);
+  color: var(--cf-media-ink); background: var(--cf-media-caption);
 }
-.phone #phone-content[data-screen] .rich-appt-card > .cf-photo-image { height: 220px; object-position: center 70%; }
-.phone #phone-content[data-screen] .cf-appointment-caption :is(.cf-clinician-copy strong,.cf-appt-facts p,.cf-appt-facts strong,.cf-appt-reason) { color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .rich-appt-card > .cf-photo-image { height: 160px; object-position: center 70%; }
+.phone #phone-content[data-screen] .cf-appointment-caption :is(.cf-clinician-copy strong,.cf-appt-facts p,.cf-appt-facts strong,.cf-appt-reason) { color: var(--cf-media-ink); }
 .phone #phone-content[data-screen] .cf-appointment-caption :is(.cf-clinician-copy small,.cf-appt-reason > span,.cf-appt-facts svg,.cf-appt-note) { color: var(--cf-media-muted); }
 .phone #phone-content[data-screen] .cf-appointment-caption .cf-appt-reason { border-color: var(--cf-nav-ring); }
 .phone #phone-content[data-screen] .cf-home-care-card .cf-photo-panel-content { display: block; padding: var(--cf-space-4); margin-top: 120px; }
@@ -301,8 +299,7 @@
 .phone #phone-content[data-screen] .cf-home-care-card .cf-home-sample-label { color: var(--cf-media-muted); }
 .phone #phone-content[data-screen] .cf-home-care-card p { margin-top: var(--cf-space-3); }
 .phone #phone-content[data-screen] .cf-profile-masthead-account { position: relative; display: block; isolation: isolate; border-radius: var(--cf-radius-card); overflow: hidden; margin-top: var(--cf-space-4); }
-.cf-profile-cover { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
-.phone #phone-content[data-screen] .cf-profile-masthead-account .cf-profile-banner-content { position: relative; display: flex; align-items: center; gap: var(--cf-space-3); padding: var(--cf-space-4); margin-top: 88px; background: var(--cf-media-caption); color: var(--cf-on-brand); backdrop-filter: blur(var(--cf-media-blur)); }
+.phone #phone-content[data-screen] .cf-profile-masthead-account .cf-profile-banner-content { position: relative; display: flex; align-items: center; gap: var(--cf-space-3); padding: var(--cf-space-4); margin-top: 88px; background: var(--cf-media-caption); color: var(--cf-media-ink); }
 .cf-profile-banner-content > div { display: grid; gap: var(--cf-space-1); min-width: 0; }
 .phone #phone-content[data-screen] .cf-profile-banner-content small { color: var(--cf-media-muted); }
 .cf-icon-heading { display: flex; align-items: start; gap: var(--cf-space-2); }
@@ -311,7 +308,7 @@
 .phone #phone-content[data-screen] .form-actions > .btn[data-cf-variant="primary"] > svg:last-child { flex: none; width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: var(--cf-surface); color: var(--cf-brand); }
 .phone #phone-content[data-screen] .field > label { display: flex; align-items: center; gap: var(--cf-space-2); }
 .phone #phone-content[data-screen] .field > label > svg { flex: none; color: var(--cf-text-muted); }
-.phone #phone-content[data-screen] > form > .form-body:not(:has(.choices,.patient-group)) { padding: var(--cf-space-4); border-radius: var(--cf-radius-card); background: var(--cf-surface); border: 1px solid var(--cf-line); }
+.phone #phone-content[data-screen] > form > .form-body:not(:has(.choices,.patient-group)) { padding: var(--cf-space-4); border-radius: var(--cf-radius-card); background: var(--cf-card-wash); border: 1px solid var(--cf-line); }
 .phone #phone-content[data-screen] > form > .form-body .field:last-child { margin-bottom: 0; }
 .phone #phone-content[data-screen="C6"] .choices { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--cf-space-3); }
 .phone #phone-content[data-screen] .cf-mode-choice:has(input:checked) { outline: 3px solid var(--cf-focus); outline-offset: 2px; }
@@ -334,6 +331,108 @@
 .phone.large-text #phone-content[data-screen] .cf-mode-choice { display: flex; }
 .phone.large-text #phone-content[data-screen] .cf-mode-caption { margin-top: 140px; }
 @media (max-width: 640px) { .phone[data-screen="F2"] .phone-header { top: 0; } }
+/* Reference card collection: navy gradients, metrics, orbit and layered paper. */
+.phone #phone-content[data-screen] .cf-welcome-feature {
+  position: relative; isolation: isolate; overflow: hidden; min-height: 264px;
+  padding: var(--cf-space-5); border-radius: var(--cf-radius-card); background: var(--cf-feature-wash);
+}
+.cf-welcome-copy { position: relative; z-index: 1; width: 58%; display: grid; justify-items: start; gap: var(--cf-space-3); }
+.phone #phone-content[data-screen] .cf-welcome-copy h2 { margin: 0; font-size: calc(var(--cf-page-title-font) * var(--font-scale,1)); font-weight: 500; line-height: 1.25; letter-spacing: -.8px; }
+.phone #phone-content[data-screen] .cf-welcome-copy p { margin: 0; color: var(--cf-text-muted); }
+.cf-welcome-eyebrow { display: inline-flex; align-items: center; gap: var(--cf-space-1); color: var(--cf-text); font-size: calc(var(--cf-caption-font) * var(--font-scale,1)); }
+.cf-welcome-eyebrow > svg { flex: none; }
+.phone #phone-content[data-screen] .cf-welcome-copy > .btn { padding: var(--cf-space-2) var(--cf-space-3); font-size: calc(var(--cf-caption-font) * var(--font-scale,1)); gap: var(--cf-space-2); }
+.cf-welcome-portrait { position: absolute; z-index: 0; right: 0; top: 0; bottom: 0; width: 45%; mix-blend-mode: multiply; mask-image: linear-gradient(to right, transparent, black 20%); }
+.cf-welcome-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 46% top; }
+.phone #phone-content[data-screen] .rich-greeting h1 { font-weight: 500; }
+.phone #phone-content[data-screen] .cf-home-appointment-summary { color: var(--cf-text); }
+.phone #phone-content[data-screen] .cf-home-appointment-summary :is(.ref-appointment-label,.ref-appointment-date,.cf-home-appointment-info) { color: var(--cf-text-muted); }
+.phone #phone-content[data-screen] .cf-home-appointment-summary :is(.ref-appointment-day,.ref-appointment-time) { color: var(--cf-text); font-weight: 500; }
+.phone #phone-content[data-screen] .cf-home-appointment-button { background: var(--cf-brand); color: var(--cf-on-brand); border-color: var(--cf-brand); border-radius: var(--cf-radius-control); padding-inline: var(--cf-space-3); }
+.phone #phone-content[data-screen] .cf-home-empty { color: var(--cf-text); }
+.phone #phone-content[data-screen] .cf-home-empty :is(h2,p,small) { color: inherit; }
+.phone #phone-content[data-screen] .ref-overview { background: var(--cf-card-wash); border: 0; }
+.phone #phone-content[data-screen] .cf-quick-icon { background: var(--cf-blue-paper); }
+.phone #phone-content[data-screen] .cf-quick-primary .cf-quick-icon { background: var(--cf-blue-mist); }
+.phone #phone-content[data-screen] .cf-photo-card { box-shadow: inset 0 0 0 1px var(--cf-line); }
+.phone #phone-content[data-screen] .cf-photo-arrow { background: var(--cf-surface-tonal); }
+.phone #phone-content[data-screen] .cf-profile-masthead-account { background: var(--cf-feature-wash); }
+.phone #phone-content[data-screen] .cf-profile-masthead-account .cf-profile-banner-content { margin-top: 0; padding: var(--cf-space-6) var(--cf-space-4); background: transparent; }
+.phone #phone-content[data-screen] .cf-home-care-foot [data-cf-variant="inverse"] { background: var(--cf-brand); color: var(--cf-on-brand); }
+.phone.large-text #phone-content[data-screen] .cf-welcome-feature { display: flex; flex-direction: column-reverse; gap: var(--cf-space-4); }
+.phone.large-text .cf-welcome-copy { width: 100%; }
+.phone.large-text .cf-welcome-portrait { position: relative; width: 100%; height: 240px; mask-image: none; }
+.phone.large-text .cf-welcome-portrait img { object-fit: contain; }
+/* Reference anatomies share content and actions, not one repeated card layout. */
+.cf-bento-lead { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--cf-space-3); align-items: stretch; }
+.phone #phone-content[data-screen] .cf-bento-lead > .ref-overview { position: relative; isolation: isolate; overflow: hidden; padding: var(--cf-space-4); border-radius: var(--cf-radius-card); background: var(--cf-card-wash); }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-section-heading { margin-bottom: var(--cf-space-3); }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-section-heading > span { display: none; }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: var(--cf-space-2); }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 44px; border: 0; padding: 0; gap: var(--cf-space-1); background: transparent; }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button > small { grid-column: 1; }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button > strong { grid-column: 2; font-size: calc(var(--cf-title-font) * var(--font-scale,1)); font-weight: 500; margin: 0; }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button > span { display: none; }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button:first-child { min-height: 82px; padding: var(--cf-space-2); background: var(--cf-navy-gradient); color: var(--cf-on-brand); border-radius: var(--cf-radius-inner); }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button:first-child > :is(small,strong) { color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-bento-lead .ref-overview-grid > button:first-child > strong { font-size: calc(36px * var(--font-scale,1)); letter-spacing: -.05em; }
+.phone #phone-content[data-screen] .cf-photo-card:has(.cf-card-art) { justify-content: start; background: var(--cf-card-wash); padding: 0; box-shadow: none; }
+.phone #phone-content[data-screen] .cf-photo-card:has(.cf-card-art) .cf-photo-content { position: static; margin-top: auto; padding: var(--cf-space-4); background: transparent; display: block; }
+.phone #phone-content[data-screen] .cf-photo-card:has(.cf-card-art) .cf-photo-arrow { position: absolute; right: var(--cf-space-3); top: var(--cf-space-3); bottom: auto; }
+.phone #phone-content[data-screen] .cf-photo-card:has(.cf-card-art) .cf-photo-copy > small { padding-right: 0; }
+.cf-card-art { display: block; position: relative; width: 100%; flex: none; pointer-events: none; }
+.cf-orbit-art { height: 136px; }
+.cf-orbit-ring { position: absolute; width: 116px; height: 116px; top: 12px; left: calc(50% - 58px); border: 1px solid var(--cf-blue-mist); border-radius: 50%; box-shadow: 0 0 0 16px var(--cf-blue-cloud); }
+.cf-orbit-person,.cf-orbit-node { display: grid; place-items: center; position: absolute; overflow: hidden; border-radius: 50%; background: var(--cf-surface); color: var(--cf-brand); border: 3px solid var(--cf-surface); }
+.cf-orbit-person img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cf-orbit-center { width: 48px; height: 48px; left: calc(50% - 24px); top: 44px; }
+.cf-orbit-center img { object-position: 50% 25%; }
+.cf-orbit-account { width: 34px; height: 34px; left: 12%; top: 14px; }
+.cf-orbit-account img { object-position: center 24%; }
+.cf-orbit-team { width: 36px; height: 36px; right: 4%; top: 84px; }
+.cf-orbit-team img { width: 108px; height: 70px; max-width: none; position: absolute; left: -23px; top: -3px; }
+.cf-orbit-node { width: 30px; height: 30px; }
+.cf-orbit-calendar { right: 26%; top: 8px; }
+.cf-orbit-phone { left: 8%; top: 96px; }
+.cf-stack-art { height: 152px; }
+.cf-mini-sheet { position: absolute; display: grid; gap: var(--cf-space-1); width: 74%; padding: var(--cf-space-3); border-radius: var(--cf-radius-inner); background: var(--cf-feature-wash); color: var(--cf-brand); text-align: left; box-shadow: var(--cf-card-shadow); }
+.cf-mini-sheet strong { font-size: var(--cf-caption-font); line-height: 1.3; font-weight: 500; }
+.cf-mini-sheet small { font-size: 11px; line-height: 1.4; }
+.cf-mini-sheet-back { left: 8%; top: 34px; transform: rotate(-7deg); }
+.cf-mini-sheet-front { right: 6%; top: 8px; transform: rotate(6deg); background: var(--cf-blue-paper); }
+.cf-topic-art { display: flex; justify-content: center; gap: var(--cf-space-2); padding: 52px var(--cf-space-3) var(--cf-space-6); }
+.cf-topic-art > span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--cf-brand); background: var(--cf-surface); }
+.cf-topic-art > span:nth-child(2) { transform: translateY(var(--cf-space-3)); }
+.phone #phone-content[data-screen] .cf-photo-card.cf-layout-topic { background: var(--cf-navy-gradient); }
+.phone #phone-content[data-screen] .cf-layout-topic .cf-photo-content :is(strong,.cf-photo-label) { color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-layout-topic .cf-photo-content small { color: var(--cf-info-surface); }
+.phone #phone-content[data-screen] .cf-layout-topic .cf-photo-label { display: none; }
+.phone #phone-content[data-screen] .cf-layout-topic .cf-photo-arrow { background: var(--cf-surface); }
+.phone #phone-content[data-screen] :is(.cf-layout-photo,.cf-guide-media > summary) .cf-photo-content { background: var(--cf-navy-gradient); }
+.phone #phone-content[data-screen] :is(.cf-layout-photo,.cf-guide-media > summary) .cf-photo-content :is(strong,.cf-photo-label) { color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] :is(.cf-layout-photo,.cf-guide-media > summary) .cf-photo-content small { color: var(--cf-info-surface); }
+.phone #phone-content[data-screen] .cf-home-appointment-card { background: var(--cf-card-wash); }
+.phone #phone-content[data-screen] .cf-home-appointment-summary { min-height: 280px; padding-bottom: 76px; }
+.phone #phone-content[data-screen] .cf-home-schedule { width: calc(100% - 12px); min-height: 88px; margin-top: var(--cf-space-3); padding: var(--cf-space-3); border-radius: var(--cf-radius-inner); background: var(--cf-feature-wash); transform: rotate(-3deg); }
+.phone #phone-content[data-screen] .cf-home-appointment-info { max-width: 100%; margin-left: var(--cf-space-4); padding: var(--cf-space-2) var(--cf-space-3); border-radius: var(--cf-radius-inner); background: var(--cf-blue-paper); transform: rotate(2deg); }
+.phone #phone-content[data-screen] .cf-home-support { background: var(--cf-navy-gradient); padding: var(--cf-space-5); border-radius: var(--cf-radius-card); color: var(--cf-on-brand); }
+.phone #phone-content[data-screen] .cf-home-support small { color: var(--cf-info-surface); }
+.phone #phone-content[data-screen] .cf-home-support button { background: var(--cf-surface); color: var(--cf-brand); }
+.phone #phone-content[data-screen] :is(.cf-appointment-caption,.cf-lab-content,.cf-mode-caption,.cf-result-card .cf-photo-panel-content,.cf-waiting-card .cf-photo-panel-content) { background: var(--cf-card-wash); }
+.phone #phone-content[data-screen] .cf-support-network { display: grid; grid-template-columns: 140px minmax(0,1fr); gap: var(--cf-space-3); align-items: center; }
+.phone #phone-content[data-screen] .cf-support-network :is(h2,p) { margin: 0; }
+.phone #phone-content[data-screen] .cf-support-network p { margin-top: var(--cf-space-2); color: var(--cf-text-muted); }
+#app :is(.doctor-card-heading,.doctor-section-head) { border-color: var(--cf-blue-mist); }
+#app :is(.doctor-result-banner,.doctor-overline) { color: var(--cf-brand); }
+#app .doctor-sum { padding: var(--cf-space-3); border-radius: var(--cf-radius-inner); background: var(--cf-feature-wash); }
+#app .doctor-sum strong { color: var(--cf-brand); font-size: 28px; font-weight: 500; }
+.phone.large-text #phone-content[data-screen] .cf-support-network { grid-template-columns: minmax(0,1fr); }
+.phone.large-text #phone-content[data-screen] .cf-bento-lead { grid-template-columns: minmax(0,1fr); }
+.phone.large-text #phone-content[data-screen] :is(.cf-home-schedule,.cf-home-appointment-info) { transform: none; margin-left: 0; width: 100%; }
+.phone.large-text #phone-content[data-screen] .cf-home-appointment-summary { min-height: 0; padding-bottom: 0; }
+.phone.large-text .cf-mini-sheet :is(strong,small) { font-size: calc(var(--cf-caption-font) * var(--font-scale,1)); }
+.phone.large-text .cf-stack-art { height: auto; display: grid; padding: var(--cf-space-4); gap: var(--cf-space-2); }
+.phone.large-text .cf-mini-sheet { position: static; width: 100%; transform: none; }
 /* Five destinations remain available; central booking owns the strongest emphasis. */
 .phone:has(.bottom-nav:not([hidden])) .phone-scroll { margin-bottom: calc(var(--cf-nav-height) + var(--cf-space-8)); }
 .phone .bottom-nav { height: var(--cf-nav-height); min-height: var(--cf-nav-height); gap: var(--cf-space-1); }

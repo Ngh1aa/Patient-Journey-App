@@ -173,7 +173,7 @@ test('appointment board uses reference data and each card opens the correct clin
   await page.goto('/prototype/?scenario=appointments#/appointments');
   await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
   await expect(page.locator('.cf-appt-featured')).toHaveAttribute('data-cf-card','media');
-  await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(11, 36, 71)');
+  await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(255, 255, 255)');
   await expect(page.locator('.cf-appt-featured > .cf-photo-image')).toHaveCount(1);
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
   await expect(page.locator('.cf-appointment-history')).toHaveCount(2);

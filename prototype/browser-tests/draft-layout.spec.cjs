@@ -4,6 +4,7 @@ const main=page=>page.locator('#phone-content');
 for(const width of [360,390,1440]) test(`draft type roles, card insets and real photos at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});
   await page.goto('/prototype/?scenario=appointments#/home');
+  await expect(page.locator('#welcome-heading')).toHaveCSS('font-size','24px');
   const book=page.getByRole('button',{name:'Đặt lịch khám',exact:true}).filter({has:page.locator('.nav-plus')});
   await expect(book.locator('.nav-caption')).toBeHidden();
   await expect(book).toHaveCSS('border-color','rgb(174, 184, 198)');
@@ -14,7 +15,7 @@ for(const width of [360,390,1440]) test(`draft type roles, card insets and real 
   for(const route of ['/home','/appointments','/profile','/support']){
     await page.goto('/prototype/#'+route);
     await page.evaluate(()=>document.fonts.ready);
-    const sizes=await main(page).locator('h2').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).fontSize));
+    const sizes=await main(page).locator('h2:not(#welcome-heading)').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).fontSize));
     expect(sizes.length).toBeGreaterThan(0);expect([...new Set(sizes)]).toEqual(['18px']);
     const paragraphs=await main(page).locator('p').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).fontSize));
     expect(paragraphs.every(size=>size==='14px')).toBe(true);
