@@ -36,115 +36,35 @@ function getContrast(hex1, hex2) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-const fs = require('node:fs'),
-  path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-const css = [...html.matchAll(/href="\.\/([^"\s]+\.css)"/g)]
-  .map((match) => fs.readFileSync(path.join(__dirname, match[1]), 'utf8'))
-  .join('\n');
-const tokens = Object.fromEntries(
-  [...css.matchAll(/--([a-z0-9-]+):\s*(#[a-f0-9]{3,6})/gi)].map((m) => [
-    m[1],
-    m[2],
-  ]),
-);
+const fs = require('node:fs'), path = require('node:path');
+const css = fs.readFileSync(path.join(__dirname,'../design/tokens.css'),'utf8');
+const tokens = Object.fromEntries([...css.matchAll(/--([a-z0-9-]+):\s*([^;{}]+);/gi)].map(m=>[m[1],m[2].trim()]));
+function resolve(name) {
+ const value=tokens[name];if(!value)throw Error('Missing token '+name);
+ const alias=value.match(/^var\(--([\w-]+)\)$/);if(alias)return resolve(alias[1]);
+ if(value.startsWith('color-mix')) {
+  const primary=parseHex(resolve('cf-primary')),white=parseHex(resolve('cf-surface'));
+  return '#'+['r','g','b'].map(k=>Math.round(primary[k]*.9+white[k]*.1).toString(16).padStart(2,'0')).join('');
+ }
+ if(!/^#[a-f\d]{3,6}$/i.test(value))throw Error('Unsupported color token '+name+': '+value);
+ return value;
+}
 const pairs = [
-  ['primary', 'surface', 4.5],
-  ['subtle', 'surface', 4.5],
-  ['ink', 'surface', 4.5],
-  ['ink', 'bg', 4.5],
-  ['muted', 'surface', 4.5],
-  ['muted', 'bg', 4.5],
-  ['heading', 'surface', 4.5],
-  ['danger', 'danger-soft', 4.5],
-  ['success', 'success-soft', 4.5],
-  ['warning', 'warning-soft', 4.5],
-  ['primary', 'blue-soft', 4.5],
-  ['input-border', 'surface', 3],
-  ['focus', 'surface', 3],
+ ['cf-on-brand','cf-primary'],['cf-on-brand','cf-primary-loading'],
+ ['cf-text','cf-surface'],['cf-text','cf-surface-page'],
+ ['cf-text-muted','cf-surface'],['cf-text-muted','cf-surface-page'],
+ ['cf-brand','cf-surface'],['cf-brand','cf-surface-page'],
+ ...['cf-baby-blue','cf-blue-deep','cf-mint','cf-mint-deep'].flatMap(bg=>[['cf-brand',bg],['cf-text',bg]]),
+ ['cf-info','cf-info-surface'],['cf-success','cf-success-surface'],
+ ['cf-warning','cf-warning-surface'],['cf-danger','cf-danger-surface'],
+ ['cf-disabled-ink','cf-disabled-surface'],
+ ['cf-input-line','cf-surface',3],['cf-focus','cf-surface',3]
 ];
-const colorPairs = pairs.map(([fg, bg, target]) => {
-  if (!tokens[fg] || !tokens[bg])
-    throw new Error('Missing CSS token ' + fg + '/' + bg);
-  return { name: fg + ' / ' + bg, fg: tokens[fg], bg: tokens[bg], target };
+const report=pairs.map(([fg,bg,target=4.5])=>{
+ const foreground=resolve(fg),background=resolve(bg),ratio=getContrast(foreground,background);
+ return {pair:fg+' / '+bg,foreground,background,ratio,target,pass:ratio>=target};
 });
-// Check the actual shared v2 token owner, including surfaces used by both roles.
-const sharedCSS = require('node:fs').readFileSync(require('node:path').join(__dirname,'../design/tokens.css'),'utf8');
-const sharedTokens = Object.fromEntries([...sharedCSS.matchAll(/--(cf-[\w-]+):\s*(#[a-f\d]{3,6})\s*;/gi)].map(m=>[m[1],m[2]]));
-for (const [fg,bg,target] of [
-  ['cf-on-brand','cf-brand',4.5],['cf-text','cf-surface',4.5],
-  ['cf-text-muted','cf-surface',4.5],['cf-text','cf-surface-tonal',4.5],
-  ['cf-text-muted','cf-surface-tonal',4.5],['cf-brand','cf-surface-tonal',4.5],
-  ['cf-success','cf-success-surface',4.5],['cf-warning','cf-warning-surface',4.5],
-  ['cf-danger','cf-danger-surface',4.5],['cf-focus','cf-surface',3],['cf-input-line','cf-surface',3],
-]) {
-  if(!sharedTokens[fg]||!sharedTokens[bg])throw new Error('Missing shared token '+fg+'/'+bg);
-  colorPairs.push({name:fg+' / '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target});
-}
-// Read the winning declaration in stylesheet order. Surfaces can be solid or
-// translucent gradients; both need their actual backgrounds checked.
-for (const token of ['card-gradient', 'child-gradient', 'selected-gradient']) {
-  const declaration = [...css.matchAll(new RegExp('--' + token + ':([^;]+);', 'g'))].at(-1)?.[1].trim();
-  if (!declaration) throw new Error('Missing CSS gradient ' + token);
-  if (/^#[a-f0-9]{3}(?:[a-f0-9]{3})?$/i.test(declaration)) {
-    for (const fg of ['heading', 'muted', 'primary']) {
-      colorPairs.push({name: `${fg} / ${token} solid surface`, fg: tokens[fg], bg: declaration, target: 4.5});
-    }
-    continue;
-  }
-  const stops = [...declaration.matchAll(/rgba\((\d+),(\d+),(\d+),([.\d]+)\)/g)];
-  if (!stops.length) throw new Error('Missing translucent stops for ' + token);
-  for (const [index, stop] of stops.entries()) {
-    const alpha = Number(stop[4]);
-    const bg = '#' + stop.slice(1, 4).map(value =>
-      Math.round(Number(value) * alpha + 255 * (1 - alpha)).toString(16).padStart(2, '0'),
-    ).join('');
-    for (const fg of ['heading', 'muted', 'primary']) {
-      colorPairs.push({name: `${fg} / ${token} stop ${index + 1}`, fg: tokens[fg], bg, target: 4.5});
-    }
-  }
-}
-colorPairs.push({
-  name: 'Video text / stage',
-  fg: '#d0e0ee',
-  bg: '#0F253D',
-  target: 4.5,
-});
-// The last declaration belongs to the patient light material. Test both image
-// extremes: a solid dark source is worst for dark text, white is brightest.
-const caption = [...sharedCSS.matchAll(/--cf-media-caption:\s*rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\s*\)/g)].at(-1);
-if (!caption) throw new Error('Missing media caption material');
-const captionAlpha=Number(caption[4]);
-for(const pixel of [0,255]) {
-  const composited='#'+caption.slice(1,4).map(value=>Math.round(Number(value)*captionAlpha+pixel*(1-captionAlpha)).toString(16).padStart(2,'0')).join('');
-  for(const fg of ['cf-media-ink','cf-media-muted'])colorPairs.push({name:fg+' / patient caption over '+(pixel?'white':'black'),fg:sharedTokens[fg],bg:composited,target:4.5});
-}
-for(const bg of ['cf-blue-mist','cf-blue-sky','cf-blue-cloud','cf-blue-paper']) {
-  for(const fg of ['cf-text','cf-text-muted','cf-brand'])colorPairs.push({name:fg+' / '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target:4.5});
-}
-// Navy topic/media/banner surfaces pair white or soft blue with every gradient stop.
-for(const bg of ['cf-brand','cf-navy-mid','cf-navy-end']) {
-  for(const fg of ['cf-on-brand','cf-info-surface'])colorPairs.push({name:fg+' / navy gradient '+bg,fg:sharedTokens[fg],bg:sharedTokens[bg],target:4.5});
-}
-
-console.log('=== BÁO CÁO KIỂM TRA ĐỘ TƯƠNG PHẢN MÀU (WCAG 2.1 AA) ===\n');
-let allPass = true;
-
-colorPairs.forEach((p) => {
-  const ratio = getContrast(p.fg, p.bg);
-  const pass = ratio >= p.target;
-  if (!pass) allPass = false;
-  console.log(
-    `${pass ? 'PASS' : 'FAIL'} | Ratio: ${ratio.toFixed(2)}:1 (Mục tiêu >= ${p.target}:1) | ${p.name}`,
-  );
-});
-
-console.log('\n========================================================');
-if (allPass) {
-  console.log(
-    'KẾT LUẬN: CÁC CẶP TOKEN ĐÃ KIỂM TRA ĐẠT MỤC TIÊU; XEM THÊM AXE RENDERED QA.',
-  );
-} else {
-  console.log('CẢNH BÁO: CÓ CẶP MÀU CHƯA ĐẠT!');
-  process.exitCode = 1;
-}
+for(const p of report)console.log((p.pass?'PASS':'FAIL')+' | '+p.ratio.toFixed(3)+':1 | '+p.pair);
+if(process.argv.includes('--json'))console.log(JSON.stringify(report,null,2));
+console.log('Token pairs only; rendered colors, states and geometry are checked separately in the browser.');
+if(report.some(p=>!p.pass))process.exitCode=1;

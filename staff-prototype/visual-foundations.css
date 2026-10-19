@@ -4,19 +4,19 @@
    Loaded after page styles intentionally as the single desktop semantic component layer. */
 
 :root{
-  --clinic-fg:#183a59;
-  --clinic-fg-strong:#102f4d;
-  --clinic-fg-subtle:#506d88;
-  --clinic-fg-muted:#607c95;
-  --clinic-line:#dfeaf4;
-  --clinic-line-soft:#ebf1f7;
-  --clinic-field-line:#bfcede;
-  --clinic-surface:#fff;
-  --clinic-tint:#f6fafe;
-  --clinic-soft:#eaf4fe;
-  --clinic-focus:#0754af;
-  --clinic-elevation:0 9px 24px rgba(22,63,100,.045);
-  --clinic-elevation-float:0 16px 40px rgba(22,63,100,.085);
+  --clinic-fg: var(--cf-brand);
+  --clinic-fg-strong: var(--cf-primary);
+  --clinic-fg-subtle: var(--cf-brand);
+  --clinic-fg-muted: var(--cf-input-line);
+  --clinic-line: var(--cf-surface-page);
+  --clinic-line-soft: var(--cf-surface-page);
+  --clinic-field-line: var(--cf-baby-blue);
+  --clinic-surface: var(--cf-surface);
+  --clinic-tint: var(--cf-surface);
+  --clinic-soft: var(--cf-surface-page);
+  --clinic-focus: var(--cf-brand);
+  --clinic-elevation: 0 9px 24px color-mix(in srgb, var(--cf-brand) 5%, transparent);
+  --clinic-elevation-float: 0 16px 40px color-mix(in srgb, var(--cf-brand) 9%, transparent);
   --clinic-radius:18px;
   --clinic-radius-sm:11px;
   --clinic-h1:clamp(26px,2.1vw,32px);
@@ -24,11 +24,11 @@
   --clinic-body:13px;
   --clinic-meta:11px;
 }
-body{font-size:14px;line-height:1.65;color:var(--clinic-fg);background:#f2f6fb}
+body{font-size:14px;line-height:1.65;color:var(--clinic-fg);background: var(--cf-surface-page)}
 :where(button,input,select,textarea){letter-spacing:0}
-::selection{background:#c7e3ff;color:#0c3760}
+::selection{background: var(--cf-baby-blue);color: var(--cf-brand)}
 :where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--clinic-focus);outline-offset:3px}
-:where(input,select,textarea)::placeholder{color:#667e94;opacity:1}
+:where(input,select,textarea)::placeholder{color: var(--cf-text-muted);opacity:1}
 button:disabled{opacity:.56}
 @media (prefers-reduced-motion:no-preference){
   :where(.nav-item,.btn,.icon-button,.tab,.filter-chip,.metric-card){transition:background-color .17s ease,color .17s ease,box-shadow .2s ease,border-color .2s ease,transform .18s ease}
@@ -36,161 +36,161 @@ button:disabled{opacity:.56}
 /* Sidebar: explicit information hierarchy / work role switch */
 .sidebar{
   width:258px;padding:21px 14px 16px;background:var(--clinic-surface);
-  border-right:1px solid #dfe9f3;box-shadow:4px 0 28px #173e6310;
+  border-right: 1px solid var(--cf-line);box-shadow: 4px 0 28px color-mix(in srgb, var(--cf-shadow-ink) 6%, transparent);
   overflow:hidden;align-items:stretch
 }
 .sidebar-brand-wrap{padding-bottom:15px;flex:none}
 .brand{padding:0 10px;min-height:54px;height:auto;gap:11px}
-.brand-symbol{width:40px;height:40px;border-radius:12px;background:#0a67d1;
-  box-shadow:0 8px 18px #0a67d121;flex:none}
-.brand-name{font-size:17px;color:#143f68;letter-spacing:-.055em;white-space:nowrap}
-.brand-tail{color:#607e98;font-weight:600;letter-spacing:-.035em;margin-left:3px}
+.brand-symbol{width:40px;height:40px;border-radius:12px;background: var(--cf-brand);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--cf-shadow-ink) 13%, transparent);flex:none}
+.brand-name{font-size:17px;color: var(--cf-brand);letter-spacing:-.055em;white-space:nowrap}
+.brand-tail{color: var(--cf-text-muted);font-weight:600;letter-spacing:-.035em;margin-left:3px}
 .sidebar-product-note{display:flex;align-items:center;justify-content:center;gap:9px;
-  margin:10px 0 4px;color:#6d8ba7;font-size:9px;line-height:1.4;font-weight:700;letter-spacing:.16em;white-space:nowrap}
-.sidebar-note-line{width:19px;height:1px;background:#d4e4f3}
-.sidebar-nav{display:flex;flex-direction:column;gap:5px;overflow-y:auto;min-height:0;flex:1;scrollbar-width:thin;scrollbar-color:#d5e5f4 transparent;padding:5px 1px 6px}
+  margin:10px 0 4px;color: var(--cf-text-muted);font-size:9px;line-height:1.4;font-weight:700;letter-spacing:.16em;white-space:nowrap}
+.sidebar-note-line{width:19px;height:1px;background: var(--cf-surface-page)}
+.sidebar-nav{display:flex;flex-direction:column;gap:5px;overflow-y:auto;min-height:0;flex:1;scrollbar-width:thin;scrollbar-color: var(--cf-surface-page) transparent;padding:5px 1px 6px}
 .side-section{display:flex;flex-direction:column;gap:4px;margin:0}
-.side-overline,.role-switch .mini-label{font-size:10px;line-height:1.5;letter-spacing:.11em;color:#607c96;font-weight:700;margin:9px 13px 9px}
-.sidebar .side-divider{margin:12px 12px 10px;border-top:1px solid #e5edf5;flex:none}
-.nav-item{position:relative;gap:12px;min-height:43px;padding:9px 12px;color:#44627d;
+.side-overline,.role-switch .mini-label{font-size:10px;line-height:1.5;letter-spacing:.11em;color: var(--cf-text-muted);font-weight:700;margin:9px 13px 9px}
+.sidebar .side-divider{margin:12px 12px 10px;border-top: 1px solid var(--cf-line);flex:none}
+.nav-item{position:relative;gap:12px;min-height:43px;padding:9px 12px;color: var(--cf-text-muted);
   border-radius:11px;font-size:12px;line-height:1.5;font-weight:600;letter-spacing:0}
-.nav-item svg{width:18px;height:18px;color:#6e89a3;flex:none}
+.nav-item svg{width:18px;height:18px;color: var(--cf-text-muted);flex:none}
 .nav-item span:not(.active-dot){min-width:0}
-.nav-item:hover,.nav-item:focus-visible{background:#f1f7fe;color:#0756b3}
-.nav-item.active{background:#e9f4ff;color:#0757ba;box-shadow:inset 0 0 0 1px #d2e7fb}
-.nav-item.active::before{position:absolute;content:'';left:0;top:10px;bottom:10px;width:3px;border-radius:0 4px 4px 0;background:#0a67d1}
-.nav-item.active svg{color:#0757ba}
-.active-dot{width:5px;height:5px;margin-left:auto;background:#2373ca}
-.sidebar-bottom{flex:none;margin-top:6px;padding-top:13px;border-top:1px solid #e8eef6}
+.nav-item:hover,.nav-item:focus-visible{background: var(--cf-surface);color: var(--cf-text-muted)}
+.nav-item.active{background: var(--cf-surface-page);color: var(--cf-text-muted);box-shadow: inset 0 0 0 1px var(--cf-shadow-ink)}
+.nav-item.active::before{position:absolute;content:'';left:0;top:10px;bottom:10px;width:3px;border-radius:0 4px 4px 0;background: var(--cf-brand)}
+.nav-item.active svg{color: var(--cf-text-muted)}
+.active-dot{width:5px;height:5px;margin-left:auto;background: var(--cf-input-line)}
+.sidebar-bottom{flex:none;margin-top:6px;padding-top:13px;border-top: 1px solid var(--cf-line)}
 .sidebar-bottom .demo-entry-link{display:flex;justify-content:space-between;gap:9px;
-  padding:11px 13px;margin:0 0 9px;border-radius:11px;color:#2c679b;
-  background:#f6faff;font-size:11px;font-weight:700;border:1px solid #e4eef8}
+  padding:11px 13px;margin:0 0 9px;border-radius:11px;color: var(--cf-text-muted);
+  background: var(--cf-surface);font-size:11px;font-weight:700;border: 1px solid var(--cf-line)}
 .demo-entry-link svg:last-child{margin-left:auto}
-.sidebar-bottom .demo-entry-link:hover{background:#e6f2ff;color:#0757b9}
+.sidebar-bottom .demo-entry-link:hover{background: var(--cf-surface-page);color: var(--cf-text-muted)}
 .role-switch{padding:5px 2px 12px}
 .role-switch .mini-label{margin:2px 8px 9px}
-.role-switch .switch-options{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;background:#eff5fb;
-  border:1px solid #e3edf6;border-radius:12px}
-.role-switch .switch-options button{width:100%;min-width:0;min-height:35px;border-radius:9px;font-size:11px;font-weight:700;white-space:nowrap;color:#4e6e8b}
+.role-switch .switch-options{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;background: var(--cf-surface-page);
+  border: 1px solid var(--cf-line);border-radius:12px}
+.role-switch .switch-options button{width:100%;min-width:0;min-height:35px;border-radius:9px;font-size:11px;font-weight:700;white-space:nowrap;color: var(--cf-text-muted)}
 .role-switch .switch-options button:last-child{grid-column:1/-1}
-.role-switch .switch-options button:hover:not(.selected){background:#e2f0fe;color:#0757b5}
-.role-switch .switch-options button.selected{color:#0759ba;background:#fff;
-  box-shadow:0 2px 9px rgba(27,84,135,.09)}
-.profile-mini{background:#f3f7fc;padding:11px 12px;border-radius:13px;min-height:59px;border:1px solid #e8eef6}
+.role-switch .switch-options button:hover:not(.selected){background: var(--cf-surface-page);color: var(--cf-text-muted)}
+.role-switch .switch-options button.selected{color: var(--cf-text-muted);background: var(--cf-surface);
+  box-shadow: 0 2px 9px color-mix(in srgb, var(--cf-shadow-ink) 9%, transparent)}
+.profile-mini{background: var(--cf-surface);padding:11px 12px;border-radius:13px;min-height:59px;border: 1px solid var(--cf-line)}
 .profile-mini .person-lines{min-width:0}
-.profile-mini .person-lines strong{color:#19496c;font-size:12px}
-.profile-mini .person-lines small{color:#66809a;font-size:10px}
+.profile-mini .person-lines strong{color: var(--cf-text-muted);font-size:12px}
+.profile-mini .person-lines small{color: var(--cf-text-muted);font-size:10px}
 .profile-mini>.avatar{flex:none}
 .profile-mini>svg{display:none}
 /* Application chrome */
 .compact-role-link{display:none}
-.topbar{height:70px;border-bottom:1px solid #e2ecf5;background:rgba(255,255,255,.86);
-  box-shadow:0 3px 16px rgba(19,55,91,.025);backdrop-filter:blur(15px)}
-.breadcrumbs{font-size:12px;gap:10px;color:#6d879f;min-width:0}
-.topbar-workspace{font-size:11px;white-space:nowrap;color:#587893;font-weight:600}
-.breadcrumbs strong{font-size:12px;color:#163f62;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-.topbar .icon-button{border:1px solid #e0eaf4;color:#245b88;width:39px;height:39px;border-radius:12px}
-.demo-indicator{background:#f0f8f4;border-color:#d8ebdf;color:#28604c;font-size:10px;white-space:nowrap;padding:6px 10px}
-.demo-indicator span{background:#22976b}
+.topbar{height:70px;border-bottom: 1px solid var(--cf-line);background: color-mix(in srgb, var(--cf-surface) 86%, transparent);
+  box-shadow: 0 3px 16px color-mix(in srgb, var(--cf-shadow-ink) 3%, transparent);backdrop-filter:blur(15px)}
+.breadcrumbs{font-size:12px;gap:10px;color: var(--cf-text-muted);min-width:0}
+.topbar-workspace{font-size:11px;white-space:nowrap;color: var(--cf-text-muted);font-weight:600}
+.breadcrumbs strong{font-size:12px;color: var(--cf-brand);white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.topbar .icon-button{border: 1px solid var(--cf-line);color: var(--cf-text-muted);width:39px;height:39px;border-radius:12px}
+.demo-indicator{background: var(--cf-surface-page);border-color: var(--cf-line);color: var(--cf-text-muted);font-size:10px;white-space:nowrap;padding:6px 10px}
+.demo-indicator span{background: var(--cf-brand)}
 .main-content{padding-top:29px}
-.app-footer{font-size:11px;color:#648099;line-height:1.6}
-.footer-reset{font-size:11px;color:#4a6c8c}
+.app-footer{font-size:11px;color: var(--cf-text-muted);line-height:1.6}
+.footer-reset{font-size:11px;color: var(--cf-text-muted)}
 /* Shared editorial heading grammar — different page compositions remain intact */
 :where(.page-heading,.support-hero,.wave-heading){margin-bottom:23px}
 :where(.page-heading,.support-hero,.wave-heading) .eyebrow{
-  font-size:10px;line-height:1.5;font-weight:700;letter-spacing:.14em;color:#1969b0;margin-bottom:7px
+  font-size:10px;line-height:1.5;font-weight:700;letter-spacing:.14em;color: var(--cf-text-muted);margin-bottom:7px
 }
 :where(.page-heading h1,.support-hero h1,.wave-heading h1){font-size:var(--clinic-h1);
   letter-spacing:-.047em;line-height:1.25;color:var(--clinic-fg-strong);font-weight:700;margin-top:0}
 :where(.page-heading p,.support-hero p,.wave-heading p){font-size:13px;line-height:1.75;
   color:var(--clinic-fg-subtle);max-width:680px;margin-top:8px}
 :where(.panel-head,.wave-panel-head) h2{font-size:var(--clinic-h2);font-weight:700;
-  letter-spacing:-.025em;line-height:1.35;color:#173e62}
-:where(.panel-head,.wave-panel-head) p{font-size:12px;color:#607b95;line-height:1.6}
+  letter-spacing:-.025em;line-height:1.35;color: var(--cf-brand)}
+:where(.panel-head,.wave-panel-head) p{font-size:12px;color: var(--cf-text-muted);line-height:1.6}
 :where(.panel,.metric-card,.support-metrics>div,.wave-nurse-stat){border-color:var(--clinic-line);
   box-shadow:var(--clinic-elevation)}
 :where(.panel,.support-panel,.wave-panel){border-radius:var(--clinic-radius)}
 .panel-head{padding:23px 24px 17px;gap:13px}
-:where(.panel-head,.wave-panel-head) > svg{color:#5c84a4}
-.panel-foot{font-size:11px;color:#67839c;border-top:1px solid var(--clinic-line-soft);background:#fbfdff}
+:where(.panel-head,.wave-panel-head) > svg{color: var(--cf-text-muted)}
+.panel-foot{font-size:11px;color: var(--cf-text-muted);border-top:1px solid var(--clinic-line-soft);background: var(--cf-surface)}
 /* Buttons, pills, fields and feedback, applied to all 20 screens */
 .btn{min-height:40px;border-radius:var(--clinic-radius-sm);font-size:12px;font-weight:700;gap:8px}
-.btn-primary{color:#fff;background:#0a67d1;box-shadow:0 5px 13px rgba(10,103,209,.13)}
-.btn-primary:hover:not(:disabled){background:#0754af;color:#fff}
-.btn-soft,.btn-secondary{background:#e8f3fe;color:#0757b9}
-.btn-soft:hover:not(:disabled),.btn-secondary:hover:not(:disabled){background:#d7eafa;color:#064ca1}
-.btn-outline{background:#fff;border-color:#cbddea;color:#2b587c}
-.btn-outline:hover:not(:disabled){background:#f4f9ff;border-color:#0a67d1;color:#0754af}
+.btn-primary{color: var(--cf-surface);background: var(--cf-brand);box-shadow: 0 5px 13px color-mix(in srgb, var(--cf-shadow-ink) 13%, transparent)}
+.btn-primary:hover:not(:disabled){background: var(--cf-brand);color: var(--cf-surface)}
+.btn-soft,.btn-secondary{background: var(--cf-surface-page);color: var(--cf-text-muted)}
+.btn-soft:hover:not(:disabled),.btn-secondary:hover:not(:disabled){background: var(--cf-baby-blue);color: var(--cf-text-muted)}
+.btn-outline{background: var(--cf-surface);border-color: var(--cf-line);color: var(--cf-text-muted)}
+.btn-outline:hover:not(:disabled){background: var(--cf-surface);border-color: var(--cf-brand);color: var(--cf-text-muted)}
 .pill{border-radius:999px;font-size:10px;font-weight:700;line-height:1.4;padding:6px 10px}
-.pill-warning{background:#fff3d5;color:#87580d}
-.pill-danger{background:#fde9e7;color:#a12e25}
-.pill-info{background:#e9f3fe;color:#225c93}
-.pill-success{background:#e8f6ee;color:#1a704b}
-.pill-neutral{background:#edf3f7;color:#4f6a81}
+.pill-warning{background: var(--cf-warning-surface);color: var(--cf-warning)}
+.pill-danger{background: var(--cf-surface-page);color: var(--cf-danger)}
+.pill-info{background: var(--cf-surface-page);color: var(--cf-text-muted)}
+.pill-success{background: var(--cf-surface-page);color: var(--cf-success)}
+.pill-neutral{background: var(--cf-surface-page);color: var(--cf-text-muted)}
 .tabs{border-bottom:1px solid var(--clinic-line)}
-.tab{font-size:12px;padding:16px 13px;color:#56728a;font-weight:600}
-.tab.current,.tab[aria-selected="true"]{color:#075ab9;border-bottom-color:var(--blue);font-weight:700}
-.tab:hover{color:#075ab9}
+.tab{font-size:12px;padding:16px 13px;color: var(--cf-text-muted);font-weight:600}
+.tab.current,.tab[aria-selected="true"]{color: var(--cf-text-muted);border-bottom-color:var(--blue);font-weight:700}
+.tab:hover{color: var(--cf-text-muted)}
 :where(.field textarea,.field .read-only-value,.support-field input,.support-field select,.support-field textarea,
 .wave-form-layout select,.wave-form-layout textarea){border-color:var(--clinic-field-line);border-radius:var(--clinic-radius-sm);
-  color:#1b3c59;font-size:13px;line-height:1.65}
+  color: var(--cf-brand);font-size:13px;line-height:1.65}
 :where(.field textarea,.support-field input,.support-field select,.support-field textarea,
-.wave-form-layout select,.wave-form-layout textarea):focus-visible{outline:3px solid #0754af;outline-offset:2px}
-:where(.field,.support-label,.wave-label){color:#375a77;font-weight:600}
+.wave-form-layout select,.wave-form-layout textarea):focus-visible{outline: 3px solid var(--cf-brand);outline-offset:2px}
+:where(.field,.support-label,.wave-label){color: var(--cf-text-muted);font-weight:600}
 :where(.support-label,.wave-label){font-size:12px}
 /* Dense data interface: scan-able columns with stable row affordances */
-.table-scroll{overflow-x:auto;scrollbar-color:#c9dcec transparent;scrollbar-width:thin}
-.data-table{font-size:12px;line-height:1.6;color:#2b4a65}
-.data-table th{font-size:10px;letter-spacing:.085em;font-weight:700;color:#57758d;
-  background:#f8fbff;padding-top:13px;padding-bottom:13px;border-bottom:1px solid #dfeaf4}
-.data-table td{padding-top:15px;padding-bottom:15px;color:#2b465f;border-bottom:1px solid #e8eff6}
-.data-table tbody tr:hover{background:#f3f9ff}
-.data-table .code-cell{color:#205885;font-weight:700;font-variant-numeric:tabular-nums}
-.data-table .mono{font-variant-numeric:tabular-nums;color:#355675}
-.data-table .person-lines strong{font-size:12px;color:#244762}
+.table-scroll{overflow-x:auto;scrollbar-color: var(--cf-baby-blue) transparent;scrollbar-width:thin}
+.data-table{font-size:12px;line-height:1.6;color: var(--cf-text-muted)}
+.data-table th{font-size:10px;letter-spacing:.085em;font-weight:700;color: var(--cf-text-muted);
+  background: var(--cf-surface);padding-top:13px;padding-bottom:13px;border-bottom: 1px solid var(--cf-line)}
+.data-table td{padding-top:15px;padding-bottom:15px;color: var(--cf-text-muted);border-bottom: 1px solid var(--cf-line)}
+.data-table tbody tr:hover{background: var(--cf-surface)}
+.data-table .code-cell{color: var(--cf-text-muted);font-weight:700;font-variant-numeric:tabular-nums}
+.data-table .mono{font-variant-numeric:tabular-nums;color: var(--cf-text-muted)}
+.data-table .person-lines strong{font-size:12px;color: var(--cf-text-muted)}
 .data-table td .btn{min-height:34px;padding:7px 12px;font-size:11px}
-.wave-table th{font-size:10px;color:#56758e;background:#f8fbff}
+.wave-table th{font-size:10px;color: var(--cf-text-muted);background: var(--cf-surface)}
 .wave-table td{font-size:12px;line-height:1.6}
-.wave-table tbody tr:hover{background:#f8fbff}
+.wave-table tbody tr:hover{background: var(--cf-surface)}
 .wave-table .wave-person strong{font-size:12px}
 /* Cards: one architectural language; hero and dense table roles remain differentiated */
 .metric-card{border-radius:var(--clinic-radius);padding:20px;min-height:143px}
-.metric-top{font-size:12px;color:#53728c;line-height:1.6}
-.metric-value{font-variant-numeric:tabular-nums;letter-spacing:-.055em;color:#153d61}
-.metric-sub{color:#567891;font-size:11px;line-height:1.6}
-.metric-icon{background:#edf5ff;border-radius:11px}
+.metric-top{font-size:12px;color: var(--cf-text-muted);line-height:1.6}
+.metric-value{font-variant-numeric:tabular-nums;letter-spacing:-.055em;color: var(--cf-brand)}
+.metric-sub{color: var(--cf-text-muted);font-size:11px;line-height:1.6}
+.metric-icon{background: var(--cf-surface-page);border-radius:11px}
 .metrics-grid{gap:15px;margin-bottom:22px}
 .support-metrics>div,.wave-nurse-stat{border-radius:var(--clinic-radius)}
-.support-metrics strong,.wave-nurse-stat strong{color:#163f63;font-variant-numeric:tabular-nums}
-.support-patient-main strong,.wave-person strong,.wave-task strong{color:#214969}
-.support-patient-main small,.wave-person small,.wave-task small{font-size:11px;color:#607f99}
-.support-patient-row,.wave-nurse-item,.wave-task{border-color:#e7eef6}
-.support-patient-row:hover,.wave-nurse-item:hover,.wave-task:not(.is-done):hover{background:#fafdff}
+.support-metrics strong,.wave-nurse-stat strong{color: var(--cf-brand);font-variant-numeric:tabular-nums}
+.support-patient-main strong,.wave-person strong,.wave-task strong{color: var(--cf-text-muted)}
+.support-patient-main small,.wave-person small,.wave-task small{font-size:11px;color: var(--cf-text-muted)}
+.support-patient-row,.wave-nurse-item,.wave-task{border-color: var(--cf-line)}
+.support-patient-row:hover,.wave-nurse-item:hover,.wave-task:not(.is-done):hover{background: var(--cf-surface)}
 .support-panel .panel-head,.support-panel .wave-panel-head{border-color:var(--clinic-line)}
 /* Appointment / profile / results maintain purpose-specific hierarchy */
 .profile-banner{border-color:var(--clinic-line);box-shadow:var(--clinic-elevation);padding:28px 30px}
 .profile-banner h1{font-size:var(--clinic-h1)}
-.profile-head-details p{color:#55728b;font-size:13px}
+.profile-head-details p{color: var(--cf-text-muted);font-size:13px}
 .profile-body h2{font-size:16px}
 .doctor-home .page-heading{margin-bottom:24px}
-.doctor-hero{box-shadow:0 15px 34px rgba(10,80,158,.16);border-radius:19px}
+.doctor-hero{box-shadow: 0 15px 34px color-mix(in srgb, var(--cf-shadow-ink) 16%, transparent);border-radius:19px}
 .doctor-hero .hero-copy h2{letter-spacing:-.042em}
-.calendar-event{box-shadow:0 2px 9px #1c57831a}
-.calendar-event:hover{box-shadow:0 6px 15px #1c578324}
-.related-item strong{font-size:12px;color:#2a5272}
+.calendar-event{box-shadow: 0 2px 9px color-mix(in srgb, var(--cf-shadow-ink) 10%, transparent)}
+.calendar-event:hover{box-shadow: 0 6px 15px color-mix(in srgb, var(--cf-shadow-ink) 14%, transparent)}
+.related-item strong{font-size:12px;color: var(--cf-text-muted)}
 .related-item small{font-size:11px}
-.drawer{box-shadow:-18px 0 70px rgba(13,42,75,.2)}
-.drawer-top h2{font-size:25px;color:#143c60}
-.drawer-details span,.drawer-form p{color:#56738c}
-.drawer-details strong{color:#244964}
+.drawer{box-shadow: -18px 0 70px color-mix(in srgb, var(--cf-shadow-ink) 20%, transparent)}
+.drawer-top h2{font-size:25px;color: var(--cf-brand)}
+.drawer-details span,.drawer-form p{color: var(--cf-text-muted)}
+.drawer-details strong{color: var(--cf-text-muted)}
 /* Clinical W07 intentionally remains denser and task-first, typography aligned to system */
-.wave-consult .consult-top{border-color:#d9e8f6;box-shadow:var(--clinic-elevation)}
+.wave-consult .consult-top{border-color: var(--cf-line);box-shadow:var(--clinic-elevation)}
 .wave-consult .consult-grid .panel{border-color:var(--clinic-line);box-shadow:var(--clinic-elevation)}
 .wave-consult .consult-tabs .tab{font-size:12px}
 .wave-consult .consult-person .person-lines small{font-size:10px}
-.wave-consult .consult-editor-footer{color:#567e9c;font-size:11px}
+.wave-consult .consult-editor-footer{color: var(--cf-text-muted);font-size:11px}
 .wave-consult .consult-right .panel-head h2{font-size:15px}
-.wave-workspace-eyebrow{color:#557b9d}
+.wave-workspace-eyebrow{color: var(--cf-text-muted)}
 .wave-workspace-kicker{font-size:10px}
 /* Mobile / tablet: preserve prior compact icon navigation, no hidden brand strings */
 @media(max-width:1500px) and (min-width:1291px){

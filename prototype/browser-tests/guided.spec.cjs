@@ -29,7 +29,7 @@ for(const entered of [false,true])test(`legacy booking deep link restores guide 
 });
 test('explicit inspection mode persists through reload without presentation autofill',async({page})=>{
  await page.goto('/prototype/index.html?scenario=empty');
- await page.locator('#phone-content [data-action=begin]').click();
+ await page.locator('#bottom-nav .nav-book').click();
  await page.locator('#phone-content form [type=submit]').click();
  await page.reload();
  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
@@ -66,7 +66,7 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
    }else if(screen==='C4' && flow==='F11')await app.locator('[data-to=I5]').click();
    else if(screen==='C4')await app.locator(`[data-action=${branch==='emergency'?'stop-booking':'safety-continue'}]`).click();
    else if(screen==='G5')await app.locator(`[data-purpose=${branch==='online'?'online-retry':'convert-onsite'}]`).click();
-   else if(screen==='B1')await app.locator('[data-action=begin]').click();
+   else if(screen==='B1')await page.locator('#bottom-nav .nav-book').click();
    else if(screen==='G1')await app.locator('[data-action=join]').click();
    else if(screen==='F2' && flow==='F5')await app.locator(guide.index===0?'[data-to=F3]':'.btn.primary').first().click();
    else if(screen==='H2')await app.locator(`[data-status=${branch==='pharmacy'?'pharmacy-pending':'counter-pending'}]`).click();

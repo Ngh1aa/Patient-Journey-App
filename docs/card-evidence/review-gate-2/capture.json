@@ -1,0 +1,852 @@
+{
+  "screens": [
+    {
+      "label": "A1",
+      "file": "screens/A1.png",
+      "screen": "A1",
+      "guard": "",
+      "text": "An tâm hơn.\nGần nhau hơn.\n\nTừ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.\nSức khỏe của bạn luôn là ưu tiên hàng đầu.\n\nĐăng nhập bằng số điện thoại để đặt lịch, xem hướng dẫn và theo dõi hành trình khám.\n\nSố điện thoại\nNhận mã xác nhận\nLiên hệ phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "A2",
+      "file": "screens/A2.png",
+      "screen": "A2",
+      "guard": "",
+      "text": "An tâm hơn.\nGần nhau hơn.\n\nTừ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.\nĐây có phải hồ sơ của bạn?\n\nKiểm tra thông tin để tiếp tục với hồ sơ đã có.\n\nHọ và tên\nNgày sinh\n15/08/1994\nSố điện thoại liên hệ\nBệnh đã biết, dị ứng và thuốc đang dùng\n0 ký tự\nĐúng, đây là hồ sơ của tôi\nKhông phải hồ sơ của tôi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "A3",
+      "file": "screens/A3.png",
+      "screen": "A3",
+      "guard": "",
+      "text": "An tâm hơn.\nGần nhau hơn.\n\nTừ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.\nTạo hồ sơ của bạn\n\nThông tin giúp phòng khám tiếp nhận đúng người.\n\nHọ và tên\nNgày sinh\nChọn ngày sinh\nSố điện thoại liên hệ\nBệnh đã biết, dị ứng và thuốc đang dùng\n0 ký tự\nTạo hồ sơ",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "B1",
+      "file": "screens/B1.png",
+      "screen": "B1",
+      "guard": "",
+      "text": "Nguyễn Minh Anh\n\nChào buổi tối, hôm nay bạn thế nào?\n\n1\nLịch hẹn tiếp theo\nSẵn sàng cho buổi khám\nĐã xác nhận\nBS. Trần Thu Hà\nNội tổng quát\nNgày khám\n20/10/2026\nGiờ khám\n08:00\nNgười đi khám\nNguyễn Minh Anh\nHình thức\nTại phòng khám\nCF-1017-0042\nXem phiếu khám\nTổng quan chăm sóc\nXem tất cả\n1\nLịch hẹn\nĐang lưu\n2\nHồ sơ\nĐang lưu\n—\nKết quả\nChưa có\nTruy cập nhanh\nLịch hẹn\nTheo dõi\nĐơn thuốc\nKết quả\nViệc cần làm\nXem tất cả\nChuẩn bị cho buổi khám\nGiấy tờ và thông tin cần kiểm tra\nNgày và giờ khám\n20/10 · 08:00\nThông tin của bạn\nXem tất cả\nHồ sơ đã lưu\nMA\nTM\n2 hồ sơ\nXem hồ sơ\nQuản lý hồ sơ\nHỏi phòng khám\n\nBạn cần biết gì?\n\nGiấy tờ đi khám\nĐổi giờ hẹn\nChăm sóc sau khám\nLịch sử khám\nTài liệu luôn ở đúng nơi\n\nLời dặn và kết quả sẽ xuất hiện sau khi phòng khám cập nhật.\n\nXem lịch sử khám\nCẩm nang đi khám\nHỏi phòng khám\nTất cả\nĐi khám\nOnline\nSau khám\nHiển thị 3 / 3\nChuẩn bị trước khi khám\nGiấy tờ, đơn thuốc và kết quả cũ\nVào phòng khám online\nKết nối, camera và không gian riêng tư\nTìm lại thông tin sau khám\nKết quả, lời dặn và câu hỏi cho phòng khám\nCần hỗ trợ thêm?\n\nGửi câu hỏi hoặc yêu cầu gọi lại.\n\nLiên hệ",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C1",
+      "file": "screens/C1.png",
+      "screen": "C1",
+      "guard": "",
+      "text": "Ai sẽ đi khám?\n\nChọn hồ sơ có sẵn hoặc thêm người mới.\n\n1\nĐẶT LỊCH KHÁM\nBước 1 / 4\n1\nHồ sơ\n2\nBệnh\n3\nNơi khám\n4\nKiểm tra\nNgười đi khám\n2\nAi sẽ đi khám?\nNguyễn Minh Anh\nBản thân\nNgày sinh · 15/08/1994\n+ Thêm hồ sơ\nTrần Thị Mai\nMẹ\nNgày sinh · 12/05/1965\nTiếp tục với Minh Anh\n\nChọn đúng người đi khám để thông tin và lịch hẹn được lưu vào đúng hồ sơ.\n\nThông tin theo đúng hồ sơ\nLịch hẹn được lưu cho người đi khám bạn chọn ở bước này.\nCó thể thêm người thân trước khi tiếp tục.\nQuyền xem kết quả phụ thuộc quyền truy cập của từng hồ sơ.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C2",
+      "file": "screens/C2.png",
+      "screen": "C2",
+      "guard": "",
+      "text": "Lý do đi khám\n\nBạn đang gặp vấn đề gì, và từ khi nào?\n\n1\nNguyễn Minh Anh\nĐổi\nBước 2 / 4\nHồ sơ\n2\nBệnh\n3\nNơi khám\n4\nKiểm tra\nNên ghi những gì?\nTriệu chứng hoặc vấn đề cần khám\n18 / 1200 ký tự\nĐau đầu\nSốt\nHo\nĐau bụng\nMệt mỏi\nKhó ngủ\nMức độ khó chịu bạn tự cảm nhận\nNhẹ\nVừa\nNặng\nThông tin tự đánh giá, không thay cho bước kiểm tra dấu hiệu nguy hiểm.\n\nVí dụ: đau đầu hai ngày, ngủ không ngon.\n\nBệnh đã biết, dị ứng và thuốc đang dùng\n0 ký tự\n\nKhông có thông tin cần bổ sung thì bỏ qua mục này.\n\nTiếp tục\nGhi thông tin để phòng khám chuẩn bị\nNêu thời điểm bắt đầu và điều khiến bạn muốn đi khám.\nGhi những thay đổi bạn nhận thấy gần đây.\nBổ sung thuốc đang dùng hoặc thông tin y tế liên quan nếu có.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C3",
+      "file": "screens/C3.png",
+      "screen": "C3",
+      "guard": "",
+      "text": "Trước khi đặt lịch\n\nBạn có cần trợ giúp y tế ngay lúc này không?\n\n1\nNguyễn Minh Anh\nĐổi\nBước 2 / 4\nHồ sơ\n2\nBệnh\n3\nNơi khám\n4\nKiểm tra\nTrước khi đặt lịch\nKhông, tiếp tục đặt lịch\nCó hoặc chưa rõ\nTiếp tục",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C4",
+      "file": "screens/C4.png",
+      "screen": "C4",
+      "guard": "",
+      "text": "Ưu tiên được hỗ trợ kịp thời\n\nNếu bạn đang cần trợ giúp khẩn cấp, đừng chờ lịch hẹn trong ứng dụng.\n\n1\nĐẶT LỊCH KHÁM\nBước 2 / 4\nHồ sơ\n2\nBệnh\n3\nNơi khám\n4\nKiểm tra\n\nPhòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn.\n\nGọi cấp cứu\nTìm cơ sở cấp cứu\nTôi hiểu và vẫn muốn khám\nDừng đặt lịch",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C5",
+      "file": "screens/C5.png",
+      "screen": "C5",
+      "guard": "",
+      "text": "Chờ phòng khám tư vấn\n\nPhòng khám cần kiểm tra để tư vấn cách khám phù hợp.\n\n1\nNguyễn Minh Anh\nĐổi\nBước 3 / 4\nHồ sơ\nBệnh\n3\nNơi khám\n4\nKiểm tra\n\nYêu cầu của bạn chưa phải lịch khám đã được xác nhận.\n\nTôi hiểu cần chờ phòng khám xem xét\nChọn thời gian mong muốn",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C6",
+      "file": "screens/C6.png",
+      "screen": "C6",
+      "guard": "",
+      "text": "Nơi khám\n\nĐến phòng khám hoặc gặp bác sĩ qua cuộc gọi video.\n\n1\nNguyễn Minh Anh\nĐổi\nBước 3 / 4\nHồ sơ\nBệnh\n3\nNơi khám\n4\nKiểm tra\nHình thức khám sẽ được xác nhận\nHình thức\nKhám tại phòng khám\nĐến khám trực tiếp\nKhám online\nGọi video với bác sĩ\nTiếp tục\n\nPhòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.\n\nChuẩn bị theo hình thức khám\nTại phòng khám: kiểm tra địa điểm khi nhận phiếu khám.\nTrực tuyến: cần thiết bị, mạng và không gian riêng tư.\nPhòng khám có thể xem xét lại hình thức dựa trên thông tin bạn gửi.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C7",
+      "file": "screens/C7.png",
+      "screen": "C7",
+      "guard": "",
+      "text": "Chọn giờ hẹn\n\nChọn ngày và khung giờ thuận tiện cho bạn.\n\n1\nNguyễn Minh Anh\nĐổi\nBước 4 / 4\nHồ sơ\nBệnh\nNơi khám\n4\nKiểm tra\nMuốn chọn một ngày khác?\nTh 2\n19\nTh 3\n20\nTh 4\n21\nTh 5\n22\nTh 6\n23\nNgày mong muốn\n20/10/2026\nGiờ khám\n08:00\n09:00\n10:30\n14:00\n15:30\nKiểm tra yêu cầu\nSau khi chọn giờ khám\nKiểm tra lại ngày và khung giờ mong muốn.\nXem toàn bộ thông tin ở bước xác nhận cuối trước khi gửi.\nTheo dõi phiếu khám để nhận xác nhận từ phòng khám.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C8",
+      "file": "screens/C8.png",
+      "screen": "C8",
+      "guard": "",
+      "text": "Kiểm tra lịch hẹn\n\nXem lại hồ sơ, ngày giờ và nội dung khám trước khi gửi.\n\n1\nNguyễn Minh Anh\nĐổi\nBước 4 / 4\nHồ sơ\nBệnh\nNơi khám\n4\nKiểm tra\nĐiều gì xảy ra sau khi gửi?\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n09:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\nSửa thông tin\nTôi đồng ý gửi thông tin trên cho phòng khám.\nGửi yêu cầu đặt lịch",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C9",
+      "file": "screens/C9.png",
+      "screen": "C9",
+      "guard": "",
+      "text": "Đã gửi yêu cầu đặt lịch\n\nLịch hẹn đang chờ xác nhận. Theo dõi phản hồi trong Phiếu khám.\n\nNguyễn Minh Anh\nCF-0001\nĐã gửi yêu cầu\n\nĐây chưa phải lịch khám đã xác nhận.\n\nMÃ LƯỢT KHÁM\nCF-0001\nChờ phòng khám xác nhận\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n09:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\nXem phiếu khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "D1",
+      "file": "screens/D1.png",
+      "screen": "D1",
+      "guard": "",
+      "text": "Lịch hẹn\n1\nSắp tới\n1\nĐã khám\n0\nĐã hủy\n0\nTìm lịch hẹn\n1 lịch hẹn\nSắp tới\nXem tất cả\nBS. Trần Thu Hà\nNội tổng quát · Tại phòng khám\nĐã xác nhận\n\nNguyễn Minh Anh\n\nThứ Ba, 20/10 · 08:00\n\nTại phòng khám · xem địa điểm trên phiếu\n\nLý do khám\nKhám theo lịch hẹn\n\nĐổi lịch\nXem phiếu khám\nĐặt lịch khám mới",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "D2",
+      "file": "screens/D2.png",
+      "screen": "D2",
+      "guard": "",
+      "text": "Phiếu khám\n\nGiờ hẹn, thông tin khám và các yêu cầu của bạn.\n\n1\nBS. Trần Thu Hà\nNội tổng quát\nLịch hẹn\nChuẩn bị\nChỉ định\nHỗ trợ\nĐã xác nhận\nNGƯỜI PHỤ TRÁCH\nĐang chờ bạn\nXem hướng dẫn chuẩn bị\nĐổi lịch\nHủy lịch\nMÃ LƯỢT KHÁM\nCF-1017-0042\nĐã xác nhận\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n08:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\n\nBạn có thể đọc mã lượt khám cho lễ tân.\n\nBệnh viện Nhân dân 115\n\n527 Sư Vạn Hạnh, phường Hòa Hưng, TP.HCM\n\nCổng cấp cứu · Cổng 4\n\nPhòng khám sẽ thông báo trước khi thu phí\n\nThông tin liên quan\nXét nghiệm, chụp chiếu\nBạn chưa có chỉ định\nPhí khám và biên lai\nChưa thanh toán\nKết luận và đơn thuốc\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\nKết quả và việc tiếp theo\nChưa thông báo\nTrao đổi sau khám\nGửi câu hỏi sau buổi khám\nCác bước của lượt khám\nChờ phòng khám xác nhận\n19:08 19-10\nĐã xác nhận\n19:08 19-10\nTiến trình lượt khám\n✓\nĐã đặt\n2\nPhòng khám xác nhận\n3\nĐến phòng khám\n4\nTiếp nhận\n5\nSẵn sàng khám\n6\nĐang khám\n7\nHoàn tất\n\nCác bước thay đổi theo tình huống và hướng dẫn của phòng khám.\n\nCần chuẩn bị\n\nGiấy tờ và hồ sơ\nGiấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.\n\nThời gian và địa điểm\nKiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có địa chỉ.\n\nYêu cầu riêng trước khám\nHỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang dùng.\n\nXem hướng dẫn trước khám\nThông tin đã khai\nTriệu chứng\n\nKhám theo lịch hẹn\n\nGhi chú y tế\n\nChưa cung cấp\n\nChỉ định liên quan\n\nChưa có chỉ định cận lâm sàng trong lượt khám này.\n\nXem chi tiết\nĐổi hoặc hủy lịch phụ thuộc trạng thái xác nhận của phòng khám.\nXem hỗ trợ\nSẵn sàng cho buổi khám\n0/3 đã chuẩn bị\n\nNguyễn Minh Anh · 20/10 · CF-1017-0042\n\nChecklist chuẩn bị riêng cho lượt khám\nĐã kiểm tra đúng người, ngày và giờ khám\nĐã chuẩn bị giấy tờ và tài liệu y tế đang có\nĐã kiểm tra địa điểm và cách đến phòng khám\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nLưu lịch cá nhân\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "D3",
+      "file": "screens/D3.png",
+      "screen": "D3",
+      "guard": "",
+      "text": "Đổi lịch khám\n\nChọn giờ hẹn mới. Lịch hiện tại được giữ cho đến khi bạn gửi yêu cầu đổi.\n\n1\nNguyễn Minh Anh\nCF-1017-0042\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n08:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\nChọn lịch mới",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "D4",
+      "file": "screens/D4.png",
+      "screen": "D4",
+      "guard": "",
+      "text": "Hủy lịch khám\n\nChọn lý do hủy để phòng khám sắp xếp lại lịch.\n\n1\nNguyễn Minh Anh\nCF-1017-0042\nLý do hủy\nTôi bận vào thời gian này\nTôi muốn chọn ngày khác\nLý do khác\nLý do hủy\n0 ký tự\n\nNếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.\n\nTiếp tục hủy\nGiữ lịch khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "E1",
+      "file": "screens/E1.png",
+      "screen": "E1",
+      "guard": "",
+      "text": "Chuẩn bị trước khi đến\n\nXem lại lịch và thông tin tiếp nhận của bạn.\n\n1\nNguyễn Minh Anh\nCF-1017-0042\nKiểm tra thông tin trước khi đến khám\nGiờ hẹn\n08:00 · Thứ Ba, 20/10/2026\nGiờ nên có mặt\nChưa có hướng dẫn thời gian đến riêng\nGiấy tờ cần mang\nGiấy tờ tùy thân và tài liệu y tế đang có\nĐịa chỉ phòng khám\nPhòng khám chưa chia sẻ địa điểm của lượt này\nPhí khám\nPhòng khám sẽ thông báo\n\nBạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn.\n\nXem phiếu khám\nHỏi thông tin đến khám\nSẵn sàng cho buổi khám\n0/3 đã chuẩn bị\n\nNguyễn Minh Anh · 20/10 · CF-1017-0042\n\nChecklist chuẩn bị riêng cho lượt khám\nĐã kiểm tra đúng người, ngày và giờ khám\nĐã chuẩn bị giấy tờ và tài liệu y tế đang có\nĐã kiểm tra địa điểm và cách đến phòng khám\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nLưu lịch cá nhân\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "E2",
+      "file": "screens/E2.png",
+      "screen": "E2",
+      "guard": "",
+      "text": "Bạn đã đến phòng khám?\n\nBáo cho lễ tân biết để tiếp nhận bạn.\n\n2\nNguyễn Minh Anh\nCF-1017-0042\nCF-1017-0042\n\nTrình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận vẫn do lễ tân xác nhận.\n\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n08:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\n\nSau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn.\n\nTôi đã đến phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "E3",
+      "file": "screens/E3.png",
+      "screen": "E3",
+      "guard": "",
+      "text": "Theo dõi lượt khám\n\nPhòng khám sẽ cập nhật từng bước tiếp nhận.\n\n2\nNguyễn Minh Anh\nCF-1017-0042\nBạn đã đến\n\nLễ tân đang xử lý\n\nSố thứ tự\n\nLễ tân sẽ cung cấp khi tiếp nhận.\n\nBạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi.\n\nCác bước của lượt khám\nChờ phòng khám xác nhận\n19:08 19-10\nĐã xác nhận\n19:08 19-10\nSắp đến giờ khám\n19:08 19-10\nBạn đã đến\n19:08 19-10\nXem phiếu khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "F1",
+      "file": "screens/F1.png",
+      "screen": "F1",
+      "guard": "",
+      "text": "Xét nghiệm, chụp chiếu\n3\nNguyễn Minh Anh\nCF-0001\nTìm chỉ định\nTất cả\nCần thực hiện\nĐã có kết quả\nHiển thị 1 / 1\nTrước buổi khám\nXét nghiệm theo chỉ định\nĐã chỉ định\nXem chỉ định\nGửi tệp kết quả\nHướng dẫn thực hiện\nXem thông tin của chỉ định\nCần hỗ trợ?\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "F2",
+      "file": "screens/F2.png",
+      "screen": "F2",
+      "guard": "",
+      "text": "Xét nghiệm theo chỉ định\n\nHướng dẫn và tài liệu của chỉ định này.\n\n3\nLịch hẹn\nChuẩn bị\nChỉ định\nHỗ trợ\nTrạng thái chỉ định\nĐã chỉ định\n\nCần xét nghiệm trước khám\n\nHướng dẫn chuẩn bị\n\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\n\nKhi có kết quả, bạn muốn\nQuay lại lượt khám hiện tại\nĐể bác sĩ xem trong buổi khám\nLưu thay đổi\nĐặt hẹn thực hiện\nTôi đã có kết quả\nQuay lại lượt khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "F3",
+      "file": "screens/F3.png",
+      "screen": "F3",
+      "guard": "",
+      "text": "Đặt hẹn xét nghiệm\n\nChọn thời gian hoặc nhờ điều dưỡng liên hệ.\n\n3\nNguyễn Minh Anh\nCF-0001\nNgày mong muốn\n20/10/2026\nGiờ mong muốn\n09:00\nNhờ điều dưỡng liên hệ để sắp xếp\nGửi thời gian mong muốn\nKiểm tra trước khi chọn lịch\nĐối chiếu đúng tên chỉ định và người đi khám.\nGiờ bạn chọn là mong muốn để điều phối sắp xếp.\nHỏi phòng khám nếu chưa có hướng dẫn chuẩn bị riêng.\nXem lại chỉ định",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "F4",
+      "file": "screens/F4.png",
+      "screen": "F4",
+      "guard": "",
+      "text": "Đính kèm kết quả\n\nGửi ảnh hoặc PDF kết quả của đúng người được khám.\n\n3\nNguyễn Minh Anh\nCF-0001\nKiểm tra trước khi gửi\nTệp kết quả\nChọn tệp kết quả\nPDF, JPG hoặc PNG · tối đa 10 MB\nGửi kết quả\nChuẩn bị tệp kết quả\nChọn tệp PDF, JPG hoặc PNG, tối đa 10 MB.\nKiểm tra ảnh rõ, đủ trang và đúng người đi khám.\nTệp cần được phòng khám kiểm tra trước khi cập nhật kết quả.\nXem lại chỉ định",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G1",
+      "file": "screens/G1.png",
+      "screen": "G1",
+      "guard": "",
+      "text": "Chuẩn bị khám trực tuyến\n\nBạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.\n\n1\nNguyễn Minh Anh\nCF-0001\nSẵn sàng thiết bị và không gian riêng tư\n1 Kiểm tra camera và micro\n2 Kiểm tra kết nối Internet\n3 Chờ phòng khám mở phòng khám trực tuyến\nChưa kiểm tra\n\nChọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.\n\nKiểm tra thiết bị\n\nBạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.\n\nVào phòng chờ\nSẵn sàng cho buổi khám\n0/3 đã chuẩn bị\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nChecklist chuẩn bị riêng cho lượt khám\nĐã kiểm tra đúng người, ngày và giờ khám\nĐã chuẩn bị giấy tờ và tài liệu y tế đang có\nĐã chuẩn bị mạng, camera và không gian riêng tư\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nLưu lịch cá nhân\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G2",
+      "file": "screens/G2.png",
+      "screen": "G2",
+      "guard": "",
+      "text": "Chờ bác sĩ gọi\n\nBạn hãy giữ màn hình này mở. Cuộc gọi sẽ hiện khi phòng khám sẵn sàng.\n\n3\nNguyễn Minh Anh\nCF-0001\nChờ bác sĩ gọi\n\nNếu chưa kết nối được, phòng khám có thể liên hệ lại.\n\nLiên hệ phòng khám\nHủy lịch khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G3",
+      "file": "screens/G3.png",
+      "screen": "G3",
+      "guard": "",
+      "text": "Nguyễn Minh Anh\nCF-0001\nBác sĩ đang gọi bạn\n\nCuộc gọi từ phòng khám CareFlow\n\nTôi chưa thể nghe máy\nNhận cuộc gọi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G4",
+      "file": "screens/G4.png",
+      "screen": "G4",
+      "guard": "",
+      "text": "Nguyễn Minh Anh\nCF-0001\nĐang khám trực tuyến\nPhòng khám CareFlow\n\nRời cuộc gọi không có nghĩa buổi khám đã hoàn tất.\n\nTắt micro\nTắt camera\nRời cuộc gọi\nGhi chú cá nhân",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G5",
+      "file": "screens/G5.png",
+      "screen": "G5",
+      "guard": "",
+      "text": "Chưa liên hệ được với bạn\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\n4\nNguyễn Minh Anh\nCF-0001\n\nĐang chờ phòng khám liên hệ lại\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\nChờ phòng khám gọi lại\nHẹn online lần khác\nChuyển sang khám tại phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H1",
+      "file": "screens/H1.png",
+      "screen": "H1",
+      "guard": "",
+      "text": "Buổi khám đã hoàn tất\n\nBạn có thể xem thông tin sau khám và các việc cần làm.\n\n8\nNguyễn Minh Anh\nCF-0001\n0\nLời dặn\n0\nKết quả\n1\nChờ thu\nHoàn tất buổi khám\n\nNguyễn Minh Anh · Thứ Ba, 20/10/2026\n\nXem phí khám\n\nBác sĩ đã ký và hoàn tất hồ sơ buổi khám\n\nKết luận và đơn thuốc\nLời dặn và tài liệu\nXét nghiệm sau khám\nTheo dõi chỉ định\nHỏi phòng khám\nGửi câu hỏi cho phòng khám\nĐặt lịch tái khám\nChọn lịch khám tiếp theo",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H2",
+      "file": "screens/H2.png",
+      "screen": "H2",
+      "guard": "",
+      "text": "Thanh toán phí khám\n\nChọn cách thanh toán phù hợp.\n\n8\nNguyễn Minh Anh\nCF-0001\nPHÍ KHÁM\nPhòng khám sẽ thông báo\nChưa thanh toán\n\nSố tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.\n\nThanh toán tại quầy\nChuyển khoản\nThanh toán tại nhà thuốc\nTôi cần thanh toán sau\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H3",
+      "file": "screens/H3.png",
+      "screen": "H3",
+      "guard": "",
+      "text": "Hẹn ngày thanh toán\n\nCho phòng khám biết lý do và ngày bạn có thể thanh toán.\n\n8\nNguyễn Minh Anh\nCF-0001\nLý do thanh toán sau\n0 ký tự\nNgày dự kiến thanh toán\n20/10/2026\nGửi đề nghị\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H4",
+      "file": "screens/H4.png",
+      "screen": "H4",
+      "guard": "",
+      "text": "Chuyển khoản phí khám\n\nKiểm tra thông tin nhận tiền trước khi chuyển khoản.\n\n8\nNguyễn Minh Anh\nCF-0001\nChưa có mã thanh toán\nThông tin tài khoản nhận tiền\n\nPhòng khám chưa cung cấp\n\nPhòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông tin.\n\nTôi đã chuyển khoản\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H5",
+      "file": "screens/H5.png",
+      "screen": "H5",
+      "guard": "",
+      "text": "Biên lai và hoàn tiền\n\nTrạng thái thanh toán của lượt khám này.\n\n9\nNguyễn Minh Anh\nCF-0001\nĐã thanh toán\nBiên lai\nMã ghi nhận\nRC-CF-0001\nPhí khám\nPhòng khám sẽ thông báo\nXem kết luận và đơn thuốc\nQuay lại lượt khám\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nĐã thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H6",
+      "file": "screens/H6.png",
+      "screen": "H6",
+      "guard": "",
+      "text": "Kết luận và đơn thuốc\n\nThông tin do bác sĩ cung cấp sau buổi khám.\n\n8\nNguyễn Minh Anh\nCF-0001\nKết luận buổi khám\n\nChưa có tài liệu được phòng khám chia sẻ.\n\nĐơn thuốc\nChưa có đơn thuốc được chia sẻ\n\nĐơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.\n\nHướng dẫn chăm sóc\n\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\n\nViệc cần làm sau buổi khám\n\nLưu câu hỏi và kiểm tra tài liệu của lượt khám này.\n\nXem kết luận, đơn thuốc và kết quả đã được phòng khám chia sẻ ở trên.\nNếu chưa có tài liệu hoặc còn điều chưa rõ, gửi câu hỏi cho phòng khám.\nGhi lại thay đổi sức khỏe để trao đổi trong lần liên hệ tiếp theo.\nGhi cập nhật sức khỏe\n \nHỏi phòng khám\nHỏi lại phòng khám\nĐặt lịch tái khám\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H7",
+      "file": "screens/H7.png",
+      "screen": "H7",
+      "guard": "",
+      "text": "Kết quả và việc tiếp theo\n\nTheo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nTìm kết quả\nTất cả\nChờ bác sĩ\nĐã xem\nHiển thị 1 / 1\nCF-0001\nXét nghiệm theo chỉ định\n\nBác sĩ đã xem\n\nMở chi tiết\nThông báo kết quả\nĐã gửi thông báo\nGiải thích kết quả\nChưa ghi nhận đã giải thích\nXem kết luận và đơn thuốc\nXem xét nghiệm tiếp theo\nHẹn giải thích kết quả, không thu phí\nYêu cầu phòng khám liên hệ",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I1",
+      "file": "screens/I1.png",
+      "screen": "I1",
+      "guard": "",
+      "text": "Bạn muốn hỏi về việc gì?\n\nChọn lượt khám và điều bạn cần trao đổi.\n\n8\nLượt đã khám\nLượt đã khám\nNguyễn Minh Anh\nCF-0001 · Thứ Ba, 20/10/2026\nPhản hồi về đơn thuốc\nHiệu quả điều trị hoặc vấn đề khi dùng thuốc\nHỏi lại, dùng thuốc\nĐiều chưa rõ trong hướng dẫn của phòng khám\nTriệu chứng mới, chưa cải thiện\nCập nhật tình trạng của bạn sau khám\nTheo dõi triệu chứng\nChuyển chuyên khoa\nTin nhắn với phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I2",
+      "file": "screens/I2.png",
+      "screen": "I2",
+      "guard": "",
+      "text": "Gửi phản hồi cho phòng khám\n\nMô tả điều bạn cần được giải đáp.\n\n8\nNguyễn Minh Anh\nCF-0001\nPhản hồi về đơn thuốc\nNội dung cần trao đổi\n0 / 2000 ký tự\n\nTin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp.\n\nGửi phản hồi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I3",
+      "file": "screens/I3.png",
+      "screen": "I3",
+      "guard": "",
+      "text": "Theo dõi triệu chứng\n\nGhi lại thay đổi để phòng khám theo dõi cùng bạn.\n\n8\nNguyễn Minh Anh\nCF-0001\nHôm nay bạn thấy thế nào?\n0 ký tự\nGửi cập nhật\nTheo dõi triệu chứng\n\nChưa có cập nhật của bạn\n\nTrao đổi với điều phối viên\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I4",
+      "file": "screens/I4.png",
+      "screen": "I4",
+      "guard": "",
+      "text": "Chuyển chuyên khoa\n\nĐiều phối viên sẽ hướng dẫn khi bác sĩ giới thiệu bạn đến chuyên khoa khác.\n\n8\nNguyễn Minh Anh\nCF-0001\nĐược giới thiệu\nĐã khám chuyên khoa\nĐã phản hồi\n\nPhòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.\n\nPhản hồi sau khi khám chuyên khoa\n0 ký tự\nGửi phản hồi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I5",
+      "file": "screens/I5.png",
+      "screen": "I5",
+      "guard": "",
+      "text": "Tin nhắn với phòng khám\n\nTrao đổi với điều phối viên về lượt khám.\n\n8\nNguyễn Minh Anh\nCF-0001\n\nBạn chưa có tin nhắn trong lượt khám này.\n\nTin nhắn của bạn\n0 / 2000 ký tự\nGửi tin nhắn\nĐặt lịch tái khám\nCần trợ giúp khẩn cấp\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "J1",
+      "file": "screens/J1.png",
+      "screen": "J1",
+      "guard": "",
+      "text": "Đặt lịch tái khám\n\nHồ sơ của bạn và thông tin lượt trước được giữ lại.\n\n8\nNguyễn Minh Anh\nCF-0001\nGặp lại bác sĩ\n\nChọn lịch phù hợp cho lần khám tiếp theo.\n\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n08:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\nNgày gợi ý từ phòng khám\n\nPhòng khám chưa cung cấp\n\nChọn thời gian tái khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K1",
+      "file": "screens/K1.png",
+      "screen": "K1",
+      "guard": "",
+      "text": "Thông báo\n\nCập nhật về lịch hẹn và việc cần làm.\n\n1\nĐánh dấu tất cả đã đọc\nTất cả\nChưa đọc\nĐã đọc\nHiển thị 1 / 1\nChưa đọc · 19/10/2026\nCó cập nhật về lượt khám\nMở ứng dụng để xem chi tiết.\n\nNội dung sức khỏe không xuất hiện trong bản xem trước.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K2",
+      "file": "screens/K2.png",
+      "screen": "K2",
+      "guard": "",
+      "text": "Hồ sơ\n1\nNguyễn Minh Anh\nHồ sơ của bạn · 1 người thân\nThông tin cá nhân\nXem tất cả\nHọ tên\nHọ tên\nNguyễn Minh Anh\nSố điện thoại\nSố điện thoại\nChưa cập nhật\nDị ứng\nDị ứng\nChưa khai báo\nNgười thân\nXem tất cả\nTrần Thị Mai\nMẹ\nThêm người thân\nCài đặt\nXem tất cả\nThông báo\nĐang bật\nNgôn ngữ\nTiếng Việt\nBảo mật và quyền riêng tư\nĐăng xuất",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K3",
+      "file": "screens/K3.png",
+      "screen": "K3",
+      "guard": "",
+      "text": "Lịch sử khám\n\nCác lượt đã hoàn tất, đã hủy và chưa đến khám.\n\n8\nTìm trong lịch sử\nTất cả\nĐã khám\nĐã dừng\nHiển thị 1 / 1\nBS. Trần Thu Hà\nNội tổng quát · Tại phòng khám\nHoàn tất buổi khám\n\nNguyễn Minh Anh\n\nThứ Ba, 20/10 · 08:00\n\nTại phòng khám · xem địa điểm trên phiếu\n\nLý do khám\nKhám theo lịch hẹn\n\nĐặt lại lịch khám\nXem kết quả",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K4",
+      "file": "screens/K4.png",
+      "screen": "K4",
+      "guard": "",
+      "text": "Cài đặt\n\nĐiều chỉnh cách bạn sử dụng CareFlow.\n\n1\nGiữ riêng tư khi nhận thông báo\nChữ lớn\nẨn nội dung sức khỏe trong thông báo\nNhận nhắc lịch\nLưu thay đổi\nQuyền riêng tư\n\nBạn có thể bắt đầu lại trải nghiệm từ mục Tùy chọn.\n\nĐăng xuất\nDữ liệu trên thiết bị này\n\nGhi chú, checklist và lựa chọn được giữ trong phiên trình duyệt hiện tại. Đăng xuất sẽ kết thúc phiên và xóa các mục riêng đã lưu.\n\nXem hồ sơ đang sử dụng",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K5",
+      "file": "screens/K5.png",
+      "screen": "K5",
+      "guard": "",
+      "text": "Hỗ trợ\n\nBạn cần phòng khám hỗ trợ điều gì?\n\n1\nCần trợ giúp khẩn cấp?\n\nGọi 115 hoặc đến cơ sở y tế gần nhất; đừng chờ phản hồi qua ứng dụng.\n\nGọi 115\nHỗ trợ từ phòng khám\n\nĐồng hành từ lúc đặt lịch đến sau buổi khám.\n\nLiên hệ nhanh\nXem tất cả\nGọi lại\nNhắn tin\nHỏi phòng khám\nGửi yêu cầu\nXem tất cả\nChủ đề\nĐổi hoặc hủy lịch\nThông tin hồ sơ\nThanh toán\nKết quả\nĐơn thuốc\nKhám trực tuyến\nKhác\nĐổi hoặc hủy lịch\nNội dung\n0 / 500 ký tự\nCách nhận phản hồi\nGửi yêu cầu\nCâu hỏi thường gặp\nXem tất cả\nCách vào phòng khám trực tuyến\nCần mang gì khi đi khám?\nĐổi hoặc hủy lịch thế nào?\nTin nhắn gần đây\nXem tất cả\n\nChưa có tin nhắn. Bạn có thể gửi yêu cầu ở trên.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    }
+  ],
+  "states": [
+    {
+      "label": "G1-camera-unavailable",
+      "file": "states/G1-camera-unavailable.png",
+      "screen": "G1",
+      "guard": "",
+      "text": "Chuẩn bị khám trực tuyến\n\nBạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.\n\n1\nNguyễn Minh Anh\nCF-0001\nSẵn sàng thiết bị và không gian riêng tư\n1 Kiểm tra camera và micro\n2 Kiểm tra kết nối Internet\n3 Chờ phòng khám mở phòng khám trực tuyến\nChưa kiểm tra\n\nChọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.\n\nKiểm tra thiết bị\n\nBạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.\n\nVào phòng chờ\nSẵn sàng cho buổi khám\n0/3 đã chuẩn bị\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nChecklist chuẩn bị riêng cho lượt khám\nĐã kiểm tra đúng người, ngày và giờ khám\nĐã chuẩn bị giấy tờ và tài liệu y tế đang có\nĐã chuẩn bị mạng, camera và không gian riêng tư\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nLưu lịch cá nhân\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": [],
+      "dialog": "×\nChuẩn bị camera và âm thanh\nBạn có thể kiểm tra trước khi vào phòng chờ. Camera chỉ bật khi bạn cho phép.\n\nChưa bật được camera. Bạn có thể cấp quyền trong trình duyệt, thử lại hoặc tiếp tục vào phòng chờ.\n\nBật camera\nNghe âm thanh\nTiếp tục vào phòng chờ\nĐể sau"
+    },
+    {
+      "label": "G1-device-ready",
+      "file": "states/G1-device-ready.png",
+      "screen": "G1",
+      "guard": "",
+      "text": "Chuẩn bị khám trực tuyến\n\nBạn sẽ nhận cuộc gọi trong ứng dụng khi đến lượt.\n\n1\nNguyễn Minh Anh\nCF-0001\nSẵn sàng thiết bị và không gian riêng tư\n1 Kiểm tra camera và micro\n2 Kiểm tra kết nối Internet\n3 Chờ phòng khám mở phòng khám trực tuyến\nĐã hoàn tất chuẩn bị\n\nChọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.\n\nKiểm tra thiết bị\n\nBạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.\n\nVào phòng chờ\nSẵn sàng cho buổi khám\n0/3 đã chuẩn bị\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nChecklist chuẩn bị riêng cho lượt khám\nĐã kiểm tra đúng người, ngày và giờ khám\nĐã chuẩn bị giấy tờ và tài liệu y tế đang có\nĐã chuẩn bị mạng, camera và không gian riêng tư\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nLưu lịch cá nhân\nHỏi phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G2-waiting",
+      "file": "states/G2-waiting.png",
+      "screen": "G2",
+      "guard": "",
+      "text": "Chờ bác sĩ gọi\n\nBạn hãy giữ màn hình này mở. Cuộc gọi sẽ hiện khi phòng khám sẵn sàng.\n\n3\nNguyễn Minh Anh\nCF-0001\nChờ bác sĩ gọi\n\nNếu chưa kết nối được, phòng khám có thể liên hệ lại.\n\nLiên hệ phòng khám\nHủy lịch khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G3-incoming",
+      "file": "states/G3-incoming.png",
+      "screen": "G3",
+      "guard": "",
+      "text": "Nguyễn Minh Anh\nCF-0001\nBác sĩ đang gọi bạn\n\nCuộc gọi từ phòng khám CareFlow\n\nTôi chưa thể nghe máy\nNhận cuộc gọi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G5-missed-call",
+      "file": "states/G5-missed-call.png",
+      "screen": "G5",
+      "guard": "",
+      "text": "Chưa liên hệ được với bạn\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\n4\nNguyễn Minh Anh\nCF-0001\n\nĐang chờ phòng khám liên hệ lại\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\nChờ phòng khám gọi lại\nHẹn online lần khác\nChuyển sang khám tại phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "G4-camera-mic-off",
+      "file": "states/G4-camera-mic-off.png",
+      "screen": "G4",
+      "guard": "",
+      "text": "Nguyễn Minh Anh\nCF-0001\nĐang khám trực tuyến\nPhòng khám CareFlow\n\nRời cuộc gọi không có nghĩa buổi khám đã hoàn tất.\n\nBật micro\nBật camera\nRời cuộc gọi\nGhi chú cá nhân",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": [],
+      "noteLostAfterToggle": true
+    },
+    {
+      "label": "G5-callback-request",
+      "file": "states/G5-callback-request.png",
+      "screen": "G5",
+      "guard": "",
+      "text": "Chưa liên hệ được với bạn\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\n4\nNguyễn Minh Anh\nCF-0001\n\nĐang chờ phòng khám liên hệ lại\n\nPhòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.\n\nChờ phòng khám gọi lại\nHẹn online lần khác\nChuyển sang khám tại phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": [],
+      "dialog": "×\nLiên hệ phòng khám\nĐã ghi nhận yêu cầu liên hệ. Bạn hãy chờ phòng khám.\nĐóng"
+    },
+    {
+      "label": "H1-completed",
+      "file": "states/H1-completed.png",
+      "screen": "H1",
+      "guard": "",
+      "text": "Buổi khám đã hoàn tất\n\nBạn có thể xem thông tin sau khám và các việc cần làm.\n\n8\nNguyễn Minh Anh\nCF-0001\n0\nLời dặn\n0\nKết quả\n1\nChờ thu\nHoàn tất buổi khám\n\nNguyễn Minh Anh · Thứ Ba, 20/10/2026\n\nXem phí khám\n\nBác sĩ đã ký và hoàn tất hồ sơ buổi khám\n\nKết luận và đơn thuốc\nLời dặn và tài liệu\nXét nghiệm sau khám\nTheo dõi chỉ định\nHỏi phòng khám\nGửi câu hỏi cho phòng khám\nĐặt lịch tái khám\nChọn lịch khám tiếp theo",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H2-unpaid",
+      "file": "states/H2-unpaid.png",
+      "screen": "H2",
+      "guard": "",
+      "text": "Thanh toán phí khám\n\nChọn cách thanh toán phù hợp.\n\n8\nNguyễn Minh Anh\nCF-0001\nPHÍ KHÁM\nPhòng khám sẽ thông báo\nChưa thanh toán\n\nSố tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.\n\nThanh toán tại quầy\nChuyển khoản\nThanh toán tại nhà thuốc\nTôi cần thanh toán sau\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H2-paid",
+      "file": "states/H2-paid.png",
+      "screen": "H2",
+      "guard": "",
+      "text": "Thanh toán phí khám\n\nChọn cách thanh toán phù hợp.\n\n9\nNguyễn Minh Anh\nCF-0001\nPHÍ KHÁM\nPhòng khám sẽ thông báo\nĐã thanh toán\n\nSố tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.\n\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nĐã thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H2-no-fee",
+      "file": "states/H2-no-fee.png",
+      "screen": "H2",
+      "guard": "",
+      "text": "Thanh toán phí khám\n\nChọn cách thanh toán phù hợp.\n\n9\nNguyễn Minh Anh\nCF-0001\nPHÍ KHÁM\nPhòng khám sẽ thông báo\nKhông phát sinh phí\n\nSố tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.\n\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nKhông phát sinh phí\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H3-validation-error",
+      "file": "states/H3-validation-error.png",
+      "screen": "H3",
+      "guard": "",
+      "text": "Hẹn ngày thanh toán\n\nCho phòng khám biết lý do và ngày bạn có thể thanh toán.\n\n8\nNguyễn Minh Anh\nCF-0001\nLý do thanh toán sau\n0 ký tự\nNgày dự kiến thanh toán\n20/10/2026\n\nBạn hãy nhập lý do và chọn ngày thanh toán từ hôm nay.\n\nGửi đề nghị\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H4-bank-details-missing",
+      "file": "states/H4-bank-details-missing.png",
+      "screen": "H4",
+      "guard": "",
+      "text": "Chuyển khoản phí khám\n\nKiểm tra thông tin nhận tiền trước khi chuyển khoản.\n\n8\nNguyễn Minh Anh\nCF-0001\nChưa có mã thanh toán\nThông tin tài khoản nhận tiền\n\nPhòng khám chưa cung cấp\n\nPhòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông tin.\n\nTôi đã chuyển khoản\nXem biên lai và trạng thái\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChưa thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H5-transfer-pending",
+      "file": "states/H5-transfer-pending.png",
+      "screen": "H5",
+      "guard": "",
+      "text": "Biên lai và hoàn tiền\n\nTrạng thái thanh toán của lượt khám này.\n\n8\nNguyễn Minh Anh\nCF-0001\nChờ xác nhận chuyển khoản\nBiên lai\n\nBiên lai sẽ có sau khi phòng khám xác nhận khoản thu.\n\nXem kết luận và đơn thuốc\nQuay lại lượt khám\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nChờ xác nhận chuyển khoản\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H5-paid",
+      "file": "states/H5-paid.png",
+      "screen": "H5",
+      "guard": "",
+      "text": "Biên lai và hoàn tiền\n\nTrạng thái thanh toán của lượt khám này.\n\n9\nNguyễn Minh Anh\nCF-0001\nĐã thanh toán\nBiên lai\nMã ghi nhận\nRC-CF-0001\nPhí khám\nPhòng khám sẽ thông báo\nXem kết luận và đơn thuốc\nQuay lại lượt khám\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nĐã thanh toán\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H5-refunding",
+      "file": "states/H5-refunding.png",
+      "screen": "H5",
+      "guard": "",
+      "text": "Biên lai và hoàn tiền\n\nTrạng thái thanh toán của lượt khám này.\n\n10\nNguyễn Minh Anh\nCF-0001\nĐang hoàn tiền\nBiên lai\nMã ghi nhận\nRC-CF-0001\nPhí khám\nPhòng khám sẽ thông báo\nThông tin hoàn tiền\n\nPhòng khám kiểm tra đề nghị hoàn tiền.\n\nPhòng khám sẽ giải thích chính sách và thời gian xử lý áp dụng.\n\nXem kết luận và đơn thuốc\nQuay lại lượt khám\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nĐang hoàn tiền\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H5-refunded",
+      "file": "states/H5-refunded.png",
+      "screen": "H5",
+      "guard": "",
+      "text": "Biên lai và hoàn tiền\n\nTrạng thái thanh toán của lượt khám này.\n\n11\nNguyễn Minh Anh\nCF-0001\nĐã hoàn tiền\nBiên lai\nMã ghi nhận\nRC-CF-0001\nPhí khám\nPhòng khám sẽ thông báo\nThông tin hoàn tiền\n\nPhòng khám kiểm tra đề nghị hoàn tiền.\n\nPhòng khám sẽ giải thích chính sách và thời gian xử lý áp dụng.\n\nXem kết luận và đơn thuốc\nQuay lại lượt khám\nThông tin khoản thu\nLượt khám\nCF-0001\nTrạng thái\nĐã hoàn tiền\nSố tiền\nPhòng khám sẽ thông báo\n\nCần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa chọn trong prototype chưa tạo giao dịch thật.\n\nHỏi về thanh toán",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H6-no-summary",
+      "file": "states/H6-no-summary.png",
+      "screen": "H6",
+      "guard": "",
+      "text": "Kết luận và đơn thuốc\n\nThông tin do bác sĩ cung cấp sau buổi khám.\n\n8\nNguyễn Minh Anh\nCF-0001\nKết luận buổi khám\n\nChưa có tài liệu được phòng khám chia sẻ.\n\nĐơn thuốc\nChưa có đơn thuốc được chia sẻ\n\nĐơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.\n\nHướng dẫn chăm sóc\n\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\n\nViệc cần làm sau buổi khám\n\nLưu câu hỏi và kiểm tra tài liệu của lượt khám này.\n\nXem kết luận, đơn thuốc và kết quả đã được phòng khám chia sẻ ở trên.\nNếu chưa có tài liệu hoặc còn điều chưa rõ, gửi câu hỏi cho phòng khám.\nGhi lại thay đổi sức khỏe để trao đổi trong lần liên hệ tiếp theo.\nGhi cập nhật sức khỏe\n \nHỏi phòng khám\nHỏi lại phòng khám\nĐặt lịch tái khám\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H6-aftercare",
+      "file": "states/H6-aftercare.png",
+      "screen": "H6",
+      "guard": "",
+      "text": "Kết luận và đơn thuốc\n\nThông tin do bác sĩ cung cấp sau buổi khám.\n\n8\nNguyễn Minh Anh\nCF-0001\nKết luận buổi khám\n\nChưa có tài liệu được phòng khám chia sẻ.\n\nĐơn thuốc\nChưa có đơn thuốc được chia sẻ\n\nĐơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.\n\nHướng dẫn chăm sóc\n\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\n\nViệc cần làm sau buổi khám\n\nLưu câu hỏi và kiểm tra tài liệu của lượt khám này.\n\nXem kết luận, đơn thuốc và kết quả đã được phòng khám chia sẻ ở trên.\nNếu chưa có tài liệu hoặc còn điều chưa rõ, gửi câu hỏi cho phòng khám.\nGhi lại thay đổi sức khỏe để trao đổi trong lần liên hệ tiếp theo.\nGhi cập nhật sức khỏe\n \nHỏi phòng khám\nHỏi lại phòng khám\nĐặt lịch tái khám\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H6-summary-shared",
+      "file": "states/H6-summary-shared.png",
+      "screen": "H6",
+      "guard": "",
+      "text": "Kết luận và đơn thuốc\n\nThông tin do bác sĩ cung cấp sau buổi khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nKết luận buổi khám\nThông tin buổi khám đã được chia sẻ\n\nNội dung buổi khám đã được ghi nhận trong hồ sơ. Bạn có thể hỏi lại phòng khám về những điều chưa rõ.\n\nBác sĩ phụ trách\nĐơn thuốc\nChưa có đơn thuốc được chia sẻ\n\nĐơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.\n\nHướng dẫn chăm sóc\n\nNội dung sẽ hiển thị khi được phòng khám cung cấp.\n\nViệc cần làm sau buổi khám\n\nLưu câu hỏi và kiểm tra tài liệu của lượt khám này.\n\nXem kết luận, đơn thuốc và kết quả đã được phòng khám chia sẻ ở trên.\nNếu chưa có tài liệu hoặc còn điều chưa rõ, gửi câu hỏi cho phòng khám.\nGhi lại thay đổi sức khỏe để trao đổi trong lần liên hệ tiếp theo.\nGhi cập nhật sức khỏe\n \nHỏi phòng khám\nHỏi lại phòng khám\nĐặt lịch tái khám\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H7-empty-results",
+      "file": "states/H7-empty-results.png",
+      "screen": "H7",
+      "guard": "",
+      "text": "Kết quả và việc tiếp theo\n\nTheo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nChưa có kết quả\n\nTài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.\n\nThông báo kết quả\nChưa thông báo\nGiải thích kết quả\nChưa ghi nhận đã giải thích\n\nBạn hãy chờ bác sĩ xem và hướng dẫn bước tiếp theo.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H7-reviewed-results",
+      "file": "states/H7-reviewed-results.png",
+      "screen": "H7",
+      "guard": "",
+      "text": "Kết quả và việc tiếp theo\n\nTheo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nTìm kết quả\nTất cả\nChờ bác sĩ\nĐã xem\nHiển thị 1 / 1\nCF-0001\nXét nghiệm theo chỉ định\n\nBác sĩ đã xem\n\nMở chi tiết\nThông báo kết quả\nĐã gửi thông báo\nGiải thích kết quả\nChưa ghi nhận đã giải thích\nXem kết luận và đơn thuốc\nXem xét nghiệm tiếp theo\nHẹn giải thích kết quả, không thu phí\nYêu cầu phòng khám liên hệ",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "H7-awaiting-review",
+      "file": "states/H7-awaiting-review.png",
+      "screen": "H7",
+      "guard": "",
+      "text": "Kết quả và việc tiếp theo\n\nTheo dõi kết quả xét nghiệm và hướng dẫn tiếp theo từ phòng khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nTìm kết quả\nTất cả\nChờ bác sĩ\nĐã xem\nHiển thị 1 / 1\nCF-0001\nXét nghiệm theo chỉ định\n\nChờ bác sĩ xem\n\nMở chi tiết\nThông báo kết quả\nChưa thông báo\nGiải thích kết quả\nChưa ghi nhận đã giải thích\n\nBạn hãy chờ bác sĩ xem và hướng dẫn bước tiếp theo.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I1-topic-selection",
+      "file": "states/I1-topic-selection.png",
+      "screen": "I1",
+      "guard": "",
+      "text": "Bạn muốn hỏi về việc gì?\n\nChọn lượt khám và điều bạn cần trao đổi.\n\n8\nLượt đã khám\nLượt đã khám\nNguyễn Minh Anh\nCF-0001 · Thứ Ba, 20/10/2026\nPhản hồi về đơn thuốc\nHiệu quả điều trị hoặc vấn đề khi dùng thuốc\nHỏi lại, dùng thuốc\nĐiều chưa rõ trong hướng dẫn của phòng khám\nTriệu chứng mới, chưa cải thiện\nCập nhật tình trạng của bạn sau khám\nTheo dõi triệu chứng\nChuyển chuyên khoa\nTin nhắn với phòng khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I2-validation-error",
+      "file": "states/I2-validation-error.png",
+      "screen": "I2",
+      "guard": "",
+      "text": "Gửi phản hồi cho phòng khám\n\nMô tả điều bạn cần được giải đáp.\n\n8\nNguyễn Minh Anh\nCF-0001\nPhản hồi về đơn thuốc\nNội dung cần trao đổi\n0 / 2000 ký tự\n\nTin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp.\n\nChọn lượt đã khám, lý do và nhập nội dung cần trao đổi.\n\nGửi phản hồi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I5-feedback-received",
+      "file": "states/I5-feedback-received.png",
+      "screen": "I5",
+      "guard": "",
+      "text": "Tin nhắn với phòng khám\n\nTrao đổi với điều phối viên về lượt khám.\n\n8\nNguyễn Minh Anh\nCF-0001\nĐã nhận cập nhật của bạn\n\nPHỤ TRÁCH YÊU CẦU\n\nĐiều phối viên\n\nĐiều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.\n\nNguyễn Minh Anh\n\nTôi cần hỏi thêm về hướng dẫn sau khám.\n\nTin nhắn của bạn\n0 / 2000 ký tự\nGửi tin nhắn\nĐặt lịch tái khám\nCần trợ giúp khẩn cấp\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I3-empty-tracking",
+      "file": "states/I3-empty-tracking.png",
+      "screen": "I3",
+      "guard": "",
+      "text": "Theo dõi triệu chứng\n\nGhi lại thay đổi để phòng khám theo dõi cùng bạn.\n\n8\nNguyễn Minh Anh\nCF-0001\nHôm nay bạn thấy thế nào?\n0 ký tự\nGửi cập nhật\nTheo dõi triệu chứng\n\nChưa có cập nhật của bạn\n\nTrao đổi với điều phối viên\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I3-update-received",
+      "file": "states/I3-update-received.png",
+      "screen": "I3",
+      "guard": "",
+      "text": "Theo dõi triệu chứng\n\nGhi lại thay đổi để phòng khám theo dõi cùng bạn.\n\n8\nNguyễn Minh Anh\nCF-0001\nĐã nhận cập nhật của bạn\n\nPHỤ TRÁCH YÊU CẦU\n\nĐiều phối viên\n\nĐiều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.\n\nHôm nay bạn thấy thế nào?\n0 ký tự\nGửi cập nhật\nTheo dõi triệu chứng\n\nTôi muốn cập nhật tình trạng hôm nay.\n\n19/10/2026\nTrao đổi với điều phối viên\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I4-referral-waiting",
+      "file": "states/I4-referral-waiting.png",
+      "screen": "I4",
+      "guard": "",
+      "text": "Chuyển chuyên khoa\n\nĐiều phối viên sẽ hướng dẫn khi bác sĩ giới thiệu bạn đến chuyên khoa khác.\n\n8\nNguyễn Minh Anh\nCF-0001\nĐược giới thiệu\nĐã khám chuyên khoa\nĐã phản hồi\n\nPhòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.\n\nPhản hồi sau khi khám chuyên khoa\n0 ký tự\nGửi phản hồi",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I5-empty-messages",
+      "file": "states/I5-empty-messages.png",
+      "screen": "I5",
+      "guard": "",
+      "text": "Tin nhắn với phòng khám\n\nTrao đổi với điều phối viên về lượt khám.\n\n8\nNguyễn Minh Anh\nCF-0001\n\nBạn chưa có tin nhắn trong lượt khám này.\n\nTin nhắn của bạn\n0 / 2000 ký tự\nGửi tin nhắn\nĐặt lịch tái khám\nCần trợ giúp khẩn cấp\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I5-message-sent",
+      "file": "states/I5-message-sent.png",
+      "screen": "I5",
+      "guard": "",
+      "text": "Tin nhắn với phòng khám\n\nTrao đổi với điều phối viên về lượt khám.\n\n8\nNguyễn Minh Anh\nCF-0001\nNguyễn Minh Anh\n\nTôi cần hỏi thêm về lượt khám.\n\nTin nhắn của bạn\n0 / 2000 ký tự\nGửi tin nhắn\nĐặt lịch tái khám\nCần trợ giúp khẩn cấp\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "I5-staff-reply",
+      "file": "states/I5-staff-reply.png",
+      "screen": "I5",
+      "guard": "",
+      "text": "Tin nhắn với phòng khám\n\nTrao đổi với điều phối viên về lượt khám.\n\n9\nNguyễn Minh Anh\nCF-0001\nPhòng khám đã phản hồi\n\nPHỤ TRÁCH YÊU CẦU\n\nBạn\n\nBạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.\n\nNguyễn Minh Anh\n\nTôi cần hỏi thêm về lượt khám.\n\nĐang chờ phòng khám\n\nPhòng khám đã nhận nội dung của bạn, bác sĩ đã xem và đề nghị tiếp tục trao đổi với điều phối viên nếu bạn còn điều chưa rõ.\n\nTin nhắn của bạn\n0 / 2000 ký tự\nGửi tin nhắn\nĐặt lịch tái khám\nCần trợ giúp khẩn cấp\nCâu hỏi cho lần trao đổi tới\n\nNguyễn Minh Anh · 20/10 · CF-0001\n\nGhi chú riêng của bạn\n0 / 1000 ký tự\nChỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.\nGửi câu hỏi sau khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "J1-follow-up",
+      "file": "states/J1-follow-up.png",
+      "screen": "J1",
+      "guard": "",
+      "text": "Đặt lịch tái khám\n\nHồ sơ của bạn và thông tin lượt trước được giữ lại.\n\n8\nNguyễn Minh Anh\nCF-0001\nGặp lại bác sĩ\n\nChọn lịch phù hợp cho lần khám tiếp theo.\n\nBác sĩ\nBS. Trần Thu Hà · Nội tổng quát\nNgười đi khám\nNguyễn Minh Anh\nNgày khám\nThứ Ba, 20/10/2026\nGiờ khám\n08:00\nHình thức\nTại phòng khám\nLý do khám\nKhám theo lịch hẹn\nNgày gợi ý từ phòng khám\n\nPhòng khám chưa cung cấp\n\nChọn thời gian tái khám",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "C3-warning-visible",
+      "file": "states/C3-warning-visible.png",
+      "screen": "C3",
+      "guard": "",
+      "text": "Trước khi đặt lịch\n\nBạn có cần trợ giúp y tế ngay lúc này không?\n\n1\nNguyễn Minh Anh\nĐổi\nBước 2 / 4\nHồ sơ\n2\nBệnh\n3\nNơi khám\n4\nKiểm tra\nTrước khi đặt lịch\nKhông, tiếp tục đặt lịch\nCó hoặc chưa rõ\nCần trợ giúp khẩn cấp?\n\nGọi 115 hoặc đến cơ sở y tế gần nhất; đừng chờ phản hồi qua ứng dụng.\n\nGọi 115\nTiếp tục",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K5-emergency-visible",
+      "file": "states/K5-emergency-visible.png",
+      "screen": "K5",
+      "guard": "",
+      "text": "Hỗ trợ\n\nBạn cần phòng khám hỗ trợ điều gì?\n\n1\nCần trợ giúp khẩn cấp?\n\nGọi 115 hoặc đến cơ sở y tế gần nhất; đừng chờ phản hồi qua ứng dụng.\n\nGọi 115\nHỗ trợ từ phòng khám\n\nĐồng hành từ lúc đặt lịch đến sau buổi khám.\n\nLiên hệ nhanh\nXem tất cả\nGọi lại\nNhắn tin\nHỏi phòng khám\nGửi yêu cầu\nXem tất cả\nChủ đề\nĐổi hoặc hủy lịch\nThông tin hồ sơ\nThanh toán\nKết quả\nĐơn thuốc\nKhám trực tuyến\nKhác\nĐổi hoặc hủy lịch\nNội dung\n0 / 500 ký tự\nCách nhận phản hồi\nGửi yêu cầu\nCâu hỏi thường gặp\nXem tất cả\nCách vào phòng khám trực tuyến\nCần mang gì khi đi khám?\nĐổi hoặc hủy lịch thế nào?\nTin nhắn gần đây\nXem tất cả\n\nChưa có tin nhắn. Bạn có thể gửi yêu cầu ở trên.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": []
+    },
+    {
+      "label": "K5-topic-sheet",
+      "file": "states/K5-topic-sheet.png",
+      "screen": "K5",
+      "guard": "",
+      "text": "Hỗ trợ\n\nBạn cần phòng khám hỗ trợ điều gì?\n\n1\nCần trợ giúp khẩn cấp?\n\nGọi 115 hoặc đến cơ sở y tế gần nhất; đừng chờ phản hồi qua ứng dụng.\n\nGọi 115\nHỗ trợ từ phòng khám\n\nĐồng hành từ lúc đặt lịch đến sau buổi khám.\n\nLiên hệ nhanh\nXem tất cả\nGọi lại\nNhắn tin\nHỏi phòng khám\nGửi yêu cầu\nXem tất cả\nChủ đề\nĐổi hoặc hủy lịch\nThông tin hồ sơ\nThanh toán\nKết quả\nĐơn thuốc\nKhám trực tuyến\nKhác\nĐổi hoặc hủy lịch\nNội dung\n0 / 500 ký tự\nCách nhận phản hồi\nGửi yêu cầu\nCâu hỏi thường gặp\nXem tất cả\nCách vào phòng khám trực tuyến\nCần mang gì khi đi khám?\nĐổi hoặc hủy lịch thế nào?\nTin nhắn gần đây\nXem tất cả\n\nChưa có tin nhắn. Bạn có thể gửi yêu cầu ở trên.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": [],
+      "dialog": "×\nChủ đề\nĐổi hoặc hủy lịch\nThông tin hồ sơ\nThanh toán\nKết quả\nĐơn thuốc\nKhám trực tuyến\nKhác"
+    },
+    {
+      "label": "C7-calendar-sheet",
+      "file": "states/C7-calendar-sheet.png",
+      "screen": "C7",
+      "guard": "",
+      "text": "Chọn giờ hẹn\n\nChọn ngày và khung giờ thuận tiện cho bạn.\n\n1\nNguyễn Minh Anh\nĐổi\nBước 4 / 4\nHồ sơ\nBệnh\nNơi khám\n4\nKiểm tra\nMuốn chọn một ngày khác?\nTh 2\n19\nTh 3\n20\nTh 4\n21\nTh 5\n22\nTh 6\n23\nNgày mong muốn\n20/10/2026\nGiờ khám\n08:00\n09:00\n10:30\n14:00\n15:30\nKiểm tra yêu cầu\nSau khi chọn giờ khám\nKiểm tra lại ngày và khung giờ mong muốn.\nXem toàn bộ thông tin ở bước xác nhận cuối trước khi gửi.\nTheo dõi phiếu khám để nhận xác nhận từ phòng khám.",
+      "overflow": false,
+      "nativeVisible": [],
+      "smallTargets": [],
+      "dialog": "×\nNgày mong muốn\nTháng 10\n2026\nT2\nT3\nT4\nT5\nT6\nT7\nCN\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n\nChọn tháng hoặc năm để chuyển nhanh."
+    }
+  ],
+  "errors": []
+}

@@ -79,5 +79,16 @@
     "license": "https://unsplash.com/license",
     "purpose": "Illustrative care interaction; not CareFlow staff or a real consultation record",
     "retrieved": "2026-10-18"
+  },
+  {
+    "file": "doctor-cutout.webp",
+    "photographer": "Usman Yousaf",
+    "photo": "https://unsplash.com/photos/pTrhfmj2jDA",
+    "image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "derivedFrom": "doctor-portrait.webp",
+    "edit": "AI-assisted background extraction with built-in imagegen; WebP encoding preserves alpha",
+    "purpose": "Decorative support contact portrait on Home and Support; not a named clinician, account holder, or actual CareFlow staff member",
+    "prepared": "2026-10-19"
   }
 ]

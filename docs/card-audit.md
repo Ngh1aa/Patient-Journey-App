@@ -1,5 +1,87 @@
 # Card audit v2
 
+## Hiện hành — rollout toàn bộ màn, 19/10/2026
+
+Đã bật bộ dùng chung ở cả patient/staff theo yêu cầu mới. Kiểm kê canonical47 screen IDs,15 staff routes, không cắt nhánh an toàn để khớp stepper4 nhóm. [Bảng trước/sau từng card theo screen/card/type/issues/priority](card-evidence/all-screens/card-before-after.md) nối với [before](card-evidence/all-screens-before/inventory.json), [after](card-evidence/all-screens-after/inventory.json) và [desktop](card-evidence/all-screens/inventory.json). DOM instances không được gọi là số component.
+
+Nhóm đã xử lý: A1–A3 auth; B1 Home; C1–C9 booking; D1–D4 appointment/ticket; E1–E3 arrival; F1–F4 labs; G1–G5 online; H1–H7 completion/payment/results; I1–I5 aftercare; J1 follow-up; K1–K5 notifications/profile/history/settings/support. Desktop dùng cùng type/color/button/status/card primitives, giữ các hàng công việc và cột khám bệnh.
+
+Home bỏ các booking entry lặp, bỏ metric00, đưa lịch tiếp theo lên trước, đổi profile/question sang hai anatomy riêng, dùng guide disclosure và artwork có slot. Các bảng kết quả kỹ thuật, contrast và giới hạn xem [review hiện tại](card-evidence/all-screens/review.md).
+
+---
+
+Các mục phía dưới là lịch sử của các đợt trước; mốc chờ duyệt và phạm vi cũ đã được yêu cầu mới thay thế.
+
+
+## Đợt hiện tại — tích hợp navigation và sửa component, 19/10/2026
+
+Đã tích hợp navbar dùng chung vào app theo yêu cầu mới. Bảng47màn/161vùng bên dưới vẫn là baseline card layout; đợt này không tuyên bố đã thay hết card/Home. Các sửa đúng owner: primary Next/Continue, selected-state chips, avatar overlap, labelled button examples, confirmed/completed tone và navigation. Huy hiệu dùng notification state hiện có, không thêm fake count.
+
+| Vị trí | Lỗi trước | Sửa / evidence |
+|---|---|---|
+| DS stepper và samples | Next secondary blue, Continue primary black | Cùng primary; mẫu độc lập không đánh đổi semantic hierarchy để khớp gallery count |
+| DS profile | Avatar28px overlap8px che chữ |32px/overlap4px/border2px; inner text bounds không chạm avatar sau |
+| DS button examples | Hai pills state như action | Static figcaptions dưới default/loading/locked; loading có spinner |
+| DS empty/loading/error/ready filter | Selected chỉ đậm hơn | Selected black/white, idle white/gray outline, ARIA pressed |
+| Shared status | Confirmed/completed đều green | Confirmed blue/info, completed green/success; model values không đổi |
+| App bottom nav | Caption ẩn, nút+navy/gray ring, chỉ outline icons | Component shared; black raised+white border, labels, selected filled/navy/blue, idle muted; unread updates count |
+| DS guide footer | Source đã đúng Đ, nhỏ nên khó đọc | Unicode U+0110 giữ nguyên; body14/500. Designer labels giữ riêng DS |
+
+Report và captures: [navigation-integration/review.md](card-evidence/navigation-integration/review.md). App render scope vẫn giữ47screen IDs và toàn bộ guards; không ghép tiêu đề “Thanh điều hướng” vào màn thật. Model/visit data không có diff.
+
+## Audit hiện hành — sửa6 lỗi và giới hạn màu, 19/10/2026
+
+Đã rà lại47 patient states và161 card/section/form theo tiêu chí mới **trước khi sửa component**: [từng dòng kiểm kê](card-evidence/blue-green-before/audit.md), [checks/typography JSON](card-evidence/blue-green-before/inventory.json), [72 file nguồn](card-evidence/blue-green-before/source-inventory.json). Mỗi dòng có vị trí/selector, type, lỗi cụ thể và ưu tiên; các kiểm tra trạng thái/copy/visual chưa đủ bằng chứng vẫn ghi REVIEW. Không gọi đây là full WCAG audit.
+
+Kết quả mới chính xác hơn: B1 có**4 lối vào booking trong nội dung**, cộng+ thành5; B1/H6 có2 primary controls theo data contract.30 vùng card/group chứa primary nền navy thay vì màu mới;34 vùng chứa stock image.75 linear gradients cần review vị trí/vai trò. Chỉ**1 vùng metric ở B1** chứa số00 riêng lẻ; đã bỏ false positives của phút `:00`. Chuyển hồ sơ trong flow booking không tính nhầm thành lối bắt đầu booking mới. Các con số group có thể chồng lặp, không phải số defect độc lập.
+
+### Sáu lỗi trên Design System trước sửa
+
+| Yêu cầu / vị trí | Trước / lỗi và nguyên nhân | Sau trong bộ component | Ưu tiên |
+|---|---|---|---|
+|1. Xem tất cả, cạnh Thông tin của bạn | FAIL: sectionHeader dùng actionButton nên sinh pill nền blue như CTA | Link thật tới route K2, navy+arrow, không nền, focus/target44 |P1|
+|2. Hồ sơ đã lưu / Hỏi phòng khám, cặp bento frame1 | FAIL: cùng illustration/title/body/pill; số2 thành metric đứng riêng | Avatar stack+count+disclosure; thẻ hỏi có suggestions mở ô soạn riêng, không share cùng anatomy |P1|
+|3. Calendar empty state frame3 và artwork frame1 | FAIL về nhận diện: giấy trắng không stroke trên card trắng nên mất mảng; ảnh nhỏ96px bị cảm giác cắt | Vẽ lại cùng canvas/nét/palette, outline giấy, backplate blue; slot cố định và empty160px |P1|
+|4. Nhãn lịch, mã phiếu, body gradient | Pair cũ có kiểm nhưng palette thay đổi nên cần đo lại, không suy ra PASS từ lần trước |20 cặp ghi số cụ thể; text on pastel navy/ink, min5.024:1 toàn tập, min9.454:1 cho các cặp text/pastel |P1|
+|5. Chưa thể tiếp tục / Đang gửi yêu cầu, frame2 | FAIL: selector disabled phủ cùng nền xám cả busy | Khóa xám+icon khóa, busy primary mờ+white+spinner; chỉ render một biến thể primary tại một thời điểm |P1|
+|6. Booking lặp / primary budget | B1 có4 entries trong content; DS frame2 có nhiều ví dụ primary cùng lúc | DS tối đa1 primary/khung; frame1 không có booking CTA, frame2 chỉ+, frame3 empty chỉ1 entry. Sản phẩm còn OPEN trước Home approval |P1|
+
+### Checklist mục4 và phạm vi sau sửa
+
+Header/chuông và xanh dương mesh: candidate PASS; nav có label và+khác list: PASS; section link: PASS cho collection, omit khi chỉ1 nhóm; bento có profile/question/facts/guide/state khác vai trò: PASS trong specimen; số00: không render trên candidate; artwork không stock/cắt: kiểm geometry và ảnh thực; normal type/tab/stepper/insets và states: kiểm Chromium/WebKit. Toàn bộ47 màn sản phẩm tiếp tục **OPEN**, không coi DS là đã hoàn thành Home hoặc các màn còn lại.
+
+Evidence before: [Design System cũ](card-evidence/blue-green-before/design-system.png). Evidence after, test và20pair ratios: [review mới](card-evidence/blue-green/review.md). Các audit và số liệu bên dưới là lịch sử của các brief trước.
+
+## Lịch sử — pastel foundation gate đầu, 19/10/2026
+
+The latest user brief replaces the heavy navy/photo draft with white + pastel mesh + navy accents. **Step1 inventory recorded before Step2 CSS edits.** Current gate: shared foundation candidate; Home and B–G await approval. This section does not mark the old product UI as migrated.
+
+- [Every screen and card/section/form row](card-evidence/pastel-foundation-before/audit.md):47 canonical patient states /161 rendered instances. Each row has screen, position/card selector, type, specific DOM findings and priority; unresolved visual/copy/contrast/state reviews are named, not marked PASS.
+- [Machine-readable checks and actual typography](card-evidence/pastel-foundation-before/inventory.json), [all72 tracked prototype files with kind/hash/scan scope](card-evidence/pastel-foundation-before/source-inventory.json).
+- Global issues: B1 has3 detected booking entries in content before counting +;34 card/group instances include stock images across22 screens;75 linear-gradient instances need composition review, not automatic deletion;4 nested/group instances contain00. These are findings per DOM instance and may overlap; they are not counts of independent defects.
+- Navigation captions are explicitly `hidden` in the current app.js. Nav is visible in34 canonical states; all applicable screens need visible captions when migrated. Non-nav booking/safety/call screens retain their flow-specific controls.
+- Reference1: large opaque navy photo captions need lighter grouping and less repetition. Reference2: four shortcuts + promotional booking repeat the same task; portrait stock conflicts with the new image rule. Reference3:00 metrics, orbit collage, empty appointment and extra booking CTA lack clear prioritization. These observations are from the supplied crops, not newly captured production evidence.
+
+### Checklist coverage before migration
+
+| Rule group from user §3 | Before finding / review status | Owning component or screen |
+|---|---|---|
+| Header/bell, remove repeated logo | Current header/content composition differs across routes; REVIEW individual identity/back/error contexts | app.js + views.js; candidate header ready for review |
+| Nav labels, + vs appointment list | FAIL where nav appears: captions hidden; preserve distinct routes | shared navigation candidate; app integration pending |
+| Section title + Xem tất cả | REVIEW each collection vs single item; do not add a meaningless link to forms/status notices | sectionHeader; B1 first |
+| Mixed bento roles | Current B1 has metric/network/media/CTA but stock and repeated booking compete; REVIEW content grouping, not force bento onto safety/call forms | each screen composition |
+| Max1–2 booking entries | FAIL B1 (3 content entries +nav); route buttons inside booking itself are progression, not duplicate booking entries | B1 |
+| Empty state, no00 | FAIL B1 nested/group counts include00; every empty fixture and filtered-zero state reviewed during migration | empty/metric/card |
+| Imagery and palette |22 screens contain stock imagery; REVIEW replacement with coherent illustration; don't infer actual clinician identity | illustrations/media |
+| Wrap, typography, no(demo), natural Vietnamese | Type sizes recorded per card in JSON; unrendered long/large/expanded states REVIEW, not blanket PASS | type tokens + composition |
+| Default/pressed/disabled/error/loading/empty | Foundation specimen testable; actual flow state bindings REVIEW until corresponding screen | shared components + existing state model |
+
+### After Step2 (component candidate only)
+
+`design/preview.html` uses the existing tokens/components/ui owners, with opt-in pastel scope and an isolated interaction harness. Existing prototype/staff screens are not opted in. Candidate states/contrast/responsive evidence and seven-sign review are recorded in [photo-led-review.md](photo-led-review.md). Home screen audit remains **OPEN — user review required**.
+
+## Historical audit evidence (prior navy iterations)
+
 Baseline 2026-10-18T09:05:12.233Z; 62 representative screens, 154 rendered card/section instances.
 
 47 canonical patient +15 desktop doctor routes. Reception/nursing/wave3 legacy không load trong doctor-only index: kiểm kê tĩnh, không phục hồi vai trò. Canonical fixture là default evidence; expanded/error/filter states kiểm riêng.
@@ -451,3 +533,6 @@ Before: `navy-reference-before/inventory.json`, 195 instances/62states. After: `
 | B1,F1,H1,I1 | Arrow/mini-sheet | craft | Caption filter tạo containing block; footer padding ăn vào art text | Bỏ filter vô ích, thu selector, thêm arrow/title collision assertion và inspect ảnh sau sửa | RESOLVED/P1 |
 
 QA không chứng minh user preference: các giá trị từ reference là quyết định thiết kế; số liệu nội dung từ model. Chi tiết 114/12 patient runs, staff reruns và 7-dấu-hiệu checklist: `photo-led-review.md`.
+# Bổ sung đợt polish8 nhóm —19/10/2026
+
+Theo tám ảnh người dùng gửi: cập nhật Hỗ trợ, form, thông tin cá nhân, người thân/cài đặt, chọn người đi khám, hướng dẫn quyền hồ sơ, lựa chọn sàng lọc và ngày/giờ. Bảng trước/sau, nguồn và kiểm tra chi tiết: [review card-polish](card-evidence/card-polish/review.md). Kết quả64 kiểm tra tập trung PASS; hợp nhất hồi quy264/264 case trình duyệt PASS,49/49 model PASS. Không thay thế các kết luận UNKNOWN/backlog ngoài phạm vi này.

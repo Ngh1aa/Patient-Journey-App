@@ -2,7 +2,16 @@
   function icon(name, size = 20, cls = '') {
     const s = size;
     const common = `width="${s}" height="${s}" class="cf-icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
+    const solid = common.replace('fill="none"', 'fill="currentColor"').replace('stroke="currentColor"', 'stroke="none"');
     switch (name) {
+      case 'home-filled':
+        return `<svg ${solid}><path fill-rule="evenodd" d="M12 2 2 10v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10Zm-2 12h4v8h-4Z"/></svg>`;
+      case 'calendar-filled':
+        return `<svg ${solid}><path fill-rule="evenodd" d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 4h14v2H5Zm2 5h3v3H7Zm7 0h3v3h-3ZM7 18h3v2H7Z"/><path d="M7 1h2v5H7Zm8 0h2v5h-2Z"/></svg>`;
+      case 'user-filled':
+        return `<svg ${solid}><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3Z"/></svg>`;
+      case 'headphones-filled':
+        return `<svg ${solid}><path d="M2 12a10 10 0 0 1 20 0v6a3 3 0 0 1-3 3h-2v-9h3a8 8 0 0 0-16 0h3v9H5a3 3 0 0 1-3-3Z"/></svg>`;
       case 'search':
         return `<svg ${common}><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="m16 16 5 5"></path></svg>`;
       case 'upload':
@@ -41,6 +50,10 @@
         return `<svg ${common}><path d="M4 12h16"></path><polyline points="13 5 20 12 13 19"></polyline></svg>`;
       case 'chevron-right':
         return `<svg ${common}><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+      case 'chevron-down':
+        return `<svg ${common}><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+      case 'globe':
+        return `<svg ${common}><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a18 18 0 0 1 0 18 18 18 0 0 1 0-18"></path></svg>`;
       case 'chevron-left':
         return `<svg ${common}><polyline points="15 18 9 12 15 6"></polyline></svg>`;
       case 'check':
@@ -92,17 +105,9 @@
     }
   }
 
-  // Stock portrait belongs only to the synthetic demo account. Unknown people keep
-  // a stable illustration; never assign a stock clinician photo to a named doctor.
+  // Neutral profile symbol: no stock portrait is assigned to a named person.
   window.CareFlowAvatar = function (seed, size = 44) {
-    if (['p1', 'account'].includes(String(seed))) {
-      return `<img class="cf-avatar-photo" src="./assets/images/unsplash/account-portrait.webp" width="${size}" height="${size}" alt="" title="Ảnh đại diện minh họa" decoding="async">`;
-    }
-    const hash = Array.from(String(seed)).reduce((n,c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
-    const palettes = [['#dceaff','#f3c5aa','#29394f','#001d57'],['#e8e5fb','#bd886b','#242c3e','#7860aa'],['#dff1eb','#edb798','#473931','#368875'],['#f6e6e1','#d6a27b','#354057','#c07466']];
-    const [bg,skin,hair,shirt] = palettes[hash % palettes.length];
-    const longerHair = hash % 3 === 0;
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="20" fill="${bg}"/>${longerHair ? `<path d="M15 32c0-23 34-23 34 0v20H15Z" fill="${hair}"/>` : ''}<path d="M8 64c1-20 47-20 48 0" fill="${shirt}"/><path d="M27 42h10v11c-4 3-7 3-10 0" fill="${skin}"/><ellipse cx="32" cy="30" rx="14" ry="18" fill="${skin}"/><path d="M18 29c-5-22 31-27 29 1-7-1-14-9-17-13-1 6-6 10-12 12" fill="${hair}"/><circle cx="26" cy="31" r="1.3" fill="#283448"/><circle cx="38" cy="31" r="1.3" fill="#283448"/><path d="M28 39q4 3 8 0" fill="none" stroke="#875b4b" stroke-width="1.5" stroke-linecap="round"/><path d="M23 51l9 7 9-7" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>`;
+    return `<span class="cf-person-avatar" style="width:${Number(size)}px;height:${Number(size)}px" aria-hidden="true">${icon('user',Math.round(Number(size)*.55))}</span>`;
   };
   window.CareFlowIcon = icon;
 })();

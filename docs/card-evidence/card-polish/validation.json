@@ -1,0 +1,1862 @@
+{
+  "sourceFiles": [
+    "browser-final.json",
+    "regression.json",
+    "regression-reflow.json"
+  ],
+  "total": 264,
+  "passed": 264,
+  "failed": [],
+  "skipped": 0,
+  "scope": "Unique test title/project pairs; later targeted rerun supersedes earlier result for the same case. Browser reflow is not a usability study or complete WCAG certification.",
+  "cases": [
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 320px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 360px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 390px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 1440px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "guided prefill updates counters without overwriting user edits",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "empty relatives show one explicit add action and booking draft survives adding a profile",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support and profile remain accessible with large text",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 320px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 360px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 390px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "eight reviewed card groups preserve actions and reflow at 1440px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "guided prefill updates counters without overwriting user edits",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "empty relatives show one explicit add action and booking draft survives adding a profile",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support and profile remain accessible with large text",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "navigation names all destinations, exposes booking and keeps profile add stable",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "appointment management is before the ticket and opens existing change/cancel flows",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "contextual tips open with keyboard; patient shortcut returns to the existing selection screen",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking hides tab nav and preserves draft through Back, forward and reload",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "quick dates update the actual booking, custom date selection and reload remain consistent",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 360px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 390px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 1440px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "submitted, pending and confirmed states differ by copy and visual treatment; home passes axe",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "navigation names all destinations, exposes booking and keeps profile add stable",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "appointment management is before the ticket and opens existing change/cancel flows",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "contextual tips open with keyboard; patient shortcut returns to the existing selection screen",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking hides tab nav and preserves draft through Back, forward and reload",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "quick dates update the actual booking, custom date selection and reload remain consistent",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 360px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 390px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "five navigation controls have distinct actions and accessible targets at 1440px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "submitted, pending and confirmed states differ by copy and visual treatment; home passes axe",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 360px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 390px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 1440px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "large-text booking deliberately collapses its header after scrolling",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "lab time and file controls retain the lab booking and upload contracts",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 360px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 390px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "booking chrome reserves CTA and keeps full header at 1440px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "large-text booking deliberately collapses its header after scrolling",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "lab time and file controls retain the lab booking and upload contracts",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "profile reference uses the account owner and sends an update request without changing identity",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "relative tiles open details, preserve result permissions and select the correct patient for booking",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support reference FAQ, channels and request history have functional actions and truthful empty states",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "profile reference uses the account owner and sends an update request without changing identity",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "relative tiles open details, preserve result permissions and select the correct patient for booking",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support reference FAQ, channels and request history have functional actions and truthful empty states",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 320px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 360px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 390px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 1440px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support preserves callback deduplication and submitted request values",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "completed visit contact cards retain their distinct care routes",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "large text reflows contact cards and keeps emergency, form and navigation accessible",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 320px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 360px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 390px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support contact bento and compact emergency remain usable at 1440px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "support preserves callback deduplication and submitted request values",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "completed visit contact cards retain their distinct care routes",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "large text reflows contact cards and keeps emergency, form and navigation accessible",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "browser-final.json",
+      "errors": []
+    },
+    {
+      "title": "legacy booking deep link restores guide without replacing empty draft",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "legacy booking deep link restores guide without replacing entered draft",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "explicit inspection mode persists through reload without presentation autofill",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F1/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F2/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F3/review: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F3/emergency: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F4/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F5/visit: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F5/during: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/cancel: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/no-show: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/reschedule: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F7/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/callback: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/online: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/onsite: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/transfer: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/counter: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/pharmacy: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/later: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/refund: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/free: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/summary: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/more: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/explain: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/callback: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/medicine: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/question: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/symptoms: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/urgent: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/tracking: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/referral: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F12/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided shell is accessible, responsive, persistent and uses prefilled fields",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "legacy booking deep link restores guide without replacing empty draft",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "legacy booking deep link restores guide without replacing entered draft",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "explicit inspection mode persists through reload without presentation autofill",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F1/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F2/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F3/review: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F3/emergency: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F4/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F5/visit: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F5/during: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/cancel: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/no-show: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F6/reschedule: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F7/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/callback: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/online: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F8/onsite: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/transfer: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/counter: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/pharmacy: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/later: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/refund: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F9/free: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/summary: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/more: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/explain: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F10/callback: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/medicine: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/question: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/symptoms: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/urgent: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/tracking: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F11/referral: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided F12/default: patient clicks and clinic handoffs complete the checklist",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "guided shell is accessible, responsive, persistent and uses prefilled fields",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home empty state is honest and has two booking entrances including navigation",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home appointment opens the actual visit and displays its clinician",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "aftercare remains conditional and does not fabricate medication reminders",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 360",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 390",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 1440",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home empty state is honest and has two booking entrances including navigation",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home appointment opens the actual visit and displays its clinician",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "aftercare remains conditional and does not fabricate medication reminders",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 360",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 390",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "home scrolls while navigation reserves space at 1440",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F2 existing profile is confirmed and can be updated without re-entry",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "device permission recovery and preview cleanup preserve the online visit",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "support callback accepts the request once without requiring an appointment",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F4 arrives → received → ready → in-consult → completed in order",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F5 lab appointment, external file, both return paths and staff result release",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F7 online preparation, incoming call, controls, staff completion",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 wait for callback keeps unreachable visit open",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 replacement appointment: online",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 replacement appointment: onsite",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method counter-pending remains pending until staff receipt",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method pharmacy-pending remains pending until staff receipt",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method transfer-pending remains pending until staff receipt",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 defer validates reason/date and fee waiver stays separate",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason medicine",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason question",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason symptoms",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 tracking, referral, messages and follow-up recommendation",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F12 follow-up starts a new linked visit without losing the old profile",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "unknown found recovery returns the single pending request",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "offline retains typed form and recovers after reconnection",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "proxy permission is bound to visit; direct links cannot expose health results",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "Back, reload, safe notification deep link and invalid entity recovery",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "deep link authentication resumes the exact visit after matching the profile",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "settings persist through reload and reset; support and FAQ are functional",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "upload rejects invalid content; text is escaped rather than executed",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "leaving online call never marks consultation completed",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 360",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 390",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 360 large text",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "D2 has one primary next action in every main state",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "unknown request locks earlier booking steps until reconciliation",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "typed booking draft survives reload without persisting OTP",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "D2 next action is visible at 360px before scrolling",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "skip content preserves route and direct-link header Back has an in-app exit",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F5 existing external result goes directly from ordered to available",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "large text actually doubles editable text, with no horizontal overflow",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 multiple completed visits keep the selected report context",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "adding a relative while booking returns to the correct selected patient",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "login after proxy booking confirms the account owner, not the selected relative",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "navigation does not steal focus from a patient field on the next frame",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F2 existing profile is confirmed and can be updated without re-entry",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "device permission recovery and preview cleanup preserve the online visit",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "support callback accepts the request once without requiring an appointment",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F4 arrives → received → ready → in-consult → completed in order",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F5 lab appointment, external file, both return paths and staff result release",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F7 online preparation, incoming call, controls, staff completion",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 wait for callback keeps unreachable visit open",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 replacement appointment: online",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 replacement appointment: onsite",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method counter-pending remains pending until staff receipt",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method pharmacy-pending remains pending until staff receipt",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 method transfer-pending remains pending until staff receipt",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 defer validates reason/date and fee waiver stays separate",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason medicine",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason question",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 distinct aftercare reason symptoms",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 tracking, referral, messages and follow-up recommendation",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F12 follow-up starts a new linked visit without losing the old profile",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "unknown found recovery returns the single pending request",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "offline retains typed form and recovers after reconnection",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "proxy permission is bound to visit; direct links cannot expose health results",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "Back, reload, safe notification deep link and invalid entity recovery",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "deep link authentication resumes the exact visit after matching the profile",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "settings persist through reload and reset; support and FAQ are functional",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "upload rejects invalid content; text is escaped rather than executed",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "leaving online call never marks consultation completed",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 360",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 390",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "all 47 routes render and reflow 360 large text",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "D2 has one primary next action in every main state",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "unknown request locks earlier booking steps until reconciliation",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "typed booking draft survives reload without persisting OTP",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "D2 next action is visible at 360px before scrolling",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "skip content preserves route and direct-link header Back has an in-app exit",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F5 existing external result goes directly from ordered to available",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "large text actually doubles editable text, with no horizontal overflow",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "F11 multiple completed visits keep the selected report context",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "adding a relative while booking returns to the correct selected patient",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression-reflow.json",
+      "errors": []
+    },
+    {
+      "title": "login after proxy booking confirms the account owner, not the selected relative",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "navigation does not steal focus from a patient field on the next frame",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 320px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 360px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 390px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 1440px",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "appointment badge deduplicates real unread visit updates and clears only when read",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "booking remains separate from appointment list and resumes the existing clinical draft",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "large-text navigation avoids overlap with content and auth has no tab bar",
+      "project": "Chromium",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 320px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 360px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 390px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "integrated navigation has raised booking, filled selection and accessible icon-only tabs at 1440px",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "appointment badge deduplicates real unread visit updates and clears only when read",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "booking remains separate from appointment list and resumes the existing clinical draft",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    },
+    {
+      "title": "large-text navigation avoids overlap with content and auth has no tab bar",
+      "project": "WebKit",
+      "status": "expected",
+      "source": "regression.json",
+      "errors": []
+    }
+  ]
+}

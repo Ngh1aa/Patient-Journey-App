@@ -1,0 +1,41 @@
+[
+  {
+    "width": 390,
+    "errors": [],
+    "gap": "normal",
+    "emergencyHeight": 174.78125,
+    "overflow": false,
+    "sections": [
+      {
+        "text": "Cần trợ giúp khẩn cấp?",
+        "y": 178.78125,
+        "h": 174.78125
+      },
+      {
+        "text": "Hỗ trợ từ phòng khám",
+        "y": 353.5625,
+        "h": 140.796875
+      },
+      {
+        "text": "Liên hệ nhanh",
+        "y": 514.359375,
+        "h": 193.59375
+      },
+      {
+        "text": "Gửi yêu cầu",
+        "y": 727.953125,
+        "h": 497.234375
+      },
+      {
+        "text": "Câu hỏi thường gặp",
+        "y": 1245.1875,
+        "h": 284
+      },
+      {
+        "text": "Tin nhắn gần đây",
+        "y": 1549.1875,
+        "h": 118.390625
+      }
+    ]
+  }
+]

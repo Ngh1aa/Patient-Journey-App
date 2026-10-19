@@ -1,5 +1,85 @@
 # Photo-led CareFlow — review và QA
 
+## Hiện hành — toàn bộ màn dùng Design System, 19/10/2026
+
+Đã chuyển47 màn bệnh nhân và15 route bác sĩ đang hoạt động sang bộ dùng chung. Card không còn phụ thuộc ảnh stock/nền navy; header, nav, type, nút, tab, stepper, badge, facts, forms và artwork dùng cùng tokens. Checklist7 dấu hiệu của đợt hiện tại, vị trí và vai trò cụ thể: [all-screens/review.md](card-evidence/all-screens/review.md). Bằng chứng trước: [all-screens-before/audit.md](card-evidence/all-screens-before/audit.md); sau: [all-screens-after/audit.md](card-evidence/all-screens-after/audit.md).
+
+---
+
+Các mục phía dưới là lịch sử của các đợt trước; mốc chờ duyệt và phạm vi cũ đã được yêu cầu mới thay thế.
+
+
+## Đợt đang hoạt động — điều hướng đã gắn vào app, 19/10/2026
+
+Navbar hiện có trong `/prototype/`, không chỉ DS. Mẫu Next/Continue, avatar, state filters, button captions/spinner, confirmed/completed tones và guide footer được sửa theo phản hồi mới. Single navigation renderer giữ route/actions, badge dựa unread visit updates. Primary background đã dùng shared black token ở các consumer hiện có, không đổi clinical flow.
+
+Scope/evidence và kết quả kiểm mới: [navigation-integration/review.md](card-evidence/navigation-integration/review.md). Bố cục Home và các page card chưa migrate toàn bộ; không dùng cập nhật navbar làm bằng chứng hoàn tất47màn. Các phần “bản duyệt” bên dưới là lịch sử của những vòng trước.
+
+## Bản duyệt đang hoạt động — blue/green Design System, 19/10/2026
+
+Đã xử lý6 lỗi người dùng chỉ ra trong **bộ component**, với primary#0B1220, chỉ4 pastel xanh dương/xanh lá, section link không nền, avatar+count và quick-question có hai anatomy khác nhau, artwork outline có slot cố định, khóa/loading tách biệt. Mỗi khung có tối đa1primary; trạng thái busy thay thế default chứ không thêm primary thứ2.
+
+**Chờ duyệt bước2**, chưa làm Home/B–G. Nội dung/logic sản phẩm không có diff. Rà soát47màn/161vùng và các giới hạn còn OPEN xem [card-audit.md](card-audit.md). Evidence, bảng20pair contrast và7 dấu hiệu: [blue-green/review.md](card-evidence/blue-green/review.md). Palette cũ và kết quả QA phía dưới là lịch sử; không dùng làm số liệu cho bản mới.
+
+## Lịch sử — bản pastel foundations đầu, 19/10/2026
+
+**Mốc bàn giao: bước2, chờ người dùng duyệt bộ component.** Link `/design/preview.html`; sản phẩm tại `/prototype/` chưa được bật theme pastel. Chỉ sau khi duyệt mới làm Trang chủ và dừng tiếp để duyệt Trang chủ; B–G vẫn OPEN. Nhánh `redesign/cards-v2`, chưa merge main. Không coi bộ component hay ảnh ghép là redesign47 màn đã hoàn thành.
+
+### Đã sửa trong phạm vi bộ dùng chung
+
+- CSS variables đúng palette mới, mesh2 vệt radial; navy dùng cho chữ/nút/nav thay các khối lớn. Trắng là nền chính; không có thẻ navy trong specimen. Tỉ lệ60/30/10 là định hướng composition, chưa đo tỷ lệ pixel.
+- Một font Plus Jakarta Sans local; vai trò page24/section18/card16/number36/body14/meta13/status12. Cỡ tiêu đề thẻ không phụ thuộc h2/h3. Card lớn24/small16, nhịp4/8, inset16–20; nút giới hạn chiều rộng, không tràn card hai cột.
+- Minh họa phẳng SVG token-owned cho lịch/phòng khám/hồ sơ/hỗ trợ; không stock, không suy ra danh tính bác sĩ/phòng khám từ ảnh. Không dùng công cụ cắt ảnh hay lấp mọi form bằng ảnh.
+- Header có tiêu đề/chuông và unread từ dữ liệu. Nav có nhãn; + viền xám mở booking, Lịch hẹn dành cho danh sách. Tabs hỗ trợ bàn phím; stepper4 nhóm, nhãn một dòng. Chữ200% chuyển bento/stepper/nav sang bố cục phù hợp, không cắt chữ.
+- Nút chính/phụ/nguy hiểm/disabled/loading; error+Thử lại, empty+action, ready; pressed/current có ARIA. Trạng thái hủy đỏ nhạt có nhãn/icon. Thẻ trạng thái cao theo nội dung, bỏ min-height gây trắng dư.
+- Giữ API card/button/status hiện có, thêm primitives trong `design/ui.js`; harness `preview.js` không ghi session/patient data. `prototype/model.js`, `app.js`, `views.js`, rich content và staff renderers không có diff trong đợt này.
+
+### QA và evidence
+
+| Kiểm tra | Kết quả / giới hạn |
+|---|---|
+| Candidate browser checks |20/20 PASS, Chromium/WebKit;360/390/768/1440, inset/target/nav labels, stepper/tab keyboard, recovery, zero persistence, escaping, theme isolation |
+| Related existing flows |18/18 PASS, Chromium/WebKit: appointment/profile/booking loading+slot error, cross-role status, staff keyboard/large/empty and representative axe; combined run38/38 |
+| Chữ200% |PASS candidate360px, tăng các type token đúng2×; không overflow trang, nút không cắt, nhãn step không wrap. Đây là web large-text harness, chưa phải native iOS Dynamic Type |
+| Contrast |14 exact pairs, min**5.024:1**. Navy trên white +4 pastel extremes; muted trên white/page; primary và5 semantic tones. Không suy ra mọi tổ hợp tùy ý đều đạt; muted không dùng trên mesh |
+| Axe |0 violations trong tags WCAG2A/AA/2.1AA trên specimen rỗng/tải/lỗi/có dữ liệu, cả2 engine. Không chứng nhận đầy đủ WCAG hay native screen reader |
+| Source/syntax/model |npm run check + preview.js syntax PASS; model49/49 PASS; shared component CSS0 màu literal, màu nằm tại tokens.css;4 source contract checks PASS |
+| Captures |8 ảnh actual trong `card-evidence/pastel-foundation/`:4 widths +mobile card +200% +error +focus/nav. Đã mở xem desktop/default, mobile,200%, error vàfocus/nav |
+| Product source |Main vẫn25dfe12208299b2d40ecf1c4f59441302c1ba9c5; không đổi model/clinical guards/47 routes. Legacy CSS còn màu literal và chưa migrate trước duyệt |
+
+Artifacts: [final candidate results](card-evidence/pastel-foundation/foundations-final-results.json), [combined regression results](card-evidence/pastel-foundation/browser-results.json), [contrast](card-evidence/pastel-foundation/contrast.json), [capture report](card-evidence/pastel-foundation/capture-report.json), [source gate](card-evidence/pastel-foundation/source-contract.json). Máy host ghi UTC18/10; báo cáo dùng ngày19/10 theo client Asia/Bangkok. Số PASS không phải người dùng đã duyệt thẩm mỹ.
+
+### Checklist review ảnh — đủ7 dấu hiệu
+
+Scope: `/design/preview.html`,3 frame component ở360/390/1440 và360 chữ200%; trạng thái rỗng/tải/lỗi/ready; các ảnh link bên dưới. Không áp kết luận này cho47 màn ứng dụng chưa migrate.
+
+| ID / dấu hiệu | Kết luận | Vị trí trên giao diện và vai trò / bằng chứng |
+|---|---|---|
+| AI-01 neon cạnh tranh |không xuất hiện|[Desktop3 frame](card-evidence/pastel-foundation/components-1440.png): pastel sáng, navy cho tiêu đề/nút/nav; màu trạng thái dùng nghĩa pending/success/cancelled. Không có neon/high-chroma blocks trong scope đã xem |
+| AI-02 dark/glow/bloom |không xuất hiện|Header, thẻ và nav đều nền sáng trong desktop/mobile. Shadow nhẹ ở frame/nav chỉ phân lớp, không hiệu ứng phát sáng hoặc ngụ ý trạng thái |
+| AI-03 emoji thay icon |không xuất hiện|Chuông, lịch, nút, status vànav dùng registry SVG cùng nét; [focus/navigation](card-evidence/pastel-foundation/focus-navigation-column.png). Không dùng emoji làm action |
+| AI-04 gradient tím mặc định |có mục đích rõ|[Frame1](card-evidence/pastel-foundation/card-column-390.png): header+hero baby blue/lavender định hướng; thẻ chuẩn bị lavender/peach nhấn nội dung hỗ trợ. Frame3 mint/blue cho mẫu kết quả. Có nguồn từ brief của người dùng;14pairs và foreground navy bảo đảm chữ rõ; không rải gradient vào tất cả thẻ |
+| AI-05 card/nested card |có mục đích rõ|Frame1 phân biệt lịch hẹn(date/status/action), hồ sơ(count), hỗ trợ(message), chuẩn bị(guide). Frame2 là component showcase với section mẫu, không phải đề xuất đưa tất cả nút vào Trang chủ. Frame3 chuyển trạng thái cùng1 đối tượng. Không có shell card bên trong card chỉ để viền; [mobile](card-evidence/pastel-foundation/card-column-390.png) |
+| AI-06 thanh màu cạnh/trái nhiều màu |không xuất hiện|Cả3frame, nav vàtab không dùng rainbow left strips. Selected tab/nav có label và ARIA; màu không thay nhãn |
+| AI-07 status dot không rõ nguồn |có mục đích rõ|Headerframe1 có số unread từ fixture notification.read; không dot online. Badge có nhãn/icon từ CareFlowUI.status + strings, không suy ra trạng thái lâm sàng từ màu. Các biến thể pending/cancelled/completed trong frame2/3 được gắn nhãn mẫu component; [error/state](card-evidence/pastel-foundation/error-column.png). Tích hợp dữ liệu từng màn chờ duyệt |
+
+### Phần còn lại / chưa thống nhất
+
+1. Chờ duyệt bộ component, sau đó mới Home: bớt booking lặp, bỏ00, thay ảnh, sắp xếp hero/overview/quick/profile/support theo nhiệm vụ. Không lấy toàn bộ specimen làm1màn Home.
+2. Sau Home được duyệt mới B→G; mapping4group booking giữ nguyên clinical branches, status, ID vàQR thật từ model. Luồng dữ liệu không bị giản lược để khớp reference.
+3. Audit cấp màn/card còn REVIEW cho copy/vai trò/section action/wrap/long content/từngstate trong ledger;47fixture không bằng bao phủ mọi biến thể. Staff không nằm trong đợt pastel mobile mới và vẫn dùng draft hiện tại.
+4. Legacy CSS/token proposals lịch sử trong tokens.json còn khác CSS runtime; candidate đọc tokens.css, metadata cũ giữ như archive. Migrate dần khi duyệt màn, không tự cleanup rộng lúc foundation review.
+5. Native iOS/VoiceOver, usability với người dùng thật và cải thiện kết quả nghiệp vụ: UNKNOWN.
+
+Local preview đang dùng cổng4186. Khởi động lại từ thư mục repo khi cần:
+
+```powershell
+$env:PORT='4186'
+node prototype/preview-server.cjs
+```
+
+## Lịch sử bản navy (đã được brief pastel mới thay thế về định hướng)
+
 ## Bản đang xem — navy reference cards, 19/10/2026
 
 Hai ảnh crop mới của người dùng là visual constraint. Đã thay cấu trúc card theo sáu anatomy: metric, avatar orbit, portrait, overlapping schedule/paper, icon topic và compact CTA. Gradient navy `#001D57 → #16386C → #264F86`; light wash xanh dùng cho giấy/thông tin. Các card thông tin, form, clinical result, notice và staff data dùng cùng token/type/radius/inset; trạng thái nguy hiểm/cảnh báo giữ semantic mapping.

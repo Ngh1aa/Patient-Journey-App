@@ -72,8 +72,8 @@ for(const width of [320,360,390,1440])test('booking nav and card facts remain re
   await page.setViewportSize({width,height:900});
   await page.goto('/prototype/?scenario=upcoming#/home');
   const book=page.locator('#bottom-nav .nav-book');
-  await expect(book.locator('.nav-caption')).toBeHidden();
-  await expect(book).toHaveCSS('background-color','rgb(0, 29, 87)');
+  await expect(book.locator('.nav-caption')).toBeVisible();
+  await expect(book.locator('.nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');
   const targets=await page.locator('#bottom-nav > *').evaluateAll(nodes=>nodes.map(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));
   expect(targets).toHaveLength(5);targets.forEach(t=>{expect(t.w).toBeGreaterThanOrEqual(44);expect(t.h).toBeGreaterThanOrEqual(44)});
   await book.focus();await page.keyboard.press('Enter');
@@ -105,12 +105,14 @@ test('desktop followup search filters owner and state without offering delegated
   expect(result.violations.filter(v=>['serious','critical'].includes(v.impact))).toEqual([]);
 });
 
-test('real lab photograph is bundled and attributed, no external image dependency',async({page})=>{
+test('lab artwork is local vector presentation and never substitutes for a clinical result',async({page})=>{
   await page.goto('/prototype/?scenario=pre-lab');await route(page,'F1');
-  const img=page.locator('img[src*="unsplash/laboratory.webp"]').first();await expect(img).toBeVisible();
-  expect(await img.evaluate(el=>el.complete&&el.naturalWidth>0)).toBe(true);
-  const source=await (await page.request.get('/prototype/assets/images/unsplash/sources.json')).json();
-  expect(source[0].photo).toBe('https://unsplash.com/photos/pwcKF7L4-no');
+  const artwork=page.locator('.cf-lab-card .cf-illustration');await expect(artwork).toBeVisible();
+  await expect(artwork).toHaveAttribute('aria-hidden','true');
+  await expect(page.locator('.cf-lab-card img')).toHaveCount(0);
+  await expect(page.locator('.cf-lab-card')).toContainText('Đã chỉ định');
+  await page.getByRole('button',{name:'Xem chỉ định',exact:true}).click();
+  await expect(main(page)).toHaveAttribute('data-screen','F2');
 });
 
 test('200 percent booking label and private tools reflow and remain usable offline',async({page})=>{
@@ -122,9 +124,9 @@ test('200 percent booking label and private tools reflow and remain usable offli
     sessionStorage.setItem(key,JSON.stringify(saved));
   });
   await page.reload();
-  await expect(page.locator('.nav-book .nav-caption')).toBeHidden();
+  await expect(page.locator('.nav-book .nav-caption')).toBeVisible();
   await expect(page.locator('.nav-book')).toHaveAccessibleName('Đặt lịch khám');
-  await expect(page.locator('.nav-book')).toHaveCSS('border-width','3px');
+  await expect(page.locator('.nav-book .nav-plus')).toHaveCSS('border-width','4px');
   await route(page,'E1');
   const tools=page.locator('[data-visit-tools]');
   await tools.locator('[data-preparation="details"]').focus();await page.keyboard.press('Space');

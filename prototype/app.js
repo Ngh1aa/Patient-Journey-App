@@ -10,6 +10,7 @@
   let guideEnabled = false;
   let restoredSession = false;
   let deviceStream = null;
+  let actionObserver = null;
   let s = M.initial(),
     u = {
       screen: 'A1',
@@ -259,6 +260,9 @@
     return 'D1';
   }
   function render() {
+    // Return persistent chrome controls before replacing the current screen.
+    const chrome = document.querySelector('.phone-header');
+    chrome.append($('back'), $('notifications'));
     const id = readRoute().id;
     u.screen = id;
     $('phone-frame').dataset.screen = id;
@@ -287,22 +291,18 @@
     $('phone-content').innerHTML = g
       ? V.head(g[1], g[2]) + V.go(VI.common.continue, g[3], 'primary')
       : V.render(id, s, u);
+    const intro = $('phone-content').querySelector('.screen-intro');
+    const inlineHeader = intro && !isAuth && !['G3', 'G4'].includes(id);
+    chrome.hidden = !!inlineHeader;
+    if (inlineHeader) {
+      intro.prepend($('back'));
+      intro.append($('notifications'));
+    }
     $('bottom-nav').hidden =
       !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id) || (s.draft && /^C[1-8]$/.test(id));
-    $('bottom-nav').innerHTML = [
-      ['B1', 'Trang chủ', 'home'],
-      ['D1', 'Lịch hẹn', 'calendar'],
-      ['C1', 'Đặt lịch', 'plus'],
-      ['K2', 'Hồ sơ', 'user'],
-      ['K5', 'Hỗ trợ', 'headphones'],
-    ]
-      .map(
-        ([to, label, icon]) =>
-          to === 'C1'
-            ? `<button type="button" class="nav-book" data-action="book-nav" aria-label="Đặt lịch khám" title="Đặt lịch khám"${activeTab(id) === to ? ' aria-current="step"' : ''}><span class="nav-plus" aria-hidden="true">${window.CareFlowIcon(icon, 28)}</span><span class="nav-caption" hidden>${label}</span></button>`
-            : `<a href="#${routeFor(to)}" aria-label="${label}" title="${label}"${activeTab(id) === to ? ' aria-current="page"' : ''}>${window.CareFlowIcon(icon, 22)}<span class="nav-caption" hidden>${label}</span></a>`,
-      )
-      .join('');
+    $('bottom-nav').innerHTML = window.CareFlowUI.navigation(activeTab(id), {
+      unread: window.CareFlowUI.appointmentUpdateCount(s), routeFor, contentOnly: true,
+    });
     $('offline-bar').hidden = !s.offline;
     $('offline-bar').textContent = VI.feedback.offline;
     $('phone-content')
@@ -322,6 +322,8 @@
       });
     updateDateSelection();
     updatePatientAction();
+    updateSafetyGuidance();
+    window.CareFlowUI.enhanceControls($('phone-content'), openControlSheet);
     window.CareFlowCollections?.refresh($('phone-content'));
     if (u.notice) {
       const node = document.createElement('div');
@@ -334,6 +336,8 @@
     $('phone-main').scrollTop = 0;
     renderReviewer();
     if (window.CareFlowJourney && guideEnabled && renderJourney()) return;
+    window.CareFlowUI.applyActionHierarchy($('phone-content'));
+    layoutBookingChrome(id, !!g);
     const qr = $('visit-qr');
     if (qr && window.qrcode) {
       const code = window.qrcode(0, 'M');
@@ -421,7 +425,10 @@
         transfer.items.add(new File(['%PDF-1.4\n% CareFlow portfolio attachment - no clinical data\n%%EOF'], 'Ket-qua-da-nhan.pdf', {type:'application/pdf'}));
         el.files = transfer.files;
       } else if (el.type==='checkbox' && (['consent','ack'].includes(el.name) || (el.name==='urgent' && branch==='urgent'))) el.checked=true;
-      else if (el.type!=='radio' && !el.value && values[el.name]) el.value=values[el.name];
+      else if (el.type!=='radio' && !el.value && values[el.name]) {
+        el.value=values[el.name];
+        el.dispatchEvent(new Event('input',{bubbles:true}));
+      }
     }
     const radios=Array.from(form.querySelectorAll('input[type=radio]'));
     const preferred=radios.find(el=>el.value===(u.journey.id==='F3'?'warning':'normal'));
@@ -522,10 +529,51 @@
     stopDevicePreview();
     if(!$('dialog').open)lastFocus = document.activeElement;
     $('dialog-title').textContent = title;
+    $('dialog').style.setProperty('--font-scale', getComputedStyle($('phone-frame')).getPropertyValue('--font-scale') || '1');
+    $('dialog').classList.remove('cf-control-sheet');
+    $('dialog-body').onkeydown = null;
     $('dialog-body').textContent = body;
     $('dialog-actions').innerHTML =
       buttons || V.btn('Đóng', 'close-dialog', {}, 'primary');
     $('dialog').showModal();
+  }
+  function openControlSheet(title, trigger) {
+    dialog(title, '');
+    lastFocus = trigger;
+    $('dialog').classList.add('cf-control-sheet');
+    $('dialog').dataset.cfTheme = 'pastel';
+    $('dialog-actions').replaceChildren();
+    return $('dialog-body');
+  }
+  function layoutBookingChrome(id, guarded) {
+    actionObserver?.disconnect();
+    const phone = $('phone-frame');
+    const booking = !guarded && !!s.draft && /^C[1-8]$/.test(id);
+    phone.toggleAttribute('data-cf-booking', booking);
+    phone.removeAttribute('data-cf-header-collapsed');
+    phone.style.removeProperty('--cf-cta-height');
+    if (!booking) return;
+    const header = $('phone-content').querySelector('.screen-masthead');
+    const person = header?.querySelector('.context');
+    const progressTitle = header?.querySelector('.booking-progress-title');
+    if (person && progressTitle) progressTitle.firstElementChild.replaceWith(person);
+    const footer = $('phone-content').querySelector('.form-actions');
+    if (!footer) return;
+    footer.dataset.cfDocked = 'true';
+    // The footer stays inside its form. Its containing block is the phone frame;
+    // reserve its measured height in the scroll viewport, including error lines.
+    const measure = () => phone.style.setProperty('--cf-cta-height', footer.getBoundingClientRect().height + 'px');
+    actionObserver = new ResizeObserver(measure);
+    actionObserver.observe(footer);
+    measure();
+  }
+  function updateSafetyGuidance() {
+    const form = $('phone-content').querySelector('form[data-form="safety"]');
+    if (!form) return;
+    const selected = form.querySelector('input[type="radio"]:checked');
+    form.querySelectorAll('.choice').forEach(choice => choice.classList.toggle('selected', choice.contains(selected)));
+    const alert = form.querySelector('[data-safety-guidance]');
+    if (alert) alert.hidden = selected?.value !== 'warning';
   }
   function stopDevicePreview() {
     deviceStream?.getTracks().forEach(track=>track.stop());
@@ -540,8 +588,11 @@
         : $('phone-content').querySelector('input,textarea');
       if (input) {
         input.setAttribute('aria-invalid', 'true');
-        input.setAttribute('aria-describedby', 'form-error');
-        input.focus();
+        input.setAttribute('aria-describedby', [...new Set([...(input.getAttribute('aria-describedby') || '').split(' ').filter(Boolean), 'form-error'])].join(' '));
+        const control = $(input.id + '-control') || input;
+        control.setAttribute('aria-invalid', 'true');
+        control.setAttribute('aria-describedby', 'form-error');
+        control.focus();
       }
     } else dialog(VI.feedback.awaiting, VI.errors[code] || VI.errors.REQUIRED);
     return false;
@@ -743,6 +794,15 @@
       go('K5');
       actions['support-compose']();
     },
+    'settings-open'(el) {
+      go('K4');
+      const field=$(el.dataset.focus);
+      field?.scrollIntoView({block:'center'});
+      field?.focus({preventScroll:true});
+    },
+    'settings-language'() {
+      dialog('Ngôn ngữ','CareFlow+ hiện hỗ trợ tiếng Việt.',V.btn('Đóng','close-dialog',{},'secondary'));
+    },
     'profile-relative'(el) {
       const person=M.profile(s,el.dataset.id);
       if(!person||person.relation==='self') return;
@@ -771,8 +831,12 @@
       details.scrollIntoView({block:'center'});
       $('name')?.focus({preventScroll:true});
     },
+    'profile-add-booking'() {
+      go('K2');
+      actions['profile-add-relative']();
+    },
     'support-channels'() {
-      dialog('Liên hệ phòng khám','Gọi lại: gửi yêu cầu để phòng khám liên hệ.\nNhắn tin: trao đổi về lượt khám được cấp quyền hoặc gửi câu hỏi qua form.\nGiờ hỗ trợ 7:30–19:00 (demo).',V.btn('Gửi câu hỏi','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog('Liên hệ phòng khám','Gọi lại: gửi yêu cầu để phòng khám liên hệ.\nNhắn tin: trao đổi về lượt khám được cấp quyền hoặc gửi câu hỏi qua form.\nGiờ hỗ trợ: liên hệ phòng khám để xác nhận.',V.btn('Gửi câu hỏi','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
     },
     'support-requests'() {
       dialog('Yêu cầu hỗ trợ',s.requests.map(request=>(request.type==='callback'?'Gọi lại':request.topic||'Yêu cầu hỗ trợ')+' · '+(request.status==='waiting'?'Chờ tiếp nhận':'Đã cập nhật')).join('\n')||'Bạn chưa gửi yêu cầu hỗ trợ.',V.btn('Gửi yêu cầu mới','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
@@ -792,6 +856,11 @@
       if($('dialog').open) $('dialog').close();
       $('support')?.scrollIntoView({ block: 'center' });
       $('support')?.focus({ preventScroll: true });
+    },
+    'support-topic'(el) {
+      u.forms.support={...u.forms.support,supportTopic:el.dataset.topic};
+      render();
+      actions['support-compose']();
     },
     'auth-jump'() {
       const id = u.screen === 'A1' ? (u.otpSent ? 'otp' : 'phone') : 'name';
@@ -1162,6 +1231,10 @@
     const name = form.dataset.form;
     u.forms[name] ??= {};
     u.forms[name][el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    if (name==='support' && el.name==='contactMode') {
+      const label=form.querySelector('[data-contact-mode-label]');
+      if(label) label.textContent={call:'Gọi điện',message:'Tin nhắn',zalo:'Zalo'}[el.value];
+    }
     el.removeAttribute('aria-invalid');
     if ($('form-error')) $('form-error').textContent = '';
     save();
@@ -1237,6 +1310,7 @@
       }
       case 'relative': {
         const result = M.createProfile(s, get('name'), get('dob'), 'relative');
+        if (!result.ok) return error(result.code, get('name') ? 'dob' : 'name');
         const returnToBooking = s.draft && s.request?.status !== 'done';
         if (result.ok && returnToBooking) M.choosePatient(s, result.profile.id);
         complete(result, returnToBooking ? 'C1' : 'K2');
@@ -1443,7 +1517,7 @@
     () => {
       stopDevicePreview();
       const focused=document.activeElement;
-      if(lastFocus?.isConnected && (focused===document.body || $('dialog').contains(focused))) lastFocus.focus();
+      if(lastFocus?.isConnected && ($('dialog').classList.contains('cf-control-sheet') || focused===document.body || $('dialog').contains(focused))) lastFocus.focus();
     },
   );
   $('review-toggle').addEventListener('click', () => {
@@ -1455,7 +1529,13 @@
   });
   $('screen-picker').addEventListener('change', (e) => go(e.target.value));
   $('scenario').addEventListener('change', (e) => loadScenario(e.target.value));
+  $('phone-main').addEventListener('scroll', () => {
+    const phone = $('phone-frame');
+    if (phone.hasAttribute('data-cf-booking') && phone.classList.contains('large-text') && $('phone-main').scrollTop > 24)
+      phone.setAttribute('data-cf-header-collapsed', '');
+  }, {passive:true});
   $('phone-content').addEventListener('change', (e) => {
+    if (e.target.closest('form[data-form="safety"]')) updateSafetyGuidance();
     if (e.target.id === 'date') updateDateSelection();
     if (e.target.closest('.patient-group') && e.target.type === 'radio') updatePatientAction();
     if (e.target.name === VI.screen.I1.visit) {
@@ -1466,6 +1546,8 @@
   });
   function updateDateSelection() {
     const value = $('date')?.value;
+    const month=$('phone-content').querySelector('[data-date-month]');
+    if(month && value) month.textContent=new Intl.DateTimeFormat('vi-VN',{month:'long',year:'numeric',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date(value+'T12:00:00+07:00'));
     $('phone-content').querySelectorAll('[data-action="quick-date"]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.date === value));
     });
@@ -1473,8 +1555,6 @@
   function updatePatientAction() {
     const group = $('phone-content').querySelector('.patient-group');
     const selected = group?.querySelector('.choice input:checked')?.closest('.choice');
-    const add = group?.querySelector('.add-relative-inline');
-    if (selected && add) selected.after(add);
     const label=selected?.querySelector('strong')?.textContent.trim();
     const caption=group?.closest('form')?.querySelector('[type="submit"] span');
     if(label&&caption) caption.textContent='Tiếp tục với '+label.split(/\s+/).slice(-2).join(' ');

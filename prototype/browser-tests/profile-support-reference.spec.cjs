@@ -6,7 +6,7 @@ test('profile reference uses the account owner and sends an update request witho
   await expect(page.locator('.cf-profile-masthead-account')).toContainText('Nguyễn Minh Anh');
   await expect(page.locator('.rich-profile-details')).toContainText('Chưa khai báo');
   const before=(await state(page)).profiles;
-  await page.getByRole('button',{name:'Xem tất cả thông tin cá nhân'}).click();
+  await page.getByRole('button',{name:'Xem hồ sơ',exact:true}).click();
   await expect(page.locator('#dialog')).toBeVisible();
   await expect(page.locator('#dialog-body')).toContainText('15/08/1994');
   await page.getByRole('button',{name:'Yêu cầu cập nhật',exact:true}).click();
@@ -45,15 +45,14 @@ test('support reference FAQ, channels and request history have functional action
   await page.locator('.rich-faqs summary').first().focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('.rich-faqs details').first()).toHaveAttribute('open','');
-  await page.getByRole('button',{name:'Xem tất cả câu hỏi thường gặp'}).click();
+  await page.getByRole('button',{name:'Xem thêm',exact:true}).click();
   await expect(page.locator('.rich-faqs details')).toHaveCount(5);
-  await page.getByRole('button',{name:'Xem tất cả gửi yêu cầu'}).click();
+  await page.locator('[data-action="support-requests"]').click();
   await expect(page.locator('#dialog-body')).toContainText('Bạn chưa gửi yêu cầu');
   await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();
   await expect(page.locator('#support')).toBeFocused();
-  await page.getByRole('button',{name:'Xem tất cả liên hệ nhanh'}).click();
-  await expect(page.locator('#dialog-body')).toContainText('Giờ hỗ trợ');
-  await page.getByRole('button',{name:'Gửi câu hỏi'}).click();
+  await page.locator('[data-topic="Thông tin hồ sơ"]').click();
+  await expect(page.locator('#supportTopic')).toHaveValue('Thông tin hồ sơ');
   await expect(page.locator('#support')).toBeFocused();
   expect((await state(page)).requests).toHaveLength(0);
   expect((await state(page)).messages).toHaveLength(0);

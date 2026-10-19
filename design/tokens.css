@@ -1,6 +1,12 @@
+@font-face { font-family: 'Plus Jakarta Sans'; src: url('../prototype/assets/fonts/PlusJakartaSans-Variable.ttf') format('truetype'); font-weight: 200 800; font-display: swap; }
 /* Shared semantic foundations. Patient and doctor composition stays in each renderer. */
 :root {
   --cf-brand: #001d57;
+  --cf-primary: #0b1220;
+  --cf-nav-selected: #cfe2ff;
+  --cf-nav-muted: #5b6b8c;
+  --cf-nav-label-font: 12px;
+  --cf-nav-shadow: 0 4px 24px #001d5710;
   --cf-on-brand: #ffffff;
   --cf-navy-mid: #16386c;
   --cf-navy-end: #264f86;
@@ -62,7 +68,8 @@
   --cf-card-padding: var(--cf-space-5);
   --cf-card-gap: var(--cf-space-3);
   --cf-motion-fast: 120ms;
-  --cf-nav-height: 64px;
+  --cf-nav-height: 88px;
+  --cf-bottom-clearance: 20px;
 }
 .phone {
   --cf-surface-page: #f7f8fa;
@@ -75,4 +82,120 @@
   --cf-control-font: 15px;
   --cf-control-height: 48px;
   --cf-card-padding: var(--cf-space-4);
+}
+
+/* Approved theme, shared by the gallery and the app surfaces. */
+[data-cf-theme="pastel"] {
+  --cf-brand: #001d57;
+  --cf-primary: #0b1220;
+  --cf-primary-loading: color-mix(in srgb, var(--cf-primary) 90%, var(--cf-surface));
+  --cf-on-brand: #ffffff;
+  --cf-baby-blue: #cfe2ff;
+  --cf-blue-deep: #b9d4ff;
+  --cf-mint: #cdefe4;
+  --cf-mint-deep: #b5e6d3;
+  --cf-surface-page: #f5f8fd;
+  --cf-surface: #ffffff;
+  --cf-text: #1f2a44;
+  --cf-text-muted: #5b6b8c;
+  --cf-line: #dce4f2;
+  --cf-surface-tonal: var(--cf-baby-blue);
+  --cf-nav-ring: #aeb8c6;
+  --cf-focus: var(--cf-brand);
+  --cf-input-line: #7685a1;
+  --cf-success: #176044;
+  --cf-success-surface: var(--cf-mint);
+  --cf-warning: #754700;
+  --cf-warning-surface: #ffe9cc;
+  --cf-danger: #a32632;
+  --cf-danger-surface: #ffe3e3;
+  --cf-danger-line: #e9a9ad;
+  --cf-info: var(--cf-brand);
+  --cf-info-surface: var(--cf-baby-blue);
+  --cf-neutral: var(--cf-text-muted);
+  --cf-neutral-surface: var(--cf-surface-page);
+  --cf-disabled-surface: #eef1f5;
+  --cf-disabled-ink: #5b667b;
+  --cf-shadow-ink: #001d570a;
+  --cf-card-shadow: 0 8px 32px var(--cf-shadow-ink);
+  --cf-mesh-hero: radial-gradient(ellipse at 0% 0%, var(--cf-baby-blue), transparent 72%), radial-gradient(ellipse at 100% 85%, var(--cf-blue-deep), transparent 72%);
+  --cf-mesh-feature: radial-gradient(ellipse at 0% 10%, var(--cf-baby-blue), transparent 75%), radial-gradient(ellipse at 100% 90%, var(--cf-mint-deep), transparent 70%);
+  --cf-mesh-result: radial-gradient(ellipse at 0% 20%, var(--cf-mint), transparent 70%), radial-gradient(ellipse at 100% 100%, var(--cf-mint-deep), transparent 75%);
+  --cf-card-wash: var(--cf-surface);
+  --cf-feature-wash: var(--cf-mesh-feature);
+  --cf-font-family: 'Plus Jakarta Sans', sans-serif;
+  --cf-page-title-font: 24px;
+  --cf-title-font: 18px;
+  --cf-card-title-font: 16px;
+  --cf-number-font: 36px;
+  --cf-body-font: 14px;
+  --cf-caption-font: 13px;
+  --cf-label-font: 13px;
+  --cf-status-font: 12px;
+  --cf-control-font: 14px;
+  --cf-control-height: 48px;
+  --cf-control-large: 52px;
+  --cf-radius-card: 24px;
+  --cf-radius-inner: 16px;
+  --cf-card-padding: var(--cf-space-5);
+  --cf-gutter: var(--cf-space-4);
+  --cf-nav-height: 88px;
+  --cf-media-surface: var(--cf-surface);
+  --cf-media-caption: var(--cf-surface);
+  --cf-media-ink: var(--cf-brand);
+  --cf-media-muted: var(--cf-text);
+  --cf-blue-cloud: var(--cf-surface-page);
+  --cf-blue-mist: var(--cf-baby-blue);
+  --cf-blue-sky: var(--cf-blue-deep);
+  --cf-navy-gradient: var(--cf-mesh-hero);
+  --cf-overlay: #001d575c;
+  --cf-preview-canvas: #eaf0f7;
+  --cf-border-shadow: #001d571a;
+  /* Compatibility names for existing layouts; colors have one owner. */
+  --bg: var(--cf-surface-page);
+  --surface: var(--cf-surface);
+  --primary: var(--cf-primary);
+  --primary-hover: var(--cf-primary);
+  --navy: var(--cf-brand);
+  --navy-deep: var(--cf-brand);
+  --careflow-navy: var(--cf-brand);
+  --ink: var(--cf-text);
+  --heading: var(--cf-brand);
+  --muted: var(--cf-text-muted);
+  --subtle: var(--cf-text-muted);
+  --border: var(--cf-line);
+  --input-border: var(--cf-input-line);
+  --blue-soft: var(--cf-baby-blue);
+  --success: var(--cf-success);
+  --success-soft: var(--cf-success-surface);
+  --warning: var(--cf-warning);
+  --warning-soft: var(--cf-warning-surface);
+  --danger: var(--cf-danger);
+  --danger-soft: var(--cf-danger-surface);
+  --focus: var(--cf-focus);
+  --card-gradient: var(--cf-surface);
+  --child-gradient: var(--cf-surface);
+  --selected-gradient: var(--cf-baby-blue);
+  --blue: var(--cf-brand);
+  --blue-dark: var(--cf-brand);
+  --canvas: var(--cf-surface-page);
+  --doc-blue: var(--cf-brand);
+  --doc-electric: var(--cf-brand);
+  --doc-navy: var(--cf-brand);
+  --doc-text: var(--cf-text);
+  --doc-muted: var(--cf-text-muted);
+  --doc-soft: var(--cf-surface-page);
+  --doc-line: var(--cf-line);
+  --doc-glass: var(--cf-surface);
+  --clinic-fg: var(--cf-text);
+  --clinic-fg-strong: var(--cf-brand);
+  --clinic-fg-subtle: var(--cf-text-muted);
+  --clinic-fg-muted: var(--cf-text-muted);
+  --clinic-focus: var(--cf-brand);
+  --clinic-soft: var(--cf-baby-blue);
+  --clinic-tint: var(--cf-surface-page);
+  --doctor-text: var(--cf-text);
+  --doctor-secondary: var(--cf-text-muted);
+  --doctor-border: var(--cf-line);
+  --doc-shadow: var(--cf-card-shadow);
 }

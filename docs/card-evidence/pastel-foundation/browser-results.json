@@ -1,0 +1,1408 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\playwright.config.cjs",
+    "rootDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/pastel-foundations-final",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Chromium",
+        "name": "Chromium",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/pastel-foundations-final",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "WebKit",
+        "name": "WebKit",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 2,
+    "webServer": {
+      "command": "node preview-server.cjs",
+      "url": "http://127.0.0.1:4186/prototype/index.html",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "pastel-foundations.spec.cjs",
+      "file": "pastel-foundations.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1474,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:00.502Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f8327d263999cb509fff",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 982,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:02.176Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-469a21149105b72e0392",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2029,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:03.178Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-58be027a469be89047aa",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1883,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:05.265Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-a335815443e3db2e5b7c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1906,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:07.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-71f812637d3158af1824",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1408,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:09.170Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-224da16b3fcb54a60d3c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2113,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:10.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-67eb71a7dc8d85df466a",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:12.793Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogImJyYW5kIiwKICAgICJpbmsiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJzdXJmYWNlIjogInJnYigwLCAyOSwgODcpIiwKICAgICJyYXRpbyI6IDE1Ljk4OTQwMjM5MTMyOTcwNQogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAiYnJhbmQiLAogICAgImJnIjogImxhdmVuZGVyIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIxNywgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDExLjI3NzY1NzU2NDkwMzkwMQogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJwZWFjaCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIxNywgMjA4KSIsCiAgICAicmF0aW8iOiAxMi4yNDkzNzA3NTI1MzgzMjgKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDE1LjAyMDc2ODkwMzQ1MDI2NgogIH0sCiAgewogICAgImZnIjogInN1Y2Nlc3MiLAogICAgImJnIjogInN1Y2Nlc3Mtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigyMywgOTYsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA1LCAyMzksIDIyOCkiLAogICAgInJhdGlvIjogNi4xMDg5ODc3NTUwOTA3NDYKICB9LAogIHsKICAgICJmZyI6ICJ3YXJuaW5nIiwKICAgICJiZyI6ICJ3YXJuaW5nLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTE3LCA3MSwgMCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjMzLCAyMDQpIiwKICAgICJyYXRpbyI6IDYuNjg5ODYyMjg3NTkzNzk4CiAgfSwKICB7CiAgICAiZmciOiAiZGFuZ2VyIiwKICAgICJiZyI6ICJkYW5nZXItc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigxNjMsIDM4LCA1MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjI3LCAyMjcpIiwKICAgICJyYXRpbyI6IDYuMDIyNjMwMzA3MDMyODgKICB9LAogIHsKICAgICJmZyI6ICJpbmZvIiwKICAgICJiZyI6ICJpbmZvLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAibmV1dHJhbCIsCiAgICAiYmciOiAibmV1dHJhbC1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfQpd"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7ea1183f13f676c5d018",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:14.105Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-d7a1dc2d82a015e8b4cd",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:25.324Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8ea70cfec3af3ccfacd3",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 99,
+          "column": 1
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1693,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:28.509Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-9b681f1852bad0f63994",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2273,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:30.374Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-46f5fa3567263430a3fb",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:32.684Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-e87a09fa00de586c6814",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:34.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-346d2cef9a60ce00684d",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2228,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:36.796Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-4bee269db249d3246bad",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2521,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:39.087Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-b23db49c8e79a2da5e50",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:41.646Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7cc29f5e8585c2f11910",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:44.513Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogImJyYW5kIiwKICAgICJpbmsiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJzdXJmYWNlIjogInJnYigwLCAyOSwgODcpIiwKICAgICJyYXRpbyI6IDE1Ljk4OTQwMjM5MTMyOTcwNQogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAiYnJhbmQiLAogICAgImJnIjogImxhdmVuZGVyIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIxNywgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDExLjI3NzY1NzU2NDkwMzkwMQogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJwZWFjaCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIxNywgMjA4KSIsCiAgICAicmF0aW8iOiAxMi4yNDkzNzA3NTI1MzgzMjgKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDE1LjAyMDc2ODkwMzQ1MDI2NgogIH0sCiAgewogICAgImZnIjogInN1Y2Nlc3MiLAogICAgImJnIjogInN1Y2Nlc3Mtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigyMywgOTYsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA1LCAyMzksIDIyOCkiLAogICAgInJhdGlvIjogNi4xMDg5ODc3NTUwOTA3NDYKICB9LAogIHsKICAgICJmZyI6ICJ3YXJuaW5nIiwKICAgICJiZyI6ICJ3YXJuaW5nLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTE3LCA3MSwgMCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjMzLCAyMDQpIiwKICAgICJyYXRpbyI6IDYuNjg5ODYyMjg3NTkzNzk4CiAgfSwKICB7CiAgICAiZmciOiAiZGFuZ2VyIiwKICAgICJiZyI6ICJkYW5nZXItc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigxNjMsIDM4LCA1MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjI3LCAyMjcpIiwKICAgICJyYXRpbyI6IDYuMDIyNjMwMzA3MDMyODgKICB9LAogIHsKICAgICJmZyI6ICJpbmZvIiwKICAgICJiZyI6ICJpbmZvLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAibmV1dHJhbCIsCiAgICAiYmciOiAibmV1dHJhbC1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfQpd"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-c6e8afbb65829035eb84",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12669,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:45.786Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f74acca8b92979c2a250",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1971,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:58.500Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8000d527ea2f40e12a34",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 99,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ui-system.spec.cjs",
+      "file": "ui-system.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "patient appointment action preserves its name, type scale and clinician across screens",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1359,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:00.514Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-e0c00deb1e88db982e98",
+          "file": "ui-system.spec.cjs",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "large text and long content reflow without losing actions at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1581,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:02.089Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-df9dba9c4ab908811105",
+          "file": "ui-system.spec.cjs",
+          "line": 24,
+          "column": 30
+        },
+        {
+          "title": "large text and long content reflow without losing actions at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2771,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:03.695Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-d047a2e585438606fd62",
+          "file": "ui-system.spec.cjs",
+          "line": 24,
+          "column": 30
+        },
+        {
+          "title": "visit and result statuses keep different meanings and consistent tones across roles",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4699,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:06.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-e1b47dd9ba80bd3b84db",
+          "file": "ui-system.spec.cjs",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "booking exposes loading, preserves the draft on slot error and allows recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4261,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:11.241Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-247b3d11150fadf6c564",
+          "file": "ui-system.spec.cjs",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "doctor tabs support arrows, Home, End and a labelled panel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1562,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:15.541Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-8af2d9296630086253cc",
+          "file": "ui-system.spec.cjs",
+          "line": 103,
+          "column": 1
+        },
+        {
+          "title": "doctor controls reflow at 200 percent zoom with long clinical content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6692,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:17.133Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-3cb72777eb67d6575066",
+          "file": "ui-system.spec.cjs",
+          "line": 117,
+          "column": 1
+        },
+        {
+          "title": "doctor overview empty states retain a useful destination",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1805,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:23.857Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-35df0af9672e6ca62238",
+          "file": "ui-system.spec.cjs",
+          "line": 130,
+          "column": 1
+        },
+        {
+          "title": "changed patient components and doctor priorities have no serious accessibility violations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4810,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:25.706Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-c917225a0c29a869d90d",
+          "file": "ui-system.spec.cjs",
+          "line": 149,
+          "column": 1
+        },
+        {
+          "title": "patient appointment action preserves its name, type scale and clinician across screens",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2464,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:33.880Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-94acb14e41450fc1aba8",
+          "file": "ui-system.spec.cjs",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "large text and long content reflow without losing actions at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3261,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:36.505Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-f476aaf563a9c677b05b",
+          "file": "ui-system.spec.cjs",
+          "line": 24,
+          "column": 30
+        },
+        {
+          "title": "large text and long content reflow without losing actions at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3673,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:39.807Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-c7369da02ca3090ce23b",
+          "file": "ui-system.spec.cjs",
+          "line": 24,
+          "column": 30
+        },
+        {
+          "title": "visit and result statuses keep different meanings and consistent tones across roles",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2926,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:43.522Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-f98cdee451840ce7f4a0",
+          "file": "ui-system.spec.cjs",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "booking exposes loading, preserves the draft on slot error and allows recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 8335,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:46.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-f2e1ea09c88836608c70",
+          "file": "ui-system.spec.cjs",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "doctor tabs support arrows, Home, End and a labelled panel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2876,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:54.877Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-bcd2ae9c3002daf04b0f",
+          "file": "ui-system.spec.cjs",
+          "line": 103,
+          "column": 1
+        },
+        {
+          "title": "doctor controls reflow at 200 percent zoom with long clinical content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:01:57.833Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-e21cc7e3318649b1731f",
+          "file": "ui-system.spec.cjs",
+          "line": 117,
+          "column": 1
+        },
+        {
+          "title": "doctor overview empty states retain a useful destination",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1980,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:02:02.000Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-fa079840adf44d9f3b6f",
+          "file": "ui-system.spec.cjs",
+          "line": 130,
+          "column": 1
+        },
+        {
+          "title": "changed patient components and doctor priorities have no serious accessibility violations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5334,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:02:04.012Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13bbd0490f058be98c40-77eebd6469decff90f32",
+          "file": "ui-system.spec.cjs",
+          "line": 149,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T18:00:58.773Z",
+    "duration": 70715.72399999999,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

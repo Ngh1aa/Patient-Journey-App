@@ -1,0 +1,1380 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\playwright.config.cjs",
+    "rootDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/blue-green-foundations",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Chromium",
+        "name": "Chromium",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/blue-green-foundations",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "WebKit",
+        "name": "WebKit",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 2,
+    "webServer": {
+      "command": "node preview-server.cjs",
+      "url": "http://127.0.0.1:4186/prototype/index.html",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "pastel-foundations.spec.cjs",
+      "file": "pastel-foundations.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3191,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:32:50.010Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f8327d263999cb509fff",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2626,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:32:57.657Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-469a21149105b72e0392",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1997,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:04.903Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-58be027a469be89047aa",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1932,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:13.016Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-a335815443e3db2e5b7c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:20.621Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-71f812637d3158af1824",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2002,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:24.431Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-224da16b3fcb54a60d3c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1922,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:26.570Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-67eb71a7dc8d85df466a",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1383,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:28.546Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNC4yNTc0MTIzNzA0NTU2MjcKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogInByaW1hcnkiLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDExLCAxOCwgMzIpIiwKICAgICJyYXRpbyI6IDE4LjcyMzEwNDEzMDg2MDU4NwogIH0sCiAgewogICAgImZnIjogIm9uLWJyYW5kIiwKICAgICJiZyI6ICJwcmltYXJ5LWxvYWRpbmciLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDM1LCA0MiwgNTQpIiwKICAgICJyYXRpbyI6IDE0LjQyMzg3ODU3ODc0ODUzMgogIH0sCiAgewogICAgImZnIjogImRpc2FibGVkLWluayIsCiAgICAiYmciOiAiZGlzYWJsZWQtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTAyLCAxMjMpIiwKICAgICJzdXJmYWNlIjogInJnYigyMzgsIDI0MSwgMjQ1KSIsCiAgICAicmF0aW8iOiA1LjEwNDM5ODczMDU2MjQwNgogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAiYmFieS1ibHVlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDcsIDIyNiwgMjU1KSIsCiAgICAicmF0aW8iOiAxMC44NDYyMzk2MjY1ODIxNDkKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAiYmx1ZS1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4NSwgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDEwLjYwMTkyNjI0NDgyNTY4NwogIH0sCiAgewogICAgImZnIjogInRleHQiLAogICAgImJnIjogImJsdWUtZGVlcCIsCiAgICAiaW5rIjogInJnYigzMSwgNDIsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMTg1LCAyMTIsIDI1NSkiLAogICAgInJhdGlvIjogOS40NTM1MTM2ODk1MTcyOTQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJtaW50IiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMS41ODQyOTM2NzY5NjEzNzEKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4MSwgMjMwLCAyMTEpIiwKICAgICJyYXRpbyI6IDExLjU5MTYzNjcxMzE3MzI3CiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigxODEsIDIzMCwgMjExKSIsCiAgICAicmF0aW8iOiAxMC4zMzYwMTc2MDg2MjgxMDQKICB9LAogIHsKICAgICJmZyI6ICJzdWNjZXNzIiwKICAgICJiZyI6ICJzdWNjZXNzLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMjMsIDk2LCA2OCkiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNSwgMjM5LCAyMjgpIiwKICAgICJyYXRpbyI6IDYuMTA4OTg3NzU1MDkwNzQ2CiAgfSwKICB7CiAgICAiZmciOiAid2FybmluZyIsCiAgICAiYmciOiAid2FybmluZy1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDExNywgNzEsIDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIzMywgMjA0KSIsCiAgICAicmF0aW8iOiA2LjY4OTg2MjI4NzU5Mzc5OAogIH0sCiAgewogICAgImZnIjogImRhbmdlciIsCiAgICAiYmciOiAiZGFuZ2VyLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTYzLCAzOCwgNTApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIyNywgMjI3KSIsCiAgICAicmF0aW8iOiA2LjAyMjYzMDMwNzAzMjg4CiAgfSwKICB7CiAgICAiZmciOiAiaW5mbyIsCiAgICAiYmciOiAiaW5mby1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNywgMjI2LCAyNTUpIiwKICAgICJyYXRpbyI6IDEyLjE2Mzg0MDQ4NjM0MTAzMgogIH0sCiAgewogICAgImZnIjogIm5ldXRyYWwiLAogICAgImJnIjogIm5ldXRyYWwtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTA3LCAxNDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNDUsIDI0OCwgMjUzKSIsCiAgICAicmF0aW8iOiA1LjAyNDE1MzEzMjI1MjYyOAogIH0KXQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7ea1183f13f676c5d018",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "one black primary per specimen, unfilled section links, and no forbidden decorative palette",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3006,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:30.010Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-dfe6faa723ae00585f88",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 89,
+          "column": 1
+        },
+        {
+          "title": "profile stack and question suggestion have different functional anatomy and no fake message send",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2953,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:33.076Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-ff8b2fe20895fc83afe4",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1523,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:36.085Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f60dceb6dae7c2d7efc6",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 136,
+          "column": 30
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1660,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:37.663Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-721f8b6de0c55b6e1ff5",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 136,
+          "column": 30
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17299,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:39.359Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-d7a1dc2d82a015e8b4cd",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1909,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:56.713Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8ea70cfec3af3ccfacd3",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 155,
+          "column": 1
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 4298,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:32:50.046Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-9c705--and-touch-targets-at-360px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-9b681f1852bad0f63994",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3185,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:32:58.689Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-27697--and-touch-targets-at-390px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-46f5fa3567263430a3fb",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3330,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:06.300Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-e1f38--and-touch-targets-at-768px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-e87a09fa00de586c6814",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3157,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                      "column": 23,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                        "column": 23,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  19 |     const c=card.getBoundingClientRect(),r=el.getBoundingClientRect();return r.left-c.left<15||c.right-r.right<15;\n  20 |   }).map(el=>el.textContent)));\n> 21 |   expect(insetIssues).toEqual([]);\n     |                       ^\n  22 |   const clippedActions=await page.locator('[data-cf-card] button').evaluateAll(nodes=>nodes.filter(el=>{const r=el.getBoundingClientRect(),c=el.closest('[data-cf-card]').getBoundingClientRect();return r.right>c.right-15||r.left<c.left+15||el.scrollWidth>el.clientWidth+1;}).map(el=>el.textContent));\n  23 |   expect(clippedActions).toEqual([]);\n  24 |   const wraps=await page.locator('.cf-step-label,[role=\"tab\"]').evaluateAll(nodes=>nodes.filter(el=>{const s=getComputedStyle(el);return el.scrollWidth>el.clientWidth+1 || s.whiteSpace!=='nowrap';}).map(el=>el.textContent));\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs:21:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:15.012Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\test-results\\blue-green-foundations\\pastel-foundations-candida-c66c2-and-touch-targets-at-1440px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\pastel-foundations.spec.cjs",
+                    "column": 23,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-346d2cef9a60ce00684d",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4751,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:23.696Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-4bee269db249d3246bad",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4850,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:28.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-b23db49c8e79a2da5e50",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5652,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:33.754Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7cc29f5e8585c2f11910",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2435,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:39.499Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNC4yNTc0MTIzNzA0NTU2MjcKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogInByaW1hcnkiLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDExLCAxOCwgMzIpIiwKICAgICJyYXRpbyI6IDE4LjcyMzEwNDEzMDg2MDU4NwogIH0sCiAgewogICAgImZnIjogIm9uLWJyYW5kIiwKICAgICJiZyI6ICJwcmltYXJ5LWxvYWRpbmciLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDM1LCA0MiwgNTQpIiwKICAgICJyYXRpbyI6IDE0LjQyMzg3ODU3ODc0ODUzMgogIH0sCiAgewogICAgImZnIjogImRpc2FibGVkLWluayIsCiAgICAiYmciOiAiZGlzYWJsZWQtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTAyLCAxMjMpIiwKICAgICJzdXJmYWNlIjogInJnYigyMzgsIDI0MSwgMjQ1KSIsCiAgICAicmF0aW8iOiA1LjEwNDM5ODczMDU2MjQwNgogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAiYmFieS1ibHVlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDcsIDIyNiwgMjU1KSIsCiAgICAicmF0aW8iOiAxMC44NDYyMzk2MjY1ODIxNDkKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAiYmx1ZS1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4NSwgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDEwLjYwMTkyNjI0NDgyNTY4NwogIH0sCiAgewogICAgImZnIjogInRleHQiLAogICAgImJnIjogImJsdWUtZGVlcCIsCiAgICAiaW5rIjogInJnYigzMSwgNDIsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMTg1LCAyMTIsIDI1NSkiLAogICAgInJhdGlvIjogOS40NTM1MTM2ODk1MTcyOTQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJtaW50IiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMS41ODQyOTM2NzY5NjEzNzEKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4MSwgMjMwLCAyMTEpIiwKICAgICJyYXRpbyI6IDExLjU5MTYzNjcxMzE3MzI3CiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigxODEsIDIzMCwgMjExKSIsCiAgICAicmF0aW8iOiAxMC4zMzYwMTc2MDg2MjgxMDQKICB9LAogIHsKICAgICJmZyI6ICJzdWNjZXNzIiwKICAgICJiZyI6ICJzdWNjZXNzLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMjMsIDk2LCA2OCkiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNSwgMjM5LCAyMjgpIiwKICAgICJyYXRpbyI6IDYuMTA4OTg3NzU1MDkwNzQ2CiAgfSwKICB7CiAgICAiZmciOiAid2FybmluZyIsCiAgICAiYmciOiAid2FybmluZy1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDExNywgNzEsIDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIzMywgMjA0KSIsCiAgICAicmF0aW8iOiA2LjY4OTg2MjI4NzU5Mzc5OAogIH0sCiAgewogICAgImZnIjogImRhbmdlciIsCiAgICAiYmciOiAiZGFuZ2VyLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTYzLCAzOCwgNTApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIyNywgMjI3KSIsCiAgICAicmF0aW8iOiA2LjAyMjYzMDMwNzAzMjg4CiAgfSwKICB7CiAgICAiZmciOiAiaW5mbyIsCiAgICAiYmciOiAiaW5mby1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNywgMjI2LCAyNTUpIiwKICAgICJyYXRpbyI6IDEyLjE2Mzg0MDQ4NjM0MTAzMgogIH0sCiAgewogICAgImZnIjogIm5ldXRyYWwiLAogICAgImJnIjogIm5ldXRyYWwtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTA3LCAxNDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNDUsIDI0OCwgMjUzKSIsCiAgICAicmF0aW8iOiA1LjAyNDE1MzEzMjI1MjYyOAogIH0KXQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-c6e8afbb65829035eb84",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "one black primary per specimen, unfilled section links, and no forbidden decorative palette",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:42.117Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-b60ad436c41133281c42",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 89,
+          "column": 1
+        },
+        {
+          "title": "profile stack and question suggestion have different functional anatomy and no fake message send",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7120,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:45.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-593e49ec3caa40ca4de7",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1927,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:52.858Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-c97276fe9cba44d38f34",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 136,
+          "column": 30
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2090,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:54.979Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-a15c414fc75195dc5008",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 136,
+          "column": 30
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 18265,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:33:57.141Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f74acca8b92979c2a250",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:34:15.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8000d527ea2f40e12a34",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 155,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T18:32:45.479Z",
+    "duration": 92310.762,
+    "expected": 20,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  }
+}

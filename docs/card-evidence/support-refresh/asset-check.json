@@ -1,0 +1,19 @@
+{
+  "file": "prototype/assets/images/unsplash/doctor-cutout.webp",
+  "bytes": 142152,
+  "width": 1349,
+  "height": 1166,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 255,
+    "sum": 158299473,
+    "squaresSum": 39914341151,
+    "mean": 100.6396155210581,
+    "stdev": 123.48037420748233,
+    "minX": 0,
+    "minY": 16,
+    "maxX": 750,
+    "maxY": 28
+  }
+}

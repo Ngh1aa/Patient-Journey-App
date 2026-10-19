@@ -1,0 +1,2941 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\playwright.config.cjs",
+    "rootDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/test-results-card-polish",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Chromium",
+        "name": "Chromium",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/test-results-card-polish",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "WebKit",
+        "name": "WebKit",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 2,
+    "webServer": {
+      "command": "node preview-server.cjs",
+      "url": "http://127.0.0.1:4186/prototype/index.html",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "card-polish.spec.cjs",
+      "file": "card-polish.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2562,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:14.074Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-4ee2fe8989ed53ff58d8",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2203,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:16.830Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-5ac8b65b06e7c6fb96de",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2289,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:19.052Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-616b1f075d190fe9426f",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2795,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:21.357Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-ef948d3ac279a746e729",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "guided prefill updates counters without overwriting user edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8429,
+                  "error": {
+                    "message": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n",
+                    "stack": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:48:45",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                      "column": 45,
+                      "line": 48
+                    },
+                    "snippet": "  46 | test('guided prefill updates counters without overwriting user edits',async({page})=>{\n  47 |   await page.goto('/prototype/?journey=F1&branch=default#/support');\n> 48 |   const text=await page.locator('#support').inputValue();expect(text.length).toBeGreaterThan(0);await expect(page.locator('#support-count')).toHaveText(`${text.length} / 500 ký tự`);\n     |                                             ^\n  49 |   await page.locator('#support').fill('Nội dung của tôi');await page.reload();await expect(page.locator('#support')).toHaveValue('Nội dung của tôi');await expect(page.locator('#support-count')).toHaveText('16 / 500 ký tự');\n  50 | });\n  51 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                        "column": 45,
+                        "line": 48
+                      },
+                      "message": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n\n\n  46 | test('guided prefill updates counters without overwriting user edits',async({page})=>{\n  47 |   await page.goto('/prototype/?journey=F1&branch=default#/support');\n> 48 |   const text=await page.locator('#support').inputValue();expect(text.length).toBeGreaterThan(0);await expect(page.locator('#support-count')).toHaveText(`${text.length} / 500 ký tự`);\n     |                                             ^\n  49 |   await page.locator('#support').fill('Nội dung của tôi');await page.reload();await expect(page.locator('#support')).toHaveValue('Nội dung của tôi');await expect(page.locator('#support-count')).toHaveText('16 / 500 ký tự');\n  50 | });\n  51 |\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:48:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:24.179Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                    "column": 45,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-f36482862dce4c913cea",
+          "file": "card-polish.spec.cjs",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "empty relatives show one explicit add action and booking draft survives adding a profile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9093,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    15 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    15 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:60:47",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                      "column": 47,
+                      "line": 60
+                    },
+                    "snippet": "  58 |   await page.locator('#name').fill('Người thân mới');await page.locator('#dob').fill('2000-01-01');await submit(page);\n  59 |   expect((await state(page)).profiles).toHaveLength(2);expect((await state(page)).profiles[1].canViewResults).toBe(false);\n> 60 |   await page.locator('#bottom-nav .nav-book').click();await expect(content(page)).toHaveAttribute('data-screen','C1');await expect(page.locator('.patient-group')).toContainText('Người thân mới');\n     |                                               ^\n  61 | });\n  62 |\n  63 | test('support and profile remain accessible with large text',async({page})=>{"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                        "column": 47,
+                        "line": 60
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    15 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  58 |   await page.locator('#name').fill('Người thân mới');await page.locator('#dob').fill('2000-01-01');await submit(page);\n  59 |   expect((await state(page)).profiles).toHaveLength(2);expect((await state(page)).profiles[1].canViewResults).toBe(false);\n> 60 |   await page.locator('#bottom-nav .nav-book').click();await expect(content(page)).toHaveAttribute('data-screen','C1');await expect(page.locator('.patient-group')).toContainText('Người thân mới');\n     |                                               ^\n  61 | });\n  62 |\n  63 | test('support and profile remain accessible with large text',async({page})=>{\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:60:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:34.010Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                    "column": 47,
+                    "line": 60
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-94ef73406b6f0134cc00",
+          "file": "card-polish.spec.cjs",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "support and profile remain accessible with large text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:44.654Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-ffee09dcf4f16957e955",
+          "file": "card-polish.spec.cjs",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7382,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:09.064Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-8f0d4c2e5c9bb6644283",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6582,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:16.552Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-1f7161b2708f22d3d359",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7688,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:23.159Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-de7aff8819e966bf0f72",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "eight reviewed card groups preserve actions and reflow at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7949,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:30.870Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-f861a1dec20fede405d0",
+          "file": "card-polish.spec.cjs",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "guided prefill updates counters without overwriting user edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 8586,
+                  "error": {
+                    "message": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n",
+                    "stack": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:48:45",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                      "column": 45,
+                      "line": 48
+                    },
+                    "snippet": "  46 | test('guided prefill updates counters without overwriting user edits',async({page})=>{\n  47 |   await page.goto('/prototype/?journey=F1&branch=default#/support');\n> 48 |   const text=await page.locator('#support').inputValue();expect(text.length).toBeGreaterThan(0);await expect(page.locator('#support-count')).toHaveText(`${text.length} / 500 ký tự`);\n     |                                             ^\n  49 |   await page.locator('#support').fill('Nội dung của tôi');await page.reload();await expect(page.locator('#support')).toHaveValue('Nội dung của tôi');await expect(page.locator('#support-count')).toHaveText('16 / 500 ký tự');\n  50 | });\n  51 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                        "column": 45,
+                        "line": 48
+                      },
+                      "message": "TimeoutError: locator.inputValue: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#support')\u001b[22m\n\n\n  46 | test('guided prefill updates counters without overwriting user edits',async({page})=>{\n  47 |   await page.goto('/prototype/?journey=F1&branch=default#/support');\n> 48 |   const text=await page.locator('#support').inputValue();expect(text.length).toBeGreaterThan(0);await expect(page.locator('#support-count')).toHaveText(`${text.length} / 500 ký tự`);\n     |                                             ^\n  49 |   await page.locator('#support').fill('Nội dung của tôi');await page.reload();await expect(page.locator('#support')).toHaveValue('Nội dung của tôi');await expect(page.locator('#support-count')).toHaveText('16 / 500 ký tự');\n  50 | });\n  51 |\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:48:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:38.841Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-guided-prefill-82a45-hout-overwriting-user-edits-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                    "column": 45,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-2ba5771515e6e007a149",
+          "file": "card-polish.spec.cjs",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "empty relatives show one explicit add action and booking draft survives adding a profile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 11103,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    11 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    11 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:60:47",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                      "column": 47,
+                      "line": 60
+                    },
+                    "snippet": "  58 |   await page.locator('#name').fill('Người thân mới');await page.locator('#dob').fill('2000-01-01');await submit(page);\n  59 |   expect((await state(page)).profiles).toHaveLength(2);expect((await state(page)).profiles[1].canViewResults).toBe(false);\n> 60 |   await page.locator('#bottom-nav .nav-book').click();await expect(content(page)).toHaveAttribute('data-screen','C1');await expect(page.locator('.patient-group')).toContainText('Người thân mới');\n     |                                               ^\n  61 | });\n  62 |\n  63 | test('support and profile remain accessible with large text',async({page})=>{"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                        "column": 47,
+                        "line": 60
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bottom-nav .nav-book')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-current=\"step\" aria-label=\"Đặt lịch\" data-action=\"book-nav\" class=\"cf-nav-item cf-nav-book nav-book\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    11 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  58 |   await page.locator('#name').fill('Người thân mới');await page.locator('#dob').fill('2000-01-01');await submit(page);\n  59 |   expect((await state(page)).profiles).toHaveLength(2);expect((await state(page)).profiles[1].canViewResults).toBe(false);\n> 60 |   await page.locator('#bottom-nav .nav-book').click();await expect(content(page)).toHaveAttribute('data-screen','C1');await expect(page.locator('.patient-group')).toContainText('Người thân mới');\n     |                                               ^\n  61 | });\n  62 |\n  63 | test('support and profile remain accessible with large text',async({page})=>{\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs:60:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:48.929Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\card-polish-empty-relative-fdf3b-t-survives-adding-a-profile-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\card-polish.spec.cjs",
+                    "column": 47,
+                    "line": 60
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-cc00f65b091914362941",
+          "file": "card-polish.spec.cjs",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "support and profile remain accessible with large text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4905,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:02.153Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cbd837dbc2f86bfcdbe1-d193a8ecc122e20baece",
+          "file": "card-polish.spec.cjs",
+          "line": 63,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "clinical-layout.spec.cjs",
+      "file": "clinical-layout.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "navigation names all destinations, exposes booking and profile add follows the selection",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 6853,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:10:75",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 75,
+                      "line": 10
+                    },
+                    "snippet": "   8 |   const nav=page.locator('#bottom-nav');\n   9 |   expect((await nav.boundingBox()).height).toBeGreaterThanOrEqual(80);\n> 10 |   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);\n     |                                                                           ^\n  11 |   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeVisible();\n  12 |   await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();\n  13 |   await expect(nav.locator('.nav-book .nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 75,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n\n   8 |   const nav=page.locator('#bottom-nav');\n   9 |   expect((await nav.boundingBox()).height).toBeGreaterThanOrEqual(80);\n> 10 |   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);\n     |                                                                           ^\n  11 |   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeVisible();\n  12 |   await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();\n  13 |   await expect(nav.locator('.nav-book .nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:10:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:14.068Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 75,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-7f32dccb3e32778c2c73",
+          "file": "clinical-layout.spec.cjs",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "appointment management is before the ticket and opens existing change/cancel flows",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 967,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:22.757Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-bbd93a735a9c0f9c9b8d",
+          "file": "clinical-layout.spec.cjs",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "contextual tips open with keyboard; patient shortcut returns to the existing selection screen",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 738,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:23.917Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-6f3ce892fea3d976cc83",
+          "file": "clinical-layout.spec.cjs",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "booking hides tab nav and preserves draft through Back, forward and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 785,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:24.676Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-f5ac54db47f83b675563",
+          "file": "clinical-layout.spec.cjs",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "quick dates update the actual booking, custom date selection and reload remain consistent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1290,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:25.494Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-9cde0e0db9d7f7b1ca30",
+          "file": "clinical-layout.spec.cjs",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 360px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 6522,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:26.798Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-15c19a8ca2303e6dc9eb",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 6614,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:34.933Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-8913c52df148953804ad",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 1440px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 6774,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:43.013Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-0b409cce04f21ef5b952",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "submitted, pending and confirmed states differ by copy and visual treatment; home passes axe",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3536,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:52.184Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-fe1b0dac0bbe7b6ec8ba",
+          "file": "clinical-layout.spec.cjs",
+          "line": 121,
+          "column": 1
+        },
+        {
+          "title": "navigation names all destinations, exposes booking and profile add follows the selection",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7096,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:10:75",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 75,
+                      "line": 10
+                    },
+                    "snippet": "   8 |   const nav=page.locator('#bottom-nav');\n   9 |   expect((await nav.boundingBox()).height).toBeGreaterThanOrEqual(80);\n> 10 |   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);\n     |                                                                           ^\n  11 |   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeVisible();\n  12 |   await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();\n  13 |   await expect(nav.locator('.nav-book .nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 75,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#bottom-nav').locator(':scope > *').first()\nExpected pattern: \u001b[32m/.+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *').first()\u001b[22m\n\u001b[2m    10 × locator resolved to <svg focusable=\"false\" aria-hidden=\"true\" viewBox=\"0 0 390 88\" class=\"cf-nav-background\" preserveAspectRatio=\"none\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n\n   8 |   const nav=page.locator('#bottom-nav');\n   9 |   expect((await nav.boundingBox()).height).toBeGreaterThanOrEqual(80);\n> 10 |   for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);\n     |                                                                           ^\n  11 |   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeVisible();\n  12 |   await expect(nav.locator('.nav-book .nav-caption')).toBeVisible();\n  13 |   await expect(nav.locator('.nav-book .nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:10:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:14.721Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-navigation-47437-e-add-follows-the-selection-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 75,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-93d389daef81b2b27474",
+          "file": "clinical-layout.spec.cjs",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "appointment management is before the ticket and opens existing change/cancel flows",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2075,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:23.536Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-93f0f830161dca09f889",
+          "file": "clinical-layout.spec.cjs",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "contextual tips open with keyboard; patient shortcut returns to the existing selection screen",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1671,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:25.768Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-6e783163615c22177b9d",
+          "file": "clinical-layout.spec.cjs",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "booking hides tab nav and preserves draft through Back, forward and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1787,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:27.465Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-7592767ecb9d170b798d",
+          "file": "clinical-layout.spec.cjs",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "quick dates update the actual booking, custom date selection and reload remain consistent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4008,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:29.275Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-fe1b2d82b371cf53c5c3",
+          "file": "clinical-layout.spec.cjs",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 360px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7111,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:33.311Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-490f1-accessible-targets-at-360px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-f5b6ec59e11640f41610",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6965,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:41.682Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-b5c68-accessible-targets-at-390px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-980b718c6e646ca4f9be",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "five navigation controls have distinct actions and accessible targets at 1440px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7516,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                      "column": 43,
+                      "line": 103
+                    },
+                    "snippet": "  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                        "column": 43,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav').locator(':scope > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav').locator(':scope > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n\n  101 |   await page.goto('/prototype/index.html?scenario=upcoming');\n  102 |   const nav=page.locator('#bottom-nav');\n> 103 |   await expect(nav.locator(':scope > *')).toHaveCount(5);\n      |                                           ^\n  104 |   await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');\n  105 |   const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{\n  106 |     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs:103:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:51.698Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\clinical-layout-five-navig-e438a-ccessible-targets-at-1440px-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\clinical-layout.spec.cjs",
+                    "column": 43,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-594985afa9f810f7ec0b",
+          "file": "clinical-layout.spec.cjs",
+          "line": 99,
+          "column": 37
+        },
+        {
+          "title": "submitted, pending and confirmed states differ by copy and visual treatment; home passes axe",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4085,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:01.386Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0971ddb607600346be1-9e5658ca23726005aaca",
+          "file": "clinical-layout.spec.cjs",
+          "line": 121,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "h2-layout.spec.cjs",
+      "file": "h2-layout.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1527,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:47.078Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-5df651b8890da2eaea79",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:48.621Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-6961a4e1d16172c45a17",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2079,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:50.232Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-a3d661f3622b55746b1f",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2105,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:52.330Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-50ef7cb8e228776b350b",
+          "file": "h2-layout.spec.cjs",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "large-text booking deliberately collapses its header after scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1415,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:54.463Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-f83c1beaac50e73e3864",
+          "file": "h2-layout.spec.cjs",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "lab time and file controls retain the lab booking and upload contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1659,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:55.912Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-a829b66735ff22ff089f",
+          "file": "h2-layout.spec.cjs",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4739,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:05.619Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-3b7950720fb0390e53b5",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5424,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:10.388Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-accc52312f5214de5fc9",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "booking chrome reserves CTA and keeps full header at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:15.849Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-7043ff3277c170942af1",
+          "file": "h2-layout.spec.cjs",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3622,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:20.287Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-d24a7854a276902f80f7",
+          "file": "h2-layout.spec.cjs",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "large-text booking deliberately collapses its header after scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2021,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:23.930Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-72c8861c3496f0ef4902",
+          "file": "h2-layout.spec.cjs",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "lab time and file controls retain the lab booking and upload contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2784,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:25.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f46a758d7dadcce9e88-172ff6d4b3a8a1479ff3",
+          "file": "h2-layout.spec.cjs",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "profile-support-reference.spec.cjs",
+      "file": "profile-support-reference.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "profile reference uses the account owner and sends an update request without changing identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1424,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:55.977Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-a429a7d635e3dd5e51f9",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "relative tiles open details, preserve result permissions and select the correct patient for booking",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1152,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:57.434Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-a1b515d79f82066490ab",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "support reference FAQ, channels and request history have functional actions and truthful empty states",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 9021,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs:54:68",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                      "column": 68,
+                      "line": 54
+                    },
+                    "snippet": "  52 |   await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();\n  53 |   await expect(page.locator('#support')).toBeFocused();\n> 54 |   await page.getByRole('button',{name:'Xem tất cả liên hệ nhanh'}).click();\n     |                                                                    ^\n  55 |   await expect(page.locator('#dialog-body')).toContainText('Giờ hỗ trợ');\n  56 |   await page.getByRole('button',{name:'Gửi câu hỏi'}).click();\n  57 |   await expect(page.locator('#support')).toBeFocused();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                        "column": 68,
+                        "line": 54
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n\n\n  52 |   await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();\n  53 |   await expect(page.locator('#support')).toBeFocused();\n> 54 |   await page.getByRole('button',{name:'Xem tất cả liên hệ nhanh'}).click();\n     |                                                                    ^\n  55 |   await expect(page.locator('#dialog-body')).toContainText('Giờ hỗ trợ');\n  56 |   await page.getByRole('button',{name:'Gửi câu hỏi'}).click();\n  57 |   await expect(page.locator('#support')).toBeFocused();\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs:54:68"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:58.611Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                    "column": 68,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-6b5eb5b7499b4b447dbc",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "profile reference uses the account owner and sends an update request without changing identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1756,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:07.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-59020c5005efa18e940e",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "relative tiles open details, preserve result permissions and select the correct patient for booking",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:09.011Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-ef429af314a7b7c35c7c",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "support reference FAQ, channels and request history have functional actions and truthful empty states",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 10912,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs:54:68",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                      "column": 68,
+                      "line": 54
+                    },
+                    "snippet": "  52 |   await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();\n  53 |   await expect(page.locator('#support')).toBeFocused();\n> 54 |   await page.getByRole('button',{name:'Xem tất cả liên hệ nhanh'}).click();\n     |                                                                    ^\n  55 |   await expect(page.locator('#dialog-body')).toContainText('Giờ hỗ trợ');\n  56 |   await page.getByRole('button',{name:'Gửi câu hỏi'}).click();\n  57 |   await expect(page.locator('#support')).toBeFocused();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                        "column": 68,
+                        "line": 54
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Xem tất cả liên hệ nhanh' })\u001b[22m\n\n\n  52 |   await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();\n  53 |   await expect(page.locator('#support')).toBeFocused();\n> 54 |   await page.getByRole('button',{name:'Xem tất cả liên hệ nhanh'}).click();\n     |                                                                    ^\n  55 |   await expect(page.locator('#dialog-body')).toContainText('Giờ hỗ trợ');\n  56 |   await page.getByRole('button',{name:'Gửi câu hỏi'}).click();\n  57 |   await expect(page.locator('#support')).toBeFocused();\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs:54:68"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:11.363Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\profile-support-reference--555a7-s-and-truthful-empty-states-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\profile-support-reference.spec.cjs",
+                    "column": 68,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b89396dc26dc4f28b43-44687bf7e8970ad5b85e",
+          "file": "profile-support-reference.spec.cjs",
+          "line": 42,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "support-refresh.spec.cjs",
+      "file": "support-refresh.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "support contact bento and compact emergency remain usable at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1168,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:57.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-8fada78277a558f06771",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1044,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:58.818Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-8cdcb52c27b9253fe2e2",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 834,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:50:59.885Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-1a1b825d238a4dddb43d",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 892,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:00.733Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-b49f697475c11f25288b",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support preserves callback deduplication and submitted request values",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6841,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs:43:54",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                      "column": 54,
+                      "line": 43
+                    },
+                    "snippet": "  41 |   }\n  42 |   await expect(page.locator('.screen-masthead')).toContainText('Có yêu cầu đang chờ');\n> 43 |   await expect(page.locator('.cf-support-callback')).toContainText('Đã gửi yêu cầu');\n     |                                                      ^\n  44 |   await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();\n  45 |   await page.locator('#support').fill('Mình cần hỏi lại thời gian khám.');\n  46 |   await page.locator('form[data-form=support] [type=submit]').click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                        "column": 54,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n\n\n  41 |   }\n  42 |   await expect(page.locator('.screen-masthead')).toContainText('Có yêu cầu đang chờ');\n> 43 |   await expect(page.locator('.cf-support-callback')).toContainText('Đã gửi yêu cầu');\n     |                                                      ^\n  44 |   await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();\n  45 |   await page.locator('#support').fill('Mình cần hỏi lại thời gian khám.');\n  46 |   await page.locator('form[data-form=support] [type=submit]').click();\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs:43:54"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:01.641Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                    "column": 54,
+                    "line": 43
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-8c8243b95b5b55668485",
+          "file": "support-refresh.spec.cjs",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "completed visit contact cards retain their distinct care routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 743,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:10.081Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-c5ce2ab1e4183a100eda",
+          "file": "support-refresh.spec.cjs",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "large text reflows contact cards and keeps emergency, form and navigation accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:51:11.000Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-07f46cdf2e4d326a091a",
+          "file": "support-refresh.spec.cjs",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2453,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:24.149Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-10b7e9658bc34fc6f15a",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2243,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:26.766Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-2e6178e893331c14c5e4",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:29.044Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-4f86b4928221a62ebad4",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support contact bento and compact emergency remain usable at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2042,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:30.828Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-7aa99028b46c16342370",
+          "file": "support-refresh.spec.cjs",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "support preserves callback deduplication and submitted request values",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 7609,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs:43:54",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                      "column": 54,
+                      "line": 43
+                    },
+                    "snippet": "  41 |   }\n  42 |   await expect(page.locator('.screen-masthead')).toContainText('Có yêu cầu đang chờ');\n> 43 |   await expect(page.locator('.cf-support-callback')).toContainText('Đã gửi yêu cầu');\n     |                                                      ^\n  44 |   await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();\n  45 |   await page.locator('#support').fill('Mình cần hỏi lại thời gian khám.');\n  46 |   await page.locator('form[data-form=support] [type=submit]').click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                        "column": 54,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.cf-support-callback')\nExpected substring: \u001b[32m\"Đã gửi yêu cầu\"\u001b[39m\nReceived string:    \u001b[31m\"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[39m\nTimeout: 6000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('.cf-support-callback')\u001b[22m\n\u001b[2m    10 × locator resolved to <button type=\"button\" aria-label=\"Gọi lại\" data-action=\"clinic-call\" class=\"cf-support-callback\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"Nhờ gọi lạiĐã gửi · Chờ tiếp nhận\"\u001b[22m\n\n\n  41 |   }\n  42 |   await expect(page.locator('.screen-masthead')).toContainText('Có yêu cầu đang chờ');\n> 43 |   await expect(page.locator('.cf-support-callback')).toContainText('Đã gửi yêu cầu');\n     |                                                      ^\n  44 |   await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();\n  45 |   await page.locator('#support').fill('Mình cần hỏi lại thời gian khám.');\n  46 |   await page.locator('form[data-form=support] [type=submit]').click();\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs:43:54"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:32.889Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results-card-polish\\support-refresh-support-pr-fe077-nd-submitted-request-values-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\support-refresh.spec.cjs",
+                    "column": 54,
+                    "line": 43
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-816970da7d0cf250fb10",
+          "file": "support-refresh.spec.cjs",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "completed visit contact cards retain their distinct care routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1133,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:41.758Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-1e8518c3912fcde0120a",
+          "file": "support-refresh.spec.cjs",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "large text reflows contact cards and keeps emergency, form and navigation accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1867,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T13:52:42.988Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ba505486c85b0dffa20b-de4c74b3e0dca88a87a2",
+          "file": "support-refresh.spec.cjs",
+          "line": 58,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T13:50:12.610Z",
+    "duration": 152324.037,
+    "expected": 48,
+    "skipped": 0,
+    "unexpected": 16,
+    "flaky": 0
+  }
+}

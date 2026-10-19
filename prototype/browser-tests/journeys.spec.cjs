@@ -10,6 +10,18 @@ const screen = async (page, id) => {
   await expect(content(page)).toHaveAttribute('data-guarded', '');
 };
 const submit = (page) => content(page).locator('form [type=submit]').click();
+async function pickDate(page, id, value) {
+  const [year,month] = value.split('-').map(Number);
+  await page.locator('[data-cf-control="'+id+'"]').click();
+  await page.locator('[data-calendar-year]').click();
+  while (!await page.locator('[data-year="'+year+'"]').count()) {
+    const current=Number(await page.locator('[data-calendar-year]').textContent());
+    await page.locator(year<current?'[data-calendar-prev]':'[data-calendar-next]').click();
+  }
+  await page.locator('[data-year="'+year+'"]').click();
+  await page.locator('[data-month="'+(month-1)+'"]').click();
+  await page.locator('[data-date-value="'+value+'"]').click();
+}
 const state = (page) =>
   page.evaluate(
     () => JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state,
@@ -46,7 +58,7 @@ async function go(page, to) {
     .click();
 }
 async function bookStart(page) {
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await screen(page, 'C1');
   await submit(page);
   await screen(page, 'C2');
@@ -214,7 +226,7 @@ test('F1 new profile → all booking steps → pending visit, 4 tabs and booking
   await login(page);
   await screen(page, 'A3');
   await page.locator('#name').fill('Nguyễn An');
-  await page.locator('#dob').fill('1995-02-15');
+  await pickDate(page, 'dob', '1995-02-15');
   await submit(page);
   await screen(page, 'B1');
   await bookStart(page);
@@ -231,8 +243,8 @@ test('F1 new profile → all booking steps → pending visit, 4 tabs and booking
     'Hồ sơ',
     'Hỗ trợ',
   ]);
-  await expect(page.locator('#bottom-nav > *')).toHaveCount(5);
-  await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');
+  await expect(page.locator('#bottom-nav .cf-nav-item')).toHaveCount(5);
+  await expect(page.locator('#bottom-nav .nav-book')).toHaveAttribute('aria-label', 'Đặt lịch');
 });
 test('F2 existing profile is confirmed and can be updated without re-entry', async ({
   page,
@@ -681,7 +693,7 @@ test('proxy permission is bound to visit; direct links cannot expose health resu
   page,
 }) => {
   await load(page, 'empty');
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await content(page).locator('input[value=p2]').check();
   await submit(page);
   await page.locator('#reason').fill('Đặt lịch cho người thân');
@@ -810,6 +822,8 @@ for (const view of [
             page: document.documentElement.scrollWidth <= innerWidth,
             main: main.scrollWidth <= main.clientWidth + 1,
             content: root.scrollWidth <= root.clientWidth + 1,
+            primaries: [...root.querySelectorAll('[data-cf-component="button"][data-cf-variant="primary"]')].filter(el=>el.getClientRects().length).map(el=>({label:el.textContent,color:getComputedStyle(el).backgroundColor,disabled:el.disabled})),
+            photos: root.querySelectorAll('img').length,
             tiny: [
               ...root.querySelectorAll(
                 'button,a,input:not([type=radio],[type=checkbox]),summary',
@@ -818,7 +832,7 @@ for (const view of [
               .filter((x) => {
                 const r = x.getBoundingClientRect();
                 return (
-                  r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)
+                  x.getAttribute('aria-hidden') !== 'true' && r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)
                 );
               })
               .map((x) => x.outerHTML.slice(0, 180)),
@@ -827,6 +841,10 @@ for (const view of [
         expect(metrics.page, meta.id + ' page overflow').toBe(true);
         expect(metrics.main, meta.id + ' scroller overflow').toBe(true);
         expect(metrics.content, meta.id + ' content overflow').toBe(true);
+        expect(metrics.primaries.length,meta.id+' competing primary actions').toBeLessThanOrEqual(1);
+        for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');
+        expect(metrics.photos,meta.id+' approved decorative portraits').toBe(['B1','K5'].includes(meta.id)?1:0);
+        if(metrics.photos)await expect(content(page).locator('img')).toHaveAttribute('src','assets/images/unsplash/doctor-cutout.webp');
         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);
         const text = await content(page).innerText();
         expect(text, /patient jargon at / + meta.id).not.toMatch(
@@ -927,7 +945,7 @@ test('desktop frame, project subpath assets, self-hosted Vietnamese font', async
     ),
   ).toBe(true);
   await expect(page.locator('.phone')).toHaveCSS('width', '390px');
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await screen(page, 'C1');
   await page.reload();
   await screen(page, 'C1');
@@ -979,7 +997,7 @@ test('typed booking draft survives reload without persisting OTP', async ({
   page,
 }) => {
   await load(page, 'empty');
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await submit(page);
   await page.locator('#reason').fill('Nội dung chưa gửi được giữ lại.');
   await page.reload();
@@ -1115,7 +1133,7 @@ test('F9 fee-free completion and F10 summary/additional-lab actions use the righ
   await nav(page, 'H7');
   await staff(page, 'lab:post');
   await go(page, 'F1');
-  await expect(content(page).locator('[data-to=F2]')).toHaveCount(2);
+  await expect(content(page).locator('.cf-lab-card [data-to=F2]')).toHaveCount(2);
   await content(page).locator('[data-lab=lab-2][data-to=F2]').click();
   await screen(page, 'F2');
   expect((await current(page)).labs[1].status).toBe('ordered');
@@ -1124,7 +1142,7 @@ test('large text actually doubles editable text, with no horizontal overflow', a
   page,
 }) => {
   await load(page, 'empty');
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await submit(page);
   const size = await page
     .locator('#reason')
@@ -1182,11 +1200,11 @@ test('adding a relative while booking returns to the correct selected patient', 
   page,
 }) => {
   await load(page, 'empty');
-  await action(page, 'begin').first().click();
-  await go(page, 'K2');
-  await content(page).locator('.add-relative summary').click();
+  await page.locator('#bottom-nav .nav-book').click();
+  await content(page).locator('[data-action="profile-add-booking"]').click();
+  await expect(content(page).locator('.add-relative')).toHaveAttribute('open','');
   await page.locator('#name').fill('Người thân thử nghiệm');
-  await page.locator('#dob').fill('1980-03-12');
+  await pickDate(page, 'dob', '1980-03-12');
   await submit(page);
   await screen(page, 'C1');
   await expect(content(page).locator('input[value=p3]')).toBeChecked();
@@ -1202,7 +1220,7 @@ test('login after proxy booking confirms the account owner, not the selected rel
   page,
 }) => {
   await load(page, 'empty');
-  await action(page, 'begin').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await content(page).locator('input[value=p2]').check();
   await submit(page);
   await page.locator('#reason').fill('Đặt lịch cho mẹ');
@@ -1218,7 +1236,7 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await submit(page);
   await screen(page, 'B1');
   await expect(content(page).locator('h1')).toHaveText('Nguyễn Minh Anh');
-  await expect(content(page).locator('.rich-greeting p')).toHaveText(/^Chào buổi (sáng|chiều|tối),$/);
+  await expect(content(page).locator('.cf-home-head p')).toHaveText(/^Chào buổi (sáng|chiều|tối), hôm nay bạn thế nào\?$/);
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });

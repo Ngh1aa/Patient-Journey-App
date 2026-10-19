@@ -1,0 +1,11 @@
+✔ public prototype is doctor only (3.6194ms)
+✔ doctor IA and core interactions are implemented (3.6383ms)
+✔ consistent brand, responsive constraints and accessibility contracts (2.0748ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.712

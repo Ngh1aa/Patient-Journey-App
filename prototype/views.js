@@ -39,7 +39,7 @@
   const note = (text, type = 'info') =>
     `<div class="note ${type}">${I(type === 'danger' ? 'warning' : 'info', 19)}<p>${esc(text)}</p></div>`;
   const empty = (title, lead, action = '') =>
-    `<div class="empty" data-cf-card="surface" data-cf-state="empty"><span class="empty-icon">${I('document', 38)}</span><h2>${esc(title)}</h2>${lead ? `<p>${esc(lead)}</p>` : ''}${action}</div>`;
+    `<div class="empty" data-cf-card="surface" data-cf-state="empty">${UI.illustration('result')}<h2>${esc(title)}</h2>${lead ? `<p>${esc(lead)}</p>` : ''}${action}</div>`;
   const field = (id, label, value = '', type = 'text', extra = {}) =>
     `<div class="field"><label for="${id}">${I(type==='date'?'calendar':type==='tel'?'phone':'document',16)}<span>${esc(label)}</span></label><input id="${id}" name="${id}" type="${type}" value="${esc(value)}"${attrs(extra)}></div>`;
   const textarea = (id, label, value = '', extra = {}) =>
@@ -48,7 +48,7 @@
     `<label class="check"><input id="${id}" name="${id}" type="checkbox"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
   const choices = (name, items, selected, inlineAction = '') => {
     const icons = { onsite: 'map-pin', online: 'video', normal: 'shield', warning: 'warning' };
-    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''} ${name === C.mode ? 'cf-mode-choice' : ''}" ${UI.cardAttrs(name===C.mode?'media':'tonal')}><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${name===C.mode?`<img class="cf-mode-thumbnail cf-photo-image" src="./assets/images/unsplash/${v==='online'?'consultation':'clinic'}.webp" width="80" height="88" alt="" loading="lazy">`:icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy${name===C.mode?' cf-mode-caption':''}"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
+    return `<fieldset class="choices"><legend class="sr-only">${esc(name)}</legend>${items.map(([v, label, hint, meta]) => `<label class="choice ${v === selected ? 'selected' : ''} ${name === C.patient ? 'patient-choice' : ''} ${name === C.mode ? 'cf-mode-choice' : ''}" ${UI.cardAttrs(name===C.mode?'media':'tonal')}><input type="radio" name="${name}" value="${esc(v)}"${v === selected ? ' checked' : ''}>${name===C.mode?`${UI.illustration(v==='online'?'support':'clinic')}`:icons[v] || name === C.patient ? `<span class="choice-visual" aria-hidden="true">${name === C.patient ? root.CareFlowAvatar(v,44) : I(icons[v],25)}</span>` : ''}<span class="choice-copy${name===C.mode?' cf-mode-caption':''}"><strong>${esc(label)}</strong>${hint ? `<small>${esc(hint)}</small>` : ''}${meta ? `<span class="choice-meta">${I('calendar',13)}${esc(meta)}</span>` : ''}</span></label>${v === selected ? inlineAction : ''}`).join('')}${items.some(([v]) => v === selected) ? '' : inlineAction}</fieldset>`;
   };
   const form = (name, html, cta = C.continue, variant = 'primary') =>
     `<form data-form="${name}" novalidate><div class="form-body">${html}</div><div class="form-actions"><p class="field-error" id="form-error" role="alert"></p><button class="btn ${variant}" ${UI.buttonAttrs(variant, 'lg')} type="submit"><span>${esc(cta)}</span>${I(name === 'booking' ? 'check-circle' : 'arrow-right',20)}</button></div></form>`;
@@ -57,8 +57,8 @@
   const section = (title, html, cls = '', icon = 'document') =>
     `<section class="section ${cls}" ${UI.cardAttrs('section')}><h2 class="section-heading">${I(title === C.history ? 'clock' : icon,18)}<span>${esc(title)}</span></h2>${html}</section>`;
   const chip = (text, tone = 'info') =>
-    `<span class="chip ${tone}" data-cf-component="status" data-cf-tone="${tone}">${esc(text)}</span>`;
-  const status = (v) => { const state = UI.status(v.status); return chip(state.label, state.tone); };
+    `<span class="chip ${tone}" data-cf-component="status" data-cf-tone="${tone}">${I(tone==='success'?'check-circle':tone==='warning'?'clock':tone==='danger'?'warning':'info',16)}${esc(text)}</span>`;
+  const status = (v) => UI.badge(v.status);
   const dateText = (v) => {
     if (!v?.date) return C.notProvided;
     const date = new Date(v.date + 'T12:00:00+07:00');
@@ -93,11 +93,10 @@
     }).join('');
     return form(
       name,
-      `<div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div>` + field('date', title.date || C.date, selected, 'date', {
+      `<div class="cf-schedule-date"><div class="cf-schedule-heading"><h2>Ngày khám mong muốn</h2><span data-date-month></span></div><div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div><div class="cf-date-other">` + field('date', 'Chọn ngày khác', selected, 'date', {
         min: M.localDate(),
         required: 'required',
-      }) +
-        `<fieldset class="slot-field"><legend>${esc(C.time)}</legend><div class="slots">${['08:00', '09:00', '10:30', '14:00', '15:30'].map((t) => `<label class="slot"><input name="slot" type="radio" value="${t}"${d.slot === t ? ' checked' : ''}><span>${t}</span></label>`).join('')}</div></fieldset>`,
+      }) + `</div></div><fieldset class="slot-field"><legend>${esc(C.time)}</legend>${[['Buổi sáng',['08:00','09:00','10:30']],['Buổi chiều',['14:00','15:30']]].map(([label,times])=>`<div class="cf-slot-group"><p>${label}</p><div class="slots">${times.map(t=>`<label class="slot"><input name="slot" type="radio" value="${t}"${d.slot===t?' checked':''}><span>${t}</span></label>`).join('')}</div></div>`).join('')}<p class="cf-schedule-hint">Phòng khám sẽ xác nhận thời gian sau khi nhận yêu cầu.</p></fieldset>`,
       title.next || C.continue,
     );
   }
@@ -116,12 +115,11 @@
   function bookingProgress(id) {
     const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 3}[id];
     if (step === undefined) return '';
-    const labels = ['Người đi khám', 'Triệu chứng', 'Nơi khám', 'Lịch hẹn'];
-    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div><ol aria-label="Tiến trình đặt lịch">${labels.map((label, i) => `<li class="${i < step ? 'done' : ''}"${i === step ? ' aria-current="step"' : ''}><span class="step-track" aria-hidden="true">${i < step ? "✓" : i + 1}</span><span>${esc(label)}</span></li>`).join('')}</ol></div>`;
+    return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div>${UI.stepper(step)}</div>`;
   }
   // Auth visuals are shared; each screen retains its real form and validation.
   const authVisual = () =>
-    `<div class="auth-scene"><img src="./assets/images/unsplash/clinic.webp" width="1000" height="649" alt="Không gian phòng khám minh họa từ Unsplash"><div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
+    `<div class="auth-scene">${UI.illustration('clinic')}<div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
@@ -230,7 +228,7 @@
                 ['warning', T.warning],
               ],
               d?.safety,
-            ),
+            ) + `<div data-safety-guidance role="alert"${d?.safety==='warning'?'':' hidden'}>${UI.emergencyCard()}</div>`,
           ) + (T.note ? note(T.note) : '');
         break;
       case 'C4':
@@ -255,7 +253,7 @@
             choices(
               C.mode,
               [
-                ['onsite', 'Tại phòng khám', T.onsite],
+                ['onsite', 'Khám tại phòng khám', T.onsite],
                 ['online', 'Khám online', T.online],
               ],
               d?.mode,
@@ -353,7 +351,7 @@
         break;
       case 'E1':
         body =
-          `<figure class="cf-context-photo"><img src="./assets/images/unsplash/hospital.webp" alt="Khu tiếp nhận minh họa từ Unsplash" width="1000" height="681"><figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
+          `<figure class="cf-context-illustration">${UI.illustration('clinic')}<figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
             `<dl class="details" data-cf-component="facts">${[
               [T.time, v.slot + ' · ' + dateText(v)],
               [T.arrival, 'Chưa có hướng dẫn thời gian đến riêng'],
@@ -380,7 +378,7 @@
       case 'E3':
         body =
           card(
-            `<img class="cf-photo-image" src="./assets/images/unsplash/clinic.webp" width="1200" height="800" alt=""><div class="cf-photo-panel-content"><div class="queue-orbit">${I('clock', 32)}</div><h2>${esc(VI.statuses[v.status][0])}</h2><p>${esc(VI.statuses[v.status][1])}</p></div>`,
+            `${UI.illustration('result')}<div class="cf-photo-panel-content"><div class="queue-orbit">${I('clock', 32)}</div><h2>${esc(VI.statuses[v.status][0])}</h2><p>${esc(VI.statuses[v.status][1])}</p></div>`,
             'center cf-waiting-card cf-photo-panel','media',
           ) +
           section(T.queue, `<p>${esc(T.queueNote)}</p>`) +
@@ -390,7 +388,7 @@
         break;
       case 'F1':
         intro = head(T.heading,'');
-        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card cf-photo-panel" ${UI.cardAttrs('media')}><img class="cf-photo-image" src="./assets/images/${R.labImage(x)}" alt="" width="1200" height="800" loading="lazy"><div class="cf-lab-content cf-photo-panel-content"><span class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</span><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<div class="cf-card-actions"><button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}"><span class="sr-only">${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}</span>${I('arrow-right',20)}</button>${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','inverse',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',compactSearch:true,placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) + `<div class="cf-photo-grid cf-lab-utilities">${R.photoCard({title:'Hướng dẫn thực hiện',layout:'topic',description:'Xem thông tin của chỉ định',image:'unsplash/doctor-care.webp',to:'F2',labId:v.labs[0].id,icon:'document'})}${R.photoCard({title:'Cần hỗ trợ?',layout:'network',description:'Hỏi phòng khám',image:'unsplash/consultation.webp',to:'K5',icon:'headphones'})}</div>` : empty(T.empty,T.emptyLead);
+        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-lab-content cf-photo-panel-content"><span class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</span><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<div class="cf-card-actions"><button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}"><span class="sr-only">${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}</span>${I('arrow-right',20)}</button>${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','inverse',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',compactSearch:true,placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) + `<div class="cf-photo-grid cf-lab-utilities">${R.photoCard({title:'Hướng dẫn thực hiện',layout:'topic',description:'Xem thông tin của chỉ định',to:'F2',labId:v.labs[0].id,icon:'document'})}${R.photoCard({title:'Cần hỗ trợ?',layout:'network',description:'Hỏi phòng khám',to:'K5',icon:'headphones'})}</div>` : empty(T.empty,T.emptyLead);
         break;
       case 'F2':
         intro = head(l.name,'Hướng dẫn và tài liệu của chỉ định này.');
@@ -446,7 +444,7 @@
         break;
       case 'G1':
         body =
-          `<figure class="cf-context-photo"><img src="./assets/images/unsplash/consultation.webp" alt="Máy tính dùng trong chăm sóc y tế minh họa" width="1000" height="667"><figcaption>Sẵn sàng thiết bị và không gian riêng tư</figcaption></figure>` +
+          `<figure class="cf-context-illustration">${UI.illustration('support')}<figcaption>Sẵn sàng thiết bị và không gian riêng tư</figcaption></figure>` +
           `<div class="online-prepare-list" aria-label="Chuẩn bị khám trực tuyến"><div>1 <span>Kiểm tra camera và micro</span></div><div>2 <span>Kiểm tra kết nối Internet</span></div><div>3 <span>Chờ phòng khám mở phòng khám trực tuyến</span></div></div>` +
           card(
             `<div class="video-preview">${I('video', 44)}<strong>${esc(u.deviceReady ? T.ready : T.waiting)}</strong></div>`,
@@ -459,7 +457,7 @@
       case 'G2':
         body =
           card(
-            `<img class="cf-photo-image" src="./assets/images/unsplash/consultation.webp" width="1200" height="800" alt=""><div class="cf-photo-panel-content"><div class="waiting-orbit">${I('video', 32)}</div><h2>${esc(T.heading)}</h2><p>${esc(T.note)}</p></div>`,
+            `${UI.illustration('result')}<div class="cf-photo-panel-content"><div class="waiting-orbit">${I('video', 32)}</div><h2>${esc(T.heading)}</h2><p>${esc(T.note)}</p></div>`,
             'center cf-waiting-card cf-photo-panel','media',
           ) +
           nav(C.support, 'K5') +
@@ -496,7 +494,7 @@
           ) +
           nav(T.pay, 'H2', 'primary') +
           (v.lockedAt ? note(C.signed) : '') +
-          `<div class="cf-photo-grid cf-aftercare-grid">${R.photoCard({title:T.summary,layout:'stack',description:'Lời dặn và tài liệu',image:'unsplash/medical-tools.webp',to:'H6',id:v.id,icon:'document'})}${R.photoCard({title:T.labs,description:'Theo dõi chỉ định',image:'unsplash/laboratory.webp',to:'F1',id:v.id,icon:'flask'})}${R.photoCard({title:T.care,layout:'network',description:'Gửi câu hỏi cho phòng khám',image:'unsplash/consultation.webp',to:'I1',id:v.id,icon:'message-circle'})}${R.photoCard({title:T.followup,layout:'topic',description:'Chọn lịch khám tiếp theo',image:'unsplash/clinic.webp',to:'J1',id:v.id,icon:'calendar'})}</div>`;
+          `<div class="cf-photo-grid cf-aftercare-grid">${R.photoCard({title:T.summary,layout:'stack',description:'Lời dặn và tài liệu',to:'H6',id:v.id,icon:'document'})}${R.photoCard({title:T.labs,description:'Theo dõi chỉ định',to:'F1',id:v.id,icon:'flask'})}${R.photoCard({title:T.care,layout:'network',description:'Gửi câu hỏi cho phòng khám',to:'I1',id:v.id,icon:'message-circle'})}${R.photoCard({title:T.followup,layout:'topic',description:'Chọn lịch khám tiếp theo',to:'J1',id:v.id,icon:'calendar'})}</div>`;
         break;
       case 'H2':
         body =
@@ -573,7 +571,7 @@
         break;
       case 'H7':
         body =
-          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card cf-photo-panel" ${UI.cardAttrs('media')}><img class="cf-photo-image" src="./assets/images/${R.labImage(x)}" width="1200" height="800" alt="" loading="lazy"><div class="cf-photo-panel-content"><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}<button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="Mở chi tiết"><span class="sr-only">Mở chi tiết</span>${I('arrow-right',20)}</button></div></article>`})),{label:'kết quả',search:'Tìm kết quả',compactSearch:true,placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
+          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-photo-panel-content"><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}<button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="Mở chi tiết"><span class="sr-only">Mở chi tiết</span>${I('arrow-right',20)}</button></div></article>`})),{label:'kết quả',search:'Tìm kết quả',compactSearch:true,placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
           card(
             `<dl class="details" data-cf-component="facts"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
           );
@@ -608,7 +606,7 @@
               v?.id,
             ),
           ) +
-           `<div class="support-reasons cf-photo-grid" aria-label="Chọn nội dung cần hỏi">${['medicine', 'question', 'symptoms'].map(k=>R.photoCard({title:T[k],layout:k==='question'?'network':k==='symptoms'?'topic':'photo',description:T[k+'Hint'],image:k==='medicine'?'unsplash/medical-tools.webp':k==='question'?'unsplash/consultation.webp':'unsplash/doctor-care.webp',to:'I2',id:v.id,icon:k==='medicine'?'pill':k==='question'?'message-circle':'heart-pulse',reason:k,classes:'cf-inquiry-tile'})).join('')}</div><div class="care-links cf-photo-grid">${R.photoCard({title:T.tracking,layout:'topic',image:'unsplash/doctor-care.webp',to:'I3',id:v.id,icon:'heart-pulse'})}${R.photoCard({title:T.referral,layout:'stack',image:'unsplash/hospital.webp',to:'I4',id:v.id,icon:'document'})}${R.photoCard({title:T.messages,layout:'network',image:'unsplash/consultation.webp',to:'I5',id:v.id,icon:'message-circle'})}</div>`;
+           `<div class="support-reasons cf-photo-grid" aria-label="Chọn nội dung cần hỏi">${['medicine', 'question', 'symptoms'].map(k=>R.photoCard({title:T[k],layout:k==='question'?'network':k==='symptoms'?'topic':'photo',description:T[k+'Hint'],image:k==='medicine'?'unsplash/medical-tools.webp':k==='question'?'unsplash/consultation.webp':'unsplash/doctor-care.webp',to:'I2',id:v.id,icon:k==='medicine'?'pill':k==='question'?'message-circle':'heart-pulse',reason:k,classes:'cf-inquiry-tile'})).join('')}</div><div class="care-links cf-photo-grid">${R.photoCard({title:T.tracking,layout:'topic',to:'I3',id:v.id,icon:'heart-pulse'})}${R.photoCard({title:T.referral,layout:'stack',to:'I4',id:v.id,icon:'document'})}${R.photoCard({title:T.messages,layout:'network',to:'I5',id:v.id,icon:'message-circle'})}</div>`;
 
         break;
       }
@@ -677,7 +675,7 @@
         break;
       case 'J1':
         body =
-          R.photoCard({title:'Gặp lại bác sĩ',description:'Chọn lịch phù hợp cho lần khám tiếp theo',image:'unsplash/clinic.webp',actionName:'rebook',id:v.id,purpose:'followup',icon:'calendar',featured:true}) + card(details(s, v)) +
+          `<section class="cf-split" ${UI.cardAttrs('surface')} data-cf-mesh="feature"><div class="cf-stack"><h2>Gặp lại bác sĩ</h2><p>Chọn lịch phù hợp cho lần khám tiếp theo.</p></div>${UI.illustration('calendar')}</section>` + card(details(s, v)) +
           section(T.suggestion, `<p>${esc(C.notProvided)}</p>`) +
           btn(T.cta, 'rebook', { 'data-purpose': 'followup' }, 'primary');
         break;
@@ -709,9 +707,10 @@
             C.save,
           ) +
           section(T.privacy, `<p>${esc(T.privacyLead)}</p>`) +
-          btn(T.logout, 'logout', {}, 'text danger-text');
+          btn(T.logout, 'logout', {}, 'danger');
         break;
       case 'K5':
+        intro = head(T.heading, s.requests.some(request=>request.status==='waiting') ? 'Có yêu cầu đang chờ phòng khám tiếp nhận' : 'Chưa có yêu cầu đang chờ');
         body = R.support(s, u, richH);
         break;
       default:
@@ -727,8 +726,8 @@
       !['C1', 'C4', 'I1'].includes(id)
         ? context(s, id.startsWith('C') && id !== 'C9' ? null : v)
         : '');
-    if (id === 'D2') return `<div class="ref-detail-hero"><img src="./assets/images/unsplash/${v.mode==='online'?'consultation':'clinic'}.webp" width="1000" height="667" alt="Ảnh bối cảnh khám minh họa từ Unsplash"></div><div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}<div class="ref-clinician"><span>${root.CareFlowAvatar('doctor-ha',40)}</span><div><strong>${esc(R.clinician(v).name)}</strong><small>${esc(R.clinician(v).specialty)}</small></div>${I(v.mode==='online'?'video':'map-pin',22)}</div></div>${R.detailShortcuts(v,richH)}${body}</div>`;
-    if (id === 'F2') return `<div class="ref-detail-hero cf-lab-detail-hero"><img src="./assets/images/${R.labImage(l)}" width="1200" height="800" alt="Ảnh bối cảnh cận lâm sàng minh họa"></div><div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}</div>${R.detailShortcuts(v,richH)}${body}</div>`;
+    if (id === 'D2') return `<div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}<div class="ref-clinician"><span>${root.CareFlowAvatar('doctor-ha',40)}</span><div><strong>${esc(R.clinician(v).name)}</strong><small>${esc(R.clinician(v).specialty)}</small></div>${I(v.mode==='online'?'video':'map-pin',22)}</div></div>${R.detailShortcuts(v,richH)}${body}</div>`;
+    if (id === 'F2') return `<div class="ref-detail-sheet"><div class="ref-detail-heading">${intro}</div>${R.detailShortcuts(v,richH)}${body}</div>`;
     if (id === 'B1') return `<div class="screen-masthead home-masthead">${intro}</div>${body}`;
     if (['C1','D1','K2','K5'].includes(id)) return `<div class="screen-masthead compact-masthead">${intro}${id==='C1' && s.draft ? bookingProgress(id) : ''}</div>${body}`;
     if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
@@ -740,7 +739,7 @@
       K: [id === 'K5' ? 'PHÒNG KHÁM ĐỒNG HÀNH' : 'THÔNG TIN CỦA BẠN', id === 'K5' ? 'phone' : 'user'],
     };
     const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
-    const tip = ['C1','D1','K2','K5'].includes(id) ? null : VI.layout.tips[id];
+    const tip = ['C1','C7','D1','K2','K5'].includes(id) ? null : VI.layout.tips[id];
     return `<div class="screen-masthead">${intro}${s.authenticated && s.draft ? bookingProgress(id) : ''}${personContext}</div>${tip ? id === 'C1' ? `<aside class="selection-reminder" role="note">${I('shield',21)}<div><strong>${esc(tip[0])}</strong><p>${esc(tip[1])}</p></div></aside>` : `<details class="ux-tip"><summary>${I('info',18)}<span>${esc(tip[0])}</span>${I('chevron-right',16)}</summary><p>${esc(tip[1])}</p></details>` : ''}${body}`;
   }
   root.CareFlowViews = {

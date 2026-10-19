@@ -1,0 +1,650 @@
+[
+  {
+    "file": "prototype/.gitignore",
+    "bytes": 53,
+    "sha256": "67aeb5b3d9ed776ef939a2427c66b27ef343c72ad96291ccc4f4579e6a4ac27f",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/IMPLEMENTATION-11-12.md",
+    "bytes": 5266,
+    "sha256": "601ea8fd7620ae2727ec2c1b9c004904c6fb49baf8f84f60631bec8e3c3bcdf9",
+    "kind": "source/document",
+    "lines": 62,
+    "rawColorLiterals": 2,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/README.md",
+    "bytes": 1834,
+    "sha256": "a999a2787fdfec77bc3e34e936d9d32d73a53b82310aac6bcca09f9689b8b610",
+    "kind": "source/document",
+    "lines": 21,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/USABILITY-TEST-PLAN.md",
+    "bytes": 6615,
+    "sha256": "6bf9cadf00c0a492f84de41b0463c6feae34953a50322a42eb55ea6b7dbeef4c",
+    "kind": "source/document",
+    "lines": 68,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/app.js",
+    "bytes": 67704,
+    "sha256": "406a9b5d3450d29263d45e33ffa014018288519fd5c0ad9de2dc2a33b3547ef1",
+    "kind": "source/document",
+    "lines": 1580,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/assets/fonts/BeVietnamPro-Bold.ttf",
+    "bytes": 140300,
+    "sha256": "7f738fe5c43c8872807b20e2d30d42163618de8a4daf7f48a939adac32c16847",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/fonts/BeVietnamPro-Regular.ttf",
+    "bytes": 132948,
+    "sha256": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/fonts/BeVietnamPro-SemiBold.ttf",
+    "bytes": 136736,
+    "sha256": "bd8e27eb02720b9d91e59e4f10a90878643219f25ce6a8d9a4f06a8a88d3bb71",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/fonts/OFL.txt",
+    "bytes": 4397,
+    "sha256": "6b7f8f73609a25ea78c891e34cf37b06f8a676b7ea986e941e43b009110f2a85",
+    "kind": "source/document",
+    "lines": 94,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/assets/fonts/PlusJakartaSans-OFL.txt",
+    "bytes": 4402,
+    "sha256": "995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99",
+    "kind": "source/document",
+    "lines": 94,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/assets/fonts/PlusJakartaSans-Variable.ttf",
+    "bytes": 176288,
+    "sha256": "89b3fb38aa0d275d7a731d0d817a4f1622b316b4d7fbdedcf02ee9099ff68bc8",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/clinic-reception.webp",
+    "bytes": 91638,
+    "sha256": "8cdb9a326b636a9dd3ae63c1888f42d04b19dfef6db73b0f87424ffe6abf9e74",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/consultation-room.png",
+    "bytes": 2059171,
+    "sha256": "dde7bf8f51a7826587af59020ada5de4d83a98a6c8eff77d294c9b60cc9ef660",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/imaging-suite.png",
+    "bytes": 1982441,
+    "sha256": "0866a9e468c080d86078a694d5a8c6f098e4078cc50f54648d13301d06892a08",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/laboratory.webp",
+    "bytes": 47778,
+    "sha256": "7110f91c9ca4fa91c9cd082426e35ed58af73ed28caec2900aae8341288aabf3",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/stethoscope.png",
+    "bytes": 1373818,
+    "sha256": "062e52e282ea126e791453060028c8a7bd7692b67767d1674eb62898e0f04740",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/account-portrait.webp",
+    "bytes": 23740,
+    "sha256": "07ba222b96466b84c6e9d99d34c749be532bc09c0e44dbd2415524797f7ea621",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/care-team.webp",
+    "bytes": 91420,
+    "sha256": "d461173f775557ad3194a3da9385b300f410afac5ae4b9e76ee69fdd71ac2171",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/clinic.webp",
+    "bytes": 79924,
+    "sha256": "2c7040f080203403647af46eb609097ceef095c02bf9cec4d7423615cdc40194",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/consultation.webp",
+    "bytes": 51390,
+    "sha256": "6b30fefaa9b812eb81cfdd35a3e53bce02e10c80b898385bedad092c0ad88fa9",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/doctor-care.webp",
+    "bytes": 52846,
+    "sha256": "c5f853d7ae5697f6cf427bce7d259d2ba00beb8007208e2c028d8d67b5f98526",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/doctor-portrait.webp",
+    "bytes": 54092,
+    "sha256": "125d94a6d1c00b35556e87f4a5d1b0336127a1ba17d1463b9aeef545d7d27edc",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/hospital.webp",
+    "bytes": 73854,
+    "sha256": "a3a7f99a359db79ad49ff57f4e8bec1d283ff4951760a4ffb453c83926cabb62",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/laboratory.webp",
+    "bytes": 160638,
+    "sha256": "f48568a1ca907328f60ed38876f0f60b3f7a5992ee9d7c8357de156cc9875b03",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/medical-tools.webp",
+    "bytes": 129066,
+    "sha256": "dacf0f1c6074ec4385ba1e4a4f1f45e71455ecc9b81b95581a2f4bffff464a8b",
+    "kind": "asset/binary",
+    "lines": null,
+    "rawColorLiterals": 0,
+    "review": "asset manifest only"
+  },
+  {
+    "file": "prototype/assets/images/unsplash/sources.json",
+    "bytes": 3830,
+    "sha256": "98614891c12f396aedaabec510a666ebc52e029ede50b002ce60ddcfd4f65afc",
+    "kind": "source/document",
+    "lines": 84,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/auth-editorial.css",
+    "bytes": 8998,
+    "sha256": "81dcea72aeec539b3beefb164a93f755042942758088689dd7719397495e62dd",
+    "kind": "source/document",
+    "lines": 292,
+    "rawColorLiterals": 31,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/auth-editorial.spec.cjs",
+    "bytes": 3951,
+    "sha256": "cb53583aa793dfa75db39effbb98a3ff13dbe624adc9e0ff4d11433cc4c8c63f",
+    "kind": "qa/config",
+    "lines": 70,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/card-usability.spec.cjs",
+    "bytes": 8547,
+    "sha256": "3d9a652e76444a2fd988befa433e54cbe56d788b1d46c8439df986564f6a1b00",
+    "kind": "qa/config",
+    "lines": 139,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/cards-v2.spec.cjs",
+    "bytes": 10742,
+    "sha256": "421b267fc6108e8d7d38d8735d34f9744d637304cef75150ccaac47b001dbdd9",
+    "kind": "qa/config",
+    "lines": 155,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/clinical-layout.spec.cjs",
+    "bytes": 8971,
+    "sha256": "c2a2e5278637ee7b6b5fb58264ee07aa31d8763104bdcc2e7f267492e4fcf366",
+    "kind": "qa/config",
+    "lines": 137,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/draft-layout.spec.cjs",
+    "bytes": 2069,
+    "sha256": "edbb156a7f260bbf916ea711eb791e44cd4dd5aa2e39d9db68a81b0345b0ef6e",
+    "kind": "qa/config",
+    "lines": 23,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/guided.spec.cjs",
+    "bytes": 8606,
+    "sha256": "2c1fd923fcad3e2d17dd0b230bd4126d6c1f94b9b113185c2de654efc5edb962",
+    "kind": "qa/config",
+    "lines": 122,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/home-cards.spec.cjs",
+    "bytes": 2482,
+    "sha256": "4e946afb6a7d94b1edb718049619356651eb6b3abf06f2370311a3b8ca10dc6f",
+    "kind": "qa/config",
+    "lines": 32,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/journey-archetypes.spec.cjs",
+    "bytes": 3332,
+    "sha256": "d00670973d821f906eba742a5ed4b72b09e57f1a31d0b3074b85ae1a9072434d",
+    "kind": "qa/config",
+    "lines": 47,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/journeys.spec.cjs",
+    "bytes": 46043,
+    "sha256": "88e31940932b8118e06bd92710030016abd85bcc0d8ff1fad2a417c29b49faa4",
+    "kind": "qa/config",
+    "lines": 1247,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/photo-led.spec.cjs",
+    "bytes": 4401,
+    "sha256": "0cba97a15ca9dbec52ae77598b2b8a9fcb16f74623746cf25485507c09d60c1a",
+    "kind": "qa/config",
+    "lines": 61,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/profile-support-reference.spec.cjs",
+    "bytes": 4182,
+    "sha256": "2b09ba9387cbbfd93816af5e1c57e7cb7236dd912fe7e8155006c6e887eb6471",
+    "kind": "qa/config",
+    "lines": 61,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/reference-content.spec.cjs",
+    "bytes": 13755,
+    "sha256": "500a62310de0f0fbf254521406bdc8be7a9b9f1bdaf484727915f52bb5ebf906",
+    "kind": "qa/config",
+    "lines": 221,
+    "rawColorLiterals": 1,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/ui-system.spec.cjs",
+    "bytes": 10472,
+    "sha256": "811cc26a38999fd2af4b71ea1d0dd6befa5e09c459ab102d8be31aa129106e33",
+    "kind": "qa/config",
+    "lines": 159,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/browser-tests/visual-rich-content.spec.cjs",
+    "bytes": 1514,
+    "sha256": "a18b7faacf5b4571c2a8d881ce2a809faba581932e2674090794997aaaf7cb6e",
+    "kind": "qa/config",
+    "lines": 31,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/careflow-rich-content.css",
+    "bytes": 22307,
+    "sha256": "693de2dbd8a427f2687c4e0e0e8363846070bdf31dd064b8cc4d00bc98652bfc",
+    "kind": "source/document",
+    "lines": 208,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/careflow-rich-content.js",
+    "bytes": 44307,
+    "sha256": "75910275e6a22e8e4362bd2dd13cb0f04c13468f408cc3a6549bc1afdae9e403",
+    "kind": "source/document",
+    "lines": 238,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/check-contrast.cjs",
+    "bytes": 2977,
+    "sha256": "2507a0a77d82643f5cd500a490997082157b6634fe8d31df00d6d1fc6a592048",
+    "kind": "source/document",
+    "lines": 71,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/editorial-soft-glass.css",
+    "bytes": 39652,
+    "sha256": "ebe882777e4f5f2c1326f04d98fda936f8e388576fb95888a80d1531ad2b69e2",
+    "kind": "source/document",
+    "lines": 444,
+    "rawColorLiterals": 136,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/hifi-tests.spec.cjs",
+    "bytes": 6011,
+    "sha256": "e40d477335bb9bb8f5cce123acc07f8a45bf72f6156486a7a12532fa0f42a75a",
+    "kind": "qa/config",
+    "lines": 94,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/hifi.config.cjs",
+    "bytes": 861,
+    "sha256": "e49a84a89431506865e388aef2184769220144f24ea8c478be962138e3da4b8b",
+    "kind": "qa/config",
+    "lines": 14,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/icons.js",
+    "bytes": 9015,
+    "sha256": "f5d025a26ed9fb73cebcdf29539be0ef03095d2030d2f5456ca16233d56d3d7c",
+    "kind": "source/document",
+    "lines": 110,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/index.html",
+    "bytes": 8909,
+    "sha256": "6e0cca8c864169e842093fa7c18ec5473d7e760e9b84f945a6dbc654ed7869c0",
+    "kind": "source/document",
+    "lines": 193,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/journey-archetypes.css",
+    "bytes": 20544,
+    "sha256": "e93866e684c840d0b062d5b4706dfddfd2c6bd57b5936fd975897a9deab987cc",
+    "kind": "source/document",
+    "lines": 310,
+    "rawColorLiterals": 93,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/journey-behaviors.js",
+    "bytes": 8778,
+    "sha256": "7a7e9a7adfc83a3a04c02b1d5386a498b9a201f617fa8df23cdf48819e09f6cf",
+    "kind": "source/document",
+    "lines": 149,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/journeys.js",
+    "bytes": 10726,
+    "sha256": "3f6561eb07561d9c51b9dc21b4bbb90200f0b792cd509f90e37ace20bcb4f494",
+    "kind": "source/document",
+    "lines": 45,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/legacy-tests/README.md",
+    "bytes": 503,
+    "sha256": "ee22365ba04660f76f6591ca2eb92c58df8cbc1824e04b1cb4162e00ddfda3d8",
+    "kind": "qa/config",
+    "lines": 4,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/legacy-tests/core-flows.spec.cjs",
+    "bytes": 8123,
+    "sha256": "e0086354d870a989bfc431c089a18cb6564087bb4a894cf53e54bec8fb814fa5",
+    "kind": "qa/config",
+    "lines": 173,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/legacy-tests/model-v2.cjs",
+    "bytes": 5616,
+    "sha256": "dc99ff4a9080d1048f4385fffe4ae1ca9237fef37875875351ee6d5dc07d9b93",
+    "kind": "qa/config",
+    "lines": 38,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/legacy-tests/runtime-main.spec.cjs",
+    "bytes": 6156,
+    "sha256": "ea0d9f3dfda57da9955020088b5ee38618fadc2f5ec1b65a838d23ded61dd305",
+    "kind": "qa/config",
+    "lines": 130,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/legacy-tests/soft-float.spec.cjs",
+    "bytes": 5547,
+    "sha256": "1c22c66daa2a63200f025a5bd6813dd05f363f59c72c0e7f0a1fd4b63713cfcb",
+    "kind": "qa/config",
+    "lines": 96,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/model.js",
+    "bytes": 29457,
+    "sha256": "27ae30088b8ea760a45c2094494b0ae335da1b8fedc38edfabdf52f4b121ed87",
+    "kind": "source/document",
+    "lines": 975,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/package-lock.json",
+    "bytes": 3128,
+    "sha256": "64735d14baacc8b6a8e3040e8b1f7ba6c159330c158acd89aa424c665394472e",
+    "kind": "source/document",
+    "lines": 103,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/package.json",
+    "bytes": 775,
+    "sha256": "bae5a543ecc0f39878e2c441f867c492c54a39a7bfc22fd49dd92199034e6a47",
+    "kind": "source/document",
+    "lines": 17,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/playwright.config.cjs",
+    "bytes": 1036,
+    "sha256": "54be06bbd5827e59b409ad379838b4f51db6b3088879fcf3c3035faa0af7bd23",
+    "kind": "qa/config",
+    "lines": 37,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/preview-server.cjs",
+    "bytes": 1596,
+    "sha256": "6d37bcc27fd7f83adead6a3dd489700c2648d39044e4ba72775dd5d4870c7168",
+    "kind": "source/document",
+    "lines": 55,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/qa-model-results.md",
+    "bytes": 2590,
+    "sha256": "1dbc9decaa2c5d3af66595934d9dea245be557c7ffc88017713555901410b438",
+    "kind": "source/document",
+    "lines": 49,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/runtime-main.config.cjs",
+    "bytes": 203,
+    "sha256": "a343369cb154401d48f54a62f7538a4d3e48d0cf950371d57cbb09d22f4ee16f",
+    "kind": "qa/config",
+    "lines": 4,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/solid-navy-polish.css",
+    "bytes": 63091,
+    "sha256": "5801ccd26b0625cbea1d10f5009432899ed98a83c5d8598d4df58b1e62dfb43e",
+    "kind": "source/document",
+    "lines": 585,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/strings.vi.js",
+    "bytes": 33781,
+    "sha256": "fc01cc709ae529cb2ef9a2ae349ceedf18125bba46e7c6bd02f56a64d6660e9a",
+    "kind": "source/document",
+    "lines": 686,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/styles.css",
+    "bytes": 37066,
+    "sha256": "05e26eadc30598a12cda4640c671a7e55394b4793890952749c49974771623c7",
+    "kind": "source/document",
+    "lines": 1593,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/tests.cjs",
+    "bytes": 21783,
+    "sha256": "c8c038460801dff39b2d14326f3f6b0c53418894791b170f680298922e131a1b",
+    "kind": "qa/config",
+    "lines": 540,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/vendor/qrcode-LICENSE.txt",
+    "bytes": 1071,
+    "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c",
+    "kind": "source/document",
+    "lines": 22,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/vendor/qrcode.js",
+    "bytes": 56694,
+    "sha256": "79ec86f82856005b1c887905cfccfcfbec3821ca61c7fd5a952faa5f778f791c",
+    "kind": "source/document",
+    "lines": 2298,
+    "rawColorLiterals": 2,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/views.js",
+    "bytes": 49414,
+    "sha256": "58478296fb73dd39c45d6bd75f99258e98b82721ccd898814ca33ff51eb4e788",
+    "kind": "source/document",
+    "lines": 761,
+    "rawColorLiterals": 0,
+    "review": "full-file static scan; runtime owners read separately"
+  },
+  {
+    "file": "prototype/wireframe-board.svg",
+    "bytes": 48579,
+    "sha256": "206300de0c80cce08273df323fc6cc2b8482cfdc1f0fcde67e5748b6798203f7",
+    "kind": "source/document",
+    "lines": 1,
+    "rawColorLiterals": 615,
+    "review": "full-file static scan; runtime owners read separately"
+  }
+]

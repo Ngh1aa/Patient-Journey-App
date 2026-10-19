@@ -1,0 +1,3949 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\playwright.config.cjs",
+    "rootDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Chromium",
+        "name": "Chromium",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "WebKit",
+        "name": "WebKit",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 2,
+    "webServer": {
+      "command": "node preview-server.cjs",
+      "url": "http://127.0.0.1:4186/prototype/index.html",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "journeys.spec.cjs",
+      "file": "journeys.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13241,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:234:49",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 49,
+                      "line": 234
+                    },
+                    "snippet": "  232 |     'Hỗ trợ',\n  233 |   ]);\n> 234 |   await expect(page.locator('#bottom-nav > *')).toHaveCount(5);\n      |                                                 ^\n  235 |   await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');\n  236 | });\n  237 | test('F2 existing profile is confirmed and can be updated without re-entry', async ({"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 49,
+                        "line": 234
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    10 × locator resolved to 4 elements\u001b[22m\n\u001b[2m       - unexpected value \"4\"\u001b[22m\n\n\n  232 |     'Hỗ trợ',\n  233 |   ]);\n> 234 |   await expect(page.locator('#bottom-nav > *')).toHaveCount(5);\n      |                                                 ^\n  235 |   await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');\n  236 | });\n  237 | test('F2 existing profile is confirmed and can be updated without re-entry', async ({\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:234:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:39:42.362Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 49,
+                    "line": 234
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f0949248d23f7f2f9223",
+          "file": "journeys.spec.cjs",
+          "line": 207,
+          "column": 1
+        },
+        {
+          "title": "F2 existing profile is confirmed and can be updated without re-entry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5705,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:00.320Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-4082b9434ffcec945edf",
+          "file": "journeys.spec.cjs",
+          "line": 237,
+          "column": 1
+        },
+        {
+          "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3998,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:06.454Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-96c527e4ccd5b5bda300",
+          "file": "journeys.spec.cjs",
+          "line": 253,
+          "column": 1
+        },
+        {
+          "title": "device permission recovery and preview cleanup preserve the online visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3109,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:10.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-de0be5c5468b4c9b8388",
+          "file": "journeys.spec.cjs",
+          "line": 278,
+          "column": 1
+        },
+        {
+          "title": "support callback accepts the request once without requiring an appointment",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2654,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:13.752Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-6fd42c95082bde2d42e5",
+          "file": "journeys.spec.cjs",
+          "line": 305,
+          "column": 1
+        },
+        {
+          "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5046,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:16.525Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-08e64ec7e17287752a12",
+          "file": "journeys.spec.cjs",
+          "line": 317,
+          "column": 1
+        },
+        {
+          "title": "F4 arrives → received → ready → in-consult → completed in order",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4675,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:21.670Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-b5fcd69294a91edfe584",
+          "file": "journeys.spec.cjs",
+          "line": 340,
+          "column": 1
+        },
+        {
+          "title": "F5 lab appointment, external file, both return paths and staff result release",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5003,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:26.452Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-2e5b639c1fa2d700aa25",
+          "file": "journeys.spec.cjs",
+          "line": 356,
+          "column": 1
+        },
+        {
+          "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4706,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:31.571Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-c93a16909b12c6473779",
+          "file": "journeys.spec.cjs",
+          "line": 386,
+          "column": 1
+        },
+        {
+          "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6414,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:36.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-fdb82b3ab008ef2a2e4e",
+          "file": "journeys.spec.cjs",
+          "line": 407,
+          "column": 1
+        },
+        {
+          "title": "F7 online preparation, incoming call, controls, staff completion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4766,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:43.109Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-d4ae46b9ade49d139076",
+          "file": "journeys.spec.cjs",
+          "line": 438,
+          "column": 1
+        },
+        {
+          "title": "F8 wait for callback keeps unreachable visit open",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4710,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:47.980Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-30b6f6932d21ecfc75de",
+          "file": "journeys.spec.cjs",
+          "line": 451,
+          "column": 1
+        },
+        {
+          "title": "F8 replacement appointment: online",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6316,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:52.777Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-959d5471a3fe06f745ad",
+          "file": "journeys.spec.cjs",
+          "line": 461,
+          "column": 3
+        },
+        {
+          "title": "F8 replacement appointment: onsite",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6369,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:59.244Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-63365cc7f54339ed16a9",
+          "file": "journeys.spec.cjs",
+          "line": 461,
+          "column": 3
+        },
+        {
+          "title": "F9 method counter-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3575,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:05.801Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-6a0ba9af956cc4e7ceb7",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 method pharmacy-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4130,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:09.510Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-2e0c6d11716470c6ca17",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 method transfer-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4273,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:13.802Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-24b74c0fd5ab87aca934",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 defer validates reason/date and fee waiver stays separate",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3683,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:18.349Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5cf744c0fee7181e5b61",
+          "file": "journeys.spec.cjs",
+          "line": 504,
+          "column": 1
+        },
+        {
+          "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7010,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:22.149Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-3b3f68b18dd0bc667acc",
+          "file": "journeys.spec.cjs",
+          "line": 518,
+          "column": 1
+        },
+        {
+          "title": "F11 distinct aftercare reason medicine",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2884,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:29.239Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f0cfb427459e69043a3c",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 distinct aftercare reason question",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2973,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:32.258Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-02bafcfc4aa99315fa2f",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 distinct aftercare reason symptoms",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3231,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:35.407Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a585b345538c1ba282f0",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 tracking, referral, messages and follow-up recommendation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4961,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:38.791Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f719d7399ad5ddb83256",
+          "file": "journeys.spec.cjs",
+          "line": 571,
+          "column": 1
+        },
+        {
+          "title": "F12 follow-up starts a new linked visit without losing the old profile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6608,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:43.844Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-61c48c4c3f0713b926ba",
+          "file": "journeys.spec.cjs",
+          "line": 597,
+          "column": 1
+        },
+        {
+          "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10769,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:50.553Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-1849a9ded1147d4e773f",
+          "file": "journeys.spec.cjs",
+          "line": 618,
+          "column": 1
+        },
+        {
+          "title": "unknown found recovery returns the single pending request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28602,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:01.479Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-0654b9d9f43d735505d2",
+          "file": "journeys.spec.cjs",
+          "line": 646,
+          "column": 1
+        },
+        {
+          "title": "offline retains typed form and recovers after reconnection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7708,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:30.228Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-932338c21852c2e515aa",
+          "file": "journeys.spec.cjs",
+          "line": 662,
+          "column": 1
+        },
+        {
+          "title": "proxy permission is bound to visit; direct links cannot expose health results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5994,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:38.146Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-9bd36bb7a30677389713",
+          "file": "journeys.spec.cjs",
+          "line": 680,
+          "column": 1
+        },
+        {
+          "title": "Back, reload, safe notification deep link and invalid entity recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6009,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:44.263Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5e5169dc5d6fe2e4b2a4",
+          "file": "journeys.spec.cjs",
+          "line": 703,
+          "column": 1
+        },
+        {
+          "title": "deep link authentication resumes the exact visit after matching the profile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4515,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:50.402Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-ef07d2868a2c6ea5d9e8",
+          "file": "journeys.spec.cjs",
+          "line": 721,
+          "column": 1
+        },
+        {
+          "title": "settings persist through reload and reset; support and FAQ are functional",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:55.100Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-4c91f7a09b347543df28",
+          "file": "journeys.spec.cjs",
+          "line": 735,
+          "column": 1
+        },
+        {
+          "title": "upload rejects invalid content; text is escaped rather than executed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:00.434Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-c63617eb897899a061c2",
+          "file": "journeys.spec.cjs",
+          "line": 758,
+          "column": 1
+        },
+        {
+          "title": "leaving online call never marks consultation completed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4604,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:04.568Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-c5bd15fad9e3fc94eca3",
+          "file": "journeys.spec.cjs",
+          "line": 778,
+          "column": 1
+        },
+        {
+          "title": "all 47 routes render and reflow 360",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6028,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:09.310Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-2e6dfe69ebba9a70324d",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "all 47 routes render and reflow 390",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4231,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:35.049Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a524d4095217e0620a81",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "all 47 routes render and reflow 360 large text",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3890,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |         for(const action of metrics.primaries)expect(action.color,meta.id+' primary state color').toBe(action.disabled?'rgb(238, 241, 245)':'rgb(11, 18, 32)');\n  834 |         expect(metrics.photos,meta.id+' obsolete stock photo').toBe(0);\n> 835 |         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);\n      |                                                                ^\n  836 |         const text = await content(page).innerText();\n  837 |         expect(text, /patient jargon at / + meta.id).not.toMatch(\n  838 |           /bản mẫu|hồ sơ mẫu|check-in|\\bbooking\\b|\\bslot\\b|\\bmock\\b|mô phỏng|viện phí/i,\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:44.478Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-Chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-Chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-Chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-1a414c7718ff8c46997d",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 59060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:55.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-700d59a8a0a16c7342a9",
+          "file": "journeys.spec.cjs",
+          "line": 868,
+          "column": 1
+        },
+        {
+          "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2682,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:55.734Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-e2c331d65001cbfb7de7",
+          "file": "journeys.spec.cjs",
+          "line": 913,
+          "column": 1
+        },
+        {
+          "title": "D2 has one primary next action in every main state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23153,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:58.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a2b5c02831014b351001",
+          "file": "journeys.spec.cjs",
+          "line": 944,
+          "column": 1
+        },
+        {
+          "title": "unknown request locks earlier booking steps until reconciliation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5059,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:21.688Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-35682a1ab0ec6e43400d",
+          "file": "journeys.spec.cjs",
+          "line": 959,
+          "column": 1
+        },
+        {
+          "title": "typed booking draft survives reload without persisting OTP",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2792,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:26.905Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-4b950fbe5f9814425670",
+          "file": "journeys.spec.cjs",
+          "line": 983,
+          "column": 1
+        },
+        {
+          "title": "D2 next action is visible at 360px before scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2579,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:29.779Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-6313eb24d4d0973d1a25",
+          "file": "journeys.spec.cjs",
+          "line": 996,
+          "column": 1
+        },
+        {
+          "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9985,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:32.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-91ee64fb6635d0069442",
+          "file": "journeys.spec.cjs",
+          "line": 1012,
+          "column": 1
+        },
+        {
+          "title": "skip content preserves route and direct-link header Back has an in-app exit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2818,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:42.534Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-97dab4d9b375b53dd62f",
+          "file": "journeys.spec.cjs",
+          "line": 1049,
+          "column": 1
+        },
+        {
+          "title": "F5 existing external result goes directly from ordered to available",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3779,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:45.523Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a46a074142898c379634",
+          "file": "journeys.spec.cjs",
+          "line": 1064,
+          "column": 1
+        },
+        {
+          "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5062,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:49.447Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-673a28e9096f7e9e8c6d",
+          "file": "journeys.spec.cjs",
+          "line": 1081,
+          "column": 1
+        },
+        {
+          "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5898,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:54.626Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-96d4a3b49e7fa6947ded",
+          "file": "journeys.spec.cjs",
+          "line": 1101,
+          "column": 1
+        },
+        {
+          "title": "large text actually doubles editable text, with no horizontal overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3036,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:00.640Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-c4793500562161e1fb0d",
+          "file": "journeys.spec.cjs",
+          "line": 1128,
+          "column": 1
+        },
+        {
+          "title": "F11 multiple completed visits keep the selected report context",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3547,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:03.805Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-3b77d90fb80465459099",
+          "file": "journeys.spec.cjs",
+          "line": 1150,
+          "column": 1
+        },
+        {
+          "title": "adding a relative while booking returns to the correct selected patient",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:07.540Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-561a14597efb1ea7c316",
+          "file": "journeys.spec.cjs",
+          "line": 1186,
+          "column": 1
+        },
+        {
+          "title": "login after proxy booking confirms the account owner, not the selected relative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7600,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:13.984Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-2b33c2823ad17010244c",
+          "file": "journeys.spec.cjs",
+          "line": 1206,
+          "column": 1
+        },
+        {
+          "title": "navigation does not steal focus from a patient field on the next frame",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2882,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:21.817Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5e354de54430c629517b",
+          "file": "journeys.spec.cjs",
+          "line": 1230,
+          "column": 1
+        },
+        {
+          "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 19865,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:234:49",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 49,
+                      "line": 234
+                    },
+                    "snippet": "  232 |     'Hỗ trợ',\n  233 |   ]);\n> 234 |   await expect(page.locator('#bottom-nav > *')).toHaveCount(5);\n      |                                                 ^\n  235 |   await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');\n  236 | });\n  237 | test('F2 existing profile is confirmed and can be updated without re-entry', async ({"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 49,
+                        "line": 234
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#bottom-nav > *')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  6000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 6000ms\u001b[22m\n\u001b[2m  - waiting for locator('#bottom-nav > *')\u001b[22m\n\u001b[2m    9 × locator resolved to 4 elements\u001b[22m\n\u001b[2m      - unexpected value \"4\"\u001b[22m\n\n\n  232 |     'Hỗ trợ',\n  233 |   ]);\n> 234 |   await expect(page.locator('#bottom-nav > *')).toHaveCount(5);\n      |                                                 ^\n  235 |   await expect(page.locator('#bottom-nav > :nth-child(3)')).toHaveAttribute('aria-label', 'Đặt lịch khám');\n  236 | });\n  237 | test('F2 existing profile is confirmed and can be updated without re-entry', async ({\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:234:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:39:42.802Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-F1-new-profile-→--3d166-t-4-tabs-and-booking-action-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 49,
+                    "line": 234
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5137a5dfac6afe3d47af",
+          "file": "journeys.spec.cjs",
+          "line": 207,
+          "column": 1
+        },
+        {
+          "title": "F2 existing profile is confirmed and can be updated without re-entry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 14008,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:12.693Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-83f653e4cd69a175d601",
+          "file": "journeys.spec.cjs",
+          "line": 237,
+          "column": 1
+        },
+        {
+          "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 12178,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:27.129Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-d1e7614f57d18dac8a77",
+          "file": "journeys.spec.cjs",
+          "line": 253,
+          "column": 1
+        },
+        {
+          "title": "device permission recovery and preview cleanup preserve the online visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 11977,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:39.443Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5504ca7db20d048c569f",
+          "file": "journeys.spec.cjs",
+          "line": 278,
+          "column": 1
+        },
+        {
+          "title": "support callback accepts the request once without requiring an appointment",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 16058,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:40:51.564Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-ff26c257075db73ba686",
+          "file": "journeys.spec.cjs",
+          "line": 305,
+          "column": 1
+        },
+        {
+          "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 23115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:08.093Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a20ad23e74ecb025ccfc",
+          "file": "journeys.spec.cjs",
+          "line": 317,
+          "column": 1
+        },
+        {
+          "title": "F4 arrives → received → ready → in-consult → completed in order",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 15984,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:31.393Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a49076e2a9ea73d3a086",
+          "file": "journeys.spec.cjs",
+          "line": 340,
+          "column": 1
+        },
+        {
+          "title": "F5 lab appointment, external file, both return paths and staff result release",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 24772,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:41:47.494Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-13628f2665aba68db814",
+          "file": "journeys.spec.cjs",
+          "line": 356,
+          "column": 1
+        },
+        {
+          "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 13785,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:12.542Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-318085f0a5a4421598bb",
+          "file": "journeys.spec.cjs",
+          "line": 386,
+          "column": 1
+        },
+        {
+          "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 20517,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:26.603Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-6cfb8bd39e846e9aef73",
+          "file": "journeys.spec.cjs",
+          "line": 407,
+          "column": 1
+        },
+        {
+          "title": "F7 online preparation, incoming call, controls, staff completion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 15386,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:42:47.387Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-d488688d0d834571199e",
+          "file": "journeys.spec.cjs",
+          "line": 438,
+          "column": 1
+        },
+        {
+          "title": "F8 wait for callback keeps unreachable visit open",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 13107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:03.012Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-b6cc93ffb5970f185940",
+          "file": "journeys.spec.cjs",
+          "line": 451,
+          "column": 1
+        },
+        {
+          "title": "F8 replacement appointment: online",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 11988,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:16.310Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f4c376a1e7492cefae9b",
+          "file": "journeys.spec.cjs",
+          "line": 461,
+          "column": 3
+        },
+        {
+          "title": "F8 replacement appointment: onsite",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 10195,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:28.460Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-2a98346fa0666b7a14ad",
+          "file": "journeys.spec.cjs",
+          "line": 461,
+          "column": 3
+        },
+        {
+          "title": "F9 method counter-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4471,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:38.807Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-d5296bdcdc74b952d6c6",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 method pharmacy-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:43.454Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-12aa7830cd4948c15473",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 method transfer-pending remains pending until staff receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:48.659Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-b5ee3f36bd5564fff792",
+          "file": "journeys.spec.cjs",
+          "line": 481,
+          "column": 3
+        },
+        {
+          "title": "F9 defer validates reason/date and fee waiver stays separate",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:43:54.607Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a611bbcadd3155814615",
+          "file": "journeys.spec.cjs",
+          "line": 504,
+          "column": 1
+        },
+        {
+          "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 18388,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:01.476Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-54457e3bb1e48a25f5aa",
+          "file": "journeys.spec.cjs",
+          "line": 518,
+          "column": 1
+        },
+        {
+          "title": "F11 distinct aftercare reason medicine",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 9301,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:20.026Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-437a0eda71823cc86e38",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 distinct aftercare reason question",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:29.488Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-ca64e4c0a561fb74bf68",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 distinct aftercare reason symptoms",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5141,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:36.975Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-e1a8a93978259178561e",
+          "file": "journeys.spec.cjs",
+          "line": 551,
+          "column": 3
+        },
+        {
+          "title": "F11 tracking, referral, messages and follow-up recommendation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 9192,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:42.284Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f610ec02caebf18d3c82",
+          "file": "journeys.spec.cjs",
+          "line": 571,
+          "column": 1
+        },
+        {
+          "title": "F12 follow-up starts a new linked visit without losing the old profile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 9016,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:44:51.572Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-4c7307969a058f05fa2e",
+          "file": "journeys.spec.cjs",
+          "line": 597,
+          "column": 1
+        },
+        {
+          "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 15797,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:00.871Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-87575e452715657ff090",
+          "file": "journeys.spec.cjs",
+          "line": 618,
+          "column": 1
+        },
+        {
+          "title": "unknown found recovery returns the single pending request",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 14001,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:16.788Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-ad4012df0fae75391ea7",
+          "file": "journeys.spec.cjs",
+          "line": 646,
+          "column": 1
+        },
+        {
+          "title": "offline retains typed form and recovers after reconnection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 13729,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:31.419Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-be5e6f397bdc6c5f4a0e",
+          "file": "journeys.spec.cjs",
+          "line": 662,
+          "column": 1
+        },
+        {
+          "title": "proxy permission is bound to visit; direct links cannot expose health results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 20023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:45:45.245Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-1dc80eaa86137ae65c30",
+          "file": "journeys.spec.cjs",
+          "line": 680,
+          "column": 1
+        },
+        {
+          "title": "Back, reload, safe notification deep link and invalid entity recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 17901,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:05.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-ea55b34dff31b7d52248",
+          "file": "journeys.spec.cjs",
+          "line": 703,
+          "column": 1
+        },
+        {
+          "title": "deep link authentication resumes the exact visit after matching the profile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 11433,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:23.484Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-8091e9e03c197c5b8031",
+          "file": "journeys.spec.cjs",
+          "line": 721,
+          "column": 1
+        },
+        {
+          "title": "settings persist through reload and reset; support and FAQ are functional",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 10552,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:35.156Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-45648f96057df6d5aff3",
+          "file": "journeys.spec.cjs",
+          "line": 735,
+          "column": 1
+        },
+        {
+          "title": "upload rejects invalid content; text is escaped rather than executed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7025,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:45.840Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-be34bbb7b806d78d9b96",
+          "file": "journeys.spec.cjs",
+          "line": 758,
+          "column": 1
+        },
+        {
+          "title": "leaving online call never marks consultation completed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5650,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:53.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-815290e30312909dfe60",
+          "file": "journeys.spec.cjs",
+          "line": 778,
+          "column": 1
+        },
+        {
+          "title": "all 47 routes render and reflow 360",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3359,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:46:58.777Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-fe8f509154459cc57480",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "all 47 routes render and reflow 390",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5186,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:47:06.830Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-390-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-d3fe1ff67cc69c30ef5f",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "all 47 routes render and reflow 360 large text",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5234,
+                  "error": {
+                    "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64",
+                    "location": {
+                      "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                      "column": 64,
+                      "line": 835
+                    },
+                    "snippet": "  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                        "column": 64,
+                        "line": 835
+                      },
+                      "message": "Error: A2 small touch targets\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"<input id=\\\"dob\\\" name=\\\"dob\\\" type=\\\"date\\\" value=\\\"1994-08-15\\\" max=\\\"2026-10-19\\\" data-cf-enhanced=\\\"true\\\" class=\\\"cf-native-value\\\" tabindex=\\\"-1\\\" aria-hidden=\\\"true\\\">\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  833 |                 const r = x.getBoundingClientRect();\n  834 |                 return (\n> 835 |                   r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43)\n      |                                                                ^\n  836 |                 );\n  837 |               })\n  838 |               .map((x) => x.outerHTML.slice(0, 180)),\n    at C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs:835:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:47:15.997Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-WebKit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-WebKit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\test-results\\journeys-all-47-routes-render-and-reflow-360-large-text-WebKit\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\browser-tests\\journeys.spec.cjs",
+                    "column": 64,
+                    "line": 835
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-de810937d9867aa0b482",
+          "file": "journeys.spec.cjs",
+          "line": 794,
+          "column": 3
+        },
+        {
+          "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 40070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:47:25.318Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-e5c4e8fc0598a53637f7",
+          "file": "journeys.spec.cjs",
+          "line": 868,
+          "column": 1
+        },
+        {
+          "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3144,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:05.704Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-a1cabfef7cf19f019688",
+          "file": "journeys.spec.cjs",
+          "line": 913,
+          "column": 1
+        },
+        {
+          "title": "D2 has one primary next action in every main state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22395,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:08.922Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-7e115beb4dd4bada15a7",
+          "file": "journeys.spec.cjs",
+          "line": 944,
+          "column": 1
+        },
+        {
+          "title": "unknown request locks earlier booking steps until reconciliation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6374,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:31.377Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-e488aace95573877824f",
+          "file": "journeys.spec.cjs",
+          "line": 959,
+          "column": 1
+        },
+        {
+          "title": "typed booking draft survives reload without persisting OTP",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:37.829Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-768b136e5f08f722795e",
+          "file": "journeys.spec.cjs",
+          "line": 983,
+          "column": 1
+        },
+        {
+          "title": "D2 next action is visible at 360px before scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5326,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:42.203Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-4a5cbc9d0c4dba67c828",
+          "file": "journeys.spec.cjs",
+          "line": 996,
+          "column": 1
+        },
+        {
+          "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 26923,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:48:47.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-f1c1252cc3ee891d6961",
+          "file": "journeys.spec.cjs",
+          "line": 1012,
+          "column": 1
+        },
+        {
+          "title": "skip content preserves route and direct-link header Back has an in-app exit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5500,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:14.771Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-23219e89434beb2aa63c",
+          "file": "journeys.spec.cjs",
+          "line": 1049,
+          "column": 1
+        },
+        {
+          "title": "F5 existing external result goes directly from ordered to available",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8511,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:20.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-e57122cf4e8b14f6799d",
+          "file": "journeys.spec.cjs",
+          "line": 1064,
+          "column": 1
+        },
+        {
+          "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10048,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:29.161Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-035040a849275fc37648",
+          "file": "journeys.spec.cjs",
+          "line": 1081,
+          "column": 1
+        },
+        {
+          "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11299,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:39.393Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-c1b842436e7f164f5be0",
+          "file": "journeys.spec.cjs",
+          "line": 1101,
+          "column": 1
+        },
+        {
+          "title": "large text actually doubles editable text, with no horizontal overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:50.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-1d981d266803bfa55088",
+          "file": "journeys.spec.cjs",
+          "line": 1128,
+          "column": 1
+        },
+        {
+          "title": "F11 multiple completed visits keep the selected report context",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3393,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:54.990Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-1a424cda08a22bee8376",
+          "file": "journeys.spec.cjs",
+          "line": 1150,
+          "column": 1
+        },
+        {
+          "title": "adding a relative while booking returns to the correct selected patient",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6174,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:49:58.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-5207e2420a7054547654",
+          "file": "journeys.spec.cjs",
+          "line": 1186,
+          "column": 1
+        },
+        {
+          "title": "login after proxy booking confirms the account owner, not the selected relative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6974,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:50:04.670Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-84d0933527032bc4be3c",
+          "file": "journeys.spec.cjs",
+          "line": 1206,
+          "column": 1
+        },
+        {
+          "title": "navigation does not steal focus from a patient field on the next frame",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T06:50:11.698Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1a03737f6f0d64c51e2f-02ded2f46f1c05a0fcbf",
+          "file": "journeys.spec.cjs",
+          "line": 1230,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T06:39:35.417Z",
+    "duration": 638751.829,
+    "expected": 96,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  }
+}

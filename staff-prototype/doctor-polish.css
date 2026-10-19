@@ -3,7 +3,7 @@
    Scope: staff-prototype only; intentionally loaded last. */
 :root{
  --doctor-font:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
- --doctor-text:#193650;--doctor-secondary:#536b7f;--doctor-border:#dfe8f0;
+ --doctor-text: var(--cf-brand);--doctor-secondary: var(--cf-brand);--doctor-border: var(--cf-line);
  --doctor-space:18px;--doctor-card:20px;
 }
 html,body,.app-shell{font-family:var(--doctor-font);text-rendering:optimizeLegibility}
@@ -13,7 +13,7 @@ body{font-size:13px;color:var(--doctor-text)}
 .doctor-sidebar svg,.doctor-topbar svg,.doctor-screen svg,.support-screen svg,.wave-consult svg{stroke-width:1.85;flex-shrink:0}
 .doctor-sidebar .brand-symbol svg{stroke-width:2}
 .doctor-sidebar .nav-item{font-size:11.5px;font-weight:650;letter-spacing:-.018em}
-.doctor-sidebar .nav-item.active{color:#0a59b2}
+.doctor-sidebar .nav-item.active{color: var(--cf-text-muted)}
 .doctor-sidebar .side-overline{font-size:9px;letter-spacing:.14em}
 .doctor-sidebar .profile-mini strong{font-size:11.5px}
 .doctor-topbar{height:70px}
@@ -70,9 +70,9 @@ body{font-size:13px;color:var(--doctor-text)}
 .doctor-now>p{margin:7px 19px 13px;font-size:11px}
 .doctor-now>.btn{margin:0 19px}
 .doctor-now-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 19px 14px}
-.doctor-now-details>div{background:#f5f9fd;border:1px solid #e3ebf3;border-radius:11px;padding:9px 11px;display:flex;flex-direction:column;gap:3px;min-width:0}
-.doctor-now-details small{font-size:9px;color:#6d859a}
-.doctor-now-details strong{font-size:10.5px;color:#17466b;line-height:1.5}
+.doctor-now-details>div{background: var(--cf-surface);border: 1px solid var(--cf-line);border-radius:11px;padding:9px 11px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.doctor-now-details small{font-size:9px;color: var(--cf-text-muted)}
+.doctor-now-details strong{font-size:10.5px;color: var(--cf-text-muted);line-height:1.5}
 .doctor-labs-today{padding-bottom:10px}
 .doctor-lab-mini{margin:7px 13px;padding:10px;border-radius:11px;width:calc(100% - 26px);gap:9px}
 .doctor-lab-mini .doctor-icon{width:32px;height:32px}
@@ -101,16 +101,16 @@ body{font-size:13px;color:var(--doctor-text)}
 .doctor-next-patient{display:flex;align-items:center;gap:10px;margin:14px 0 12px}
 .doctor-next-patient .avatar{width:41px;height:41px;flex:none}
 .doctor-next-patient>div{display:flex;flex-direction:column;gap:4px;min-width:0}
-.doctor-next-patient strong{font-size:11px;color:#163d60}
-.doctor-next-patient span{font-size:10px;color:#728ca2}
+.doctor-next-patient strong{font-size:11px;color: var(--cf-brand)}
+.doctor-next-patient span{font-size:10px;color: var(--cf-text-muted)}
 .doctor-next-action{display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:space-between}
 .doctor-next-action .btn{font-size:10px;min-height:34px}
-.doctor-next-none{font-size:11px;color:#6c869b;margin:12px 0 0}
+.doctor-next-none{font-size:11px;color: var(--cf-text-muted);margin:12px 0 0}
 /* Patient roster as useful paired cards rather than oversized full-width rows */
 .doctor-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:16px}
-.doctor-directory-row{border:1px solid #e7eef4;border-radius:15px;padding:14px 16px;gap:11px;background:#fcfdff;min-width:0}
-.doctor-directory-row:last-child{border:1px solid #e7eef4}
-.doctor-directory-row:hover{background:#f4f9ff;border-color:#cfe3f5}
+.doctor-directory-row{border: 1px solid var(--cf-line);border-radius:15px;padding:14px 16px;gap:11px;background: var(--cf-surface);min-width:0}
+.doctor-directory-row:last-child{border: 1px solid var(--cf-line)}
+.doctor-directory-row:hover{background: var(--cf-surface);border-color: var(--cf-baby-blue)}
 .doctor-directory-row>.avatar{width:43px;height:43px}
 .doctor-directory-row strong{font-size:11.5px}
 .doctor-directory-row div span{font-size:10px}
@@ -132,8 +132,8 @@ body{font-size:13px;color:var(--doctor-text)}
 /* Follow-up: checklist alongside small real-state summary */
 .doctor-followups-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(235px,.58fr);gap:14px;align-items:start}
 .doctor-followups-summary{padding:21px}
-.doctor-followups-mini{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:16px;color:#526e83;font-size:11px}
-.doctor-followups-mini strong{font-size:24px;letter-spacing:-.05em;color:#134069;font-variant-numeric:tabular-nums}
+.doctor-followups-mini{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:16px;color: var(--cf-text-muted);font-size:11px}
+.doctor-followups-mini strong{font-size:24px;letter-spacing:-.05em;color: var(--cf-brand);font-variant-numeric:tabular-nums}
 .doctor-followups-summary .doctor-divider{margin:15px 0}
 .doctor-followups-summary .btn{width:100%;justify-content:center}
 .doctor-task-list{padding:8px 16px 17px}
@@ -177,9 +177,9 @@ body{font-size:13px;color:var(--doctor-text)}
 .support-screen .support-document h2{font-size:18px;letter-spacing:-.03em}
 .support-screen .support-document>p{font-size:11px;line-height:1.7}
 .support-rx-metadata{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:17px}
-.support-rx-metadata>div{display:flex;flex-direction:column;gap:5px;padding:12px;background:#fff;border:1px solid #dfebf5;border-radius:12px}
-.support-rx-metadata span{font-size:10px;color:#71869b}
-.support-rx-metadata strong{font-size:11px;color:#1c486a}
+.support-rx-metadata>div{display:flex;flex-direction:column;gap:5px;padding:12px;background: var(--cf-surface);border: 1px solid var(--cf-line);border-radius:12px}
+.support-rx-metadata span{font-size:10px;color: var(--cf-text-muted)}
+.support-rx-metadata strong{font-size:11px;color: var(--cf-text-muted)}
 .support-screen .support-check-list{margin-top:6px}
 /* Patient record */
 .profile-banner{min-height:151px;padding:20px 23px;border-radius:19px}
@@ -189,7 +189,7 @@ body{font-size:13px;color:var(--doctor-text)}
 .profile-body h2{font-size:14px}
 .doctor-screen .pill,.support-screen .pill,.wave-consult .pill{font-size:10px}
 /* Brand preserved, but status badges never compete with content */
-.app-footer{padding-top:13px;padding-bottom:16px;font-size:10px;color:#708599}
+.app-footer{padding-top:13px;padding-bottom:16px;font-size:10px;color: var(--cf-text-muted)}
 .doctor-hero .doctor-hero-mark{letter-spacing:.145em}
 @media(max-width:1440px){
  .doctor-hero{min-height:260px}
@@ -234,9 +234,9 @@ body{font-size:13px;color:var(--doctor-text)}
 
 /* Make consultation side context informative, not an empty shell */
 .wave-consult .consult-quickfacts{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 13px 12px}
-.wave-consult .consult-quickfacts>div{background:#f6faff;border:1px solid #e2ecf6;border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:4px;min-width:0}
-.wave-consult .consult-quickfacts span{font-size:9px;color:#6c849a}
-.wave-consult .consult-quickfacts strong{font-size:10px;color:#1b4f74;overflow-wrap:anywhere}
+.wave-consult .consult-quickfacts>div{background: var(--cf-surface);border: 1px solid var(--cf-line);border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.wave-consult .consult-quickfacts span{font-size:9px;color: var(--cf-text-muted)}
+.wave-consult .consult-quickfacts strong{font-size:10px;color: var(--cf-text-muted);overflow-wrap:anywhere}
 .wave-consult .followup-panel>p{margin-bottom:11px}
 .wave-consult .followup-foot{font-size:10px}
 /* Avoid artificially tall prescription document block */
@@ -277,7 +277,7 @@ body{font-size:13px;color:var(--doctor-text)}
   overflow-y:auto;
   overflow-x:hidden;
   scrollbar-width:thin;
-  scrollbar-color:#c7d8e8 transparent;
+  scrollbar-color: var(--cf-surface-page) transparent;
   overscroll-behavior:contain;
  }
  .doctor-sidebar .side-section{
@@ -299,7 +299,7 @@ body{font-size:13px;color:var(--doctor-text)}
  .doctor-sidebar .side-divider{
   flex:0 0 1px;
   margin:0 13px;
-  border-top:1px solid #e7eef5;
+  border-top: 1px solid var(--cf-line);
  }
  .doctor-sidebar .sidebar-bottom{
   margin-top:0;

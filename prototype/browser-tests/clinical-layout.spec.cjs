@@ -3,14 +3,14 @@ const AxeBuilder = require('@axe-core/playwright').default;
 const state = page => page.evaluate(() => JSON.parse(sessionStorage.getItem('careflow.browser.v3')));
 const submit = page => page.locator('#phone-content form [type=submit]').click();
 
-test('navigation names all destinations, exposes booking and profile add follows the selection', async ({page}) => {
+test('navigation names all destinations, exposes booking and keeps profile add stable', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=empty');
   const nav=page.locator('#bottom-nav');
-  expect((await nav.boundingBox()).height).toBeLessThanOrEqual(64);
-  for(const el of await nav.locator(':scope > *').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
+  expect((await nav.boundingBox()).height).toBeGreaterThanOrEqual(80);
+  for(const el of await nav.locator('.cf-nav-item').all()) await expect(el).toHaveAttribute('aria-label', /.+/);
   for(const caption of await nav.locator('a .nav-caption').all()) await expect(caption).toBeHidden();
-  await expect(nav.locator('.nav-book .nav-caption')).toBeHidden();
-  await expect(nav.locator('.nav-book')).toHaveCSS('background-color','rgb(0, 29, 87)');
+  await expect(nav.locator('.nav-book .nav-caption')).toHaveCount(0);
+  await expect(nav.locator('.nav-book .nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');
   await nav.locator('.nav-book').click();
   await expect(page.locator('.selection-reminder')).toHaveCount(0);
   await expect(page.locator('#bottom-nav')).toBeHidden();
@@ -20,15 +20,17 @@ test('navigation names all destinations, exposes booking and profile add follows
   await page.locator('.patient-group input[value=p2]').check();
   const person=await page.locator('.patient-group input[value=p2]').locator('..').locator('strong').textContent();
   await expect(page.locator('form [type="submit"]')).toContainText(person.trim().split(/\s+/).slice(-2).join(' '));
-  expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');
+  expect(await page.locator('.add-relative-inline').evaluate(el=>!!el.closest('.choices'))).toBe(false);
+  await expect(page.locator('.patient-group input[value=p2]')).toBeChecked();
   await page.reload();
-  expect(await page.locator('.add-relative-inline').evaluate(el=>el.previousElementSibling.querySelector('input').value)).toBe('p2');
+  expect(await page.locator('.add-relative-inline').evaluate(el=>!!el.closest('.choices'))).toBe(false);
+  await expect(page.locator('.patient-group input[value=p2]')).toBeChecked();
   expect(await page.locator('.patient-choice .choice-visual').first().innerHTML()).toBe(portrait);
 });
 
 test('appointment management is before the ticket and opens existing change/cancel flows', async ({page}) => {
   await page.goto('/prototype/index.html?scenario=upcoming');
-  await page.locator('.visit-card').click();
+  await page.locator('.cf-home-appointment-button').click();
   const tools=page.locator('.appointment-tools');
   expect(await tools.evaluate(el=>!!(el.compareDocumentPosition(document.querySelector('.ticket')) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
   await tools.locator('[data-to=D3]').click();
@@ -86,11 +88,11 @@ test('quick dates update the actual booking, custom date selection and reload re
   await page.reload();
   await expect(date).toHaveAttribute('aria-pressed','true');
   await page.locator('input[name=slot][value="10:30"]').check();await submit(page);
-  await expect(page.locator('.booking-progress [aria-current=step] > span:last-child')).toHaveText('Lịch hẹn');
+  await expect(page.locator('.booking-progress [aria-current=step] > span:last-child')).toHaveText('Kiểm tra');
   expect((await state(page)).state.draft.date).toBe(value);
   await page.locator('#consent').check();await submit(page);
   await expect(page.locator('.request-received')).toContainText('Đã gửi yêu cầu');
-  await expect(page.locator('.chip.warning')).toContainText('Chờ phòng khám xác nhận');
+  await expect(page.locator('[data-cf-component="status"][data-cf-tone="warning"]')).toContainText('Chờ phòng khám xác nhận');
   expect((await state(page)).state.visits[0].status).toBe('pending');
 });
 
@@ -98,9 +100,9 @@ for (const width of [360,390,1440]) test(`five navigation controls have distinct
   await page.setViewportSize({width,height:1000});
   await page.goto('/prototype/index.html?scenario=upcoming');
   const nav=page.locator('#bottom-nav');
-  await expect(nav.locator(':scope > *')).toHaveCount(5);
-  await expect(nav.locator(':scope > :nth-child(3)')).toHaveAttribute('aria-label','Đặt lịch khám');
-  const targets=await nav.locator(':scope > *').evaluateAll(els=>els.map(el=>{
+  await expect(nav.locator('.cf-nav-item')).toHaveCount(5);
+  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label','Đặt lịch');
+  const targets=await nav.locator('.cf-nav-item').evaluateAll(els=>els.map(el=>{
     const r=el.getBoundingClientRect();return {width:r.width,height:r.height};
   }));
   for(const target of targets){expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44);}
@@ -118,8 +120,10 @@ for (const width of [360,390,1440]) test(`five navigation controls have distinct
 
 test('submitted, pending and confirmed states differ by copy and visual treatment; home passes axe',async({page})=>{
   await page.goto('/prototype/index.html?scenario=upcoming');
-  await expect(page.locator('.visit-card .chip.success')).toHaveText('Đã xác nhận');
-  const confirmed=await page.locator('.visit-card .chip').evaluate(el=>getComputedStyle(el).backgroundColor);
+  const badge=page.locator('.cf-home-appointment-status [data-cf-component="status"]');
+  await expect(badge).toHaveText('Đã xác nhận');
+  await expect(badge).toHaveAttribute('data-cf-tone','info');
+  const confirmed=await badge.evaluate(el=>getComputedStyle(el).backgroundColor);
   const results=await new AxeBuilder({page}).include('.phone').withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
   expect(results.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
   await page.evaluate(()=>{
@@ -128,6 +132,7 @@ test('submitted, pending and confirmed states differ by copy and visual treatmen
     sessionStorage.setItem('careflow.browser.v3',JSON.stringify(saved));
   });
   await page.reload();
-  await expect(page.locator('.visit-card .chip.warning')).toHaveText('Chờ phòng khám xác nhận');
-  expect(await page.locator('.visit-card .chip').evaluate(el=>getComputedStyle(el).backgroundColor)).not.toBe(confirmed);
+  await expect(badge).toHaveText('Chờ phòng khám xác nhận');
+  await expect(badge).toHaveAttribute('data-cf-tone','warning');
+  expect(await badge.evaluate(el=>getComputedStyle(el).backgroundColor)).not.toBe(confirmed);
 });

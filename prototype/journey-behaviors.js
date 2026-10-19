@@ -123,10 +123,6 @@
   document.addEventListener('input',(event)=>{
     if(event.target.matches('[data-appointment-search]')) filterAppointments(event.target.closest('#phone-content'));
     if(event.target.matches('[data-collection-search]')) filterCollection(event.target.closest('[data-collection]'),true);
-    if(event.target.id==='support'){
-      const count=document.getElementById('support-count');
-      if(count) count.textContent=String(event.target.value.length);
-    }
   });
   function refreshCountdown() {
     document.querySelectorAll('[data-appointment-countdown]').forEach(node => {

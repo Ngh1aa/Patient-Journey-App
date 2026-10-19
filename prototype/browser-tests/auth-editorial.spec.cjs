@@ -12,6 +12,12 @@ test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', a
   await expect(phone).toHaveAttribute('data-auth-step', '1');
   await expect(page.locator('#auth-progress')).toBeVisible();
   await expect(page.locator('.auth-panel form[data-form=otp]')).toBeVisible();
+  // An old photo overlay once covered the illustration while its SVG still had
+  // valid dimensions. Check the actual painted surface, not visibility alone.
+  expect(await page.locator('.auth-scene .cf-illustration-slot').evaluate(el=>{
+    const r=el.getBoundingClientRect();
+    return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));
+  })).toBe(true);
   await page.locator('#auth-jump').click();
   await expect(page.locator('#phone')).toBeFocused();
   await page.locator('#phone').fill('0900000000');
