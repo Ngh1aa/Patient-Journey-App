@@ -898,11 +898,11 @@ body[data-cf-theme="pastel"] #app small { font-size: var(--cf-caption-font); lin
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: var(--cf-radius-inner); background: var(--cf-mint); color: var(--cf-brand); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview > span { flex: none; display: grid; place-items: center; background: var(--cf-surface); width: 44px; height: 48px; border-radius: 12px; }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview > div { flex: 1; min-width: 0; display: grid; gap: 4px; }
-.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview small { font-size: calc(10px * var(--font-scale,1)); }
+.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview small { font-size: calc(10px * var(--font-scale,1)); color: var(--cf-brand); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-preview strong { font-size: calc(13px * var(--font-scale,1)); line-height: 1.4; }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-prompt { display: flex; gap: 16px; align-items: center; padding: 16px; background: var(--cf-baby-blue); border-radius: var(--cf-radius-inner); color: var(--cf-brand); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-prompt > span { display: grid; place-items: center; width: 44px; height: 44px; flex: none; }
-.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-prompt p { font-size: calc(13px * var(--font-scale,1)); }
+.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-auth-prompt p { font-size: calc(13px * var(--font-scale,1)); color: var(--cf-brand); }
 
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .screen-masthead:has(.cf-hdr-home-intro,.cf-hdr-contact-dock) { display: flow-root; padding-bottom: 0; overflow: visible; }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen=B1] .cf-home-content { margin-top: 64px; }

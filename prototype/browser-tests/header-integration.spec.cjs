@@ -47,10 +47,13 @@ test('appointment date composes with mode, person and search; resets and survive
 test('account progress follows real OTP and preserves profile draft through back navigation',async({page},info)=>{
   await page.goto('/prototype/?scenario=new#/login');
   await expect(page.locator('#back')).toBeDisabled();await expect(page.locator('#auth-jump')).toBeHidden();
+  expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.locator('#phone').fill('0900000000');await submit(page);await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Xác thực');
+  expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.locator('#otp').fill('123456');await page.locator('#consent').check();await submit(page);
   await expect(content(page)).toHaveAttribute('data-screen','A3');await page.locator('#name').fill('Lê Minh Khang');
   await expect(page.locator('[data-identity-preview]')).toHaveText('Lê Minh Khang');
+  expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.locator('#dob').fill('1995-02-15');await page.locator('.phone').screenshot({path:info.outputPath('A3.png')});
   await page.locator('#back').click();await expect(content(page)).toHaveAttribute('data-screen','A1');await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Xác thực');
   await page.locator('#otp').fill('123456');await page.locator('#consent').check();await submit(page);

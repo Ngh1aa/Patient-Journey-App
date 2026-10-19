@@ -119,3 +119,6 @@ The user requested: “gộp các bản header mới này lên main”. The five
 | Excessive gaps / sparse cards | có mục đích rõ | Header/body overlaps reserve actual layout space, the support dock is functional, and unused duplicate appointment/contact cards are removed. |
 | Generic copy / designer text | không xuất hiện | Runtime has task labels and actual session facts; review rationale and synthetic walkthrough notes stay in the design page/docs. |
 | Decorative icons / weak CTA | có mục đích rõ | Calendar dates filter, bell opens notifications, ticket opens that visit, family strip opens real relatives, and contact actions retain existing flows. Decorative heart/photo are aria-hidden. |
+
+
+Runtime contrast correction: inherited muted text on the auth prompt/identity preview measured 4.06:1 on baby blue and 4.34:1 on mint. Both now explicitly use the existing navy token: 12.164:1 on baby blue and 12.992:1 on mint. The OTP/profile interaction regression scans all three real auth steps with axe, rather than inferring their result from the design preview. Ticket action keeps its existing accessible name “Xem phiếu khám”, with the actual visit/patient/status linked through aria-describedby.
