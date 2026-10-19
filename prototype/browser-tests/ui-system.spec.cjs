@@ -11,7 +11,7 @@ test('patient ticket action opens the same visit as the appointment list',async(
   await page.goto('/prototype/index.html?scenario=upcoming#/home');
   const homeAction=phone(page).locator('.cf-home-appointment-button');
   const home=await geometry(homeAction);
-  await expect(homeAction).toHaveAttribute('aria-label','Xem phiếu khám CF-1017-0042');
+  await expect(homeAction).toHaveAccessibleName('Xem phiếu khám');
   await expect(phone(page).locator('.cf-home-appointment-info')).toContainText('CF-1017-0042');
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
   const listAction=phone(page).getByRole('button',{name:'Xem phiếu khám',exact:true});
