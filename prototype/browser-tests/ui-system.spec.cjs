@@ -7,16 +7,17 @@ const geometry=locator=>locator.evaluate(el=>{
   return {font:s.fontSize,radius:s.borderRadius,height:r.height,variant:el.dataset.cfVariant};
 });
 
-test('patient appointment action preserves its name, type scale and clinician across screens',async({page})=>{
+test('patient ticket action opens the same visit as the appointment list',async({page})=>{
   await page.goto('/prototype/index.html?scenario=upcoming#/home');
   const homeAction=phone(page).locator('.cf-home-appointment-button');
   const home=await geometry(homeAction);
-  const avatar=await phone(page).locator('.cf-home-appointment-avatar').innerHTML();
+  await expect(homeAction).toHaveAttribute('aria-label','Xem phiếu khám CF-1017-0042');
+  await expect(phone(page).locator('.cf-home-appointment-info')).toContainText('CF-1017-0042');
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
   const listAction=phone(page).getByRole('button',{name:'Xem phiếu khám',exact:true});
-  const list=await geometry(listAction);expect(list.font).toBe(home.font);expect(list.radius).toBe(home.radius);
+  const list=await geometry(listAction);expect(home.height).toBeGreaterThanOrEqual(44);expect(list.height).toBeGreaterThanOrEqual(44);
   expect(home.variant).toBe('primary');expect(list.variant).toBe('secondary');
-  expect(await phone(page).locator('.cf-clinician-avatar').innerHTML()).toBe(avatar);
+  await expect(phone(page).locator('.cf-clinician-copy')).toContainText('BS. Trần Thu Hà');
   await listAction.click();await expect(phone(page)).toHaveAttribute('data-screen','D2');
   await page.goBack();await expect(phone(page)).toHaveAttribute('data-screen','D1');
   await expect(listAction).toBeVisible();

@@ -1,11 +1,11 @@
 const {test,expect}=require('@playwright/test');
-test('appointment precedes overview and quick access, with a readable blue mesh',async({page})=>{
+test('appointment precedes overview and quick access, with an overlapping ticket and readable blue header',async({page})=>{
  for(const width of [360,375,430]){
   await page.setViewportSize({width,height:852});await page.goto('/prototype/?scenario=upcoming#/home');
   const hero=page.locator('.cf-home-appointment');
-  const layout=await hero.evaluate(el=>{const r=el.getBoundingClientRect(),overview=document.querySelector('.cf-home-overview').getBoundingClientRect(),quick=document.querySelector('.cf-home-quick').getBoundingClientRect();return{hero:r.bottom,overview:overview.top,quick:quick.top,mesh:getComputedStyle(el).backgroundImage};});
+  const layout=await hero.evaluate(el=>{const r=el.getBoundingClientRect(),overview=document.querySelector('.cf-home-overview').getBoundingClientRect(),quick=document.querySelector('.cf-home-quick').getBoundingClientRect();return{hero:r.bottom,overview:overview.top,quick:quick.top,mesh:getComputedStyle(el.closest('.screen-masthead')).backgroundImage};});
   expect(layout.overview).toBeGreaterThanOrEqual(layout.hero+12);expect(layout.quick).toBeGreaterThan(layout.overview);expect(layout.mesh).toContain('radial-gradient');
-  await expect(hero).toHaveCSS('border-radius','24px');
+  await expect(hero).toHaveCSS('border-radius','20px');
   await expect(hero.locator('.cf-home-appointment-button')).toHaveCSS('background-color','rgb(11, 18, 32)');
  }
 });
@@ -37,7 +37,7 @@ test('appointment and support use their own layouts instead of generic stacked c
   await expect(page.locator('.facility-card')).toBeVisible();
   await page.locator('#bottom-nav a').last().click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K5');
-  await expect(page.locator('.cf-support-bento > button')).toHaveCount(3);
+  await expect(page.locator('.cf-hdr-contact-dock > button')).toHaveCount(2);
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
   await expect(page.locator('.cf-personal-facts')).toContainText('Nguyễn Minh Anh');

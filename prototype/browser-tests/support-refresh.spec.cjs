@@ -7,23 +7,23 @@ for(const width of [320,360,390,1440])test(`support contact bento and compact em
   await page.goto('/prototype/?scenario=empty#/support');
   const content=page.locator('#phone-content');
   await expect(content).not.toContainText('Hỗ trợ từ phòng khám');
-  await expect(content.locator('.screen-masthead')).toContainText('Chưa có yêu cầu đang chờ');
+  await expect(content.locator('.cf-hdr-request-row')).toContainText('Chưa có yêu cầu đang chờ');
   const headings=await content.locator('.cf-support-content > section > .cf-reference-section-head h2').allTextContents();
   expect(headings).toEqual(['Liên hệ nhanh','Câu hỏi thường gặp','Gửi yêu cầu']);
   const emergency=content.getByRole('link',{name:'Gọi 115',exact:true});
   await expect(emergency).toHaveAttribute('href','tel:115');
   await expect(emergency).toHaveCSS('background-color','rgb(11, 18, 32)');
   await expect(content.locator('[data-cf-variant=primary]')).toHaveCount(1);
-  await expect(content.locator('.cf-support-message img')).toHaveJSProperty('complete',true);
-  expect(await content.locator('.cf-support-message img').evaluate(el=>el.naturalWidth)).toBeGreaterThan(0);
+  await expect(content.locator('.cf-hdr-support-hero img')).toHaveJSProperty('complete',true);
+  expect(await content.locator('.cf-hdr-support-hero img').evaluate(el=>el.naturalWidth)).toBeGreaterThan(0);
   const geometry=await content.locator('.cf-support-content').evaluate(root=>{
     const children=[...root.children].map(el=>el.getBoundingClientRect());
-    const cards=[...root.querySelectorAll('.cf-support-bento > button')].map(el=>el.getBoundingClientRect());
+    const cards=[...root.querySelectorAll('.cf-support-topics > div > button')].map(el=>el.getBoundingClientRect());
     return {gaps:children.slice(1).map((r,i)=>r.top-children[i].bottom),cards:cards.map(r=>({x:r.x,y:r.y,right:r.right,bottom:r.bottom,w:r.width,h:r.height})),overflow:document.getElementById('phone-main').scrollWidth-document.getElementById('phone-main').clientWidth};
   });
   expect(geometry.gaps.every(g=>Math.abs(g-16)<1)).toBe(true);
-  expect(geometry.cards[0].w).toBeGreaterThan(geometry.cards[1].w);
-  expect(Math.abs(geometry.cards[1].y-geometry.cards[2].y)).toBeLessThan(1);
+  expect(Math.abs(geometry.cards[0].w-geometry.cards[1].w)).toBeLessThan(1);
+  expect(Math.abs(geometry.cards[0].y-geometry.cards[1].y)).toBeLessThan(1);
   expect(geometry.cards.every(r=>r.w>=44&&r.h>=44)).toBe(true);expect(geometry.overflow).toBeLessThanOrEqual(1);
   await page.locator('.phone').screenshot({path:info.outputPath('support.png')});
   await content.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();
@@ -39,7 +39,7 @@ test('support preserves callback deduplication and submitted request values',asy
     await page.getByRole('button',{name:'Gọi lại',exact:true}).click();await expect(page.locator('#dialog')).toBeVisible();
     await page.locator('#dialog [data-action=close-dialog]').click();
   }
-  await expect(page.locator('.screen-masthead')).toContainText('Có yêu cầu đang chờ');
+  await expect(page.locator('.cf-hdr-request-row')).toContainText('1 đang chờ');
   await expect(page.locator('.cf-support-callback')).toContainText('Chờ tiếp nhận');
   await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();
   await page.locator('#support').fill('Mình cần hỏi lại thời gian khám.');

@@ -11,6 +11,8 @@
   let restoredSession = false;
   let deviceStream = null;
   let actionObserver = null;
+  // Keep profile edits only while revisiting OTP for the same phone in this run.
+  let identityDraftPhone = '';
   let s = M.initial(),
     u = {
       screen: 'A1',
@@ -280,9 +282,8 @@
     const unreadNotifications = s.notifications.filter(item => !item.read).length;
     $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-count" aria-label="'+unreadNotifications+' thông báo chưa đọc">'+Math.min(99,unreadNotifications)+'</span>' : '');
     const isAuth = ['A1', 'A2', 'A3'].includes(id);
-    $('auth-progress').hidden = !isAuth;
-    $('auth-jump').hidden = !isAuth;
-    $('auth-jump').innerHTML = isAuth ? window.CareFlowIcon('arrow-right', 28) : '';
+    $('auth-progress').hidden = true;
+    $('auth-jump').hidden = true;
     $('phone-frame').dataset.authStep = id === 'A1' ? (u.otpSent ? '2' : '1') : '3';
     $('back').hidden = ['A1', 'B1', 'D1', 'K2', 'K5'].includes(id);
     $('notifications').hidden = !s.authenticated || isAuth;
@@ -298,6 +299,13 @@
       intro.prepend($('back'));
       intro.append($('notifications'));
     }
+    const authBack = $('phone-content').querySelector('[data-header-back]');
+    if (isAuth && authBack) {
+      chrome.hidden = true;
+      authBack.replaceWith($('back'));
+      $('back').hidden = false;
+      $('back').disabled = id === 'A1' && !u.otpSent;
+    } else $('back').disabled = false;
     $('bottom-nav').hidden =
       !s.authenticated || ['A1', 'A2', 'A3', 'G3', 'G4'].includes(id) || (s.draft && /^C[1-8]$/.test(id));
     $('bottom-nav').innerHTML = window.CareFlowUI.navigation(activeTab(id), {
@@ -862,14 +870,12 @@
       render();
       actions['support-compose']();
     },
-    'auth-jump'() {
-      const id = u.screen === 'A1' ? (u.otpSent ? 'otp' : 'phone') : 'name';
-      const field = $(id);
-      if (!field) return;
-      field.scrollIntoView({ block: 'center', behavior: 'instant' });
-      field.focus({ preventScroll: true });
-    },
     back() {
+      if (['A1','A2','A3'].includes(u.screen)) {
+        if (u.screen === 'A1') { u.otpSent = false; render(); }
+        else { u.otpSent = true; go('A1'); }
+        return;
+      }
       if (history.state?.careflow) history.back();
       else
         go(s.authenticated ? (visitScreens.has(u.screen) ? 'D1' : 'B1') : 'A1');
@@ -943,6 +949,7 @@
     filter(el) {
       u.filter = el.dataset.filter;
       u.appointmentGroup = null;
+      u.appointmentDate = '';
       render();
     },
     'appointment-group'(el) {
@@ -1197,11 +1204,12 @@
     },
   };
   document.addEventListener('careflow:collection', (event) => {
-    const { key, filter, query, person } = event.detail;
+    const { key, filter, query, person, date } = event.detail;
     if (key === 'appointments') {
       u.appointmentMode = filter;
       u.appointmentPerson = person;
       u.appointmentQuery = query || '';
+      u.appointmentDate = date || '';
     } else {
       u.collections = { ...u.collections, [key]: { filter, query } };
     }
@@ -1231,6 +1239,10 @@
     const name = form.dataset.form;
     u.forms[name] ??= {};
     u.forms[name][el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    if (['profile','match'].includes(name) && el.name==='name') {
+      const preview=$('phone-content').querySelector('[data-identity-preview]');
+      if(preview) preview.textContent=el.value.trim()||'Họ và tên của bạn';
+    }
     if (name==='support' && el.name==='contactMode') {
       const label=form.querySelector('[data-contact-mode-label]');
       if(label) label.textContent={call:'Gọi điện',message:'Tin nhắn',zalo:'Zalo'}[el.value];
@@ -1278,7 +1290,10 @@
         if (!result.ok)
           return error(result.code, result.code === 'PHONE' ? 'phone' : 'otp');
         demo();
-        u.forms = {};
+        const profileForm = result.match ? 'match' : 'profile';
+        u.forms = identityDraftPhone === get('phone') && u.forms[profileForm]
+          ? { [profileForm]: u.forms[profileForm] } : {};
+        identityDraftPhone = get('phone');
         go(result.match ? 'A2' : 'A3');
         break;
       }

@@ -25,10 +25,11 @@
     const mode = root.querySelector('[data-visit-filter][aria-pressed="true"]')?.dataset.visitFilter || 'all';
     const person = root.querySelector('.rich-person-picker')?.dataset.person || 'all';
     const query=root.querySelector('[data-appointment-search]')?.value||'';
+    const date=root.querySelector('[data-appointment-date][aria-pressed="true"]')?.dataset.appointmentDate||'';
     const terms=normalize(query).trim().split(/\s+/).filter(Boolean);
     const cards = [...root.querySelectorAll('.rich-filterable')];
     cards.forEach(card => {
-      card.hidden = (mode !== 'all' && card.dataset.mode !== mode) || (person !== 'all' && card.dataset.person !== person) || !terms.every(term=>normalize(card.dataset.search).includes(term));
+      card.hidden = (mode !== 'all' && card.dataset.mode !== mode) || (person !== 'all' && card.dataset.person !== person) || (date && card.dataset.date !== date) || !terms.every(term=>normalize(card.dataset.search).includes(term));
     });
     root.querySelectorAll('.rich-appointment-group').forEach(group => {
       group.hidden = ![...group.querySelectorAll('.rich-filterable')].some(card => !card.hidden);
@@ -38,9 +39,12 @@
     const count = root.querySelector('[data-appointment-count]');
     if(count) count.textContent = `${cards.filter(card=>!card.hidden).length} lịch hẹn`;
     root.querySelectorAll('[data-appointment-reset]').forEach(button=>{
-      if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all'&&!query;
+      if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all'&&!query&&!date;
     });
-    remember({key:'appointments',filter:mode,person,query});
+    const badge=root.querySelector('[data-appointment-filter-count]');
+    const applied=Number(mode!=='all')+Number(person!=='all')+Number(!!query)+Number(!!date);
+    if(badge){badge.hidden=!applied;badge.textContent=String(applied);}
+    remember({key:'appointments',filter:mode,person,query,date});
   }
   window.CareFlowCollections = {refresh(root) {
     root.querySelectorAll('[data-collection]').forEach(collection=>filterCollection(collection));
@@ -63,6 +67,7 @@
     const reset=event.target.closest('[data-appointment-reset]');
     if(reset) {
       const root=reset.closest('#phone-content');
+      root.querySelectorAll('[data-appointment-date]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.appointmentDate==='')));
       root.querySelectorAll('[data-visit-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.visitFilter==='all')));
       const picker=root.querySelector('.rich-person-picker');
       picker.dataset.person='all';
@@ -72,6 +77,14 @@
       if(search) search.value='';
       filterAppointments(root);
       root.querySelector('[data-action="appointment-filters"]')?.focus({preventScroll:true});
+      return;
+    }
+    const date=event.target.closest('button[data-appointment-date]');
+    if(date) {
+      const root=date.closest('#phone-content');
+      const value=date.getAttribute('aria-pressed')==='true'?'':date.dataset.appointmentDate;
+      root.querySelectorAll('[data-appointment-date]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.appointmentDate===value)));
+      filterAppointments(root);
       return;
     }
     const filter = event.target.closest('button[data-visit-filter]');

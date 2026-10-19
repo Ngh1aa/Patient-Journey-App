@@ -118,8 +118,11 @@
     return `<div class="booking-progress"><div class="booking-progress-title"><span>${esc(VI.layout.bookingTitle)}</span><span>${esc(VI.layout.step)} ${step + 1} / 4</span></div>${UI.stepper(step)}</div>`;
   }
   // Auth visuals are shared; each screen retains its real form and validation.
-  const authVisual = () =>
-    `<div class="auth-scene">${UI.illustration('clinic')}<div class="auth-promise"><span class="auth-promise-icon" aria-hidden="true">${I('heart-pulse', 25)}</span><p>${VI.layout.authTitle.map(esc).join('<br>')}</p><small>${esc(VI.layout.authLead)}</small></div></div>`;
+  function authVisual(id,s,u) {
+    const step=id==='A1'?(u.otpSent?2:1):3;
+    const name=u.forms[id==='A2'?'match':'profile']?.name||(id==='A2'?M.accountProfile(s)?.name:'');
+    return `<div class="cf-hdr-auth"><div class="cf-hdr-auth-nav"><span data-header-back></span><h2>${step===1?'Đăng nhập':step===2?'Xác thực':id==='A2'?'Xác nhận hồ sơ':'Tạo hồ sơ'}</h2><span>Bước ${step}/3</span></div><ol class="cf-hdr-auth-progress" aria-label="Tiến trình tạo tài khoản">${['Số điện thoại','Xác thực','Hồ sơ'].map((label,i)=>`<li${i+1===step?' aria-current="step"':''} data-complete="${i+1<step}"><span>${i+1<step?I('check',16):i+1}</span><small>${label}</small></li>`).join('')}</ol>${step===3?`<div class="cf-hdr-auth-preview"><span aria-hidden="true">${root.CareFlowAvatar(M.accountProfile(s)?.id||'account',40)}</span><div><small>${id==='A2'?'Hồ sơ đã tìm thấy':'Hồ sơ đang tạo'}</small><strong data-identity-preview>${esc(name||'Họ và tên của bạn')}</strong></div>${I('document-check',24)}</div>`:`<div class="cf-hdr-auth-prompt">${I(step===1?'phone':'shield',28)}<p>${step===1?'Bắt đầu với số điện thoại của bạn.':'Xác thực để tiếp tục với hồ sơ.'}</p></div>`}</div>`;
+  }
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
@@ -135,7 +138,7 @@
       go(label, to, variant, extra);
     switch (id) {
       case 'A1':
-        intro = authVisual();
+        intro = authVisual(id,s,u);
         body = authPanel(
           u.otpSent ? 'Xác nhận số điện thoại' : T.heading,
           u.otpSent
@@ -164,7 +167,7 @@
         );
         break;
       case 'A2':
-        intro = authVisual();
+        intro = authVisual(id,s,u);
         body = authPanel(
           T.heading, T.lead,
           form(
@@ -181,7 +184,7 @@
         );
         break;
       case 'A3':
-        intro = authVisual();
+        intro = authVisual(id,s,u);
         body = authPanel(
           T.heading, T.lead,
           form(
@@ -278,7 +281,7 @@
           : '';
         break;
       case 'D1': {
-        intro = `<div class="cf-appt-titlebar">${head(T.heading,'')}<button type="button" class="icon-btn" data-action="appointment-filters" aria-label="Lọc lịch hẹn" aria-expanded="${!!u.appointmentFilters}" aria-controls="appointment-filters">${I('settings',22)}</button></div>` + R.appointmentTabs(s,u);
+        intro = head(T.heading,'') + R.appointmentCalendar(s,u,richH);
         body = R.appointments(s, u, richH);
         break;
       }
@@ -710,7 +713,7 @@
           btn(T.logout, 'logout', {}, 'danger');
         break;
       case 'K5':
-        intro = head(T.heading, s.requests.some(request=>request.status==='waiting') ? 'Có yêu cầu đang chờ phòng khám tiếp nhận' : 'Chưa có yêu cầu đang chờ');
+        intro = R.supportHeader(s,richH);
         body = R.support(s, u, richH);
         break;
       default:
