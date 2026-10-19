@@ -1235,8 +1235,9 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
   await submit(page);
   await screen(page, 'B1');
-  await expect(content(page).locator('h1')).toHaveText('Nguyễn Minh Anh');
-  await expect(content(page).locator('.cf-home-head p')).toHaveText(/^Chào buổi (sáng|chiều|tối), hôm nay bạn thế nào\?$/);
+  await expect(content(page).locator('h1')).toHaveAccessibleName('Nguyễn Minh Anh');
+  await expect(content(page).locator('h1')).toHaveText('Minh Anh');
+  await expect(content(page).locator('.cf-hdr-home-intro p').first()).toHaveText(/^Chào buổi (sáng|chiều|tối),$/);
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });
