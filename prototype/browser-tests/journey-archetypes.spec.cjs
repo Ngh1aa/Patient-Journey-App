@@ -37,10 +37,11 @@ test('appointment and support use their own layouts instead of generic stacked c
   await expect(page.locator('.facility-card')).toBeVisible();
   await page.locator('#bottom-nav a').last().click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K5');
-  await expect(page.locator('.support-grid > button')).toHaveCount(3);
+  await expect(page.locator('.cf-support-bento > button')).toHaveCount(3);
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
-  await expect(page.locator('.rich-profile-details')).toContainText('Nguyễn Minh Anh');
-  await expect(page.locator('.rich-profile-details')).toContainText('Chưa khai báo');
-  await expect(page.locator('.rich-settings-links')).toContainText(['Trần Thị Mai','Thông báo']);
+  await expect(page.locator('.cf-personal-facts')).toContainText('Nguyễn Minh Anh');
+  await expect(page.locator('.cf-profile-allergy')).toContainText('Chưa khai báo');
+  await expect(page.locator('.cf-relative-grid')).toContainText('Trần Thị Mai');
+  await expect(page.locator('.cf-settings-list')).toContainText('Thông báo');
 });
