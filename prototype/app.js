@@ -940,6 +940,7 @@
       if (['online','onsite'].includes(el.dataset.category)) {
         u.appointmentMode = el.dataset.category;
         u.appointmentPerson = 'all';
+        u.appointmentDate = '';
         u.appointmentFilters = true;
         u.filter = 'upcoming';
         u.appointmentGroup = null;

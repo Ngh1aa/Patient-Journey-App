@@ -39,9 +39,21 @@ test('appointment date composes with mode, person and search; resets and survive
   await page.reload();await expect(page.locator('[data-appointment-date="2026-10-27"]')).toHaveAttribute('aria-pressed','true');await expect(page.locator('.rich-filter-empty')).toBeVisible();
   await page.locator('.rich-filter-empty [data-appointment-reset]').click();await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(5);
   await page.locator('[data-appointment-date="2026-10-24"]').click();
+  await page.locator('.rich-person-picker summary').click();await page.locator('[data-appointment-person=p2]').click();
+  await page.locator('#appointment-search').fill('CF-SAMPLE-01');await expect(page.locator('.rich-filter-empty')).toBeVisible();
+  await expect(page.locator('[data-appointment-filter-count]')).toHaveText('3');
+  await page.locator('.rich-filter-empty [data-appointment-reset]').click();await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(5);
+  await page.locator('[data-appointment-date="2026-10-24"]').click();
   await page.locator('.rich-appt-tabs [data-action=filter][data-filter=past]').click();
   await expect(page.locator('[data-appointment-date=""]')).toHaveAttribute('aria-pressed','true');await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(2);
   await page.locator('[data-action=filter][data-filter=cancelled]').click();await expect(page.locator('.cf-hdr-date-rail')).toHaveCount(0);await expect(content(page)).toContainText('Chưa có lịch đã hủy');
+});
+
+test('a visit update clears a date that no longer belongs to the current status group',async({page})=>{
+  await page.goto('/prototype/?scenario=appointments#/appointments');await page.locator('[data-appointment-date="2026-10-24"]').click();
+  await page.evaluate(()=>{const key='careflow.browser.v3',saved=JSON.parse(sessionStorage.getItem(key));saved.state.visits.find(v=>v.id==='CF-SAMPLE-01').status='completed';sessionStorage.setItem(key,JSON.stringify(saved));});await page.reload();
+  await expect(page.locator('[data-appointment-date="2026-10-24"]')).toHaveCount(0);await expect(page.locator('[data-appointment-date=""]')).toHaveAttribute('aria-pressed','true');
+  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).ui.appointmentDate)).toBe('');
 });
 
 test('account progress follows real OTP and preserves profile draft through back navigation',async({page},info)=>{

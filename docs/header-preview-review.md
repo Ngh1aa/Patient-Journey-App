@@ -122,3 +122,6 @@ The user requested: “gộp các bản header mới này lên main”. The five
 
 
 Runtime contrast correction: inherited muted text on the auth prompt/identity preview measured 4.06:1 on baby blue and 4.34:1 on mint. Both now explicitly use the existing navy token: 12.164:1 on baby blue and 12.992:1 on mint. The OTP/profile interaction regression scans all three real auth steps with axe, rather than inferring their result from the design preview. Ticket action keeps its existing accessible name “Xem phiếu khám”, with the actual visit/patient/status linked through aria-describedby.
+
+
+Additional runtime filter recovery: a clinic update can move the selected appointment out of the current status group. The date rail normalizes such stale selection to All and the collection owner persists that recovered state. Guide entries that intentionally select online/onsite reset the old date as well. Focused date tests cover composition with mode, person and text, filter count, reload, reset, state-tab switching and clinic-update recovery on both engines.

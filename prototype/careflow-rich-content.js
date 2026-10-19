@@ -94,7 +94,8 @@
   function appointmentCalendar(s,u,h) {
     const visits=u.filter==='past'?s.visits.filter(v=>v.status==='completed'):u.filter==='cancelled'?s.visits.filter(v=>['cancelled','no-show'].includes(v.status)):active(s);
     const dates=[...new Set(visits.map(v=>v.date))].sort();
-    return `${dates.length?`<div class="cf-hdr-calendar-heading"><span>${h.I('calendar',18)}Ngày có lịch</span><small>${visits.length} ${u.filter==='past'?'lượt đã khám':u.filter==='cancelled'?'lịch đã hủy':'lịch sắp tới'}</small></div><div class="cf-hdr-date-rail" role="group" aria-label="Lọc theo ngày hẹn"><button type="button" data-appointment-date="" aria-pressed="${!u.appointmentDate}"><span>${h.I('calendar',20)}</span><small>Tất cả</small></button>${dates.map(date=>`<button type="button" data-appointment-date="${H(date)}" aria-label="${H(h.dateText({date}))}" aria-pressed="${u.appointmentDate===date}"><strong>${H(date.slice(-2))}</strong><small>Tháng ${Number(date.slice(5,7))}</small></button>`).join('')}</div>`:''}${appointmentTabs(s,u)}`;
+    const selected=dates.includes(u.appointmentDate)?u.appointmentDate:'';
+    return `${dates.length?`<div class="cf-hdr-calendar-heading"><span>${h.I('calendar',18)}Ngày có lịch</span><small>${visits.length} ${u.filter==='past'?'lượt đã khám':u.filter==='cancelled'?'lịch đã hủy':'lịch sắp tới'}</small></div><div class="cf-hdr-date-rail" role="group" aria-label="Lọc theo ngày hẹn"><button type="button" data-appointment-date="" aria-pressed="${!selected}"><span>${h.I('calendar',20)}</span><small>Tất cả</small></button>${dates.map(date=>`<button type="button" data-appointment-date="${H(date)}" aria-label="${H(h.dateText({date}))}" aria-pressed="${selected===date}"><strong>${H(date.slice(-2))}</strong><small>Tháng ${Number(date.slice(5,7))}</small></button>`).join('')}</div>`:''}${appointmentTabs(s,u)}`;
   }
   function appointmentCard(s,v,h,featured=false) {
     const doctor=clinician(v);
