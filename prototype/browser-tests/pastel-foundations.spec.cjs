@@ -12,7 +12,7 @@ for (const width of [360,390,768,1440]) test(`candidate components have safe ins
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width+1);
   const nav=page.getByRole('navigation',{name:'Điều hướng chính'});
   for(const name of ['Trang chủ','Lịch hẹn','Hồ sơ','Hỗ trợ'])await expect(nav.getByRole('link',{name})).toBeVisible();
-  await expect(nav.getByRole('button',{name:'Đặt lịch khám'})).toBeVisible();
+  await expect(nav.getByRole('button',{name:'Đặt lịch',exact:true})).toBeVisible();
   const sizes=await page.locator('button,a').evaluateAll(nodes=>nodes.filter(el=>el.getClientRects().length).map(el=>({label:el.textContent.trim(),w:el.getBoundingClientRect().width,h:el.getBoundingClientRect().height})));
   expect(sizes.filter(s=>s.w<44||s.h<44)).toEqual([]);
   const insetIssues=await page.locator('[data-cf-card]').evaluateAll(nodes=>nodes.filter(card=>card.getClientRects().length).flatMap(card=>[...card.querySelectorAll('h2,h3,p')].filter(el=>{
@@ -40,7 +40,8 @@ test('text at 200% reflows at 360px without clipped actions or wrapped step labe
   }).map(el=>el.textContent));
   expect(clippedByCard).toEqual([]);
   await expect(page.locator('.cf-step-label').first()).toHaveCSS('white-space','nowrap');
-  const circle=await page.locator('.cf-nav-book .cf-nav-symbol').boundingBox(),label=await page.locator('.cf-nav-book .cf-nav-label').boundingBox();expect(label.y).toBeGreaterThanOrEqual(circle.y+circle.height+3);
+  await expect(page.locator('.cf-nav-book .cf-nav-label')).toHaveCount(0);
+  await expect(page.locator('.cf-nav-book')).toHaveAccessibleName('Đặt lịch');
   await page.screenshot({path:info.outputPath('foundations-200percent.png'),fullPage:true});
   await page.getByRole('button',{name:'Chữ 200%',exact:true}).click();
   await expect(page.locator('.cf-step-label').first()).toHaveCSS('font-size','12px');

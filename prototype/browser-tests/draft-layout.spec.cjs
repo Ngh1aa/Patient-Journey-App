@@ -7,7 +7,8 @@ for(const width of [360,390,1440])test('type roles, shared palette and card inse
   await expect(main(page).locator('h1')).toHaveCSS('font-size','24px');
   const sizes=await main(page).locator('h2,h3').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).fontSize));expect(sizes.every(s=>['16px','18px'].includes(s))).toBe(true);
   const paragraphs=await main(page).locator('p').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).fontSize));expect(paragraphs.every(s=>s==='14px')).toBe(true);
-  await expect(main(page).locator('img')).toHaveCount(0);
+  const photos=await main(page).locator('img').evaluateAll(nodes=>nodes.map(el=>({src:el.getAttribute('src'),alt:el.alt,loaded:el.complete&&el.naturalWidth>0})));
+  expect(photos.every(p=>p.src.endsWith('doctor-cutout.webp')&&p.alt===''&&p.loaded)).toBe(true);
   expect(await main(page).evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
  }
  await page.goto('/prototype/#/home');

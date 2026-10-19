@@ -7,7 +7,9 @@ for(const width of [360,390,1440])test(`approved artwork stays in its card witho
   await page.goto('/prototype/?scenario=appointments#/home');
   await page.evaluate(()=>document.fonts.ready);
   await expect(main(page)).toHaveCSS('font-family',/Plus Jakarta Sans/);
-  await expect(main(page).locator('img')).toHaveCount(0);
+  await expect(main(page).locator('.cf-help-strip img')).toHaveAttribute('src',/doctor-cutout\.webp/);
+  const photos=await main(page).locator('img').evaluateAll(nodes=>nodes.map(el=>({alt:el.alt,loaded:el.complete&&el.naturalWidth>0})));
+  expect(photos.every(p=>p.alt===''&&p.loaded)).toBe(true);
   const artwork=main(page).locator('.cf-illustration-slot');expect(await artwork.count()).toBeGreaterThan(1);
   for(const item of await artwork.all()){
     const bounds=await item.evaluate(el=>{const r=el.getBoundingClientRect(),card=el.closest('[data-cf-card]').getBoundingClientRect();return {left:r.left-card.left,right:card.right-r.right,w:r.width,h:r.height};});
