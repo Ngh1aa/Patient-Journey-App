@@ -398,7 +398,8 @@
 [data-cf-theme="pastel"] .cf-review-content [data-cf-card] { --cf-card-padding: var(--cf-space-4); }
 [data-cf-theme="pastel"] .cf-review-content .cf-bento [data-cf-card] { --cf-card-padding: var(--cf-space-4); border-radius: var(--cf-radius-inner); }
 [data-cf-theme="pastel"] .cf-state-controls { display: flex; gap: var(--cf-space-2); overflow-x: auto; padding: var(--cf-space-1) var(--cf-space-1) var(--cf-space-2); }
-[data-cf-theme="pastel"] .cf-state-controls button { flex: none; }
+/* Selection swaps foreground and background together, keeping contrast during the change. */
+[data-cf-theme="pastel"] .cf-state-controls button { flex: none; transition: none; }
 [data-cf-theme="pastel"] .cf-state-controls button { background: var(--cf-surface); border-color: var(--cf-line); color: var(--cf-text); }
 [data-cf-theme="pastel"] .cf-state-controls [aria-pressed="true"] { background: var(--cf-primary); color: var(--cf-on-brand); border-color: var(--cf-primary); }
 [data-cf-theme="pastel"] .cf-button-examples { display: grid; gap: var(--cf-space-4); }
