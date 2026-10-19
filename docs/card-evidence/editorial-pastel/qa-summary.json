@@ -1,0 +1,30 @@
+{
+  "branch": "redesign/cards-v2",
+  "main": "25dfe12208299b2d40ecf1c4f59441302c1ba9c5",
+  "current_direction": "user Docthea reference, editorial pastel",
+  "browser_initial": {
+    "passed": 56,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ]
+  },
+  "browser_final": {
+    "passed": 24,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "overlap": true,
+    "axe_states_per_engine": 16
+  },
+  "model_passed": 49,
+  "contrast_pairs": 50,
+  "responsive_captures": 141,
+  "large_text_captures": 47,
+  "human_validation": "UNKNOWN",
+  "native_validation": "NOT_RUN",
+  "release": "LOCAL_ONLY"
+}

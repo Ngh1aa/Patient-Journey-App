@@ -1,0 +1,143 @@
+{
+  "checks": [
+    {
+      "name": "both entry points load tokens before shared components",
+      "pass": true
+    },
+    {
+      "name": "navy preserved",
+      "pass": true
+    },
+    {
+      "name": "no raw color in shared component owner",
+      "pass": true
+    },
+    {
+      "name": "card API uses existing presentation owner",
+      "pass": true
+    },
+    {
+      "name": "prototype enables the approved shared theme",
+      "pass": true
+    },
+    {
+      "name": "staff-prototype enables the approved shared theme",
+      "pass": true
+    },
+    {
+      "name": "loaded presentation styles contain no literal colors outside tokens",
+      "pass": true
+    }
+  ],
+  "hardcoding": [
+    {
+      "file": "design/components.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 192,
+      "owner": "shared"
+    },
+    {
+      "file": "design/tokens.css",
+      "colorLiterals": 69,
+      "pixelLiterals": 48,
+      "owner": "shared"
+    },
+    {
+      "file": "prototype/auth-editorial.css",
+      "colorLiterals": 31,
+      "pixelLiterals": 125,
+      "owner": "archive / not loaded by current entrypoints"
+    },
+    {
+      "file": "prototype/careflow-rich-content.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 331,
+      "owner": "active presentation"
+    },
+    {
+      "file": "prototype/editorial-soft-glass.css",
+      "colorLiterals": 136,
+      "pixelLiterals": 536,
+      "owner": "archive / not loaded by current entrypoints"
+    },
+    {
+      "file": "prototype/journey-archetypes.css",
+      "colorLiterals": 93,
+      "pixelLiterals": 248,
+      "owner": "archive / not loaded by current entrypoints"
+    },
+    {
+      "file": "prototype/solid-navy-polish.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 699,
+      "owner": "active presentation"
+    },
+    {
+      "file": "prototype/styles.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 599,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-card-actions.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 30,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-content-grid.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 23,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-journeys.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 262,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-navy-theme.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 93,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-polish.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 390,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/doctor-showcase.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 505,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/styles.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 810,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/supporting.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 242,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/visual-foundations.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 235,
+      "owner": "active presentation"
+    },
+    {
+      "file": "staff-prototype/wave3.css",
+      "colorLiterals": 0,
+      "pixelLiterals": 269,
+      "owner": "active presentation"
+    }
+  ],
+  "boundary": "Source checks only. Existing composition/media sizes remain; rendered evidence owns layout acceptance."
+}

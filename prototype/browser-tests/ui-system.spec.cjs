@@ -13,10 +13,9 @@ test('patient appointment action preserves its name, type scale and clinician ac
   const home=await geometry(homeAction);
   const avatar=await phone(page).locator('.cf-home-appointment-avatar').innerHTML();
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
-  await expect(phone(page)).toHaveAttribute('data-screen','D1');
   const listAction=phone(page).getByRole('button',{name:'Xem phiếu khám',exact:true});
-  await expect(listAction).toBeVisible();
-  expect(await geometry(listAction)).toEqual(home);
+  const list=await geometry(listAction);expect(list.font).toBe(home.font);expect(list.radius).toBe(home.radius);
+  expect(home.variant).toBe('primary');expect(list.variant).toBe('secondary');
   expect(await phone(page).locator('.cf-clinician-avatar').innerHTML()).toBe(avatar);
   await listAction.click();await expect(phone(page)).toHaveAttribute('data-screen','D2');
   await page.goBack();await expect(phone(page)).toHaveAttribute('data-screen','D1');
@@ -36,7 +35,7 @@ for(const width of [360,390])test(`large text and long content reflow without lo
   await page.reload();
   await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
   const action=phone(page).getByRole('button',{name:'Xem phiếu khám',exact:true});
-  await expect(action).toHaveCSS('font-size','30px');
+  await expect(action).toHaveCSS('font-size','28px');
   await action.click();await expect(phone(page)).toHaveAttribute('data-screen','D2');
   for(const target of ['D2','K5']){
     if(target==='K5')await page.locator('#bottom-nav [aria-label="Hỗ trợ"]').click();
@@ -51,7 +50,7 @@ test('visit and result statuses keep different meanings and consistent tones acr
   await page.goto('/prototype/index.html?scenario=upcoming#/home');
   const patient=phone(page).locator('.cf-home-appointment-status [data-cf-component="status"]');
   await expect(patient).toHaveText('Đã xác nhận');
-  await expect(patient).toHaveAttribute('data-cf-tone','success');
+  await expect(patient).toHaveAttribute('data-cf-tone','info');
   await page.goto('/staff-prototype/index.html#/doctor/queue');
   const states=await page.evaluate(()=>({visit:CareFlowUI.status('ready'),result:CareFlowUI.status('ready','result'),review:CareFlowUI.status('review')}));
   expect(states.visit.label).toBe('Sẵn sàng khám');

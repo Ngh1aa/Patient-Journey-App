@@ -1,0 +1,69 @@
+{
+  "review_type": "agent-heuristic",
+  "viewports": [
+    360,
+    390,
+    1440
+  ],
+  "large_text": "47 patient routes at 360px,200%",
+  "care-team.webp": {
+    "source": "NCI tl447mekwuQ",
+    "source_size": [
+      1200,
+      782
+    ],
+    "primary_subject": "clinician head",
+    "no_cut_zone_source_pixels": [
+      290,
+      50,
+      580,
+      350
+    ],
+    "owners": [
+      "B1 discovery featured",
+      "K5 support context photo"
+    ],
+    "fit": "cover; large-text feature switches to in-flow contain",
+    "evidence": [
+      "home-service-390.png",
+      "K5-390.png"
+    ],
+    "geometry_regression": "photo-led.spec.cjs, both browser engines; projects subject zone into rendered image and compares caption edge"
+  },
+  "account-portrait.webp": {
+    "source": "Michael Dam mEZ3PoFGs_k",
+    "source_size": [
+      400,
+      600
+    ],
+    "subject": "stock avatar head",
+    "fit": "cover; object-position:center 24%",
+    "owners": [
+      "home account avatar",
+      "C1 demo account",
+      "K2 account banner"
+    ],
+    "evidence": [
+      "B1-390.png",
+      "contact-1.png",
+      "K2-390.png",
+      "profile-large-390.png"
+    ]
+  },
+  "non_face_media": {
+    "assets": [
+      "clinic.webp",
+      "hospital.webp",
+      "doctor-care.webp",
+      "consultation.webp",
+      "laboratory.webp",
+      "medical-tools.webp"
+    ],
+    "purpose": "administrative/medical context only, not a live patient result or CareFlow premises",
+    "treatment": "full-bleed navigation card; bounded photo header for multi-action appointment; dark caption .78 alpha"
+  },
+  "limits": [
+    "No human participant or native-device validation.",
+    "Existing imaging-suite/stethoscope illustrations retained where already used; no claim that every old image has new photographic provenance."
+  ]
+}

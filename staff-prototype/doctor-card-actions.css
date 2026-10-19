@@ -3,17 +3,17 @@
 .doctor-action-card{display:flex;flex-direction:column;min-width:0}
 .doctor-stat-card-head{display:flex;align-items:start;justify-content:space-between;gap:12px}
 .doctor-stat-main{flex:1 1 auto}
-.doctor-icon-link,.doctor-card-icon-action{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border:1px solid #d8e8f8;border-radius:50%;background:#f4f9ff;color:#0965cf;cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s,transform .15s}
-.doctor-icon-link:hover,.doctor-card-icon-action:hover{background:#e6f2ff;border-color:#8fc0f4;transform:translateY(-1px)}
-.doctor-icon-link:focus-visible,.doctor-card-icon-action:focus-visible,.doctor-card-footer-link:focus-visible{outline:3px solid #0a67d1;outline-offset:3px}
+.doctor-icon-link,.doctor-card-icon-action{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border: 1px solid var(--cf-line);border-radius:50%;background: var(--cf-surface);color: var(--cf-text-muted);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s,transform .15s}
+.doctor-icon-link:hover,.doctor-card-icon-action:hover{background: var(--cf-surface-page);border-color: var(--cf-baby-blue);transform:translateY(-1px)}
+.doctor-icon-link:focus-visible,.doctor-card-icon-action:focus-visible,.doctor-card-footer-link:focus-visible{outline: 3px solid var(--cf-brand);outline-offset:3px}
 .doctor-action-card .doctor-stat-number{margin-top:8px}
-.doctor-card-footer-link{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color:#075cbf;font-weight:750;font-size:11px;padding:10px 0 0;margin-top:13px;min-height:39px;border-top:1px solid #e7eff7}
-.doctor-card-footer-link:hover{color:#03468d}
+.doctor-card-footer-link{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color: var(--cf-text-muted);font-weight:750;font-size:11px;padding:10px 0 0;margin-top:13px;min-height:39px;border-top: 1px solid var(--cf-line)}
+.doctor-card-footer-link:hover{color: var(--cf-text-muted)}
 .doctor-card-footer-link svg{flex:none}
 .doctor-now-bottom{margin:auto 19px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
 .doctor-now-bottom>.btn{margin:0}
-.doctor-card-hint{display:inline-flex;align-items:center;gap:6px;color:#66829b;font-size:10px;font-weight:600;line-height:1.5}
-.doctor-labs-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin:7px 18px 11px;padding-top:9px;border-top:1px solid #eaf0f5}
+.doctor-card-hint{display:inline-flex;align-items:center;gap:6px;color: var(--cf-text-muted);font-size:10px;font-weight:600;line-height:1.5}
+.doctor-labs-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin:7px 18px 11px;padding-top:9px;border-top: 1px solid var(--cf-line)}
 .doctor-labs-footer .doctor-more-link{margin:0}
 .doctor-home .doctor-labs-today{display:flex;flex-direction:column}
 .doctor-home .doctor-labs-today>.doctor-labs-footer{margin-top:auto}

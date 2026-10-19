@@ -5,25 +5,24 @@ test('center booking icon has no visible caption but retains accessible name', a
   const nav = page.locator('#bottom-nav');
   await expect(nav).toBeVisible();
   await expect(nav.locator('a,button')).toHaveCount(5);
-  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label', 'Đặt lịch khám');
+  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label', 'Đặt lịch');
   await expect(nav.locator('.nav-book .nav-caption')).toHaveCount(0);
 });
 
 test('empty appointment tab uses one concise booking action, not two competing buttons', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=empty#/appointments');
   const content = page.locator('#phone-content[data-screen="D1"]');
-  await expect(content.locator('.cf-appt-empty')).toContainText('Chưa có lịch sắp tới');
-  await expect(content.locator('.cf-appt-empty-cta')).toHaveCount(1);
+  await expect(content.locator('.rich-empty')).toContainText('Chưa có lịch sắp tới');
+  await expect(content.locator('.rich-empty [data-action="book-nav"]')).toHaveCount(1);
   await expect(content.locator('.rich-new-booking')).toHaveCount(0);
-  await expect(content.locator('.cf-appt-steps')).toBeVisible();
-  await expect(content.locator('.cfx-screen-d1')).toContainText('Quản lý dễ dàng hơn');
+  await expect(content.locator('.rich-empty')).toContainText('Chọn khung giờ phù hợp');
   const metrics = await content.evaluate(node => ({
     scrollWidth: node.scrollWidth, width: node.clientWidth,
     count: [...node.querySelectorAll('.rich-appt-tabs .btn')].length
   }));
   expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.width + 1);
   expect(metrics.count).toBe(3);
-  await content.locator('.cf-appt-empty-cta').click();
+  await content.locator('.rich-empty [data-action="book-nav"]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C1');
 });
 
@@ -49,7 +48,8 @@ async function factLayout(page, screen) {
   expect(metrics.overflow).toBeLessThanOrEqual(1);
   expect(metrics.label).toBeGreaterThanOrEqual(94);
   expect(metrics.value).toBeGreaterThanOrEqual(115);
-  expect(metrics.gridColumns.split(' ').length).toBe(1);
+  // The approved bento facts use two columns, with label and value stacked in each cell.
+  expect(metrics.gridColumns.split(' ').length).toBe(2);
 }
 
 test('C8 booking review facts keep readable labels at 390px', async ({ page }) => {
@@ -58,7 +58,7 @@ test('C8 booking review facts keep readable labels at 390px', async ({ page }) =
   const content=page.locator('#phone-content');
   const screen=async id => expect(content).toHaveAttribute('data-screen',id);
   const submit=async () => content.locator('form [type=submit]').click();
-  await content.locator('[data-action=begin]').first().click();
+  await page.locator('#bottom-nav .nav-book').click();
   await screen('C1');
   await submit();
   await screen('C2');

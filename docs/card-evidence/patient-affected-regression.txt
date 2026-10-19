@@ -1,0 +1,72 @@
+
+Running 50 tests using 2 workers
+
+(node:5804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:11:1 › preparation and notes persist per visit, survive navigation and clear on logout (5.4s)
+  ok  1 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:6:1 › navigation names all destinations, exposes booking and profile add follows the selection (6.7s)
+  ok  4 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:29:1 › appointment management is before the ticket and opens existing change/cancel flows (2.9s)
+  ok  3 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:38:1 › calendar export uses the selected appointment time without clinical data (3.8s)
+  ok  5 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:42:1 › contextual tips open with keyboard; patient shortcut returns to the existing selection screen (3.1s)
+  ok  6 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:54:1 › appointment search composes with mode and person filters and resets the zero state (3.4s)
+  ok  7 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:56:1 › booking hides tab nav and preserves draft through Back, forward and reload (4.1s)
+  ok  8 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 320 (3.8s)
+  ok 10 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 360 (3.7s)
+  ok  9 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:75:1 › quick dates update the actual booking, custom date selection and reload remain consistent (6.9s)
+  ok 11 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 390 (3.5s)
+  ok 13 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 1440 (3.5s)
+  ok 12 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 360px (5.9s)
+  ok 15 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 390px (4.8s)
+  ok 14 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:89:1 › desktop followup search filters owner and state without offering delegated completion (6.9s)
+  ok 17 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:108:1 › real lab photograph is bundled and attributed, no external image dependency (2.1s)
+  ok 16 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 1440px (4.7s)
+  ok 18 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:116:1 › 200 percent booking label and private tools reflow and remain usable offline (3.8s)
+  ok 20 [Chromium] › prototype\browser-tests\journey-archetypes.spec.cjs:3:1 › light greeting scrolls below the fixed light app header (1.7s)
+  ok 19 [Chromium] › prototype\browser-tests\clinical-layout.spec.cjs:119:1 › submitted, pending and confirmed states differ by copy and visual treatment; home passes axe (7.5s)
+  ok 21 [Chromium] › prototype\browser-tests\journey-archetypes.spec.cjs:28:1 › Home puts the navy appointment before overview and quick access on light surfaces (3.8s)
+  -  23 [Chromium] › prototype\browser-tests\visual-rich-content.spec.cjs:11:3 › before-after visual evidence 375px
+  -  24 [Chromium] › prototype\browser-tests\visual-rich-content.spec.cjs:11:3 › before-after visual evidence 430px
+  ok 22 [Chromium] › prototype\browser-tests\journey-archetypes.spec.cjs:60:1 › booking preserves the clinical risk branch with a four-dot visual stepper and useful symptom chips (3.6s)
+  ok 25 [Chromium] › prototype\browser-tests\journey-archetypes.spec.cjs:79:1 › appointment and support use their own layouts instead of generic stacked cards (2.5s)
+(node:22372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 27 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:6:1 › navigation names all destinations, exposes booking and profile add follows the selection (8.3s)
+  ok 26 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:11:1 › preparation and notes persist per visit, survive navigation and clear on logout (12.2s)
+  ok 28 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:29:1 › appointment management is before the ticket and opens existing change/cancel flows (5.5s)
+  ok 29 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:38:1 › calendar export uses the selected appointment time without clinical data (3.9s)
+  ok 30 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:42:1 › contextual tips open with keyboard; patient shortcut returns to the existing selection screen (3.8s)
+  ok 31 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:54:1 › appointment search composes with mode and person filters and resets the zero state (5.4s)
+  ok 32 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:56:1 › booking hides tab nav and preserves draft through Back, forward and reload (4.7s)
+  ok 33 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 320 (5.2s)
+  ok 35 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 360 (4.7s)
+  ok 34 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:75:1 › quick dates update the actual booking, custom date selection and reload remain consistent (9.0s)
+  ok 36 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 390 (5.0s)
+  ok 37 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 360px (5.5s)
+  ok 38 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 1440 (7.8s)
+  ok 39 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 390px (6.4s)
+  ok 41 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:97:37 › five navigation controls have distinct actions and accessible targets at 1440px (6.5s)
+  ok 40 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:89:1 › desktop followup search filters owner and state without offering delegated completion (12.4s)
+  ok 42 [WebKit] › prototype\browser-tests\clinical-layout.spec.cjs:119:1 › submitted, pending and confirmed states differ by copy and visual treatment; home passes axe (7.6s)
+  ok 43 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:108:1 › real lab photograph is bundled and attributed, no external image dependency (3.0s)
+  ok 44 [WebKit] › prototype\browser-tests\journey-archetypes.spec.cjs:3:1 › light greeting scrolls below the fixed light app header (3.4s)
+  ok 45 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:116:1 › 200 percent booking label and private tools reflow and remain usable offline (6.3s)
+  -  47 [WebKit] › prototype\browser-tests\visual-rich-content.spec.cjs:11:3 › before-after visual evidence 375px
+  -  48 [WebKit] › prototype\browser-tests\visual-rich-content.spec.cjs:11:3 › before-after visual evidence 430px
+  ok 46 [WebKit] › prototype\browser-tests\journey-archetypes.spec.cjs:28:1 › Home puts the navy appointment before overview and quick access on light surfaces (7.0s)
+  ok 49 [WebKit] › prototype\browser-tests\journey-archetypes.spec.cjs:60:1 › booking preserves the clinical risk branch with a four-dot visual stepper and useful symptom chips (6.2s)
+  ok 50 [WebKit] › prototype\browser-tests\journey-archetypes.spec.cjs:79:1 › appointment and support use their own layouts instead of generic stacked cards (4.5s)
+
+  4 skipped
+  46 passed (2.6m)

@@ -1,0 +1,50 @@
+{
+  "scope": "Design System components + integrated app navigation, Chromium; rest of page layout remains current draft",
+  "rows": [
+    {
+      "width": 360,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 360,
+      "state": "200% text",
+      "pageErrors": [],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 768,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 1440,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 360,
+      "scope": "integrated app navbar",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "scope": "integrated app navbar",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "scope": "integrated app navbar",
+      "overflow": false
+    }
+  ]
+}

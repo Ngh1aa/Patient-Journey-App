@@ -1,0 +1,42 @@
+{
+  "states": [
+    {
+      "name": "home",
+      "label": "Trang chủ",
+      "visibleCaptions": 0,
+      "accessibleNames": [
+        "Trang chủ",
+        "Lịch hẹn",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ]
+    },
+    {
+      "name": "appointments",
+      "label": "Lịch hẹn có cập nhật",
+      "visibleCaptions": 0,
+      "accessibleNames": [
+        "Trang chủ",
+        "Lịch hẹn",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ]
+    },
+    {
+      "name": "pressed",
+      "label": "Nút đặt lịch đang nhấn",
+      "visibleCaptions": 0,
+      "accessibleNames": [
+        "Trang chủ",
+        "Lịch hẹn",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ]
+    }
+  ],
+  "galleryVisibleCaptions": 0,
+  "errors": []
+}

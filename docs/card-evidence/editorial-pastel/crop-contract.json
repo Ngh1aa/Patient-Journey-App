@@ -1,0 +1,27 @@
+{
+  "asset": "doctor-portrait.webp",
+  "source": "Usman Yousaf pTrhfmj2jDA",
+  "source_size": [
+    1000,
+    667
+  ],
+  "subject_zone": [
+    350,
+    30,
+    600,
+    315
+  ],
+  "owner": "B1 cf-welcome-feature",
+  "fit": "cover 46% top; contain in separate row at 200% text",
+  "checked_widths": [
+    360,
+    390,
+    1440
+  ],
+  "geometry": "photo-led.spec.cjs projects no-cut head zone and checks against copy edge in both browser engines",
+  "evidence": [
+    "B1-390.png",
+    "B1-360-large.png"
+  ],
+  "validation": "agent-heuristic, not human study"
+}

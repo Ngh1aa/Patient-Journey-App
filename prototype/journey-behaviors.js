@@ -24,9 +24,11 @@
   function filterAppointments(root) {
     const mode = root.querySelector('[data-visit-filter][aria-pressed="true"]')?.dataset.visitFilter || 'all';
     const person = root.querySelector('.rich-person-picker')?.dataset.person || 'all';
+    const query=root.querySelector('[data-appointment-search]')?.value||'';
+    const terms=normalize(query).trim().split(/\s+/).filter(Boolean);
     const cards = [...root.querySelectorAll('.rich-filterable')];
     cards.forEach(card => {
-      card.hidden = (mode !== 'all' && card.dataset.mode !== mode) || (person !== 'all' && card.dataset.person !== person);
+      card.hidden = (mode !== 'all' && card.dataset.mode !== mode) || (person !== 'all' && card.dataset.person !== person) || !terms.every(term=>normalize(card.dataset.search).includes(term));
     });
     root.querySelectorAll('.rich-appointment-group').forEach(group => {
       group.hidden = ![...group.querySelectorAll('.rich-filterable')].some(card => !card.hidden);
@@ -36,9 +38,9 @@
     const count = root.querySelector('[data-appointment-count]');
     if(count) count.textContent = `${cards.filter(card=>!card.hidden).length} lịch hẹn`;
     root.querySelectorAll('[data-appointment-reset]').forEach(button=>{
-      if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all';
+      if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all'&&!query;
     });
-    remember({key:'appointments',filter:mode,person});
+    remember({key:'appointments',filter:mode,person,query});
   }
   window.CareFlowCollections = {refresh(root) {
     root.querySelectorAll('[data-collection]').forEach(collection=>filterCollection(collection));
@@ -66,6 +68,8 @@
       picker.dataset.person='all';
       picker.querySelectorAll('[data-appointment-person]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.appointmentPerson==='all')));
       picker.querySelector('summary span').textContent='Tất cả hồ sơ';
+      const search=root.querySelector('[data-appointment-search]');
+      if(search) search.value='';
       filterAppointments(root);
       root.querySelector('[data-action="appointment-filters"]')?.focus({preventScroll:true});
       return;
@@ -117,11 +121,8 @@
     field.focus({ preventScroll: true });
   });
   document.addEventListener('input',(event)=>{
+    if(event.target.matches('[data-appointment-search]')) filterAppointments(event.target.closest('#phone-content'));
     if(event.target.matches('[data-collection-search]')) filterCollection(event.target.closest('[data-collection]'),true);
-    if(event.target.id==='support'){
-      const count=document.getElementById('support-count');
-      if(count) count.textContent=String(event.target.value.length);
-    }
   });
   function refreshCountdown() {
     document.querySelectorAll('[data-appointment-countdown]').forEach(node => {

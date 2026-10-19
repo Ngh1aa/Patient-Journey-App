@@ -1,4 +1,62 @@
-# CareFlow Design System — v0.1 (foundation for Hi-Fi)
+# CareFlow Design System
+
+## Release authorization —19/10/2026
+
+Người dùng đã yêu cầu trực tiếp “merge lên main cho mình nhé” sau khi xem bản polish8 nhóm. Yêu cầu mới thay thế điều kiện giữ bản nháp/chờ từ “chốt” trong các ghi chú lịch sử phía dưới. Đợt phát hành này phải tích hợp main mới nhất, giữ bộ shared design system hiện hành và qua kiểm tra trước khi merge; không force-push hoặc xóa nhánh.
+
+## Active — H2 review, 19/10/2026
+
+The latest user request integrates the current work into the local draft and changes navigation to icon-only tabs, superseding option A. H1 is approved; the current batch covers patient display fixes A, navigation F, safety D1/D2 and meaningful H6 aftercare copy. Further screen batches remain subject to staged review. Both entrypoints already enable `data-cf-theme="pastel"`; staff composition is not redesigned in this batch. All changes remain on `redesign/cards-v2`; no merge into `main` is authorized before the exact release approval `chốt`.
+
+Navigation uses a real SVG concave background, a56px black booking action and24px icons without visible captions, including the selected tab. All five controls retain their accessible names through `aria-label`; selected tabs retain their filled navy icon and pastel background. Booking footers stay associated with their forms; their measured height is reserved in the scroll viewport. Calendar/topic/time/file presentation enhances the existing form values through the shared UI owner and existing modal lifecycle.
+
+Latest local refinement: the navigation SVG also rounds its two lower corners. Support replaces the decorative banner with actionable contact bento, a compact emergency row with a black115 action, FAQ before the request form, and16px section gaps. Home and Support reuse one alpha WebP portrait derived from the existing licensed Unsplash photo. Availability/SLA is not invented; current header uses request state or a missing-hours message. [Support/image review](../docs/card-evidence/support-refresh/review.md).
+
+Current polish supersedes the support composition above: a wide messaging card, callback and request history, topic chips, truthful request-state header, visible contact preference and synchronized prefill counters. Profile uses compact facts, distinct allergy update, real add-relative empty state and targeted settings actions; booking groups profile guidance and date/time rather than duplicating cards. [Eight-card review and verification](../docs/card-evidence/card-polish/review.md).
+
+Approved future decisions: D3 keeps four steps (step4 will be Lịch hẹn; C7/C8 remain distinct child screens; C2/C3 share the step name). D6 pending copy will be Bác sĩ do phòng khám sắp xếp. D7 permits assumed prototype location/policy/response-time copy, documented as assumptions. These decisions do not authorize merge or completion of later stages. H2 evidence: [review](../docs/card-evidence/review-gate-2/review.md).
+
+Patient compositions keep appointment facts/status/clinician/QR, four booking groups with clinical safety branches, profile/avatar/count, question prompts, checklists, documents, support forms, filters and history. Staff keeps work queues/tables and clinical columns. Active CSS colors come from tokens; unused historical styles/proposals remain archived. Plus Jakarta Sans is served locally on both surfaces.
+
+`applyActionHierarchy(container)` synchronizes journey presentation classes with semantic button variants and keeps one strongest content action. It does not disable/change actions, selected records or transitions. Persistent booking navigation and modal dialogs have separate scopes. Follow-up no longer duplicates the same rebook control in hero and footer.
+
+Preview: `/prototype/?scenario=upcoming#/home`, `/staff-prototype/#/doctor`, gallery `/design/preview.html`. Run `$env:PORT='4186'; node prototype/preview-server.cjs` from the repository. Evidence: [rollout review](../docs/card-evidence/all-screens/review.md). No main merge; wait for exact “chốt”.
+
+---
+
+Các mục phía dưới là lịch sử của các đợt trước; mốc chờ duyệt và phạm vi cũ đã được yêu cầu mới thay thế.
+
+
+## Active candidate — blue/green foundations, 19/10/2026
+
+**Navigation is now integrated into the app**, following the user's latest request. `prototype/app.js` calls the same `CareFlowUI.navigation` as the Design System. The black raised booking action, icon-only tabs with accessible names, filled selected icons, muted idle icons and unread visit-update count are live in the local prototype. Primary controls use the shared black token; confirmed now maps to blue/info while completed stays green/success. Other page layouts remain the existing draft.
+
+Current specimen correction: Next and Continue share the primary variant. The Design System places default/loading/locked examples in separate labelled figures; those captions are not clickable state selectors. Multi-example specimens do not represent a product screen's primary-action budget. The state filter remains interactive with a black selected chip and white outlined alternatives. Avatar circles32px overlap4px with a2px white border and inner text; the guide footer is14px/500 and contains Unicode Đ (U+0110).
+
+Review at `/design/preview.html`. Full Home/page composition is still pending its stage. Do not interpret the component specimen or navigation integration as an implemented Home or all B–G screens.
+
+`tokens.css` is the runtime color/type/space owner; `components.css` owns presentation; `ui.js` extends the existing card/button/status contract. The candidate activates only under `data-cf-theme="pastel"`. `preview.js` is an isolated interaction harness with existing model fixtures; it does not persist patient/session data. No dependency added. Earlier `tokens.json` proposals and the v0.1 text below are historical, not the active CSS values.
+
+Current correction: primary action is `--cf-primary` (#0B1220), maximum one per screen. Navy is the heading/icon/selected-navigation/link accent. The decorative palette contains only the two blues and two greens from the user brief; orange/red are reserved for semantic states. `--cf-primary-loading` mixes90% primary with white rather than reducing text opacity; locked controls use separate gray tokens and a lock icon. `sectionHeader` renders a background-free link using the canonical route. Profile card uses stacked initial avatars + adjacent count and an expandable names list; question card uses suggestions that open an editable, explicitly unsent draft. They share surface tokens, not identical content anatomy.
+
+| Primitive | API / hook | Responsibility |
+|---|---|---|
+| Card | `card`, `cardAttrs`, `data-cf-mesh="hero/feature/result"` | White surface; highlights only when content has a distinct role |
+| Button | `actionButton(label,{variant,icon,action,to,disabled,busy,pressed})`, existing `buttonAttrs` | Escaped labels and event data; icon + visible button shape; no business handler inside UI library |
+| Header | `header({title,subtitle,unread})` | Title + bell links to existing K1 action; unread count only when supplied by model |
+| Section | `sectionHeader(title,{label,action,to})` | Consistent heading and shaped “Xem tất cả”; omit action for one item |
+| Navigation | `navigation(current,{unread,routeFor,contentOnly})`, `appointmentUpdateCount(state)` | Single renderer for app/DS; existing routes, real deduplicated unread D2 updates; list distinct from booking/resume |
+| Tabs | `tabs(items,selected,id)` | ARIA tab contract; host supplies panels, selection and keyboard behavior |
+| Stepper | `stepper(current)` | Four visual groups; non-clickable progress; clinical branching stays in model |
+| Status | `badge(value,domain)`, existing `status` | Existing copy/mapping; cancellation has a pale red candidate badge; no status inferred from photo |
+| Illustration | `illustration(calendar/clinic/support/profile/result)` | Outlined decorative token-colored SVG in a fixed slot; no fake clinician/facility identity |
+| Profile summary | `profileSummary(profiles)` | Up to2 overlapping avatars; adjacent real count, no stand-alone metric or stock portraits |
+
+Type roles: page24 / section18 / card16 / number36 / body14 / metadata13 / status12 CSS px, one local Plus Jakarta Sans. Radius24 large /16 small /pill; gutters16 and spacing4/8. Candidate text on mesh uses navy or ink; muted text is reserved for white/light surfaces. Native pt is not equal to CSS px. Review harness includes a200% text toggle and explicit reflow adaptations. Tabs/stepper stay on one line, with local horizontal scrolling at200% instead of shrinking labels. Illustrations occupy fixed128px slots (120px beside text;160px for an empty state), with a visible paper outline and all artwork inside its viewBox.
+
+Source and before ledger: `docs/card-design-rules.md`, `docs/card-audit.md`, `docs/card-evidence/pastel-foundation-before/`. Verification and seven-sign review: `docs/photo-led-review.md`.
+
+## Historical v0.1 proposal (superseded for current web candidate)
 **Date:** 15/10/2026 • **Type:** mobile iOS/Android patient app • **Status:** DRAFT; no clinical/legal/user sign-off.
 
 ## Source and intent

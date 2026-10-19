@@ -1,0 +1,94 @@
+[
+  {
+    "file": "laboratory.webp",
+    "photographer": "Louis Reed",
+    "photo": "https://unsplash.com/photos/pwcKF7L4-no",
+    "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1200&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Laboratory context only; not a CareFlow facility or patient photograph",
+    "retrieved": "2026-10-17"
+  },
+  {
+    "file": "consultation.webp",
+    "photographer": "National Cancer Institute",
+    "photo": "https://unsplash.com/photos/NFvdKIhxYlU",
+    "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical photography; not CareFlow staff or facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "doctor-care.webp",
+    "photographer": "Online Marketing",
+    "photo": "https://unsplash.com/photos/hIgeoQjS_iE",
+    "image": "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical photography; not CareFlow staff or facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "medical-tools.webp",
+    "photographer": "Hush Naidoo Jade Photography",
+    "photo": "https://unsplash.com/photos/yo01Z-9HQAw",
+    "image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical photography; not CareFlow staff or facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "doctor-portrait.webp",
+    "photographer": "Usman Yousaf",
+    "photo": "https://unsplash.com/photos/pTrhfmj2jDA",
+    "image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical photography; not CareFlow staff or facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "clinic.webp",
+    "photographer": "Benyamin Bohlouli",
+    "photo": "https://unsplash.com/photos/B_sK_xgzwVA",
+    "image": "https://images.unsplash.com/photo-1629909614456-6b1c5c94cecc?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical environment; not the CareFlow facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "hospital.webp",
+    "photographer": "Martha Dominguez de Gouveia",
+    "photo": "https://unsplash.com/photos/nMyM7fxpokE",
+    "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative stock medical environment; not the CareFlow facility",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "account-portrait.webp",
+    "photographer": "Michael Dam",
+    "photo": "https://unsplash.com/photos/closeup-photography-of-woman-smiling-mEZ3PoFGs_k",
+    "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Stock avatar for the synthetic demo account only; not verified account identity",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "care-team.webp",
+    "photographer": "National Cancer Institute",
+    "photo": "https://unsplash.com/photos/tl447mekwuQ",
+    "image": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Illustrative care interaction; not CareFlow staff or a real consultation record",
+    "retrieved": "2026-10-18"
+  },
+  {
+    "file": "doctor-cutout.webp",
+    "photographer": "Usman Yousaf",
+    "photo": "https://unsplash.com/photos/pTrhfmj2jDA",
+    "image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1000&q=82&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "derivedFrom": "doctor-portrait.webp",
+    "edit": "AI-assisted background extraction with built-in imagegen; WebP encoding preserves alpha",
+    "purpose": "Decorative support contact portrait on Home and Support; not a named clinician, account holder, or actual CareFlow staff member",
+    "prepared": "2026-10-19"
+  }
+]

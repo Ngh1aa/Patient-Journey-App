@@ -1,0 +1,148 @@
+{
+  "primary_media": [
+    {
+      "asset": "doctor-portrait.webp",
+      "source_size": [
+        1000,
+        667
+      ],
+      "head_zone": [
+        350,
+        30,
+        600,
+        315
+      ],
+      "owner": "B1 welcome",
+      "fit": "cover 46% top; 200% contain",
+      "viewports": [
+        360,
+        390,
+        1440
+      ],
+      "evidence": "photo-led.spec.cjs and rendered card-portrait.png"
+    },
+    {
+      "asset": "care-team.webp",
+      "source_size": [
+        1200,
+        782
+      ],
+      "head_zone": [
+        290,
+        50,
+        580,
+        350
+      ],
+      "owner": "B1 feature",
+      "fit": "cover, caption below no-cut zone; large contain",
+      "viewports": [
+        360,
+        390,
+        1440
+      ],
+      "evidence": "photo-led.spec.cjs and home-service-390.png"
+    }
+  ],
+  "orbit": {
+    "assets": [
+      "doctor-portrait.webp",
+      "account-portrait.webp",
+      "care-team.webp"
+    ],
+    "purpose": "illustrative care connection; no named clinician or online claim",
+    "crop": "small intentional circular avatars; inspected card-network.png/K5-390.png"
+  },
+  "review": "agent-heuristic",
+  "media_contexts": [
+    {
+      "id": "A1",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "elements": [
+        {
+          "text": "An tâm hơn.Gần nhau hơn.",
+          "selector": "P.",
+          "fg": "rgb(255, 255, 255)"
+        },
+        {
+          "text": "Từ lịch hẹn đầu tiên đến chăm sóc sau buổi khám.",
+          "selector": "SMALL.",
+          "fg": "rgb(229, 234, 242)"
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "elements": [
+        {
+          "text": "Chưa có thông tin sau khám",
+          "selector": "STRONG.",
+          "fg": "rgb(24, 43, 73)"
+        },
+        {
+          "text": "Lời dặn và đơn thuốc sẽ xuất hiện khi có kết quả được cập nhật.",
+          "selector": "SMALL.",
+          "fg": "rgb(82, 97, 118)"
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "elements": [
+        {
+          "text": "Kiểm tra thông tin trước khi đến khám",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    },
+    {
+      "id": "G1",
+      "elements": [
+        {
+          "text": "Sẵn sàng thiết bị và không gian riêng tư",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "elements": [
+        {
+          "text": "Lưu lại câu hỏi, xem lại hướng dẫn sau buổi khám",
+          "selector": "FIGCAPTION.",
+          "fg": "rgb(24, 43, 73)"
+        }
+      ]
+    }
+  ]
+}

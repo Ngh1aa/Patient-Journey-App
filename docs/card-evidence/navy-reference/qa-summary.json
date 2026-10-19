@@ -1,0 +1,79 @@
+{
+  "date_client": "2026-10-19",
+  "branch": "redesign/cards-v2",
+  "main": "25dfe12208299b2d40ecf1c4f59441302c1ba9c5",
+  "initial_patient_shared": {
+    "passed": 114,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ]
+  },
+  "after_polish": {
+    "passed": 12,
+    "failed": 0,
+    "overlap": true
+  },
+  "initial_staff": {
+    "passed": 15,
+    "timeout": 1
+  },
+  "staff_online_stronger_state_assertions": {
+    "passed": 6,
+    "failed": 0,
+    "repeats_per_engine": 3
+  },
+  "final_staff": {
+    "passed": 20,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ]
+  },
+  "model_passed": {
+    "patient": 49,
+    "staff": 3
+  },
+  "contrast_pairs": 56,
+  "responsive": {
+    "screens": 47,
+    "widths": [
+      360,
+      390,
+      1440
+    ],
+    "captures": 141,
+    "overflow": 0,
+    "broken_images": 0,
+    "page_errors": 0,
+    "undersized_tested_controls": 0
+  },
+  "large_text": {
+    "screens": 47,
+    "width": 360,
+    "scale": "200%",
+    "captures": 47,
+    "overflow": 0,
+    "broken_images": 0,
+    "page_errors": 0,
+    "undersized_tested_controls": 0
+  },
+  "elementary": {
+    "states": 62,
+    "hover_focus_variants": 52,
+    "catastrophic_findings": 0,
+    "photo_context_groups_requiring_manual_inspection": 7
+  },
+  "inventory": {
+    "before": 195,
+    "after": 197,
+    "states": 62
+  },
+  "source_gate": "PASS; raw colors 0 in shared component owner; legacy literals reported",
+  "human_validation": "UNKNOWN",
+  "native_device_validation": "NOT_RUN",
+  "publication": "LOCAL_ONLY",
+  "note": "Overlapping browser groups must not be summed as unique cases. Initial staff run was not all green."
+}

@@ -269,7 +269,7 @@
       C3: {
         heading: 'Trước khi đặt lịch',
         lead: 'Bạn có cần trợ giúp y tế ngay lúc này không?',
-        normal: 'Không, tiếp tục đặt lịch',
+        normal: 'Không cần trợ giúp ngay',
         warning: 'Có hoặc chưa rõ',
         note: '',
       },
@@ -630,7 +630,7 @@
       },
       K5: {
         heading: 'Hỗ trợ',
-        lead: 'Giờ hỗ trợ 7:30–19:00 (demo).',
+        lead: 'Bạn cần phòng khám hỗ trợ điều gì?',
         call: 'Nhờ phòng khám gọi lại',
         message: 'Gửi yêu cầu hỗ trợ',
         text: 'Bạn cần hỗ trợ việc gì?',

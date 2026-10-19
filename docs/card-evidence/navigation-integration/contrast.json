@@ -1,0 +1,142 @@
+[
+  {
+    "fg": "brand",
+    "bg": "surface",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(255, 255, 255)",
+    "ratio": 15.989402391329705
+  },
+  {
+    "fg": "text",
+    "bg": "surface",
+    "ink": "rgb(31, 42, 68)",
+    "surface": "rgb(255, 255, 255)",
+    "ratio": 14.257412370455627
+  },
+  {
+    "fg": "text-muted",
+    "bg": "surface",
+    "ink": "rgb(91, 107, 140)",
+    "surface": "rgb(255, 255, 255)",
+    "ratio": 5.348142070729434
+  },
+  {
+    "fg": "text-muted",
+    "bg": "surface-page",
+    "ink": "rgb(91, 107, 140)",
+    "surface": "rgb(245, 248, 253)",
+    "ratio": 5.024153132252628
+  },
+  {
+    "fg": "on-brand",
+    "bg": "primary",
+    "ink": "rgb(255, 255, 255)",
+    "surface": "rgb(11, 18, 32)",
+    "ratio": 18.723104130860587
+  },
+  {
+    "fg": "on-brand",
+    "bg": "primary-loading",
+    "ink": "rgb(255, 255, 255)",
+    "surface": "rgb(35, 42, 54)",
+    "ratio": 14.423878578748532
+  },
+  {
+    "fg": "disabled-ink",
+    "bg": "disabled-surface",
+    "ink": "rgb(91, 102, 123)",
+    "surface": "rgb(238, 241, 245)",
+    "ratio": 5.104398730562406
+  },
+  {
+    "fg": "brand",
+    "bg": "baby-blue",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(207, 226, 255)",
+    "ratio": 12.163840486341032
+  },
+  {
+    "fg": "text",
+    "bg": "baby-blue",
+    "ink": "rgb(31, 42, 68)",
+    "surface": "rgb(207, 226, 255)",
+    "ratio": 10.846239626582149
+  },
+  {
+    "fg": "brand",
+    "bg": "blue-deep",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(185, 212, 255)",
+    "ratio": 10.601926244825687
+  },
+  {
+    "fg": "text",
+    "bg": "blue-deep",
+    "ink": "rgb(31, 42, 68)",
+    "surface": "rgb(185, 212, 255)",
+    "ratio": 9.453513689517294
+  },
+  {
+    "fg": "brand",
+    "bg": "mint",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(205, 239, 228)",
+    "ratio": 12.991553320299484
+  },
+  {
+    "fg": "text",
+    "bg": "mint",
+    "ink": "rgb(31, 42, 68)",
+    "surface": "rgb(205, 239, 228)",
+    "ratio": 11.584293676961371
+  },
+  {
+    "fg": "brand",
+    "bg": "mint-deep",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(181, 230, 211)",
+    "ratio": 11.59163671317327
+  },
+  {
+    "fg": "text",
+    "bg": "mint-deep",
+    "ink": "rgb(31, 42, 68)",
+    "surface": "rgb(181, 230, 211)",
+    "ratio": 10.336017608628104
+  },
+  {
+    "fg": "success",
+    "bg": "success-surface",
+    "ink": "rgb(23, 96, 68)",
+    "surface": "rgb(205, 239, 228)",
+    "ratio": 6.108987755090746
+  },
+  {
+    "fg": "warning",
+    "bg": "warning-surface",
+    "ink": "rgb(117, 71, 0)",
+    "surface": "rgb(255, 233, 204)",
+    "ratio": 6.689862287593798
+  },
+  {
+    "fg": "danger",
+    "bg": "danger-surface",
+    "ink": "rgb(163, 38, 50)",
+    "surface": "rgb(255, 227, 227)",
+    "ratio": 6.02263030703288
+  },
+  {
+    "fg": "info",
+    "bg": "info-surface",
+    "ink": "rgb(0, 29, 87)",
+    "surface": "rgb(207, 226, 255)",
+    "ratio": 12.163840486341032
+  },
+  {
+    "fg": "neutral",
+    "bg": "neutral-surface",
+    "ink": "rgb(91, 107, 140)",
+    "surface": "rgb(245, 248, 253)",
+    "ratio": 5.024153132252628
+  }
+]

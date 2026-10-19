@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-18",
+  "branch": "redesign/cards-v2",
+  "main": "25dfe12208299b2d40ecf1c4f59441302c1ba9c5",
+  "local_only": true,
+  "syntax": "PASS",
+  "patient_model": {
+    "pass": 49
+  },
+  "doctor_model": {
+    "pass": 3
+  },
+  "contrast_pairs": {
+    "pass": 34
+  },
+  "initial_regression": {
+    "total": 92,
+    "pass": 91,
+    "fail": 1,
+    "failure": "Chromium ui-system appointment CTA wrapped to 67px after adding an icon; home action was 48px.",
+    "resolution": "Inverse appointment action retains readable text-only anatomy; exact shared geometry assertion retained and both engines rerun."
+  },
+  "final_confirmation": {
+    "total": 26,
+    "pass": 26,
+    "fail": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "duration": "1.4m",
+    "command": "$env:PORT='4186'; node prototype/node_modules/@playwright/test/cli.js test -c prototype/playwright.config.cjs draft-layout.spec.cjs ui-system.spec.cjs --workers=2 --reporter=line --output=test-results/draft-reviewed"
+  },
+  "responsive": {
+    "routes": 47,
+    "widths": [
+      360,
+      390,
+      1440
+    ],
+    "checks": 141,
+    "page_errors": 0,
+    "overflow": 0,
+    "broken_images": 0,
+    "undersized_tested_targets": 0
+  },
+  "source_gate": {
+    "pass": true,
+    "shared_component_raw_color_literals": 0,
+    "legacy_literals": "listed separately; not claimed zero"
+  },
+  "test_setup_corrections": [
+    "F1 is an authentication journey on a fresh session; review UI test now uses scenario=appointments and leaves F1 routing unchanged.",
+    "Image validation scrolls visible lazy image elements into view. Hidden appointment-filter avatar is validated through its asset response until the filter is opened."
+  ],
+  "scope_limits": [
+    "Not a single all-green full-suite run. Initial 92 + final 26 overlap; do not sum them as unique passes.",
+    "No native iOS, screen reader or participant usability validation.",
+    "Stock photos illustrate the demo and do not establish a real identity or clinic."
+  ]
+}

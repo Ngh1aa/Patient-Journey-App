@@ -1,0 +1,35 @@
+
+Running 22 tests using 2 workers
+
+(node:15684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:11:1 › preparation and notes persist per visit, survive navigation and clear on logout (4.5s)
+  ok  3 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:38:1 › calendar export uses the selected appointment time without clinical data (2.8s)
+  ok  1 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:11:1 › preparation and notes persist per visit, survive navigation and clear on logout (7.9s)
+  ok  4 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:54:1 › appointment search composes with mode and person filters and resets the zero state (2.7s)
+  ok  5 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:38:1 › calendar export uses the selected appointment time without clinical data (3.7s)
+  ok  6 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 320 (2.9s)
+  ok  8 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 360 (2.8s)
+  ok  7 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:54:1 › appointment search composes with mode and person filters and resets the zero state (4.8s)
+  ok  9 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 390 (3.1s)
+  ok 10 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 320 (5.9s)
+  ok 11 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 1440 (3.2s)
+  ok 13 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:89:1 › desktop followup search filters owner and state without offering delegated completion (8.7s)
+  ok 12 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 360 (9.9s)
+  ok 14 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:108:1 › real lab photograph is bundled and attributed, no external image dependency (2.2s)
+  ok 16 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:116:1 › 200 percent booking label and private tools reflow and remain usable offline (4.0s)
+  ok 15 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 390 (7.8s)
+  ok 17 [Chromium] › prototype\browser-tests\cards-v2.spec.cjs:140:1 › online preparation leads to device checks and completed visits show aftercare notes (3.5s)
+  ok 18 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:71:39 › booking nav and card facts remain readable at 1440 (6.1s)
+  ok 19 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:89:1 › desktop followup search filters owner and state without offering delegated completion (7.1s)
+  ok 20 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:108:1 › real lab photograph is bundled and attributed, no external image dependency (2.0s)
+  ok 21 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:116:1 › 200 percent booking label and private tools reflow and remain usable offline (3.7s)
+  ok 22 [WebKit] › prototype\browser-tests\cards-v2.spec.cjs:140:1 › online preparation leads to device checks and completed visits show aftercare notes (3.3s)
+
+  22 passed (1.1m)

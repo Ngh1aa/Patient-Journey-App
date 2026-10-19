@@ -32,7 +32,7 @@ Be Vietnam Pro self-hosted Regular/SemiBold/Bold với glyph tiếng Việt (SIL
 ## Owners và contracts
 | Component | Owner | Variants / behavior |
 |---|---|---|
-| App shell / header / 4 destinations + booking action | index.html, app.js render | safe area, mobile full viewport / desktop centered phone; auth/video hides tabs; Back hash history; Trang chủ · Lịch hẹn · [+ Đặt lịch] · Hồ sơ · Hỗ trợ; central action resumes the unsent draft |
+| App shell / header / 4 destinations + booking action | index.html, app.js render | safe area, mobile full viewport / desktop centered phone; auth/video hides tabs; Back hash history; Trang chủ · Lịch hẹn · [+ / accessible name Đặt lịch khám] · Hồ sơ · Hỗ trợ; central action resumes the unsent draft |
 | Phiếu khám, visitCard, details | views.js | đúng patientId/id/date/mode/status; D2 hub; QR contains CAREFLOW-DEMO:id only |
 | Timeline / status chip | views.js + model.TRANSITIONS | nhãn và owner từ strings.vi.js, màu không là tín hiệu duy nhất |
 | Form / choices / slots / check | views.js + app.js | labels, selected/focus/error/disabled/loading; 5-stage booking progress, 5 quick dates synced to the real date field; form cache restored on Back/reload |
@@ -81,3 +81,46 @@ The `/doctor` dashboard reuses canonical button/status/facts components and the 
 `data-cf-component="tab" data-cf-variant="filter"` is a set of native toggle buttons with `aria-pressed`, not a tabpanel. `data-cf-component="appointment" data-cf-variant="agenda"` is a semantic table row that reflows into labelled records at800px. Filters restore focus/search caret after render and persist during hash navigation; they reset on reload. Clinical edits retain the existing session persistence.
 
 Dashboard style ownership stays in `doctor-content-grid.css` (page topology) and `doctor-journeys.css` (object anatomy). Surfaces follow content height,14px corner radius and16px padding; existing brand/font/control sizes remain. Facts have at most two columns and stack when large text needs space. No new library, photo, chart or fake live metric is required.
+
+
+## Card v2 shared contract (18/10/2026)
+
+Canonical foundations: `design/tokens.css`, loaded before `design/components.css` by both HTML entry points. Both patient and doctor reuse `CareFlowUI.card(content, classes, variant)` or `cardAttrs(variant)` for existing semantic templates. No DOM post-processor or parallel renderer. Only trusted markup is accepted as content; plain text is escaped by each existing renderer.
+
+| Variant | Role | Composition |
+|---|---|---|
+| surface | Independent appointment, lab, profile or work surface | Opaque surface, hairline boundary,20px radius;16px patient/20px doctor padding |
+| tonal | Administrative utility, private checklist or booking guidance | Paired muted surface/text, same padding; no decorative shadow |
+| row | Repeated result, task or patient record | Divider and predictable alignment; no additional outer card |
+| section | Section heading + its content | Transparent shell, no repeated border/padding |
+| inverse composition (layout owner, not cardAttrs variant) | Reserved next-appointment composition | Navy plus white foreground; booking nav uses same brand emphasis |
+
+Preserve existing `data-cf-component` for button/status/appointment/facts; `data-cf-card` owns surfaces only. Facts labels sit above values to avoid four competing narrow columns on mobile. Direct desktop section/card headings do not add a second layer of padding.
+
+Patient `u.preparation[visitId]` and `u.visitNotes[visitId]` are session-only view data. No clinical transition, message or request is created by checking/typing. Logout clears these two stores. Calendar export contains appointment time and administrative code, excludes symptoms, private notes and patient name. `u.appointmentQuery` composes with existing mode/person filters and persists across reload.
+
+Doctor followup filters are view state only; completion still checks owner==='Bác sĩ' in the original action. Real clinical state remains in each model, with no cross-app backend synchronization. Loading uses aria-busy only for genuine pending work; synchronous filtering has no fake spinner. For visual state contracts, see `card-design-rules.md` and browser `cards-v2.spec.cjs`/`ui-system.spec.cjs`.
+
+Source-only gate: `node design/check-card-contract.cjs`. This reports remaining legacy composition hardcoding rather than claiming that the whole CSS tree has zero literals. Decorative hairline `--cf-line` is distinct from3:1 input boundary `--cf-input-line`. Native point/device and screen-reader verification remain separate from browser CSS pixels/axe.
+
+## Lịch sử: photo-led patient composition —18/10/2026
+
+Patient dùng Plus Jakarta Sans self-hosted (OFL,Vietnamese),page24/section18/card16/body14/caption13/CTA15px,scale200%. `media` là cardAttrs variant mới; patient `photoCard` có ảnh absolute full-inset,caption material `rgba(6,27,58,.78)` và arrow36px bên trong named control. Card nhiều actions như appointment dùng cover220px+caption thực tế; detail hero260px+sheet. Photo source/crop không đồng nhất với chứng minh bác sĩ/cơ sở thật.
+
+Spacing patient16px gutters/inset,12px card gaps; photo radius20px,hero24px. Giữ brand#001D57,nav-book56px/vòng xám3px/accessible name. Generic form/finance/warning vẫn dùng surface. Source: `photo-led-design-direction.md`; verified screenshots,caption width/x and crop geometry: `card-evidence/photo-led/` và `photo-led.spec.cjs`.
+
+## Lịch sử: editorial pastel theo reference Docthea
+
+Patient override nằm trong `.phone` của `design/tokens.css`: caption trắng .96, foreground `--cf-media-ink`, metadata `--cf-media-muted`; default media tokens của staff vẫn được giữ. Không dùng `--cf-on-brand` cho chữ trên caption sáng. Pastel blue/lilac/peach dành cho hero khám phá, masthead chỉ định và profile; semantic status không đổi.
+
+Home có hero copy/portrait với navy booking CTA; note task không cần ảnh dùng `surface`, các tile có ảnh dùng `media`. Appointment là cover 160px + caption trắng bắt đầu 128px, primary action navy thống nhất home/list; không dùng inverse action trên white task surface. Banner profile dùng gradient/stock avatar, bỏ cover request không còn dùng.
+
+Plus Jakarta, scale 24/18/16/14/13/15px và gutter 16px giữ nguyên; hero heading dùng page-title 24px/500, section heading 18px/600. Hero portrait có vùng ảnh riêng, cover 46% top và regression no-cut/copy-overlap; 200% chuyển thành hàng contain riêng. Bằng chứng hiện tại: `card-evidence/editorial-pastel/` và `photo-led-review.md`.
+
+## Hiện tại: navy reference card collection —19/10/2026
+
+Root tokens có `--cf-navy-gradient` (brand/mid/end), `--cf-card-wash`, `--cf-feature-wash`, bốn blue-paper values và shadow nhẹ; không dùng peach/lilac trong active styles. Primary buttons có navy solid fallback + gradient image, white text, visible focus. Source `design/components.css` giữ 0 raw color literal; staff/patient cùng dùng nền paper cho surface, blue wash cho tonal, divider cho row, shell rỗng cho section.
+
+`photoCard` được mở rộng tại owner cũ với `layout=photo|network|stack|topic`, không tạo thư viện card song song. `cardArt` giữ orbit/mini-sheet/icon art không interactive và aria-hidden; single named button giữ callbacks/IDs. Metric dùng dữ liệu count thực; schedule sheets dùng date/slot/clinician của visit. Topic/photo navigation có navy caption/white text; clinical objects và fields giữ caption nền sáng để đọc thông tin/status.
+
+Gradient opaque không cần backdrop-filter. Art-card caption không tạo containing block riêng: arrow bám toàn card, kiểm collision với title. Padding footer chỉ áp vào `.cf-photo-copy > small`, không chảy vào mini-sheet. 200% bỏ transform, dùng grid một cột. Pixel/crop/interactive-state evidence tại `card-evidence/navy-reference/`, report `photo-led-review.md`.

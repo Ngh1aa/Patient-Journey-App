@@ -1,0 +1,1060 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\LENOVO\\Documents\\Codex\\2026-10-17\\ki-m-tra-https-github-com\\work\\patient-app\\prototype\\playwright.config.cjs",
+    "rootDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/blue-green-verified",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Chromium",
+        "name": "Chromium",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/test-results/blue-green-verified",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "WebKit",
+        "name": "WebKit",
+        "testDir": "C:/Users/LENOVO/Documents/Codex/2026-10-17/ki-m-tra-https-github-com/work/patient-app/prototype/browser-tests",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.cjs"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 2,
+    "webServer": {
+      "command": "node preview-server.cjs",
+      "url": "http://127.0.0.1:4186/prototype/index.html",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "pastel-foundations.spec.cjs",
+      "file": "pastel-foundations.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:11.651Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f8327d263999cb509fff",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2823,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:15.601Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-469a21149105b72e0392",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2797,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:18.501Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-58be027a469be89047aa",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3212,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:21.369Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-a335815443e3db2e5b7c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:24.724Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-71f812637d3158af1824",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2123,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:28.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-224da16b3fcb54a60d3c",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 43,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2565,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:30.805Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-67eb71a7dc8d85df466a",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1226,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:33.429Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNC4yNTc0MTIzNzA0NTU2MjcKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogInByaW1hcnkiLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDExLCAxOCwgMzIpIiwKICAgICJyYXRpbyI6IDE4LjcyMzEwNDEzMDg2MDU4NwogIH0sCiAgewogICAgImZnIjogIm9uLWJyYW5kIiwKICAgICJiZyI6ICJwcmltYXJ5LWxvYWRpbmciLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDM1LCA0MiwgNTQpIiwKICAgICJyYXRpbyI6IDE0LjQyMzg3ODU3ODc0ODUzMgogIH0sCiAgewogICAgImZnIjogImRpc2FibGVkLWluayIsCiAgICAiYmciOiAiZGlzYWJsZWQtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTAyLCAxMjMpIiwKICAgICJzdXJmYWNlIjogInJnYigyMzgsIDI0MSwgMjQ1KSIsCiAgICAicmF0aW8iOiA1LjEwNDM5ODczMDU2MjQwNgogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAiYmFieS1ibHVlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDcsIDIyNiwgMjU1KSIsCiAgICAicmF0aW8iOiAxMC44NDYyMzk2MjY1ODIxNDkKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAiYmx1ZS1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4NSwgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDEwLjYwMTkyNjI0NDgyNTY4NwogIH0sCiAgewogICAgImZnIjogInRleHQiLAogICAgImJnIjogImJsdWUtZGVlcCIsCiAgICAiaW5rIjogInJnYigzMSwgNDIsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMTg1LCAyMTIsIDI1NSkiLAogICAgInJhdGlvIjogOS40NTM1MTM2ODk1MTcyOTQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJtaW50IiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMS41ODQyOTM2NzY5NjEzNzEKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4MSwgMjMwLCAyMTEpIiwKICAgICJyYXRpbyI6IDExLjU5MTYzNjcxMzE3MzI3CiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigxODEsIDIzMCwgMjExKSIsCiAgICAicmF0aW8iOiAxMC4zMzYwMTc2MDg2MjgxMDQKICB9LAogIHsKICAgICJmZyI6ICJzdWNjZXNzIiwKICAgICJiZyI6ICJzdWNjZXNzLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMjMsIDk2LCA2OCkiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNSwgMjM5LCAyMjgpIiwKICAgICJyYXRpbyI6IDYuMTA4OTg3NzU1MDkwNzQ2CiAgfSwKICB7CiAgICAiZmciOiAid2FybmluZyIsCiAgICAiYmciOiAid2FybmluZy1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDExNywgNzEsIDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIzMywgMjA0KSIsCiAgICAicmF0aW8iOiA2LjY4OTg2MjI4NzU5Mzc5OAogIH0sCiAgewogICAgImZnIjogImRhbmdlciIsCiAgICAiYmciOiAiZGFuZ2VyLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTYzLCAzOCwgNTApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIyNywgMjI3KSIsCiAgICAicmF0aW8iOiA2LjAyMjYzMDMwNzAzMjg4CiAgfSwKICB7CiAgICAiZmciOiAiaW5mbyIsCiAgICAiYmciOiAiaW5mby1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNywgMjI2LCAyNTUpIiwKICAgICJyYXRpbyI6IDEyLjE2Mzg0MDQ4NjM0MTAzMgogIH0sCiAgewogICAgImZnIjogIm5ldXRyYWwiLAogICAgImJnIjogIm5ldXRyYWwtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTA3LCAxNDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNDUsIDI0OCwgMjUzKSIsCiAgICAicmF0aW8iOiA1LjAyNDE1MzEzMjI1MjYyOAogIH0KXQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7ea1183f13f676c5d018",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "one black primary per specimen, unfilled section links, and no forbidden decorative palette",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:34.742Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-dfe6faa723ae00585f88",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "profile stack and question suggestion have different functional anatomy and no fake message send",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2278,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:37.590Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-ff8b2fe20895fc83afe4",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1010,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:39.916Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f60dceb6dae7c2d7efc6",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 142,
+          "column": 30
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:40.990Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-721f8b6de0c55b6e1ff5",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 142,
+          "column": 30
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13420,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:42.188Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-d7a1dc2d82a015e8b4cd",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 152,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chromium",
+              "projectName": "Chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2102,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:55.681Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8ea70cfec3af3ccfacd3",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 161,
+          "column": 1
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4614,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:11.500Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-9b681f1852bad0f63994",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3849,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:16.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-46f5fa3567263430a3fb",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4793,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:20.549Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-e87a09fa00de586c6814",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "candidate components have safe insets, visible nav labels and touch targets at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5631,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:25.578Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-346d2cef9a60ce00684d",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "title": "text at 200% reflows at 360px without clipped actions or wrapped step labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6375,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:31.313Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-4bee269db249d3246bad",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "tabs support keyboard navigation and named state; stepper stays within four visual groups",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3427,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:37.829Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-b23db49c8e79a2da5e50",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 43,
+          "column": 1
+        },
+        {
+          "title": "empty, loading and error provide distinct semantics and recovery without changing product state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3764,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:41.380Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-7cc29f5e8585c2f11910",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "candidate text palette meets 4.5:1 on surfaces, every mesh extreme and named status backgrounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2261,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:45.253Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "candidate-contrast.json",
+                      "contentType": "application/json",
+                      "body": "WwogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAic3VyZmFjZSIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNS45ODk0MDIzOTEzMjk3MDUKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDI1NSwgMjU1KSIsCiAgICAicmF0aW8iOiAxNC4yNTc0MTIzNzA0NTU2MjcKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0LW11dGVkIiwKICAgICJiZyI6ICJzdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI1NSwgMjU1LCAyNTUpIiwKICAgICJyYXRpbyI6IDUuMzQ4MTQyMDcwNzI5NDM0CiAgfSwKICB7CiAgICAiZmciOiAidGV4dC1tdXRlZCIsCiAgICAiYmciOiAic3VyZmFjZS1wYWdlIiwKICAgICJpbmsiOiAicmdiKDkxLCAxMDcsIDE0MCkiLAogICAgInN1cmZhY2UiOiAicmdiKDI0NSwgMjQ4LCAyNTMpIiwKICAgICJyYXRpbyI6IDUuMDI0MTUzMTMyMjUyNjI4CiAgfSwKICB7CiAgICAiZmciOiAib24tYnJhbmQiLAogICAgImJnIjogInByaW1hcnkiLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDExLCAxOCwgMzIpIiwKICAgICJyYXRpbyI6IDE4LjcyMzEwNDEzMDg2MDU4NwogIH0sCiAgewogICAgImZnIjogIm9uLWJyYW5kIiwKICAgICJiZyI6ICJwcmltYXJ5LWxvYWRpbmciLAogICAgImluayI6ICJyZ2IoMjU1LCAyNTUsIDI1NSkiLAogICAgInN1cmZhY2UiOiAicmdiKDM1LCA0MiwgNTQpIiwKICAgICJyYXRpbyI6IDE0LjQyMzg3ODU3ODc0ODUzMgogIH0sCiAgewogICAgImZnIjogImRpc2FibGVkLWluayIsCiAgICAiYmciOiAiZGlzYWJsZWQtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTAyLCAxMjMpIiwKICAgICJzdXJmYWNlIjogInJnYigyMzgsIDI0MSwgMjQ1KSIsCiAgICAicmF0aW8iOiA1LjEwNDM5ODczMDU2MjQwNgogIH0sCiAgewogICAgImZnIjogImJyYW5kIiwKICAgICJiZyI6ICJiYWJ5LWJsdWUiLAogICAgImluayI6ICJyZ2IoMCwgMjksIDg3KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMjA3LCAyMjYsIDI1NSkiLAogICAgInJhdGlvIjogMTIuMTYzODQwNDg2MzQxMDMyCiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAiYmFieS1ibHVlIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDcsIDIyNiwgMjU1KSIsCiAgICAicmF0aW8iOiAxMC44NDYyMzk2MjY1ODIxNDkKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAiYmx1ZS1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4NSwgMjEyLCAyNTUpIiwKICAgICJyYXRpbyI6IDEwLjYwMTkyNjI0NDgyNTY4NwogIH0sCiAgewogICAgImZnIjogInRleHQiLAogICAgImJnIjogImJsdWUtZGVlcCIsCiAgICAiaW5rIjogInJnYigzMSwgNDIsIDY4KSIsCiAgICAic3VyZmFjZSI6ICJyZ2IoMTg1LCAyMTIsIDI1NSkiLAogICAgInJhdGlvIjogOS40NTM1MTM2ODk1MTcyOTQKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludCIsCiAgICAiaW5rIjogInJnYigwLCAyOSwgODcpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMi45OTE1NTMzMjAyOTk0ODQKICB9LAogIHsKICAgICJmZyI6ICJ0ZXh0IiwKICAgICJiZyI6ICJtaW50IiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigyMDUsIDIzOSwgMjI4KSIsCiAgICAicmF0aW8iOiAxMS41ODQyOTM2NzY5NjEzNzEKICB9LAogIHsKICAgICJmZyI6ICJicmFuZCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDE4MSwgMjMwLCAyMTEpIiwKICAgICJyYXRpbyI6IDExLjU5MTYzNjcxMzE3MzI3CiAgfSwKICB7CiAgICAiZmciOiAidGV4dCIsCiAgICAiYmciOiAibWludC1kZWVwIiwKICAgICJpbmsiOiAicmdiKDMxLCA0MiwgNjgpIiwKICAgICJzdXJmYWNlIjogInJnYigxODEsIDIzMCwgMjExKSIsCiAgICAicmF0aW8iOiAxMC4zMzYwMTc2MDg2MjgxMDQKICB9LAogIHsKICAgICJmZyI6ICJzdWNjZXNzIiwKICAgICJiZyI6ICJzdWNjZXNzLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMjMsIDk2LCA2OCkiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNSwgMjM5LCAyMjgpIiwKICAgICJyYXRpbyI6IDYuMTA4OTg3NzU1MDkwNzQ2CiAgfSwKICB7CiAgICAiZmciOiAid2FybmluZyIsCiAgICAiYmciOiAid2FybmluZy1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDExNywgNzEsIDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIzMywgMjA0KSIsCiAgICAicmF0aW8iOiA2LjY4OTg2MjI4NzU5Mzc5OAogIH0sCiAgewogICAgImZnIjogImRhbmdlciIsCiAgICAiYmciOiAiZGFuZ2VyLXN1cmZhY2UiLAogICAgImluayI6ICJyZ2IoMTYzLCAzOCwgNTApIiwKICAgICJzdXJmYWNlIjogInJnYigyNTUsIDIyNywgMjI3KSIsCiAgICAicmF0aW8iOiA2LjAyMjYzMDMwNzAzMjg4CiAgfSwKICB7CiAgICAiZmciOiAiaW5mbyIsCiAgICAiYmciOiAiaW5mby1zdXJmYWNlIiwKICAgICJpbmsiOiAicmdiKDAsIDI5LCA4NykiLAogICAgInN1cmZhY2UiOiAicmdiKDIwNywgMjI2LCAyNTUpIiwKICAgICJyYXRpbyI6IDEyLjE2Mzg0MDQ4NjM0MTAzMgogIH0sCiAgewogICAgImZnIjogIm5ldXRyYWwiLAogICAgImJnIjogIm5ldXRyYWwtc3VyZmFjZSIsCiAgICAiaW5rIjogInJnYig5MSwgMTA3LCAxNDApIiwKICAgICJzdXJmYWNlIjogInJnYigyNDUsIDI0OCwgMjUzKSIsCiAgICAicmF0aW8iOiA1LjAyNDE1MzEzMjI1MjYyOAogIH0KXQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-c6e8afbb65829035eb84",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "one black primary per specimen, unfilled section links, and no forbidden decorative palette",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:47.722Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-b60ad436c41133281c42",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "profile stack and question suggestion have different functional anatomy and no fake message send",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3975,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:51.349Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-593e49ec3caa40ca4de7",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 360px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2312,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:55.390Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-c97276fe9cba44d38f34",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 142,
+          "column": 30
+        },
+        {
+          "title": "illustrations are outlined, visible and inside a fixed slot at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1551,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:57.784Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-a15c414fc75195dc5008",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 142,
+          "column": 30
+        },
+        {
+          "title": "candidate has no axe WCAG 2.1 AA findings in default, loading or error states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 12532,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:39:59.398Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-f74acca8b92979c2a250",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 152,
+          "column": 1
+        },
+        {
+          "title": "candidate uses token-owned colors, escapes labels and leaves product renderers untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "WebKit",
+              "projectName": "WebKit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T18:40:11.968Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e4e2b8e4acadbe164f19-8000d527ea2f40e12a34",
+          "file": "pastel-foundations.spec.cjs",
+          "line": 161,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T18:39:07.847Z",
+    "duration": 66261.54999999999,
+    "expected": 28,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

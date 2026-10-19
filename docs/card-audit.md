@@ -1,202 +1,538 @@
-# CareFlow+ — Card audit (snapshot **TRƯỚC** thiết kế lại)
+# Card audit v2
 
-Ngày audit: 2026-10-17. Chụp source tại main `257c8989bf8aaf9a0c73f89e56231547e1452a2f` và nhánh `redesign/cards-v2` trước khi chỉnh UI. Căn cứ `docs/screen-inventory.json` (47 màn), `prototype/views.js`, `prototype/careflow-rich-content.js`, `prototype/careflow-experience.js`, `staff-prototype/app.js`, `staff-prototype/doctor-showcase.js`, `staff-prototype/doctor-journeys.js`, `staff-prototype/supporting.js` và thiết kế tham khảo do người dùng gửi.
+## Hiện hành — rollout toàn bộ màn, 19/10/2026
 
-> **Phạm vi:** Bảng liệt kê card theo **component pattern/slot per screen**, kể cả card render có điều kiện; không đếm các **instance** sinh lặp theo số lượt khám. Các hàng `Render pattern` là kiểm kê tĩnh invocation bổ sung, không có nghĩa từng invocation là card độc lập ngoài DOM. Các thẻ nhiều trạng thái cần audit trình duyệt sau khi render — `UNKNOWN` cho đến QA. Desktop công khai là **doctor-only**; các route lễ tân cũ là redirect, không sửa thành role mới.
+Đã bật bộ dùng chung ở cả patient/staff theo yêu cầu mới. Kiểm kê canonical47 screen IDs,15 staff routes, không cắt nhánh an toàn để khớp stepper4 nhóm. [Bảng trước/sau từng card theo screen/card/type/issues/priority](card-evidence/all-screens/card-before-after.md) nối với [before](card-evidence/all-screens-before/inventory.json), [after](card-evidence/all-screens-after/inventory.json) và [desktop](card-evidence/all-screens/inventory.json). DOM instances không được gọi là số component.
 
-### Định nghĩa severity
+Nhóm đã xử lý: A1–A3 auth; B1 Home; C1–C9 booking; D1–D4 appointment/ticket; E1–E3 arrival; F1–F4 labs; G1–G5 online; H1–H7 completion/payment/results; I1–I5 aftercare; J1 follow-up; K1–K5 notifications/profile/history/settings/support. Desktop dùng cùng type/color/button/status/card primitives, giữ các hàng công việc và cột khám bệnh.
 
-- **P0** — an toàn/sàng lọc, quyền truy cập, nghiệp vụ bác sĩ, payment/call, unread clinical hoặc lỗi thông tin quan trọng.
-- **P1** — readability, hierarchy, content không hữu ích, CTA và mật độ trên màn quan trọng.
-- **P2** — chuẩn hóa token/spacing, states chưa có nguồn kích hoạt, phụ trợ.
+Home bỏ các booking entry lặp, bỏ metric00, đưa lịch tiếp theo lên trước, đổi profile/question sang hai anatomy riêng, dùng guide disclosure và artwork có slot. Các bảng kết quả kỹ thuật, contrast và giới hạn xem [review hiện tại](card-evidence/all-screens/review.md).
 
-### Ma trận kiểm kê card theo screen/pattern
+---
 
-| Màn hình | Tên card | Loại | Vấn đề (trước) | Mức ưu tiên | File tạo card | Trạng thái sau |
-|---|---|---|---|---|---|---|
-| A1 — Đăng nhập (SĐT và OTP) | Đăng nhập/OTP | Form container | Label và phản hồi lỗi cần thống nhất | P2 | views.js + rich-content.js | **Chưa sửa** |
-| A2 — Xác nhận hồ sơ cũ | Xác nhận hồ sơ tìm thấy | Profile selection | Thiếu contract empty/error/loading | P2 | views.js + rich-content.js | **Chưa sửa** |
-| A3 — Tạo hồ sơ bệnh nhân | Tạo hồ sơ mới | Form container | Số liệu hỗ trợ và hướng dẫn chưa chuẩn | P2 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Lịch khám kế tiếp | Hero | Khối thông tin và hành động cần phân tầng | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Tổng quan chăm sóc | 3-metric | Số liệu 03/02/00 và cách hiển thị zero chưa đồng bộ | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Truy cập nhanh | Bento | Icon-only + caption nhỏ; nhãn Đặt lịch trùng hành động | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Việc cần làm | Task/list | Thẻ có độ dài và CTA chưa đồng đều | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Chăm sóc sau khám | Aftercare | Dữ liệu summary chưa liên kết nhất quán | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Cẩm nang đi khám | Editorial tiles | Tối đa hai dòng, thiếu states contract | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Cần giúp? | Help banner | CTA lặp dễ tạo nhiễu | P1 | views.js + rich-content.js | **Chưa sửa** |
-| B1 — Trang chủ | Phụ trợ · Tiện ích dành cho bạn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C1 — Ai đi khám | Chọn người đi khám | Patient carousel | Thông tin ngày sinh/quyền cần rõ ràng | P2 | views.js + rich-content.js | **Chưa sửa** |
-| C1 — Ai đi khám | Phụ trợ · Chọn đúng người đi khám | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C2 — Lý do khám và triệu chứng | Lý do khám | Form card | Nhiều section nhỏ, thiếu container đồng nhất | P2 | views.js + rich-content.js | **Chưa sửa** |
-| C2 — Lý do khám và triệu chứng | Phụ trợ · Giúp bác sĩ hiểu rõ hơn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C3 — Dấu hiệu nguy hiểm | Sàng lọc nguy hiểm | Safety alert | P0, không làm mờ cảnh báo để đạt thẩm mỹ | P0 | views.js + rich-content.js | **Chưa sửa** |
-| C4 — Khuyến cáo nhập viện, cấp cứu | Khuyến cáo cấp cứu | Danger card | P0, giữ nguyên đường cấp cứu 115 | P0 | views.js + rich-content.js | **Chưa sửa** |
-| C5 — Phòng khám xác nhận hình thức khám | Kiểm tra hình thức khám | Status/review | Trạng thái đang chờ cần dễ hiểu | P2 | views.js + rich-content.js | **Chưa sửa** |
-| C5 — Phòng khám xác nhận hình thức khám | Phụ trợ · Điều gì diễn ra tiếp theo? | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C6 — Chọn hình thức khám | Khám trực tiếp / trực tuyến | Choice cards | Chú thích lợi ích còn chung chung | P2 | views.js + rich-content.js | **Chưa sửa** |
-| C6 — Chọn hình thức khám | Phụ trợ · Chọn hình thức phù hợp | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C7 — Chọn ngày giờ | Lịch ngày và giờ | Slot grid | Các slot cần hit-area ≥44 | P2 | views.js + rich-content.js | **Chưa sửa** |
-| C7 — Chọn ngày giờ | Phụ trợ · Trước khi chọn giờ | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C8 — Kiểm tra và gửi yêu cầu | Thông tin xác nhận | Facts list | Đã có sửa xuống dòng, cần chuẩn hóa token và nhãn | P1 | views.js + rich-content.js | **Chưa sửa** |
-| C8 — Kiểm tra và gửi yêu cầu | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| C8 — Kiểm tra và gửi yêu cầu | Phụ trợ · Sau khi gửi yêu cầu | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| C9 — Đã gửi, Phiếu khám | Phiếu khám vừa gửi | Ticket/status | Tình trạng đặt lịch ≠ đã xác nhận | P1 | views.js + rich-content.js | **Chưa sửa** |
-| C9 — Đã gửi, Phiếu khám | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| C9 — Đã gửi, Phiếu khám | Phụ trợ · Bạn có thể làm ngay | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| D1 — Lịch hẹn | Sắp tới/Đã khám/Đã hủy | Segmented status | Mật độ/tên tab/counter cần nhất quán | P1 | views.js + rich-content.js | **Chưa sửa** |
-| D1 — Lịch hẹn | Lịch hẹn trống | Empty state | CTA đặt lịch lặp trên tab Đã hủy; copy cần đúng bối cảnh | P1 | views.js + rich-content.js | **Chưa sửa** |
-| D1 — Lịch hẹn | Danh sách lịch hẹn | Appointment list | Tối ưu việc tìm theo bác sĩ/ngày/giờ | P1 | views.js + rich-content.js | **Chưa sửa** |
-| D1 — Lịch hẹn | Phụ trợ · Quản lý dễ dàng hơn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| D2 — Phiếu khám (chi tiết lượt khám) | Trạng thái lượt khám | Status hero | Các trạng thái có thể chuyển cần phân cấp | P1 | views.js + rich-content.js | **Chưa sửa** |
-| D2 — Phiếu khám (chi tiết lượt khám) | Phiếu khám/mã QR | Ticket | Nhiều nội dung cạnh tranh CTA | P1 | views.js + rich-content.js | **Chưa sửa** |
-| D2 — Phiếu khám (chi tiết lượt khám) | Render pattern · 2 card() / 2 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| D3 — Đổi lịch | Đổi lịch | Facts/action | Thiếu nhóm card quyết định mới | P2 | views.js + rich-content.js | **Chưa sửa** |
-| D3 — Đổi lịch | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| D3 — Đổi lịch | Phụ trợ · Cần lưu ý | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| D4 — Hủy lịch | Hủy lịch | Danger review | Hành động nguy hiểm phải xác nhận | P0 | views.js + rich-content.js | **Chưa sửa** |
-| D4 — Hủy lịch | Phụ trợ · Trước khi quyết định | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| E1 — Chuẩn bị trước khi đến | Chuẩn bị trước khám | Checklist | Checklist trạng thái session-local | P2 | views.js + rich-content.js | **Chưa sửa** |
-| E1 — Chuẩn bị trước khi đến | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| E1 — Chuẩn bị trước khi đến | Phụ trợ · Sẵn sàng cho lịch hẹn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| E2 — Báo đã đến | Check-in / QR | QR/status | QR không đồng nghĩa đã tiếp nhận | P2 | views.js + rich-content.js | **Chưa sửa** |
-| E2 — Báo đã đến | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| E2 — Báo đã đến | Phụ trợ · Sau khi báo đã đến | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| E3 — Theo dõi lượt khám | Hàng chờ | Queue card | Thông tin lượt/next action cần nổi bật | P2 | views.js + rich-content.js | **Chưa sửa** |
-| E3 — Theo dõi lượt khám | Render pattern · 1 card() / 2 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| E3 — Theo dõi lượt khám | Phụ trợ · Giữ thông tin trong tầm tay | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| F1 — Xét nghiệm, chụp chiếu | Danh sách chỉ định | Lab list | List items thiếu category owner trạng thái | P2 | views.js + rich-content.js | **Chưa sửa** |
-| F1 — Xét nghiệm, chụp chiếu | Render pattern · 0 card() / 0 section() / 1 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| F1 — Xét nghiệm, chụp chiếu | Phụ trợ · Cần chuẩn bị đúng hướng dẫn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| F2 — Chi tiết chỉ định | Chi tiết chỉ định | Result detail | Thuật ngữ và cảnh báo cần tách rõ | P2 | views.js + rich-content.js | **Chưa sửa** |
-| F2 — Chi tiết chỉ định | Render pattern · 3 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| F2 — Chi tiết chỉ định | Phụ trợ · Hiểu kết quả theo đúng ngữ cảnh | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| F3 — Đặt hẹn xét nghiệm | Lịch xét nghiệm | Slot/choice | Thiếu phân tầng trạng thái lịch | P2 | views.js + rich-content.js | **Chưa sửa** |
-| F3 — Đặt hẹn xét nghiệm | Phụ trợ · Trước ngày hẹn | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| F4 — Đính kèm kết quả | Đính kèm kết quả | Document upload | Privacy note/hit area | P2 | views.js + rich-content.js | **Chưa sửa** |
-| F4 — Đính kèm kết quả | Phụ trợ · Bảo vệ thông tin cá nhân | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| G1 — Chuẩn bị khám online | Kiểm tra thiết bị | Preflight/checklist | Thiếu tương phản trạng thái từng bước | P2 | views.js + rich-content.js | **Chưa sửa** |
-| G1 — Chuẩn bị khám online | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| G1 — Chuẩn bị khám online | Phụ trợ · Sẵn sàng kết nối | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| G2 — Chờ bác sĩ gọi | Phòng chờ online | Wait/status | Cần thời gian/đường hỗ trợ | P2 | views.js + rich-content.js | **Chưa sửa** |
-| G2 — Chờ bác sĩ gọi | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| G2 — Chờ bác sĩ gọi | Phụ trợ · Không bỏ lỡ cuộc gọi | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| G3 — Bác sĩ đang gọi | Cuộc gọi đến | Live-call | Không áp đặt thông tin trang trí | P0 | views.js + rich-content.js | **Chưa sửa** |
-| G4 — Đang khám online | Đang gọi | Live-call | Không áp đặt thông tin trang trí | P0 | views.js + rich-content.js | **Chưa sửa** |
-| G5 — Chưa liên hệ được | Không liên hệ được | Recovery | Trình tự liên hệ lại/hỗ trợ | P2 | views.js + rich-content.js | **Chưa sửa** |
-| G5 — Chưa liên hệ được | Phụ trợ · Bạn vẫn có cách tiếp tục | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H1 — Buổi khám đã hoàn tất | Khám hoàn tất | Completion hero | CTA tiếp theo chưa mạnh | P2 | views.js + rich-content.js | **Chưa sửa** |
-| H1 — Buổi khám đã hoàn tất | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H1 — Buổi khám đã hoàn tất | Phụ trợ · Giữ lại thông tin cần thiết | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H2 — Thanh toán | Tình trạng phí | Payment facts | Phân biệt thanh toán và xác nhận | P0 | views.js + rich-content.js | **Chưa sửa** |
-| H2 — Thanh toán | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H2 — Thanh toán | Phụ trợ · Kiểm tra trước khi trả | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H3 — Thanh toán sau | Thanh toán sau | Payment status | Tránh giả vờ đã thanh toán | P0 | views.js + rich-content.js | **Chưa sửa** |
-| H3 — Thanh toán sau | Phụ trợ · Giữ lại phiếu khám | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H4 — Chuyển khoản QR | Chuyển khoản | Transfer/instructions | P0 giữ disclaimer và không thực hiện giao dịch | P0 | views.js + rich-content.js | **Chưa sửa** |
-| H4 — Chuyển khoản QR | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H5 — Biên lai và hoàn tiền | Biên lai | Receipt | Empty/unknown state cần rõ | P2 | views.js + rich-content.js | **Chưa sửa** |
-| H5 — Biên lai và hoàn tiền | Render pattern · 2 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H5 — Biên lai và hoàn tiền | Phụ trợ · Bạn có thể kiểm tra | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H6 — Kết luận và đơn thuốc | Kết luận và đơn thuốc | Summary/documents | Dùng danh sách rõ theo loại tài liệu | P2 | views.js + rich-content.js | **Chưa sửa** |
-| H6 — Kết luận và đơn thuốc | Render pattern · 1 card() / 3 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H6 — Kết luận và đơn thuốc | Phụ trợ · Những bước tiếp theo | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| H7 — Kết quả và việc tiếp theo | Kết quả và bước tiếp | Results/next steps | Phân tách trạng thái kết quả và hành động | P2 | views.js + rich-content.js | **Chưa sửa** |
-| H7 — Kết quả và việc tiếp theo | Render pattern · 1 card() / 0 section() / 1 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| H7 — Kết quả và việc tiếp theo | Phụ trợ · Thông tin bạn cần | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| I1 — Hỏi phòng khám | Liên hệ sau khám | Help/actions | Không lặp icon chung chung | P2 | views.js + rich-content.js | **Chưa sửa** |
-| I1 — Hỏi phòng khám | Render pattern · 0 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| I1 — Hỏi phòng khám | Phụ trợ · Chọn đúng kênh hỗ trợ | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| I2 — Gửi phản hồi (ba lý do) | Gửi phản hồi | Feedback form | Thông điệp cần rõ lý do | P2 | views.js + rich-content.js | **Chưa sửa** |
-| I2 — Gửi phản hồi (ba lý do) | Phụ trợ · Viết ngắn gọn, dễ xử lý | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| I3 — Theo dõi triệu chứng | Theo dõi triệu chứng | Follow-up checklist | Không đưa lời khuyên chữa bệnh | P2 | views.js + rich-content.js | **Chưa sửa** |
-| I3 — Theo dõi triệu chứng | Render pattern · 1 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| I3 — Theo dõi triệu chứng | Phụ trợ · Ghi nhận để trao đổi | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| I4 — Chuyển chuyên khoa | Chuyển chuyên khoa | Referral status | Thiếu ngày/đơn vị chịu trách nhiệm | P2 | views.js + rich-content.js | **Chưa sửa** |
-| I4 — Chuyển chuyên khoa | Render pattern · 1 card() / 0 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| I4 — Chuyển chuyên khoa | Phụ trợ · Trước lượt khám tiếp theo | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| I5 — Tin nhắn với điều phối viên | Tin nhắn | Conversation list | Unread không giả định khi zero | P2 | views.js + rich-content.js | **Chưa sửa** |
-| I5 — Tin nhắn với điều phối viên | Phụ trợ · Để nhận phản hồi rõ ràng | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| J1 — Đặt lịch tái khám | Đặt tái khám | Rebook details | Thông tin người/giờ cần nhất quán | P2 | views.js + rich-content.js | **Chưa sửa** |
-| J1 — Đặt lịch tái khám | Render pattern · 1 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| J1 — Đặt lịch tái khám | Phụ trợ · Chuẩn bị cho lần gặp tiếp theo | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| K1 — Thông báo | Thông báo | Notification list | Trạng thái chưa đọc/badge thật | P2 | views.js + rich-content.js | **Chưa sửa** |
-| K1 — Thông báo | Render pattern · 0 card() / 0 section() / 1 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| K1 — Thông báo | Phụ trợ · Quản lý cập nhật | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| K2 — Hồ sơ và người thân | Hồ sơ gia đình | Profile rows | Card chỉ icon + mô tả, hành động tertiary lẫn text | P1 | views.js + rich-content.js | **Chưa sửa** |
-| K3 — Lịch sử khám | Lịch sử khám | History list | Cần trạng thái, ngày và bác sĩ | P2 | views.js + rich-content.js | **Chưa sửa** |
-| K3 — Lịch sử khám | Render pattern · 0 card() / 0 section() / 1 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| K3 — Lịch sử khám | Phụ trợ · Tìm lại nội dung quan trọng | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| K4 — Cài đặt | Cài đặt | Settings list | Đăng xuất/danger phải nhận diện như nút | P1 | views.js + rich-content.js | **Chưa sửa** |
-| K4 — Cài đặt | Render pattern · 0 card() / 1 section() / 0 collection() | Conditional/shared card template | Các nhánh trạng thái cần kiểm riêng; CSS hiện phân tán theo nhiều file | P2 | views.js (static invocation inventory) | **Chưa sửa** |
-| K4 — Cài đặt | Phụ trợ · Bạn kiểm soát điều gì? | Contextual tiles / disclosure | Icon + mô tả chung; CTA text-only; section container có nhiều thẻ rời | P1 | careflow-experience.js | **Chưa sửa** |
-| K5 — Hỗ trợ | Kênh hỗ trợ | Contact cards | Một số thẻ còn chung chung và lặp CTA | P2 | views.js + rich-content.js | **Chưa sửa** |
-| Doctor /doctor | Buổi khám đang thực hiện | Hero/action | Cần kiểm tra priority và CTA | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor | Yêu cầu trước khám | Inbox/review | Người phụ trách, trạng thái, next action | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor | Kết quả cận lâm sàng | Result list | Trạng thái review và cần xem | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor | Lịch khám trong ngày | Agenda/table | Header và dữ liệu nhiều cột, phải phản hồi responsive | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor/schedule | Lịch khám tuần | Agenda/calendar | Mật độ ngày/slot | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor/queue | Danh sách khám | Queue/list | Nhận diện trạng thái tiếp nhận | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor/followups | Công việc theo dõi | Task list | Owner/deadline/next action | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /patients | Danh sách bệnh nhân | Patient list | Mật độ tìm/lọc; privacy | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /patients/:id | Hồ sơ bệnh nhân | Profile panels | Thông tin nhiều lớp cần nhóm rõ | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /visits/:id | Thông tin lượt khám | Encounter facts | Bảo vệ nguồn dữ liệu demo | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /encounters/:id | Khám lâm sàng | Clinical form panels | Chữ và hướng dẫn nhiều cấp | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /results | Hộp thư kết quả | Results inbox | Đã xem/chưa xem | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /clinical/orders | Chỉ định cận lâm sàng | Order panels | Draft vs ordered phải phân biệt | P1 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /clinical/prescription | Đơn thuốc | Prescription panels | Không giả vờ toa thuốc thật | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /clinical/review | Rà soát hồ sơ khám | Review panels | Action xác nhận chưa ký thật | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor/review/:id | Rà soát yêu cầu | Review/handoff | Người sở hữu, trạng thái | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
-| Doctor /doctor/online/:id | Phiên trực tuyến | Call status | P0: không giả vờ gọi thật | P0 | staff-prototype/{app,doctor-showcase,doctor-journeys,supporting}.js | **Chưa sửa** |
+Các mục phía dưới là lịch sử của các đợt trước; mốc chờ duyệt và phạm vi cũ đã được yêu cầu mới thay thế.
 
-## Lỗi xuyên hệ thống được chứng minh trong source
 
-| Loại | Dấu hiệu source | Mức | Hướng sửa |
+## Đợt hiện tại — tích hợp navigation và sửa component, 19/10/2026
+
+Đã tích hợp navbar dùng chung vào app theo yêu cầu mới. Bảng47màn/161vùng bên dưới vẫn là baseline card layout; đợt này không tuyên bố đã thay hết card/Home. Các sửa đúng owner: primary Next/Continue, selected-state chips, avatar overlap, labelled button examples, confirmed/completed tone và navigation. Huy hiệu dùng notification state hiện có, không thêm fake count.
+
+| Vị trí | Lỗi trước | Sửa / evidence |
+|---|---|---|
+| DS stepper và samples | Next secondary blue, Continue primary black | Cùng primary; mẫu độc lập không đánh đổi semantic hierarchy để khớp gallery count |
+| DS profile | Avatar28px overlap8px che chữ |32px/overlap4px/border2px; inner text bounds không chạm avatar sau |
+| DS button examples | Hai pills state như action | Static figcaptions dưới default/loading/locked; loading có spinner |
+| DS empty/loading/error/ready filter | Selected chỉ đậm hơn | Selected black/white, idle white/gray outline, ARIA pressed |
+| Shared status | Confirmed/completed đều green | Confirmed blue/info, completed green/success; model values không đổi |
+| App bottom nav | Caption ẩn, nút+navy/gray ring, chỉ outline icons | Component shared; black raised+white border, labels, selected filled/navy/blue, idle muted; unread updates count |
+| DS guide footer | Source đã đúng Đ, nhỏ nên khó đọc | Unicode U+0110 giữ nguyên; body14/500. Designer labels giữ riêng DS |
+
+Report và captures: [navigation-integration/review.md](card-evidence/navigation-integration/review.md). App render scope vẫn giữ47screen IDs và toàn bộ guards; không ghép tiêu đề “Thanh điều hướng” vào màn thật. Model/visit data không có diff.
+
+## Audit hiện hành — sửa6 lỗi và giới hạn màu, 19/10/2026
+
+Đã rà lại47 patient states và161 card/section/form theo tiêu chí mới **trước khi sửa component**: [từng dòng kiểm kê](card-evidence/blue-green-before/audit.md), [checks/typography JSON](card-evidence/blue-green-before/inventory.json), [72 file nguồn](card-evidence/blue-green-before/source-inventory.json). Mỗi dòng có vị trí/selector, type, lỗi cụ thể và ưu tiên; các kiểm tra trạng thái/copy/visual chưa đủ bằng chứng vẫn ghi REVIEW. Không gọi đây là full WCAG audit.
+
+Kết quả mới chính xác hơn: B1 có**4 lối vào booking trong nội dung**, cộng+ thành5; B1/H6 có2 primary controls theo data contract.30 vùng card/group chứa primary nền navy thay vì màu mới;34 vùng chứa stock image.75 linear gradients cần review vị trí/vai trò. Chỉ**1 vùng metric ở B1** chứa số00 riêng lẻ; đã bỏ false positives của phút `:00`. Chuyển hồ sơ trong flow booking không tính nhầm thành lối bắt đầu booking mới. Các con số group có thể chồng lặp, không phải số defect độc lập.
+
+### Sáu lỗi trên Design System trước sửa
+
+| Yêu cầu / vị trí | Trước / lỗi và nguyên nhân | Sau trong bộ component | Ưu tiên |
 |---|---|---|---|
-| Hardcode màu / font / radius | `prototype/styles.css`, `solid-navy-polish.css`, `careflow-rich-content.css`, `careflow-experience.css`, `staff-prototype/*css` có nhiều literal. `design/tokens.json` hiện primary `#075FE8` cũ. | P1 | Một nguồn token CSS mới; migration theo component, grep tồn đọng. |
-| Hai font mobile/doctor | Mobile dùng local Be Vietnam Pro; doctor CSS/HTML nạp Plus Jakarta Sans. | P1 | Cùng family Be Vietnam Pro; typography roles qua token. |
-| Section/container lệch contract | `cf-home-appointment`, `ref-overview`, `rich-section`, `cfx-section` xen kẽ nhiều shape; CSS nhiều layers override. | P1 | Dùng `cf2-section` header + `cf2-section-container`, tránh nested visual borders. |
-| Card thiếu actionable data | `cfx-tile` phụ trợ icon + title + mô tả; ví dụ screenshot Hồ sơ gia đình. | P1 | Đưa tên hồ sơ, số lượng liên quan, trạng thái thực từ model; không tạo dữ liệu giả mới. |
-| Empty có CTA quá mạnh | `cf-appt-empty` của tab Đã hủy vẫn nút primary Đặt lịch khám. | P1 | Copy theo tab, secondary action về tab lịch hợp lý. |
-| Zero/leading zero | Home metric render `03`, `02`, `00`. | P1 | `Intl.NumberFormat('vi-VN')`, 0 có nhãn 'Chưa có'. |
-| Bố cục desktop | Nhiều `doctor-surface` và `panel` có spacing/heading khác nhau; dashboard doctor-only. | P1 | Bảo toàn đọc ưu tiên lâm sàng, migrate reusable card wrappers. |
-| Loading/error | Model hiện chạy local sync; chưa có remote pending/error API. | P2 | Reusable state component + test QA injection, không giả mạo server. |
+|1. Xem tất cả, cạnh Thông tin của bạn | FAIL: sectionHeader dùng actionButton nên sinh pill nền blue như CTA | Link thật tới route K2, navy+arrow, không nền, focus/target44 |P1|
+|2. Hồ sơ đã lưu / Hỏi phòng khám, cặp bento frame1 | FAIL: cùng illustration/title/body/pill; số2 thành metric đứng riêng | Avatar stack+count+disclosure; thẻ hỏi có suggestions mở ô soạn riêng, không share cùng anatomy |P1|
+|3. Calendar empty state frame3 và artwork frame1 | FAIL về nhận diện: giấy trắng không stroke trên card trắng nên mất mảng; ảnh nhỏ96px bị cảm giác cắt | Vẽ lại cùng canvas/nét/palette, outline giấy, backplate blue; slot cố định và empty160px |P1|
+|4. Nhãn lịch, mã phiếu, body gradient | Pair cũ có kiểm nhưng palette thay đổi nên cần đo lại, không suy ra PASS từ lần trước |20 cặp ghi số cụ thể; text on pastel navy/ink, min5.024:1 toàn tập, min9.454:1 cho các cặp text/pastel |P1|
+|5. Chưa thể tiếp tục / Đang gửi yêu cầu, frame2 | FAIL: selector disabled phủ cùng nền xám cả busy | Khóa xám+icon khóa, busy primary mờ+white+spinner; chỉ render một biến thể primary tại một thời điểm |P1|
+|6. Booking lặp / primary budget | B1 có4 entries trong content; DS frame2 có nhiều ví dụ primary cùng lúc | DS tối đa1 primary/khung; frame1 không có booking CTA, frame2 chỉ+, frame3 empty chỉ1 entry. Sản phẩm còn OPEN trước Home approval |P1|
 
-## Kiểm nghiệm vẫn thiếu trước khi xác nhận 'ĐẠT'
+### Checklist mục4 và phạm vi sau sửa
 
-- [ ] 47 route mobile: data, empty, 0, unread, selected, large text, CSS viewport 320/360/390/430.
-- [ ] 17 route/route pattern desktop: dashboard, queue, schedule, patient, encounter, results, clinical, doctor handoff ở 1280/1440/1920.
-- [ ] Bằng chứng screenshot trước/sau; axe a11y, keyboard focus, 44px hit targets, contrast.
-- [ ] Đếm DOM card/section bằng browser script (kiểm kê tĩnh chưa thay cho visual DOM).
-- [ ] Grep hardcode CSS và exception log từng giá trị còn lại.
-- [ ] Cập nhật cột 'Trạng thái sau' theo từng đợt, không tự đánh dấu DONE.
+Header/chuông và xanh dương mesh: candidate PASS; nav có label và+khác list: PASS; section link: PASS cho collection, omit khi chỉ1 nhóm; bento có profile/question/facts/guide/state khác vai trò: PASS trong specimen; số00: không render trên candidate; artwork không stock/cắt: kiểm geometry và ảnh thực; normal type/tab/stepper/insets và states: kiểm Chromium/WebKit. Toàn bộ47 màn sản phẩm tiếp tục **OPEN**, không coi DS là đã hoàn thành Home hoặc các màn còn lại.
 
-Tổng **133 card/pattern audit rows** (47 mobile screens + 17 doctor route patterns). Đã kiểm kê trước khi sửa mã giao diện; QA thực tế NOT_RUN tại bước này.
+Evidence before: [Design System cũ](card-evidence/blue-green-before/design-system.png). Evidence after, test và20pair ratios: [review mới](card-evidence/blue-green/review.md). Các audit và số liệu bên dưới là lịch sử của các brief trước.
 
-## Đợt chuyển đổi V2 — kiểm kê SAU (wave 1, source inspection)
+## Lịch sử — pastel foundation gate đầu, 19/10/2026
 
-> Wave 1 là **PARTIAL**, không xác nhận 133 hàng đã sửa hết. Trạng thái theo source; bằng chứng Playwright phải gắn SHA tại lúc chạy. Không đổi kết quả baseline bảng trên.
+The latest user brief replaces the heavy navy/photo draft with white + pastel mesh + navy accents. **Step1 inventory recorded before Step2 CSS edits.** Current gate: shared foundation candidate; Home and B–G await approval. This section does not mark the old product UI as migrated.
 
-| Screen / card | Tình trạng | File đã đổi | Còn thiếu |
-|---|---|---|---|
-| B1 — Lịch khám tiếp theo | PARTIAL | `careflow-rich-content.js`, `design/cards-v2.css` | Visual QA hero/media, CTA hierarchy |
-| B1 — Tổng quan chăm sóc | CODE_UPDATED | `careflow-rich-content.js` | Đã bỏ leading 0; kiểm số 0, chữ lớn 200% |
-| B1 — Truy cập nhanh | CODE_UPDATED | `careflow-rich-content.js`, `design/cards-v2.css` | 2×2 + mô tả theo model; browser screenshot QA |
-| B1 — Việc cần làm, Chăm sóc sau khám, Cẩm nang, Hỗ trợ | PARTIAL | shared `cf2-section-container` + CSS | Mật độ nội dung, không CTA lặp trong từng state |
-| D1 — Empty Sắp tới/Đã khám/Đã hủy | CODE_UPDATED | `careflow-rich-content.js` | Tab Đã hủy -> thứ cấp 'Xem lịch sắp tới'; regression browser |
-| B1/D1 — Hồ sơ gia đình contextual | CODE_UPDATED | `careflow-experience.js` | Count theo hồ sơ thật; bố cục container, role constraints |
-| Mobile nhiều route — `section()` | CODE_UPDATED | `views.js` | Shared heading + single container; direct child selectors, a11y/render QA |
-| Mobile 36 contextual sections | CODE_UPDATED | `design/cards-v2.js` | 1 inner container; state readability & rendered QA |
-| Doctor dashboard — working cards | PARTIAL | `design/cards-v2.css/js`, `doctor-showcase.js` | Chưa chuyển hết cấu trúc header ngoài container; need before/after screenshots |
-| Doctor result unread and empty | CODE_UPDATED | `doctor-showcase.js` | `data-cf2-state`, icon/text status QA |
-| Mobile/doctor — unified font | CODE_UPDATED | `design/cards-v2.css`, `doctor-polish.css` | Font computed style; old explicit values and fallback audit |
-| All other source card patterns | NOT_DONE | — | Chưa được sửa content-by-screen; cần wave 2+ |
+- [Every screen and card/section/form row](card-evidence/pastel-foundation-before/audit.md):47 canonical patient states /161 rendered instances. Each row has screen, position/card selector, type, specific DOM findings and priority; unresolved visual/copy/contrast/state reviews are named, not marked PASS.
+- [Machine-readable checks and actual typography](card-evidence/pastel-foundation-before/inventory.json), [all72 tracked prototype files with kind/hash/scan scope](card-evidence/pastel-foundation-before/source-inventory.json).
+- Global issues: B1 has3 detected booking entries in content before counting +;34 card/group instances include stock images across22 screens;75 linear-gradient instances need composition review, not automatic deletion;4 nested/group instances contain00. These are findings per DOM instance and may overlap; they are not counts of independent defects.
+- Navigation captions are explicitly `hidden` in the current app.js. Nav is visible in34 canonical states; all applicable screens need visible captions when migrated. Non-nav booking/safety/call screens retain their flow-specific controls.
+- Reference1: large opaque navy photo captions need lighter grouping and less repetition. Reference2: four shortcuts + promotional booking repeat the same task; portrait stock conflicts with the new image rule. Reference3:00 metrics, orbit collage, empty appointment and extra booking CTA lack clear prioritization. These observations are from the supplied crops, not newly captured production evidence.
 
-### Hardcoded token debt (chưa đạt user acceptance)
+### Checklist coverage before migration
 
-Static grep trước redesign phát hiện nhiều literal hex trong các CSS cũ (ví dụ mobile `solid-navy-polish.css` 218 lượt literal, `careflow-rich-content.css` 155; desktop `styles.css` 337, `doctor-navy-theme.css` 217, `doctor-showcase.css` 202). `design/tokens.json` là legacy spec với màu primary cũ; **runtime V2 canonical** là `design/cards-v2.css`. Toàn bộ giá trị mới trong styles V2 dùng `--cf2-*`, tuy nhiên việc loại bỏ TẤT CẢ literal của legacy chưa hoàn tất. Không được tick checklist này.
+| Rule group from user §3 | Before finding / review status | Owning component or screen |
+|---|---|---|
+| Header/bell, remove repeated logo | Current header/content composition differs across routes; REVIEW individual identity/back/error contexts | app.js + views.js; candidate header ready for review |
+| Nav labels, + vs appointment list | FAIL where nav appears: captions hidden; preserve distinct routes | shared navigation candidate; app integration pending |
+| Section title + Xem tất cả | REVIEW each collection vs single item; do not add a meaningless link to forms/status notices | sectionHeader; B1 first |
+| Mixed bento roles | Current B1 has metric/network/media/CTA but stock and repeated booking compete; REVIEW content grouping, not force bento onto safety/call forms | each screen composition |
+| Max1–2 booking entries | FAIL B1 (3 content entries +nav); route buttons inside booking itself are progression, not duplicate booking entries | B1 |
+| Empty state, no00 | FAIL B1 nested/group counts include00; every empty fixture and filtered-zero state reviewed during migration | empty/metric/card |
+| Imagery and palette |22 screens contain stock imagery; REVIEW replacement with coherent illustration; don't infer actual clinician identity | illustrations/media |
+| Wrap, typography, no(demo), natural Vietnamese | Type sizes recorded per card in JSON; unrendered long/large/expanded states REVIEW, not blanket PASS | type tokens + composition |
+| Default/pressed/disabled/error/loading/empty | Foundation specimen testable; actual flow state bindings REVIEW until corresponding screen | shared components + existing state model |
 
-### QA status
+### After Step2 (component candidate only)
 
-- JavaScript source of `cards-v2.js`, `views.js`, `careflow-rich-content.js`, `doctor-showcase.js` đã qua parser JS khi commit. **Đây không phải bằng chứng browser visual pass.**
-- CI chạy localhost preview qua GitHub Actions, nhưng máy/container hội thoại hiện không truy cập DNS GitHub để checkout nên **chưa chạy localhost độc lập tại đây**. CI source `main` không được cập nhật.
-- Follow-up: đọc actual CI run status của PR #46, fix tận gốc; mobile 320–430 CSS px + large text, desktop 1280/1440/1920, contrast/focus, states, screenshots.
+`design/preview.html` uses the existing tokens/components/ui owners, with opt-in pastel scope and an isolated interaction harness. Existing prototype/staff screens are not opted in. Candidate states/contrast/responsive evidence and seven-sign review are recorded in [photo-led-review.md](photo-led-review.md). Home screen audit remains **OPEN — user review required**.
+
+## Historical audit evidence (prior navy iterations)
+
+Baseline 2026-10-18T09:05:12.233Z; 62 representative screens, 154 rendered card/section instances.
+
+47 canonical patient +15 desktop doctor routes. Reception/nursing/wave3 legacy không load trong doctor-only index: kiểm kê tĩnh, không phục hồi vai trò. Canonical fixture là default evidence; expanded/error/filter states kiểm riêng.
+
+## Trước thay đổi (ghi trước UI)
+
+| Screen | Card / selector | Type | Issues / decision | Priority |
+|---|---|---|---|---|
+| patient A1 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient A2 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient A3 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient B1 | 19 / `visit-card cf-home-appointment-summary` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Tổng quan chăm sóc / `ref-overview` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Truy cập nhanh / `cf-home-quick` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Chăm sóc phù hợp với bạn / `ref-discover` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Việc cần làm / `rich-section cf-home-task-section` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Chuẩn bị cho buổi khám / `cf-home-task-card` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Xem lịch hẹn / `cf-home-task-card` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Chăm sóc sau khám / `rich-section cf-home-care-section` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Chưa có thông tin sau khám / `cf-home-care-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Cẩm nang đi khám / `rich-section cf-home-tips-section` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Chuẩn bị trước khi khámGiấy tờ, đơn thuốc và kết quả cũ / `cf-home-tip-card` | disclosure | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Vào phòng khám onlineKết nối, camera và không gian riêng tư / `cf-home-tip-card` | disclosure | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Tìm lại thông tin sau khámKết quả, lời dặn và câu hỏi cho phòng khám / `cf-home-tip-card` | disclosure | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient B1 | Cần giúp? / `rich-section cf-home-help-section` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient C1 | Nguyễn Minh Anh / `choice patient-choice rich-patient-choice selected` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C1 | Trần Thị Mai / `choice patient-choice rich-patient-choice ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C2 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient C3 | Không, tiếp tục đặt lịch / `choice selected ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C3 | Có hoặc chưa rõ / `choice  ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C4 | Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn. / `note danger` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient C5 | Yêu cầu của bạn chưa phải lịch khám đã được xác nhận. / `note warning` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient C6 | Tại phòng khám / `choice selected ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C6 | Khám online / `choice  ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient C6 | Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient C7 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient C8 | Người đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Giờ khám09:00Hình thứcTại phòng khámLý  / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient C9 | CF-0001 / `card ticket` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D1 | BS. Trần Thu Hà / `rich-appt-card state-success cf-appt-featured` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Đang chờ bạn / `card next-step` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | CF-1017-0042 / `card ticket` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Bệnh viện Nhân dân 115 / `facility-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Phòng khám sẽ thông báo trước khi thu phí / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient D2 | Thông tin liên quan / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Xét nghiệm, chụp chiếu / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Phí khám và biên lai / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Kết luận và đơn thuốc / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Kết quả và việc tiếp theo / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Trao đổi sau khám / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Các bước của lượt khám / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Tiến trình lượt khám / `rich-section rich-detailed-progress` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Cần chuẩn bị / `rich-section rich-prepare` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Thông tin đã khai / `rich-section rich-declared` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D2 | Chỉ định liên quan / `rich-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D3 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient D4 | Tôi bận vào thời gian này / `choice selected ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient D4 | Tôi muốn chọn ngày khác / `choice  ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient D4 | Lý do khác / `choice  ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient D4 | Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient E1 | Giờ hẹn08:00 · Thứ Hai, 19/10/2026Giờ nên có mặtChưa có hướng dẫn thời gian đến riêngGiấy tờ cầ / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient E1 | Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient E2 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient E2 | Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient E3 | Bạn đã đến / `card center` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient E3 | Số thứ tự / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient E3 | Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient E3 | Các bước của lượt khám / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient F1 | Xét nghiệm theo chỉ định / `cf-lab-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient F2 | Xét nghiệm theo chỉ định / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient F2 | Hướng dẫn chuẩn bị / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient F2 | Quay lại lượt khám hiện tại / `choice selected ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient F2 | Để bác sĩ xem trong buổi khám / `choice  ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient F3 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient F4 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient G1 | Chưa kiểm tra / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient G1 | Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient G1 | Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient G2 | Chờ bác sĩ gọi / `card center` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient G3 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient G4 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient G5 | Đang chờ phòng khám liên hệ lại / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient G5 | Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn. / `note warning` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient H1 | Hoàn tất buổi khámNguyễn Minh Anh · Thứ Hai, 19/10/2026 / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H1 | Bác sĩ đã ký và hoàn tất hồ sơ buổi khám / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient H1 | Kết luận và đơn thuốc / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H1 | Xét nghiệm sau khám / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H1 | Hỏi phòng khám / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H1 | Đặt lịch tái khám / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H2 | Phòng khám sẽ thông báo / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H2 | Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient H3 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient H4 | Chưa có mã thanh toán / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H4 | Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông  / `note warning` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient H5 | Biên lai / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H6 | Kết luận buổi khám / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H6 | Chưa có tài liệu được phòng khám chia sẻ. / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H6 | Đơn thuốc / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H6 | Hướng dẫn chăm sóc / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H6 | Mẫu chăm sóc sau khám / `rich-section rich-aftercare-sample` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient H7 | Thông báo kết quảĐã gửi thông báoGiải thích kết quảChưa ghi nhận đã giải thích / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Lượt đã khám / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Nguyễn Minh Anh / `choice selected ` | choice | Giữ native selection; thống nhất min-width, target và selected surface. | P2 |
+| patient I1 | Phản hồi về đơn thuốc / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Hỏi lại, dùng thuốc / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Triệu chứng mới, chưa cải thiện / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Theo dõi triệu chứng / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Chuyển chuyên khoa / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I1 | Tin nhắn với phòng khám / `row` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I2 | Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp. / `note warning` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient I3 | Theo dõi triệu chứng / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I4 | Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa. / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient I5 | Không có card; giữ màn tập trung | focused | Không thêm card lấp chỗ trống | KEEP |
+| patient J1 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient J1 | Ngày gợi ý từ phòng khám / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K1 | Có cập nhật về lượt khám / `notification row ` | action | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K1 | Nội dung sức khỏe không xuất hiện trong bản xem trước. / `note info` | notice | Giữ context; kiểm contrast và recovery; không thêm CTA giả. | P2 |
+| patient K2 | Thông tin cá nhân / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K2 | Người thân / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K2 | Cài đặt / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K3 | BS. Trần Thu Hà / `rich-appt-card state-success` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K4 | Quyền riêng tư / `section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K5 | Liên hệ nhanh / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K5 | Gửi yêu cầu / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K5 | Câu hỏi thường gặp / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| patient K5 | Tin nhắn gần đây / `cf-reference-section ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Buổi khám đang thực hiện / `doctor-surface doctor-now` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Yêu cầu trước khám / `doctor-surface doctor-decision-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Kết quả cận lâm sàng / `doctor-surface doctor-labs-today` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Công thức máu / `doctor-result-item` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Tổng phân tích nước tiểu / `doctor-result-item` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Lịch khám trong ngày / `doctor-surface doctor-today` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 08:45 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 09:00 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 09:30 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 10:30 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 11:45 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 14:00 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | 14:30 / `doctor-agenda-row` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Kết nối buổi khám / `doctor-surface doctor-online-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Công việc theo hồ sơ / `doctor-surface doctor-aftercare-card` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Rà soát kết quả cận lâm sàng / `doctor-task-item ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor | Theo dõi sau tái khám / `doctor-task-item ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/schedule | 12 — 18 tháng 10, 2026 / `doctor-surface doctor-schedule-main` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/schedule | BS. Nguyễn Văn An / `doctor-surface doctor-schedule-summary` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/schedule | Phạm Gia Huy / `doctor-surface doctor-next-visit` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/queue | Lượt khám hôm nay / `doctor-surface` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /patients | 7 hồ sơ được hiển thị / `doctor-surface` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /patients/p-001 | MAHỒ SƠ BỆNH NHÂN · BN-2041Nguyễn Minh Anh29 tuổi · Nữ · 09•• ••• 123Đã từng khám Xem lịch khám / `profile-banner` | content | Rendered horizontal overflow; sửa min-width/flex wrapping. | P1 |
+| doctor /patients/p-001 | Thông tin cơ bản / `panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /patients/p-001 | Tổng quan chăm sóc / `panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /patients/p-001 | Ghi chú hồ sơ / `panel note-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /visits/a-027 | Phạm Gia Huy / `doctor-surface doctor-result-preview` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /visits/a-027 | Hồ sơ & kết quả / `doctor-surface doctor-result-preview` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /encounters/a-033 | Danh sách khám / `panel consult-queue` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /encounters/a-033 | Khám lâm sàngCận lâm sàngKết quảĐơn thuốcLý do khám (người bệnh cung cấp)Tái khámTriệu chứng và / `panel consult-editor` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /encounters/a-033 | Thông tin liên quan / `panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /encounters/a-033 | Rà soát ghi nhận / `panel followup-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /results | Danh sách kết quả / `doctor-surface` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /results | Công thức máu / `doctor-surface doctor-result-preview` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/orders | Danh sách chỉ định / `panel support-panel ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/orders | Dự thảo chỉ định / `panel support-panel support-form-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/prescription | Thông tin lượt khám / `panel support-panel support-document-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/prescription | Ghi chú hồ sơ / `panel support-panel support-form-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/review | Thông tin buổi khám / `panel support-panel ` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /clinical/review | Kiểm tra trước khi hoàn tất / `panel support-panel support-guidance` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/followups | 3 việc đang chờ xử lý / `doctor-surface` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/followups | 2 / `doctor-surface doctor-followups-summary` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/review/a-021 | Trần Quốc Bảo / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/review/a-021 | Ghi nhận đề xuất cho điều phối / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/online/a-040 | Hoàng Nhật Nam / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/online/a-040 | Xử lý kết nối / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/online/a-041 | Mai Khánh Vy / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+| doctor /doctor/online/a-041 | Xử lý kết nối / `doctor-surface journey-panel` | content | Chưa có shared card contract; chuẩn hoá surface, spacing và hierarchy. | P2 |
+
+## Sau thay đổi
+
+62 representative screens; 189 card/section instances. Các instance tăng do thêm tiện ích theo ngữ cảnh, không nhân bản screen. Không còn scrollWidth overflow trong inventory default này; states mở rộng kiểm riêng.
+
+| Screen | Card / selector | Type | Issues sau / kiểm tra | Priority |
+|---|---|---|---|---|
+| patient A1 | Sức khỏe của bạn luôn là ưu tiên hàng đầu.Đăng nhập bằng số điện thoại để đặt lịch, xem hướng d / `auth-panel auth-start` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient A2 | Đây có phải hồ sơ của bạn?Kiểm tra thông tin để tiếp tục với hồ sơ đã có.Họ và tênNgày sinhSố đ / `auth-panel auth-profile` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient A3 | Tạo hồ sơ của bạnThông tin giúp phòng khám tiếp nhận đúng người.Họ và tênNgày sinhSố điện thoại / `auth-panel auth-profile` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | 19 / `visit-card cf-home-appointment-summary` | action | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient B1 | Tổng quan chăm sóc / `ref-overview` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Truy cập nhanh / `cf-home-quick` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Chăm sóc phù hợp với bạn / `ref-discover` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Việc cần làm / `rich-section cf-home-task-section` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Chuẩn bị cho buổi khám / `cf-home-task-card` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Xem lịch hẹn / `cf-home-task-card` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Chăm sóc sau khám / `rich-section cf-home-care-section` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Chưa có thông tin sau khám / `cf-home-care-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Cẩm nang đi khám / `rich-section cf-home-tips-section` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Chuẩn bị trước khi khámGiấy tờ, đơn thuốc và kết quả cũ / `cf-home-tip-card` | disclosure | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Vào phòng khám onlineKết nối, camera và không gian riêng tư / `cf-home-tip-card` | disclosure | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Tìm lại thông tin sau khámKết quả, lời dặn và câu hỏi cho phòng khám / `cf-home-tip-card` | disclosure | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient B1 | Cần giúp? / `rich-section cf-home-help-section` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C1 | Nguyễn Minh Anh / `choice patient-choice rich-patient-choice selected` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C1 | Trần Thị Mai / `choice patient-choice rich-patient-choice ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C1 | Thông tin theo đúng hồ sơ / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C2 | Ghi thông tin để phòng khám chuẩn bị / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C3 | Không, tiếp tục đặt lịch / `choice selected ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C3 | Có hoặc chưa rõ / `choice  ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C4 | Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn. / `note danger` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient C5 | Yêu cầu của bạn chưa phải lịch khám đã được xác nhận. / `note warning` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient C6 | Tại phòng khám / `choice selected ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C6 | Khám online / `choice  ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C6 | Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient C6 | Chuẩn bị theo hình thức khám / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C7 | Sau khi chọn giờ khám / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C8 | Người đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Giờ khám09:00Hình thứcTại phòng khámLý  / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient C9 | CF-0001 / `card ticket` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D1 | BS. Trần Thu Hà / `rich-appt-card state-success cf-appt-featured` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Đang chờ bạn / `card next-step` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | CF-1017-0042 / `card ticket` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Bệnh viện Nhân dân 115 / `facility-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Phòng khám sẽ thông báo trước khi thu phí / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient D2 | Thông tin liên quan / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Xét nghiệm, chụp chiếu / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Phí khám và biên lai / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Kết luận và đơn thuốc / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Kết quả và việc tiếp theo / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Trao đổi sau khám / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Các bước của lượt khám / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Tiến trình lượt khám / `rich-section rich-detailed-progress` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Cần chuẩn bị / `rich-section rich-prepare` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Thông tin đã khai / `rich-section rich-declared` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Chỉ định liên quan / `rich-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D2 | Sẵn sàng cho buổi khám / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient D3 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D4 | Tôi bận vào thời gian này / `choice selected ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D4 | Tôi muốn chọn ngày khác / `choice  ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D4 | Lý do khác / `choice  ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient D4 | Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient E1 | Giờ hẹn08:00 · Thứ Hai, 19/10/2026Giờ nên có mặtChưa có hướng dẫn thời gian đến riêngGiấy tờ cầ / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient E1 | Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient E1 | Sẵn sàng cho buổi khám / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient E2 | CF-1017-0042 / `checkin-qr-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient E2 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient E2 | Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient E3 | Bạn đã đến / `card center` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient E3 | Số thứ tự / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient E3 | Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient E3 | Các bước của lượt khám / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F1 | Xét nghiệm theo chỉ định / `cf-lab-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F2 | Xét nghiệm theo chỉ định / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F2 | Hướng dẫn chuẩn bị / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F2 | Quay lại lượt khám hiện tại / `choice selected ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F2 | Để bác sĩ xem trong buổi khám / `choice  ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F3 | Kiểm tra trước khi chọn lịch / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient F4 | Chuẩn bị tệp kết quả / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient G1 | Chưa kiểm tra / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient G1 | Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient G1 | Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient G1 | Sẵn sàng cho buổi khám / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient G2 | Chờ bác sĩ gọi / `card center` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient G3 | Focused screen, không card | focused | KEEP luồng trọng tâm, không padding nội dung giả | KEEP |
+| patient G4 | Focused screen, không card | focused | KEEP luồng trọng tâm, không padding nội dung giả | KEEP |
+| patient G5 | Đang chờ phòng khám liên hệ lại / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient G5 | Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn. / `note warning` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient H1 | Hoàn tất buổi khámNguyễn Minh Anh · Thứ Hai, 19/10/2026 / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H1 | Bác sĩ đã ký và hoàn tất hồ sơ buổi khám / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient H1 | Kết luận và đơn thuốc / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H1 | Xét nghiệm sau khám / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H1 | Hỏi phòng khám / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H1 | Đặt lịch tái khám / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H2 | Phòng khám sẽ thông báo / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H2 | Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient H2 | Thông tin khoản thu / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H3 | Thông tin khoản thu / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H4 | Chưa có mã thanh toán / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H4 | Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông  / `note warning` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient H4 | Thông tin khoản thu / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H5 | Biên lai / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H5 | Thông tin khoản thu / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Kết luận buổi khám / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Chưa có tài liệu được phòng khám chia sẻ. / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Đơn thuốc / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Hướng dẫn chăm sóc / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Mẫu chăm sóc sau khám / `rich-section rich-aftercare-sample` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H6 | Câu hỏi cho lần trao đổi tới / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient H7 | Xét nghiệm theo chỉ định / `cf-result-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient H7 | Thông báo kết quảĐã gửi thông báoGiải thích kết quảChưa ghi nhận đã giải thích / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Lượt đã khám / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Nguyễn Minh Anh / `choice selected ` | choice | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Phản hồi về đơn thuốc / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Hỏi lại, dùng thuốc / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Triệu chứng mới, chưa cải thiện / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Theo dõi triệu chứng / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Chuyển chuyên khoa / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I1 | Tin nhắn với phòng khám / `row` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I2 | Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp. / `note warning` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient I3 | Theo dõi triệu chứng / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I3 | Câu hỏi cho lần trao đổi tới / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient I4 | Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa. / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient I5 | Câu hỏi cho lần trao đổi tới / `card cf-preparation-card` | content | Checklist/ghi chú riêng theo visitId, lưu phiên; có feedback và calendar action. | RESOLVED / P2 |
+| patient J1 | Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Hai, 19/10/2026Gi / `card ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient J1 | Ngày gợi ý từ phòng khám / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K1 | Có cập nhật về lượt khám / `notification row ` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K1 | Nội dung sức khỏe không xuất hiện trong bản xem trước. / `note info` | notice | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| patient K2 | Thông tin cá nhân / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K2 | Người thân / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K2 | Cài đặt / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K3 | BS. Trần Thu Hà / `rich-appt-card state-success` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K4 | Quyền riêng tư / `section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K4 | Dữ liệu trên thiết bị này / `card cf-journey-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K5 | Liên hệ nhanh / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K5 | Gửi yêu cầu / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K5 | Câu hỏi thường gặp / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| patient K5 | Tin nhắn gần đây / `cf-reference-section ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Buổi khám đang thực hiện / `doctor-surface doctor-now` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Yêu cầu trước khám / `doctor-surface doctor-decision-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Kết quả cận lâm sàng / `doctor-surface doctor-labs-today` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Công thức máu / `doctor-result-item` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Tổng phân tích nước tiểu / `doctor-result-item` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Lịch khám trong ngày / `doctor-surface doctor-today` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | 08:45 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 09:00 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 09:30 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 10:30 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 11:45 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 14:00 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | 14:30 / `doctor-agenda-row` | content | Giữ owner notice/flow hiện có; không đổi thành card chỉ để phủ component count. | KEEP |
+| doctor /doctor | Kết nối buổi khám / `doctor-surface doctor-online-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Công việc theo hồ sơ / `doctor-surface doctor-aftercare-card` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Rà soát kết quả cận lâm sàng / `doctor-task-item ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor | Theo dõi sau tái khám / `doctor-task-item ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/schedule | 12 — 18 tháng 10, 2026 / `doctor-surface doctor-schedule-main` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/schedule | BS. Nguyễn Văn An / `doctor-surface doctor-schedule-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/schedule | Phạm Gia Huy / `doctor-surface doctor-next-visit` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/queue | Lượt khám hôm nay / `doctor-surface` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | 7 hồ sơ được hiển thị / `doctor-surface` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Nguyễn Minh Anh / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Trần Quốc Bảo / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Phạm Gia Huy / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Võ Thanh Tùng / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Bùi Lan Chi / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Hoàng Nhật Nam / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients | Mai Khánh Vy / `doctor-directory-row` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients/p-001 | MAHỒ SƠ BỆNH NHÂN · BN-2041Nguyễn Minh Anh29 tuổi · Nữ · 09•• ••• 123Đã từng khám Xem lịch khám / `profile-banner` | content | Đã loại decorative orb gây scrollWidth dư; content giữ nguyên. | RESOLVED / P1 |
+| doctor /patients/p-001 | Thông tin cơ bản / `panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients/p-001 | Tổng quan chăm sóc / `panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /patients/p-001 | Ghi chú hồ sơ / `panel note-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /visits/a-027 | Phạm Gia Huy / `doctor-surface doctor-result-preview` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /visits/a-027 | Hồ sơ & kết quả / `doctor-surface doctor-result-preview` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /encounters/a-033 | Danh sách khám / `panel consult-queue` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /encounters/a-033 | Khám lâm sàngCận lâm sàngKết quảĐơn thuốcLý do khám (người bệnh cung cấp)Tái khámTriệu chứng và / `panel consult-editor` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /encounters/a-033 | Thông tin liên quan / `panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /encounters/a-033 | Rà soát ghi nhận / `panel followup-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /results | Danh sách kết quả / `doctor-surface` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /results | Công thức máu / `doctor-lab-row selected` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /results | X-quang ngực / `doctor-lab-row ` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /results | Tổng phân tích nước tiểu / `doctor-lab-row ` | action | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /results | Công thức máu / `doctor-surface doctor-result-preview` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/orders | Danh sách chỉ định / `panel support-panel ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/orders | Dự thảo chỉ định / `panel support-panel support-form-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/prescription | Thông tin lượt khám / `panel support-panel support-document-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/prescription | Ghi chú hồ sơ / `panel support-panel support-form-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/review | Thông tin buổi khám / `panel support-panel ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /clinical/review | Kiểm tra trước khi hoàn tất / `panel support-panel support-guidance` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/followups | 3 việc đang chờ xử lý / `doctor-surface` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/followups | Theo dõi sau tái khám / `journey-task-entry ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/followups | Liên hệ lại phiên khám trực tuyến / `journey-task-entry ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/followups | Rà soát kết quả cận lâm sàng / `journey-task-entry ` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/followups | 2 / `doctor-surface doctor-followups-summary` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/review/a-021 | Trần Quốc Bảo / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/review/a-021 | Ghi nhận đề xuất cho điều phối / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/online/a-040 | Hoàng Nhật Nam / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/online/a-040 | Xử lý kết nối / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/online/a-041 | Mai Khánh Vy / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+| doctor /doctor/online/a-041 | Xử lý kết nối / `doctor-surface journey-panel` | content | Shared card/row/section owner; không overflow trong snapshot default. | RESOLVED / P2 |
+
+State inventory mở rộng: empty/zero/unread/pressed và stored actions trong `cards-v2.spec.cjs`, model flow trong `journeys.spec.cjs`, clinical owner trong doctor suites. Source appendix giữ cả legacy; không tuyên bố mọi latent legacy role đã render.
+## Source appendix
+
+Bao gồm legacy không load; source references không phải runtime evidence.
+
+- `prototype\app.js`: `journey-panel`, `offsetTop-panel`
+- `prototype\careflow-rich-content.js`: `cf-appointment-cards`, `cf-appointment-filter-panel`, `cf-home-appointment-card`, `cf-home-card-grid`, `cf-home-card-icon`, `cf-home-care-card`, `cf-home-task-card`, `cf-home-tip-card`, `cf-reference-card`, `cf-relative-card`, `cf-support-request-card`, `rich-appt-card`, `visit-card`
+- `prototype\views.js`: `auth-panel`, `auth-panel-content`, `cf-card-actions`, `cf-card-kicker`, `cf-lab-card`, `cf-result-card`, `checkin-qr-panel`, `facility-card`, `visit-card`, `visit-card-top`
+- `staff-prototype\app.js`: `calendar-panel`, `consult-panel`, `consult-subpanel`, `dialog-card`, `followup-panel`, `metric-card`, `note-panel`, `notification-panel`, `profile-panel`, `subpanel-heading`, `tabpanel`
+- `staff-prototype\doctor-journeys.js`: `doctor-aftercare-card`, `doctor-card-actions`, `doctor-card-footer`, `doctor-card-footnote`, `doctor-card-list`, `doctor-decision-card`, `doctor-online-card`, `doctor-surface`, `journey-panel`
+- `staff-prototype\doctor-showcase.js`: `doctor-card-actions`, `doctor-card-count`, `doctor-card-empty`, `doctor-card-filters`, `doctor-card-heading`, `doctor-card-list`, `doctor-surface`
+- `staff-prototype\supporting.js`: `support-card-actions`, `support-document-panel`, `support-floating-card`, `support-form-panel`, `support-panel`, `support-queue-card`, `support-role-cards`
+- `staff-prototype\wave3.js`: `wave-cancel-panel`, `wave-discard`, `wave-panel`, `wave-panel-foot`, `wave-panel-head`, `wave-side-panel`
+
+## Đợt chỉnh nháp typography/layout18/10 — sau card-v2
+
+Giữ nguyên inventory62screen states ở trên; bảng sau ghi delta trước/sau của các nhóm sửa lần này, không cộng thành component count mới. Kiểm tra responsive mới trên47route patient và3widths lưu tại `card-evidence/draft-refinement/`.
+
+| Screen | Card | Type | Trước / issues | Sau | Priority |
+|---|---|---|---|---|---|
+| B1 + shared nav | Đặt lịch | action | Nhãn hiện làm nút chiếm nhiều ngang; user muốn icon-only | Circle56px,gray ring3px,navy,accessible name; keyboard/pressed | RESOLVED/P1 |
+| B1 | Cẩm nang | expandable guide | Text-only, inset wrapper/summary không cùng owner | Photo56×72,copy linh hoạt,summary20px,body mở có CTA hoạt động | RESOLVED/P1 |
+| B1 | Dịch vụ | media action | Ảnh thiết bị chiếm toàn nền, nội dung ở overlay | Bác sĩ stock bên trái,copy/CTA bên phải; mặt không bị chữ đè | RESOLVED/P2 |
+| C1,K2 | Account | profile | Avatar illustration/initials, không có ảnh người thật | Avatar stock mẫu nhất quán ở home/chọn người/profile; người chưa có ảnh giữ fallback | RESOLVED/P2 |
+| C6 | Hình thức khám | choice | Ảnh chung tách khỏi2option | Thumbnail đúng onsite/online đặt trong option; giữ native radio/flow | RESOLVED/P2 |
+| D1,D2 | Lịch/phiếu | appointment | Ảnh generic, ảnh đầu phiếu quá cao; CTA có nguy cơ wrap khi thêm icon | Ảnh theo mode; hero200px; cùng role CTA48px với home ở cỡ chữ thường | RESOLVED/P1 |
+| E1,G1,K5,H6 | Chuẩn bị/online/hỗ trợ/sau khám | contextual media | Ít ảnh hoặc lặp ảnh generate | Unsplash theo đúng ngữ cảnh, không đổi hướng dẫn y tế hoặc giả danh cơ sở | RESOLVED/P2 |
+| K2 | Thông tin cá nhân | fact rows | Shared facts2cols làm tên/giá trị hẹp; inset lồng |1col,rows/rules,không thêm shell/cardpadding lồng | RESOLVED/P1 |
+| All47patient routes | Heading/body/CTA | shared roles | Font-size rời10–17px cùng chức năng | Semantic tokens + cùng font; page26/section18/card16/body14/caption13/control15,scale200% | RESOLVED/P1 |
+
+## Photo-led redesign theo ảnh user — sau commitc1013ad
+
+Bản photo-led giữ62representative states:47patient+15doctor. Inventory thực tế189→195card/section instances,0snapshot overflow; không coi đây là195component độc lập. Nguồn before: `card-evidence/after/inventory.json` và `card-evidence/draft-refinement/`; after: `card-evidence/photo-led/inventory.json`,141responsive captures và47large-text checks. Hướng mới thay text-first/side-by-side theo yêu cầu user.
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Khám phá,hướng dẫn,tasks,sau khám | media/disclosure | White/text-first,ảnh nhỏ cạnh chữ,chiều cao summary | Ảnh full-card,footer material full-width,circle arrow;1feature+2tiles | RESOLVED/P1 |
+| D1,K3 | Appointment | multi-action media | Photo thumbnail/tách khỏi title,facts rời | Photo cover,caption clinician/status/facts/actions;lab/visit identity giữ nguyên | RESOLVED/P1 |
+| D2,F2 | Detail | photo+sheet | Generic/detail ảnh nhỏ hoặc nhiều card chữ | Hero260px,overlap sheet,4icon actions,next-step rõ | RESOLVED/P1 |
+| C6 | Mode | native radio media | Thumbnail64px cạnh copy |2ảnh full-width tile,caption đáy,radio state rõ;200%1cột | RESOLVED/P1 |
+| F1,H7 | Lab/result | media object | Image+white content block | Full-width photo+blur caption,arrow dùng đúng labId,upload/filter giữ hoạt động | RESOLVED/P1 |
+| E1,E3,G1,G2 | Preparation/waiting | context/waiting media | Trống/white status text | Context photo/overlay,icon chờ,status thật;không bịa queue/ETA | RESOLVED/P2 |
+| H1,I1,J1 | Aftercare/navigation | media action | Rows chữ liên tiếp | Photo tiles theo tác vụ thật;followup purpose/care reason được giữ | RESOLVED/P2 |
+| K2,K5 | Profile/support | banner+rows | Initials/text-only grouping | Stock account avatar,banner/photo care-team,contact icons,các row dữ liệu scan được | RESOLVED/P2 |
+| A,C,D3/D4,F3/F4,H2–H5,I2–I5,K1/K4 | Form/finance/notice | surface/row | Typography rời,CTA đơn điệu | Plus Jakarta,icon labels,form panels,circle-arrow CTA;surface rõ cho dữ liệu/warning | RESOLVED/P2 |
+| Doctor15states | Existing cards | existing | Không thuộc yêu cầu mobile photo-led | Không redesign desktop;model/shared-role regressions giữ nguyên | UNCHANGED |
+
+Chi tiết7AI-sign checklist,crop/contrast và đối soát test: `photo-led-review.md`.
+
+## Delta hiện tại — reference Docthea / editorial pastel
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Welcome / lịch tiếp theo | hero + task | Chưa có hero người thật; dark card chiếm ưu tiên | Hero pastel copy/portrait tách vùng, CTA đặt lịch; phiếu hẹn trắng + navy pill | RESOLVED/P1 |
+| B1 | Việc cần làm / khám phá | note + media | Mọi action dùng cùng ảnh/blur footer tối | Note pastel/icon xen photo tile; caption sáng, arrow/nav giữ functional labels | RESOLVED/P2 |
+| D1,K3 | Appointment | multi-action media | Navy caption dài, inverse CTA trên white direction | Cover gọn 160px; white caption + dark text; primary CTA cùng home | RESOLVED/P1 |
+| F1,H7,C6,H1,I1,J1 | Lab/result/mode/navigation | media | Dark/glass lặp qua page roles | White .96 captions; F1 pastel task header, giữ filter/selected/labId | RESOLVED/P2 |
+| K2 | Account | banner + rows | Photo cover tối không còn phù hợp reference | Pastel/stock avatar, personal-data rows; bỏ cover request ẩn | RESOLVED/P2 |
+| A,C,D,E,G,H,I,K | Shared surfaces/states | utility | Cần kiểm tác động token patient | 47 route × 3 widths + 47 large-text captures, semantic status/flows giữ nguyên | VERIFIED/QA |
+
+Không lập lại inventory component để tăng số lượng: đây là thay presentation trên inventory đã có. Scope patient, không redesign staff trong đợt style này. Evidence: `card-evidence/editorial-pastel/`.
+
+## Hiện tại — toàn bộ card navy reference, 19/10/2026
+
+Before: `navy-reference-before/inventory.json`, 195 instances/62states. After: `navy-reference/inventory.json`, 197 instances/62states, 0 snapshot overflow. Shared surface rollout bao phủ patient và staff; table liệt kê family owners, JSON giữ từng screen/card/type/actions để đối chiếu đầy đủ.
+
+| Screen | Card | Type | Before / issue | After | Priority |
+|---|---|---|---|---|---|
+| B1 | Overview/network | metric/action | Summary ngang, chưa có orbit | Count thực cỡ lớn + navy field; orbit stock minh họa + K5 named action | RESOLVED/P1 |
+| B1,D1,F2 | Lịch/phiếu | schedule/data | Facts phẳng, không có layered-paper grammar | Schedule/clinician sheets trên B1; paper data cards D1/F2 giữ facts/CTA/visit | RESOLVED/P1 |
+| B1,F1,H1,I1 | Task/help/aftercare | topic/stack/network | Chủ yếu photo/footer giống nhau | Sáu anatomy dùng theo task; art không có fake controls, IDs/reason/lab giữ nguyên | RESOLVED/P1 |
+| B1/J1/H1/I1,guide | Photo navigation | media | Caption sáng/pastel | Navy gradient/white caption + circle arrow; crop NCI vẫn kiểm bằng geometry/ảnh | RESOLVED/P2 |
+| F1,H7,C6,E3,G2 | Clinical object/mode/waiting | media/choice | White caption rời | Paper/blue wash + trạng thái thật; radio native và actions đầy đủ | RESOLVED/P2 |
+| K2,K5 | Account/support | identity/network | Pastel banner/photo header | Blue gradient banner, avatar; support network + contact actions/form | RESOLVED/P2 |
+| A,C,D,E,F,G,H,I,K | Ordinary cards, QR, empty, form | surface/tonal | Owner styles khác nhau | Shared white-paper/blue gradient, unified type/insets/CTA. Notice giữ semantic mapping vì severity, rows/sections không thêm shell | RESOLVED/P1 |
+| Staff 15states | Doctor/panel/result/profile | surface/tonal/row | Chưa kế thừa navy-paper grammar | Shared card wash/gradient CTA, summary metric treatment; clinical forms/tables vẫn dùng data layout | RESOLVED/P2 |
+| B1,F1,H1,I1 | Arrow/mini-sheet | craft | Caption filter tạo containing block; footer padding ăn vào art text | Bỏ filter vô ích, thu selector, thêm arrow/title collision assertion và inspect ảnh sau sửa | RESOLVED/P1 |
+
+QA không chứng minh user preference: các giá trị từ reference là quyết định thiết kế; số liệu nội dung từ model. Chi tiết 114/12 patient runs, staff reruns và 7-dấu-hiệu checklist: `photo-led-review.md`.
+# Bổ sung đợt polish8 nhóm —19/10/2026
+
+Theo tám ảnh người dùng gửi: cập nhật Hỗ trợ, form, thông tin cá nhân, người thân/cài đặt, chọn người đi khám, hướng dẫn quyền hồ sơ, lựa chọn sàng lọc và ngày/giờ. Bảng trước/sau, nguồn và kiểm tra chi tiết: [review card-polish](card-evidence/card-polish/review.md). Kết quả64 kiểm tra tập trung PASS; hợp nhất hồi quy264/264 case trình duyệt PASS,49/49 model PASS. Không thay thế các kết luận UNKNOWN/backlog ngoài phạm vi này.

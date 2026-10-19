@@ -1,0 +1,5619 @@
+{
+  "date": "2026-10-19",
+  "evidence": "47 canonical seeded patient states, Chromium 390px; static scan all tracked prototype source; heuristic findings require screen review",
+  "screens": [
+    {
+      "id": "A1",
+      "title": "Đăng nhập (SĐT và OTP)",
+      "route": "/login",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "auth-panel auth-start",
+          "title": "Số điện thoại",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Đăng nhập bằng số điện thoại để đặt lịch, xem hướng dẫn và theo dõi hành trình k",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Số điện thoại",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "title": "Xác nhận hồ sơ cũ",
+      "route": "/profile-match",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "auth-panel auth-profile",
+          "title": "Họ và tên",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kiểm tra thông tin để tiếp tục với hồ sơ đã có.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Họ và tên",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "title": "Tạo hồ sơ bệnh nhân",
+      "route": "/profile-new",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "auth-panel auth-profile",
+          "title": "Họ và tên",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin giúp phòng khám tiếp nhận đúng người.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Họ và tên",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "title": "Trang chủ",
+      "route": "/home",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-home-appointment cf-stack",
+          "title": "Sẵn sàng cho buổi khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Lịch hẹn tiếp theo",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Sẵn sàng cho buổi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "BS. Trần Thu Hà",
+              "size": "13px",
+              "weight": "700"
+            },
+            {
+              "text": "Nội tổng quát",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "CF-1017-0042",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "cf-home-overview",
+          "title": "Tổng quan chăm sóc",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tổng quan chăm sóc",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "1",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Đang lưu",
+              "size": "12px",
+              "weight": "400"
+            },
+            {
+              "text": "2",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Đang lưu",
+              "size": "12px",
+              "weight": "400"
+            },
+            {
+              "text": "—",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có",
+              "size": "12px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "cf-metric",
+          "title": "1",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "1",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Đang lưu",
+              "size": "12px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "cf-metric",
+          "title": "2",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "2",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Đang lưu",
+              "size": "12px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "cf-metric",
+          "title": "—",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "—",
+              "size": "36px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có",
+              "size": "12px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "cf-home-quick",
+          "title": "Truy cập nhanh",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Truy cập nhanh",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Lịch hẹn",
+              "size": "12px",
+              "weight": "500"
+            },
+            {
+              "text": "Theo dõi",
+              "size": "12px",
+              "weight": "500"
+            },
+            {
+              "text": "Đơn thuốc",
+              "size": "12px",
+              "weight": "500"
+            },
+            {
+              "text": "Kết quả",
+              "size": "12px",
+              "weight": "500"
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "selector": "",
+          "title": "Việc cần làm",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Việc cần làm",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chuẩn bị cho buổi khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Giấy tờ và thông tin cần kiểm tra",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Ngày và giờ khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "20/10 · 08:00",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "selector": "cf-action-tile cf-layout-topic ",
+          "title": "Chuẩn bị cho buổi khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chuẩn bị cho buổi khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Giấy tờ và thông tin cần kiểm tra",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "selector": "cf-action-tile cf-layout-photo ",
+          "title": "Ngày và giờ khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Ngày và giờ khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "20/10 · 08:00",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "selector": "",
+          "title": "Thông tin của bạn",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin của bạn",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Hồ sơ đã lưu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "2 hồ sơ",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Hỏi phòng khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bạn cần biết gì?",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "selector": "cf-profile-card",
+          "title": "Hồ sơ đã lưu",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hồ sơ đã lưu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "2 hồ sơ",
+              "size": "14px",
+              "weight": "700"
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "selector": "cf-question-card",
+          "title": "Hỏi phòng khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hỏi phòng khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bạn cần biết gì?",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "selector": "",
+          "title": "Chăm sóc sau khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chăm sóc sau khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Tài liệu luôn ở đúng nơi",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Lời dặn và kết quả sẽ xuất hiện sau khi phòng khám cập nhật.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "selector": "cf-home-care-card cf-stack",
+          "title": "Tài liệu luôn ở đúng nơi",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tài liệu luôn ở đúng nơi",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Lời dặn và kết quả sẽ xuất hiện sau khi phòng khám cập nhật.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "selector": "cf-home-tips-section",
+          "title": "Cẩm nang đi khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Cẩm nang đi khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chuẩn bị trước khi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Giấy tờ, đơn thuốc và kết quả cũ",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Vào phòng khám online",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Kết nối, camera và không gian riêng tư",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Tìm lại thông tin sau khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Kết quả, lời dặn và câu hỏi cho phòng khám",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Không tìm thấy nội dung phù hợp",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Thử từ khóa khác hoặc xóa bộ lọc để xem tất cả.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "selector": "cf-home-tip-card",
+          "title": "Chuẩn bị trước khi khámGiấy tờ, đơn thuốc và kết quả cũ",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chuẩn bị trước khi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Giấy tờ, đơn thuốc và kết quả cũ",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "selector": "cf-home-tip-card",
+          "title": "Vào phòng khám onlineKết nối, camera và không gian riêng tư",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Vào phòng khám online",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Kết nối, camera và không gian riêng tư",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "selector": "cf-home-tip-card",
+          "title": "Tìm lại thông tin sau khámKết quả, lời dặn và câu hỏi cho phòng khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tìm lại thông tin sau khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Kết quả, lời dặn và câu hỏi cho phòng khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "selector": "cf-help-strip",
+          "title": "Cần hỗ trợ thêm?",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Cần hỗ trợ thêm?",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Gửi câu hỏi hoặc yêu cầu gọi lại.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "title": "Ai đi khám",
+      "route": "/book/patient",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Người đi khám",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Người đi khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bản thân",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Trần Thị Mai",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Mẹ",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "choice patient-choice rich-patient-choice selected",
+          "title": "Nguyễn Minh Anh",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bản thân",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "choice patient-choice rich-patient-choice ",
+          "title": "Trần Thị Mai",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Trần Thị Mai",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Mẹ",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "card cf-journey-summary",
+          "title": "Thông tin theo đúng hồ sơ",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin theo đúng hồ sơ",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Lý do khám và triệu chứng",
+      "route": "/book/reason",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Triệu chứng hoặc vấn đề cần khám",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin tự đánh giá, không thay cho bước kiểm tra dấu hiệu nguy hiểm.",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Ví dụ: đau đầu hai ngày, ngủ không ngon.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Không có thông tin cần bổ sung thì bỏ qua mục này.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Ghi thông tin để phòng khám chuẩn bị",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Ghi thông tin để phòng khám chuẩn bị",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Dấu hiệu nguy hiểm",
+      "route": "/book/safety",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Trước khi đặt lịch",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Không, tiếp tục đặt lịch",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Có hoặc chưa rõ",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "choice selected  ",
+          "title": "Không, tiếp tục đặt lịch",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Không, tiếp tục đặt lịch",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "choice   ",
+          "title": "Có hoặc chưa rõ",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Có hoặc chưa rõ",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "title": "Khuyến cáo nhập viện, cấp cứu",
+      "route": "/book/alert",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "note danger",
+          "title": "Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám cần đánh giá tình trạng và hình thức khám phù hợp cho bạn.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "Phòng khám xác nhận hình thức khám",
+      "route": "/book/mode-review",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "note warning",
+          "title": "Yêu cầu của bạn chưa phải lịch khám đã được xác nhận.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Yêu cầu của bạn chưa phải lịch khám đã được xác nhận.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Tôi hiểu cần chờ phòng khám xem xét",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "title": "Chọn hình thức khám",
+      "route": "/book/mode",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Hình thức",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tại phòng khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Đến khám trực tiếp",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Khám online",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Gọi video với bác sĩ",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "choice selected  cf-mode-choice",
+          "title": "Tại phòng khám",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tại phòng khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Đến khám trực tiếp",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "choice   cf-mode-choice",
+          "title": "Khám online",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Khám online",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Gọi video với bác sĩ",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "note info",
+          "title": "Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám sẽ kiểm tra hình thức phù hợp trước khi xác nhận.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "card cf-journey-summary",
+          "title": "Chuẩn bị theo hình thức khám",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chuẩn bị theo hình thức khám",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C7",
+      "title": "Chọn ngày giờ",
+      "route": "/book/slot",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "19",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "19",
+              "size": "19px",
+              "weight": "700"
+            },
+            {
+              "text": "20",
+              "size": "19px",
+              "weight": "700"
+            },
+            {
+              "text": "21",
+              "size": "19px",
+              "weight": "700"
+            },
+            {
+              "text": "22",
+              "size": "19px",
+              "weight": "700"
+            },
+            {
+              "text": "23",
+              "size": "19px",
+              "weight": "700"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Sau khi chọn giờ khám",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Sau khi chọn giờ khám",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C8",
+      "title": "Kiểm tra và gửi yêu cầu",
+      "route": "/book/review",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Người đi khámNguyễn Minh AnhNgày khámThứ Ba, 20/10/2026Giờ khám09:00Hình thứcTại phòng khámLý do khá",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Tôi đồng ý gửi thông tin trên cho phòng khám.",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C9",
+      "title": "Đã gửi, Phiếu khám",
+      "route": "/book/done/:id",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "Lịch hẹn",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ticket",
+          "title": "CF-0001",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "CF-0001",
+              "size": "24px",
+              "weight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "title": "Lịch hẹn",
+      "route": "/appointments",
+      "bookingEntriesInContent": 1,
+      "bookingLabels": [
+        "Đặt lịch khám mới"
+      ],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "rich-appt-card state-info cf-appt-featured",
+          "title": "BS. Trần Thu Hà",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "BS. Trần Thu Hà",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội tổng quát · Tại phòng khám",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thứ Ba, 20/10 · 08:00",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thứ Ba, 20/10 · 08:00",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Tại phòng khám · xem địa điểm trên phiếu",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Lý do khámKhám theo lịch hẹn",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "title": "Phiếu khám (chi tiết lượt khám)",
+      "route": "/appointments/:id",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card next-step",
+          "title": "Đang chờ bạn",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Đang chờ bạn",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card ticket",
+          "title": "CF-1017-0042",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "CF-1017-0042",
+              "size": "24px",
+              "weight": "700"
+            },
+            {
+              "text": "Bạn có thể đọc mã lượt khám cho lễ tân.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "facility-card",
+          "title": "Bệnh viện Nhân dân 115",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bệnh viện Nhân dân 115",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "527 Sư Vạn Hạnh, phường Hòa Hưng, TP.HCM",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "note info",
+          "title": "Phòng khám sẽ thông báo trước khi thu phí",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám sẽ thông báo trước khi thu phí",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "section ",
+          "title": "Thông tin liên quan",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin liên quan",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Xét nghiệm, chụp chiếu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bạn chưa có chỉ định",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Phí khám và biên lai",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa thanh toán",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Kết luận và đơn thuốc",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội dung sẽ hiển thị khi được phòng khám cung cấp.",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Kết quả và việc tiếp theo",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa thông báo",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Trao đổi sau khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Gửi câu hỏi sau buổi khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "row",
+          "title": "Xét nghiệm, chụp chiếu",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Xét nghiệm, chụp chiếu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bạn chưa có chỉ định",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "selector": "row",
+          "title": "Phí khám và biên lai",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phí khám và biên lai",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa thanh toán",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "selector": "row",
+          "title": "Kết luận và đơn thuốc",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kết luận và đơn thuốc",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội dung sẽ hiển thị khi được phòng khám cung cấp.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "selector": "row",
+          "title": "Kết quả và việc tiếp theo",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kết quả và việc tiếp theo",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa thông báo",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "selector": "row",
+          "title": "Trao đổi sau khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Trao đổi sau khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Gửi câu hỏi sau buổi khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "selector": "section ",
+          "title": "Các bước của lượt khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Các bước của lượt khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chờ phòng khám xác nhận",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Đã xác nhận",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "selector": "rich-section rich-detailed-progress",
+          "title": "Tiến trình lượt khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tiến trình lượt khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Đã đặt",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Phòng khám xác nhận",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Đến phòng khám",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Tiếp nhận",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Sẵn sàng khám",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Đang khám",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Hoàn tất",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Các bước thay đổi theo tình huống và hướng dẫn của phòng khám.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "selector": "rich-section rich-prepare",
+          "title": "Cần chuẩn bị",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Cần chuẩn bị",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Giấy tờ và hồ sơGiấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Giấy tờ và hồ sơ",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có.",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Thời gian và địa điểmKiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thời gian và địa điểm",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Kiểm tra hướng dẫn đến khám. Liên hệ phòng khám nếu chưa có địa chỉ.",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Yêu cầu riêng trước khámHỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Yêu cầu riêng trước khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Hỏi phòng khám; không tự thay đổi ăn uống hay thuốc đang dùng.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "selector": "rich-section rich-declared",
+          "title": "Thông tin đã khai",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin đã khai",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Triệu chứng",
+              "size": "12px",
+              "weight": "700"
+            },
+            {
+              "text": "Khám theo lịch hẹn",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Ghi chú y tế",
+              "size": "12px",
+              "weight": "700"
+            },
+            {
+              "text": "Chưa cung cấp",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "selector": "rich-section ",
+          "title": "Chỉ định liên quan",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chỉ định liên quan",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có chỉ định cận lâm sàng trong lượt khám này.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "selector": "card cf-preparation-card",
+          "title": "Sẵn sàng cho buổi khám",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Sẵn sàng cho buổi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-1017-0042",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "title": "Đổi lịch",
+      "route": "/appointments/:id/reschedule",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Ba, 20/10/2026Giờ khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "title": "Hủy lịch",
+      "route": "/appointments/:id/cancel",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Lý do hủy",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tôi bận vào thời gian này",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Tôi muốn chọn ngày khác",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Lý do khác",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "choice selected  ",
+          "title": "Tôi bận vào thời gian này",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tôi bận vào thời gian này",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "choice   ",
+          "title": "Tôi muốn chọn ngày khác",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tôi muốn chọn ngày khác",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "choice   ",
+          "title": "Lý do khác",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Lý do khác",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "note info",
+          "title": "Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Nếu có khoản phí đã thu, phòng khám sẽ kiểm tra chính sách áp dụng.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "title": "Chuẩn bị trước khi đến",
+      "route": "/appointments/:id/prepare",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Giờ hẹn08:00 · Thứ Ba, 20/10/2026Giờ nên có mặtChưa có hướng dẫn thời gian đến riêngGiấy tờ cần mang",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bạn có thể hỏi phòng khám nếu chưa nhận được hướng dẫn.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "card cf-preparation-card",
+          "title": "Sẵn sàng cho buổi khám",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Sẵn sàng cho buổi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-1017-0042",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "title": "Báo đã đến",
+      "route": "/appointments/:id/arrive",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "checkin-qr-panel",
+          "title": "CF-1017-0042",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "CF-1017-0042",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận ",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Ba, 20/10/2026Giờ khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        },
+        {
+          "index": 3,
+          "selector": "note info",
+          "title": "Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Sau khi báo đã đến, bạn hãy chờ lễ tân hướng dẫn.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "title": "Theo dõi lượt khám",
+      "route": "/appointments/:id/visit",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card center cf-waiting-card cf-photo-panel",
+          "title": "Bạn đã đến",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bạn đã đến",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Lễ tân đang xử lý",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "section ",
+          "title": "Số thứ tự",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Số thứ tự",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Lễ tân sẽ cung cấp khi tiếp nhận.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "note info",
+          "title": "Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bạn hãy ở khu vực chờ để nghe hướng dẫn. Thời gian chờ có thể thay đổi.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "section ",
+          "title": "Các bước của lượt khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Các bước của lượt khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chờ phòng khám xác nhận",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Đã xác nhận",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Sắp đến giờ khám",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Bạn đã đến",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "12:32 19-10",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F1",
+      "title": "Xét nghiệm, chụp chiếu",
+      "route": "/appointments/:id/labs",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-lab-card cf-stack",
+          "title": "Xét nghiệm theo chỉ định",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Xét nghiệm theo chỉ định",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "cf-action-tile cf-layout-topic ",
+          "title": "Hướng dẫn thực hiện",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hướng dẫn thực hiện",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Xem thông tin của chỉ định",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "cf-action-tile cf-layout-network ",
+          "title": "Cần hỗ trợ?",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Cần hỗ trợ?",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Hỏi phòng khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "Chi tiết chỉ định",
+      "route": "/appointments/:id/labs/:labId",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Trạng thái chỉ định",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Trạng thái chỉ định",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Cần xét nghiệm trước khám",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "section ",
+          "title": "Hướng dẫn chuẩn bị",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hướng dẫn chuẩn bị",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội dung sẽ hiển thị khi được phòng khám cung cấp.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "",
+          "title": "Khi có kết quả, bạn muốn",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Quay lại lượt khám hiện tại",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Để bác sĩ xem trong buổi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "choice selected  ",
+          "title": "Quay lại lượt khám hiện tại",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Quay lại lượt khám hiện tại",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "choice   ",
+          "title": "Để bác sĩ xem trong buổi khám",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Để bác sĩ xem trong buổi khám",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "title": "Đặt hẹn xét nghiệm",
+      "route": "/appointments/:id/labs/:labId/book",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Ngày mong muốn",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Kiểm tra trước khi chọn lịch",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kiểm tra trước khi chọn lịch",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "title": "Đính kèm kết quả",
+      "route": "/appointments/:id/labs/:labId/upload",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Tệp kết quả",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "PDF, JPG hoặc PNG · tối đa 10 MB",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Chuẩn bị tệp kết quả",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chuẩn bị tệp kết quả",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G1",
+      "title": "Chuẩn bị khám online",
+      "route": "/appointments/:id/online-prepare",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Chưa kiểm tra",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chưa kiểm tra",
+              "size": "14px",
+              "weight": "700"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chọn nơi riêng tư, yên tĩnh. Chỉ bật camera và micro khi bạn đồng ý.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "note info",
+          "title": "Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phiếu khám.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bạn có thể vào phòng chờ khi phòng khám mở lượt khám. Hãy xem cập nhật trong phi",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "card cf-preparation-card",
+          "title": "Sẵn sàng cho buổi khám",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Sẵn sàng cho buổi khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-0001",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "title": "Chờ bác sĩ gọi",
+      "route": "/appointments/:id/online-wait",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card center cf-waiting-card cf-photo-panel",
+          "title": "Chờ bác sĩ gọi",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chờ bác sĩ gọi",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nếu chưa kết nối được, phòng khám có thể liên hệ lại.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "title": "Bác sĩ đang gọi",
+      "route": "/appointments/:id/incoming",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": []
+    },
+    {
+      "id": "G4",
+      "title": "Đang khám online",
+      "route": "/appointments/:id/call",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": false,
+      "navLabelsVisible": [],
+      "cards": []
+    },
+    {
+      "id": "G5",
+      "title": "Chưa liên hệ được",
+      "route": "/appointments/:id/unreachable",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "note info",
+          "title": "Đang chờ phòng khám liên hệ lại",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Đang chờ phòng khám liên hệ lại",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note warning",
+          "title": "Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám sẽ sắp xếp gọi lại. Bạn cũng có thể chọn lịch phù hợp hơn.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H1",
+      "title": "Buổi khám đã hoàn tất",
+      "route": "/appointments/:id/completed",
+      "bookingEntriesInContent": 1,
+      "bookingLabels": [
+        "Đặt lịch tái khámChọn lịch khám tiếp theo"
+      ],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Hoàn tất buổi khámNguyễn Minh Anh · Thứ Ba, 20/10/2026",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Nguyễn Minh Anh · Thứ Ba, 20/10/2026",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Bác sĩ đã ký và hoàn tất hồ sơ buổi khám",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Bác sĩ đã ký và hoàn tất hồ sơ buổi khám",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "cf-action-tile cf-layout-stack ",
+          "title": "Kết luận và đơn thuốc",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kết luận và đơn thuốc",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Lời dặn và tài liệu",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "cf-action-tile cf-layout-photo ",
+          "title": "Xét nghiệm sau khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Xét nghiệm sau khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Theo dõi chỉ định",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "cf-action-tile cf-layout-network ",
+          "title": "Hỏi phòng khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hỏi phòng khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Gửi câu hỏi cho phòng khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "cf-action-tile cf-layout-topic ",
+          "title": "Đặt lịch tái khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Đặt lịch tái khám",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Chọn lịch khám tiếp theo",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "title": "Thanh toán",
+      "route": "/appointments/:id/pay",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Phòng khám sẽ thông báo",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám sẽ thông báo",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Số tiền và thông tin nhận tiền sẽ do phòng khám cung cấp.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "card cf-journey-summary",
+          "title": "Thông tin khoản thu",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin khoản thu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Cần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa ",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "title": "Thanh toán sau",
+      "route": "/appointments/:id/pay-later",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Lý do thanh toán sau",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Thông tin khoản thu",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin khoản thu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Cần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa ",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "title": "Chuyển khoản QR",
+      "route": "/appointments/:id/pay/transfer",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Chưa có mã thanh toán",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chưa có mã thanh toán",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Thông tin tài khoản nhận tiền",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Phòng khám chưa cung cấp",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note warning",
+          "title": "Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiểm tra đủ thông tin.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám chưa cung cấp tài khoản và số tiền. Bạn đừng chuyển tiền khi chưa kiể",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "card cf-journey-summary",
+          "title": "Thông tin khoản thu",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin khoản thu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Cần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa ",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H5",
+      "title": "Biên lai và hoàn tiền",
+      "route": "/appointments/:id/receipt",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Biên lai",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Biên lai",
+              "size": "16px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-journey-summary",
+          "title": "Thông tin khoản thu",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin khoản thu",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Cần xác minh khoản thu? Phòng khám phụ trách đối soát và chia sẻ thông tin. Lựa ",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "title": "Kết luận và đơn thuốc",
+      "route": "/appointments/:id/summary",
+      "bookingEntriesInContent": 1,
+      "bookingLabels": [
+        "Đặt lịch tái khám"
+      ],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "section ",
+          "title": "Kết luận buổi khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Kết luận buổi khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có tài liệu được phòng khám chia sẻ.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card ",
+          "title": "Chưa có tài liệu được phòng khám chia sẻ.",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chưa có tài liệu được phòng khám chia sẻ.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "section ",
+          "title": "Đơn thuốc",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Đơn thuốc",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có đơn thuốc được chia sẻ",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Đơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "section ",
+          "title": "Hướng dẫn chăm sóc",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hướng dẫn chăm sóc",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội dung sẽ hiển thị khi được phòng khám cung cấp.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "rich-section rich-aftercare-sample",
+          "title": "Mẫu chăm sóc sau khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Mẫu chăm sóc sau khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội dung minh họa, không phải đơn thuốc của bạn.",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thuốc A · minh họa",
+              "size": "14px",
+              "weight": "700"
+            },
+            {
+              "text": "Giờ mẫu · 20:00",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "card cf-preparation-card",
+          "title": "Câu hỏi cho lần trao đổi tới",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Câu hỏi cho lần trao đổi tới",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-0001",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "H7",
+      "title": "Kết quả và việc tiếp theo",
+      "route": "/appointments/:id/results",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-result-card cf-stack",
+          "title": "Xét nghiệm theo chỉ định",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Xét nghiệm theo chỉ định",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Bác sĩ đã xem",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card ",
+          "title": "Thông báo kết quảĐã gửi thông báoGiải thích kết quảChưa ghi nhận đã giải thích",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        }
+      ]
+    },
+    {
+      "id": "I1",
+      "title": "Hỏi phòng khám",
+      "route": "/care",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "section ",
+          "title": "Lượt đã khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Lượt đã khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "CF-0001 · Thứ Ba, 20/10/2026",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "choice selected  ",
+          "title": "Nguyễn Minh Anh",
+          "type": "choice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "CF-0001 · Thứ Ba, 20/10/2026",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "cf-action-tile cf-layout-photo cf-inquiry-tile",
+          "title": "Phản hồi về đơn thuốc",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phản hồi về đơn thuốc",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Hiệu quả điều trị hoặc vấn đề khi dùng thuốc",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "cf-action-tile cf-layout-network cf-inquiry-tile",
+          "title": "Hỏi lại, dùng thuốc",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hỏi lại, dùng thuốc",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Điều chưa rõ trong hướng dẫn của phòng khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "cf-action-tile cf-layout-topic cf-inquiry-tile",
+          "title": "Triệu chứng mới, chưa cải thiện",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Triệu chứng mới, chưa cải thiện",
+              "size": "16px",
+              "weight": "700"
+            },
+            {
+              "text": "Cập nhật tình trạng của bạn sau khám",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "cf-action-tile cf-layout-topic ",
+          "title": "Theo dõi triệu chứng",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Theo dõi triệu chứng",
+              "size": "16px",
+              "weight": "700"
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "selector": "cf-action-tile cf-layout-stack ",
+          "title": "Chuyển chuyên khoa",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Chuyển chuyên khoa",
+              "size": "16px",
+              "weight": "700"
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "selector": "cf-action-tile cf-layout-network ",
+          "title": "Tin nhắn với phòng khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tin nhắn với phòng khám",
+              "size": "16px",
+              "weight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "I2",
+      "title": "Gửi phản hồi (ba lý do)",
+      "route": "/care/report?reason=",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Nội dung cần trao đổi",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn c",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note warning",
+          "title": "Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn cấp.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tin nhắn không thay thế kênh cấp cứu. Không chờ phản hồi nếu cần trợ giúp khẩn c",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "I3",
+      "title": "Theo dõi triệu chứng",
+      "route": "/care/follow-up",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Hôm nay bạn thấy thế nào?",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "section ",
+          "title": "Theo dõi triệu chứng",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Theo dõi triệu chứng",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có cập nhật của bạn",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "card cf-preparation-card",
+          "title": "Câu hỏi cho lần trao đổi tới",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Câu hỏi cho lần trao đổi tới",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-0001",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "I4",
+      "title": "Chuyển chuyên khoa",
+      "route": "/care/referral/:id",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "card ",
+          "title": "Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "",
+          "title": "Phản hồi sau khi khám chuyên khoa",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "I5",
+      "title": "Tin nhắn với điều phối viên",
+      "route": "/care/messages",
+      "bookingEntriesInContent": 1,
+      "bookingLabels": [
+        "Đặt lịch tái khám"
+      ],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Tin nhắn của bạn",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card cf-preparation-card",
+          "title": "Câu hỏi cho lần trao đổi tới",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Câu hỏi cho lần trao đổi tới",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh · 20/10 · CF-0001",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Chỉ lưu trong phiên trình duyệt này; chưa gửi cho phòng khám.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "J1",
+      "title": "Đặt lịch tái khám",
+      "route": "/followup/:id",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-split",
+          "title": "Gặp lại bác sĩ",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Gặp lại bác sĩ",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Chọn lịch phù hợp cho lần khám tiếp theo.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "card ",
+          "title": "Bác sĩBS. Trần Thu Hà · Nội tổng quátNgười đi khámNguyễn Minh AnhNgày khámThứ Ba, 20/10/2026Giờ khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": []
+        },
+        {
+          "index": 3,
+          "selector": "section ",
+          "title": "Ngày gợi ý từ phòng khám",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Ngày gợi ý từ phòng khám",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Phòng khám chưa cung cấp",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K1",
+      "title": "Thông báo",
+      "route": "/notifications",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "notification row ",
+          "title": "Có cập nhật về lượt khám",
+          "type": "action",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Có cập nhật về lượt khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Mở ứng dụng để xem chi tiết.",
+              "size": "13px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "note info",
+          "title": "Nội dung sức khỏe không xuất hiện trong bản xem trước.",
+          "type": "notice",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Nội dung sức khỏe không xuất hiện trong bản xem trước.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K2",
+      "title": "Hồ sơ và người thân",
+      "route": "/profile",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-reference-section ",
+          "title": "Thông tin cá nhân",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Thông tin cá nhân",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Họ tên",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Số điện thoại",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa cập nhật",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Dị ứng",
+              "size": "13px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa khai báo",
+              "size": "14px",
+              "weight": "600"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "cf-reference-section ",
+          "title": "Người thân",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Người thân",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Trần Thị Mai",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Mẹ",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "",
+          "title": "Họ và tên",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "cf-reference-section ",
+          "title": "Cài đặt",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Cài đặt",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Thông báo",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Đang bật",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Ngôn ngữ",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Tiếng Việt",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Bảo mật và quyền riêng tư",
+              "size": "14px",
+              "weight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K3",
+      "title": "Lịch sử khám",
+      "route": "/profile/history",
+      "bookingEntriesInContent": 1,
+      "bookingLabels": [
+        "Đặt lại lịch khám"
+      ],
+      "primaryButtons": 0,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "rich-appt-card state-success",
+          "title": "BS. Trần Thu Hà",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "BS. Trần Thu Hà",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Nội tổng quát · Tại phòng khám",
+              "size": "13px",
+              "weight": "400"
+            },
+            {
+              "text": "Nguyễn Minh Anh",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thứ Ba, 20/10 · 08:00",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Thứ Ba, 20/10 · 08:00",
+              "size": "14px",
+              "weight": "600"
+            },
+            {
+              "text": "Tại phòng khám · xem địa điểm trên phiếu",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Lý do khámKhám theo lịch hẹn",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K4",
+      "title": "Cài đặt",
+      "route": "/settings",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "",
+          "title": "Chữ lớn",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "section ",
+          "title": "Quyền riêng tư",
+          "type": "section",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Quyền riêng tư",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Bạn có thể bắt đầu lại trải nghiệm từ mục Tùy chọn.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "card cf-journey-summary",
+          "title": "Dữ liệu trên thiết bị này",
+          "type": "tonal",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Dữ liệu trên thiết bị này",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Ghi chú, checklist và lựa chọn được giữ trong phiên trình duyệt hiện tại. Đăng x",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K5",
+      "title": "Hỗ trợ",
+      "route": "/support",
+      "bookingEntriesInContent": 0,
+      "bookingLabels": [],
+      "primaryButtons": 1,
+      "stockImages": 0,
+      "navVisible": true,
+      "navLabelsVisible": [
+        "Trang chủ",
+        "1",
+        "1",
+        "Lịch hẹn",
+        "1 lịch hẹn có cập nhật chưa đọc",
+        "Đặt lịch",
+        "Hồ sơ",
+        "Hỗ trợ"
+      ],
+      "cards": [
+        {
+          "index": 1,
+          "selector": "cf-support-network",
+          "title": "Hỗ trợ từ phòng khám",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Hỗ trợ từ phòng khám",
+              "size": "16px",
+              "weight": "600"
+            },
+            {
+              "text": "Đồng hành từ lúc đặt lịch đến sau buổi khám.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "selector": "cf-reference-section ",
+          "title": "Liên hệ nhanh",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Liên hệ nhanh",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Gọi lại",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Nhắn tin",
+              "size": "13px",
+              "weight": "500"
+            },
+            {
+              "text": "Hỏi phòng khám",
+              "size": "13px",
+              "weight": "500"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "selector": "cf-reference-section ",
+          "title": "Gửi yêu cầu",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Gửi yêu cầu",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "selector": "",
+          "title": "Chủ đề",
+          "type": "form",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "PASS",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "selector": "cf-reference-section ",
+          "title": "Câu hỏi thường gặp",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Câu hỏi thường gặp",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Mở lịch khám trực tuyến, kiểm tra thiết bị và làm theo hướng dẫn trên phiếu khám",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Mang giấy tờ tùy thân, đơn thuốc và kết quả cũ nếu có. Xem thêm hướng dẫn trên p",
+              "size": "14px",
+              "weight": "400"
+            },
+            {
+              "text": "Mở Lịch hẹn → Phiếu khám để chọn đổi hoặc hủy theo trạng thái hiện tại. Lịch tha",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "selector": "cf-reference-section ",
+          "title": "Tin nhắn gần đây",
+          "type": "surface",
+          "issues": [],
+          "priority": "REVIEW",
+          "checks": {
+            "width": "PASS",
+            "zero": "PASS",
+            "primaryColor": "N/A",
+            "roleCopyContrastStates": "REVIEW per-screen stage; not inferable from DOM presence",
+            "image": "PASS (no stock image found)",
+            "insets": "PASS (heading/body box heuristic)"
+          },
+          "typography": [
+            {
+              "text": "Tin nhắn gần đây",
+              "size": "18px",
+              "weight": "600"
+            },
+            {
+              "text": "Chưa có tin nhắn. Bạn có thể gửi yêu cầu ở trên.",
+              "size": "14px",
+              "weight": "400"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+PASS | 18.723:1 | cf-on-brand / cf-primary
+PASS | 14.424:1 | cf-on-brand / cf-primary-loading
+PASS | 14.257:1 | cf-text / cf-surface
+PASS | 13.394:1 | cf-text / cf-surface-page
+PASS | 5.348:1 | cf-text-muted / cf-surface
+PASS | 5.024:1 | cf-text-muted / cf-surface-page
+PASS | 15.989:1 | cf-brand / cf-surface
+PASS | 15.021:1 | cf-brand / cf-surface-page
+PASS | 12.164:1 | cf-brand / cf-baby-blue
+PASS | 10.846:1 | cf-text / cf-baby-blue
+PASS | 10.602:1 | cf-brand / cf-blue-deep
+PASS | 9.454:1 | cf-text / cf-blue-deep
+PASS | 12.992:1 | cf-brand / cf-mint
+PASS | 11.584:1 | cf-text / cf-mint
+PASS | 11.592:1 | cf-brand / cf-mint-deep
+PASS | 10.336:1 | cf-text / cf-mint-deep
+PASS | 12.164:1 | cf-info / cf-info-surface
+PASS | 6.109:1 | cf-success / cf-success-surface
+PASS | 6.690:1 | cf-warning / cf-warning-surface
+PASS | 6.023:1 | cf-danger / cf-danger-surface
+PASS | 5.104:1 | cf-disabled-ink / cf-disabled-surface
+PASS | 3.723:1 | cf-input-line / cf-surface
+PASS | 15.989:1 | cf-focus / cf-surface
+Token pairs only; rendered colors, states and geometry are checked separately in the browser.

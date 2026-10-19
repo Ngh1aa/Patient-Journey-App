@@ -1,0 +1,642 @@
+{
+  "routes": [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "E1",
+    "E2",
+    "E3",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "H1",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H6",
+    "H7",
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "J1",
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "K5",
+    "/doctor",
+    "/doctor/schedule",
+    "/doctor/queue",
+    "/patients",
+    "/patients/p-001",
+    "/visits/a-027",
+    "/encounters/a-033",
+    "/results",
+    "/clinical/orders",
+    "/clinical/prescription",
+    "/clinical/review",
+    "/doctor/followups",
+    "/doctor/review/a-021",
+    "/doctor/online/a-040",
+    "/doctor/online/a-041"
+  ],
+  "issues": [],
+  "states": [
+    {
+      "id": "B1",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "btn primary cf-home-appointment-button",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-metric",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "go",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "care-entry",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-action-tile cf-layout-topic ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "cf-action-tile cf-layout-photo ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "B1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn selected",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "appointment-group",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "cf-appt-open",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "D1",
+      "key": "btn primary rich-new-booking",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-photo-arrow-action",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "btn inverse",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-action-tile cf-layout-topic ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F1",
+      "key": "cf-action-tile cf-layout-network ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "go",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "F2",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H6",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "cf-photo-arrow-action",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "H7",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "btn text",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K1",
+      "key": "notification row ",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "plain",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "cf-appt-open",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K3",
+      "key": "btn secondary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "icon-btn",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-channels",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "clinic-call",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-compose",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-requests",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "cf-field-control",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "btn primary",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-faqs",
+      "state": "hover-focus"
+    },
+    {
+      "id": "K5",
+      "key": "support-messages",
+      "state": "hover-focus"
+    }
+  ],
+  "media": [],
+  "checks": [
+    {
+      "id": "A1",
+      "count": 9,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "A2",
+      "count": 14,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "A3",
+      "count": 13,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "B1",
+      "count": 90,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C1",
+      "count": 29,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C2",
+      "count": 38,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C3",
+      "count": 17,
+      "minRatio": 10.601926244825687
+    },
+    {
+      "id": "C4",
+      "count": 17,
+      "minRatio": 6.02263030703288
+    },
+    {
+      "id": "C5",
+      "count": 15,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "C6",
+      "count": 25,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C7",
+      "count": 36,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C8",
+      "count": 26,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "C9",
+      "count": 22,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "D1",
+      "count": 26,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "D2",
+      "count": 100,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "D3",
+      "count": 21,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "D4",
+      "count": 17,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "E1",
+      "count": 34,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "E2",
+      "count": 24,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "E3",
+      "count": 23,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "F1",
+      "count": 21,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "F2",
+      "count": 22,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "F3",
+      "count": 19,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "F4",
+      "count": 19,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "G1",
+      "count": 32,
+      "minRatio": 5.104398730562406
+    },
+    {
+      "id": "G2",
+      "count": 12,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "G3",
+      "count": 9,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "G4",
+      "count": 14,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "G5",
+      "count": 13,
+      "minRatio": 6.689862287593798
+    },
+    {
+      "id": "H1",
+      "count": 26,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "H2",
+      "count": 26,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "H3",
+      "count": 22,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "H4",
+      "count": 23,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "H5",
+      "count": 25,
+      "minRatio": 5.348142070729434
+    },
+    {
+      "id": "H6",
+      "count": 30,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "H7",
+      "count": 25,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "I1",
+      "count": 19,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "I2",
+      "count": 13,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "I3",
+      "count": 20,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "I4",
+      "count": 15,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "I5",
+      "count": 20,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "J1",
+      "count": 25,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "K1",
+      "count": 15,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "K2",
+      "count": 35,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "K3",
+      "count": 21,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "K4",
+      "count": 18,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "K5",
+      "count": 39,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor",
+      "count": 247,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/schedule",
+      "count": 117,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/queue",
+      "count": 80,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/patients",
+      "count": 61,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/patients/p-001",
+      "count": 72,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/visits/a-027",
+      "count": 56,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/encounters/a-033",
+      "count": 94,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/results",
+      "count": 65,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/clinical/orders",
+      "count": 54,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/clinical/prescription",
+      "count": 51,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/clinical/review",
+      "count": 53,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/followups",
+      "count": 96,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/review/a-021",
+      "count": 51,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/online/a-040",
+      "count": 48,
+      "minRatio": 5.024153132252628
+    },
+    {
+      "id": "/doctor/online/a-041",
+      "count": 47,
+      "minRatio": 5.024153132252628
+    }
+  ]
+}

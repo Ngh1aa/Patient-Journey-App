@@ -21,13 +21,13 @@ jobs:
           node-version: '22'
       - name: Install existing browser QA dependencies
         run: npm ci --prefix prototype
-      - name: Install Chromium
-        run: node prototype/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Install Chromium and WebKit
+        run: node prototype/node_modules/playwright/cli.js install --with-deps chromium webkit
       - name: Validate script and screen contract
         run: |
           node --check staff-prototype/app.js
           node --test staff-prototype/test.cjs
-      - name: Verify eight desktop screens and interactions
+      - name: Verify doctor routes and interactions in Chromium and WebKit
         run: node prototype/node_modules/@playwright/test/cli.js test --config=staff-prototype/playwright.config.cjs
       - uses: actions/upload-artifact@v4
         if: always()

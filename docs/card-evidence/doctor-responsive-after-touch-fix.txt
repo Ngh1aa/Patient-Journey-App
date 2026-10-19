@@ -1,0 +1,49 @@
+
+Running 12 tests using 2 workers
+
+(node:9580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium-1440] › staff-prototype\doctor.spec.cjs:54:1 › doctor schedule navigation and patient queue (3.2s)
+  ok  3 [chromium-1440] › staff-prototype\doctor.spec.cjs:245:1 › responsive composition: two columns tablet, one column phone (6.8s)
+  ok  2 [chromium-1440] › staff-prototype\doctor.spec.cjs:190:1 › rectangular card-grid geometry and every doctor screen: no horizontal overflow (10.0s)
+(node:22044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  5 [chromium-1280] › staff-prototype\doctor.spec.cjs:54:1 › doctor schedule navigation and patient queue (2.8s)
+  ok  6 [chromium-1280] › staff-prototype\doctor.spec.cjs:245:1 › responsive composition: two columns tablet, one column phone (6.1s)
+  ok  4 [chromium-1280] › staff-prototype\doctor.spec.cjs:190:1 › rectangular card-grid geometry and every doctor screen: no horizontal overflow (10.7s)
+(node:18052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [chromium-1920] › staff-prototype\doctor.spec.cjs:54:1 › doctor schedule navigation and patient queue (3.0s)
+  ok  9 [chromium-1920] › staff-prototype\doctor.spec.cjs:245:1 › responsive composition: two columns tablet, one column phone (6.3s)
+(node:22136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  8 [chromium-1920] › staff-prototype\doctor.spec.cjs:190:1 › rectangular card-grid geometry and every doctor screen: no horizontal overflow (11.3s)
+(node:20072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 10 [webkit-1440] › staff-prototype\doctor.spec.cjs:54:1 › doctor schedule navigation and patient queue (5.2s)
+  ok 12 [webkit-1440] › staff-prototype\doctor.spec.cjs:245:1 › responsive composition: two columns tablet, one column phone (9.7s)
+  ok 11 [webkit-1440] › staff-prototype\doctor.spec.cjs:190:1 › rectangular card-grid geometry and every doctor screen: no horizontal overflow (13.9s)
+
+  12 passed (1.1m)

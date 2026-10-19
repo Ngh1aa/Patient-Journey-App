@@ -1,0 +1,918 @@
+{
+  "uniqueCases": 130,
+  "pass": 130,
+  "fail": 0,
+  "skipped": 0,
+  "cases": [
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F2 existing profile is confirmed and can be updated without re-entry",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "device permission recovery and preview cleanup preserve the online visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "support callback accepts the request once without requiring an appointment",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F4 arrives → received → ready → in-consult → completed in order",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F5 lab appointment, external file, both return paths and staff result release",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F7 online preparation, incoming call, controls, staff completion",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F8 wait for callback keeps unreachable visit open",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F8 replacement appointment: online",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F8 replacement appointment: onsite",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method counter-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method pharmacy-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method transfer-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F9 defer validates reason/date and fee waiver stays separate",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason medicine",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason question",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason symptoms",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F11 tracking, referral, messages and follow-up recommendation",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F12 follow-up starts a new linked visit without losing the old profile",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "unknown found recovery returns the single pending request",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "offline retains typed form and recovers after reconnection",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "proxy permission is bound to visit; direct links cannot expose health results",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "Back, reload, safe notification deep link and invalid entity recovery",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "deep link authentication resumes the exact visit after matching the profile",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "settings persist through reload and reset; support and FAQ are functional",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "upload rejects invalid content; text is escaped rather than executed",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "leaving online call never marks consultation completed",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 360",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 390",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 360 large text",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "D2 has one primary next action in every main state",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "unknown request locks earlier booking steps until reconciliation",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "typed booking draft survives reload without persisting OTP",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "D2 next action is visible at 360px before scrolling",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "skip content preserves route and direct-link header Back has an in-app exit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F5 existing external result goes directly from ordered to available",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "large text actually doubles editable text, with no horizontal overflow",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "F11 multiple completed visits keep the selected report context",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "adding a relative while booking returns to the correct selected patient",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "login after proxy booking confirms the account owner, not the selected relative",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "journeys.spec.cjs",
+      "title": "navigation does not steal focus from a patient field on the next frame",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F1 new profile → all booking steps → pending visit, 4 tabs and booking action",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F2 existing profile is confirmed and can be updated without re-entry",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F3a warning → emergency contact sheet, native phone link and no booking",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "device permission recovery and preview cleanup preserve the online visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "support callback accepts the request once without requiring an appointment",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F3b cannot bypass risk; review request waits for staff mode decision",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F4 arrives → received → ready → in-consult → completed in order",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F5 lab appointment, external file, both return paths and staff result release",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F6 cancellation retains reason/history and rebooking links a new visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F6 no-show and reschedule preserve old visit and create linked replacement",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F7 online preparation, incoming call, controls, staff completion",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F8 wait for callback keeps unreachable visit open",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F8 replacement appointment: online",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F8 replacement appointment: onsite",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method counter-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method pharmacy-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F9 method transfer-pending remains pending until staff receipt",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F9 defer validates reason/date and fee waiver stays separate",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F10 all lab states, doctor review vs notice vs explanation, four next actions",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason medicine",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason question",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F11 distinct aftercare reason symptoms",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F11 tracking, referral, messages and follow-up recommendation",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F12 follow-up starts a new linked visit without losing the old profile",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "booking recovery: collision, unknown outcome, no duplicate and retry",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "unknown found recovery returns the single pending request",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "offline retains typed form and recovers after reconnection",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "proxy permission is bound to visit; direct links cannot expose health results",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "Back, reload, safe notification deep link and invalid entity recovery",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "deep link authentication resumes the exact visit after matching the profile",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "settings persist through reload and reset; support and FAQ are functional",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "upload rejects invalid content; text is escaped rather than executed",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "leaving online call never marks consultation completed",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 360",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 390",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "all 47 routes render and reflow 360 large text",
+      "status": "expected",
+      "source": "journeys-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "accessibility: axe WCAG A/AA and keyboard labels in 16 representative states",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "desktop frame, project subpath assets, self-hosted Vietnamese font",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "D2 has one primary next action in every main state",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "unknown request locks earlier booking steps until reconciliation",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "typed booking draft survives reload without persisting OTP",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "D2 next action is visible at 360px before scrolling",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "exception screenshots document cancellation, no-show, offline and transfer pending",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "skip content preserves route and direct-link header Back has an in-app exit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F5 existing external result goes directly from ordered to available",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F8 unanswered waiting-room event and staff callback preserve the same visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F9 fee-free completion and F10 summary/additional-lab actions use the right visit",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "large text actually doubles editable text, with no horizontal overflow",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "F11 multiple completed visits keep the selected report context",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "adding a relative while booking returns to the correct selected patient",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "login after proxy booking confirms the account owner, not the selected relative",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "journeys.spec.cjs",
+      "title": "navigation does not steal focus from a patient field on the next frame",
+      "status": "expected",
+      "source": "journeys-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 360px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 390px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 1440px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+      "status": "expected",
+      "source": "spacing-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "large-text booking deliberately collapses its header after scrolling",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "h2-layout.spec.cjs",
+      "title": "lab time and file controls retain the lab booking and upload contracts",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 360px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 390px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "booking chrome reserves CTA and keeps full header at 1440px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "date/topic sheets support selection, keyboard dismissal, focus return and real form values",
+      "status": "expected",
+      "source": "spacing-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "large-text booking deliberately collapses its header after scrolling",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "h2-layout.spec.cjs",
+      "title": "lab time and file controls retain the lab booking and upload contracts",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 320px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 360px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 390px",
+      "status": "expected",
+      "source": "nav-recheck.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 1440px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "appointment badge deduplicates real unread visit updates and clears only when read",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "booking remains separate from appointment list and resumes the existing clinical draft",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "Chromium",
+      "file": "navigation-integration.spec.cjs",
+      "title": "large-text navigation avoids overlap with content and auth has no tab bar",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 320px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 360px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 390px",
+      "status": "expected",
+      "source": "nav-recheck.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "integrated navigation has raised booking, filled selection and readable labels at 1440px",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "appointment badge deduplicates real unread visit updates and clears only when read",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "booking remains separate from appointment list and resumes the existing clinical draft",
+      "status": "expected",
+      "source": "h2-results.json"
+    },
+    {
+      "project": "WebKit",
+      "file": "navigation-integration.spec.cjs",
+      "title": "large-text navigation avoids overlap with content and auth has no tab bar",
+      "status": "expected",
+      "source": "h2-results.json"
+    }
+  ]
+}

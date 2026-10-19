@@ -1,0 +1,35 @@
+{
+  "scope": "component candidate only, Chromium; product migration pending approval",
+  "rows": [
+    {
+      "width": 360,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 360,
+      "state": "200% text",
+      "pageErrors": [],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 768,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    },
+    {
+      "width": 1440,
+      "pageErrors": [],
+      "overflow": false,
+      "state": "default"
+    }
+  ]
+}

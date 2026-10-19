@@ -1,0 +1,3 @@
+
+> careflow-patient-browser@3.0.0 check
+> node --check ../design/ui.js && node --check model.js && node --check strings.vi.js && node --check icons.js && node --check views.js && node --check app.js && node --check journeys.js && node --check journey-behaviors.js && node --check careflow-rich-content.js

@@ -95,19 +95,20 @@ test('appointment person and mode filters compose and restore grouped content',a
 test('home aftercare selects the completed visit even when another visit is active',async({page})=>{
   await mixedAppointments(page);
   await page.goto('/prototype/#/home');
-  await page.locator('.cf-home-care-foot [data-to="H6"]').click();
+  await page.locator('.cf-home-care-card [data-to="H6"]').click();
   await expect(page).toHaveURL(/appointments\/CF-COMPLETED\/summary/);
-  await expect(page.locator('.rich-aftercare-sample')).toContainText('không phải đơn thuốc của bạn');
+  await expect(page.locator('.rich-aftercare-sample')).toContainText('Việc cần làm sau buổi khám');
+  await expect(page.locator('.cf-sample-medication')).toHaveCount(0);
   const before=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits);
-  await page.locator('.cf-sample-medication summary').click();
-  await page.getByRole('checkbox',{name:'Đã uống (mẫu)'}).check();
+  await page.locator('.rich-aftercare-sample [data-to="I3"]').click();
+  await expect(page).toHaveURL(/care\/follow-up\?visit=CF-COMPLETED/);
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits)).toEqual(before);
 });
 
 test('support preserves topic and contact preference without inventing clinic replies',async({page})=>{
   await page.goto('/prototype/?scenario=empty#/support');
   await expect(page.locator('#phone-content')).toContainText('Chưa có tin nhắn');
-  await page.getByRole('button',{name:'Nhắn tin',exact:true}).click();
+  await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();
   await expect(page.locator('#support')).toBeFocused();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','K5');
   await page.locator('#supportTopic').selectOption('Kết quả');
@@ -172,7 +173,9 @@ test('changed screens have no serious or critical automated accessibility findin
 test('appointment board uses reference data and each card opens the correct clinician and visit',async({page})=>{
   await page.goto('/prototype/?scenario=appointments#/appointments');
   await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
+  await expect(page.locator('.cf-appt-featured')).toHaveAttribute('data-cf-card','surface');
   await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(255, 255, 255)');
+  await expect(page.locator('.cf-appt-featured > .cf-photo-image')).toHaveCount(0);
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
   await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
   await page.locator('[data-id="CF-SAMPLE-02"][data-to="D2"]').click();
@@ -211,7 +214,7 @@ test('reference home and representative routes retain light chrome, useful targe
         photo:!!frame.querySelector('.ref-detail-hero img'),
       }));
       expect(metrics.overflow,route).toBe(false);
-      if(route.includes('CF-1017-0042')) expect(metrics.photo).toBe(true);
+      if(route.includes('CF-1017-0042')) expect(metrics.photo).toBe(false);
       await expect(page.locator('#screen-title')).toBeVisible();
     }
   }

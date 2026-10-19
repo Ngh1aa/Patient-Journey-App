@@ -1,0 +1,134 @@
+[
+  {
+    "width": 320,
+    "errors": [],
+    "gap": "16px",
+    "emergencyHeight": 103,
+    "overflow": false,
+    "sections": [
+      {
+        "text": "Cần trợ giúp khẩn cấp?",
+        "y": 166.78125,
+        "h": 103
+      },
+      {
+        "text": "Liên hệ nhanh",
+        "y": 285.78125,
+        "h": 402.78125
+      },
+      {
+        "text": "Câu hỏi thường gặp",
+        "y": 704.5625,
+        "h": 282.375
+      },
+      {
+        "text": "Gửi yêu cầu",
+        "y": 1002.9375,
+        "h": 489.234375
+      },
+      {
+        "y": 1508.171875,
+        "h": 41.59375
+      }
+    ]
+  },
+  {
+    "width": 360,
+    "errors": [],
+    "gap": "16px",
+    "emergencyHeight": 83.5,
+    "overflow": false,
+    "sections": [
+      {
+        "text": "Cần trợ giúp khẩn cấp?",
+        "y": 166.78125,
+        "h": 83.5
+      },
+      {
+        "text": "Liên hệ nhanh",
+        "y": 266.28125,
+        "h": 402.171875
+      },
+      {
+        "text": "Câu hỏi thường gặp",
+        "y": 684.453125,
+        "h": 276
+      },
+      {
+        "text": "Gửi yêu cầu",
+        "y": 976.453125,
+        "h": 489.234375
+      },
+      {
+        "y": 1481.6875,
+        "h": 41.59375
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "errors": [],
+    "gap": "16px",
+    "emergencyHeight": 68,
+    "overflow": false,
+    "sections": [
+      {
+        "text": "Cần trợ giúp khẩn cấp?",
+        "y": 166.78125,
+        "h": 68
+      },
+      {
+        "text": "Liên hệ nhanh",
+        "y": 250.78125,
+        "h": 383.28125
+      },
+      {
+        "text": "Câu hỏi thường gặp",
+        "y": 650.0625,
+        "h": 284
+      },
+      {
+        "text": "Gửi yêu cầu",
+        "y": 950.0625,
+        "h": 497.234375
+      },
+      {
+        "y": 1463.296875,
+        "h": 41.59375
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "errors": [],
+    "gap": "16px",
+    "emergencyHeight": 83.5,
+    "overflow": false,
+    "sections": [
+      {
+        "text": "Cần trợ giúp khẩn cấp?",
+        "y": 198.390625,
+        "h": 83.5
+      },
+      {
+        "text": "Liên hệ nhanh",
+        "y": 297.890625,
+        "h": 383.28125
+      },
+      {
+        "text": "Câu hỏi thường gặp",
+        "y": 697.171875,
+        "h": 284
+      },
+      {
+        "text": "Gửi yêu cầu",
+        "y": 997.171875,
+        "h": 497.234375
+      },
+      {
+        "y": 1510.40625,
+        "h": 41.59375
+      }
+    ]
+  }
+]

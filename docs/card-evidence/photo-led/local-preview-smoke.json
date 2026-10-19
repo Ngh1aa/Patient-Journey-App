@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Home",
+    "url": "http://127.0.0.1:4186/prototype/?scenario=appointments#/home",
+    "screen": "B1"
+  },
+  {
+    "label": "Lab",
+    "url": "http://127.0.0.1:4186/prototype/?scenario=pre-lab#/appointments/CF-0001/labs",
+    "screen": "F1"
+  },
+  {
+    "label": "Visit",
+    "url": "http://127.0.0.1:4186/prototype/?scenario=appointments#/appointments/CF-SAMPLE-01",
+    "screen": "D2"
+  },
+  {
+    "action": "discovery onsite card",
+    "destination": "D1",
+    "onsiteFilter": true,
+    "persisted": true
+  }
+]
