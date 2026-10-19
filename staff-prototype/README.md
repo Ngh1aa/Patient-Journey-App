@@ -6,7 +6,7 @@
 
 **Calm Clinical / task-first workspace.** Preserve the current navy brand, sidebar and physician workflows. The overview reading order is current encounter → decision → unreviewed results → daily agenda; online handoff and aftercare follow. Clinical workflows use opaque reading surfaces and legible controls. The overview has no marketing hero, decorative orb or statistic cards above the work.
 
-Runtime component sources: `../design/ui.js`, `../design/components.css`, and `../prototype/strings.vi.js`; documented in `../docs/design-system.md`. Current navy is #001D57; Plus Jakarta Sans remains the doctor role font. Existing `btn` and `pill` helpers emit named component variants; page styles own composition only.
+Runtime component sources: `../design/ui.js`, `../design/components.css`, and `../prototype/strings.vi.js`; documented in `../docs/design-system.md`. Current navy is #001D57; Card redesign v2 uses the shared Plus Jakarta Sans font across doctor and patient role surfaces. Existing `btn` and `pill` helpers emit named component variants; page styles own composition only.
 
 ## Active screens
 
@@ -43,7 +43,7 @@ Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting it
 
 ## Doctor typography & density refresh
 
-- Fonts: Plus Jakarta Sans, Google Fonts Vietnamese subset. System fallback always available; no font binaries committed.
+- Fonts: Plus Jakarta Sans, bundled local fonts and a shared token family; no Google Fonts request. System fallback always available; no font binaries committed.
 - Icon system: curated 35 Lucide SVG icons bundled as `doctor-icons.js`, under the Lucide ISC license (`LUCIDE-LICENSE.txt`). Use icons for navigation, actions and operational metrics; no icons attached to page/section headings.
 - Density: compact overview heading, visible current encounter action, condensed clinical forms, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
 - Terminology: bệnh nhân, lượt khám, khám lâm sàng, cận lâm sàng, nhận định lâm sàng, kế hoạch xử trí, hoàn tất hồ sơ. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.

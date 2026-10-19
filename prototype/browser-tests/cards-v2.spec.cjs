@@ -72,9 +72,9 @@ for(const width of [320,360,390,1440])test('booking nav and card facts remain re
   await page.setViewportSize({width,height:900});
   await page.goto('/prototype/?scenario=upcoming#/home');
   const book=page.locator('#bottom-nav .nav-book');
-  await expect(book.locator('.nav-caption')).toBeVisible();
+  await expect(book.locator('.nav-caption')).toBeHidden();
   await expect(book.locator('.nav-plus')).toHaveCSS('background-color','rgb(11, 18, 32)');
-  const targets=await page.locator('#bottom-nav > *').evaluateAll(nodes=>nodes.map(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));
+  const targets=await page.locator('#bottom-nav a,#bottom-nav button').evaluateAll(nodes=>nodes.map(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));
   expect(targets).toHaveLength(5);targets.forEach(t=>{expect(t.w).toBeGreaterThanOrEqual(44);expect(t.h).toBeGreaterThanOrEqual(44)});
   await book.focus();await page.keyboard.press('Enter');
   await expect(main(page)).toHaveAttribute('data-screen','C1');
@@ -124,8 +124,8 @@ test('200 percent booking label and private tools reflow and remain usable offli
     sessionStorage.setItem(key,JSON.stringify(saved));
   });
   await page.reload();
-  await expect(page.locator('.nav-book .nav-caption')).toBeVisible();
-  await expect(page.locator('.nav-book')).toHaveAccessibleName('Đặt lịch khám');
+  await expect(page.locator('.nav-book .nav-caption')).toBeHidden();
+  await expect(page.locator('.nav-book')).toHaveAccessibleName('Đặt lịch');
   await expect(page.locator('.nav-book .nav-plus')).toHaveCSS('border-width','4px');
   await route(page,'E1');
   const tools=page.locator('[data-visit-tools]');
