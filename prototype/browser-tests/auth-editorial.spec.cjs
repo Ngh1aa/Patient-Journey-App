@@ -10,16 +10,10 @@ test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', a
   await load(page, 'new');
   const phone = page.locator('#phone-frame');
   await expect(phone).toHaveAttribute('data-auth-step', '1');
-  await expect(page.locator('#auth-progress')).toBeVisible();
+  await expect(page.locator('.cf-hdr-auth-progress li')).toHaveCount(3);
+  await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Số điện thoại');
   await expect(page.locator('.auth-panel form[data-form=otp]')).toBeVisible();
-  // An old photo overlay once covered the illustration while its SVG still had
-  // valid dimensions. Check the actual painted surface, not visibility alone.
-  expect(await page.locator('.auth-scene .cf-illustration-slot').evaluate(el=>{
-    const r=el.getBoundingClientRect();
-    return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));
-  })).toBe(true);
-  await page.locator('#auth-jump').click();
-  await expect(page.locator('#phone')).toBeFocused();
+  await expect(page.locator('#auth-jump')).toBeHidden();
   await page.locator('#phone').fill('0900000000');
   await page.locator('.auth-panel [type=submit]').click();
   await expect(phone).toHaveAttribute('data-auth-step', '2');
@@ -51,8 +45,8 @@ test('Blue editorial auth: returning patient sees A2 with editable existing iden
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'A2');
   await expect(page.locator('.auth-panel')).toBeVisible();
   await expect(page.locator('#phone-frame')).toHaveAttribute('data-auth-step', '3');
-  await page.locator('#auth-jump').click();
-  await expect(page.locator('#name')).toBeFocused();
+  await expect(page.locator('#auth-jump')).toBeHidden();
+  await expect(page.locator('.cf-hdr-auth-preview')).toContainText('Nguyễn Minh Anh');
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
   await page.locator('.phone').screenshot({ path: info.outputPath('A2-existing-profile.png') });
   await page.locator('.auth-panel [type=submit]').click();
@@ -67,7 +61,8 @@ for (const width of [360, 390, 430]) {
       if (large) await page.locator('#phone-frame').evaluate(el => el.classList.add('large-text'));
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       expect(await page.locator('#phone-main').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
-      await expect(page.locator('#auth-jump')).toBeVisible();
+      await expect(page.locator('#auth-jump')).toBeHidden();
+      await expect(page.locator('.cf-hdr-auth-progress')).toBeVisible();
       await expect(page.locator('.auth-panel h1')).toBeVisible();
       if (width === 390) await page.locator('.phone').screenshot({ path: info.outputPath('auth-blue-' + width + (large ? '-200pct' : '') + '.png') });
     }

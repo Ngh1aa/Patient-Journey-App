@@ -54,7 +54,7 @@ test('preparation and question entries keep distinct destinations and do not mut
   await page.goto('/prototype/?scenario=upcoming#/home');
   await page.locator('.cf-question-card button').first().click();
   await expect(main(page)).toHaveAttribute('data-screen','K5');
-  await expect(page.locator('.cf-support-bento')).toBeVisible();
+  await expect(page.locator('.cf-hdr-contact-dock')).toBeVisible();
   await page.goto('/prototype/#/home');
   await page.locator('.cf-action-tile[data-to="E1"]').click();
   await expect(main(page)).toHaveAttribute('data-screen','E1');
