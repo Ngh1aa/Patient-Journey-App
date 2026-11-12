@@ -79,8 +79,11 @@
     const path = meta.route
         .split('?')[0]
         .replace(':id', encodeURIComponent(visitId))
-        .replace(':labId', encodeURIComponent(labId)),
+        .replace(':labId', encodeURIComponent(labId))
+        .replace(/:([a-zA-Z]+)/g, (_, k) => encodeURIComponent(extra[k] ?? u.params?.[k] ?? 'missing')),
       query = new URLSearchParams();
+    if (window.CareFlowProduct?.has(id))
+      for (const k of ['topic', 'rx']) if (extra[k]) query.set(k, extra[k]);
     if (id.startsWith('I')) {
       query.set('visit', visitId);
       if (id === 'I2') query.set('reason', extra.reason || u.reportReason);
@@ -106,6 +109,7 @@
       } catch {
         return { id: 'UNKNOWN' };
       }
+      u.params = { ...Object.fromEntries(params), ...values };
       if (values.id) s.activeVisitId = values.id;
       if (params.has('visit')) s.activeVisitId = params.get('visit');
       if (values.labId) u.labId = values.labId;
@@ -255,6 +259,8 @@
     return null;
   }
   function activeTab(id) {
+    const productTab = window.CareFlowProduct?.tabFor(id);
+    if (productTab) return productTab;
     if (id.startsWith('C')) return 'C1';
     if (id === 'B1') return 'B1';
     if (['K2', 'K3', 'K4'].includes(id)) return 'K2';
@@ -265,6 +271,7 @@
     // Return persistent chrome controls before replacing the current screen.
     const chrome = document.querySelector('.phone-header');
     chrome.append($('back'), $('notifications'));
+    window.CareFlowSeed?.ensure(s);
     const id = readRoute().id;
     u.screen = id;
     $('phone-frame').dataset.screen = id;
@@ -280,7 +287,8 @@
     );
     $('back').innerHTML = window.CareFlowIcon('chevron-left', 23);
     const unreadNotifications = s.notifications.filter(item => !item.read).length;
-    $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-count" aria-label="'+unreadNotifications+' thông báo chưa đọc">'+Math.min(99,unreadNotifications)+'</span>' : '');
+    $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-count" aria-hidden="true">'+Math.min(99,unreadNotifications)+'</span>' : '');
+    $('notifications').setAttribute('aria-label', unreadNotifications ? 'Thông báo, ' + Math.min(99, unreadNotifications) + ' chưa đọc' : 'Thông báo');
     const isAuth = ['A1', 'A2', 'A3'].includes(id);
     $('auth-progress').hidden = true;
     $('auth-jump').hidden = true;
@@ -333,7 +341,8 @@
     updateSafetyGuidance();
     window.CareFlowUI.enhanceControls($('phone-content'), openControlSheet);
     window.CareFlowCollections?.refresh($('phone-content'));
-    if (u.notice) {
+    // Keep a success notice until the simulated load has finished, so it is not lost behind the skeleton.
+    if (u.notice && !$('phone-content').querySelector('[data-cf-state="loading"]')) {
       const node = document.createElement('div');
       node.className = 'note';
       node.setAttribute('role', 'status');
@@ -342,6 +351,8 @@
       u.notice = '';
     }
     $('phone-main').scrollTop = 0;
+    window.CareFlowProduct?.syncFailToggle();
+    document.body.classList.toggle('product-mode', !guideEnabled);
     renderReviewer();
     if (window.CareFlowJourney && guideEnabled && renderJourney()) return;
     window.CareFlowUI.applyActionHierarchy($('phone-content'));
@@ -794,7 +805,7 @@
     'profile-details'() {
       const person=M.accountProfile(s);
       if(!person) return;
-      dialog('Thông tin cá nhân',[person.name,'Ngày sinh: '+(person.dob?.split('-').reverse().join('/')||'Chưa cập nhật'),'Số điện thoại: '+(person.phone?person.phone.slice(0,3)+' ••• '+person.phone.slice(-3):'Chưa cập nhật'),'Dị ứng: '+(person.allergies||'Chưa khai báo'),'Ghi chú y tế: '+(person.medicalHistory||'Chưa khai báo')].join('\n'),V.btn('Yêu cầu cập nhật','profile-update',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog('Thông tin cá nhân',[person.name,'Ngày sinh: '+(person.dob?.split('-').reverse().join('/')||'Chưa cập nhật'),'Số điện thoại: '+(person.phone?person.phone.slice(0,3)+' ••• '+person.phone.slice(-3):'Chưa cập nhật'),'Dị ứng: '+(person.allergies||'Chưa khai báo'),'Ghi chú y tế: '+(person.medicalHistory||'Chưa khai báo')].join('\n'),V.btn('Sửa thông tin','p-nav',{'data-to':'K6'},'primary')+V.btn('Yêu cầu cập nhật','profile-update',{},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
     },
     'profile-update'() {
       if($('dialog').open) $('dialog').close();
@@ -814,10 +825,10 @@
     'profile-relative'(el) {
       const person=M.profile(s,el.dataset.id);
       if(!person||person.relation==='self') return;
-      dialog(person.name,'Ngày sinh: '+person.dob.split('-').reverse().join('/')+'\n'+(person.canViewResults?'Được xem kết quả':'Chưa được cấp quyền xem kết quả'),V.btn('Đặt lịch cho người này','profile-book-relative',{'data-id':person.id},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog(person.name,'Ngày sinh: '+person.dob.split('-').reverse().join('/')+'\n'+(person.canViewResults?'Được xem kết quả':'Chưa được cấp quyền xem kết quả'),V.btn('Đặt lịch cho người này','profile-book-relative',{'data-id':person.id},'primary')+V.btn('Xem và sửa hồ sơ','p-nav',{'data-to':'K9','data-p-person-id':person.id},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
     },
     'profile-book-relative'(el) {
-      $('dialog').close();
+      if ($('dialog').open) $('dialog').close();
       const result=M.beginBooking(s);
       if(!result.ok) return error(result.code);
       const selected=M.choosePatient(s,el.dataset.id);
@@ -830,7 +841,7 @@
     },
     'profile-relatives'() {
       const relatives=s.profiles.filter(person=>person.relation!=='self');
-      dialog('Người thân',relatives.map(person=>person.name+' · '+person.dob.split('-').reverse().join('/')).join('\n')||'Chưa có người thân.',V.btn('Thêm người thân','profile-add-relative',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog('Người thân',relatives.map(person=>person.name+', '+window.CareFlowProduct.relationLabel(person.relation).toLocaleLowerCase('vi-VN')+', sinh '+person.dob.split('-').reverse().join('/')).join('\n')||'Chưa có người thân.',V.btn('Quản lý người thân','p-nav',{'data-to':'K7'},'primary')+V.btn('Thêm người thân','p-nav',{'data-to':'K8'},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
     },
     'profile-add-relative'() {
       if($('dialog').open) $('dialog').close();
@@ -847,7 +858,7 @@
       dialog('Liên hệ phòng khám','Gọi lại: gửi yêu cầu để phòng khám liên hệ.\nNhắn tin: trao đổi về lượt khám được cấp quyền hoặc gửi câu hỏi qua form.\nGiờ hỗ trợ: liên hệ phòng khám để xác nhận.',V.btn('Gửi câu hỏi','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
     },
     'support-requests'() {
-      dialog('Yêu cầu hỗ trợ',s.requests.map(request=>(request.type==='callback'?'Gọi lại':request.topic||'Yêu cầu hỗ trợ')+' · '+(request.status==='waiting'?'Chờ tiếp nhận':'Đã cập nhật')).join('\n')||'Bạn chưa gửi yêu cầu hỗ trợ.',V.btn('Gửi yêu cầu mới','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      go('T1');
     },
     'support-faqs'() {
       u.supportFaqs=!u.supportFaqs;
@@ -1144,7 +1155,7 @@
       if (n) {
         n.read = true;
         if (n.screen === 'C4') u.urgentAftercare = true;
-        go(n.screen, { visitId: n.visitId });
+        go(n.screen, { visitId: n.visitId, ticketId: n.ticketId, rxId: n.rxId });
       }
     },
     staff,
@@ -1219,7 +1230,7 @@
   document.addEventListener('click', (event) => {
     const el = event.target.closest('[data-action]');
     if (!el || el.disabled) return;
-    const action = actions[el.dataset.action];
+    const action = actions[el.dataset.action] || window.CareFlowProduct?.ACTIONS[el.dataset.action];
     if (action) {
       if(el.dataset.action!=='external-support')event.preventDefault();
       action(el);
@@ -1276,6 +1287,7 @@
       cta = form.querySelector('[type=submit]');
     if (cta.disabled) return;
     if (s.offline && name !== 'settings') return error('OFFLINE');
+    if (window.CareFlowProduct?.submit(name, form)) return;
     switch (name) {
       case 'otp':
         if (!/^0\d{9}$/.test(get('phone'))) return error('PHONE', 'phone');
@@ -1365,6 +1377,8 @@
           return error('SLOT', 'date');
         s.draft.date = get('date');
         s.draft.slot = get('slot');
+        if (data.has('specialty'))
+          s.draft.clinician = window.CareFlowProduct.chosenClinician(s, get('specialty'), get('clinicianId'));
         complete({ ok: true }, 'C8');
         break;
       }
@@ -1515,8 +1529,13 @@
           visitId: s.activeVisitId,
           status: 'waiting',
         });
-        complete({ ok: true });
-        dialog(VI.screen.K5.message, VI.screen.K5.sent);
+        {
+          // Every support request is also a ticket the patient can follow in Hỗ trợ → Yêu cầu.
+          const ticketId = 'HT-' + (Math.max(1000, ...(s.tickets || []).map(t => Number(t.id.replace(/\D/g, '')) || 0)) + 1), at = new Date().toISOString();
+          (s.tickets ??= []).unshift({ id: ticketId, topic: get('supportTopic') || 'Khác', subject: get('supportTopic') || 'Yêu cầu hỗ trợ', status: 'open', visitId: null, createdAt: at, closeReason: '', thread: [{ from: 'patient', author: '', text: get('support'), at }] });
+          complete({ ok: true });
+          dialog(VI.screen.K5.message, VI.screen.K5.sent, V.btn('Xem yêu cầu', 'p-nav', { 'data-to': 'T2', 'data-p-ticket-id': ticketId }, 'primary') + V.btn('Đóng', 'close-dialog', {}, 'secondary'));
+        }
         break;
       case 'settings':
         s.settings = {
@@ -1576,7 +1595,7 @@
     if(label&&caption) caption.textContent='Tiếp tục với '+label.split(/\s+/).slice(-2).join(' ');
   }
   function loadScenario(name) {
-    s = name === 'new' ? M.initial() : M.fixture(name);
+    s = name === 'new' ? M.initial() : name === 'demo' ? window.CareFlowSeed.build() : name === 'demo-member' ? Object.assign(window.CareFlowSeed.build(), { authenticated: true }) : M.fixture(name);
     u = {
       ...u,
       inspection: true,
@@ -1594,12 +1613,18 @@
       labId: null,
       urgentAftercare: false,
     };
-    if (name === 'returning') {
+    if (name === 'returning' || name === 'demo') {
       s.authenticated = false;
       go('A1', {}, true);
     } else go(name === 'new' ? 'A1' : name === 'appointments' ? 'D1' : 'B1', {}, true);
     demo(VI.demo.warning);
   }
+  // Narrow bridge for careflow-product.js (screens added on top of the 47-screen inventory).
+  window.CareFlowApp = {
+    get state() { return s; },
+    get ui() { return u; },
+    go, render, save, dialog, demo, routeFor,
+  };
   window.addEventListener('hashchange', render);
   const params = new URLSearchParams(location.search);
   // This shared review link opens the approved appointment fixture directly.
@@ -1625,6 +1650,8 @@
       'online',
       'pre-lab',
       'no-show',
+      'demo',
+      'demo-member',
     ].includes(params.get('scenario'))
   ) {
     u.journey = null;
@@ -1633,7 +1660,11 @@
     s =
       params.get('scenario') === 'new'
         ? M.initial()
-        : M.fixture(params.get('scenario'));
+        : params.get('scenario') === 'demo'
+          ? window.CareFlowSeed.build()
+          : params.get('scenario') === 'demo-member'
+            ? Object.assign(window.CareFlowSeed.build(), { authenticated: true })
+            : M.fixture(params.get('scenario'));
     if (params.get('scenario') === 'returning') s.authenticated = false;
     u.filter = 'upcoming';
     u.appointmentGroup = null;

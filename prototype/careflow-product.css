@@ -1,0 +1,105 @@
+/* Product layer: medications, profile/family/insurance, support tickets and demo states.
+   Composition only; colours, radii and type come from design/tokens.css. */
+body:not(.product-mode) #reset-demo { display: none; }
+.presentation-actions { display: flex; gap: 8px; align-items: center; }
+
+/* Inline validation */
+.field-message { margin: 6px 0 0; color: var(--cf-danger); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); line-height: 1.4; font-weight: 600; }
+.field-message:empty { display: none; }
+.field-hint { display: block; margin: 2px 0 6px; color: var(--cf-text-muted); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); line-height: 1.4; }
+.field.has-error input, .field.has-error textarea, .field.has-error select { border-color: var(--cf-danger); box-shadow: 0 0 0 1px var(--cf-danger); }
+.cf-required { margin-left: 2px; color: var(--cf-danger); font-style: normal; }
+.field select { width: 100%; min-height: var(--cf-control-height, 48px); padding: 0 12px; border: 1px solid var(--cf-input-line); border-radius: var(--cf-radius-control); background: var(--cf-surface); color: var(--cf-text); font: inherit; font-size: calc(var(--cf-control-font) * var(--font-scale, 1)); }
+.cf-radio-set { margin: 0 0 var(--cf-space-4); padding: 0; border: 0; min-width: 0; }
+.cf-radio-set legend { margin-bottom: 8px; font-weight: 700; color: var(--cf-text); font-size: calc(var(--cf-label-font) * var(--font-scale, 1)); }
+.cf-radio { display: flex; align-items: center; gap: 10px; min-height: 48px; margin-bottom: 8px; padding: 10px 14px; border: 1px solid var(--cf-line); border-radius: var(--cf-radius-control); background: var(--cf-surface); color: var(--cf-text); cursor: pointer; }
+.cf-radio:has(input:checked) { border-color: var(--cf-primary); background: var(--cf-info-surface); }
+.cf-radio input { width: 20px; height: 20px; accent-color: var(--cf-primary); flex: 0 0 auto; }
+.cf-radio-set[aria-invalid] .cf-radio, .cf-radio-set:has(input[aria-invalid]) .cf-radio { border-color: var(--cf-danger); }
+.cf-check-field .check { align-items: flex-start; }
+.cf-field-pair { display: grid; grid-template-columns: 1fr; gap: 0; }
+.cf-field-pair .field { min-width: 0; }
+form[data-product-form] .form-actions { display: grid; gap: 8px; }
+form[data-product-form] .form-actions .btn.text { justify-self: center; }
+
+/* Recoverable error + loading */
+.cf-inline-error { display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; align-items: start; margin: 0 0 4px; padding: 12px 14px; border: 1px solid var(--cf-danger-line); border-radius: var(--cf-radius-inner, 14px); background: var(--cf-danger-surface); color: var(--cf-danger); }
+.cf-inline-error strong { display: block; color: var(--cf-danger); }
+.cf-inline-error p { margin: 2px 0 0; color: var(--cf-text); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); }
+.cf-inline-error .btn { grid-column: 1 / -1; justify-self: start; min-height: 44px; }
+#dialog-actions .cf-inline-error { width: 100%; }
+.cf-load-error { display: grid; justify-items: center; gap: 8px; margin: var(--cf-space-4) 0; padding: var(--cf-space-6) var(--cf-space-4); border: 1px solid var(--cf-danger-line); border-radius: var(--cf-radius-card); background: var(--cf-surface); text-align: center; color: var(--cf-danger); }
+.cf-load-error h2 { margin: 4px 0 0; color: var(--cf-text); font-size: calc(var(--cf-card-title-font) * var(--font-scale, 1)); }
+.cf-load-error p { margin: 0 0 8px; color: var(--cf-text-muted); }
+.cf-skeleton { display: grid; gap: 12px; margin-top: var(--cf-space-4); }
+.cf-skeleton-card { display: grid; gap: 10px; padding: 18px; border-radius: var(--cf-radius-card); background: var(--cf-surface); border: 1px solid var(--cf-line); }
+.cf-skeleton-card span { display: block; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--cf-blue-mist) 0%, var(--cf-blue-paper) 50%, var(--cf-blue-mist) 100%); background-size: 200% 100%; animation: cf-shimmer 1.2s linear infinite; }
+.cf-skeleton-card span:nth-child(1) { width: 55%; height: 16px; }
+.cf-skeleton-card span:nth-child(2) { width: 85%; }
+.cf-skeleton-card span:nth-child(3) { width: 40%; }
+@keyframes cf-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .cf-skeleton-card span { animation: none; } }
+
+/* Lists */
+.cf-segmented { display: flex; gap: 6px; margin: var(--cf-space-3) 0 var(--cf-space-4); padding: 4px; border-radius: 999px; background: var(--cf-surface-tonal); }
+.cf-segmented button { flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 6px 10px; border: 0; border-radius: 999px; background: transparent; color: var(--cf-text); font: inherit; font-weight: 600; font-size: calc(var(--cf-label-font) * var(--font-scale, 1)); cursor: pointer; }
+.cf-segmented button[aria-pressed="true"] { background: var(--cf-surface); color: var(--cf-text); font-weight: 700; box-shadow: var(--cf-card-shadow); }
+.cf-segmented button span { min-width: 22px; padding: 0 6px; border-radius: 999px; background: var(--cf-surface-page); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); }
+.cf-product-row .chip, .cf-product-row [data-cf-component="status"] { flex: 0 0 auto; align-self: center; max-width: 42%; white-space: normal; text-align: center; }
+.cf-product-row .row-text { min-width: 0; }
+.cf-product-row .row-text strong, .cf-product-row .row-text small { overflow-wrap: anywhere; }
+.cf-row-tag { flex: 0 0 auto; align-self: center; max-width: 34%; padding: 4px 8px; border-radius: 999px; background: var(--cf-warning-surface); color: var(--cf-warning); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); font-weight: 600; text-align: center; }
+.cf-ticket-list, .cf-family-list { margin-bottom: var(--cf-space-4); }
+.cf-action-row { display: grid; gap: 10px; margin: var(--cf-space-4) 0; }
+.cf-action-row .btn { width: 100%; }
+
+/* Medications */
+.cf-rx-list { display: grid; gap: 12px; margin-bottom: var(--cf-space-4); }
+.cf-rx-card { padding: 14px 16px; border: 1px solid var(--cf-line); border-radius: var(--cf-radius-card); background: var(--cf-surface); box-shadow: var(--cf-card-shadow); }
+.cf-rx-open { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; width: 100%; min-height: 48px; padding: 0; border: 0; background: none; color: var(--cf-text); text-align: left; font: inherit; cursor: pointer; }
+.cf-rx-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--cf-info-surface); color: var(--cf-primary); }
+.cf-rx-copy { display: grid; gap: 2px; min-width: 0; }
+.cf-rx-copy strong { font-size: calc(var(--cf-card-title-font) * var(--font-scale, 1)); overflow-wrap: anywhere; }
+.cf-rx-copy small { color: var(--cf-text-muted); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); }
+.cf-rx-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-left: 56px; }
+.card.cf-rx-hero { display: flex; flex-direction: row; gap: 14px; align-items: center; }
+.card.cf-rx-hero > div { display: grid; gap: 4px; justify-items: start; }
+.cf-rx-hero .eyebrow { margin: 6px 0 0; }
+.cf-refill-status { display: grid; gap: 8px; margin-bottom: 12px; }
+.cf-refill-status p { margin: 0; }
+.cf-refill-status .btn { justify-self: start; }
+.cf-quote { color: var(--cf-text-muted); font-style: italic; }
+
+/* Insurance */
+.cf-insurance-card { display: grid; gap: 6px; justify-items: start; }
+.cf-insurance-number { font-size: calc(var(--cf-title-font, 22px) * var(--font-scale, 1)); letter-spacing: .04em; font-variant-numeric: tabular-nums; color: var(--cf-text); overflow-wrap: anywhere; }
+
+/* Support tickets */
+.cf-ticket-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: var(--cf-space-2) 0 var(--cf-space-3); color: var(--cf-text-muted); }
+.cf-thread .message span { font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); }
+.cf-thread .message p { overflow-wrap: anywhere; white-space: pre-line; }
+
+/* Notifications: per-item mark read */
+.cf-mark-read { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: -4px 0 8px 12px; padding: 4px 10px; border: 0; border-radius: 999px; background: transparent; color: var(--cf-primary); font: inherit; font-weight: 600; font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); cursor: pointer; }
+.cf-mark-read:hover { background: var(--cf-info-surface); }
+
+/* Booking: clinician picker inside the slot step */
+.cf-clinician-picker { display: grid; gap: 4px; margin-bottom: var(--cf-space-4); }
+.cf-clinician-picker h2 { margin: 0 0 6px; font-size: calc(var(--cf-card-title-font) * var(--font-scale, 1)); }
+.cf-row-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.cf-row-badges .cf-row-tag, .cf-row-badges [data-cf-component="status"] { max-width: none; align-self: auto; }
+
+/* Profile: insurance / medications / history links (same rhythm as the settings list) */
+.cf-records-list > button + button { border-top: 1px solid var(--cf-line); }
+.cf-records-list > button { display: flex; align-items: center; gap: var(--cf-space-2); width: 100%; min-height: 56px; padding: var(--cf-space-3) 0; border: 0; background: transparent; color: var(--cf-text); text-align: left; font: inherit; cursor: pointer; }
+.cf-records-list > button > svg { flex: none; }
+.cf-records-list > button strong { font-size: calc(var(--cf-body-font) * var(--font-scale, 1)); font-weight: 600; }
+.cf-records-list > button small { margin-left: auto; font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); color: var(--cf-text-muted); }
+.cf-records-list > button > svg:last-child { margin-left: auto; }
+.cf-records-list > button small + svg:last-child { margin-left: 0; }
+.cf-thread .message { padding: 12px 14px; border-radius: var(--cf-radius-inner, 16px); }
+.cf-thread .message.sent { background: var(--cf-info-surface); border: 1px solid var(--cf-line); }
+.cf-thread .message.received { background: var(--cf-surface); border: 1px solid var(--cf-line); }
+.cf-thread .message span { color: var(--cf-text); }
+.cf-thread .message p { color: var(--cf-text); }
+.phone #phone-content[data-screen] .cf-thread .message p, .phone #phone-content[data-screen] .cf-thread .message span { color: var(--cf-text); }

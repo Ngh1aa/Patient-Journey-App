@@ -1,0 +1,90 @@
+/* Clinic operations pages. Composition only; colour and type tokens from design/tokens.css. */
+.ops-header-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--cf-line); border-radius: 999px; background: var(--cf-surface); color: var(--cf-text); font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.ops-header-link:hover { border-color: var(--cf-primary); color: var(--cf-primary); }
+.ops-fail-toggle { min-height: 40px; padding: 0 12px; border: 1px dashed var(--cf-line); border-radius: 999px; background: transparent; color: var(--cf-text-muted); font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.ops-fail-toggle[aria-pressed="true"] { border-style: solid; border-color: var(--cf-danger); color: var(--cf-danger); background: var(--cf-danger-surface); }
+.top-actions { gap: 10px; }
+.ops-toolbar { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+.ops-screen { display: grid; gap: 20px; min-width: 0; }
+.ops-screen .doctor-heading { margin: 0; }
+.ops-screen .doctor-heading-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.ops-screen h1 { margin: 4px 0; }
+.ops-heading-actions { display: flex; gap: 10px; align-items: center; }
+.ops-subnav { display: flex; gap: 6px; flex-wrap: wrap; padding: 4px; border-radius: 999px; background: var(--cf-surface-tonal); width: fit-content; max-width: 100%; min-width: 0; }
+.ops-subnav a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; color: var(--cf-text); font-weight: 600; font-size: 14px; text-decoration: none; }
+.ops-subnav a.active { background: var(--cf-surface); color: var(--cf-text); box-shadow: var(--cf-card-shadow); }
+.ops-subnav a span { min-width: 22px; padding: 1px 7px; border-radius: 999px; background: var(--cf-warning-surface); color: var(--cf-warning); font-size: 12px; text-align: center; }
+
+.ops-panel { padding: 22px 24px; min-width: 0; }
+.ops-narrow { max-width: 760px; }
+.ops-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+@media (max-width: 1100px) { .ops-grid { grid-template-columns: 1fr; } }
+.ops-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 16px; }
+.ops-filters button { min-height: 40px; padding: 0 14px; border: 1px solid var(--cf-line); border-radius: 999px; background: var(--cf-surface); color: var(--cf-text-muted); font: inherit; font-weight: 600; font-size: 14px; cursor: pointer; }
+.ops-filters button[aria-pressed="true"] { border-color: var(--cf-primary); background: var(--cf-info-surface); color: var(--cf-text); }
+.ops-filters button span { margin-left: 4px; color: var(--cf-text-muted); }
+.ops-table td { vertical-align: middle; }
+.ops-table .ops-sub { display: block; margin-top: 2px; color: var(--cf-text-muted); font-size: 13px; }
+.ops-row-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.ops-row-actions .btn { white-space: nowrap; }
+.ops-facts { display: grid; gap: 12px; margin: 8px 0 16px; }
+.ops-facts div { display: grid; grid-template-columns: 140px 1fr; gap: 12px; }
+.ops-facts dt { color: var(--cf-text-muted); font-size: 14px; }
+.ops-facts dd { margin: 0; color: var(--cf-text); font-weight: 600; overflow-wrap: anywhere; }
+.ops-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 16px; }
+.ops-muted { margin: 4px 0 12px; color: var(--cf-text-muted); font-size: 14px; line-height: 1.5; }
+.ops-h3 { margin: 12px 0 8px; font-size: 15px; color: var(--cf-text); }
+.ops-timeline { margin: 0; padding: 0 0 0 18px; display: grid; gap: 8px; }
+.ops-timeline li strong { display: block; font-size: 14px; }
+.ops-timeline li small { color: var(--cf-text-muted); font-size: 13px; }
+
+.ops-form { display: grid; gap: 12px; margin-bottom: 12px; }
+.ops-field { display: grid; gap: 6px; min-width: 0; font-weight: 600; font-size: 14px; color: var(--cf-text); }
+.ops-field input, .ops-field select, .ops-field textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--cf-input-line); border-radius: var(--cf-radius-control, 12px); background: var(--cf-surface); color: var(--cf-text); font: inherit; font-weight: 400; }
+.ops-field textarea { min-height: 88px; resize: vertical; }
+.ops-field [aria-invalid="true"] { border-color: var(--cf-danger); box-shadow: 0 0 0 1px var(--cf-danger); }
+.ops-field small { color: var(--cf-text-muted); font-weight: 400; font-size: 13px; }
+.ops-error { color: var(--cf-danger); font-style: normal; font-size: 13px; font-weight: 600; }
+.ops-error:empty { display: none; }
+.ops-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ops-form-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.ops-inline-error, .ops-banner { display: grid; gap: 4px 12px; padding: 12px 14px; border: 1px solid var(--cf-danger-line); border-radius: 12px; background: var(--cf-danger-surface); color: var(--cf-text); }
+.ops-inline-error strong, .ops-banner strong { color: var(--cf-danger); }
+.ops-inline-error p, .ops-banner p { margin: 0; font-size: 14px; }
+.ops-inline-error .btn { justify-self: start; }
+.ops-banner { grid-template-columns: 1fr auto auto; align-items: center; }
+.ops-banner:focus { outline: 2px solid var(--cf-focus); outline-offset: 2px; }
+
+.ops-notes, .ops-mini-list, .ops-task-list, .ops-thread { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ops-notes li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 14px; border: 1px solid var(--cf-line); border-radius: 12px; background: var(--cf-surface); }
+.ops-notes li p { margin: 0; overflow-wrap: anywhere; }
+.ops-notes li small { grid-column: 1; color: var(--cf-text-muted); font-size: 13px; }
+.ops-notes li .btn { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+.ops-mini-list li { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid var(--cf-line); }
+.ops-task { display: flex; gap: 16px; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 14px 16px; border: 1px solid var(--cf-line); border-radius: 14px; background: var(--cf-surface); }
+.ops-task.is-done h3 { color: var(--cf-text-muted); text-decoration: line-through; }
+.ops-task-main { min-width: 0; flex: 1 1 320px; }
+.ops-task-main h3 { margin: 6px 0 4px; font-size: 16px; }
+.ops-task-main p { margin: 0; font-size: 14px; }
+.ops-task-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+.ops-task-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ops-thread li { max-width: 80%; padding: 12px 14px; border-radius: 14px; background: var(--cf-surface-tonal); }
+.ops-thread li.is-staff { justify-self: end; background: var(--cf-info-surface); }
+.ops-thread li small { color: var(--cf-text); font-size: 13px; }
+.ops-thread li p { margin: 4px 0 0; overflow-wrap: anywhere; }
+.ops-thread { margin-bottom: 16px; }
+.ops-empty { display: grid; gap: 6px; justify-items: start; padding: 20px; border: 1px dashed var(--cf-line); border-radius: 14px; color: var(--cf-text-muted); }
+.ops-empty strong { color: var(--cf-text); font-size: 16px; }
+.ops-empty p { margin: 0 0 6px; }
+.ops-load-error { padding: 24px; display: grid; gap: 8px; justify-items: start; }
+.ops-load-error h2 { margin: 0; color: var(--cf-danger); }
+.ops-skeleton { display: grid; gap: 12px; }
+.ops-skeleton-row { display: grid; grid-template-columns: 80px 1fr 160px; gap: 16px; padding: 18px; border-radius: 14px; background: var(--cf-surface); border: 1px solid var(--cf-line); }
+.ops-skeleton-row span { height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--cf-blue-mist), var(--cf-blue-paper), var(--cf-blue-mist)); background-size: 200% 100%; animation: ops-shimmer 1.2s linear infinite; }
+@keyframes ops-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .ops-skeleton-row span { animation: none; } }
+.ops-small { min-height: 36px; padding: 0 12px; font-size: 13px; }
+.ops-screen > *, .ops-panel > * { min-width: 0; max-width: 100%; }
+.ops-screen .doctor-heading h1 { overflow-wrap: anywhere; }
+@media (max-width: 700px) { .ops-pair { grid-template-columns: 1fr; } .ops-facts div { grid-template-columns: 1fr; gap: 2px; } .ops-panel { padding: 16px; } .ops-banner { grid-template-columns: 1fr; } }

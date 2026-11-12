@@ -47,10 +47,12 @@ test('support reference FAQ, channels and request history have functional action
   await expect(page.locator('.rich-faqs details').first()).toHaveAttribute('open','');
   await page.getByRole('button',{name:'Xem thêm',exact:true}).click();
   await expect(page.locator('.rich-faqs details')).toHaveCount(5);
+  // Request history is now its own list (Hỗ trợ → Yêu cầu) with a truthful empty state.
   await page.locator('[data-action="support-requests"]').click();
-  await expect(page.locator('#dialog-body')).toContainText('Bạn chưa gửi yêu cầu');
-  await page.getByRole('button',{name:'Gửi yêu cầu mới'}).click();
-  await expect(page.locator('#support')).toBeFocused();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','T1');
+  await expect(page.locator('#phone-content')).toContainText('Không có yêu cầu đang mở');
+  await page.goBack();
+  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','K5');
   await page.locator('[data-topic="Thông tin hồ sơ"]').click();
   await expect(page.locator('#supportTopic')).toHaveValue('Thông tin hồ sơ');
   await expect(page.locator('#support')).toBeFocused();

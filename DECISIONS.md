@@ -75,3 +75,9 @@ Tài liệu này ghi nhận các quyết định kiến trúc, lựa chọn mặ
 
 ## 9. Bảng điều khiển Demo (Demo Controls)
 * **Quyết định:** Mở bảng điều khiển ẩn bằng cách chạm 3 lần (triple tap) vào tiêu đề của B1 (`Xin chào...`). Cung cấp menu chuyển nhanh 12 trạng thái lịch, toggle offline, toggle slot collision, toggle lỗi mạng và reset mock data.
+
+## 10. Bản dùng thử đầy đủ không backend (feature/full-prototype)
+* **Quyết định:** Một file dữ liệu ban đầu (`data/careflow-seed.js`) cho cả app người bệnh và không gian phòng khám; thay đổi lưu chung khóa sessionStorage `careflow.browser.v3` qua `data/careflow-store.js`, nên hai app đồng bộ khi mở trong cùng tab.
+* **Màn mới** được thêm vào danh mục lúc chạy (`prototype/careflow-product.js`), không đổi danh mục 47 màn mà `tests.cjs` kiểm tra.
+* **Trạng thái mạng mô phỏng:** tải/lưu có độ trễ ~0,4 giây; công tắc "Mô phỏng lỗi kết nối" làm thao tác kế tiếp thất bại mà không đổi dữ liệu, luôn kèm nút Thử lại. Độ trễ tải danh sách Lịch hẹn/Thông báo chỉ áp dụng cho dữ liệu dùng thử, để các bộ test kịch bản cũ không đổi thời gian.
+* **An toàn:** thuốc là tên minh họa, cách dùng trỏ về đơn của bác sĩ; cấp lại thuốc, hoàn tất khám và ghi chú đều ghi rõ là mô phỏng.

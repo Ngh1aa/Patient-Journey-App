@@ -438,6 +438,7 @@
       previousId,
       purpose,
       free: purpose === 'explanation',
+      clinician: previous?.clinician || null,
     };
     s.request = null;
     return pass();
@@ -563,6 +564,8 @@
       createdAt: stamp(),
       cancelReason: '',
       rescheduledTo: null,
+      ...(d.clinician ? { clinician: d.clinician } : {}),
+      staffNotes: [],
     };
     const previous = d.previousId ? visit(s, d.previousId) : null;
     if (

@@ -93,6 +93,7 @@
     }).join('');
     return form(
       name,
+      (name === 'slot' && s.draft && root.CareFlowProduct ? root.CareFlowProduct.clinicianPicker(s, root.CareFlowApp?.ui || {}) : '') +
       `<div class="cf-schedule-date"><div class="cf-schedule-heading"><h2>Ngày khám mong muốn</h2><span data-date-month></span></div><div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div><div class="cf-date-other">` + field('date', 'Chọn ngày khác', selected, 'date', {
         min: M.localDate(),
         required: 'required',
@@ -126,6 +127,9 @@
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
   function render(id, s, u) {
+    const P = root.CareFlowProduct;
+    const loading = P?.gateView(id, s);
+    if (loading) return loading;
     const T = VI.screen[id],
       v = M.visit(s),
       d = s.draft,
@@ -399,6 +403,7 @@
           card(
             `<h2 class="card-heading">${I('flask',24)}<span>Trạng thái chỉ định</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
           ) +
+          (l.note ? card(`<h2 class="card-heading">${I('document-check',24)}<span>Nhận xét của bác sĩ</span></h2><p>${esc(l.note)}</p>`) : '') +
           (l.appointmentDate ? card(`<h2>Thời gian bạn đã chọn</h2><dl class="details cf-lab-schedule"><div><dt>Ngày thực hiện</dt><dd>${esc(dateText({date:l.appointmentDate}))}</dd></div><div><dt>Giờ mong muốn</dt><dd>${esc(l.appointmentTime||'Chờ sắp xếp')}</dd></div></dl>${l.coordinator?'<p>Đã nhờ điều dưỡng liên hệ để sắp xếp.</p>':''}`) : '') +
           section(T.prepare, `<p>${esc(C.noClinical)}</p>`) +
           (l.timing === 'pre' && !l.continuation ? form(
@@ -567,7 +572,9 @@
       case 'H6':
         body =
           section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
-          section(T.medicine, `<div class="cf-document-empty">${I('pill',24)}<div><strong>Chưa có đơn thuốc được chia sẻ</strong><p>Đơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.</p></div></div>`, '', 'pill') +
+          section(T.medicine, (s.prescriptions || []).some(r => r.visitId === v.id)
+            ? `<div class="list">${s.prescriptions.filter(r => r.visitId === v.id).map(r => `<button type="button" class="row" ${UI.cardAttrs('row')} data-action="p-nav" data-to="M2" data-p-rx-id="${esc(r.id)}"><span class="row-icon">${I('pill')}</span><span class="row-text"><strong>${esc(r.name)}</strong><small>${esc(r.form)} · ${esc(r.quantity)}</small></span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`).join('')}</div>`
+            : `<div class="cf-document-empty">${I('pill',24)}<div><strong>Chưa có đơn thuốc được chia sẻ</strong><p>Đơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.</p></div></div>`, '', 'pill') +
           section(T.instructions, `<p>${esc(C.noClinical)}</p>`) + R.aftercare(v,richH) +
           nav(T.question, 'I1', 'primary') +
           nav(T.followup, 'J1');
@@ -684,7 +691,7 @@
         break;
       case 'K1':
         body = (s.notifications.length
-          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" ${UI.cardAttrs('row')} type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?' · '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
+          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" ${UI.cardAttrs('row')} type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?', '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>${n.read?'':`<button type="button" class="cf-mark-read" data-action="notification-read" data-id="${esc(n.id)}">${I('check',16)}<span>Đánh dấu đã đọc</span></button>`}`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
           : empty(T.empty,'')) + note(T.note);
         break;
       case 'K2':
@@ -710,6 +717,7 @@
             C.save,
           ) +
           section(T.privacy, `<p>${esc(T.privacyLead)}</p>`) +
+          section('Dữ liệu demo', `<p>Đưa lịch hẹn, hồ sơ và yêu cầu về dữ liệu ban đầu. Thao tác này chỉ ảnh hưởng phiên trình duyệt hiện tại.</p>${btn('Đặt lại dữ liệu demo', 'reset-demo', {}, 'secondary')}`) +
           btn(T.logout, 'logout', {}, 'danger');
         break;
       case 'K5':
@@ -717,6 +725,12 @@
         body = R.support(s, u, richH);
         break;
       default:
+        if (P?.has(id)) {
+          const screen = P.render(id, s, u);
+          intro = head(screen.heading, screen.lead);
+          body = screen.body;
+          break;
+        }
         return empty(
           VI.feedback.notFound,
           VI.feedback.notFoundLead,
@@ -740,6 +754,7 @@
       G: ['KHÁM ONLINE', 'video'], H: ['THÔNG TIN SAU KHÁM', 'document'],
       I: ['CHĂM SÓC SAU KHÁM', 'heart-pulse'], J: ['HẸN GẶP LẠI BÁC SĨ', 'calendar'],
       K: [id === 'K5' ? 'PHÒNG KHÁM ĐỒNG HÀNH' : 'THÔNG TIN CỦA BẠN', id === 'K5' ? 'phone' : 'user'],
+      M: ['THUỐC CỦA BẠN', 'pill'], T: ['PHÒNG KHÁM ĐỒNG HÀNH', 'message-circle'],
     };
     const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
     const tip = ['C1','C7','D1','K2','K5'].includes(id) ? null : VI.layout.tips[id];
