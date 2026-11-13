@@ -62,7 +62,7 @@
   const dateText = (v) => {
     if (!v?.date) return C.notProvided;
     const date = new Date(v.date + 'T12:00:00+07:00');
-    return new Intl.DateTimeFormat('vi-VN', {
+    return new Intl.DateTimeFormat('en-GB', {
       weekday: 'long',
       day: '2-digit',
       month: '2-digit',
@@ -72,15 +72,15 @@
   };
   const modeText = UI.modeText;
   const details = (s, v) =>
-    `<dl class="details" data-cf-component="facts">${v.status?`<div><dt>${I('user',14)}Bác sĩ</dt><dd>${esc(R.clinician(v).name)} · ${esc(R.clinician(v).specialty)}</dd></div>`:''}<div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Chờ phòng khám xác nhận' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
+    `<dl class="details" data-cf-component="facts">${v.status?`<div><dt>${I('user',14)}Doctor</dt><dd>${esc(R.clinician(v).name)} · ${esc(R.clinician(v).specialty)}</dd></div>`:''}<div><dt>${I('user',14)}${esc(C.patient)}</dt><dd>${esc(M.profile(s, v.patientId)?.name)}</dd></div><div><dt>${I('calendar',14)}${esc(C.date)}</dt><dd>${esc(dateText(v))}</dd></div><div><dt>${I('clock',14)}${esc(C.time)}</dt><dd>${esc(v.slot)}</dd></div><div><dt>${I(v.mode === 'online' ? 'video' : 'map-pin',14)}${esc(C.mode)}</dt><dd>${esc(v.status === 'mode-review' || (!v.status && v.risk) ? 'Awaiting clinic confirmation' : modeText(v.mode))}</dd></div><div><dt>${I('document',14)}${esc(C.reason)}</dt><dd>${esc(v.reason)}</dd></div></dl>`;
   function visitCard(s, v, hero = false) {
     const date = new Date(v.date + 'T12:00:00+07:00');
-    const day = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
-    const month = new Intl.DateTimeFormat('vi-VN', { month: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
-    return `<button data-cf-component="appointment" data-cf-variant="card" class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${root.CareFlowAvatar(v.patientId,36)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>THÁNG ${esc(month)}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Hình thức đang được xem xét' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
+    const day = new Intl.DateTimeFormat('en-GB', { day: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
+    const month = new Intl.DateTimeFormat('en-GB', { month: 'short', timeZone: 'Asia/Ho_Chi_Minh' }).format(date);
+    return `<button data-cf-component="appointment" data-cf-variant="card" class="visit-card ${hero ? 'hero' : ''}" type="button" data-action="open-visit" data-id="${esc(v.id)}"><span class="visit-card-top"><span class="visit-person">${root.CareFlowAvatar(v.patientId,36)}<span><small>${esc(C.patient)}</small><strong>${esc(M.profile(s, v.patientId)?.name)}</strong></span></span><span class="visit-mode" aria-label="${esc(modeText(v.mode))}">${I(v.mode === 'online' ? 'video' : 'map-pin', 22)}</span></span><span class="visit-schedule"><span class="visit-day" aria-hidden="true"><strong>${esc(day)}</strong><small>${esc(month.toUpperCase())}</small></span><span class="visit-schedule-copy"><strong class="visit-time">${esc(v.slot)}</strong><span class="visit-date">${esc(dateText(v))}</span><span class="visit-location">${esc(v.status === 'mode-review' ? 'Visit type under review' : modeText(v.mode))}</span></span></span><span class="visit-bottom">${status(v)}<span class="visit-open" aria-label="${esc(C.viewVisit)}">${I('arrow-right', 19)}</span></span></button>`;
   }
   function timeline(v) {
-    return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
+    return `<ol class="timeline">${v.history.map((h, i) => `<li class="${i === v.history.length - 1 ? 'current' : ''}"><span class="timeline-dot"></span><div><strong>${esc(VI.statuses[h.status]?.[0] || h.status)}</strong><small>${esc(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }).format(new Date(h.at)))}</small></div></li>`).join('')}</ol>`;
   }
   function slotForm(s, name = 'slot', title = VI.screen.C7) {
     const d = s.draft || {};
@@ -88,30 +88,30 @@
     const days = Array.from({length: 5}, (_, i) => {
       const value = M.localDate(i);
       const date = new Date(value + 'T12:00:00+07:00');
-      const weekday = new Intl.DateTimeFormat('vi-VN', {weekday: 'short', timeZone: 'Asia/Ho_Chi_Minh'}).format(date);
+      const weekday = new Intl.DateTimeFormat('en-GB', {weekday: 'short', timeZone: 'Asia/Ho_Chi_Minh'}).format(date);
       return `<button type="button" class="date-option" data-action="quick-date" data-date="${value}" aria-label="${esc(dateText({date: value}))}" aria-pressed="${value === selected}"><span>${esc(weekday)}</span><strong>${date.getDate()}</strong></button>`;
     }).join('');
     return form(
       name,
       (name === 'slot' && s.draft && root.CareFlowProduct ? root.CareFlowProduct.clinicianPicker(s, root.CareFlowApp?.ui || {}) : '') +
-      `<div class="cf-schedule-date"><div class="cf-schedule-heading"><h2>Ngày khám mong muốn</h2><span data-date-month></span></div><div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div><div class="cf-date-other">` + field('date', 'Chọn ngày khác', selected, 'date', {
+      `<div class="cf-schedule-date"><div class="cf-schedule-heading"><h2>Preferred visit date</h2><span data-date-month></span></div><div class="date-strip" role="group" aria-label="${esc(VI.layout.quickDates)}">${days}</div><div class="cf-date-other">` + field('date', 'Choose another date', selected, 'date', {
         min: M.localDate(),
         required: 'required',
-      }) + `</div></div><fieldset class="slot-field"><legend>${esc(C.time)}</legend>${[['Buổi sáng',['08:00','09:00','10:30']],['Buổi chiều',['14:00','15:30']]].map(([label,times])=>`<div class="cf-slot-group"><p>${label}</p><div class="slots">${times.map(t=>`<label class="slot"><input name="slot" type="radio" value="${t}"${d.slot===t?' checked':''}><span>${t}</span></label>`).join('')}</div></div>`).join('')}<p class="cf-schedule-hint">Phòng khám sẽ xác nhận thời gian sau khi nhận yêu cầu.</p></fieldset>`,
+      }) + `</div></div><fieldset class="slot-field"><legend>${esc(C.time)}</legend>${[['Morning',['08:00','09:00','10:30']],['Afternoon',['14:00','15:30']]].map(([label,times])=>`<div class="cf-slot-group"><p>${label}</p><div class="slots">${times.map(t=>`<label class="slot"><input name="slot" type="radio" value="${t}"${d.slot===t?' checked':''}><span>${t}</span></label>`).join('')}</div></div>`).join('')}<p class="cf-schedule-hint">The clinic will confirm the time after receiving your request.</p></fieldset>`,
       title.next || C.continue,
     );
   }
   function context(s, v) {
     const p = M.profile(s, v?.patientId || s.draft?.patientId);
     return p
-      ? `<div class="context">${I('user', 16)}<span>${esc(p.name)}</span>${v ? `<small>${esc(v.id)}</small>` : `<button type="button" class="context-edit" data-action="go" data-to="C1" aria-label="${esc(VI.layout.changePatient)}">${I('user',16)}<span>Đổi</span></button>`}</div>`
+      ? `<div class="context">${I('user', 16)}<span>${esc(p.name)}</span>${v ? `<small>${esc(v.id)}</small>` : `<button type="button" class="context-edit" data-action="go" data-to="C1" aria-label="${esc(VI.layout.changePatient)}">${I('user',16)}<span>Change</span></button>`}</div>`
       : '';
   }
   function careProgress(v) {
     const task = v.care.tasks?.at(-1);
     if (!task) return '';
-    const labels = { received: ['Đã nhận cập nhật của bạn','Điều phối viên sẽ kiểm tra và chuyển thông tin cho bác sĩ.'], coordinating: ['Điều phối viên đang xử lý','Thông tin của bạn đang được tổng hợp để chuyển bác sĩ.'], 'doctor-review': ['Bác sĩ đang xem','Phòng khám sẽ phản hồi khi bác sĩ có hướng dẫn tiếp theo.'], answered: ['Phòng khám đã phản hồi','Bạn có thể xem phản hồi trong tin nhắn và hỏi thêm nếu cần.'] };
-    return card(`${chip(labels[task.status][0])}<p class="eyebrow">Phụ trách yêu cầu</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
+    const labels = { received: ['Your update has been received','A coordinator will check it and pass it to the doctor.'], coordinating: ['Coordinator is handling it','Your information is being compiled for the doctor.'], 'doctor-review': ['Doctor is reviewing','The clinic will reply when the doctor has further advice.'], answered: ['The clinic has replied','You can read the reply in messages and ask more if needed.'] };
+    return card(`${chip(labels[task.status][0])}<p class="eyebrow">Handled by</p><h2>${esc(task.owner)}</h2><p>${esc(labels[task.status][1])}</p>`, 'care-progress');
   }
   function bookingProgress(id) {
     const step = {C1: 0, C2: 1, C3: 1, C4: 1, C5: 2, C6: 2, C7: 3, C8: 3}[id];
@@ -122,7 +122,7 @@
   function authVisual(id,s,u) {
     const step=id==='A1'?(u.otpSent?2:1):3;
     const name=u.forms[id==='A2'?'match':'profile']?.name||(id==='A2'?M.accountProfile(s)?.name:'');
-    return `<div class="cf-hdr-auth"><div class="cf-hdr-auth-nav"><span data-header-back></span><h2>${step===1?'Đăng nhập':step===2?'Xác thực':id==='A2'?'Xác nhận hồ sơ':'Tạo hồ sơ'}</h2><span>Bước ${step}/3</span></div><ol class="cf-hdr-auth-progress" aria-label="Tiến trình tạo tài khoản">${['Số điện thoại','Xác thực','Hồ sơ'].map((label,i)=>`<li${i+1===step?' aria-current="step"':''} data-complete="${i+1<step}"><span>${i+1<step?I('check',16):i+1}</span><small>${label}</small></li>`).join('')}</ol>${step===3?`<div class="cf-hdr-auth-preview"><span aria-hidden="true">${root.CareFlowAvatar(M.accountProfile(s)?.id||'account',40)}</span><div><small>${id==='A2'?'Hồ sơ đã tìm thấy':'Hồ sơ đang tạo'}</small><strong data-identity-preview>${esc(name||'Họ và tên của bạn')}</strong></div>${I('document-check',24)}</div>`:`<div class="cf-hdr-auth-prompt">${I(step===1?'phone':'shield',28)}<p>${step===1?'Bắt đầu với số điện thoại của bạn.':'Xác thực để tiếp tục với hồ sơ.'}</p></div>`}</div>`;
+    return `<div class="cf-hdr-auth"><div class="cf-hdr-auth-nav"><span data-header-back></span><h2>${step===1?'Sign in':step===2?'Verify':id==='A2'?'Confirm profile':'Create profile'}</h2><span>Step ${step}/3</span></div><ol class="cf-hdr-auth-progress" aria-label="Account setup progress">${['Phone number','Verify','Profile'].map((label,i)=>`<li${i+1===step?' aria-current="step"':''} data-complete="${i+1<step}"><span>${i+1<step?I('check',16):i+1}</span><small>${label}</small></li>`).join('')}</ol>${step===3?`<div class="cf-hdr-auth-preview"><span aria-hidden="true">${root.CareFlowAvatar(M.accountProfile(s)?.id||'account',40)}</span><div><small>${id==='A2'?'Profile found':'New profile'}</small><strong data-identity-preview>${esc(name||'Your full name')}</strong></div>${I('document-check',24)}</div>`:`<div class="cf-hdr-auth-prompt">${I(step===1?'phone':'shield',28)}<p>${step===1?'Start with your phone number.':'Verify to continue with your profile.'}</p></div>`}</div>`;
   }
   const authPanel = (title, lead, controls, variant = '') =>
     `<section class="auth-panel ${esc(variant)}" ${UI.cardAttrs('surface')} aria-labelledby="screen-title">${head(title, lead)}<div class="auth-panel-content">${controls}</div></section>`;
@@ -144,9 +144,9 @@
       case 'A1':
         intro = authVisual(id,s,u);
         body = authPanel(
-          u.otpSent ? 'Xác nhận số điện thoại' : T.heading,
+          u.otpSent ? 'Confirm your phone number' : T.heading,
           u.otpSent
-            ? 'Nhập mã xác nhận để tiếp tục với hồ sơ của bạn.'
+            ? 'Enter the verification code to continue with your profile.'
             : T.lead,
           form(
             u.otpSent ? 'verify' : 'otp',
@@ -211,7 +211,7 @@
         break;
       }
       case 'C1':
-        intro = head('Ai sẽ đi khám?', 'Chọn hồ sơ có sẵn hoặc thêm người mới.');
+        intro = head('Who is the visit for?', 'Choose an existing profile or add someone new.');
         body = R.patient(s, d, richH);
         break;
       case 'C2':
@@ -221,7 +221,7 @@
             textarea('reason', T.label, d?.reason || '', {
               maxlength: '1200',
               required: 'required',
-            }) + `<div class="symptom-chips" role="group" aria-label="Triệu chứng thường gặp">${['Đau đầu','Sốt','Ho','Đau bụng','Mệt mỏi','Khó ngủ'].map(x => `<button type="button" class="symptom-chip" data-symptom="${esc(x)}">${esc(x)}</button>`).join('')}</div><fieldset class="severity-set"><legend>Mức độ khó chịu bạn tự cảm nhận</legend><div class="severity-grid">${[['mild','Nhẹ'],['moderate','Vừa'],['high','Nặng']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"${d?.severity===value?' checked':''}><span>${label}</span></label>`).join('')}</div><small>Thông tin tự đánh giá, không thay cho bước kiểm tra dấu hiệu nguy hiểm.</small></fieldset><p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
+            }) + `<div class="symptom-chips" role="group" aria-label="Common symptoms">${['Headache','Fever','Cough','Stomach ache','Tiredness','Trouble sleeping'].map(x => `<button type="button" class="symptom-chip" data-symptom="${esc(x)}">${esc(x)}</button>`).join('')}</div><fieldset class="severity-set"><legend>How unwell do you feel?</legend><div class="severity-grid">${[['mild','Mild'],['moderate','Moderate'],['high','Severe']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"${d?.severity===value?' checked':''}><span>${label}</span></label>`).join('')}</div><small>Self-assessment only; it does not replace the warning-sign check.</small></fieldset><p class="hint">${esc(T.hint)}</p>` + textarea('medicalHistory', C.medicalHistory, d?.medicalHistory || '') + `<p class="hint">${esc(C.historyHint)}</p>`,
           ) + (T.note ? note(T.note) : '');
         break;
       case 'C3':
@@ -260,8 +260,8 @@
             choices(
               C.mode,
               [
-                ['onsite', 'Khám tại phòng khám', T.onsite],
-                ['online', 'Khám online', T.online],
+                ['onsite', 'In person at the clinic', T.onsite],
+                ['online', 'Online visit', T.online],
               ],
               d?.mode,
             ),
@@ -281,7 +281,7 @@
         break;
       case 'C9':
         body = v
-          ? `<div class="request-received">${I('document-check', 30)}<div><strong>${esc(VI.layout.requestSent)}</strong><p>${esc(VI.layout.requestPending)}</p></div></div>` + card(`<div class="ticket-head"><span class="eyebrow">Mã lượt khám</span><strong>${esc(v.id)}</strong>${status(v)}</div>` + details(s, v), 'ticket') + nav(C.viewVisit, 'D2', 'primary')
+          ? `<div class="request-received">${I('document-check', 30)}<div><strong>${esc(VI.layout.requestSent)}</strong><p>${esc(VI.layout.requestPending)}</p></div></div>` + card(`<div class="ticket-head"><span class="eyebrow">Visit code</span><strong>${esc(v.id)}</strong>${status(v)}</div>` + details(s, v), 'ticket') + nav(C.viewVisit, 'D2', 'primary')
           : '';
         break;
       case 'D1': {
@@ -292,7 +292,7 @@
       case 'D2': {
         const next = M.nextAction(v);
         const management = (M.TRANSITIONS[v.status] || []).includes('cancelled')
-          ? `<div class="appointment-tools" role="group" aria-label="Điều chỉnh lịch hẹn">${nav(T.change, 'D3', 'secondary change-visit')}${nav(T.cancel, 'D4', 'secondary cancel-visit')}</div>` : '';
+          ? `<div class="appointment-tools" role="group" aria-label="Change appointment">${nav(T.change, 'D3', 'secondary change-visit')}${nav(T.cancel, 'D4', 'secondary cancel-visit')}</div>` : '';
         body =
           card(
             `${status(v)}<span class="eyebrow">${esc(C.owner)}</span><h2>${esc(VI.statuses[v.status][1])}</h2>${v.reviewReason ? `<p>${esc(v.reviewReason)}</p>` : ''}${nav(VI.actions[next[1]], next[0], 'primary', { 'data-purpose': ['cancelled', 'no-show'].includes(v.status) ? 'rebook' : '' })}`,
@@ -304,7 +304,7 @@
           );
         body += v.mode === 'onsite'
           ? facilityCard()
-          : `<section class="online-appointment-status" aria-label="Chuẩn bị khám trực tuyến"><strong>Thời gian đến lịch khám</strong><time data-appointment-countdown="${esc(v.date + 'T' + v.slot + ':00+07:00')}" aria-live="off">Đang xác định thời gian</time><p>Phòng khám sẽ hướng dẫn bạn vào phòng khám trực tuyến khi đến giờ.</p></section>`;
+          : `<section class="online-appointment-status" aria-label="Prepare for online visit"><strong>Time until your appointment</strong><time data-appointment-countdown="${esc(v.date + 'T' + v.slot + ':00+07:00')}" aria-live="off">Calculating time</time><p>The clinic will guide you into the online consultation when it’s time.</p></section>`;
         body += note(v.feePlan === 'not-required' ? C.feeFree : v.feePlan === 'package' ? C.feePackage : C.feePending);
         if (v.lockedAt) body += note(C.signed);
         if (v.communication.callback === 'pending') body += note(C.callback);
@@ -358,12 +358,12 @@
         break;
       case 'E1':
         body =
-          `<figure class="cf-context-illustration">${UI.illustration('clinic')}<figcaption>Kiểm tra thông tin trước khi đến khám</figcaption></figure>` + card(
+          `<figure class="cf-context-illustration">${UI.illustration('clinic')}<figcaption>Check the details before your visit</figcaption></figure>` + card(
             `<dl class="details" data-cf-component="facts">${[
               [T.time, v.slot + ' · ' + dateText(v)],
-              [T.arrival, 'Chưa có hướng dẫn thời gian đến riêng'],
-              [T.papers, 'Giấy tờ tùy thân và tài liệu y tế đang có'],
-              [T.address, 'Phòng khám chưa chia sẻ địa điểm của lượt này'],
+              [T.arrival, 'No specific arrival time instructions yet'],
+              [T.papers, 'ID and any medical documents you have'],
+              [T.address, 'The clinic hasn’t shared the location for this visit yet'],
               [C.fee, C.unknownFee],
             ]
               .map(
@@ -373,11 +373,11 @@
               .join('')}</dl>`,
           ) +
           note(T.note) +
-          nav(T.cta, 'D2', 'primary') + nav('Hỏi thông tin đến khám','K5');
+          nav(T.cta, 'D2', 'primary') + nav('Ask about your visit','K5');
         break;
       case 'E2':
         body =
-          `<section class="checkin-qr-panel" ${UI.cardAttrs('surface')} aria-label="Mã check-in"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Mã QR thử nghiệm để nhận diện phiếu khám"></div><strong>${esc(v.id)}</strong><p>Trình mã này cho lễ tân để hỗ trợ tiếp nhận. Đây là mã minh họa; việc tiếp nhận vẫn do lễ tân xác nhận.</p></section>` +
+          `<section class="checkin-qr-panel" ${UI.cardAttrs('surface')} aria-label="Check-in code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Test QR code identifying your appointment"></div><strong>${esc(v.id)}</strong><p>Show this code at reception to help with check-in. This is a sample code; reception still confirms your check-in.</p></section>` +
           card(details(s, v)) +
           note(T.note) +
           btn(T.cta, 'arrive', {}, 'primary');
@@ -395,16 +395,16 @@
         break;
       case 'F1':
         intro = head(T.heading,'');
-        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-lab-content cf-photo-panel-content"><span class="cf-card-kicker">${esc(x.timing==='pre'?'Trước buổi khám':'Trong lượt khám')}</span><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<div class="cf-card-actions"><button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}"><span class="sr-only">${x.status==='ordered'?'Xem chỉ định':x.status==='scheduled'?'Xem lịch thực hiện':'Xem kết quả'}</span>${I('arrow-right',20)}</button>${['ordered','scheduled'].includes(x.status)?go('Gửi tệp kết quả','F4','inverse',{'data-lab':x.id}):''}</div></div></article>`})),{label:'chỉ định',search:'Tìm chỉ định',compactSearch:true,placeholder:'Tên xét nghiệm, chẩn đoán hình ảnh…',filters:[['all','Tất cả'],['prepare','Cần thực hiện'],['results','Đã có kết quả']]}) + `<div class="cf-photo-grid cf-lab-utilities">${R.photoCard({title:'Hướng dẫn thực hiện',layout:'topic',description:'Xem thông tin của chỉ định',to:'F2',labId:v.labs[0].id,icon:'document'})}${R.photoCard({title:'Cần hỗ trợ?',layout:'network',description:'Hỏi phòng khám',to:'K5',icon:'headphones'})}</div>` : empty(T.empty,T.emptyLead);
+        body = v.labs.length ? R.collection('labs',u,v.labs.map(x=>({category:['available','awaiting-review','reviewed'].includes(x.status)?'results':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-lab-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-lab-content cf-photo-panel-content"><span class="cf-card-kicker">${esc(x.timing==='pre'?'Before the visit':'During the visit')}</span><h2>${esc(x.name)}</h2>${chip(VI.labs[x.status],x.status==='reviewed'?'success':'info')}<div class="cf-card-actions"><button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="${x.status==='ordered'?'View order':x.status==='scheduled'?'View schedule':'View results'}"><span class="sr-only">${x.status==='ordered'?'View order':x.status==='scheduled'?'View schedule':'View results'}</span>${I('arrow-right',20)}</button>${['ordered','scheduled'].includes(x.status)?go('Upload results file','F4','inverse',{'data-lab':x.id}):''}</div></div></article>`})),{label:'orders',search:'Search orders',compactSearch:true,placeholder:'Test or imaging name…',filters:[['all','All'],['prepare','To do'],['results','Results ready']]}) + `<div class="cf-photo-grid cf-lab-utilities">${R.photoCard({title:'Instructions',layout:'topic',description:'View order information',to:'F2',labId:v.labs[0].id,icon:'document'})}${R.photoCard({title:'Need help?',layout:'network',description:'Ask the clinic',to:'K5',icon:'headphones'})}</div>` : empty(T.empty,T.emptyLead);
         break;
       case 'F2':
-        intro = head(l.name,'Hướng dẫn và tài liệu của chỉ định này.');
+        intro = head(l.name,'Instructions and documents for this order.');
         body =
           card(
-            `<h2 class="card-heading">${I('flask',24)}<span>Trạng thái chỉ định</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
+            `<h2 class="card-heading">${I('flask',24)}<span>Order status</span></h2>${chip(VI.labs[l.status])}<p>${esc(l.timing === 'pre' ? VI.statuses['pre-lab'][0] : VI.screen.H1.labs)}</p>`,
           ) +
-          (l.note ? card(`<h2 class="card-heading">${I('document-check',24)}<span>Nhận xét của bác sĩ</span></h2><p>${esc(l.note)}</p>`) : '') +
-          (l.appointmentDate ? card(`<h2>Thời gian bạn đã chọn</h2><dl class="details cf-lab-schedule"><div><dt>Ngày thực hiện</dt><dd>${esc(dateText({date:l.appointmentDate}))}</dd></div><div><dt>Giờ mong muốn</dt><dd>${esc(l.appointmentTime||'Chờ sắp xếp')}</dd></div></dl>${l.coordinator?'<p>Đã nhờ điều dưỡng liên hệ để sắp xếp.</p>':''}`) : '') +
+          (l.note ? card(`<h2 class="card-heading">${I('document-check',24)}<span>Doctor’s comments</span></h2><p>${esc(l.note)}</p>`) : '') +
+          (l.appointmentDate ? card(`<h2>Your chosen time</h2><dl class="details cf-lab-schedule"><div><dt>Date</dt><dd>${esc(dateText({date:l.appointmentDate}))}</dd></div><div><dt>Preferred time</dt><dd>${esc(l.appointmentTime||'To be arranged')}</dd></div></dl>${l.coordinator?'<p>A nurse has been asked to contact you to arrange it.</p>':''}`) : '') +
           section(T.prepare, `<p>${esc(C.noClinical)}</p>`) +
           (l.timing === 'pre' && !l.continuation ? form(
             'lab-path',
@@ -423,12 +423,12 @@
           body += nav(T.upload, 'F4');
         if (l.file)
           body += card(
-            `<div class="cf-file-summary"><h2 class="card-heading">${I('document-check',24)}<span>${esc(l.file.name)}</span></h2><p>${esc(l.file.type==='application/pdf'?'PDF':'Ảnh kết quả')} · ${Math.max(1,Math.round(l.file.size/1024))} KB</p><small>${esc(VI.labs[l.status])}</small></div>`,
+            `<div class="cf-file-summary"><h2 class="card-heading">${I('document-check',24)}<span>${esc(l.file.name)}</span></h2><p>${esc(l.file.type==='application/pdf'?'PDF':'Result image')} · ${Math.max(1,Math.round(l.file.size/1024))} KB</p><small>${esc(VI.labs[l.status])}</small></div>`,
           );
         if (['available','awaiting-review','reviewed'].includes(l.status) && l.timing === 'pre') {
-          if (l.continuation === 'review-during') body += note('Phòng khám đã nhận kết quả. Bác sĩ sẽ xem cùng bạn trong buổi khám.') + nav('Theo dõi bước tiếp nhận', 'E3', 'primary');
-          else if (l.continuation === 'return-to-visit') body += note('Phòng khám đã nhận kết quả. Bạn hãy quay lại phiếu khám để tiếp tục lượt hiện tại.') + nav('Tiếp tục lượt khám hiện tại', 'D2', 'primary');
-          else body += note('Kết quả đang chờ điều dưỡng kiểm tra. Phòng khám sẽ xác nhận cách tiếp tục lượt khám của bạn.');
+          if (l.continuation === 'review-during') body += note('The clinic has received the results. The doctor will go through them with you during the visit.') + nav('Track check-in', 'E3', 'primary');
+          else if (l.continuation === 'return-to-visit') body += note('The clinic has received the results. Please return to your appointment details to continue this visit.') + nav('Continue current visit', 'D2', 'primary');
+          else body += note('Results are awaiting a nurse’s check. The clinic will confirm how your visit continues.');
         }
         body += nav(C.returnVisit, 'D2');
         break;
@@ -452,8 +452,8 @@
         break;
       case 'G1':
         body =
-          `<figure class="cf-context-illustration">${UI.illustration('support')}<figcaption>Sẵn sàng thiết bị và không gian riêng tư</figcaption></figure>` +
-          `<div class="online-prepare-list" aria-label="Chuẩn bị khám trực tuyến"><div>1 <span>Kiểm tra camera và micro</span></div><div>2 <span>Kiểm tra kết nối Internet</span></div><div>3 <span>Chờ phòng khám mở phòng khám trực tuyến</span></div></div>` +
+          `<figure class="cf-context-illustration">${UI.illustration('support')}<figcaption>Get your device and a private space ready</figcaption></figure>` +
+          `<div class="online-prepare-list" aria-label="Prepare for online visit"><div>1 <span>Check camera and microphone</span></div><div>2 <span>Check your internet connection</span></div><div>3 <span>Wait for the clinic to open the online room</span></div></div>` +
           card(
             `<div class="video-preview">${I('video', 44)}<strong>${esc(u.deviceReady ? T.ready : T.waiting)}</strong></div>`,
           ) +
@@ -477,14 +477,14 @@
         break;
       case 'G4':
         intro = '';
-        body = `<div class="call-stage"><div class="call-banner"><span class="live-dot"></span>${esc(T.heading)}</div><div class="remote-person"><span class="call-avatar">${I('user', 60)}</span><h1 id="screen-title" tabindex="-1">${esc('Phòng khám CareFlow')}</h1></div><div class="self-video">${I(u.camera ? 'video' : 'lock', 24)}</div><p>${esc(T.note)}</p><div class="call-controls">${btn(u.mic ? T.micOn : T.micOff, 'mic', {}, 'call-control')}${btn(u.camera ? T.camOn : T.camOff, 'camera', {}, 'call-control')}${btn(T.end, 'leave-call', {}, 'danger')}</div><details class="call-notes"><summary>Ghi chú cá nhân</summary><label for="call-note-text">Nội dung ghi chú trong phiên</label><textarea id="call-note-text" rows="3" placeholder="Không gửi tới phòng khám"></textarea></details></div>`;
+        body = `<div class="call-stage"><div class="call-banner"><span class="live-dot"></span>${esc(T.heading)}</div><div class="remote-person"><span class="call-avatar">${I('user', 60)}</span><h1 id="screen-title" tabindex="-1">${esc('CareFlow Clinic')}</h1></div><div class="self-video">${I(u.camera ? 'video' : 'lock', 24)}</div><p>${esc(T.note)}</p><div class="call-controls">${btn(u.mic ? T.micOn : T.micOff, 'mic', {}, 'call-control')}${btn(u.camera ? T.camOn : T.camOff, 'camera', {}, 'call-control')}${btn(T.end, 'leave-call', {}, 'danger')}</div><details class="call-notes"><summary>Personal notes</summary><label for="call-note-text">Notes for this session</label><textarea id="call-note-text" rows="3" placeholder="Not sent to the clinic"></textarea></details></div>`;
         break;
       case 'G5':
         body =
           (v.communication.callback === 'pending' ? note(C.callback) : '') +
           note(T.lead, 'warning') +
           btn(T.wait, 'callback', {}, 'primary') +
-          `<div class="recovery-options" role="group" aria-label="Cách tiếp tục">` + btn(T.online, 'rebook', {
+          `<div class="recovery-options" role="group" aria-label="How to continue">` + btn(T.online, 'rebook', {
             'data-purpose': 'online-retry',
             'data-mode': 'online',
           }) +
@@ -495,14 +495,14 @@
         break;
       case 'H1':
         body =
-          `<div class="care-stat-strip" aria-label="Tổng quan sau khám"><div><strong>${v.summary ? 1 : 0}</strong><small>Lời dặn</small></div><div><strong>${v.labs.filter(x=>['available','reviewed'].includes(x.status)).length}</strong><small>Kết quả</small></div><div><strong>${['unpaid','deferred'].includes(v.payment.status) ? 1 : 0}</strong><small>Chờ thu</small></div></div><div class="completion-mark">${I('check-circle', 48)}</div>` +
+          `<div class="care-stat-strip" aria-label="After-visit overview"><div><strong>${v.summary ? 1 : 0}</strong><small>Advice</small></div><div><strong>${v.labs.filter(x=>['available','reviewed'].includes(x.status)).length}</strong><small>Results</small></div><div><strong>${['unpaid','deferred'].includes(v.payment.status) ? 1 : 0}</strong><small>Due</small></div></div><div class="completion-mark">${I('check-circle', 48)}</div>` +
           card(
             status(v) +
               `<p>${esc(M.profile(s, v.patientId)?.name)} · ${esc(dateText(v))}</p>`,
           ) +
           nav(T.pay, 'H2', 'primary') +
           (v.lockedAt ? note(C.signed) : '') +
-          `<div class="cf-photo-grid cf-aftercare-grid">${R.photoCard({title:T.summary,layout:'stack',description:'Lời dặn và tài liệu',to:'H6',id:v.id,icon:'document'})}${R.photoCard({title:T.labs,description:'Theo dõi chỉ định',to:'F1',id:v.id,icon:'flask'})}${R.photoCard({title:T.care,layout:'network',description:'Gửi câu hỏi cho phòng khám',to:'I1',id:v.id,icon:'message-circle'})}${R.photoCard({title:T.followup,layout:'topic',description:'Chọn lịch khám tiếp theo',to:'J1',id:v.id,icon:'calendar'})}</div>`;
+          `<div class="cf-photo-grid cf-aftercare-grid">${R.photoCard({title:T.summary,layout:'stack',description:'Advice and documents',to:'H6',id:v.id,icon:'document'})}${R.photoCard({title:T.labs,description:'Track orders',to:'F1',id:v.id,icon:'flask'})}${R.photoCard({title:T.care,layout:'network',description:'Send a question to the clinic',to:'I1',id:v.id,icon:'message-circle'})}${R.photoCard({title:T.followup,layout:'topic',description:'Choose your next appointment',to:'J1',id:v.id,icon:'calendar'})}</div>`;
         break;
       case 'H2':
         body =
@@ -574,14 +574,14 @@
           section(T.conclusion, card(v.summary ? `<span class="chip">${esc(T.shared)}</span><p>${esc(v.summary.note)}</p><small>${esc(v.summary.author)}</small>` : `<p>${esc(T.empty)}</p>`)) +
           section(T.medicine, (s.prescriptions || []).some(r => r.visitId === v.id)
             ? `<div class="list">${s.prescriptions.filter(r => r.visitId === v.id).map(r => `<button type="button" class="row" ${UI.cardAttrs('row')} data-action="p-nav" data-to="M2" data-p-rx-id="${esc(r.id)}"><span class="row-icon">${I('pill')}</span><span class="row-text"><strong>${esc(r.name)}</strong><small>${esc(r.form)} · ${esc(r.quantity)}</small></span><span class="row-arrow">${I('chevron-right', 18)}</span></button>`).join('')}</div>`
-            : `<div class="cf-document-empty">${I('pill',24)}<div><strong>Chưa có đơn thuốc được chia sẻ</strong><p>Đơn thuốc của lượt khám sẽ xuất hiện tại đây khi phòng khám cung cấp.</p></div></div>`, '', 'pill') +
+            : `<div class="cf-document-empty">${I('pill',24)}<div><strong>No prescription shared yet</strong><p>The prescription for this visit will appear here once the clinic provides it.</p></div></div>`, '', 'pill') +
           section(T.instructions, `<p>${esc(C.noClinical)}</p>`) + R.aftercare(v,richH) +
           nav(T.question, 'I1', 'primary') +
           nav(T.followup, 'J1');
         break;
       case 'H7':
         body =
-          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-photo-panel-content"><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}<button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="Mở chi tiết"><span class="sr-only">Mở chi tiết</span>${I('arrow-right',20)}</button></div></article>`})),{label:'kết quả',search:'Tìm kết quả',compactSearch:true,placeholder:'Tên xét nghiệm hoặc trạng thái',filters:[['all','Tất cả'],['waiting','Chờ bác sĩ'],['reviewed','Đã xem']]}) : empty('Chưa có kết quả','Tài liệu được chia sẻ sẽ xuất hiện trong lượt khám này.')) +
+          (v.labs.length ? R.collection('results',u,v.labs.map(x=>({category:x.status==='reviewed'?'reviewed':['available','awaiting-review'].includes(x.status)?'waiting':'prepare',search:x.name+' '+VI.labs[x.status],html:`<article class="cf-result-card cf-stack" ${UI.cardAttrs('surface')}>${UI.illustration('result')}<div class="cf-photo-panel-content"><span class="cf-card-kicker">${esc(v.id)}</span><h2>${esc(x.name)}</h2><p>${esc(VI.labs[x.status])}</p>${x.file?`<small>${esc(x.file.name)}</small>`:''}<button type="button" class="cf-photo-arrow-action" ${UI.buttonAttrs('inverse')} data-action="go" data-to="F2" data-lab="${esc(x.id)}" aria-label="Open details"><span class="sr-only">Open details</span>${I('arrow-right',20)}</button></div></article>`})),{label:'results',search:'Search results',compactSearch:true,placeholder:'Test name or status',filters:[['all','All'],['waiting','Awaiting doctor'],['reviewed','Reviewed']]}) : empty('No results yet','Shared documents will appear in this visit.')) +
           card(
             `<dl class="details" data-cf-component="facts"><div><dt>${esc(T.notification)}</dt><dd>${esc(T[v.communication.result] || T.pending)}</dd></div><div><dt>${esc(T.explanation)}</dt><dd>${esc(v.communication.explanation === 'explained' ? T.explained : T.notExplained)}</dd></div></dl>`,
           );
@@ -616,7 +616,7 @@
               v?.id,
             ),
           ) +
-           `<div class="support-reasons cf-photo-grid" aria-label="Chọn nội dung cần hỏi">${['medicine', 'question', 'symptoms'].map(k=>R.photoCard({title:T[k],layout:k==='question'?'network':k==='symptoms'?'topic':'photo',description:T[k+'Hint'],image:k==='medicine'?'unsplash/medical-tools.webp':k==='question'?'unsplash/consultation.webp':'unsplash/doctor-care.webp',to:'I2',id:v.id,icon:k==='medicine'?'pill':k==='question'?'message-circle':'heart-pulse',reason:k,classes:'cf-inquiry-tile'})).join('')}</div><div class="care-links cf-photo-grid">${R.photoCard({title:T.tracking,layout:'topic',to:'I3',id:v.id,icon:'heart-pulse'})}${R.photoCard({title:T.referral,layout:'stack',to:'I4',id:v.id,icon:'document'})}${R.photoCard({title:T.messages,layout:'network',to:'I5',id:v.id,icon:'message-circle'})}</div>`;
+           `<div class="support-reasons cf-photo-grid" aria-label="Choose what to ask about">${['medicine', 'question', 'symptoms'].map(k=>R.photoCard({title:T[k],layout:k==='question'?'network':k==='symptoms'?'topic':'photo',description:T[k+'Hint'],image:k==='medicine'?'unsplash/medical-tools.webp':k==='question'?'unsplash/consultation.webp':'unsplash/doctor-care.webp',to:'I2',id:v.id,icon:k==='medicine'?'pill':k==='question'?'message-circle':'heart-pulse',reason:k,classes:'cf-inquiry-tile'})).join('')}</div><div class="care-links cf-photo-grid">${R.photoCard({title:T.tracking,layout:'topic',to:'I3',id:v.id,icon:'heart-pulse'})}${R.photoCard({title:T.referral,layout:'stack',to:'I4',id:v.id,icon:'document'})}${R.photoCard({title:T.messages,layout:'network',to:'I5',id:v.id,icon:'message-circle'})}</div>`;
 
         break;
       }
@@ -628,7 +628,7 @@
             textarea('report', T.text, u.reportText || '', {
               maxlength: '2000',
             }) +
-              (u.reportReason === 'symptoms' ? `<fieldset class="severity-set"><legend>Mức độ triệu chứng mới</legend><div class="severity-grid">${[['mild','Nhẹ'],['moderate','Vừa'],['high','Nặng']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"><span>${label}</span></label>`).join('')}</div></fieldset>` + check('urgent', T.urgent) : '') +
+              (u.reportReason === 'symptoms' ? `<fieldset class="severity-set"><legend>Severity of new symptoms</legend><div class="severity-grid">${[['mild','Mild'],['moderate','Moderate'],['high','Severe']].map(([value,label])=>`<label><input type="radio" name="severity" value="${value}"><span>${label}</span></label>`).join('')}</div></fieldset>` + check('urgent', T.urgent) : '') +
               note(T.note, 'warning'),
             T.cta,
           );
@@ -643,7 +643,7 @@
               .filter((x) => x.visitId === v.id)
               .map((x) =>
                 card(
-                  `<p>${esc(x.text)}</p><small class="entry-date">${I('clock',14)}${esc(new Date(x.at).toLocaleDateString('vi-VN'))}</small>`,
+                  `<p>${esc(x.text)}</p><small class="entry-date">${I('clock',14)}${esc(new Date(x.at).toLocaleDateString('en-GB'))}</small>`,
                 ),
               )
               .join('') || `<p>${esc(T.empty)}</p>`,
@@ -651,7 +651,7 @@
           nav(T.contact, 'I5');
         break;
       case 'I4':
-        body = `<ol class="referral-steps" aria-label="Tiến trình chuyên khoa"><li class="${v.care.referral ? 'reached' : ''}">Được giới thiệu</li><li>Đã khám chuyên khoa</li><li>Đã phản hồi</li></ol>` + careProgress(v) + (v.care.referral
+        body = `<ol class="referral-steps" aria-label="Referral progress"><li class="${v.care.referral ? 'reached' : ''}">Referred</li><li>Seen by specialist</li><li>Replied</li></ol>` + careProgress(v) + (v.care.referral
           ? card(`<p>${esc(v.care.referral)}</p>`) +
             form('referral', textarea('referral', T.text), T.cta)
           : empty(T.empty, T.lead, nav(C.support, 'K5')));
@@ -685,13 +685,13 @@
         break;
       case 'J1':
         body =
-          `<section class="cf-split" ${UI.cardAttrs('surface')} data-cf-mesh="feature"><div class="cf-stack"><h2>Gặp lại bác sĩ</h2><p>Chọn lịch phù hợp cho lần khám tiếp theo.</p></div>${UI.illustration('calendar')}</section>` + card(details(s, v)) +
+          `<section class="cf-split" ${UI.cardAttrs('surface')} data-cf-mesh="feature"><div class="cf-stack"><h2>See your doctor again</h2><p>Choose a suitable time for your next visit.</p></div>${UI.illustration('calendar')}</section>` + card(details(s, v)) +
           section(T.suggestion, `<p>${esc(C.notProvided)}</p>`) +
           btn(T.cta, 'rebook', { 'data-purpose': 'followup' }, 'primary');
         break;
       case 'K1':
         body = (s.notifications.length
-          ? (s.notifications.some(n=>!n.read)?btn('Đánh dấu tất cả đã đọc','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" ${UI.cardAttrs('row')} type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Đã đọc':'Chưa đọc'}${n.at?', '+esc(new Date(n.at).toLocaleDateString('vi-VN')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>${n.read?'':`<button type="button" class="cf-mark-read" data-action="notification-read" data-id="${esc(n.id)}">${I('check',16)}<span>Đánh dấu đã đọc</span></button>`}`})),{label:'thông báo',filters:[['all','Tất cả'],['unread','Chưa đọc'],['read','Đã đọc']]})
+          ? (s.notifications.some(n=>!n.read)?btn('Mark all as read','notifications-read',{},'text'):'') + R.collection('notifications',u,s.notifications.map(n=>({category:n.read?'read':'unread',search:n.title+' '+n.body,html:`<button class="notification row ${n.read?'read':''}" ${UI.cardAttrs('row')} type="button" data-action="notification" data-id="${esc(n.id)}"><span class="row-icon">${I('bell')}</span><span class="row-text"><span class="cf-card-kicker">${n.read?'Read':'Unread'}${n.at?', '+esc(new Date(n.at).toLocaleDateString('en-GB')):''}</span><strong>${esc(n.title)}</strong><small>${esc(n.body)}</small></span>${I('chevron-right',18)}</button>${n.read?'':`<button type="button" class="cf-mark-read" data-action="notification-read" data-id="${esc(n.id)}">${I('check',16)}<span>Mark as read</span></button>`}`})),{label:'notifications',filters:[['all','All'],['unread','Unread'],['read','Read']]})
           : empty(T.empty,'')) + note(T.note);
         break;
       case 'K2':
@@ -703,7 +703,7 @@
           ['completed', 'cancelled', 'no-show'].includes(x.status),
         );
         body = old.length
-          ? R.collection('history',u,old.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>({category:x.status==='completed'?'completed':'stopped',search:[M.profile(s,x.patientId)?.name,R.clinician(x).name,x.reason,dateText(x)].join(' '),html:R.appointmentCard(s,x,richH)})),{label:'lượt khám',search:'Tìm trong lịch sử',placeholder:'Tên người khám, bác sĩ, lý do khám',filters:[['all','Tất cả'],['completed','Đã khám'],['stopped','Đã dừng']]})
+          ? R.collection('history',u,old.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>({category:x.status==='completed'?'completed':'stopped',search:[M.profile(s,x.patientId)?.name,R.clinician(x).name,x.reason,dateText(x)].join(' '),html:R.appointmentCard(s,x,richH)})),{label:'visits',search:'Search history',placeholder:'Patient, doctor or reason for visit',filters:[['all','All'],['completed','Completed'],['stopped','Stopped']]})
           : empty(T.empty, '');
         break;
       }
@@ -717,7 +717,7 @@
             C.save,
           ) +
           section(T.privacy, `<p>${esc(T.privacyLead)}</p>`) +
-          section('Dữ liệu demo', `<p>Đưa lịch hẹn, hồ sơ và yêu cầu về dữ liệu ban đầu. Thao tác này chỉ ảnh hưởng phiên trình duyệt hiện tại.</p>${btn('Đặt lại dữ liệu demo', 'reset-demo', {}, 'secondary')}`) +
+          section('Demo data', `<p>Restore appointments, profiles and requests to the original data. This only affects the current browser session.</p>${btn('Reset demo data', 'reset-demo', {}, 'secondary')}`) +
           btn(T.logout, 'logout', {}, 'danger');
         break;
       case 'K5':
@@ -749,12 +749,12 @@
     if (['C1','D1','K2','K5'].includes(id)) return `<div class="screen-masthead compact-masthead">${intro}${id==='C1' && s.draft ? bookingProgress(id) : ''}</div>${body}`;
     if (id.startsWith('A') || ['G3','G4'].includes(id)) return intro + personContext + body;
     const groups = {
-      C: ['ĐẶT LỊCH KHÁM', 'calendar'], D: ['LỊCH KHÁM CỦA BẠN', 'calendar'],
-      E: ['ĐẾN PHÒNG KHÁM', 'map-pin'], F: ['XÉT NGHIỆM & KẾT QUẢ', 'document-check'],
-      G: ['KHÁM ONLINE', 'video'], H: ['THÔNG TIN SAU KHÁM', 'document'],
-      I: ['CHĂM SÓC SAU KHÁM', 'heart-pulse'], J: ['HẸN GẶP LẠI BÁC SĨ', 'calendar'],
-      K: [id === 'K5' ? 'PHÒNG KHÁM ĐỒNG HÀNH' : 'THÔNG TIN CỦA BẠN', id === 'K5' ? 'phone' : 'user'],
-      M: ['THUỐC CỦA BẠN', 'pill'], T: ['PHÒNG KHÁM ĐỒNG HÀNH', 'message-circle'],
+      C: ['BOOK AN APPOINTMENT', 'calendar'], D: ['YOUR APPOINTMENTS', 'calendar'],
+      E: ['AT THE CLINIC', 'map-pin'], F: ['TESTS & RESULTS', 'document-check'],
+      G: ['ONLINE VISIT', 'video'], H: ['AFTER YOUR VISIT', 'document'],
+      I: ['AFTERCARE', 'heart-pulse'], J: ['SEE YOUR DOCTOR AGAIN', 'calendar'],
+      K: [id === 'K5' ? 'CLINIC SUPPORT' : 'YOUR INFORMATION', id === 'K5' ? 'phone' : 'user'],
+      M: ['YOUR MEDICATIONS', 'pill'], T: ['CLINIC SUPPORT', 'message-circle'],
     };
     const [label, icon] = groups[id[0]] || ['CAREFLOW', 'heart-pulse'];
     const tip = ['C1','C7','D1','K2','K5'].includes(id) ? null : VI.layout.tips[id];

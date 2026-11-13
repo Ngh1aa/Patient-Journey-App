@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -8,7 +8,7 @@
     />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
-    <title>CareFlow — Chăm sóc sức khỏe của bạn</title>
+    <title>CareFlow — Caring for your health</title>
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./careflow-rich-content.css" />
     <link rel="stylesheet" href="./solid-navy-polish.css" />
@@ -18,12 +18,12 @@
 </head>
   <body data-cf-theme="pastel">
     <a class="skip-link" href="#phone-main" data-action="skip-content"
-      >Đến nội dung ứng dụng</a
+      >Skip to app content</a
     >
     <div id="presentation-bar">
     <div class="presentation-actions">
       <button id="reset-demo" type="button" class="reset-demo" data-action="reset-demo">
-        Đặt lại dữ liệu demo
+        Reset demo data
       </button>
       <button
         id="review-toggle"
@@ -31,7 +31,7 @@
         aria-expanded="false"
         aria-controls="review-tools"
       >
-        Tùy chọn
+        Options
       </button>
     </div>
     <div
@@ -44,73 +44,73 @@
     <div class="workspace">
       <aside class="journey-panel" aria-labelledby="journey-heading">
         <div class="journey-heading">
-          <span class="eyebrow">HÀNH TRÌNH BỆNH NHÂN</span>
-          <h1 id="journey-heading">An tâm ở<br>mỗi bước khám.</h1>
-          <p>Chọn một hành trình và trải nghiệm CareFlow. Thông tin đã sẵn sàng, bạn chỉ cần tiếp tục từng bước.</p>
+          <span class="eyebrow">PATIENT JOURNEYS</span>
+          <h1 id="journey-heading">Reassurance at<br>every step.</h1>
+          <p>Choose a journey and try CareFlow. The information is ready; just continue step by step.</p>
         </div>
-        <button class="journey-mobile-toggle" type="button" data-action="journey-toggle" aria-expanded="false" aria-controls="journey-list"><span id="journey-mobile-label">Chọn hành trình</span><span aria-hidden="true">⌄</span></button>
-        <ol class="journey-list" id="journey-list" aria-label="12 hành trình bệnh nhân"></ol>
-        <p class="journey-footnote">Luôn biết bước hiện tại, người phụ trách<br>và việc cần làm tiếp theo.</p>
+        <button class="journey-mobile-toggle" type="button" data-action="journey-toggle" aria-expanded="false" aria-controls="journey-list"><span id="journey-mobile-label">Choose a journey</span><span aria-hidden="true">⌄</span></button>
+        <ol class="journey-list" id="journey-list" aria-label="12 patient journeys"></ol>
+        <p class="journey-footnote">Always know the current step, who is responsible<br>and what to do next.</p>
       </aside>
       <aside class="review-tools" id="review-tools" hidden>
         <div class="brand">
           <span class="brandmark">+</span>
           <div>
             <strong>CareFlow</strong
-            ><small>Hành trình chăm sóc bệnh nhân</small>
+            ><small>Patient care journey</small>
           </div>
         </div>
-        <h2>Tùy chọn trải nghiệm</h2>
-        <label for="scenario">Tình huống</label
+        <h2>Experience options</h2>
+        <label for="scenario">Scenario</label
         ><select id="scenario">
-          <option value="demo">Dùng thử đầy đủ: đăng nhập từ đầu</option>
-          <option value="demo-member">Dùng thử đầy đủ: đã đăng nhập</option>
-          <option value="new">Người mới</option>
-          <option value="returning">Hồ sơ đã có</option>
-          <option value="empty">Đã đăng nhập, chưa có lịch</option>
-          <option value="appointments">Bộ lịch hẹn theo mẫu mới</option>
-          <option value="upcoming">Lịch tại phòng khám</option>
-          <option value="online">Lịch khám online</option>
-          <option value="pre-lab">Xét nghiệm trước khám</option>
-          <option value="completed">Sau buổi khám</option>
-          <option value="no-show">Chưa đến khám</option>
+          <option value="demo">Full demo: sign in from the start</option>
+          <option value="demo-member">Full demo: already signed in</option>
+          <option value="new">New patient</option>
+          <option value="returning">Existing profile</option>
+          <option value="empty">Signed in, no appointments</option>
+          <option value="appointments">Sample appointment set</option>
+          <option value="upcoming">In-person appointment</option>
+          <option value="online">Online appointment</option>
+          <option value="pre-lab">Tests before visit</option>
+          <option value="completed">After the visit</option>
+          <option value="no-show">No-show</option>
         </select>
-        <label for="screen-picker">Chuyển đến màn hình</label
+        <label for="screen-picker">Go to screen</label
         ><select id="screen-picker"></select>
         <p class="review-hint">
-          Màn hình sẽ mở khi lượt khám đáp ứng điều kiện tiếp tục.
+          The screen opens when the visit meets the conditions to continue.
         </p>
         <div id="review-state"></div>
-        <label for="staff-event">Cập nhật từ phòng khám</label
+        <label for="staff-event">Clinic update</label
         ><select id="staff-event"></select
         ><button type="button" class="btn primary" data-action="staff">
-          Xem cập nhật
+          View update
         </button>
-        <label for="booking-outcome">Phản hồi khi gửi đặt lịch</label
+        <label for="booking-outcome">Booking submission response</label
         ><select id="booking-outcome">
-          <option value="success">Nhận yêu cầu</option>
-          <option value="slot-unavailable">Giờ vừa hết</option>
-          <option value="unknown">Chưa xác định kết quả</option>
+          <option value="success">Request received</option>
+          <option value="slot-unavailable">Slot just taken</option>
+          <option value="unknown">Outcome unknown</option>
         </select>
         <button class="btn secondary" type="button" data-action="demo-fail-toggle" aria-pressed="false">
-          <span>Mô phỏng lỗi kết nối</span></button
+          <span>Simulate connection error</span></button
         ><button class="btn secondary" type="button" data-action="offline">
-          Bật/tắt mất mạng</button
+          Toggle offline</button
         ><button class="btn secondary" type="button" data-action="large-text">
-          Bật/tắt chữ lớn</button
+          Toggle large text</button
         ><button class="btn text danger-text" type="button" data-action="reset">
-          Bắt đầu lại
+          Start again
         </button>
         <p class="review-hint">
-          Không có kết nối SMS, y tế, video hay ngân hàng. Camera và micro chỉ
-          là trạng thái. Tệp không được gửi lên máy chủ. Thông tin chỉ lưu trên
-          trình duyệt; không nhập thông tin bệnh nhân thật.
+          No SMS, medical, video or banking connections. Camera and microphone are
+          status only. Files are not uploaded to a server. Information is stored only in
+          the browser; do not enter real patient information.
         </p>
       </aside>
       <main class="stage">
         <div class="stage-label" aria-hidden="true">
           <span class="brand-dot"></span>CareFlow<span
-            >Chăm sóc, liền mạch.</span
+            >Care, connected.</span
           >
         </div>
         <div class="phone" id="phone-frame" data-cf-theme="pastel">
@@ -128,18 +128,18 @@
               id="back"
               class="icon-btn"
               data-action="back"
-              aria-label="Quay lại"
+              aria-label="Back"
             ></button
             ><a class="app-wordmark" href="#/home">CareFlow<span>+</span></a
             ><div class="auth-progress" id="auth-progress" aria-hidden="true" hidden><span></span><span></span><span></span></div
-            ><button class="auth-jump" type="button" data-action="auth-jump" id="auth-jump" aria-label="Đến biểu mẫu" hidden></button
+            ><button class="auth-jump" type="button" data-action="auth-jump" id="auth-jump" aria-label="Go to form" hidden></button
             ><button
               type="button"
               class="icon-btn"
               data-action="go"
               data-to="K1"
               id="notifications"
-              aria-label="Thông báo"
+              aria-label="Notifications"
             ></button>
           </header>
           <div
@@ -155,29 +155,29 @@
             id="bottom-nav"
             class="bottom-nav"
             data-cf-component="navigation"
-            aria-label="Điều hướng chính"
+            aria-label="Main navigation"
           ></nav>
           <div class="home-indicator" aria-hidden="true"></div>
         </div>
         <p class="stage-caption">
-          Chăm sóc sức khỏe, liền mạch từ lịch hẹn đến sau khám.
+          Healthcare, connected from appointment to after your visit.
         </p>
       </main>
-      <aside class="presentation-note" aria-label="Về CareFlow">
+      <aside class="presentation-note" aria-label="About CareFlow">
         <span class="eyebrow">CARE, CONNECTED.</span>
-        <h2>An tâm hơn<br />ở mỗi bước khám.</h2>
+        <h2>More reassurance<br />at every step.</h2>
         <p>
-          Một lượt khám.<br />Thông tin rõ ràng.<br />Luôn biết việc tiếp theo.
+          One visit.<br />Clear information.<br />Always know what’s next.
         </p>
         <div class="presentation-rule"></div>
         <p class="review-hint">
-          Đặt lịch · Khám bệnh · Theo dõi sau khám
+          Book · Visit · Follow-up care
         </p>
       </aside>
     </div>
     <dialog id="dialog" aria-labelledby="dialog-title">
       <form method="dialog">
-        <button class="dialog-close icon-btn" value="cancel" aria-label="Đóng">
+        <button class="dialog-close icon-btn" value="cancel" aria-label="Close">
           ×
         </button>
       </form>

@@ -4,39 +4,39 @@ const state=page=>page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.
 test('profile reference uses the account owner and sends an update request without changing identity',async({page})=>{
   await page.goto('/prototype/?scenario=empty#/profile');
   await expect(page.locator('.cf-profile-masthead-account')).toContainText('Nguyễn Minh Anh');
-  await expect(page.locator('.rich-profile-details')).toContainText('Chưa khai báo');
+  await expect(page.locator('.rich-profile-details')).toContainText('Not declared');
   const before=(await state(page)).profiles;
-  await page.getByRole('button',{name:'Xem hồ sơ',exact:true}).click();
+  await page.getByRole('button',{name:'View profile',exact:true}).click();
   await expect(page.locator('#dialog')).toBeVisible();
   await expect(page.locator('#dialog-body')).toContainText('15/08/1994');
-  await page.getByRole('button',{name:'Yêu cầu cập nhật',exact:true}).click();
+  await page.getByRole('button',{name:'Request an update',exact:true}).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','K5');
   await expect(page.locator('#dialog')).not.toBeVisible();
-  await expect(page.locator('#supportTopic')).toHaveValue('Thông tin hồ sơ');
+  await expect(page.locator('#supportTopic')).toHaveValue('Profile information');
   await expect(page.locator('#support')).toBeFocused();
-  await page.locator('#support').fill('Tôi muốn cập nhật số điện thoại liên hệ.');
+  await page.locator('#support').fill('I would like to update my contact phone number.');
   await page.locator('form[data-form="support"] button[type="submit"]').click();
-  expect((await state(page)).requests.at(-1)).toMatchObject({topic:'Thông tin hồ sơ',status:'waiting'});
+  expect((await state(page)).requests.at(-1)).toMatchObject({topic:'Profile information',status:'waiting'});
   expect((await state(page)).profiles).toEqual(before);
 });
 
 test('relative tiles open details, preserve result permissions and select the correct patient for booking',async({page})=>{
   await page.goto('/prototype/?scenario=empty#/profile');
   await page.locator('.cf-relative-add summary').click();
-  await page.locator('#name').fill('Người thân mới');
+  await page.locator('#name').fill('New family member');
   await page.locator('#dob').fill('2000-01-01');
   await page.locator('form[data-form="relative"] button[type="submit"]').click();
-  await expect(page.locator('.cf-profile-masthead-account')).toContainText('2 người thân');
-  await page.locator('.cf-relative-card').filter({hasText:'Người thân mới'}).click();
-  await expect(page.locator('#dialog-body')).toContainText('Chưa được cấp quyền xem kết quả');
-  await page.getByRole('button',{name:'Đặt lịch cho người này'}).click();
+  await expect(page.locator('.cf-profile-masthead-account')).toContainText('2 family members');
+  await page.locator('.cf-relative-card').filter({hasText:'New family member'}).click();
+  await expect(page.locator('#dialog-body')).toContainText('Not yet allowed to view results');
+  await page.getByRole('button',{name:'Book for this person'}).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C1');
-  await expect(page.locator('input[name="Người đi khám"][value="p3"]')).toBeChecked();
+  await expect(page.locator('input[name="Patient"][value="p3"]')).toBeChecked();
   expect((await state(page)).profiles.find(p=>p.id==='p3').canViewResults).toBe(false);
   await page.goto('/prototype/#/profile');
   await expect(page.locator('.cf-profile-masthead-account')).toContainText('Nguyễn Minh Anh');
-  await page.getByRole('button',{name:'Đăng xuất',exact:true}).click();
-  await expect(page.locator('#dialog')).toContainText('Đăng xuất khỏi CareFlow+?');
+  await page.getByRole('button',{name:'Sign out',exact:true}).click();
+  await expect(page.locator('#dialog')).toContainText('Sign out of CareFlow+?');
 });
 
 test('support reference FAQ, channels and request history have functional actions and truthful empty states',async({page})=>{
@@ -45,16 +45,16 @@ test('support reference FAQ, channels and request history have functional action
   await page.locator('.rich-faqs summary').first().focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('.rich-faqs details').first()).toHaveAttribute('open','');
-  await page.getByRole('button',{name:'Xem thêm',exact:true}).click();
+  await page.getByRole('button',{name:'Show more',exact:true}).click();
   await expect(page.locator('.rich-faqs details')).toHaveCount(5);
-  // Request history is now its own list (Hỗ trợ → Yêu cầu) with a truthful empty state.
+  // Request history is now its own list (Support → Tickets) with a truthful empty state.
   await page.locator('[data-action="support-requests"]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','T1');
-  await expect(page.locator('#phone-content')).toContainText('Không có yêu cầu đang mở');
+  await expect(page.locator('#phone-content')).toContainText('No open tickets');
   await page.goBack();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','K5');
-  await page.locator('[data-topic="Thông tin hồ sơ"]').click();
-  await expect(page.locator('#supportTopic')).toHaveValue('Thông tin hồ sơ');
+  await page.locator('[data-topic="Profile information"]').click();
+  await expect(page.locator('#supportTopic')).toHaveValue('Profile information');
   await expect(page.locator('#support')).toBeFocused();
   expect((await state(page)).requests).toHaveLength(0);
   expect((await state(page)).messages).toHaveLength(0);

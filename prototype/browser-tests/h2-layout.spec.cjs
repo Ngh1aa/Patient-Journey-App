@@ -8,10 +8,10 @@ async function dockFits(page){await expect.poll(()=>page.evaluate(()=>{const mai
 for(const width of [360,390,1440])test(`booking chrome reserves CTA and keeps full header at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:width===1440?1000:844});
   await page.goto('/prototype/?scenario=upcoming#/home');await page.locator('#bottom-nav .nav-book').click();await screen(page,'C1');await dockFits(page);
-  await submit(page);await screen(page,'C2');await page.locator('#reason').fill('Đau đầu từ hôm qua');
+  await submit(page);await screen(page,'C2');await page.locator('#reason').fill('Headache since yesterday');
   await page.locator('#phone-main').evaluate(el=>el.scrollTop=el.scrollHeight);await dockFits(page);
   const header=await page.locator('.screen-masthead').boundingBox(),main=await page.locator('#phone-main').boundingBox();expect(header.y).toBeGreaterThanOrEqual(main.y-1);
-  await expect(page.locator('#reason-count')).toHaveText('18 / 1200 ký tự');
+  await expect(page.locator('#reason-count')).toHaveText('24 / 1200 characters');
   await submit(page);await screen(page,'C3');
   await page.locator('input[value=warning]').check();await expect(page.locator('[data-safety-guidance]')).toBeVisible();await expect(page.locator('[data-safety-guidance] a')).toHaveAttribute('href','tel:115');
   await expect(page.locator('.choice:has(input[value=warning])')).toHaveClass(/selected/);await expect(page.locator('.choice:has(input[value=normal])')).not.toHaveClass(/selected/);
@@ -25,12 +25,12 @@ for(const width of [360,390,1440])test(`booking chrome reserves CTA and keeps fu
 
 test('date/topic sheets support selection, keyboard dismissal, focus return and real form values',async({page})=>{
   await page.goto('/prototype/?scenario=upcoming#/support');await expect(page.locator('.cf-emergency-card a[href="tel:115"]')).toBeVisible();
-  const requestGap=await page.locator('.cf-reference-section').filter({has:page.getByRole('heading',{name:'Gửi yêu cầu',exact:true})}).evaluate(section=>section.querySelector('label').getBoundingClientRect().top-section.querySelector('h2').getBoundingClientRect().bottom);expect(requestGap).toBeLessThan(32);
+  const requestGap=await page.locator('.cf-reference-section').filter({has:page.getByRole('heading',{name:'Send a request',exact:true})}).evaluate(section=>section.querySelector('label').getBoundingClientRect().top-section.querySelector('h2').getBoundingClientRect().bottom);expect(requestGap).toBeLessThan(32);
   await page.locator('[data-cf-control=supportTopic]').click();await expect(page.locator('#dialog')).toBeVisible();
-  await page.locator('#dialog [role=option]').filter({hasText:'Thanh toán'}).click();await expect(page.locator('#supportTopic')).toHaveValue('Thanh toán');
-  await page.locator('#support').fill('Cần kiểm tra khoản thanh toán');await expect(page.locator('#support-count')).toHaveText('29 / 500 ký tự');
+  await page.locator('#dialog [role=option]').filter({hasText:'Payment'}).click();await expect(page.locator('#supportTopic')).toHaveValue('Payment');
+  await page.locator('#support').fill('I need to check a payment');await expect(page.locator('#support-count')).toHaveText('25 / 500 characters');
   await page.locator('[data-cf-control=supportTopic]').click();await page.keyboard.press('ArrowDown');await page.keyboard.press('Escape');await expect(page.locator('[data-cf-control=supportTopic]')).toBeFocused();
-  await page.goto('/prototype/#/profile');await page.locator('#profile-add-relative > summary').click();await page.locator('#name').fill('Người thân');await submit(page);
+  await page.goto('/prototype/#/profile');await page.locator('#profile-add-relative > summary').click();await page.locator('#name').fill('Family member');await submit(page);
   await expect(page.locator('[data-cf-control=dob]')).toBeFocused();
   await page.locator('[data-cf-control=dob]').click();await page.locator('[data-calendar-year]').click();
   for(let i=0;i<3;i++)await page.locator('[data-calendar-prev]').click();

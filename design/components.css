@@ -360,7 +360,7 @@
 [data-cf-theme="pastel"] .cf-state-box { min-height: 0; }
 [data-cf-theme="pastel"] .cf-empty-art { display: grid; justify-items: center; }
 [data-cf-theme="pastel"] .cf-empty-art .cf-illustration-slot { width: 160px; }
-[data-cf-theme="pastel"] .cf-profile-summary { display: flex; align-items: center; gap: var(--cf-space-1); flex-wrap: wrap; }
+[data-cf-theme="pastel"] .cf-profile-summary { display: flex; align-items: center; gap: var(--cf-space-1); flex-wrap: nowrap; }
 [data-cf-theme="pastel"] .cf-profile-summary strong { font-size: var(--cf-body-font); }
 [data-cf-theme="pastel"] .cf-avatar-stack { display: flex; }
 [data-cf-theme="pastel"] .cf-profile-avatar { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border: 2px solid var(--cf-surface); border-radius: var(--cf-radius-control); background: var(--cf-baby-blue); color: var(--cf-brand); font-size: var(--cf-status-font); font-weight: 600; }
@@ -917,7 +917,7 @@ body[data-cf-theme="pastel"] #app small { font-size: var(--cf-caption-font); lin
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .rich-appt-tabs { padding: 0; gap: 16px; margin-top: 20px; background: none; border-radius: 0; border-bottom: 1px solid var(--cf-line); overflow-x: auto; }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .rich-appt-tabs button { position: relative; flex: 1 0 auto; border: 0; padding: 8px 0 16px; border-radius: 0; background: none; color: var(--cf-text-muted); box-shadow: none; min-height: 44px; font-size: calc(12px * var(--font-scale,1)); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .rich-appt-tabs button[aria-pressed=true] { background: none; color: var(--cf-brand); font-weight: 700; box-shadow: inset 0 -3px var(--cf-brand); }
-.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-list-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-list-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-list-toolbar h2 { font-size: calc(var(--cf-title-font) * var(--font-scale,1)); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] .cf-hdr-filter { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--cf-line); border-radius: var(--cf-radius-control); background: var(--cf-surface); color: var(--cf-brand); font-size: var(--cf-caption-font); }
 .phone[data-cf-theme="pastel"] #phone-content[data-screen] [data-appointment-filter-count]:not([hidden]) { display: grid; place-items: center; min-width: 20px; height: 20px; border-radius: 50%; background: var(--cf-primary); color: var(--cf-on-brand); }

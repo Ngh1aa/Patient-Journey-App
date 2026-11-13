@@ -6,18 +6,18 @@ for(const entered of [false,true])test(`legacy booking deep link restores guide 
  await page.goto('/prototype/index.html?scenario=empty');
  await page.evaluate(entered=>{
   const s=CareFlowModel.fixture('empty');
-  s.profiles[0].name='Người xem đã có hồ sơ';
+  s.profiles[0].name='Viewer with an existing profile';
   CareFlowModel.beginBooking(s);
-  sessionStorage.setItem('careflow.browser.v3',JSON.stringify({state:s,ui:{screen:'C2',forms:{reason:{reason:entered?'Nội dung đang viết cần giữ lại':'',medicalHistory:entered?'Thông tin đã nhập cần giữ lại':''}}}}));
+  sessionStorage.setItem('careflow.browser.v3',JSON.stringify({state:s,ui:{screen:'C2',forms:{reason:{reason:entered?'Draft in progress that must be kept':'',medicalHistory:entered?'Entered details that must be kept':''}}}}));
  },entered);
  await page.goto('about:blank');
  await page.goto('/prototype/index.html#/book/reason');
  await expect(page.locator('.journey-panel')).toBeVisible();
  await expect(page.locator('.journey-item > button')).toHaveCount(12);
  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
- await expect(page.locator('#phone-content')).toContainText('Người xem đã có hồ sơ');
- await expect(page.locator('#reason')).toHaveValue(entered?'Nội dung đang viết cần giữ lại':'Đau đầu hai ngày, ngủ không ngon.');
- await expect(page.locator('#medicalHistory')).toHaveValue(entered?'Thông tin đã nhập cần giữ lại':'Chưa có thông tin cần bổ sung.');
+ await expect(page.locator('#phone-content')).toContainText('Viewer with an existing profile');
+ await expect(page.locator('#reason')).toHaveValue(entered?'Draft in progress that must be kept':'Headache for two days, not sleeping well.');
+ await expect(page.locator('#medicalHistory')).toHaveValue(entered?'Entered details that must be kept':'Nothing further to add.');
  expect((await snapshot(page)).state.visits).toHaveLength(0);
  await page.reload();
  await expect(page.locator('.journey-panel')).toBeVisible();
@@ -25,7 +25,7 @@ for(const entered of [false,true])test(`legacy booking deep link restores guide 
  await page.screenshot({path:info.outputPath(`restored-booking-${entered?'entered':'empty'}.png`)});
  await page.locator('#phone-content form [type=submit]').click();
  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C3');
- await expect(page.locator('.journey-checklist [aria-current=step]')).toContainText('Sàng lọc');
+ await expect(page.locator('.journey-checklist [aria-current=step]')).toContainText('Screening before booking');
 });
 test('explicit inspection mode persists through reload without presentation autofill',async({page})=>{
  await page.goto('/prototype/index.html?scenario=empty');
@@ -81,11 +81,11 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
    }).toBe(true);
   }
   const final=await snapshot(page);
-  await expect(page.locator('.journey-progress')).toContainText('Hành trình đã hoàn tất');
+  await expect(page.locator('.journey-progress')).toContainText('Journey complete');
   expect(errors).toEqual([]);
   const v=final.state.visits.find(x=>x.id===final.state.activeVisitId);
   if(flow==='F12'){
-   expect(v.previousId).toBeTruthy();expect(v.reason).toContain('cập nhật');
+   expect(v.previousId).toBeTruthy();expect(v.reason).toContain('update');
    expect(v.status).toBe('reminder');expect(final.state.visits[0].status).toBe('completed');
   }
   if(flow==='F11'){
@@ -93,14 +93,14 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
   }
   if(flow==='F5')expect(v.labs[0].continuation).toBe(branch==='during'?'review-during':'return-to-visit');
   if(flow==='F8'&&branch==='callback')expect(v.communication.callback).toBe('resolved');
-  await expect(page.locator('#phone-frame')).not.toContainText(/Bản demo|kiểm thử|mock/i);
+  await expect(page.locator('#phone-frame')).not.toContainText(/demo|testing|mock/i);
  });
 }
 test('guided shell is accessible, responsive, persistent and uses prefilled fields',async({page},info)=>{
  await page.setViewportSize({width:1440,height:1000});
  await page.goto('/prototype/index.html');
  await expect(page.locator('.demo-bar, #demo-warning')).toHaveCount(0);
- await expect(page.locator('body')).not.toContainText('Trải nghiệm minh họa');
+ await expect(page.locator('body')).not.toContainText('Sample experience');
  await expect(page.locator('#phone')).toHaveValue('0900000000');
  expect(await page.locator('.journey-item > button').count()).toBe(12);
  const panel=await page.locator('.journey-panel').boundingBox(),phone=await page.locator('.phone').boundingBox();expect(panel.x+panel.width).toBeLessThan(phone.x);

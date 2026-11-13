@@ -11,7 +11,7 @@ test('Blue editorial auth: real OTP and new-profile flow, no visual-only CTA', a
   const phone = page.locator('#phone-frame');
   await expect(phone).toHaveAttribute('data-auth-step', '1');
   await expect(page.locator('.cf-hdr-auth-progress li')).toHaveCount(3);
-  await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Số điện thoại');
+  await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Phone number');
   await expect(page.locator('.auth-panel form[data-form=otp]')).toBeVisible();
   await expect(page.locator('#auth-jump')).toBeHidden();
   await page.locator('#phone').fill('0900000000');

@@ -20,7 +20,7 @@
   const tip = (name, title, description, to, label) =>
     '<div class="cfx-tile"><span class="cfx-tile-icon">' + icon(name, 21) +
     '</span><strong>' + esc(title) + '</strong><p>' + esc(description) +
-    '</p>' + (to ? link(label || 'Xem thêm', to, true) : '') + '</div>';
+    '</p>' + (to ? link(label || 'See more', to, true) : '') + '</div>';
   const section = (eyebrow, title, html, description = '') =>
     '<section class="cfx-section" aria-label="' + esc(title) + '">' +
     '<div class="cfx-section-heading"><span>' + esc(eyebrow) + '</span><h2>' +
@@ -37,175 +37,175 @@
     items.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>';
   const photo = (key, title, text, to, label) =>
     '<div class="cfx-photo-card"><img src="' + IMG[key] +
-    '" alt="Ảnh minh họa hoạt động chăm sóc sức khỏe từ Unsplash" loading="lazy" ' +
+    '" alt="Sample healthcare photo from Unsplash" loading="lazy" ' +
     'width="560" height="360" data-cfx-fallback="./assets/images/clinic-reception.webp">' +
-    '<div class="cfx-photo-copy"><span>Góc chăm sóc</span><strong>' +
+    '<div class="cfx-photo-copy"><span>Care corner</span><strong>' +
     esc(title) + '</strong><p>' + esc(text) + '</p>' +
-    (to ? link(label || 'Xem thêm', to) : '') + '</div></div>';
+    (to ? link(label || 'See more', to) : '') + '</div></div>';
   const checklist = (key, title, items) =>
     '<div class="cfx-checklist" data-cfx-checklist="' + esc(key) + '">' +
     '<div class="cfx-check-head"><strong>' + esc(title) + '</strong>' +
     '<span class="cfx-check-count" role="status" aria-live="polite">0/' + items.length +
-    ' đã chuẩn bị</span></div>' +
+    ' prepared</span></div>' +
     items.map((item, i) =>
       '<label class="cfx-check-row"><input type="checkbox" data-cfx-index="' + i +
       '"><span class="cfx-check-mark" aria-hidden="true">' + icon('check', 14) +
       '</span><span>' + esc(item) + '</span></label>').join('') +
-    '<p class="cfx-check-foot">Danh sách tự kiểm tra trên thiết bị, không gửi đến phòng khám.</p></div>';
+    '<p class="cfx-check-foot">A self-check list on this device; it is not sent to the clinic.</p></div>';
   const band = (text, to, action) =>
     '<div class="cfx-action-band"><span>' + icon('headphones', 20) +
-    '</span><p>' + esc(text) + '</p>' + link(action || 'Hỗ trợ', to || 'K5') + '</div>';
+    '</span><p>' + esc(text) + '</p>' + link(action || 'Support', to || 'K5') + '</div>';
 
   const panels = {
-    B1: ({s}) => section('CHỌN CÁCH CHĂM SÓC', 'Tiện ích dành cho bạn',
-      grid(tip('user', 'Hồ sơ gia đình', (s.profiles?.length || 0) + ' hồ sơ đã lưu. Xem danh sách và chọn đúng người đi khám.', 'K2', 'Xem hồ sơ'),
-        tip('message-circle', 'Cần hỗ trợ lịch khám?', 'Hỏi phòng khám về giờ hẹn hoặc hướng dẫn chuẩn bị.', 'K5', 'Liên hệ'))),
-    C1: () => section('BẮT ĐẦU ĐẶT LỊCH', 'Chọn đúng người đi khám',
-      photo('consultation', 'Một nơi cho cả gia đình',
-        'Hồ sơ của mỗi người được tách riêng để hạn chế nhầm lịch hẹn và kết quả.', 'K2', 'Quản lý hồ sơ') +
-      details('Trước khi đặt cho người thân',
-        list('Kiểm tra tên và ngày sinh của người đi khám.',
-          'Chỉ xem kết quả của người mà bạn được cấp quyền.',
-          'Bạn có thể thay đổi người đi khám ở bước này.'))),
-    C2: () => section('HỖ TRỢ KHAI TRIỆU CHỨNG', 'Giúp bác sĩ hiểu rõ hơn',
-      grid(tip('clock', 'Bắt đầu khi nào?', 'Ghi lại thời điểm bắt đầu và triệu chứng thay đổi ra sao.'),
-        tip('document', 'Đã dùng gì?', 'Nếu có, kể tên thuốc và biện pháp đã thực hiện.')) +
-      details('Gợi ý viết lý do khám',
-        list('Mô tả vấn đề chính bằng lời của bạn.',
-          'Có thể bổ sung thời gian, mức độ ảnh hưởng và bệnh sử liên quan.',
-          'Đừng bỏ qua bước kiểm tra dấu hiệu nguy hiểm tiếp theo.'))),
-    C5: () => section('TRONG LÚC CHỜ PHẢN HỒI', 'Điều gì diễn ra tiếp theo?',
-      grid(tip('shield', 'Phòng khám xem xét', 'Hình thức khám sẽ được xác nhận theo nhu cầu và thông tin đã khai.'),
-        tip('headphones', 'Cần trao đổi?', 'Hãy liên hệ trực tiếp nếu tình trạng hoặc yêu cầu thay đổi.', 'K5', 'Hỗ trợ'))),
-    C6: () => section('SO SÁNH NHANH', 'Chọn hình thức phù hợp',
-      grid(tip('map-pin', 'Tại phòng khám', 'Phù hợp khi cần khám trực tiếp, thăm khám và làm chỉ định tại cơ sở.'),
-        tip('video', 'Trực tuyến', 'Cần đường truyền ổn định và không gian đủ riêng tư.')) +
-      details('Không chắc nên chọn cách nào?',
-        'Phòng khám có thể cần xem xét lại hình thức khám dựa trên thông tin sức khỏe đã cung cấp. ' +
-        'Khám trực tuyến không thay thế cấp cứu.')),
-    C7: () => section('ĐẶT LỊCH CHỦ ĐỘNG', 'Trước khi chọn giờ',
-      grid(tip('calendar', 'Kiểm tra lịch', 'Chọn ngày thuận tiện để chuẩn bị và di chuyển.'),
-        tip('clock', 'Giờ có thể thay đổi', 'Đặt lịch chỉ hoàn tất theo trạng thái xác nhận hiển thị trong ứng dụng.'))),
-    C8: () => section('KIỂM TRA LẦN CUỐI', 'Sau khi gửi yêu cầu',
-      details('Phòng khám sẽ phản hồi thế nào?',
-        list('Theo dõi trạng thái phiếu khám và thông báo trong ứng dụng.',
-          'Nếu giờ vừa được chọn không còn, bạn có thể chọn lại.',
-          'Không chuyển khoản khi chưa có chỉ dẫn thanh toán rõ ràng.'))),
-    C9: () => section('TIẾP TỤC HÀNH TRÌNH', 'Bạn có thể làm ngay',
-      grid(tip('calendar', 'Theo dõi lịch khám', 'Xem trạng thái yêu cầu và phiếu khám của bạn.', 'D1', 'Mở lịch hẹn'),
-        tip('headphones', 'Hỏi phòng khám', 'Trao đổi khi muốn đổi giờ hoặc cần chuẩn bị đặc biệt.', 'K5', 'Liên hệ'))),
-    D1: ({s}) => section('TIỆN ÍCH LỊCH KHÁM', 'Quản lý dễ dàng hơn',
-      grid(tip('user', 'Hồ sơ gia đình', (s.profiles?.length || 0) + ' hồ sơ đang quản lý. Kiểm tra người đi khám trước khi gửi lịch.', 'K2', 'Xem hồ sơ'),
-        tip('headphones', 'Hỏi về giờ khám', 'Nhận hướng dẫn trước khi tới phòng khám hoặc kết nối trực tuyến.', 'K5', 'Liên hệ'))),
-    D3: () => section('ĐỔI LỊCH', 'Cần lưu ý',
-      details('Lịch mới chưa chắc được xác nhận',
-        'Kiểm tra trạng thái phiếu khám sau khi gửi yêu cầu đổi giờ. ' +
-        'Nếu chưa có xác nhận, hãy liên hệ phòng khám.')),
-    D4: () => section('HỦY LỊCH', 'Trước khi quyết định',
-      details('Nếu vẫn muốn đi khám',
-        'Bạn có thể chọn quay lại phiếu khám để đổi lịch thay vì hủy. ' +
-        'Tình trạng phí hoặc hoàn tiền phụ thuộc thông tin của phòng khám.')),
-    E1: () => section('CHECKLIST TRƯỚC BUỔI KHÁM', 'Sẵn sàng cho lịch hẹn',
-      checklist('onsite', 'Bạn đã chuẩn bị gì?',
-        ['Kiểm tra giờ hẹn và địa điểm trên phiếu khám.',
-         'Mang giấy tờ, đơn thuốc và kết quả cũ nếu đang có.',
-         'Ghi lại câu hỏi muốn trao đổi với bác sĩ.']) +
-      band('Có hướng dẫn xét nghiệm hay nhịn ăn riêng? Hỏi phòng khám trước khi thực hiện.', 'K5', 'Hỏi ngay')),
-    E2: () => section('TẠI PHÒNG KHÁM', 'Sau khi báo đã đến',
-      grid(tip('clock', 'Theo dõi lượt khám', 'Kiểm tra tiến trình tiếp nhận trong phiếu khám.', 'E3', 'Xem tiến trình'),
-        tip('headphones', 'Cần hỗ trợ tại quầy?', 'Hỏi nhân viên nếu tên hoặc giờ khám chưa chính xác.', 'K5', 'Liên hệ'))),
-    E3: () => section('TRONG KHI CHỜ', 'Giữ thông tin trong tầm tay',
-      grid(tip('document', 'Phiếu khám', 'Thông tin lịch, người khám và yêu cầu có thể xem lại.', 'D2', 'Mở phiếu khám'),
-        tip('message-circle', 'Có thay đổi?', 'Thông báo với quầy tiếp nhận hoặc đội ngũ chăm sóc.', 'K5', 'Hỗ trợ'))),
-    F1: () => section('CẬN LÂM SÀNG', 'Cần chuẩn bị đúng hướng dẫn',
-      grid(tip('document-check', 'Đọc chỉ định', 'Xem tên, trạng thái và ghi chú của từng chỉ định.'),
-        tip('headphones', 'Chưa rõ yêu cầu?', 'Không tự nhịn ăn hoặc ngừng thuốc; hãy hỏi phòng khám.', 'K5', 'Hỏi phòng khám'))),
-    F2: () => section('CẬN LÂM SÀNG', 'Hiểu kết quả theo đúng ngữ cảnh',
-      details('Kết quả cần được bác sĩ giải thích',
-        'Các kết quả xét nghiệm nên được xem cùng triệu chứng, bệnh sử và nhận định của bác sĩ. ' +
-        'Nếu chưa rõ ý nghĩa, bạn có thể hỏi phòng khám.')),
-    F3: () => section('CHUẨN BỊ LÀM XÉT NGHIỆM', 'Trước ngày hẹn',
-      checklist('lab', 'Điều cần xác nhận',
-        ['Đúng tên xét nghiệm và người thực hiện.',
-         'Đã hỏi phòng khám về yêu cầu chuẩn bị riêng.',
-         'Đã kiểm tra nơi thực hiện và giờ hẹn.'])),
-    F4: () => section('CHIA SẺ TÀI LIỆU', 'Bảo vệ thông tin cá nhân',
-      details('Kiểm tra tệp trước khi đính kèm',
-        'Chỉ chọn tài liệu liên quan đến lượt khám và đúng người bệnh. ' +
-        'Đây là prototype: tệp không được tải lên máy chủ.')),
-    G1: () => section('CHECKLIST KHÁM TRỰC TUYẾN', 'Sẵn sàng kết nối',
-      checklist('online', 'Kiểm tra trước giờ hẹn',
-        ['Mạng đủ ổn định để gọi video.',
-         'Camera và micro đã được kiểm tra.',
-         'Chọn không gian yên tĩnh, đủ riêng tư.']) +
-      band('Nếu không vào được phòng chờ, hãy mở lại lịch hẹn hoặc nhờ hỗ trợ.', 'K5', 'Cần trợ giúp')),
-    G2: () => section('TRONG PHÒNG CHỜ', 'Không bỏ lỡ cuộc gọi',
-      grid(tip('video', 'Giữ thiết bị sẵn sàng', 'Ở lại màn chờ và kiểm tra âm thanh.'),
-        tip('headphones', 'Kết nối gián đoạn?', 'Liên hệ phòng khám nếu chờ quá lâu hoặc gặp sự cố.', 'K5', 'Hỗ trợ'))),
-    G5: () => section('KHI KHÔNG KẾT NỐI ĐƯỢC', 'Bạn vẫn có cách tiếp tục',
-      grid(tip('calendar', 'Xem lại phiếu khám', 'Kiểm tra giờ hẹn và trạng thái cuộc gọi.', 'D2', 'Phiếu khám'),
-        tip('headphones', 'Nhờ kết nối lại', 'Trao đổi với phòng khám về bước tiếp theo.', 'K5', 'Liên hệ'))),
-    H1: () => section('SAU BUỔI KHÁM', 'Giữ lại thông tin cần thiết',
-      grid(tip('document-check', 'Lời dặn và đơn thuốc', 'Xem nội dung đã được chia sẻ cho lượt khám này.', 'H6', 'Xem lời dặn'),
-        tip('headphones', 'Cần giải thích thêm?', 'Gửi câu hỏi cho đội ngũ chăm sóc.', 'K5', 'Hỗ trợ'))),
-    H2: () => section('THANH TOÁN', 'Kiểm tra trước khi trả',
-      details('Xác minh thông tin thanh toán',
-        'Đối chiếu người khám, dịch vụ và số tiền hiển thị. ' +
-        'Ứng dụng hiện mô phỏng trạng thái thanh toán; không thực hiện giao dịch thật.')),
-    H3: () => section('THANH TOÁN SAU', 'Giữ lại phiếu khám',
-      grid(tip('document', 'Xem tình trạng phí', 'Theo dõi thông tin thanh toán trong lượt khám.', 'D2', 'Phiếu khám'),
-        tip('headphones', 'Có thắc mắc?', 'Liên hệ để được hướng dẫn thanh toán.', 'K5', 'Hỗ trợ'))),
-    H5: () => section('CHỨNG TỪ KHÁM', 'Bạn có thể kiểm tra',
-      details('Lưu thông tin để đối chiếu',
-        'Đối chiếu tình trạng thanh toán và nội dung chứng từ của đúng lượt khám. ' +
-        'Dữ liệu tài chính trong prototype chỉ là minh họa.')),
-    H6: () => section('CHĂM SÓC SAU KHÁM', 'Những bước tiếp theo',
-      photo('clinician', 'Hiểu rõ lời dặn của bác sĩ',
-        'Xem lại đơn thuốc và hướng dẫn được cung cấp; hỏi lại nếu có điều chưa rõ.', 'K5', 'Hỏi phòng khám') +
-      checklist('aftercare', 'Tự kiểm tra việc cần nhớ',
-        ['Đã đọc hướng dẫn sau khám của đúng lượt khám.',
-         'Đã lưu câu hỏi cần hỏi lại bác sĩ.',
-         'Đã kiểm tra ngày tái khám nếu được yêu cầu.'])),
-    H7: () => section('KẾT QUẢ VÀ THEO DÕI', 'Thông tin bạn cần',
-      grid(tip('document-check', 'Xem lời dặn', 'Đọc kết luận và chỉ dẫn được chia sẻ trong phần trên.'),
-        tip('message-circle', 'Còn câu hỏi?', 'Gửi câu hỏi cho phòng khám về kết quả.', 'K5', 'Liên hệ'))),
-    I1: () => section('GIỮ LIÊN LẠC', 'Chọn đúng kênh hỗ trợ',
-      grid(tip('message-circle', 'Gửi câu hỏi', 'Ghi rõ điều chưa hiểu để phòng khám phản hồi.', 'I5', 'Tin nhắn'),
-        tip('headphones', 'Cần liên hệ nhanh?', 'Mở danh mục hỗ trợ và yêu cầu gọi lại.', 'K5', 'Hỗ trợ'))),
-    I2: () => section('CẬP NHẬT SAU KHÁM', 'Viết ngắn gọn, dễ xử lý',
-      details('Những thông tin nên có',
-        list('Điều gì thay đổi so với sau buổi khám?',
-          'Tình trạng bắt đầu từ khi nào?',
-          'Bạn đang cần phòng khám giải đáp điều gì?'))),
-    I3: () => section('THEO DÕI TẠI NHÀ', 'Ghi nhận để trao đổi',
-      checklist('followup', 'Gợi ý tự chuẩn bị',
-        ['Đọc lại hướng dẫn đã nhận.',
-         'Ghi chú điều đã thay đổi để báo phòng khám.',
-         'Chuẩn bị câu hỏi cho lần liên hệ tiếp theo.']) +
-      details('Khi triệu chứng trở nặng',
-        'Không chờ câu trả lời qua ứng dụng nếu có dấu hiệu nguy hiểm. ' +
-        'Gọi 115 hoặc đến cơ sở cấp cứu gần nhất.')),
-    I4: () => section('CHUYỂN CHUYÊN KHOA', 'Trước lượt khám tiếp theo',
-      grid(tip('document', 'Giữ phiếu khám', 'Xem lại thông tin chuyển khám và chỉ định.'),
-        tip('headphones', 'Chưa rõ bước tiếp?', 'Liên hệ phòng khám để xác nhận.', 'K5', 'Hỗ trợ'))),
-    I5: () => section('TIN NHẮN CHĂM SÓC', 'Để nhận phản hồi rõ ràng',
-      details('Viết một tin nhắn hiệu quả',
-        'Nêu rõ lượt khám và câu hỏi chính; không chia sẻ mật khẩu hoặc mã OTP. ' +
-        'Nếu khẩn cấp, gọi 115 thay vì đợi tin nhắn.')),
-    J1: () => section('TÁI KHÁM', 'Chuẩn bị cho lần gặp tiếp theo',
-      grid(tip('document-check', 'Xem hồ sơ cũ', 'Xem lời dặn và kết quả đã được chia sẻ.', 'H6', 'Lời dặn'),
-        tip('headphones', 'Chưa rõ thời gian?', 'Liên hệ phòng khám để được hướng dẫn.', 'K5', 'Hỗ trợ'))),
-    K1: () => section('THÔNG TIN LIÊN QUAN', 'Quản lý cập nhật',
-      grid(tip('calendar', 'Lịch hẹn của bạn', 'Xem trực tiếp mọi thay đổi từ phiếu khám.', 'D1', 'Mở lịch'),
-        tip('shield', 'Cài đặt nhắc hẹn', 'Tùy chọn thông báo và quyền riêng tư.', 'K4', 'Cài đặt'))),
-    K3: () => section('LỊCH SỬ KHÁM', 'Tìm lại nội dung quan trọng',
-      grid(tip('document-check', 'Đơn thuốc và kết luận', 'Chọn một lượt khám hoàn tất để xem nội dung được chia sẻ.'),
-        tip('user', 'Hồ sơ người thân', 'Quyền xem kết quả phụ thuộc từng hồ sơ.', 'K2', 'Hồ sơ'))),
-    K4: () => section('QUYỀN RIÊNG TƯ', 'Bạn kiểm soát điều gì?',
-      details('Dữ liệu trong bản trải nghiệm',
-        'Trạng thái và dữ liệu minh họa được lưu ở trình duyệt. ' +
-        'Đây không phải hệ thống hồ sơ bệnh án thật. Không nhập dữ liệu sức khỏe thật.') +
-      band('Bạn muốn phòng khám hỗ trợ truy cập hoặc chỉnh sửa hồ sơ?', 'K5', 'Liên hệ'))
+    B1: ({s}) => section('CHOOSE YOUR CARE', 'Tools for you',
+      grid(tip('user', 'Family profiles', (s.profiles?.length || 0) + ((s.profiles?.length || 0) === 1 ? ' profile' : ' profiles') + ' saved. View the list and choose the right person for the visit.', 'K2', 'View profiles'),
+        tip('message-circle', 'Need help with an appointment?', 'Ask the clinic about appointment times or how to prepare.', 'K5', 'Contact'))),
+    C1: () => section('START BOOKING', 'Choose the right person',
+      photo('consultation', 'One place for the whole family',
+        'Each person has a separate profile to help avoid mixing up appointments and results.', 'K2', 'Manage profiles') +
+      details('Before booking for a family member',
+        list('Check the patient’s name and date of birth.',
+          'Only view results for people who have given you access.',
+          'You can change the patient at this step.'))),
+    C2: () => section('DESCRIBING SYMPTOMS', 'Help the doctor understand',
+      grid(tip('clock', 'When did it start?', 'Note when it started and how your symptoms have changed.'),
+        tip('document', 'What have you tried?', 'If any, list medications taken and other steps tried.')) +
+      details('Tips for describing your reason for visit',
+        list('Describe the main problem in your own words.',
+          'You can add timing, how much it affects you and relevant medical history.',
+          'Don’t skip the warning-signs check in the next step.'))),
+    C5: () => section('WHILE YOU WAIT', 'What happens next?',
+      grid(tip('shield', 'Clinic review', 'The visit type will be confirmed based on your needs and the information provided.'),
+        tip('headphones', 'Need to talk?', 'Contact the clinic directly if your condition or request changes.', 'K5', 'Support'))),
+    C6: () => section('QUICK COMPARISON', 'Choose the right visit type',
+      grid(tip('map-pin', 'At the clinic', 'Suitable when you need an in-person examination and tests or procedures on site.'),
+        tip('video', 'Online', 'Requires a stable connection and a private space.')) +
+      details('Not sure which to choose?',
+        'The clinic may need to review the visit type based on the health information you provided. ' +
+        'An online visit does not replace emergency care.')),
+    C7: () => section('BOOK AHEAD', 'Before choosing a time',
+      grid(tip('calendar', 'Check your schedule', 'Choose a day that gives you time to prepare and travel.'),
+        tip('clock', 'Times may change', 'A booking is only complete when the app shows it as confirmed.'))),
+    C8: () => section('FINAL CHECK', 'After you send the request',
+      details('How will the clinic respond?',
+        list('Follow the appointment status and notifications in the app.',
+          'If the time you chose is no longer available, you can choose again.',
+          'Don’t make a bank transfer until you have clear payment instructions.'))),
+    C9: () => section('NEXT STEPS', 'What you can do now',
+      grid(tip('calendar', 'Track your appointment', 'See your request status and appointment details.', 'D1', 'Open appointments'),
+        tip('headphones', 'Ask the clinic', 'Get in touch to change the time or about special preparation.', 'K5', 'Contact'))),
+    D1: ({s}) => section('APPOINTMENT TOOLS', 'Easier to manage',
+      grid(tip('user', 'Family profiles', (s.profiles?.length || 0) + ((s.profiles?.length || 0) === 1 ? ' profile' : ' profiles') + ' managed. Check the patient before sending a booking.', 'K2', 'View profiles'),
+        tip('headphones', 'Ask about times', 'Get guidance before coming to the clinic or joining online.', 'K5', 'Contact'))),
+    D3: () => section('RESCHEDULE', 'Please note',
+      details('The new time is not yet confirmed',
+        'Check the appointment status after sending your reschedule request. ' +
+        'If it is not confirmed, contact the clinic.')),
+    D4: () => section('CANCEL APPOINTMENT', 'Before you decide',
+      details('If you still want a visit',
+        'You can go back to the appointment details and reschedule instead of cancelling. ' +
+        'Any fees or refunds depend on the clinic’s information.')),
+    E1: () => section('PRE-VISIT CHECKLIST', 'Ready for your appointment',
+      checklist('onsite', 'What have you prepared?',
+        ['Check the time and location in the appointment details.',
+         'Bring ID documents, prescriptions and previous results if you have them.',
+         'Write down questions for the doctor.']) +
+      band('Special test or fasting instructions? Ask the clinic before you follow them.', 'K5', 'Ask now')),
+    E2: () => section('AT THE CLINIC', 'After you check in',
+      grid(tip('clock', 'Track your visit', 'Check your check-in progress in the appointment details.', 'E3', 'View progress'),
+        tip('headphones', 'Need help at the desk?', 'Ask staff if your name or appointment time is incorrect.', 'K5', 'Contact'))),
+    E3: () => section('WHILE YOU WAIT', 'Keep your details to hand',
+      grid(tip('document', 'Appointment details', 'Review the appointment, patient and request details.', 'D2', 'Open details'),
+        tip('message-circle', 'Something changed?', 'Let reception or the care team know.', 'K5', 'Support'))),
+    F1: () => section('DIAGNOSTICS', 'Prepare as instructed',
+      grid(tip('document-check', 'Read your orders', 'See the name, status and notes for each order.'),
+        tip('headphones', 'Unsure what’s needed?', 'Don’t fast or stop medication on your own; ask the clinic.', 'K5', 'Ask the clinic'))),
+    F2: () => section('DIAGNOSTICS', 'Understand results in context',
+      details('Results should be explained by a doctor',
+        'Test results should be read alongside your symptoms, medical history and the doctor’s assessment. ' +
+        'If anything is unclear, you can ask the clinic.')),
+    F3: () => section('PREPARING FOR TESTS', 'Before the appointment',
+      checklist('lab', 'Things to confirm',
+        ['The test name and patient are correct.',
+         'Asked the clinic about any special preparation.',
+         'Checked the location and appointment time.'])),
+    F4: () => section('SHARING DOCUMENTS', 'Protect your personal information',
+      details('Check files before attaching',
+        'Only choose documents for this visit and the right patient. ' +
+        'This is a prototype: files are not uploaded to a server.')),
+    G1: () => section('ONLINE VISIT CHECKLIST', 'Ready to connect',
+      checklist('online', 'Check before your appointment',
+        ['Your connection is stable enough for video.',
+         'Camera and microphone have been checked.',
+         'You are in a quiet, private space.']) +
+      band('If you can’t enter the waiting room, reopen the appointment or ask for support.', 'K5', 'Get help')),
+    G2: () => section('IN THE WAITING ROOM', 'Don’t miss the call',
+      grid(tip('video', 'Keep your device ready', 'Stay on the waiting screen and check your audio.'),
+        tip('headphones', 'Connection dropped?', 'Contact the clinic if the wait is too long or something goes wrong.', 'K5', 'Support'))),
+    G5: () => section('IF YOU CAN’T CONNECT', 'You can still continue',
+      grid(tip('calendar', 'Review appointment details', 'Check the appointment time and call status.', 'D2', 'Appointment details'),
+        tip('headphones', 'Ask to reconnect', 'Talk to the clinic about the next step.', 'K5', 'Contact'))),
+    H1: () => section('AFTER YOUR VISIT', 'Keep the information you need',
+      grid(tip('document-check', 'Advice and prescription', 'See what has been shared for this visit.', 'H6', 'View advice'),
+        tip('headphones', 'Need more explanation?', 'Send a question to the care team.', 'K5', 'Support'))),
+    H2: () => section('PAYMENT', 'Check before you pay',
+      details('Verify payment details',
+        'Check the patient, service and amount shown. ' +
+        'The app only simulates payment status; no real transactions are made.')),
+    H3: () => section('PAY LATER', 'Keep your appointment details',
+      grid(tip('document', 'View fee status', 'Track payment information for this visit.', 'D2', 'Appointment details'),
+        tip('headphones', 'Questions?', 'Contact us for payment guidance.', 'K5', 'Support'))),
+    H5: () => section('VISIT DOCUMENTS', 'What you can check',
+      details('Keep details for your records',
+        'Check the payment status and document details for the correct visit. ' +
+        'Financial data in this prototype is sample data only.')),
+    H6: () => section('AFTERCARE', 'Next steps',
+      photo('clinician', 'Understand your doctor’s advice',
+        'Review the prescription and instructions provided; ask if anything is unclear.', 'K5', 'Ask the clinic') +
+      checklist('aftercare', 'Things to remember',
+        ['Read the aftercare instructions for the correct visit.',
+         'Saved questions to ask the doctor.',
+         'Checked the follow-up date, if one was requested.'])),
+    H7: () => section('RESULTS AND FOLLOW-UP', 'Information you need',
+      grid(tip('document-check', 'View advice', 'Read the summary and instructions shared above.'),
+        tip('message-circle', 'Still have questions?', 'Ask the clinic about your results.', 'K5', 'Contact'))),
+    I1: () => section('STAY IN TOUCH', 'Choose the right support channel',
+      grid(tip('message-circle', 'Send a question', 'Say clearly what is unclear so the clinic can respond.', 'I5', 'Messages'),
+        tip('headphones', 'Need to reach us quickly?', 'Open Support and request a callback.', 'K5', 'Support'))),
+    I2: () => section('POST-VISIT UPDATE', 'Keep it short and clear',
+      details('What to include',
+        list('What has changed since your visit?',
+          'When did it start?',
+          'What would you like the clinic to answer?'))),
+    I3: () => section('MONITORING AT HOME', 'Notes for your next contact',
+      checklist('followup', 'Suggested preparation',
+        ['Re-read the instructions you received.',
+         'Note any changes to tell the clinic.',
+         'Prepare questions for your next contact.']) +
+      details('If symptoms get worse',
+        'Don’t wait for a reply in the app if you have warning signs. ' +
+        'Call 115 or go to the nearest emergency department.')),
+    I4: () => section('SPECIALIST REFERRAL', 'Before your next visit',
+      grid(tip('document', 'Keep your appointment details', 'Review the referral and order details.'),
+        tip('headphones', 'Unsure of the next step?', 'Contact the clinic to confirm.', 'K5', 'Support'))),
+    I5: () => section('CARE MESSAGES', 'To get a clear reply',
+      details('Writing a helpful message',
+        'Mention the visit and your main question; never share passwords or verification codes. ' +
+        'In an emergency, call 115 instead of waiting for a message.')),
+    J1: () => section('FOLLOW-UP', 'Prepare for your next appointment',
+      grid(tip('document-check', 'View past records', 'See advice and results that have been shared.', 'H6', 'Advice'),
+        tip('headphones', 'Unsure about timing?', 'Contact the clinic for guidance.', 'K5', 'Support'))),
+    K1: () => section('RELATED INFORMATION', 'Manage updates',
+      grid(tip('calendar', 'Your appointments', 'See every change in your appointment details.', 'D1', 'Open'),
+        tip('shield', 'Reminder settings', 'Notification and privacy options.', 'K4', 'Settings'))),
+    K3: () => section('VISIT HISTORY', 'Find important information',
+      grid(tip('document-check', 'Prescriptions and summaries', 'Choose a completed visit to see what was shared.'),
+        tip('user', 'Family member profiles', 'Access to results depends on each profile.', 'K2', 'Profile'))),
+    K4: () => section('PRIVACY', 'What do you control?',
+      details('Data in this demo',
+        'Status and sample data are stored in your browser. ' +
+        'This is not a real medical records system. Do not enter real health data.') +
+      band('Want the clinic to help with access to or changes to your records?', 'K5', 'Contact'))
   };
   function applyRealPhoto(node, selector, key, alt) {
     const element = node.querySelector(selector);
@@ -234,7 +234,7 @@
     const boxes = [...group.querySelectorAll('input[data-cfx-index]')];
     const done = boxes.filter(input => input.checked).length;
     const status = group.querySelector('.cfx-check-count');
-    if (status) status.textContent = done + '/' + boxes.length + ' đã chuẩn bị';
+    if (status) status.textContent = done + '/' + boxes.length + ' prepared';
     group.classList.toggle('is-complete', done === boxes.length);
   }
   function enrichExistingCards(content, s, id) {
@@ -251,7 +251,7 @@
       prepare.dataset.action = 'go';
       prepare.dataset.to = 'E1';
       prepare.dataset.id = upcoming.id;
-      prepare.textContent = 'Chuẩn bị trước khám';
+      prepare.textContent = 'Prepare for your visit';
       footer.prepend(prepare);
     }
     const aftercare = content.querySelector('.cf-home-care-card');
@@ -260,8 +260,8 @@
     if (recent && aftercare) {
       const tools = root.document.createElement('div');
       tools.className = 'cfx-card-tools';
-      tools.innerHTML = '<span>Chưa rõ lời dặn hoặc đơn thuốc?</span>' +
-        '<button type="button" data-action="go" data-to="K5">Hỏi phòng khám ' +
+      tools.innerHTML = '<span>Unclear about advice or your prescription?</span>' +
+        '<button type="button" data-action="go" data-to="K5">Ask the clinic ' +
         icon('arrow-right', 14) + '</button>';
       aftercare.append(tools);
     }
@@ -271,12 +271,12 @@
     if (!content || guarded) return;
     const imagery = {
       B1: [['.appointment-object', 'appointment', ''],
-           ['.ref-discover-image img', 'consultation', 'Ảnh minh họa buổi tư vấn tại phòng khám từ Unsplash']],
-      D2: [['.ref-detail-hero img', 'radiology', 'Ảnh minh họa bác sĩ trao đổi với bệnh nhân từ Unsplash']],
-      K5: [['.cf-context-photo img', 'consultation', 'Ảnh minh họa tư vấn tại phòng khám từ Unsplash']]
+           ['.ref-discover-image img', 'consultation', 'Sample photo of a clinic consultation from Unsplash']],
+      D2: [['.ref-detail-hero img', 'radiology', 'Sample photo of a doctor talking with a patient from Unsplash']],
+      K5: [['.cf-context-photo img', 'consultation', 'Sample photo of a consultation at the clinic from Unsplash']]
     };
     if (id.startsWith('A')) applyRealPhoto(content, '.auth-scene img', 'clinician',
-      'Ảnh minh họa bác sĩ từ Unsplash');
+      'Sample photo of a doctor from Unsplash');
     (imagery[id] || []).forEach(([selector, key, alt]) => applyRealPhoto(content, selector, key, alt));
     enrichExistingCards(content, s, id);
     const renderPanel = panels[id];

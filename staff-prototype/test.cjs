@@ -4,7 +4,7 @@ const html=read('index.html'),app=read('app.js'),doctor=read('doctor-showcase.js
 test('public prototype is doctor only',()=>{
   assert.match(app,/function normalizeDoctorPath/);
   assert.match(app,/role:'doctor'/);
-  assert.match(app,/Điều hướng bác sĩ/);
+  assert.match(app,/Doctor navigation/);
   assert.doesNotMatch(app.slice(app.indexOf('function sidebar()'),app.indexOf('function header()')),/data-role="reception"|data-role="nurse"/);
   assert.match(doctor,/CareFlowDoctor/);
   assert.match(doctor,/return false/);
@@ -26,5 +26,5 @@ test('consistent brand, responsive constraints and accessibility contracts',()=>
  assert.match(html,/doctor-polish\.css/);
  assert.match(icons,/stethoscope/);
  assert.match(polish,/doctor-now-details/);
- assert.match(app,/Prototype UI\/UX/);
+ assert.match(app,/UI\/UX prototype/);
 });

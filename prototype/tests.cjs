@@ -8,7 +8,7 @@ const draft = () => {
   const s = M.fixture('empty');
   M.beginBooking(s);
   Object.assign(s.draft, {
-    reason: 'Trao đổi với bác sĩ',
+    reason: 'Discuss with the doctor',
     safety: 'normal',
     slot: '09:00',
   });
@@ -29,7 +29,7 @@ test('47 unique IDs and exact routes match the supplied inventory', () => {
   assert.equal(new Set(source.map((x) => x.id)).size, 47);
   assert.equal(new Set(source.map((x) => x.route)).size, 47);
 });
-test('every screen has centralized Vietnamese copy and a composed renderer', () => {
+test('every screen has centralized copy and a composed renderer', () => {
   const source = fs.readFileSync(path.join(__dirname, 'views.js'), 'utf8');
   for (const row of M.SCREENS) {
     assert.ok(VI.screen[row.id]?.heading, row.id);
@@ -44,7 +44,7 @@ test('new and existing profile authentication branches, invalid phone/OTP', () =
   assert.equal(M.authenticate(s, '0900000000', '111111').ok, false);
   assert.equal(s.authenticated, false);
   assert.equal(M.authenticate(s, '0900000000', '123456').match, false);
-  M.createProfile(s, 'Hồ sơ thử', '1990-01-01');
+  M.createProfile(s, 'Test profile', '1990-01-01');
   s.authenticated = false;
   assert.equal(M.authenticate(s, '0900000000', '123456').match, true);
 });
@@ -98,7 +98,7 @@ test('F3 acknowledged warning submits to mode-review, then staff determines mode
   assert.equal(M.transition(s, current(s).id, 'confirmed', 'staff').ok, false);
   assert.equal(M.transition(s, current(s).id, 'pending').ok, false);
   assert.equal(
-    M.reviewMode(s, current(s).id, 'online', 'Phòng khám đã xem xét').ok,
+    M.reviewMode(s, current(s).id, 'online', 'Reviewed by the clinic').ok,
     true,
   );
   assert.equal(current(s).mode, 'online');
@@ -197,7 +197,7 @@ test('F6 cancellation requires reason; rebook preserves old visit history', () =
     v = current(s);
   assert.equal(M.transition(s, v.id, 'cancelled').ok, false);
   assert.equal(
-    M.transition(s, v.id, 'cancelled', 'patient', 'Tôi bận').ok,
+    M.transition(s, v.id, 'cancelled', 'patient', 'I am busy').ok,
     true,
   );
   const old = JSON.stringify(v.history);
@@ -207,7 +207,7 @@ test('F6 cancellation requires reason; rebook preserves old visit history', () =
   assert.equal(s.visits.length, 2);
   assert.equal(current(s).previousId, v.id);
   assert.equal(v.status, 'cancelled');
-  assert.equal(v.cancelReason, 'Tôi bận');
+  assert.equal(v.cancelReason, 'I am busy');
   assert.ok(
     JSON.parse(old).every(
       (x, i) => JSON.stringify(v.history[i]) === JSON.stringify(x),
@@ -281,7 +281,7 @@ test('F9 deferred requires reason and date, fee waiver and refund are staff-owne
   assert.equal(M.setPayment(s, v.id, 'deferred').ok, false);
   assert.equal(
     M.setPayment(s, v.id, 'deferred', 'patient', {
-      reason: 'Cần sắp xếp',
+      reason: 'Needs arranging',
       dueDate: M.localDate(2),
     }).ok,
     true,
@@ -295,7 +295,7 @@ test('F9 deferred requires reason and date, fee waiver and refund are staff-owne
   assert.equal(M.setPayment(t, a.id, 'refunding', 'staff').ok, false);
   assert.equal(
     M.setPayment(t, a.id, 'refunding', 'staff', {
-      reason: 'Theo xác nhận của phòng khám',
+      reason: 'As confirmed by the clinic',
     }).ok,
     true,
   );
@@ -336,7 +336,7 @@ test('payment, lab and care do not overwrite main visit status', () => {
   M.labTransition(s, v.id, v.labs[0].id, 'available', 'patient', {
     file: { name: 'a.pdf' },
   });
-  M.report(s, v.id, 'medicine', 'Hỏi phòng khám');
+  M.report(s, v.id, 'medicine', 'Ask the clinic');
   assert.equal(v.status, 'completed');
 });
 test('F11 each reason creates a distinct report context and urgent route', () => {
@@ -344,7 +344,7 @@ test('F11 each reason creates a distinct report context and urgent route', () =>
     const s = M.fixture('completed'),
       v = current(s);
     assert.equal(
-      M.report(s, v.id, reason, 'Nội dung thử', reason === 'symptoms').next,
+      M.report(s, v.id, reason, 'Test content', reason === 'symptoms').next,
       reason === 'symptoms' ? 'C4' : 'I5',
     );
     assert.equal(s.reports[0].reason, reason);
@@ -359,7 +359,7 @@ test('F12 follow-up keeps old encounter intact and links new visit', () => {
   assert.equal(s.draft.safety, '');
   assert.equal(s.draft.reason, '');
   assert.equal(M.submitBooking(s).ok, false);
-  Object.assign(s.draft, { reason: 'Cập nhật tình trạng khi tái khám', safety: 'normal', slot: '14:00' });
+  Object.assign(s.draft, { reason: 'Condition update at follow-up', safety: 'normal', slot: '14:00' });
   M.submitBooking(s);
   assert.equal(current(s).previousId, old.id);
   assert.equal(old.status, 'completed');
@@ -378,7 +378,7 @@ test('explanation appointment has a separate not-required fee', () => {
 test('proxy booking does not confer result permission; checks bound to visit patient', () => {
   const s = draft();
   M.choosePatient(s, 'p2');
-  Object.assign(s.draft, { reason: 'Đặt hộ', safety: 'normal', slot: '09:00' });
+  Object.assign(s.draft, { reason: 'Booked on behalf', safety: 'normal', slot: '09:00' });
   M.submitBooking(s);
   assert.equal(current(s).patientId, 'p2');
   assert.equal(M.canViewResults(s, current(s)), false);
@@ -401,8 +401,8 @@ test('notifications never include sensitive reason, medicine or lab content', ()
   assert.ok(
     s.notifications.every(
       (n) =>
-        n.title === 'Có cập nhật về lượt khám' &&
-        n.body === 'Mở ứng dụng để xem chi tiết.',
+        n.title === 'There’s an update on your visit' &&
+        n.body === 'Open the app to see details.',
     ),
   );
 });
@@ -419,7 +419,7 @@ test('all 15 D2 main states have exactly one primary next action', () => {
 });
 test('copy contains no developer jargon in patient screens', () => {
   const forbidden =
-    /bản mẫu|hồ sơ mẫu|check-in|booking|ticket|\bslot\b|\bmock\b|mô phỏng|viện phí/i;
+    /sample profile|\btemplate\b|\bslot\b|\bmock\b|simulat|hospital fee/i;
   for (const [id, copy] of Object.entries(VI.screen))
     assert.equal(forbidden.test(JSON.stringify(copy)), false, id);
 });
@@ -429,7 +429,7 @@ test('script loading order and mobile viewport are intact', () => {
   const appIndex = html.search(/src="\.\/app\.js(?:\?[^"\s]*)?"/);
   assert.ok(appIndex > html.indexOf('src="./model.js"'));
   assert.ok(!html.includes('demo-warning'));
-  assert.ok(!html.includes('Trải nghiệm minh họa'));
+  assert.ok(!html.includes('Sample experience'));
   assert.ok(html.includes('journey-list'));
 });
 
@@ -470,11 +470,11 @@ regression(
 test('account profile remains separate from the patient booked on behalf of', () => {
   const missingOwner = M.initial();
   missingOwner.authenticated = true;
-  M.createProfile(missingOwner, 'Người thân', '1980-01-01', 'relative');
+  M.createProfile(missingOwner, 'Family member', '1980-01-01', 'relative');
   assert.equal(M.accountProfile(missingOwner), undefined);
   const s = draft();
   M.choosePatient(s, 'p2');
-  Object.assign(s.draft, { reason: 'Đặt hộ', safety: 'normal', slot: '09:00' });
+  Object.assign(s.draft, { reason: 'Booked on behalf', safety: 'normal', slot: '09:00' });
   M.submitBooking(s);
   assert.equal(s.activePatientId, 'p2');
   assert.equal(M.accountProfile(s).id, 'p1');
@@ -495,11 +495,11 @@ test('clinic callback is queued automatically and resolved on connection', () =>
 });
 test('care handoff preserves owner and rejects patient or skipped transitions', () => {
   const s=M.fixture('completed'),v=M.visit(s);
-  M.submitCareUpdate(s,v.id,'tracking','Tình trạng hôm nay');
+  M.submitCareUpdate(s,v.id,'tracking','Condition today');
   assert.equal(M.advanceCare(s,v.id,'answered').ok,false);
   assert.equal(M.advanceCare(s,v.id,'coordinating','patient').ok,false);
   for(const status of ['coordinating','doctor-review','answered'])assert.equal(M.advanceCare(s,v.id,status).ok,true);
-  assert.equal(v.care.tasks[0].owner,'Bạn');
+  assert.equal(v.care.tasks[0].owner,'You');
   assert.equal(v.care.tasks[0].history.length,4);
   assert.equal(s.messages.at(-1).from,'staff');
 });
@@ -534,6 +534,6 @@ test('fee plan is clinic owned and cannot replace a paid receipt', () => {
 });
 
 test('changing the booked patient never carries another patient medical history', () => {
-  const s=M.fixture('empty');M.beginBooking(s);s.draft.medicalHistory='Thông tin riêng của người thứ nhất';
+  const s=M.fixture('empty');M.beginBooking(s);s.draft.medicalHistory='Private details of the first person';
   M.choosePatient(s,'p2');assert.equal(s.draft.medicalHistory,'');
 });

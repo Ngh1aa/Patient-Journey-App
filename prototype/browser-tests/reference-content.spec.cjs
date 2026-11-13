@@ -5,13 +5,13 @@ test('HR appointment link opens reviewed cards without login and preserves the s
   const url='/prototype/?journey=F1&branch=default#/appointments';
   await page.goto(url);
   await expect(page).toHaveURL(/\?journey=F1&branch=default#\/appointments$/);
-  await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
+  await expect(page.locator('.cf-appt-featured')).toContainText('Dr. Trần Thu Hà');
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
   await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
   await page.locator('[data-id="CF-SAMPLE-02"][data-to="D2"]').click();
   await page.reload();
-  await expect(page.locator('.ticket')).toContainText('BS. Lê Minh Quân');
-  await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
+  await expect(page.locator('.ticket')).toContainText('Dr. Lê Minh Quân');
+  await page.locator('#bottom-nav [aria-label="Appointments"]').click();
   // Native hash navigation can finish after click resolves. Let its render/save
   // complete before editing the persisted fixture, so it cannot overwrite it.
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','D1');
@@ -63,9 +63,9 @@ async function mixedAppointments(page) {
 test('reference cards route actions to the selected appointment and retain pending semantics',async({page})=>{
   await mixedAppointments(page);
   const pending=page.locator('.rich-filterable').filter({has:page.locator('[data-id="CF-PENDING"]')});
-  await expect(pending).toContainText('Chờ phòng khám');
-  await expect(pending.getByRole('button',{name:'Vào khám',exact:true})).toHaveCount(0);
-  await pending.getByRole('button',{name:'Hủy lịch',exact:true}).click();
+  await expect(pending).toContainText('Awaiting clinic confirmation');
+  await expect(pending.getByRole('button',{name:'Join visit',exact:true})).toHaveCount(0);
+  await pending.getByRole('button',{name:'Cancel',exact:true}).click();
   await expect(page).toHaveURL(/appointments\/CF-PENDING\/cancel/);
   await expect(page.locator('#phone-content')).toContainText('Trần Thị Mai');
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits.find(v=>v.id==='CF-PENDING').status)).toBe('pending');
@@ -76,7 +76,7 @@ test('reference cards route actions to the selected appointment and retain pendi
 
 test('appointment person and mode filters compose and restore grouped content',async({page})=>{
   await mixedAppointments(page);
-  await page.getByRole('button',{name:'Lọc lịch hẹn',exact:true}).click();
+  await page.getByRole('button',{name:'Filter appointments',exact:true}).click();
   await page.locator('[data-visit-filter="online"]').click();
   await expect(page.locator('.rich-filterable:visible')).toHaveCount(1);
   await page.locator('.rich-person-picker summary').click();
@@ -97,7 +97,7 @@ test('home aftercare selects the completed visit even when another visit is acti
   await page.goto('/prototype/#/home');
   await page.locator('.cf-home-care-card [data-to="H6"]').click();
   await expect(page).toHaveURL(/appointments\/CF-COMPLETED\/summary/);
-  await expect(page.locator('.rich-aftercare-sample')).toContainText('Việc cần làm sau buổi khám');
+  await expect(page.locator('.rich-aftercare-sample')).toContainText('What to do after your visit');
   await expect(page.locator('.cf-sample-medication')).toHaveCount(0);
   const before=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.visits);
   await page.locator('.rich-aftercare-sample [data-to="I3"]').click();
@@ -107,17 +107,17 @@ test('home aftercare selects the completed visit even when another visit is acti
 
 test('support preserves topic and contact preference without inventing clinic replies',async({page})=>{
   await page.goto('/prototype/?scenario=empty#/support');
-  await expect(page.locator('#phone-content')).toContainText('Chưa có tin nhắn');
-  await page.getByRole('button',{name:'Nhắn tin cho phòng khám',exact:true}).click();
+  await expect(page.locator('#phone-content')).toContainText('No messages yet');
+  await page.getByRole('button',{name:'Message the clinic',exact:true}).click();
   await expect(page.locator('#support')).toBeFocused();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','K5');
-  await page.locator('#supportTopic').selectOption('Kết quả');
-  await page.locator('#support').fill('Tôi muốn hỏi về kết quả xét nghiệm.');
+  await page.locator('#supportTopic').selectOption('Results');
+  await page.locator('#support').fill('I would like to ask about my test results.');
   await page.locator('.cf-contact-preference summary').click();
   await page.locator('[name="contactMode"][value="message"]').check();
   await page.locator('form[data-form="support"] [type="submit"]').click();
   const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state);
-  expect(saved.requests.at(-1)).toMatchObject({topic:'Kết quả',contactMode:'message',status:'waiting'});
+  expect(saved.requests.at(-1)).toMatchObject({topic:'Results',contactMode:'message',status:'waiting'});
   expect(saved.messages).toHaveLength(0);
   await page.evaluate(()=>{
     const saved=JSON.parse(sessionStorage.getItem('careflow.browser.v3'));
@@ -126,13 +126,13 @@ test('support preserves topic and contact preference without inventing clinic re
     Object.assign(owner,{id:'CF-OWNER'});
     Object.assign(relative,{id:'CF-RELATIVE',patientId:'p2'});
     saved.state.visits=[owner,relative];
-    saved.state.messages=[{visitId:owner.id,from:'staff',text:'Thông tin của bạn'},{visitId:relative.id,from:'staff',text:'Thông tin riêng người thân'}];
+    saved.state.messages=[{visitId:owner.id,from:'staff',text:'Your details'},{visitId:relative.id,from:'staff',text:'Family member private details'}];
     sessionStorage.setItem('careflow.browser.v3',JSON.stringify(saved));
   });
   await page.reload();
   await expect(page.locator('.rich-message-preview')).toHaveCount(1);
-  await expect(page.locator('.rich-message-preview')).toContainText('Thông tin của bạn');
-  await expect(page.locator('#phone-content')).not.toContainText('Thông tin riêng người thân');
+  await expect(page.locator('.rich-message-preview')).toContainText('Your details');
+  await expect(page.locator('#phone-content')).not.toContainText('Family member private details');
   await page.evaluate(()=>{
     const saved=JSON.parse(sessionStorage.getItem('careflow.browser.v3'));
     saved.state.authenticated=false;
@@ -172,25 +172,25 @@ test('changed screens have no serious or critical automated accessibility findin
 
 test('appointment board uses reference data and each card opens the correct clinician and visit',async({page})=>{
   await page.goto('/prototype/?scenario=appointments#/appointments');
-  await expect(page.locator('.cf-appt-featured')).toContainText('BS. Trần Thu Hà');
+  await expect(page.locator('.cf-appt-featured')).toContainText('Dr. Trần Thu Hà');
   await expect(page.locator('.cf-appt-featured')).toHaveAttribute('data-cf-card','surface');
   await expect(page.locator('.cf-appt-featured')).toHaveCSS('background-color','rgb(255, 255, 255)');
   await expect(page.locator('.cf-appt-featured > .cf-photo-image')).toHaveCount(0);
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
   await expect(page.locator('.cf-appointment-history')).toHaveCount(2);
   await page.locator('[data-id="CF-SAMPLE-02"][data-to="D2"]').click();
-  await expect(page.locator('.ticket')).toContainText('BS. Lê Minh Quân');
+  await expect(page.locator('.ticket')).toContainText('Dr. Lê Minh Quân');
   await expect(page.locator('.ticket')).toContainText('CF-SAMPLE-02');
   await page.goto('/prototype/#/appointments');
   await page.locator('[data-id="CF-SAMPLE-03"][data-to="D4"]').click();
   await expect(page).toHaveURL(/CF-SAMPLE-03\/cancel/);
   await page.goto('/prototype/#/appointments');
-  await page.getByRole('button',{name:'Xem tất cả chờ xác nhận'}).click();
+  await page.getByRole('button',{name:'View all awaiting confirmation'}).click();
   await expect(page.locator('.rich-appt-card')).toHaveCount(1);
-  await expect(page.locator('.rich-appt-card')).toContainText('BS. Phạm Ngọc Lan');
-  await page.getByRole('button',{name:'Tất cả lịch sắp tới'}).click();
+  await expect(page.locator('.rich-appt-card')).toContainText('Dr. Phạm Ngọc Lan');
+  await page.getByRole('button',{name:'All upcoming'}).click();
   await expect(page.locator('.rich-appt-card')).toHaveCount(3);
-  await page.getByRole('button',{name:'Xem tất cả đã khám gần đây'}).click();
+  await page.getByRole('button',{name:'View all recently completed'}).click();
   await expect(page.locator('.rich-appt-tabs [data-filter="past"]')).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('.rich-appt-card')).toHaveCount(2);
 });

@@ -7,7 +7,7 @@ test('central booking icon is prominent and opens the existing booking flow', as
   const booking = nav.locator('.nav-book');
   await expect(nav.locator('a,button')).toHaveCount(5);
   await expect(booking.locator('.nav-caption')).toHaveCount(0);
-  await expect(booking).toHaveAttribute('aria-label', 'Đặt lịch');
+  await expect(booking).toHaveAttribute('aria-label', 'Book an appointment');
   const box = await booking.boundingBox();
   const navBox = await nav.boundingBox();
   expect(box).toBeTruthy();

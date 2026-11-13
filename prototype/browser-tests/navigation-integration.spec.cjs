@@ -7,13 +7,13 @@ for(const width of [320,360,390,1440])test(`integrated navigation has raised boo
   await page.setViewportSize({width,height:900});
   await page.goto('/prototype/?scenario=upcoming#/home');
   await expect(nav(page)).toBeVisible();
-  const selected=nav(page).getByRole('link',{name:'Trang chủ',exact:true});
+  const selected=nav(page).getByRole('link',{name:'Home',exact:true});
   await expect(selected).toHaveAttribute('aria-current','page');
   await expect(selected).toHaveCSS('background-color','rgb(207, 226, 255)');
   await expect(selected.locator('svg')).toHaveCSS('fill','rgb(0, 29, 87)');
-  const idle=nav(page).getByRole('link',{name:'Hồ sơ',exact:true});
+  const idle=nav(page).getByRole('link',{name:'Profile',exact:true});
   await expect(idle).toHaveCSS('color','rgb(91, 107, 140)');await expect(idle.locator('svg')).toHaveCSS('fill','none');
-  const book=nav(page).getByRole('button',{name:'Đặt lịch',exact:true});
+  const book=nav(page).getByRole('button',{name:'Book an appointment',exact:true});
   await expect(book.locator('.nav-caption')).toHaveCount(0);
   await expect(nav(page).locator('.cf-nav-background path')).toHaveCount(1);
   await expect(selected.locator('.nav-caption')).toBeHidden();
@@ -26,13 +26,13 @@ for(const width of [320,360,390,1440])test(`integrated navigation has raised boo
   expect(sizes).toHaveLength(5);expect(sizes.filter(r=>r.w<44||r.h<44)).toEqual([]);
   const labels=await nav(page).locator('.nav-caption').evaluateAll(nodes=>nodes.map(el=>({font:parseFloat(getComputedStyle(el).fontSize),visible:el.getClientRects().length>0,clip:el.scrollWidth>el.clientWidth+1})));
   expect(labels.filter(r=>r.visible)).toEqual([]);
-  await expect(nav(page).getByRole('link',{name:'Lịch hẹn',exact:true})).toBeVisible();
-  await expect(nav(page).getByRole('link',{name:'Hỗ trợ',exact:true})).toBeVisible();
+  await expect(nav(page).getByRole('link',{name:'Appointments',exact:true})).toBeVisible();
+  await expect(nav(page).getByRole('link',{name:'Support',exact:true})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width+1);
   await idle.focus();await page.keyboard.press('Enter');await expect(main(page)).toHaveAttribute('data-screen','K2');
-  await expect(nav(page).getByRole('link',{name:'Hồ sơ',exact:true}).locator('svg')).toHaveCSS('fill','rgb(0, 29, 87)');
-  await expect(nav(page).getByRole('link',{name:'Hồ sơ',exact:true}).locator('.nav-caption')).toBeHidden();
-  expect(await nav(page).textContent()).not.toContain('Thanh điều hướng');
+  await expect(nav(page).getByRole('link',{name:'Profile',exact:true}).locator('svg')).toHaveCSS('fill','rgb(0, 29, 87)');
+  await expect(nav(page).getByRole('link',{name:'Profile',exact:true}).locator('.nav-caption')).toBeHidden();
+  expect(await nav(page).textContent()).not.toContain('Navigation bar');
   await page.locator('.phone').screenshot({path:info.outputPath(`navigation-${width}.png`)});
 });
 
@@ -45,7 +45,7 @@ test('appointment badge deduplicates real unread visit updates and clears only w
     sessionStorage.setItem(key,JSON.stringify(saved));
   });
   await page.reload();await expect(nav(page).locator('.cf-nav-badge')).toHaveText('2');
-  await nav(page).getByRole('link',{name:'Lịch hẹn',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','D1');
+  await nav(page).getByRole('link',{name:'Appointments',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','D1');
   await expect(nav(page).locator('.cf-nav-badge')).toHaveText('2');
   await page.goto('/prototype/#/notifications');
   await page.locator('[data-action="notifications-read"]').click();
@@ -55,15 +55,15 @@ test('appointment badge deduplicates real unread visit updates and clears only w
 
 test('booking remains separate from appointment list and resumes the existing clinical draft',async({page})=>{
   await page.goto('/prototype/?scenario=upcoming#/home');
-  await nav(page).getByRole('link',{name:'Lịch hẹn',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','D1');
-  await nav(page).getByRole('button',{name:'Đặt lịch',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','C1');
+  await nav(page).getByRole('link',{name:'Appointments',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','D1');
+  await nav(page).getByRole('button',{name:'Book an appointment',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','C1');
   await expect(nav(page)).toBeHidden();
   await main(page).locator('form [type="submit"]').click();
-  await page.locator('#reason').fill('Nội dung được giữ khi quay lại đặt lịch.');
+  await page.locator('#reason').fill('This text is kept when returning to booking.');
   await main(page).locator('form [type="submit"]').click();await expect(main(page)).toHaveAttribute('data-screen','C3');
   await page.evaluate(()=>location.hash='#/home');await expect(main(page)).toHaveAttribute('data-screen','B1');
-  await nav(page).getByRole('button',{name:'Đặt lịch',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','C3');
-  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.draft.reason)).toBe('Nội dung được giữ khi quay lại đặt lịch.');
+  await nav(page).getByRole('button',{name:'Book an appointment',exact:true}).click();await expect(main(page)).toHaveAttribute('data-screen','C3');
+  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state.draft.reason)).toBe('This text is kept when returning to booking.');
 });
 
 test('large-text navigation avoids overlap with content and auth has no tab bar',async({page})=>{

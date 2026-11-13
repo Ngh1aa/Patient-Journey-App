@@ -15,16 +15,16 @@ test('preparation and notes persist per visit, survive navigation and clear on l
   await page.locator(`.rich-appt-card [data-action="go"][data-to="D2"][data-id="${ids[0]}"]`).click();
   const tools=page.locator('[data-visit-tools]');
   await tools.locator('[data-preparation="details"]').check();
-  await tools.locator('[data-visit-note]').fill('Câu hỏi riêng <không gửi tự động>');
-  await expect(tools.locator('[data-preparation-count]')).toHaveText('1/3 đã chuẩn bị');
+  await tools.locator('[data-visit-note]').fill('Private question <not sent automatically>');
+  await expect(tools.locator('[data-preparation-count]')).toHaveText('1/3 prepared');
   await route(page,'E1');
   await expect(tools.locator('[data-preparation="details"]')).toBeChecked();
   await page.reload();
-  await expect(tools.locator('[data-visit-note]')).toHaveValue('Câu hỏi riêng <không gửi tự động>');
+  await expect(tools.locator('[data-visit-note]')).toHaveValue('Private question <not sent automatically>');
   await expect(page.locator('[data-visit-note] script')).toHaveCount(0);
-  await page.locator('#bottom-nav [aria-label="Lịch hẹn"]').click();
+  await page.locator('#bottom-nav [aria-label="Appointments"]').click();
   await page.locator(`.rich-appt-card [data-action="go"][data-to="D2"][data-id="${ids[1]}"]`).click();
-  await expect(tools.locator('[data-preparation-count]')).toHaveText('0/3 đã chuẩn bị');
+  await expect(tools.locator('[data-preparation-count]')).toHaveText('0/3 prepared');
   await expect(tools.locator('[data-visit-note]')).toHaveValue('');
   const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')));
   expect(saved.state.requests).toHaveLength(0);
@@ -37,7 +37,7 @@ test('preparation and notes persist per visit, survive navigation and clear on l
 
 test('calendar export uses the selected appointment time without clinical data',async({page})=>{
   await page.goto('/prototype/?scenario=upcoming#/home');
-  await main(page).getByRole('button',{name:'Xem phiếu khám',exact:true}).click();
+  await main(page).getByRole('button',{name:'View appointment details',exact:true}).click();
   const data=await page.evaluate(()=>{const s=JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state;return s.visits.find(v=>v.id===s.activeVisitId)});
   const event=page.waitForEvent('download');
   await page.locator('[data-action="save-calendar"]').click();
@@ -48,7 +48,7 @@ test('calendar export uses the selected appointment time without clinical data',
   const start=new Date(data.date+'T'+data.slot+':00+07:00').toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z/,'Z');
   expect(text).toContain('DTSTART:'+start);expect(text).not.toContain(data.reason);
   expect(text).not.toContain('DTEND:');
-  await expect(page.locator('[data-calendar-feedback]')).toContainText('Đã tạo tệp lịch');
+  await expect(page.locator('[data-calendar-feedback]')).toContainText('Calendar file created');
 });
 
 test('appointment search composes with mode and person filters and resets the zero state',async({page})=>{
@@ -58,7 +58,7 @@ test('appointment search composes with mode and person filters and resets the ze
   await page.reload();await expect(page.locator('#appointment-search')).toHaveValue('khongco123');
   await page.locator('.rich-filter-empty [data-appointment-reset]').click();
   await expect(page.locator('.rich-appt-card:visible')).toHaveCount(3);
-  await page.getByRole('button',{name:'Lọc lịch hẹn',exact:true}).click();
+  await page.getByRole('button',{name:'Filter appointments',exact:true}).click();
   await page.locator('[data-visit-filter="online"]').click();
   const id=await page.locator('.rich-appt-card:visible [data-to="D2"]').first().getAttribute('data-id');
   await page.locator('#appointment-search').fill(id.toLowerCase());
@@ -93,12 +93,12 @@ test('desktop followup search filters owner and state without offering delegated
   await page.locator('[data-followup-field="owner"]').selectOption('delegated');
   await expect(page.locator('.journey-task-entry [data-action="doc-task-toggle"]')).toHaveCount(0);
   await page.locator('[data-followup-query]').fill('khongco123');
-  await expect(page.locator('[data-cf-state="empty"]')).toContainText('Không có công việc phù hợp');
-  await page.getByRole('button',{name:'Xóa bộ lọc',exact:true}).click();await expect(cards).toHaveCount(count);
+  await expect(page.locator('[data-cf-state="empty"]')).toContainText('No matching tasks');
+  await page.getByRole('button',{name:'Clear filters',exact:true}).click();await expect(cards).toHaveCount(count);
   await page.locator('[data-followup-field="owner"]').selectOption('mine');
   await cards.first().locator('[data-action="doc-task-toggle"]').click();
   await page.locator('[data-followup-field="status"]').selectOption('done');
-  await expect(cards).toHaveCount(1);await expect(cards).toContainText('Đã xử lý');
+  await expect(cards).toHaveCount(1);await expect(cards).toContainText('Done');
   await page.reload();await page.locator('[data-followup-field="status"]').selectOption('done');
   await expect(cards).toHaveCount(1);
   const result=await new AxeBuilder({page}).include('#content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
@@ -110,8 +110,8 @@ test('lab artwork is local vector presentation and never substitutes for a clini
   const artwork=page.locator('.cf-lab-card .cf-illustration');await expect(artwork).toBeVisible();
   await expect(artwork).toHaveAttribute('aria-hidden','true');
   await expect(page.locator('.cf-lab-card img')).toHaveCount(0);
-  await expect(page.locator('.cf-lab-card')).toContainText('Đã chỉ định');
-  await page.getByRole('button',{name:'Xem chỉ định',exact:true}).click();
+  await expect(page.locator('.cf-lab-card')).toContainText('Ordered');
+  await page.getByRole('button',{name:'View order',exact:true}).click();
   await expect(main(page)).toHaveAttribute('data-screen','F2');
 });
 
@@ -125,12 +125,12 @@ test('200 percent booking label and private tools reflow and remain usable offli
   });
   await page.reload();
   await expect(page.locator('.nav-book .nav-caption')).toBeHidden();
-  await expect(page.locator('.nav-book')).toHaveAccessibleName('Đặt lịch');
+  await expect(page.locator('.nav-book')).toHaveAccessibleName('Book an appointment');
   await expect(page.locator('.nav-book .nav-plus')).toHaveCSS('border-width','4px');
   await route(page,'E1');
   const tools=page.locator('[data-visit-tools]');
   await tools.locator('[data-preparation="details"]').focus();await page.keyboard.press('Space');
-  await expect(tools.locator('[data-preparation-count]')).toHaveText('1/3 đã chuẩn bị');
+  await expect(tools.locator('[data-preparation-count]')).toHaveText('1/3 prepared');
   await tools.locator('[data-visit-note]').fill('</textarea><img src=x onerror="window.noteLeaked=true">');
   await page.reload();
   expect(await page.evaluate(()=>window.noteLeaked)).toBeUndefined();
@@ -143,12 +143,12 @@ test('200 percent booking label and private tools reflow and remain usable offli
 
 test('online preparation leads to device checks and completed visits show aftercare notes',async({page})=>{
   await page.goto('/prototype/?scenario=online#/home');
-  await page.getByRole('button',{name:/Chuẩn bị cho buổi khám/}).click();
+  await page.getByRole('button',{name:/Prepare for your visit/}).click();
   await expect(main(page)).toHaveAttribute('data-screen','G1');
   await expect(main(page)).toHaveAttribute('data-guarded','');
   await page.goto('/prototype/?scenario=completed#/home');
   await route(page,'D2');
-  await expect(page.locator('[data-visit-tools] h2')).toHaveText('Câu hỏi cho lần trao đổi tới');
+  await expect(page.locator('[data-visit-tools] h2')).toHaveText('Questions for next time');
   await expect(page.locator('[data-visit-tools] [data-preparation]')).toHaveCount(0);
   await expect(page.locator('[data-action="save-calendar"]')).toHaveCount(0);
 });

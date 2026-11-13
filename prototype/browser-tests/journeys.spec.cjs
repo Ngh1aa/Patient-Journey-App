@@ -64,7 +64,7 @@ async function bookStart(page) {
   await screen(page, 'C2');
   await page
     .locator('#reason')
-    .fill('Tôi muốn trao đổi với bác sĩ về tình trạng gần đây.');
+    .fill('I would like to talk to the doctor about my recent condition.');
   await submit(page);
   await screen(page, 'C3');
 }
@@ -122,7 +122,7 @@ async function seed(page, id, large = false) {
       if (/^C[1-8]$/.test(id)) {
         M.beginBooking(s);
         Object.assign(s.draft, {
-          reason: 'Khám theo lịch hẹn',
+          reason: 'Scheduled visit',
           safety: 'normal',
           slot: '09:00',
         });
@@ -132,7 +132,7 @@ async function seed(page, id, large = false) {
         s = M.fixture('empty');
         M.beginBooking(s);
         Object.assign(s.draft, {
-          reason: 'Khám theo lịch hẹn',
+          reason: 'Scheduled visit',
           safety: 'normal',
           slot: '09:00',
         });
@@ -173,7 +173,7 @@ async function seed(page, id, large = false) {
       }
       if (id === 'I4')
         v.care.referral =
-          'Phòng khám đang sắp xếp hướng dẫn chuyển chuyên khoa.';
+          'The clinic is arranging guidance for the specialist referral.';
       s.settings.largeText = large;
       sessionStorage.setItem(
         'careflow.browser.v3',
@@ -222,7 +222,7 @@ test('F1 new profile → all booking steps → pending visit, 4 tabs and booking
   await load(page, 'new');
   await page.locator('#phone').fill('123');
   await submit(page);
-  await expect(page.locator('#form-error')).toContainText('10 chữ số');
+  await expect(page.locator('#form-error')).toContainText('10 digits');
   await login(page);
   await screen(page, 'A3');
   await page.locator('#name').fill('Nguyễn An');
@@ -238,13 +238,13 @@ test('F1 new profile → all booking steps → pending visit, 4 tabs and booking
   await screen(page, 'D2');
   await expect(page.locator('#visit-qr svg')).toBeVisible();
   await expect(page.locator('#bottom-nav a')).toHaveText([
-    'Trang chủ',
-    'Lịch hẹn',
-    'Hồ sơ',
-    'Hỗ trợ',
+    'Home',
+    'Appointments',
+    'Profile',
+    'Support',
   ]);
   await expect(page.locator('#bottom-nav .cf-nav-item')).toHaveCount(5);
-  await expect(page.locator('#bottom-nav .nav-book')).toHaveAttribute('aria-label', 'Đặt lịch');
+  await expect(page.locator('#bottom-nav .nav-book')).toHaveAttribute('aria-label', 'Book an appointment');
 });
 test('F2 existing profile is confirmed and can be updated without re-entry', async ({
   page,
@@ -253,7 +253,7 @@ test('F2 existing profile is confirmed and can be updated without re-entry', asy
   await login(page);
   await screen(page, 'A2');
   await expect(page.locator('#name')).toHaveValue('Nguyễn Minh Anh');
-  await page.locator('#name').fill('Nguyễn Minh Anh Cập nhật');
+  await page.locator('#name').fill('Nguyễn Minh Anh Updated');
   await submit(page);
   await screen(page, 'B1');
   await bookStart(page);
@@ -272,7 +272,7 @@ test('F3a warning → emergency contact sheet, native phone link and no booking'
   await screen(page, 'C4');
   await action(page, 'emergency').click();
   await expect(page.locator('#dialog')).toBeVisible();
-  await expect(page.locator('#dialog-body')).toContainText('ứng dụng Điện thoại');
+  await expect(page.locator('#dialog-body')).toContainText('Phone app');
   await expect(page.locator('#dialog-actions a[href="tel:115"]')).toBeVisible();
   await page.locator('#dialog [data-action=directions]').click();
   await expect(page.locator('#dialog-body')).toContainText('Bệnh viện Nhân dân 115');
@@ -301,16 +301,16 @@ test('device permission recovery and preview cleanup preserve the online visit',
   });
   await action(page,'device').click();
   await page.locator('[data-action=device-camera]').click();
-  await expect(page.locator('#device-status')).toContainText('thử lại hoặc tiếp tục');
+  await expect(page.locator('#device-status')).toContainText('try again or continue');
   await page.evaluate(()=>window.cameraAllowed=true);
   await page.locator('[data-action=device-camera]').click();
   await expect(page.locator('#device-preview')).toBeVisible();
   await page.locator('[data-action=device-audio]').click();
-  await expect(page.locator('#device-status')).toContainText(/âm báo|cài đặt âm thanh/);
+  await expect(page.locator('#device-status')).toContainText(/tone|sound settings/);
   await page.locator('[data-action=device-ready]').click();
   expect(await page.evaluate(()=>window.cameraStopped)).toBeGreaterThan(0);
   expect((await state(page)).activeVisitId).toBe(visitId);
-  await expect(content(page)).toContainText('Đã hoàn tất chuẩn bị');
+  await expect(content(page)).toContainText('Preparation complete');
   expect(errors).toEqual([]);
 });
 
@@ -318,7 +318,7 @@ test('support callback accepts the request once without requiring an appointment
   await load(page,'empty');await nav(page,'K5');
   for(let i=0;i<2;i++){
     await action(page,'clinic-call').click();
-    await expect(page.locator('#dialog-body')).toContainText('chờ phòng khám');
+    await expect(page.locator('#dialog-body')).toContainText('wait for the clinic');
     await page.locator('#dialog [data-action=close-dialog]').click();
   }
   const s=await state(page);
@@ -402,11 +402,11 @@ test('F6 cancellation retains reason/history and rebooking links a new visit', a
   await nav(page, 'D2');
   const old = (await current(page)).id;
   await go(page, 'D4');
-  await page.locator('#cancelNote').fill('Cần đổi thời gian');
+  await page.locator('#cancelNote').fill('Need to change the time');
   await submit(page);
   await page.locator('[data-action=confirm-cancel]').click();
   await screen(page, 'D2');
-  expect((await current(page)).cancelReason).toContain('Cần đổi');
+  expect((await current(page)).cancelReason).toContain('Need to change');
   await go(page, 'C7');
   await screen(page, 'C7');
   await slot(page, '14:00');
@@ -454,9 +454,9 @@ test('F7 online preparation, incoming call, controls, staff completion', async (
   await action(page, 'answer').click();
   await screen(page, 'G4');
   await action(page, 'mic').click();
-  await expect(action(page, 'mic')).toHaveText('Bật micro');
+  await expect(action(page, 'mic')).toHaveText('Unmute microphone');
   await action(page, 'camera').click();
-  await expect(action(page, 'camera')).toHaveText('Bật camera');
+  await expect(action(page, 'camera')).toHaveText('Turn camera on');
   await staff(page, 'visit:completed');
   await screen(page, 'H1');
 });
@@ -497,7 +497,7 @@ for (const method of [
       await nav(page, 'H2');
       if (method === 'transfer-pending') {
         await go(page, 'H4');
-        await expect(content(page)).toContainText('Chưa có mã thanh toán');
+        await expect(content(page)).toContainText('No payment code yet');
       }
       await content(page)
         .locator('[data-status="' + method + '"]')
@@ -508,9 +508,9 @@ for (const method of [
       expect((await current(page)).payment.status).toBe('paid');
       await expect(content(page)).toContainText('RC-CF-0001');
       await staff(page, 'payment:refunding');
-      await expect(content(page)).toContainText('Đang hoàn tiền');
+      await expect(content(page)).toContainText('Refund in progress');
       await staff(page, 'payment:refunded');
-      await expect(content(page)).toContainText('Đã hoàn tiền');
+      await expect(content(page)).toContainText('Refunded');
     },
   );
 test('F9 defer validates reason/date and fee waiver stays separate', async ({
@@ -520,12 +520,12 @@ test('F9 defer validates reason/date and fee waiver stays separate', async ({
   await nav(page, 'H3');
   await submit(page);
   await expect(page.locator('#form-error')).not.toBeEmpty();
-  await page.locator('#deferReason').fill('Cần sắp xếp');
+  await page.locator('#deferReason').fill('Need to arrange');
   await submit(page);
   await screen(page, 'H5');
   expect((await current(page)).payment.status).toBe('deferred');
   await staff(page, 'payment:not-required');
-  await expect(content(page)).toContainText('Không phát sinh phí');
+  await expect(content(page)).toContainText('No fee');
 });
 test('F10 all lab states, doctor review vs notice vs explanation, four next actions', async ({
   page,
@@ -540,10 +540,10 @@ test('F10 all lab states, doctor review vs notice vs explanation, four next acti
   expect(v.communication.explanation).toBe('pending');
   await staff(page, 'communicate:unreachable');
   await nav(page, 'H7');
-  await expect(content(page)).toContainText('Phòng khám đang cố liên hệ');
+  await expect(content(page)).toContainText('The clinic is trying to contact');
   await staff(page, 'communicate:notified');
-  await expect(content(page)).toContainText('Đã gửi thông báo');
-  await expect(content(page)).toContainText('Chưa ghi nhận đã giải thích');
+  await expect(content(page)).toContainText('Notification sent');
+  await expect(content(page)).toContainText('Explanation not yet recorded');
   await staff(page, 'communicate:explained');
   await expect(
     content(page).locator('[data-action=go][data-to=H6]'),
@@ -554,7 +554,7 @@ test('F10 all lab states, doctor review vs notice vs explanation, four next acti
   await expect(action(page, 'callback')).toBeVisible();
   await action(page, 'rebook').click();
   await screen(page, 'C7');
-  await expect(content(page)).toContainText('Không thu phí');
+  await expect(content(page)).toContainText('No fee');
   await slot(page);
   await send(page);
   expect((await current(page)).payment.status).toBe('not-required');
@@ -569,7 +569,7 @@ for (const reason of ['medicine', 'question', 'symptoms'])
     await screen(page, 'I2');
     await page
       .locator('#report')
-      .fill('Nội dung phản hồi để phòng khám xem xét.');
+      .fill('Feedback for the clinic to review.');
     if (reason === 'symptoms') await page.locator('#urgent').check();
     await submit(page);
     if (reason === 'symptoms') {
@@ -588,20 +588,20 @@ test('F11 tracking, referral, messages and follow-up recommendation', async ({
   await go(page, 'I1');
   await screen(page, 'I1');
   await go(page, 'I3');
-  await page.locator('#tracking').fill('Tôi muốn cập nhật tình trạng hôm nay.');
+  await page.locator('#tracking').fill('I would like to update my condition today.');
   await submit(page);
   expect((await state(page)).tracking).toHaveLength(1);
   await staff(page, 'referral');
   await nav(page, 'I4');
   await page
     .locator('#referral')
-    .fill('Tôi đã trao đổi với cơ sở chuyên khoa.');
+    .fill('I have spoken with the specialist clinic.');
   await submit(page);
   await screen(page, 'I5');
-  await page.locator('#message').fill('Tôi cần hỏi thêm.');
+  await page.locator('#message').fill('I have another question.');
   await submit(page);
   await staff(page, 'reply');
-  await expect(content(page)).toContainText('Phòng khám đã nhận nội dung');
+  await expect(content(page)).toContainText('The clinic has received your message');
   await staff(page, 'care:followup');
   await go(page, 'J1');
   await screen(page, 'J1');
@@ -614,7 +614,7 @@ test('F12 follow-up starts a new linked visit without losing the old profile', a
   await go(page, 'J1');
   await action(page, 'rebook').click();
   await screen(page, 'C2');
-  await page.locator('#reason').fill('Cập nhật tình trạng mới khi tái khám');
+  await page.locator('#reason').fill('Updated condition for the follow-up visit');
   await submit(page);
   await screen(page, 'C3');
   await normal(page);
@@ -638,14 +638,14 @@ test('booking recovery: collision, unknown outcome, no duplicate and retry', asy
   await page.locator('#booking-outcome').selectOption('slot-unavailable');
   await page.locator('#consent').check();
   await submit(page);
-  await expect(page.locator('#form-error')).toContainText('vừa hết chỗ');
+  await expect(page.locator('#form-error')).toContainText('just been taken');
   expect((await state(page)).visits).toHaveLength(0);
   await nav(page, 'C7');
   await slot(page, '14:00');
   await page.locator('#booking-outcome').selectOption('unknown');
   await page.locator('#consent').check();
   await submit(page);
-  await expect(page.locator('#form-error')).toContainText('Chưa xác định');
+  await expect(page.locator('#form-error')).toContainText('We could not tell whether your request was received');
   await submit(page);
   expect((await state(page)).visits).toHaveLength(0);
   await staff(page, 'unknown:missing');
@@ -682,7 +682,7 @@ test('offline retains typed form and recovers after reconnection', async ({
   await tools(page);
   await page.locator('[data-action=offline]').click();
   await submit(page);
-  await expect(page.locator('#form-error')).toContainText('mất mạng');
+  await expect(page.locator('#form-error')).toContainText('You are offline');
   expect((await state(page)).visits).toHaveLength(0);
   await page.locator('[data-action=offline]').click();
   await page.locator('#consent').check();
@@ -696,7 +696,7 @@ test('proxy permission is bound to visit; direct links cannot expose health resu
   await page.locator('#bottom-nav .nav-book').click();
   await content(page).locator('input[value=p2]').check();
   await submit(page);
-  await page.locator('#reason').fill('Đặt lịch cho người thân');
+  await page.locator('#reason').fill('Booking for a family member');
   await submit(page);
   await normal(page);
   await slot(page);
@@ -756,9 +756,9 @@ test('settings persist through reload and reset; support and FAQ are functional'
   await expect(page.locator('#largeText')).toBeChecked();
   await expect(page.locator('#reminders')).not.toBeChecked();
   await nav(page, 'K5');
-  await page.locator('.rich-faqs summary').filter({hasText:'Đổi hoặc hủy lịch thế nào?'}).click();
-  await expect(page.locator('.rich-faqs details[open]')).toContainText('Lịch thay thế cần phòng khám xác nhận');
-  await page.locator('#support').fill('Tôi cần hỗ trợ đổi giờ');
+  await page.locator('.rich-faqs summary').filter({hasText:'How do I reschedule or cancel?'}).click();
+  await expect(page.locator('.rich-faqs details[open]')).toContainText('A new time must be confirmed by the clinic');
+  await page.locator('#support').fill('I need help changing the time');
   await submit(page);
   await page.locator('[data-action=close-dialog]').click();
   expect((await state(page)).requests).toHaveLength(1);
@@ -848,7 +848,7 @@ for (const view of [
         expect(metrics.tiny, meta.id + ' small touch targets').toEqual([]);
         const text = await content(page).innerText();
         expect(text, /patient jargon at / + meta.id).not.toMatch(
-          /bản mẫu|hồ sơ mẫu|check-in|\bbooking\b|\bslot\b|\bmock\b|mô phỏng|viện phí/i,
+          /sample version|sample profile|\bslot\b|\bmock\b|simulat|hospital fee/i,
         );
         if (
           view.width === 390 &&
@@ -999,11 +999,11 @@ test('typed booking draft survives reload without persisting OTP', async ({
   await load(page, 'empty');
   await page.locator('#bottom-nav .nav-book').click();
   await submit(page);
-  await page.locator('#reason').fill('Nội dung chưa gửi được giữ lại.');
+  await page.locator('#reason').fill('Unsent text is kept.');
   await page.reload();
   await screen(page, 'C2');
   await expect(page.locator('#reason')).toHaveValue(
-    'Nội dung chưa gửi được giữ lại.',
+    'Unsent text is kept.',
   );
 });
 test('D2 next action is visible at 360px before scrolling', async ({
@@ -1118,7 +1118,7 @@ test('F9 fee-free completion and F10 summary/additional-lab actions use the righ
   await nav(page, 'H2');
   await staff(page, 'payment:not-required');
   await go(page, 'H5');
-  await expect(content(page)).toContainText('Không phát sinh phí');
+  await expect(content(page)).toContainText('No fee');
   await nav(page, 'F2');
   for (const status of [
     'scheduled',
@@ -1168,7 +1168,7 @@ test('F11 multiple completed visits keep the selected report context', async ({
     const M = window.CareFlowModel,
       s = M.fixture('completed');
     M.beginBooking(s, s.activeVisitId, 'followup');
-    Object.assign(s.draft, { reason: 'Tái khám và cập nhật tình trạng', safety: 'normal', slot: '14:00' });
+    Object.assign(s.draft, { reason: 'Follow-up and condition update', safety: 'normal', slot: '14:00' });
     M.submitBooking(s);
     for (const to of [
       'confirmed',
@@ -1190,7 +1190,7 @@ test('F11 multiple completed visits keep the selected report context', async ({
   await expect(content(page).locator('input[type=radio]')).toHaveCount(2);
   await content(page).locator('input[value=CF-0001]').check();
   await content(page).locator('[data-reason=question]').click();
-  await page.locator('#report').fill('Trao đổi về lượt khám trước.');
+  await page.locator('#report').fill('About the previous visit.');
   await submit(page);
   expect((await state(page)).reports[0].visitId).toBe('CF-0001');
   expect((await current(page)).id).toBe('CF-0001');
@@ -1203,13 +1203,13 @@ test('adding a relative while booking returns to the correct selected patient', 
   await page.locator('#bottom-nav .nav-book').click();
   await content(page).locator('[data-action="profile-add-booking"]').click();
   await expect(content(page).locator('.add-relative')).toHaveAttribute('open','');
-  await page.locator('#name').fill('Người thân thử nghiệm');
+  await page.locator('#name').fill('Test Relative');
   await pickDate(page, 'dob', '1980-03-12');
   await submit(page);
   await screen(page, 'C1');
   await expect(content(page).locator('input[value=p3]')).toBeChecked();
   await submit(page);
-  await page.locator('#reason').fill('Đặt lịch cho người thân vừa thêm');
+  await page.locator('#reason').fill('Booking for the newly added relative');
   await submit(page);
   await normal(page);
   await slot(page);
@@ -1223,7 +1223,7 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await page.locator('#bottom-nav .nav-book').click();
   await content(page).locator('input[value=p2]').check();
   await submit(page);
-  await page.locator('#reason').fill('Đặt lịch cho mẹ');
+  await page.locator('#reason').fill('Booking for my mother');
   await submit(page);
   await normal(page);
   await slot(page);
@@ -1237,7 +1237,7 @@ test('login after proxy booking confirms the account owner, not the selected rel
   await screen(page, 'B1');
   await expect(content(page).locator('h1')).toHaveAccessibleName('Nguyễn Minh Anh');
   await expect(content(page).locator('h1')).toHaveText('Minh Anh');
-  await expect(content(page).locator('.cf-hdr-home-intro p').first()).toHaveText(/^Chào buổi (sáng|chiều|tối),$/);
+  await expect(content(page).locator('.cf-hdr-home-intro p').first()).toHaveText(/^Good (morning|afternoon|evening),$/);
   expect((await current(page)).patientId).toBe('p2');
   expect((await current(page)).bookedByProfileId).toBe('p1');
 });

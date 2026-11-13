@@ -10,9 +10,9 @@ for (const width of [360,390,768,1440]) test(`candidate components have safe ins
   await page.goto(url);await page.evaluate(()=>document.fonts.ready);
   expect(errors).toEqual([]);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width+1);
-  const nav=page.getByRole('navigation',{name:'Điều hướng chính'});
-  for(const name of ['Trang chủ','Lịch hẹn','Hồ sơ','Hỗ trợ'])await expect(nav.getByRole('link',{name})).toBeVisible();
-  await expect(nav.getByRole('button',{name:'Đặt lịch',exact:true})).toBeVisible();
+  const nav=page.getByRole('navigation',{name:'Main navigation'});
+  for(const name of ['Home','Appointments','Profile','Support'])await expect(nav.getByRole('link',{name})).toBeVisible();
+  await expect(nav.getByRole('button',{name:'Book an appointment',exact:true})).toBeVisible();
   const sizes=await page.locator('button,a').evaluateAll(nodes=>nodes.filter(el=>el.getClientRects().length).map(el=>({label:el.textContent.trim(),w:el.getBoundingClientRect().width,h:el.getBoundingClientRect().height})));
   expect(sizes.filter(s=>s.w<44||s.h<44)).toEqual([]);
   const insetIssues=await page.locator('[data-cf-card]').evaluateAll(nodes=>nodes.filter(card=>card.getClientRects().length).flatMap(card=>[...card.querySelectorAll('h2,h3,p')].filter(el=>{
@@ -41,7 +41,7 @@ test('text at 200% reflows at 360px without clipped actions or wrapped step labe
   expect(clippedByCard).toEqual([]);
   await expect(page.locator('.cf-step-label').first()).toHaveCSS('white-space','nowrap');
   await expect(page.locator('.cf-nav-book .cf-nav-label')).toHaveCount(0);
-  await expect(page.locator('.cf-nav-book')).toHaveAccessibleName('Đặt lịch');
+  await expect(page.locator('.cf-nav-book')).toHaveAccessibleName('Book an appointment');
   await page.screenshot({path:info.outputPath('foundations-200percent.png'),fullPage:true});
   await page.getByRole('button',{name:'Chữ 200%',exact:true}).click();
   await expect(page.locator('.cf-step-label').first()).toHaveCSS('font-size','12px');
@@ -51,15 +51,15 @@ test('tabs support keyboard navigation and named state; stepper stays within fou
   await page.goto(url);
   const tab=page.getByRole('tab',{name:'Sắp tới'});await tab.focus();await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('tab',{name:'Đã khám'})).toBeFocused();
-  await expect(page.getByRole('tabpanel')).toContainText('Hoàn tất buổi khám');
+  await expect(page.getByRole('tabpanel')).toContainText('Visit complete');
   await page.keyboard.press('End');await expect(page.getByRole('tab',{name:'Đã hủy'})).toHaveAttribute('aria-selected','true');
   await expect(page.getByRole('tabpanel').locator('[data-cf-component="status"]')).toHaveAttribute('data-cf-tone','danger');
   await expect(page.locator('[data-action="preview-step-back"]')).toBeDisabled();
   for(let i=0;i<3;i++)await page.locator('[data-action="preview-step-next"]').click();
-  await expect(page.locator('.cf-stepper [aria-current="step"]')).toContainText('Kiểm tra');
+  await expect(page.locator('.cf-stepper [aria-current="step"]')).toContainText('Review');
   await expect(page.locator('[data-action="preview-step-next"]')).toBeDisabled();
   await page.locator('[data-action="preview-step-back"]').click();
-  await expect(page.locator('.cf-stepper [aria-current="step"]')).toContainText('Nơi khám');
+  await expect(page.locator('.cf-stepper [aria-current="step"]')).toContainText('Location');
 });
 
 test('empty, loading and error provide distinct semantics and recovery without changing product state',async({page})=>{
@@ -71,11 +71,11 @@ test('empty, loading and error provide distinct semantics and recovery without c
   await page.locator('[data-preview-state="error"]').click();
   await expect(page.locator('[data-cf-state="error"]')).toContainText('Kiểm tra kết nối');
   await page.getByRole('button',{name:'Thử lại',exact:true}).click();
-  await expect(page.locator('[data-cf-state="ready"]')).toContainText('Đã xác nhận');
+  await expect(page.locator('[data-cf-state="ready"]')).toContainText('Confirmed');
   // Both controls now reflect the same state, rather than leaving Error selected.
   await expect(page.locator('[data-preview-state="ready"]')).toHaveAttribute('aria-pressed','true');
-  await page.locator('.cf-tab-bar').getByRole('link',{name:'Lịch hẹn',exact:true}).click();
-  await expect(page.locator('.cf-tab-bar [aria-current="page"] .cf-nav-label')).toHaveText('Lịch hẹn');
+  await page.locator('.cf-tab-bar').getByRole('link',{name:'Appointments',exact:true}).click();
+  await expect(page.locator('.cf-tab-bar [aria-current="page"] .cf-nav-label')).toHaveText('Appointments');
   await expect(page.locator('.cf-tab-bar [aria-current="page"] svg')).toHaveCSS('fill','rgb(0, 29, 87)');
   await page.locator('.cf-nav-book').click();
   await expect(page.locator('#preview-feedback')).toContainText('Nút + sẽ mở luồng đặt lịch');
@@ -101,7 +101,7 @@ test('primary roles share black styling, examples have captions and section link
   await expect(page.locator('[data-action="preview-primary"]')).toHaveCSS('background-color','rgb(11, 18, 32)');
   await expect(page.getByRole('button',{name:'Mặc định',exact:true})).toHaveCount(0);
   await expect(page.locator('.cf-button-examples figcaption')).toHaveText(['Mặc định','Đang tải','Chưa đủ thông tin']);
-  const link=page.getByRole('link',{name:'Xem tất cả',exact:true});
+  const link=page.getByRole('link',{name:'View all',exact:true});
   await expect(link).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
   await expect(link).toHaveAttribute('href','#/profile');
   const css=fs.readFileSync(path.resolve(__dirname,'../../design/tokens.css'),'utf8').split('[data-cf-theme="pastel"]')[1];
@@ -123,7 +123,7 @@ test('profile stack and question suggestion have different functional anatomy an
   await page.setViewportSize({width:360,height:900});await page.goto(url);
   const profile=page.locator('.cf-profile-card'),question=page.locator('.cf-question-card');
   await expect(profile.locator('.cf-profile-avatar')).toHaveCount(2);
-  await expect(profile.locator('.cf-profile-summary')).toContainText('2 hồ sơ');
+  await expect(profile.locator('.cf-profile-summary')).toContainText('2 profiles');
   await expect(profile.locator('.cf-illustration-slot')).toHaveCount(0);
   await profile.locator('summary').click();
   await expect(profile.locator('li')).toHaveCount(2);

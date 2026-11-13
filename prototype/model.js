@@ -4,285 +4,285 @@
   const SCREENS = [
     {
       id: 'A1',
-      title: 'Đăng nhập (SĐT và OTP)',
+      title: 'Sign in (phone and code)',
       route: '/login',
       phase: 'P1',
     },
     {
       id: 'A2',
-      title: 'Xác nhận hồ sơ cũ',
+      title: 'Confirm existing profile',
       route: '/profile-match',
       phase: 'P1',
     },
     {
       id: 'A3',
-      title: 'Tạo hồ sơ bệnh nhân',
+      title: 'Create patient record',
       route: '/profile-new',
       phase: 'P1',
     },
     {
       id: 'B1',
-      title: 'Trang chủ',
+      title: 'Home',
       route: '/home',
       phase: 'P1',
     },
     {
       id: 'C1',
-      title: 'Ai đi khám',
+      title: 'Who is the visit for',
       route: '/book/patient',
       phase: 'P1',
     },
     {
       id: 'C2',
-      title: 'Lý do khám và triệu chứng',
+      title: 'Reason for visit and symptoms',
       route: '/book/reason',
       phase: 'P1',
     },
     {
       id: 'C3',
-      title: 'Dấu hiệu nguy hiểm',
+      title: 'Warning signs',
       route: '/book/safety',
       phase: 'P1',
     },
     {
       id: 'C4',
-      title: 'Khuyến cáo nhập viện, cấp cứu',
+      title: 'Hospital or emergency advice',
       route: '/book/alert',
       phase: 'P1',
     },
     {
       id: 'C5',
-      title: 'Phòng khám xác nhận hình thức khám',
+      title: 'Clinic confirms visit type',
       route: '/book/mode-review',
       phase: 'P1',
     },
     {
       id: 'C6',
-      title: 'Chọn hình thức khám',
+      title: 'Choose visit type',
       route: '/book/mode',
       phase: 'P1',
     },
     {
       id: 'C7',
-      title: 'Chọn ngày giờ',
+      title: 'Choose date and time',
       route: '/book/slot',
       phase: 'P1',
     },
     {
       id: 'C8',
-      title: 'Kiểm tra và gửi yêu cầu',
+      title: 'Review and send request',
       route: '/book/review',
       phase: 'P1',
     },
     {
       id: 'C9',
-      title: 'Đã gửi, Phiếu khám',
+      title: 'Sent, appointment details',
       route: '/book/done/:id',
       phase: 'P1',
     },
     {
       id: 'D1',
-      title: 'Lịch hẹn',
+      title: 'Appointments',
       route: '/appointments',
       phase: 'P1',
     },
     {
       id: 'D2',
-      title: 'Phiếu khám (chi tiết lượt khám)',
+      title: 'Appointment details (visit details)',
       route: '/appointments/:id',
       phase: 'P1',
     },
     {
       id: 'D3',
-      title: 'Đổi lịch',
+      title: 'Reschedule',
       route: '/appointments/:id/reschedule',
       phase: 'P1',
     },
     {
       id: 'D4',
-      title: 'Hủy lịch',
+      title: 'Cancel appointment',
       route: '/appointments/:id/cancel',
       phase: 'P1',
     },
     {
       id: 'E1',
-      title: 'Chuẩn bị trước khi đến',
+      title: 'Before you arrive',
       route: '/appointments/:id/prepare',
       phase: 'P1',
     },
     {
       id: 'E2',
-      title: 'Báo đã đến',
+      title: 'Check in',
       route: '/appointments/:id/arrive',
       phase: 'P1',
     },
     {
       id: 'E3',
-      title: 'Theo dõi lượt khám',
+      title: 'Track your visit',
       route: '/appointments/:id/visit',
       phase: 'P1',
     },
     {
       id: 'F1',
-      title: 'Xét nghiệm, chụp chiếu',
+      title: 'Tests and imaging',
       route: '/appointments/:id/labs',
       phase: 'P2',
     },
     {
       id: 'F2',
-      title: 'Chi tiết chỉ định',
+      title: 'Order details',
       route: '/appointments/:id/labs/:labId',
       phase: 'P2',
     },
     {
       id: 'F3',
-      title: 'Đặt hẹn xét nghiệm',
+      title: 'Book a test',
       route: '/appointments/:id/labs/:labId/book',
       phase: 'P2',
     },
     {
       id: 'F4',
-      title: 'Đính kèm kết quả',
+      title: 'Attach results',
       route: '/appointments/:id/labs/:labId/upload',
       phase: 'P2',
     },
     {
       id: 'G1',
-      title: 'Chuẩn bị khám online',
+      title: 'Prepare for online visit',
       route: '/appointments/:id/online-prepare',
       phase: 'P2',
     },
     {
       id: 'G2',
-      title: 'Chờ bác sĩ gọi',
+      title: 'Waiting for the doctor',
       route: '/appointments/:id/online-wait',
       phase: 'P2',
     },
     {
       id: 'G3',
-      title: 'Bác sĩ đang gọi',
+      title: 'Doctor is calling',
       route: '/appointments/:id/incoming',
       phase: 'P2',
     },
     {
       id: 'G4',
-      title: 'Đang khám online',
+      title: 'Online visit in progress',
       route: '/appointments/:id/call',
       phase: 'P2',
     },
     {
       id: 'G5',
-      title: 'Chưa liên hệ được',
+      title: 'Couldn’t connect',
       route: '/appointments/:id/unreachable',
       phase: 'P2',
     },
     {
       id: 'H1',
-      title: 'Buổi khám đã hoàn tất',
+      title: 'Visit completed',
       route: '/appointments/:id/completed',
       phase: 'P2',
     },
     {
       id: 'H2',
-      title: 'Thanh toán',
+      title: 'Payment',
       route: '/appointments/:id/pay',
       phase: 'P2',
     },
     {
       id: 'H3',
-      title: 'Thanh toán sau',
+      title: 'Pay later',
       route: '/appointments/:id/pay-later',
       phase: 'P2',
     },
     {
       id: 'H4',
-      title: 'Chuyển khoản QR',
+      title: 'QR bank transfer',
       route: '/appointments/:id/pay/transfer',
       phase: 'P2',
     },
     {
       id: 'H5',
-      title: 'Biên lai và hoàn tiền',
+      title: 'Receipts and refunds',
       route: '/appointments/:id/receipt',
       phase: 'P2',
     },
     {
       id: 'H6',
-      title: 'Kết luận và đơn thuốc',
+      title: 'Visit summary and prescription',
       route: '/appointments/:id/summary',
       phase: 'P2',
     },
     {
       id: 'H7',
-      title: 'Kết quả và việc tiếp theo',
+      title: 'Results and next steps',
       route: '/appointments/:id/results',
       phase: 'P2',
     },
     {
       id: 'I1',
-      title: 'Hỏi phòng khám',
+      title: 'Ask the clinic',
       route: '/care',
       phase: 'P3',
     },
     {
       id: 'I2',
-      title: 'Gửi phản hồi (ba lý do)',
+      title: 'Send feedback (three reasons)',
       route: '/care/report?reason=',
       phase: 'P3',
     },
     {
       id: 'I3',
-      title: 'Theo dõi triệu chứng',
+      title: 'Symptom tracking',
       route: '/care/follow-up',
       phase: 'P3',
     },
     {
       id: 'I4',
-      title: 'Chuyển chuyên khoa',
+      title: 'Specialist referral',
       route: '/care/referral/:id',
       phase: 'P3',
     },
     {
       id: 'I5',
-      title: 'Tin nhắn với điều phối viên',
+      title: 'Messages with coordinator',
       route: '/care/messages',
       phase: 'P3',
     },
     {
       id: 'J1',
-      title: 'Đặt lịch tái khám',
+      title: 'Book a follow-up',
       route: '/followup/:id',
       phase: 'P1',
     },
     {
       id: 'K1',
-      title: 'Thông báo',
+      title: 'Notifications',
       route: '/notifications',
       phase: 'P1',
     },
     {
       id: 'K2',
-      title: 'Hồ sơ và người thân',
+      title: 'Profile and family members',
       route: '/profile',
       phase: 'P3',
     },
     {
       id: 'K3',
-      title: 'Lịch sử khám',
+      title: 'Visit history',
       route: '/profile/history',
       phase: 'P3',
     },
     {
       id: 'K4',
-      title: 'Cài đặt',
+      title: 'Settings',
       route: '/settings',
       phase: 'P3',
     },
     {
       id: 'K5',
-      title: 'Hỗ trợ',
+      title: 'Support',
       route: '/support',
-      phase: 'P1 (khung), P2 (đầy đủ)',
+      phase: 'P1 (framework), P2 (full)',
     },
   ];
   const TRANSITIONS = {
@@ -542,7 +542,7 @@
       feePlan: d.free ? 'not-required' : 'pending',
       risk: d.risk,
       reviewReason: d.risk
-        ? 'Bạn đã yêu cầu phòng khám xem xét hình thức khám.'
+        ? 'You asked the clinic to review the visit type.'
         : '',
       previousId: d.previousId,
       purpose: d.purpose,
@@ -611,8 +611,8 @@
       visitId: v.id,
       patientId: v.patientId,
       screen,
-      title: 'Có cập nhật về lượt khám',
-      body: 'Mở ứng dụng để xem chi tiết.',
+      title: 'There’s an update on your visit',
+      body: 'Open the app to see details.',
       at: stamp(),
       read: false,
     });
@@ -639,7 +639,7 @@
     if (to === 'completed') {
       v.signedAt = stamp();
       v.lockedAt = v.signedAt;
-      v.signedBy = 'Bác sĩ phụ trách';
+      v.signedBy = 'Attending doctor';
     }
     if (
       v.status === 'pre-lab' &&
@@ -732,7 +732,7 @@
       return fail('NOT_COMPLETED');
     const lab = {
       id: 'lab-' + (v.labs.length + 1),
-      name: 'Xét nghiệm theo chỉ định',
+      name: 'Ordered test',
       status: 'ordered',
       timing,
       returnPath: 'visit',
@@ -816,7 +816,7 @@
   }
   function openCareTask(s, v, type, text) {
     const id = 'care-' + v.id + '-' + (v.care.tasks?.length || 0);
-    const task = { id, type, text, status: 'received', owner: 'Điều phối viên', history: [{ status: 'received', at: stamp() }] };
+    const task = { id, type, text, status: 'received', owner: 'Coordinator', history: [{ status: 'received', at: stamp() }] };
     v.care.tasks ??= [];
     v.care.tasks.push(task);
     return task;
@@ -835,10 +835,10 @@
     const next = { received: 'coordinating', coordinating: 'doctor-review', 'doctor-review': 'answered' };
     if (!task || next[task.status] !== to) return fail('TRANSITION');
     task.status = to;
-    task.owner = to === 'answered' ? 'Bạn' : to === 'doctor-review' ? 'Bác sĩ phụ trách' : 'Điều phối viên';
+    task.owner = to === 'answered' ? 'You' : to === 'doctor-review' ? 'Attending doctor' : 'Coordinator';
     task.history.push({ status: to, at: stamp() });
     if (to === 'answered') {
-      s.messages.push({ visitId: id, patientId: v.patientId, from: 'staff', text: 'Phòng khám đã nhận nội dung của bạn, bác sĩ đã xem và đề nghị tiếp tục trao đổi với điều phối viên nếu bạn còn điều chưa rõ.', at: stamp() });
+      s.messages.push({ visitId: id, patientId: v.patientId, from: 'staff', text: 'The clinic has received your message. The doctor has reviewed it and suggests continuing with the coordinator if anything is still unclear.', at: stamp() });
       notify(s, v, 'I5');
     }
     return pass();
@@ -847,7 +847,7 @@
     const v = visit(s, id);
     if (actor !== 'staff') return fail('STAFF_ONLY');
     if (!v?.lockedAt) return fail('NOT_COMPLETED');
-    v.summary = { sharedAt: stamp(), author: v.signedBy, note: 'Nội dung buổi khám đã được ghi nhận trong hồ sơ. Bạn có thể hỏi lại phòng khám về những điều chưa rõ.' };
+    v.summary = { sharedAt: stamp(), author: v.signedBy, note: 'Your visit has been recorded in your record. You can ask the clinic about anything that’s unclear.' };
     notify(s, v, 'H6');
     return pass();
   }
@@ -883,9 +883,9 @@
         Object.assign(v,{id,date,slot,clinician:doctor});
         return v;
       };
-      const ha={name:'BS. Trần Thu Hà',specialty:'Nội tổng quát',initials:'TH'};
-      const quan={name:'BS. Lê Minh Quân',specialty:'Tim mạch',initials:'LQ'};
-      const lan={name:'BS. Phạm Ngọc Lan',specialty:'Da liễu',initials:'PL'};
+      const ha={name:'Dr. Trần Thu Hà',specialty:'General internal medicine',initials:'TH'};
+      const quan={name:'Dr. Lê Minh Quân',specialty:'Cardiology',initials:'LQ'};
+      const lan={name:'Dr. Phạm Ngọc Lan',specialty:'Dermatology',initials:'PL'};
       const pending=make('upcoming','CF-SAMPLE-03','2026-10-30','08:15',lan);
       pending.status='pending';
       pending.history=pending.history.filter(x=>x.status==='pending');
@@ -903,7 +903,7 @@
     if (name === 'empty' || name === 'returning') return s;
     beginBooking(s);
     Object.assign(s.draft, {
-      reason: 'Khám theo lịch hẹn',
+      reason: 'Scheduled visit',
       safety: 'normal',
       date: localDate() <= '2026-10-17' ? '2026-10-17' : localDate(1),
       slot: '08:00',

@@ -1,6 +1,6 @@
 # CareFlow — Patient Journey App
 
-Browser prototype dành cho bệnh nhân, 47 màn theo danh mục file13, HTML/CSS/JavaScript. Renderer hiện tại ở [prototype](prototype/index.html). Dịch vụ y tế/OTP/video/thu phí đều thử nghiệm; không nhập dữ liệu cá nhân thật.
+A browser prototype for patients: 47 screens following the file13 catalogue, built with HTML/CSS/JavaScript. The current renderer is in [prototype](prototype/index.html). Medical services, verification codes, video and payments are all simulated; do not enter real personal data.
 
 ```sh
 npm ci --prefix prototype
@@ -9,31 +9,34 @@ node prototype/preview-server.cjs
 npm --prefix prototype run test:all
 ```
 
-[Danh mục và flow](docs/screen-flow-matrix.md) · [Nguồn file13](docs/13-patient-journey-source.md) · [Product brief](docs/product-brief.md) · [Design system](docs/design-system.md) · [QA](docs/qa-results.md)
+[Screen catalogue and flows](docs/screen-flow-matrix.md) · [file13 source](docs/13-patient-journey-source.md) · [Product brief](docs/product-brief.md) · [Design system](docs/design-system.md) · [QA](docs/qa-results.md)
 
-File14/15, bản gốc11/12 và Deep Research UX Writing chưa tìm thấy trong hai checkout/attachment được cung cấp. Clinical/legal/ops approval, backend thật, native QA và direct-user validation chưa có. hifi/ và wireframe-board.svg là tài liệu lịch sử trước file13; không dùng danh mục cũ để nghiệm thu hiện tại.
+File14/15, the original 11/12 and the Deep Research UX Writing material were not found in the two checkouts/attachments provided. Clinical, legal and operational approval, a real backend, native QA and direct user validation are still outstanding. `hifi/` and `wireframe-board.svg` are historical material from before file13; do not use the old catalogue for current acceptance.
 
-## Bản dùng thử đầy đủ (chỉ thiếu backend)
+The interface is in English (dates use the `en-GB` format). Supporting documents in `docs/`, `research/`, `design/` and `hifi/` are still in Vietnamese.
 
-Mở `prototype/?scenario=demo#/login` (đăng nhập bằng SĐT bất kỳ, mã `123456`) hoặc `?scenario=demo-member#/home` để vào thẳng. Dữ liệu ban đầu lấy từ một file duy nhất, [data/careflow-seed.js](data/careflow-seed.js); mọi thay đổi lưu trong sessionStorage của tab ([data/careflow-store.js](data/careflow-store.js)) nên còn nguyên khi chuyển màn hay tải lại. Nút **Đặt lại dữ liệu demo** (thanh trên cùng hoặc Cài đặt) nạp lại dữ liệu ban đầu.
+## Full demo (everything except a backend)
 
-- Người bệnh: đặt lịch theo chuyên khoa/bác sĩ, giờ và lý do; phiếu khám; đổi lịch; hủy có lý do; sắp tới/đã khám/đã hủy; kết luận và kết quả; đơn thuốc (`#/medications`) với yêu cầu cấp lại; sửa hồ sơ có kiểm tra từng trường (`#/profile/edit`); người thân thêm/xem/sửa/xóa (`#/profile/family`); bảo hiểm (`#/profile/insurance`); yêu cầu hỗ trợ có luồng trao đổi, trả lời, đóng/mở lại (`#/support/tickets`); thông báo đánh dấu đã đọc.
-- Phòng khám: `staff-prototype/#/ops/queue` (hàng chờ hôm nay, check-in, bắt đầu và hoàn tất khám, ghi chú nội bộ, tạo việc hoặc hẹn tái khám), `#/ops/tasks` (tạo, sửa, hoàn thành, xóa việc), `#/ops/tickets` (trả lời người bệnh). Hai app dùng chung dữ liệu khi mở trong cùng một tab.
-- Mỗi danh sách có trạng thái trống; mã không tồn tại hiện “Không tìm thấy”; tải và lưu có độ trễ mô phỏng. **Tùy chọn → Mô phỏng lỗi kết nối** (hoặc “Mô phỏng lỗi” ở phòng khám) làm lần tải/lưu kế tiếp thất bại, kèm nút Thử lại; dữ liệu không đổi khi lỗi.
-- Thuốc, kết quả và ghi chú đều là nội dung minh họa với người bệnh hư cấu; không có thao tác y tế thật nào được thực hiện.
+Open `prototype/?scenario=demo#/login` (sign in with any phone number and the code `123456`) or `?scenario=demo-member#/home` to go straight in. Starting data comes from a single file, [data/careflow-seed.js](data/careflow-seed.js); every change is kept in the tab's sessionStorage ([data/careflow-store.js](data/careflow-store.js)), so it survives moving between screens and reloading. The **Reset demo data** button (top bar or Settings) reloads the starting data.
+
+- Patients: book by specialty/doctor, time and reason; appointment details; reschedule; cancel with a reason; upcoming/past/cancelled lists; visit summary and results; prescriptions (`#/medications`) with refill requests; profile editing with per-field validation (`#/profile/edit`); family members — add, view, edit, remove (`#/profile/family`); insurance (`#/profile/insurance`); support tickets with a message thread, replies and close/reopen (`#/support/tickets`); notifications that can be marked as read.
+- Clinic: `staff-prototype/#/ops/queue` (today's queue, check-in, start and complete visits, internal notes, create a task or a follow-up appointment), `#/ops/tasks` (create, edit, complete and delete tasks), `#/ops/tickets` (reply to patients). Both apps share data when opened in the same tab.
+- Every list has an empty state; an unknown ID shows “Not found”; loading and saving have simulated latency. **Options → Simulate connection error** (or “Simulate error” in the clinic) makes the next load/save fail, with a Try again button; data is unchanged when it fails.
+- Medications, results and notes are all sample content with fictional patients; no real medical action is performed.
+- A tab that still holds data from the earlier Vietnamese build is reseeded once with the English data (flag `careflow.locale` in sessionStorage).
 
 ```sh
-py -3 -m http.server 8903 --bind 127.0.0.1          # từ thư mục gốc repo
-NODE_PATH=<thư mục có playwright> node tests/full-product.e2e.cjs
+py -3 -m http.server 8903 --bind 127.0.0.1          # from the repo root
+NODE_PATH=<folder containing playwright> node tests/full-product.e2e.cjs
 ```
 
 ## CareFlow Clinic — Desktop portfolio showcase
 
-Bản **desktop tương tác dành cho bác sĩ** nằm trong [staff-prototype](staff-prototype/index.html). Đây là dự án portfolio với dữ liệu giả lập; không có backend, xác thực nhân viên thật hay tích hợp hệ thống y tế. Desktop và mobile dùng chung nhãn, trạng thái và [component contract](docs/design-system.md); font theo vai trò là Plus Jakarta Sans / Be Vietnam Pro.
+The **interactive desktop prototype for doctors** is in [staff-prototype](staff-prototype/index.html). It is a portfolio project with simulated data; there is no backend, real staff authentication or integration with medical systems. Desktop and mobile share labels, statuses and the [component contract](docs/design-system.md); role fonts are Plus Jakarta Sans / Be Vietnam Pro.
 
 ```sh
 node prototype/preview-server.cjs
 # http://127.0.0.1:4175/staff-prototype/index.html
 ```
 
-Các màn hiện tại gồm Tổng quan bác sĩ, lịch khám, danh sách khám, hồ sơ bệnh nhân, chi tiết lượt khám, buổi khám, kết quả và các bước bàn giao/theo dõi. Tổng quan ưu tiên buổi đang khám → việc cần quyết định → kết quả chưa xem → lịch trong ngày. Tương tác chỉ mô phỏng trong phiên và giữ quyền thao tác của bác sĩ. Xem [hướng dẫn desktop](staff-prototype/README.md) và workflow QA riêng.
+Current screens include the doctor overview, schedule, visit list, patient record, visit details, consultation, results, and the handover/follow-up steps. The overview prioritises the current consultation → decisions needed → unreviewed results → today's schedule. Interactions are simulated within the session and respect the doctor's permissions. See the [desktop guide](staff-prototype/README.md) and its own QA workflow.

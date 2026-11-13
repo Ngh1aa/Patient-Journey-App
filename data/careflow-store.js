@@ -12,6 +12,17 @@
   const FAIL_KEY = 'careflow.demo.failNext';
   const LEGACY_KEYS = ['careflow.clinic.showcase.v1'];
   const Seed = () => root.CareFlowSeed;
+  // One-time reseed after the English translation: a tab that still holds the earlier
+  // Vietnamese seed in sessionStorage starts again from the English seed. Runs before
+  // either app reads its state (this script loads ahead of both apps).
+  const LOCALE_KEY = 'careflow.locale';
+  const LOCALE = 'en-GB.1';
+  try {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(LOCALE_KEY) !== LOCALE) {
+      for (const k of [KEY, FAIL_KEY, ...LEGACY_KEYS]) sessionStorage.removeItem(k);
+      sessionStorage.setItem(LOCALE_KEY, LOCALE);
+    }
+  } catch { /* storage blocked: nothing stored to migrate */ }
   const valid = (s) => s && s.version === 3 && Array.isArray(s.visits) && Array.isArray(s.profiles);
 
   function readRaw() {
@@ -46,7 +57,7 @@
     set(on) { try { on ? sessionStorage.setItem(FAIL_KEY, '1') : sessionStorage.removeItem(FAIL_KEY); } catch { /* ignore */ } },
   };
   class DemoError extends Error {
-    constructor() { super('Không kết nối được máy chủ demo. Dữ liệu của bạn chưa thay đổi.'); this.code = 'SIMULATED'; }
+    constructor() { super('Could not reach the demo server. Your data has not changed.'); this.code = 'SIMULATED'; }
   }
   /** Simulate a server round-trip. fn runs only on success; a failure leaves data untouched. */
   function request(fn, { delay = 450 } = {}) {
@@ -58,6 +69,6 @@
     });
   }
   const uid = (prefix) => prefix + '-' + Date.now().toString(36).slice(-4) + Math.random().toString(36).slice(2, 5);
-  const api = { KEY, FAIL_KEY, load, save, reset, request, failNext, DemoError, uid, readRaw };
+  const api = { KEY, FAIL_KEY, LOCALE_KEY, load, save, reset, request, failNext, DemoError, uid, readRaw };
   root.CareFlowStore = api;
 })(typeof window !== 'undefined' ? window : globalThis);

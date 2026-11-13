@@ -1,20 +1,20 @@
 # CareFlow v3 — 47-screen mobile browser prototype
 
-Chạy từ repository root: `node prototype/preview-server.cjs`; mở http://127.0.0.1:4175/prototype/index.html . Không cần build/bundler. Xem docs/product-brief.md và docs/screen-flow-matrix.md.
+Run from the repository root: `node prototype/preview-server.cjs`, then open http://127.0.0.1:4175/prototype/index.html. No build step or bundler is needed. See docs/product-brief.md and docs/screen-flow-matrix.md.
 
-## Trải nghiệm
-Bắt đầu ở A1, nhập SĐT thử 0900000000, OTP thử123456. Dữ liệu chỉ ở sessionStorage. Thanh Bản demo luôn hiện ngoài phone. Công cụ đánh giá cho phép nạp hồ sơ/lịch thử, đi đến route và áp dụng staff event hợp lệ. Chọn màn không bỏ guard. Đặt lại để xóa phiên.
+## Experience
+Start at A1 and enter the test phone number 0900000000 and the test code 123456. Data lives only in sessionStorage. The Demo bar is always shown outside the phone frame. The review tools let you load sample profiles/appointments, go to a route and apply valid staff events. Choosing a screen does not bypass its guards. Use Reset to clear the session.
 
-Hồ sơ mới: A1→A3; fixture Hồ sơ đã có: A1→A2. Phiếu D2 là hub. Staff update xác nhận lịch, nhắc lịch, tiếp nhận, bác sĩ gọi/kết thúc, lab review, đối soát/hoàn tiền được tách ngoài UI bệnh nhân. Không có tác vụ giao dịch thật hoặc hướng dẫn y tế được phê duyệt.
+New profile: A1→A3; the “Existing profile” fixture: A1→A2. Appointment details (D2) is the hub. Staff updates (confirming and reminding appointments, check-in, the doctor calling/ending a visit, lab review, reconciliation/refunds) are kept outside the patient UI. There are no real transactions and no approved medical guidance.
 
 ## Source owners
-- model.js: 47 registry, pure state guards, fixtures, permission.
-- strings.vi.js: Vietnamese copy shared, external demo copy tách riêng.
-- views.js/icons.js: component helpers và composed screens, reuse icon family cũ.
+- model.js: the 47-screen registry, pure state guards, fixtures, permissions.
+- strings.vi.js: shared patient copy (now English; the file name is kept so existing references keep working), with external demo copy kept separate.
+- views.js/icons.js: component helpers and composed screens, reusing the existing icon family.
 - app.js: hash navigation, forms, session, controlled simulator.
-- styles.css: semantic tokens, 360/390px, chữ 200%, focus và safe areas.
+- styles.css: semantic tokens, 360/390px, 200% text, focus and safe areas.
 - tests.cjs + browser-tests/journeys.spec.cjs: state and browser acceptance.
-- legacy-tests/: hợp đồng cũ trước file13, giữ tham khảo; không phải suite hiện hành.
+- legacy-tests/: old contracts from before file13, kept for reference; not part of the current suite.
 
-## Kiểm thử
-`npm ci`, `npx playwright install chromium webkit`, `npm run test:all`. Config dùng Node HTTP server cùng test, chạy root và /Patient-Journey-App subpath. Playwright Chromium/WebKit là browser QA, không chứng minh native iOS/Android. Model và screenshot/accessibility/flow gates độc lập.
+## Testing
+`npm ci`, `npx playwright install chromium webkit`, `npm run test:all`. The config starts a Node HTTP server alongside the tests and serves both the root and the /Patient-Journey-App subpath. Playwright Chromium/WebKit is browser QA and does not prove native iOS/Android behaviour. The model checks and the screenshot/accessibility/flow gates are independent.

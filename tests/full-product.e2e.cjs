@@ -96,10 +96,10 @@ async function patientSuite(page) {
     await p.hash('#/appointments');
     await page.waitForSelector('#phone-content [data-cf-state="loading"]');
     await p.screen('D1');
-    await p.text('BS. Trần Thu Hà');
+    await p.text('Dr. Trần Thu Hà');
     await page.click('[data-action="filter"][data-filter="past"]');
     await page.waitForSelector('[data-action="filter"][data-filter="past"][aria-pressed="true"]');
-    await p.text('BS. Trần Phương Linh');
+    await p.text('Dr. Trần Phương Linh');
     await page.click('[data-action="filter"][data-filter="cancelled"]');
     await page.waitForSelector('[data-action="filter"][data-filter="cancelled"][aria-pressed="true"]');
     await page.click('[data-action="filter"][data-filter="upcoming"]');
@@ -109,12 +109,12 @@ async function patientSuite(page) {
   await step('Appointments: book with specialty, doctor, slot and reason', async () => {
     await page.click('#bottom-nav .nav-book');
     await p.screen('C1');
-    await page.check('input[name="Người đi khám"][value="p1"]', { force: true });
+    await page.check('input[name="Patient"][value="p1"]', { force: true });
     await p.submit('patient');
     await p.screen('C2');
     await p.submit('reason');
     await page.locator('#form-error').filter({ hasText: /./ }).waitFor();
-    await page.fill('#reason', 'Hồi hộp khi leo cầu thang, muốn kiểm tra tim mạch');
+    await page.fill('#reason', 'Palpitations when climbing stairs, would like a heart check');
     await p.submit('reason');
     await p.screen('C3');
     await page.check('form input[value="normal"]', { force: true });
@@ -123,7 +123,7 @@ async function patientSuite(page) {
     await page.check('form input[value="onsite"]', { force: true });
     await p.submit('mode');
     await p.screen('C7');
-    await page.selectOption('#specialty', 'Tim mạch');
+    await page.selectOption('#specialty', 'Cardiology');
     await page.waitForSelector('#clinicianId option[value="dr-quan"]', { state: 'attached' });
     await page.selectOption('#clinicianId', 'dr-quan');
     const day = await page.locator('[data-action="quick-date"]').nth(2).getAttribute('data-date');
@@ -131,19 +131,19 @@ async function patientSuite(page) {
     await page.check('input[name="slot"][value="10:30"]', { force: true });
     await p.submit('slot');
     await p.screen('C8');
-    await p.text('Hồi hộp khi leo cầu thang');
+    await p.text('Palpitations when climbing stairs');
     await page.check('#consent');
     await p.submit('booking');
     await p.screen('C9');
     const s = await p.state();
-    const v = s.visits.find((x) => x.reason.startsWith('Hồi hộp'));
+    const v = s.visits.find((x) => x.reason.startsWith('Palpitations'));
     assert(v && v.clinician?.id === 'dr-quan' && v.slot === '10:30' && v.date === day, 'booked visit stores doctor, slot and date');
     bookedId = v.id;
   });
 
   await step('Appointments: detail shows doctor; reschedule creates a linked replacement', async () => {
     await p.open('#/appointments/' + bookedId, 'D2');
-    await p.text('BS. Lê Minh Quân');
+    await p.text('Dr. Lê Minh Quân');
     await page.click('[data-action="go"][data-to="D3"]');
     await p.screen('D3');
     await page.click('[data-action="rebook"]');
@@ -168,49 +168,49 @@ async function patientSuite(page) {
     await p.screen('D4');
     await page.check('form[data-form="cancel"] input[value="other"]', { force: true });
     await p.submit('cancel');
-    await page.locator('#form-error', { hasText: 'lý do hủy' }).waitFor();
-    await page.fill('#cancelNote', 'Tôi đi công tác tuần đó');
+    await page.locator('#form-error', { hasText: 'why you are cancelling' }).waitFor();
+    await page.fill('#cancelNote', 'I am travelling for work that week');
     await p.submit('cancel');
     await page.waitForSelector('#dialog[open]');
-    await p.dialogClick('Xác nhận hủy lịch');
+    await p.dialogClick('Confirm cancellation');
     await p.screen('D2');
-    await p.text('Tôi đi công tác tuần đó');
+    await p.text('I am travelling for work that week');
     assert((await p.state()).visits.find((v) => v.id === 'CF-2044').status === 'cancelled', 'CF-2044 cancelled');
   });
 
   await step('Visit summary and results detail', async () => {
     await p.open('#/appointments/CF-2031/summary', 'H6');
-    await p.text('Bác sĩ đã ghi nhận nội dung buổi khám');
-    await p.text('Thuốc minh họa A');
+    await p.text('The doctor has recorded the notes from this visit');
+    await p.text('Sample medication A');
     await p.open('#/appointments/CF-2031/results', 'H7');
-    await p.text('Công thức máu (minh họa)');
+    await p.text('Complete blood count (sample)');
     await page.locator('[data-action="go"][data-to="F2"][data-lab="lab-1"]').first().click();
     await p.screen('F2');
-    await p.text('Nhận xét của bác sĩ');
+    await p.text('Doctor’s comments');
   });
 
   await step('Medications: list filters, detail, not-found', async () => {
     await p.open('#/medications', 'M1');
-    await p.text('Thuốc minh họa B');
+    await p.text('Sample medication B');
     await page.click('[data-action="p-filter"][data-value="ended"]');
-    await p.text('Siro minh họa C');
+    await p.text('Sample syrup C');
     await page.click('[data-action="p-filter"][data-value="active"]');
     await page.click('[data-p-rx-id="RX-3101"]');
     await p.screen('M2');
-    await p.text('BS. Trần Thu Hà');
+    await p.text('Dr. Trần Thu Hà');
     await p.open('#/medications/RX-0000', 'M2');
     await page.waitForSelector('[data-cf-state="not-found"]');
-    await p.text('Không tìm thấy đơn thuốc');
+    await p.text('Prescription not found');
   });
 
   await step('Medications: refill request with inline validation, simulated failure and retry', async () => {
     await p.open('#/medications/RX-3101/refill', 'M3');
     await p.submit('refill');
-    await p.fieldError('refill', 'supply', 'Chọn lượng thuốc');
-    await p.fieldError('refill', 'ack', 'xác nhận');
+    await p.fieldError('refill', 'supply', 'Choose how much medication');
+    await p.fieldError('refill', 'ack', 'Please confirm');
     await page.check('input[name="supply"][value="lt3"]');
     await page.check('input[name="pickup"][value="pharmacy"]');
-    await page.fill('#refillNote', 'Tôi có thể nhận điện thoại sau 17 giờ.');
+    await page.fill('#refillNote', 'I can take calls after 5 pm.');
     await page.check('#ack');
     await page.click('#review-toggle');
     await page.click('#review-tools [data-action="demo-fail-toggle"]');
@@ -218,20 +218,20 @@ async function patientSuite(page) {
     await page.click('#review-toggle');
     await p.submit('refill');
     await page.waitForSelector('form[data-form="refill"] [data-cf-state="error"]');
-    await p.text('Không kết nối được máy chủ demo');
+    await p.text('Could not reach the demo server');
     assert(!(await p.state()).prescriptions.find((r) => r.id === 'RX-3101').refill, 'failed save leaves data unchanged');
     await page.click('form[data-form="refill"] [data-action="p-resubmit"]');
     await p.screen('M2');
-    await p.text('Đã gửi yêu cầu cấp lại');
+    await p.text('Refill request sent');
   });
 
   await step('Medications: cancel a refill request, then request again', async () => {
     await page.click('[data-action="rx-cancel-refill"]');
     await page.waitForSelector('#dialog[open]');
-    await p.dialogClick('Hủy yêu cầu');
+    await p.dialogClick('Cancel request');
     await page.waitForSelector('#dialog[open]', { state: 'detached' });
     await p.screen('M2');
-    await p.text('Yêu cầu cấp lại thuốc');
+    await p.text('Request a refill');
     assert((await p.state()).prescriptions.find((r) => r.id === 'RX-3101').refill === null, 'refill cleared');
     await page.click('[data-action="p-nav"][data-to="M3"]');
     await p.screen('M3');
@@ -240,7 +240,7 @@ async function patientSuite(page) {
     await page.check('#ack');
     await p.submit('refill');
     await p.screen('M2');
-    await p.text('Đã gửi yêu cầu cấp lại');
+    await p.text('Refill request sent');
   });
 
   await step('Profile: edit with inline validation', async () => {
@@ -251,18 +251,18 @@ async function patientSuite(page) {
     await page.fill('#phone', '12345');
     await page.fill('#email', 'minhanh@');
     await p.submit('profile-edit');
-    await p.fieldError('profile-edit', 'name', 'Nhập họ và tên');
-    await p.fieldError('profile-edit', 'phone', '10 chữ số');
-    await p.fieldError('profile-edit', 'email', 'định dạng');
+    await p.fieldError('profile-edit', 'name', 'Enter the full name');
+    await p.fieldError('profile-edit', 'phone', '10 digits');
+    await p.fieldError('profile-edit', 'email', 'valid email');
     await page.fill('#name', 'Nguyễn Minh Anh Thư');
     await page.fill('#phone', '0912345678');
     await page.fill('#email', 'minhanh.thu@example.com');
-    await page.fill('#allergies', 'Dị ứng phấn hoa (tự khai báo)');
+    await page.fill('#allergies', 'Pollen allergy (self-reported)');
     await p.submit('profile-edit');
     await p.screen('K2');
-    await p.text('Đã lưu thông tin cá nhân');
+    await p.text('Personal details saved');
     await p.text('Nguyễn Minh Anh Thư');
-    await p.text('Dị ứng phấn hoa');
+    await p.text('Pollen allergy');
   });
 
   await step('Family: create, view, edit, delete; delete blocked when history exists', async () => {
@@ -271,35 +271,35 @@ async function patientSuite(page) {
     await page.click('[data-action="p-nav"][data-to="K8"]');
     await p.screen('K8');
     await p.submit('family-edit');
-    await p.fieldError('family-edit', 'name', 'Nhập họ và tên');
-    await p.fieldError('family-edit', 'relation', 'Chọn mối quan hệ');
+    await p.fieldError('family-edit', 'name', 'Enter the full name');
+    await p.fieldError('family-edit', 'relation', 'Choose a relationship');
     await page.fill('#name', 'Nguyễn Văn Hùng');
     await page.fill('#dob', '2030-01-01');
     await page.selectOption('#relation', 'father');
     await p.submit('family-edit');
-    await p.fieldError('family-edit', 'dob', 'tương lai');
+    await p.fieldError('family-edit', 'dob', 'in the future');
     await page.fill('#dob', '1960-04-20');
     await p.submit('family-edit');
     await p.screen('K9');
-    await p.text('Đã thêm hồ sơ người thân');
-    await p.text('Bố');
+    await p.text('Family member added');
+    await p.text('Father');
     await page.click('[data-action="p-nav"][data-to="K10"]');
     await p.screen('K10');
     await page.selectOption('#relation', 'relative');
     await page.fill('#phone', '0987000111');
     await p.submit('family-edit');
     await p.screen('K9');
-    await p.text('Người thân khác');
+    await p.text('Other relative');
     await page.click('[data-action="family-delete"]');
     await page.waitForSelector('#dialog[open]');
-    await p.dialogClick('Xóa hồ sơ');
+    await p.dialogClick('Delete profile');
     await p.screen('K7');
     await p.noText('Nguyễn Văn Hùng');
     await page.click('[data-p-person-id="p2"]');
     await p.screen('K9');
     await page.click('[data-action="family-delete"]');
-    await page.locator('#dialog[open]', { hasText: 'Chưa thể xóa' }).waitFor();
-    await p.dialogClick('Đóng');
+    await page.locator('#dialog[open]', { hasText: 'can’t be deleted yet' }).waitFor();
+    await p.dialogClick('Close');
   });
 
   await step('Insurance: edit with validation, remove (empty state), add again', async () => {
@@ -310,7 +310,7 @@ async function patientSuite(page) {
     await page.fill('#number', 'AB123');
     await page.fill('#validTo', '2020-01-01');
     await p.submit('insurance');
-    await p.fieldError('insurance', 'number', '15 ký tự');
+    await p.fieldError('insurance', 'number', '15 characters');
     await page.fill('#number', 'hn4797911112222');
     await page.fill('#validTo', '2031-12-31');
     await p.submit('insurance');
@@ -319,9 +319,9 @@ async function patientSuite(page) {
     await p.text('31/12/2031');
     await page.click('[data-action="insurance-remove"]');
     await page.waitForSelector('#dialog[open]');
-    await p.dialogClick('Xóa');
+    await p.dialogClick('Remove');
     await p.screen('K11');
-    await p.text('Chưa có thông tin bảo hiểm');
+    await p.text('No insurance details yet');
     await page.click('[data-action="p-nav"][data-to="K12"]');
     await p.screen('K12');
     await page.selectOption('#type', 'private');
@@ -330,43 +330,43 @@ async function patientSuite(page) {
     await page.fill('#validTo', '2030-06-30');
     await p.submit('insurance');
     await p.screen('K11');
-    await p.text('Bảo hiểm sức khỏe tư nhân');
+    await p.text('Private health insurance');
   });
 
   await step('Support: create ticket (validation), detail thread, reply, close, reopen', async () => {
     await p.open('#/support', 'K5');
     await page.click('[data-action="support-requests"]');
     await p.screen('T1');
-    await p.text('Biên lai lượt khám CF-2031');
+    await p.text('Receipt for visit CF-2031');
     await page.click('[data-action="p-nav"][data-to="T3"]');
     await p.screen('T3');
     await p.submit('ticket-new');
-    await p.fieldError('ticket-new', 'subject', 'Nhập tiêu đề');
-    await p.fieldError('ticket-new', 'body', 'Nhập nội dung');
-    await page.selectOption('#topic', 'Kết quả');
-    await page.fill('#subject', 'Hỏi về kết quả X-quang');
+    await p.fieldError('ticket-new', 'subject', 'Enter a short subject');
+    await p.fieldError('ticket-new', 'body', 'Describe what you need help with');
+    await page.selectOption('#topic', 'Results');
+    await page.fill('#subject', 'Question about my X-ray results');
     await page.selectOption('#visitId', 'CF-2031');
-    await page.fill('#body', 'Tôi muốn hỏi thêm về hình ảnh X-quang của lượt khám trước.');
+    await page.fill('#body', 'I would like to ask more about the X-ray images from my last visit.');
     await p.submit('ticket-new');
     await p.screen('T2');
-    await p.text('Đã gửi yêu cầu');
-    await p.text('Chờ phòng khám');
+    await p.text('Ticket sent');
+    await p.text('Awaiting clinic');
     await p.submit('ticket-reply');
-    await p.fieldError('ticket-reply', 'reply', 'Nhập nội dung trả lời');
-    await page.fill('#reply', 'Tôi bổ sung: có thể gọi tôi sau 17 giờ.');
+    await p.fieldError('ticket-reply', 'reply', 'Enter your reply');
+    await page.fill('#reply', 'One more thing: you can call me after 5 pm.');
     await p.submit('ticket-reply');
-    await p.text('Đã gửi trả lời');
-    await p.text('có thể gọi tôi sau 17 giờ');
+    await p.text('Reply sent');
+    await p.text('you can call me after 5 pm');
     await page.click('[data-action="ticket-close"]');
     await page.waitForSelector('#dialog[open] #close-reason');
-    await page.selectOption('#close-reason', 'Vấn đề đã được giải quyết');
-    await p.dialogClick('Đóng yêu cầu');
-    await page.locator('#phone-content', { hasText: 'Yêu cầu đã đóng: Vấn đề đã được giải quyết' }).waitFor();
+    await page.selectOption('#close-reason', 'My issue has been resolved');
+    await p.dialogClick('Close ticket');
+    await page.locator('#phone-content', { hasText: 'This ticket is closed: My issue has been resolved' }).waitFor();
     await page.click('[data-action="ticket-reopen"]');
     await page.waitForSelector('form[data-form="ticket-reply"]');
     await p.open('#/support/tickets', 'T1');
     await page.click('[data-action="p-filter"][data-value="closed"]');
-    await p.text('Hỏi cách đổi giờ khám');
+    await p.text('How to change my appointment time');
     await p.open('#/support/tickets/HT-0000', 'T2');
     await page.waitForSelector('[data-cf-state="not-found"]');
   });
@@ -397,11 +397,11 @@ async function patientSuite(page) {
     await page.click('#review-toggle');
     await p.hash('#/support/tickets');
     await page.waitForSelector('#phone-content [data-cf-state="error"]');
-    await p.text('Chưa tải được dữ liệu');
+    await p.text('Couldn’t load data');
     await page.click('[data-action="p-retry-load"]');
     await p.screen('T1');
     await page.click('[data-action="p-filter"][data-value="open"]');
-    await p.text('Hỏi về kết quả X-quang');
+    await p.text('Question about my X-ray results');
   });
 }
 
@@ -424,7 +424,7 @@ async function staffSuite(page) {
   await page.setViewportSize({ width: 1440, height: 900 });
 
   await step('Staff: today\'s queue shows patient-app and clinic visits', async () => {
-    await s.open('/ops/queue', 'Hàng chờ hôm nay');
+    await s.open('/ops/queue', 'Today’s queue');
     await s.row('CF-2041').waitFor();
     await s.row('PK-0802').waitFor();
     assert(await page.locator('.ops-table tbody tr').count() >= 6, 'queue lists today\'s visits');
@@ -436,147 +436,147 @@ async function staffSuite(page) {
 
   await step('Staff: check in the patient-app visit; patient sees it in the same tab', async () => {
     await s.row('CF-2041').locator('[data-action="ops-checkin"]').click();
-    await s.toast('Đã check-in người bệnh');
+    await s.toast('Patient checked in');
     await s.row('CF-2041').locator('[data-action="ops-start"]').waitFor();
     await page.goto(PATIENT + '#/appointments/CF-2041');
     await p.screen('D2');
-    await p.text('Phòng khám đã nhận bạn');
+    await p.text('Checked in');
     const st = await p.state();
     assert(st.visits.find((v) => v.id === 'CF-2041').status === 'received', 'patient state shows received');
-    assert(st.notifications[0].title === 'Phòng khám đã tiếp nhận bạn', 'patient notified of check-in');
+    assert(st.notifications[0].title === 'The clinic has checked you in', 'patient notified of check-in');
   });
 
   await step('Staff: patient detail and visit detail; add and delete internal notes', async () => {
     await s.open('/ops/patients/p1', 'Nguyễn Minh Anh Thư');
     await page.locator('main', { hasText: 'HN' }).or(page.locator('main', { hasText: 'PVI-2026-7781' })).first().waitFor();
     await page.locator('a[href="#/ops/visits/CF-2041"]').click();
-    await page.locator('main h1', { hasText: 'Lượt khám CF-2041' }).waitFor();
+    await page.locator('main h1', { hasText: 'Visit CF-2041' }).waitFor();
     await s.idle();
     await page.click('form[data-ops-form="note"] [type=submit]');
-    await page.locator('[data-error-for="note"]', { hasText: 'Nhập nội dung ghi chú' }).waitFor();
-    await page.fill('#ops-note', 'Người bệnh mang theo kết quả xét nghiệm cũ.');
+    await page.locator('[data-error-for="note"]', { hasText: 'Enter a note' }).waitFor();
+    await page.fill('#ops-note', 'Patient brought previous lab results.');
     await page.click('form[data-ops-form="note"] [type=submit]');
-    await s.toast('Đã lưu ghi chú nội bộ');
-    await page.locator('.ops-notes', { hasText: 'kết quả xét nghiệm cũ' }).waitFor();
+    await s.toast('Internal note saved');
+    await page.locator('.ops-notes', { hasText: 'previous lab results' }).waitFor();
     await page.click('.ops-notes [data-action="ops-note-delete"]');
     await page.click('.dialog-card [data-action="ops-note-delete-confirm"]');
-    await s.toast('Đã xóa ghi chú');
+    await s.toast('Note deleted');
     assert(await page.locator('.ops-notes li').count() === 0, 'note deleted');
-    await page.fill('#ops-note', 'Đã kiểm tra giấy tờ tùy thân.');
+    await page.fill('#ops-note', 'ID documents checked.');
     await page.click('form[data-ops-form="note"] [type=submit]');
-    await page.locator('.ops-notes', { hasText: 'giấy tờ tùy thân' }).waitFor();
+    await page.locator('.ops-notes', { hasText: 'ID documents checked' }).waitFor();
   });
 
   await step('Staff: start and complete the visit (confirm dialog)', async () => {
     await page.click('.ops-actions [data-action="ops-start"]');
-    await s.toast('Đã bắt đầu lượt khám');
+    await s.toast('Consultation started');
     await page.click('.ops-actions [data-action="ops-complete"]');
     await page.waitForSelector('.dialog-card');
     await page.click('.dialog-card [data-action="ops-complete-confirm"]');
-    await s.toast('Đã hoàn tất lượt khám');
-    await page.locator('.ops-panel', { hasText: 'Lượt khám không còn bước xử lý' }).waitFor();
+    await s.toast('Visit completed');
+    await page.locator('.ops-panel', { hasText: 'This visit has no further steps' }).waitFor();
   });
 
   await step('Staff: create a follow-up task (validation) and a follow-up appointment', async () => {
     await page.fill('#ops-title', '');
     await page.click('form[data-ops-form="task"] [type=submit]');
-    await page.locator('[data-error-for="title"]', { hasText: 'ít nhất 3 ký tự' }).waitFor();
-    await page.fill('#ops-title', 'Gọi hỏi thăm sau khám');
-    await page.selectOption('form[data-ops-form="task"] #ops-assignee', 'Điều dưỡng');
+    await page.locator('[data-error-for="title"]', { hasText: 'at least 3 characters' }).waitFor();
+    await page.fill('#ops-title', 'Post-visit check-in call');
+    await page.selectOption('form[data-ops-form="task"] #ops-assignee', 'Nurse');
     await page.click('form[data-ops-form="task"] [type=submit]');
-    await s.toast('Đã tạo việc cần làm');
-    await page.locator('.ops-mini-list', { hasText: 'Gọi hỏi thăm sau khám' }).waitFor();
+    await s.toast('Task created');
+    await page.locator('.ops-mini-list', { hasText: 'Post-visit check-in call' }).waitFor();
     await page.fill('form[data-ops-form="followup"] #ops-date', '2020-01-01');
     await page.click('form[data-ops-form="followup"] [type=submit]');
-    await page.locator('[data-error-for="date"]', { hasText: 'sau hôm nay' }).waitFor();
+    await page.locator('[data-error-for="date"]', { hasText: 'after today' }).waitFor();
     const date = await page.evaluate(() => window.CareFlowModel.localDate(14));
     await page.fill('form[data-ops-form="followup"] #ops-date', date);
     await page.selectOption('form[data-ops-form="followup"] #ops-slot', '15:30');
     await page.click('form[data-ops-form="followup"] [type=submit]');
-    await s.toast('Đã đặt lịch tái khám');
+    await s.toast('Follow-up scheduled');
   });
 
   await step('Patient sees the completed visit and the follow-up appointment', async () => {
     await page.goto(PATIENT + '#/appointments/CF-2041');
     await p.screen('D2');
-    await p.text('Hoàn tất');
+    await p.text('Visit complete');
     const st = await p.state();
     const follow = st.visits.find((v) => v.previousId === 'CF-2041' && v.purpose === 'followup');
     assert(follow && follow.status === 'confirmed' && follow.slot === '15:30', 'follow-up visit created for patient');
     await p.open('#/notifications', 'K1');
-    await p.text('Phòng khám đã đặt lịch tái khám');
+    await p.text('The clinic booked a follow-up visit');
     await p.open('#/appointments/' + follow.id, 'D2');
-    await p.text('Tái khám theo hẹn của bác sĩ');
+    await p.text('Follow-up as advised by the doctor');
   });
 
   await step('Staff: tasks — edit, complete (refill review syncs to patient), reopen, delete', async () => {
-    await s.open('/ops/tasks', 'Việc cần làm');
-    const refill = page.locator('.ops-task', { hasText: 'Xem xét yêu cầu cấp lại RX-3101' });
+    await s.open('/ops/tasks', 'Tasks');
+    const refill = page.locator('.ops-task', { hasText: 'Review refill request RX-3101' });
     await refill.waitFor();
     await refill.locator('[data-action="ops-task-done"]').click();
-    await s.toast('Đã hoàn thành việc');
-    const task = page.locator('.ops-task', { hasText: 'Gọi hỏi thăm sau khám' });
-    await task.locator('a', { hasText: 'Sửa' }).click();
-    await page.locator('main h1', { hasText: 'Sửa việc cần làm' }).waitFor();
+    await s.toast('Task marked done');
+    const task = page.locator('.ops-task', { hasText: 'Post-visit check-in call' });
+    await task.locator('a', { hasText: 'Edit' }).click();
+    await page.locator('main h1', { hasText: 'Edit task' }).waitFor();
     await s.idle();
-    await page.fill('#ops-title', 'Gọi hỏi thăm sau khám (ưu tiên)');
+    await page.fill('#ops-title', 'Post-visit check-in call (priority)');
     await page.selectOption('#ops-priority', 'high');
     await page.click('form[data-ops-form="taskEdit"] [type=submit]');
-    await s.toast('Đã lưu việc cần làm');
-    const edited = page.locator('.ops-task', { hasText: 'Gọi hỏi thăm sau khám (ưu tiên)' });
-    await edited.locator('.pill', { hasText: 'Ưu tiên cao' }).waitFor();
+    await s.toast('Task saved');
+    const edited = page.locator('.ops-task', { hasText: 'Post-visit check-in call (priority)' });
+    await edited.locator('.pill', { hasText: 'High priority' }).waitFor();
     await edited.locator('[data-action="ops-task-done"]').click();
-    await s.toast('Đã hoàn thành việc');
+    await s.toast('Task marked done');
     await page.click('[data-action="ops-task-filter"][data-value="done"]');
-    const done = page.locator('.ops-task', { hasText: 'Gọi hỏi thăm sau khám (ưu tiên)' });
+    const done = page.locator('.ops-task', { hasText: 'Post-visit check-in call (priority)' });
     await done.locator('[data-action="ops-task-reopen"]').click();
-    await s.toast('Đã mở lại việc');
+    await s.toast('Task reopened');
     await page.click('[data-action="ops-task-filter"][data-value="open"]');
-    await page.locator('.ops-task', { hasText: 'Gọi hỏi thăm sau khám (ưu tiên)' }).locator('[data-action="ops-task-delete"]').click();
+    await page.locator('.ops-task', { hasText: 'Post-visit check-in call (priority)' }).locator('[data-action="ops-task-delete"]').click();
     await page.click('.dialog-card [data-action="ops-task-delete-confirm"]');
-    await s.toast('Đã xóa việc');
-    assert(await page.locator('.ops-task', { hasText: 'Gọi hỏi thăm sau khám' }).count() === 0, 'task deleted');
-    await s.open('/ops/tasks/new', 'Tạo việc cần làm');
+    await s.toast('Task deleted');
+    assert(await page.locator('.ops-task', { hasText: 'Post-visit check-in call' }).count() === 0, 'task deleted');
+    await s.open('/ops/tasks/new', 'New task');
     await page.selectOption('#ops-patientId', 'c-104');
-    await page.fill('#ops-title', 'Nhắc mang kết quả cũ');
+    await page.fill('#ops-title', 'Remind to bring previous results');
     await page.click('form[data-ops-form="taskEdit"] [type=submit]');
-    await s.toast('Đã tạo việc cần làm');
-    await page.locator('.ops-task', { hasText: 'Nhắc mang kết quả cũ' }).waitFor();
+    await s.toast('Task created');
+    await page.locator('.ops-task', { hasText: 'Remind to bring previous results' }).waitFor();
   });
 
   await step('Staff: reply to the patient ticket; patient sees the reply', async () => {
-    await s.open('/ops/tickets', 'Yêu cầu hỗ trợ');
-    await page.locator('tr', { hasText: 'Hỏi về kết quả X-quang' }).locator('a', { hasText: 'Mở' }).click();
-    await page.locator('main h1', { hasText: 'Hỏi về kết quả X-quang' }).waitFor();
+    await s.open('/ops/tickets', 'Support tickets');
+    await page.locator('tr', { hasText: 'Question about my X-ray results' }).locator('a', { hasText: 'Open' }).click();
+    await page.locator('main h1', { hasText: 'Question about my X-ray results' }).waitFor();
     await s.idle();
-    await page.fill('#ops-reply', 'Phòng khám đã nhận câu hỏi và sẽ gọi lại cho bạn sau 17 giờ.');
+    await page.fill('#ops-reply', 'The clinic has received your question and will call you back after 5 pm.');
     await page.click('form[data-ops-form="reply"] [type=submit]');
-    await s.toast('Đã gửi trả lời cho người bệnh');
+    await s.toast('Reply sent to patient');
     const ticketId = await page.evaluate(() => location.hash.split('/').pop());
     await page.goto(PATIENT + '#/support/tickets/' + ticketId);
     await p.screen('T2');
-    await p.text('sẽ gọi lại cho bạn sau 17 giờ');
-    await p.text('Phòng khám đã trả lời');
+    await p.text('will call you back after 5 pm');
+    await p.text('Clinic replied');
     await p.open('#/medications/RX-3101', 'M2');
-    await p.text('Phòng khám đã xem xét');
+    await p.text('Reviewed by clinic');
   });
 
   await step('Staff: simulated failure shows a recoverable error; retry succeeds', async () => {
-    await s.open('/ops/queue', 'Hàng chờ hôm nay');
+    await s.open('/ops/queue', 'Today’s queue');
     await page.click('[data-action="ops-fail-toggle"]');
     await page.waitForSelector('[data-action="ops-fail-toggle"][aria-pressed="true"]');
     await s.row('PK-0804').locator('[data-action="ops-checkin"]').click();
     await page.waitForSelector('.ops-banner[data-cf-state="error"]');
-    await page.locator('.ops-banner', { hasText: 'Không kết nối được máy chủ demo' }).waitFor();
+    await page.locator('.ops-banner', { hasText: 'Could not reach the demo server' }).waitFor();
     await page.click('.ops-banner [data-action="ops-retry"]');
-    await s.toast('Đã check-in người bệnh');
+    await s.toast('Patient checked in');
     await s.row('PK-0804').locator('[data-action="ops-start"]').waitFor();
   });
 
   await step('Staff: not-found for unknown visit, patient and task ids', async () => {
-    await s.open('/ops/visits/XX-404', 'Không tìm thấy lượt khám');
-    await s.open('/ops/patients/nobody', 'Không tìm thấy người bệnh');
-    await s.open('/ops/tasks/TK-0', 'Không tìm thấy việc cần làm');
+    await s.open('/ops/visits/XX-404', 'Visit not found');
+    await s.open('/ops/patients/nobody', 'Patient not found');
+    await s.open('/ops/tasks/TK-0', 'Task not found');
   });
 }
 
@@ -588,7 +588,7 @@ async function resetSuite(page) {
     await p.screen('B1');
     await page.click('#reset-demo');
     await page.waitForSelector('#dialog[open]');
-    await Promise.all([page.waitForEvent('load'), p.dialogClick('Đặt lại')]);
+    await Promise.all([page.waitForEvent('load'), p.dialogClick('Reset')]);
     await p.screen('B1');
     const s = await p.state();
     assert(s.visits.find((v) => v.id === 'CF-2041').status === 'confirmed', 'CF-2041 back to confirmed');
@@ -597,12 +597,12 @@ async function resetSuite(page) {
     assert(s.profiles.find((x) => x.id === 'p1').name === 'Nguyễn Minh Anh', 'profile restored');
     assert(s.clinic.tasks.length === 3 && s.authenticated === true, 'clinic tasks restored, still signed in');
     await page.setViewportSize({ width: 1440, height: 900 });
-    await S(page).open('/ops/queue', 'Hàng chờ hôm nay');
+    await S(page).open('/ops/queue', 'Today’s queue');
     await S(page).row('CF-2041').locator('[data-action="ops-checkin"]').waitFor();
     await S(page).row('PK-0804').locator('[data-action="ops-checkin"]').waitFor();
     await page.click('.footer-reset');
     await page.click('[data-action="confirm-reset"]');
-    await S(page).toast('Đã khôi phục phiên làm việc');
+    await S(page).toast('Session reset');
   });
 }
 
@@ -613,17 +613,17 @@ async function emptySuite(page) {
   await step('Empty states: medications, tickets, insurance, notifications, staff tickets', async () => {
     await page.goto(PATIENT + '?scenario=empty#/medications');
     await p.screen('M1');
-    await p.text('Chưa có thuốc đang dùng');
+    await p.text('No active medications');
     await p.open('#/support/tickets', 'T1');
-    await p.text('Không có yêu cầu đang mở');
+    await p.text('No open tickets');
     await p.open('#/profile/insurance', 'K11');
-    await p.text('Chưa có thông tin bảo hiểm');
+    await p.text('No insurance details yet');
     await p.open('#/notifications', 'K1');
-    await p.text('Bạn chưa có thông báo mới');
+    await p.text('You have no new notifications');
     await page.setViewportSize({ width: 1440, height: 900 });
-    await S(page).open('/ops/tickets', 'Không có yêu cầu đang mở');
+    await S(page).open('/ops/tickets', 'No open tickets');
     await page.click('[data-action="ops-ticket-filter"][data-value="closed"]');
-    await page.locator('main', { hasText: 'Chưa có yêu cầu đã đóng' }).waitFor();
+    await page.locator('main', { hasText: 'No closed tickets yet' }).waitFor();
   });
 }
 

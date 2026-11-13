@@ -16,11 +16,11 @@ test('booking preserves the clinical risk branch with a four-dot visual stepper 
   await expect(page.locator('.booking-progress li')).toHaveCount(4);
   await page.locator('#phone-content form [type=submit]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'C2');
-  await page.locator('.symptom-chip[data-symptom="Đau đầu"]').click();
-  await page.locator('.symptom-chip[data-symptom="Sốt"]').click();
-  await expect(page.locator('#reason')).toHaveValue('Đau đầu, Sốt');
+  await page.locator('.symptom-chip[data-symptom="Headache"]').click();
+  await page.locator('.symptom-chip[data-symptom="Fever"]').click();
+  await expect(page.locator('#reason')).toHaveValue('Headache, Fever');
   await page.reload();
-  await expect(page.locator('#reason')).toHaveValue('Đau đầu, Sốt');
+  await expect(page.locator('#reason')).toHaveValue('Headache, Fever');
   await page.locator('#phone-content form [type=submit]').click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'C3');
   await page.locator('input[value=warning]').check();
@@ -41,7 +41,7 @@ test('appointment and support use their own layouts instead of generic stacked c
   await page.locator('#bottom-nav a').nth(2).click();
   await expect(page.locator('#phone-content')).toHaveAttribute('data-screen', 'K2');
   await expect(page.locator('.cf-personal-facts')).toContainText('Nguyễn Minh Anh');
-  await expect(page.locator('.cf-profile-allergy')).toContainText('Chưa khai báo');
+  await expect(page.locator('.cf-profile-allergy')).toContainText('Not declared');
   await expect(page.locator('.cf-relative-grid')).toContainText('Trần Thị Mai');
-  await expect(page.locator('.cf-settings-list')).toContainText('Thông báo');
+  await expect(page.locator('.cf-settings-list')).toContainText('Notifications');
 });

@@ -45,7 +45,7 @@
       restoredSession = true;
     }
   } catch {
-    demo('Không mở được phiên trước. Bạn có thể bắt đầu lại.');
+    demo('Couldn’t restore your previous session. You can start again.');
   }
   function save() {
     try {
@@ -67,7 +67,7 @@
       );
     } catch {
       demo(
-        'Trình duyệt chưa cho phép lưu phiên. Bạn có thể dùng cho đến khi tải lại.',
+        'Your browser doesn’t allow saving the session. You can keep using the app until you reload.',
       );
     }
   }
@@ -276,7 +276,7 @@
     u.screen = id;
     $('phone-frame').dataset.screen = id;
     document.querySelector('.app-wordmark').innerHTML = id === 'B1'
-      ? '<span class="ref-header-avatar">' + window.CareFlowAvatar(M.accountProfile(s)?.id || 'account', 44) + '</span><span class="sr-only">CareFlow · Trang chủ</span>'
+      ? '<span class="ref-header-avatar">' + window.CareFlowAvatar(M.accountProfile(s)?.id || 'account', 44) + '</span><span class="sr-only">CareFlow · Home</span>'
       : 'CareFlow<span>+</span>';
     const g = guard(id);
     if (/^C[1-8]$/.test(id) && !g) u.bookingScreen = id;
@@ -288,7 +288,7 @@
     $('back').innerHTML = window.CareFlowIcon('chevron-left', 23);
     const unreadNotifications = s.notifications.filter(item => !item.read).length;
     $('notifications').innerHTML = window.CareFlowIcon('bell', 22) + (unreadNotifications ? '<span class="navy-notice-count" aria-hidden="true">'+Math.min(99,unreadNotifications)+'</span>' : '');
-    $('notifications').setAttribute('aria-label', unreadNotifications ? 'Thông báo, ' + Math.min(99, unreadNotifications) + ' chưa đọc' : 'Thông báo');
+    $('notifications').setAttribute('aria-label', unreadNotifications ? 'Notifications, ' + Math.min(99, unreadNotifications) + ' unread' : 'Notifications');
     const isAuth = ['A1', 'A2', 'A3'].includes(id);
     $('auth-progress').hidden = true;
     $('auth-jump').hidden = true;
@@ -435,7 +435,7 @@
         if(button!==chosen && !button.classList.contains('text'))button.classList.add('secondary');
       }
     }
-    const values = {phone:'0900000000',otp:'123456',name:'Nguyễn Minh Anh',dob:'1994-08-15',contactPhone:'0900000000',medicalHistory:'Chưa có thông tin cần bổ sung.',reason:u.journey.id==='F12'?'Tôi muốn cập nhật tình trạng và trao đổi lại sau lần khám trước.':'Đau đầu hai ngày, ngủ không ngon.',cancelNote:'Tôi cần sắp xếp lại thời gian.',deferReason:'Tôi cần sắp xếp thời gian thanh toán.',report:'Tôi muốn trao đổi thêm với phòng khám sau buổi khám.',tracking:'Tôi gửi cập nhật tình trạng hôm nay để phòng khám theo dõi.',referral:'Tôi đã đến khám chuyên khoa và muốn chuyển thông tin lại cho bác sĩ.',message:'Tôi muốn hỏi thêm về thông tin sau buổi khám.',support:'Tôi cần phòng khám hỗ trợ về lịch hẹn.'};
+    const values = {phone:'0900000000',otp:'123456',name:'Nguyễn Minh Anh',dob:'1994-08-15',contactPhone:'0900000000',medicalHistory:'Nothing further to add.',reason:u.journey.id==='F12'?'I’d like to update you on my condition and follow up after my last visit.':'Headache for two days, not sleeping well.',cancelNote:'I need to rearrange my schedule.',deferReason:'I need time to arrange payment.',report:'I’d like to talk further with the clinic after my visit.',tracking:'Here is today’s update on my condition for the clinic to follow.',referral:'I’ve seen the specialist and would like to pass the information back to my doctor.',message:'I’d like to ask more about the information from my visit.',support:'I need the clinic’s help with my appointment.'};
     const form = $('phone-content').querySelector('form[data-form]');
     if (!form) return;
     for (const el of form.elements) {
@@ -465,8 +465,8 @@
     const count = u.journey.index;
     u.completedJourneys ??= {};
     if(count===steps.length)u.completedJourneys[active.id]=true;
-    $('journey-list').innerHTML=J.flows.map((f,i)=>`<li class="journey-item ${f.id===active.id?'active':''}"><button type="button" data-action="journey-select" data-flow="${f.id}" aria-expanded="${f.id===active.id}"><span class="journey-number">${u.completedJourneys[f.id]?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${V.esc(f.title)}</strong>${f.id===active.id?`<small>${V.esc(f.description)}</small>`:''}</span><span class="journey-chevron" aria-hidden="true">${f.id===active.id?'−':'+'}</span></button>${f.id===active.id?`<div class="journey-detail">${f.variants?`<div class="journey-branches" role="group" aria-label="Nhánh hành trình">${f.variants.map(([key,label])=>`<button type="button" data-action="journey-branch" data-branch="${key}" aria-pressed="${key===u.journey.variant}">${V.esc(label)}</button>`).join('')}</div>`:''}<div class="journey-progress"><span>${count===steps.length?'Hành trình đã hoàn tất':`Đã đi qua ${count}/${steps.length} bước`}</span><span>${Math.round(count/steps.length*100)}%</span></div><progress max="${steps.length}" value="${count}" aria-label="Tiến độ hành trình"></progress><ol class="journey-checklist" tabindex="0" aria-label="Các bước trong hành trình">${steps.map((step,n)=>`<li class="${n<count?'done':n===count?'current':''}"${n===count?' aria-current="step"':''}><span class="step-check" aria-hidden="true">${n<count?'✓':n+1}</span><span>${V.esc(step.title)}${n===count?`<small>${step.event?'Phòng khám đang xử lý':'Tiếp tục trong ứng dụng'}</small>`:''}</span></li>`).join('')}</ol><div class="journey-current">${current?`${current.event?`<p>${V.esc(current.title)}</p><button type="button" class="btn primary" data-action="journey-next">Xem cập nhật từ phòng khám</button>`:`<p>Thông tin đã điền sẵn. Bạn có thể chỉnh sửa hoặc tiếp tục bằng nút trong ứng dụng.</p><button type="button" class="btn secondary" data-action="journey-open">${current.screen===u.screen?'Tiếp tục trong ứng dụng':'Mở bước hiện tại'}</button>`}`:`<p>Bạn đã đi hết nhánh này. Chọn một hành trình khác để tiếp tục khám phá.</p><button type="button" class="btn secondary" data-action="journey-restart">Xem lại hành trình</button>`}</div></div>`:''}</li>`).join('');
-    $('journey-mobile-label').textContent=active.title + (current?.event ? ' · Có cập nhật' : ' · Xem các bước');
+    $('journey-list').innerHTML=J.flows.map((f,i)=>`<li class="journey-item ${f.id===active.id?'active':''}"><button type="button" data-action="journey-select" data-flow="${f.id}" aria-expanded="${f.id===active.id}"><span class="journey-number">${u.completedJourneys[f.id]?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${V.esc(f.title)}</strong>${f.id===active.id?`<small>${V.esc(f.description)}</small>`:''}</span><span class="journey-chevron" aria-hidden="true">${f.id===active.id?'−':'+'}</span></button>${f.id===active.id?`<div class="journey-detail">${f.variants?`<div class="journey-branches" role="group" aria-label="Journey branches">${f.variants.map(([key,label])=>`<button type="button" data-action="journey-branch" data-branch="${key}" aria-pressed="${key===u.journey.variant}">${V.esc(label)}</button>`).join('')}</div>`:''}<div class="journey-progress"><span>${count===steps.length?'Journey complete':`Completed ${count}/${steps.length} ${steps.length===1?'step':'steps'}`}</span><span>${Math.round(count/steps.length*100)}%</span></div><progress max="${steps.length}" value="${count}" aria-label="Journey progress"></progress><ol class="journey-checklist" tabindex="0" aria-label="Journey steps">${steps.map((step,n)=>`<li class="${n<count?'done':n===count?'current':''}"${n===count?' aria-current="step"':''}><span class="step-check" aria-hidden="true">${n<count?'✓':n+1}</span><span>${V.esc(step.title)}${n===count?`<small>${step.event?'The clinic is handling this':'Continue in the app'}</small>`:''}</span></li>`).join('')}</ol><div class="journey-current">${current?`${current.event?`<p>${V.esc(current.title)}</p><button type="button" class="btn primary" data-action="journey-next">View update from the clinic</button>`:`<p>Details are pre-filled. You can edit them or continue with the button in the app.</p><button type="button" class="btn secondary" data-action="journey-open">${current.screen===u.screen?'Continue in the app':'Open current step'}</button>`}`:`<p>You’ve finished this branch. Choose another journey to keep exploring.</p><button type="button" class="btn secondary" data-action="journey-restart">Replay journey</button>`}</div></div>`:''}</li>`).join('');
+    $('journey-mobile-label').textContent=active.title + (current?.event ? ' · Update available' : ' · View steps');
     const currentItem=$('journey-list').querySelector('[aria-current=step]');
     if(currentItem){const list=currentItem.closest('ol');list.scrollTop=Math.max(0,currentItem.offsetTop-list.offsetTop-100);}
     prefillJourney();
@@ -481,7 +481,7 @@
     const v = M.visit(s),
       events = [];
     $('review-state').innerHTML =
-      `<p class="review-hint">Màn: ${V.esc(u.screen)} · Lượt: ${V.esc(v?.id || '—')}<br>Trạng thái: ${V.esc(v?.status || '—')}<br>Thanh toán: ${V.esc(v?.payment.status || '—')}</p>`;
+      `<p class="review-hint">Screen: ${V.esc(u.screen)} · Visit: ${V.esc(v?.id || '—')}<br>Status: ${V.esc(v?.status || '—')}<br>Payment: ${V.esc(v?.payment.status || '—')}</p>`;
     if (v) {
       for (const status of M.TRANSITIONS[v.status] || [])
         if (status !== 'cancelled')
@@ -489,23 +489,23 @@
       if (v.status === 'mode-review') {
         events.length = 0;
         events.push(
-          ['review:onsite', 'Chốt hình thức tại phòng khám'],
-          ['review:online', 'Chốt hình thức khám online'],
+          ['review:onsite', 'Confirm in-person visit'],
+          ['review:online', 'Confirm online visit'],
         );
       }
       if (v.status === 'confirmed')
-        events.push(['lab:pre', 'Thêm chỉ định trước khám'], ['fee:package', 'Thông báo phí theo gói'], ['fee:not-required', 'Xác nhận không thu phí']);
+        events.push(['lab:pre', 'Add pre-visit order'], ['fee:package', 'Notify package fee'], ['fee:not-required', 'Confirm no fee']);
       if (v.status === 'completed') {
         events.push(
-          ['lab:post', 'Thêm chỉ định sau khám'],
-          ['referral', 'Bác sĩ giới thiệu chuyên khoa'],
-          ['reply', 'Điều phối viên phản hồi'],
-          ['care:followup', 'Bác sĩ khuyến nghị tái khám'],
-          ['care:emergency', 'Nhân viên yêu cầu hỗ trợ khẩn cấp'],
-          ['summary', 'Bác sĩ chia sẻ kết luận'],
+          ['lab:post', 'Add post-visit order'],
+          ['referral', 'Doctor refers to a specialist'],
+          ['reply', 'Coordinator replies'],
+          ['care:followup', 'Doctor recommends follow-up'],
+          ['care:emergency', 'Staff request urgent help'],
+          ['summary', 'Doctor shares visit summary'],
         );
         const task = v.care.tasks?.find(t => t.status !== 'answered');
-        const careNext = { received: ['coordinating','Điều phối viên tiếp nhận'], coordinating: ['doctor-review','Chuyển bác sĩ xem'], 'doctor-review': ['answered','Phản hồi lại bệnh nhân'] };
+        const careNext = { received: ['coordinating','Coordinator picks up'], coordinating: ['doctor-review','Pass to doctor for review'], 'doctor-review': ['answered','Reply to patient'] };
         if (task && careNext[task.status]) events.push(['handoff:' + careNext[task.status][0], careNext[task.status][1]]);
         for (const status of M.PAYMENT_TRANSITIONS[v.payment.status] || [])
           if (
@@ -521,20 +521,20 @@
           ]);
       if (v.labs.some((l) => l.status === 'reviewed'))
         events.push(
-          ['communicate:notified', 'Thông báo kết quả'],
-          ['communicate:unreachable', 'Chưa liên hệ được để báo kết quả'],
-          ['communicate:explained', 'Ghi nhận đã giải thích kết quả'],
+          ['communicate:notified', 'Notify results'],
+          ['communicate:unreachable', 'Could not reach patient about results'],
+          ['communicate:explained', 'Record results explained'],
         );
     }
     if (s.request?.status === 'unknown')
       events.push(
-        ['unknown:found', 'Kiểm tra: đã nhận yêu cầu'],
-        ['unknown:missing', 'Kiểm tra: chưa nhận yêu cầu'],
+        ['unknown:found', 'Check: request received'],
+        ['unknown:missing', 'Check: request not received'],
       );
     if (M.profile(s, 'p2'))
       events.push(
-        ['permission:grant', 'Cho phép xem kết quả người thân'],
-        ['permission:revoke', 'Thu hồi quyền xem kết quả người thân'],
+        ['permission:grant', 'Allow viewing family member’s results'],
+        ['permission:revoke', 'Revoke access to family member’s results'],
       );
     $('staff-event').innerHTML = events.length
       ? events
@@ -542,7 +542,7 @@
             ([key, label]) => `<option value="${key}">${V.esc(label)}</option>`,
           )
           .join('')
-      : '<option value="">Chưa có cập nhật khả dụng</option>';
+      : '<option value="">No updates available</option>';
   }
   function dialog(title, body, buttons = '') {
     stopDevicePreview();
@@ -553,7 +553,7 @@
     $('dialog-body').onkeydown = null;
     $('dialog-body').textContent = body;
     $('dialog-actions').innerHTML =
-      buttons || V.btn('Đóng', 'close-dialog', {}, 'primary');
+      buttons || V.btn('Close', 'close-dialog', {}, 'primary');
     $('dialog').showModal();
   }
   function openControlSheet(title, trigger) {
@@ -663,7 +663,7 @@
           s,
           v?.id,
           parts[1],
-          'Phòng khám đã xem xét và đề nghị hình thức này.',
+          'The clinic has reviewed and recommends this visit type.',
         );
         break;
       case 'lab':
@@ -678,7 +678,7 @@
         result = M.setPayment(s, v?.id, parts[1], 'staff', {
           reason:
             parts[1] === 'refunding'
-              ? 'Phòng khám đang kiểm tra đề nghị hoàn tiền.'
+              ? 'The clinic is reviewing the refund request.'
               : v.payment.reason,
         });
         break;
@@ -688,7 +688,7 @@
       case 'referral':
         if (v?.status === 'completed') {
           v.care.referral =
-            'Phòng khám sẽ liên hệ để hướng dẫn chuyên khoa và cơ sở phù hợp.';
+            'The clinic will contact you about a suitable specialty and facility.';
           M.notify(s, v, 'I4');
           result = { ok: true };
         }
@@ -699,7 +699,7 @@
             visitId: v.id,
             patientId: v.patientId,
             from: 'staff',
-            text: 'Phòng khám đã nhận nội dung của bạn và sẽ trao đổi thêm.',
+            text: 'The clinic has received your message and will be in touch.',
             at: new Date().toISOString(),
           });
           result = { ok: true };
@@ -727,8 +727,8 @@
     }
     if (result.ok) {
       demo(
-        'Đã áp dụng cập nhật thử nghiệm: ' +
-          (Array.from($('staff-event').options).find(o => o.value === event)?.textContent || 'Thông tin lượt khám'),
+        'Test update applied: ' +
+          (Array.from($('staff-event').options).find(o => o.value === event)?.textContent || 'Visit information'),
       );
       save();
       const id = u.screen;
@@ -752,7 +752,7 @@
         go('G5');
       else if (parts[0] === 'unknown' && parts[1] === 'found') go('C9');
       else render();
-    } else demo('Cập nhật bị chặn: ' + (VI.errors[result.code] || result.code));
+    } else demo('Update blocked: ' + (VI.errors[result.code] || result.code));
   }
   const actions = {
     'save-calendar'(el) {
@@ -768,7 +768,7 @@
       // The browser has accepted the download before releasing the object URL.
       setTimeout(()=>URL.revokeObjectURL(url),1000);
       const feedback=el.closest('[data-visit-tools]')?.querySelector('[data-calendar-feedback]');
-      if(feedback)feedback.textContent='Đã tạo tệp lịch. Mở tệp vừa tải để thêm vào lịch cá nhân.';
+      if(feedback)feedback.textContent='Calendar file created. Open the downloaded file to add it to your calendar.';
     },
     'journey-select'(el) { startJourney(el.dataset.flow); },
     'journey-branch'(el) { startJourney(u.journey.id,el.dataset.branch); },
@@ -805,11 +805,11 @@
     'profile-details'() {
       const person=M.accountProfile(s);
       if(!person) return;
-      dialog('Thông tin cá nhân',[person.name,'Ngày sinh: '+(person.dob?.split('-').reverse().join('/')||'Chưa cập nhật'),'Số điện thoại: '+(person.phone?person.phone.slice(0,3)+' ••• '+person.phone.slice(-3):'Chưa cập nhật'),'Dị ứng: '+(person.allergies||'Chưa khai báo'),'Ghi chú y tế: '+(person.medicalHistory||'Chưa khai báo')].join('\n'),V.btn('Sửa thông tin','p-nav',{'data-to':'K6'},'primary')+V.btn('Yêu cầu cập nhật','profile-update',{},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
+      dialog('Personal details',[person.name,'Date of birth: '+(person.dob?.split('-').reverse().join('/')||'Not provided'),'Phone number: '+(person.phone?person.phone.slice(0,3)+' ••• '+person.phone.slice(-3):'Not provided'),'Allergies: '+(person.allergies||'Not declared'),'Medical notes: '+(person.medicalHistory||'Not declared')].join('\n'),V.btn('Edit details','p-nav',{'data-to':'K6'},'primary')+V.btn('Request an update','profile-update',{},'secondary')+V.btn('Close','close-dialog',{},'text'));
     },
     'profile-update'() {
       if($('dialog').open) $('dialog').close();
-      u.forms.support={...u.forms.support,supportTopic:'Thông tin hồ sơ'};
+      u.forms.support={...u.forms.support,supportTopic:'Profile information'};
       go('K5');
       actions['support-compose']();
     },
@@ -820,12 +820,12 @@
       field?.focus({preventScroll:true});
     },
     'settings-language'() {
-      dialog('Ngôn ngữ','CareFlow+ hiện hỗ trợ tiếng Việt.',V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog('Language','CareFlow+ is currently available in English.',V.btn('Close','close-dialog',{},'secondary'));
     },
     'profile-relative'(el) {
       const person=M.profile(s,el.dataset.id);
       if(!person||person.relation==='self') return;
-      dialog(person.name,'Ngày sinh: '+person.dob.split('-').reverse().join('/')+'\n'+(person.canViewResults?'Được xem kết quả':'Chưa được cấp quyền xem kết quả'),V.btn('Đặt lịch cho người này','profile-book-relative',{'data-id':person.id},'primary')+V.btn('Xem và sửa hồ sơ','p-nav',{'data-to':'K9','data-p-person-id':person.id},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
+      dialog(person.name,'Date of birth: '+person.dob.split('-').reverse().join('/')+'\n'+(person.canViewResults?'Can view results':'Not yet allowed to view results'),V.btn('Book for this person','profile-book-relative',{'data-id':person.id},'primary')+V.btn('View and edit profile','p-nav',{'data-to':'K9','data-p-person-id':person.id},'secondary')+V.btn('Close','close-dialog',{},'text'));
     },
     'profile-book-relative'(el) {
       if ($('dialog').open) $('dialog').close();
@@ -841,7 +841,7 @@
     },
     'profile-relatives'() {
       const relatives=s.profiles.filter(person=>person.relation!=='self');
-      dialog('Người thân',relatives.map(person=>person.name+', '+window.CareFlowProduct.relationLabel(person.relation).toLocaleLowerCase('vi-VN')+', sinh '+person.dob.split('-').reverse().join('/')).join('\n')||'Chưa có người thân.',V.btn('Quản lý người thân','p-nav',{'data-to':'K7'},'primary')+V.btn('Thêm người thân','p-nav',{'data-to':'K8'},'secondary')+V.btn('Đóng','close-dialog',{},'text'));
+      dialog('Family members',relatives.map(person=>person.name+', '+window.CareFlowProduct.relationLabel(person.relation).toLocaleLowerCase('en-GB')+', born '+person.dob.split('-').reverse().join('/')).join('\n')||'No family members yet.',V.btn('Manage family members','p-nav',{'data-to':'K7'},'primary')+V.btn('Add a family member','p-nav',{'data-to':'K8'},'secondary')+V.btn('Close','close-dialog',{},'text'));
     },
     'profile-add-relative'() {
       if($('dialog').open) $('dialog').close();
@@ -855,7 +855,7 @@
       actions['profile-add-relative']();
     },
     'support-channels'() {
-      dialog('Liên hệ phòng khám','Gọi lại: gửi yêu cầu để phòng khám liên hệ.\nNhắn tin: trao đổi về lượt khám được cấp quyền hoặc gửi câu hỏi qua form.\nGiờ hỗ trợ: liên hệ phòng khám để xác nhận.',V.btn('Gửi câu hỏi','support-compose',{},'primary')+V.btn('Đóng','close-dialog',{},'secondary'));
+      dialog('Contact the clinic','Callback: send a request for the clinic to contact you.\nMessages: discuss a visit you have access to, or send a question using the form.\nSupport hours: contact the clinic to confirm.',V.btn('Send a question','support-compose',{},'primary')+V.btn('Close','close-dialog',{},'secondary'));
     },
     'support-requests'() {
       go('T1');
@@ -935,7 +935,7 @@
         s.activeVisitId = completed.id;
         go(el.dataset.to);
       } else {
-        dialog('Chưa có tài liệu sau khám', 'Bạn có thể xem kết quả, đơn thuốc và gửi câu hỏi khi phòng khám chia sẻ thông tin của một lượt khám đã hoàn tất.', V.go('Xem lịch sử khám', 'K3', 'primary') + V.btn('Đóng', 'close-dialog', {}, 'secondary'));
+        dialog('No visit documents yet', 'You can view results and prescriptions and send questions once the clinic shares information from a completed visit.', V.go('View visit history', 'K3', 'primary') + V.btn('Close', 'close-dialog', {}, 'secondary'));
       }
     },
     'open-guide'() {
@@ -996,7 +996,7 @@
       dialog(
         VI.facility.emergencyTitle,
         VI.facility.emergencyLead,
-        V.external('Gọi '+VI.facility.emergencyPhone, 'tel:'+VI.facility.emergencyPhone, 'danger') +
+        V.external('Call '+VI.facility.emergencyPhone, 'tel:'+VI.facility.emergencyPhone, 'danger') +
           V.btn(VI.screen.C4.directions, 'directions') +
           V.btn(VI.screen.C4.exit, 'stop-emergency', {}, 'text'),
       );
@@ -1010,7 +1010,7 @@
     directions() {
       u.emergencyOpened = true;
       render();
-      dialog(VI.screen.C4.directions, '', V.external(VI.facility.directions, VI.facility.maps) + V.external(VI.facility.details, VI.facility.source, 'secondary') + V.btn('Quay lại', 'close-dialog', {}, 'text'));
+      dialog(VI.screen.C4.directions, '', V.external(VI.facility.directions, VI.facility.maps) + V.external(VI.facility.details, VI.facility.source, 'secondary') + V.btn('Back', 'close-dialog', {}, 'text'));
       $('dialog-body').innerHTML=V.facilityCard();
     },
     'external-support'() { u.emergencyAccessed=true;save();render(); },
@@ -1018,9 +1018,9 @@
       const v=M.visit(s);
       if(v)v.communication.callback='pending';
       if(!s.requests.some(r=>r.type==='callback' && r.visitId===s.activeVisitId && r.status==='waiting'))
-        s.requests.push({id:'request-'+s.requests.length,type:'callback',visitId:s.activeVisitId,text:'Bạn muốn phòng khám gọi lại để hỗ trợ.',status:'waiting'});
+        s.requests.push({id:'request-'+s.requests.length,type:'callback',visitId:s.activeVisitId,text:'You’d like the clinic to call you back.',status:'waiting'});
       save();render();
-      dialog('Yêu cầu phòng khám gọi lại', VI.feedback.callback);
+      dialog('Request a callback', VI.feedback.callback);
     },
     rebook(el) {
       rebook(el.dataset.purpose, el.dataset.mode || null);
@@ -1031,29 +1031,29 @@
     },
     device() {
       dialog(
-        'Chuẩn bị camera và âm thanh',
-        'Bạn có thể kiểm tra trước khi vào phòng chờ. Camera chỉ bật khi bạn cho phép.',
-        V.btn('Bật camera', 'device-camera') + V.btn('Nghe âm thanh', 'device-audio') +
-          V.btn('Tiếp tục vào phòng chờ', 'device-ready', {}, 'primary') + V.btn(VI.common.cancel, 'close-dialog', {}, 'text'),
+        'Set up camera and sound',
+        'You can check them before entering the waiting room. The camera only turns on if you allow it.',
+        V.btn('Turn on camera', 'device-camera') + V.btn('Test sound', 'device-audio') +
+          V.btn('Continue to waiting room', 'device-ready', {}, 'primary') + V.btn(VI.common.cancel, 'close-dialog', {}, 'text'),
       );
-      $('dialog-body').insertAdjacentHTML('beforeend','<video id="device-preview" autoplay muted playsinline hidden></video><p id="device-status" class="hint" role="status">Bạn có thể tiếp tục mà chưa bật camera.</p>');
+      $('dialog-body').insertAdjacentHTML('beforeend','<video id="device-preview" autoplay muted playsinline hidden></video><p id="device-status" class="hint" role="status">You can continue without turning on the camera.</p>');
     },
     async 'device-camera'() {
       const status=$('device-status');
-      if(!navigator.mediaDevices?.getUserMedia){status.textContent='Trình duyệt chưa hỗ trợ camera. Bạn có thể đổi trình duyệt hoặc tiếp tục vào phòng chờ.';return;}
+      if(!navigator.mediaDevices?.getUserMedia){status.textContent='Your browser doesn’t support the camera. You can switch browsers or continue to the waiting room.';return;}
       try {
         const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
         if(!$('dialog').open || !$('device-preview') || $('device-status')!==status){stream.getTracks().forEach(t=>t.stop());return;}
         stopDevicePreview();deviceStream=stream;
         $('device-preview').srcObject=stream;$('device-preview').hidden=false;
-        status.textContent='Camera đã bật. Bạn có thể kiểm tra hình ảnh trước khi tiếp tục.';
+        status.textContent='Camera is on. You can check the picture before continuing.';
       } catch {
-        if($('dialog').open && $('device-status')===status)status.textContent='Chưa bật được camera. Bạn có thể cấp quyền trong trình duyệt, thử lại hoặc tiếp tục vào phòng chờ.';
+        if($('dialog').open && $('device-status')===status)status.textContent='Couldn’t turn on the camera. You can allow access in your browser, try again or continue to the waiting room.';
       }
     },
     async 'device-audio'() {
       const Audio=window.AudioContext || window.webkitAudioContext;
-      if(!Audio){$('device-status').textContent='Bạn có thể kiểm tra loa bằng phần cài đặt âm thanh trên thiết bị.';return;}
+      if(!Audio){$('device-status').textContent='You can check your speaker in your device’s sound settings.';return;}
       let context;
       try {
         context=new Audio();
@@ -1063,8 +1063,8 @@
         tone.frequency.value=520;tone.connect(volume);volume.connect(context.destination);
         tone.start();tone.stop(context.currentTime+0.25);
         tone.onended=()=>context.close().catch(()=>{});
-        if($('device-status'))$('device-status').textContent='Nếu nghe thấy âm báo, loa hoặc tai nghe của bạn đã sẵn sàng.';
-      } catch {context?.close().catch(()=>{});if($('device-status'))$('device-status').textContent='Chưa phát được âm thanh. Bạn hãy kiểm tra âm lượng rồi thử lại.';}
+        if($('device-status'))$('device-status').textContent='If you can hear the tone, your speaker or headphones are ready.';
+      } catch {context?.close().catch(()=>{});if($('device-status'))$('device-status').textContent='Couldn’t play the sound. Please check the volume and try again.';}
     },
     'device-ready'() {
       stopDevicePreview();
@@ -1106,7 +1106,7 @@
         VI.screen.G4.end,
         VI.screen.G4.note,
         V.btn(VI.screen.G4.end, 'confirm-leave', {}, 'danger') +
-          V.btn('Tiếp tục cuộc gọi', 'close-dialog'),
+          V.btn('Continue call', 'close-dialog'),
       );
     },
     'confirm-leave'() {
@@ -1140,7 +1140,7 @@
     },
     'resolve-unknown'() {
       demo(
-        'Người đánh giá: chọn kết quả kiểm tra yêu cầu trong Công cụ đánh giá.',
+        'Reviewer: choose the request check result in Review tools.',
       );
       $('review-tools').hidden = false;
       $('review-toggle').setAttribute('aria-expanded', 'true');
@@ -1166,7 +1166,7 @@
       demo(
         s.offline
           ? VI.feedback.offline
-          : 'Đã kết nối lại.',
+          : 'Reconnected.',
       );
     },
     'large-text'() {
@@ -1190,7 +1190,7 @@
       go('A1', {}, true);
     },
     'confirm-logout'() {
-      dialog('Đăng xuất khỏi CareFlow+?', 'Bạn sẽ cần đăng nhập lại để tiếp tục dùng bản demo.', V.btn('Ở lại', 'close-dialog', {}, 'secondary') + V.btn('Đăng xuất', 'logout', {}, 'danger'));
+      dialog('Sign out of CareFlow+?', 'You’ll need to sign in again to keep using the demo.', V.btn('Stay', 'close-dialog', {}, 'secondary') + V.btn('Sign out', 'logout', {}, 'danger'));
     },
     logout() {
       if ($('dialog').open) $('dialog').close();
@@ -1244,7 +1244,7 @@
       if(!s.authenticated || !s.visits.some(v=>v.id===id)) return;
       u.visitNotes={...u.visitNotes,[id]:el.value.slice(0,1000)};
       const feedback=el.closest('.cf-private-note').querySelector('[data-note-feedback]');
-      feedback.textContent='Đã lưu ghi chú trong phiên này';
+      feedback.textContent='Note saved for this session';
       save();return;
     }
     if (!form || el.type === 'file') return;
@@ -1253,11 +1253,11 @@
     u.forms[name][el.name] = el.type === 'checkbox' ? el.checked : el.value;
     if (['profile','match'].includes(name) && el.name==='name') {
       const preview=$('phone-content').querySelector('[data-identity-preview]');
-      if(preview) preview.textContent=el.value.trim()||'Họ và tên của bạn';
+      if(preview) preview.textContent=el.value.trim()||'Your full name';
     }
     if (name==='support' && el.name==='contactMode') {
       const label=form.querySelector('[data-contact-mode-label]');
-      if(label) label.textContent={call:'Gọi điện',message:'Tin nhắn',zalo:'Zalo'}[el.value];
+      if(label) label.textContent={call:'Phone call',message:'Message',zalo:'Zalo'}[el.value];
     }
     el.removeAttribute('aria-invalid');
     if ($('form-error')) $('form-error').textContent = '';
@@ -1272,7 +1272,7 @@
     u.preparation??={};u.preparation[v.id]??={};
     u.preparation[v.id][el.dataset.preparation]=el.checked;
     const container=el.closest('[data-visit-tools]');
-    container.querySelector('[data-preparation-count]').textContent=`${container.querySelectorAll('[data-preparation]:checked').length}/3 đã chuẩn bị`;
+    container.querySelector('[data-preparation-count]').textContent=`${container.querySelectorAll('[data-preparation]:checked').length}/3 prepared`;
     save();
   });
 
@@ -1530,11 +1530,11 @@
           status: 'waiting',
         });
         {
-          // Every support request is also a ticket the patient can follow in Hỗ trợ → Yêu cầu.
+          // Every support request is also a ticket the patient can follow in Support → Tickets.
           const ticketId = 'HT-' + (Math.max(1000, ...(s.tickets || []).map(t => Number(t.id.replace(/\D/g, '')) || 0)) + 1), at = new Date().toISOString();
-          (s.tickets ??= []).unshift({ id: ticketId, topic: get('supportTopic') || 'Khác', subject: get('supportTopic') || 'Yêu cầu hỗ trợ', status: 'open', visitId: null, createdAt: at, closeReason: '', thread: [{ from: 'patient', author: '', text: get('support'), at }] });
+          (s.tickets ??= []).unshift({ id: ticketId, topic: get('supportTopic') || 'Other', subject: get('supportTopic') || 'Support ticket', status: 'open', visitId: null, createdAt: at, closeReason: '', thread: [{ from: 'patient', author: '', text: get('support'), at }] });
           complete({ ok: true });
-          dialog(VI.screen.K5.message, VI.screen.K5.sent, V.btn('Xem yêu cầu', 'p-nav', { 'data-to': 'T2', 'data-p-ticket-id': ticketId }, 'primary') + V.btn('Đóng', 'close-dialog', {}, 'secondary'));
+          dialog(VI.screen.K5.message, VI.screen.K5.sent, V.btn('View ticket', 'p-nav', { 'data-to': 'T2', 'data-p-ticket-id': ticketId }, 'primary') + V.btn('Close', 'close-dialog', {}, 'secondary'));
         }
         break;
       case 'settings':
@@ -1582,7 +1582,7 @@
   function updateDateSelection() {
     const value = $('date')?.value;
     const month=$('phone-content').querySelector('[data-date-month]');
-    if(month && value) month.textContent=new Intl.DateTimeFormat('vi-VN',{month:'long',year:'numeric',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date(value+'T12:00:00+07:00'));
+    if(month && value) month.textContent=new Intl.DateTimeFormat('en-GB',{month:'long',year:'numeric',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date(value+'T12:00:00+07:00'));
     $('phone-content').querySelectorAll('[data-action="quick-date"]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.date === value));
     });
@@ -1592,7 +1592,7 @@
     const selected = group?.querySelector('.choice input:checked')?.closest('.choice');
     const label=selected?.querySelector('strong')?.textContent.trim();
     const caption=group?.closest('form')?.querySelector('[type="submit"] span');
-    if(label&&caption) caption.textContent='Tiếp tục với '+label.split(/\s+/).slice(-2).join(' ');
+    if(label&&caption) caption.textContent='Continue with '+label.split(/\s+/).slice(-2).join(' ');
   }
   function loadScenario(name) {
     s = name === 'new' ? M.initial() : name === 'demo' ? window.CareFlowSeed.build() : name === 'demo-member' ? Object.assign(window.CareFlowSeed.build(), { authenticated: true }) : M.fixture(name);
@@ -1699,7 +1699,7 @@
   sizeObserver.observe($('presentation-bar'));
   document.querySelector('.journey-panel').hidden = !guideEnabled;
   document.body.classList.toggle('guided',guideEnabled);
-  if(guideEnabled){$('review-toggle').textContent='Bắt đầu lại';$('review-toggle').setAttribute('aria-controls','journey-list');}
+  if(guideEnabled){$('review-toggle').textContent='Start again';$('review-toggle').setAttribute('aria-controls','journey-list');}
   if(guideEnabled && !u.journey && restoredSession && !params.has('journey')){restoreJourney();render();}
   else if(guideEnabled && (!u.journey || (params.has('journey') && params.get('journey')!==u.journey.id) || (params.has('branch') && params.get('branch')!==u.journey.variant))) startJourney(params.get('journey') || 'F1',params.get('branch'));
   else render();

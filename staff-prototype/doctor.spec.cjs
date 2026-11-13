@@ -1,17 +1,17 @@
 const {test,expect}=require('../prototype/node_modules/@playwright/test');
 const cases=[
- ['dashboard','/doctor','Tổng quan khám bệnh'],
- ['schedule','/doctor/schedule','Lịch khám của tôi'],
- ['queue','/doctor/queue','Danh sách khám'],
- ['patients','/patients','Hồ sơ bệnh nhân'],
+ ['dashboard','/doctor','Consultation overview'],
+ ['schedule','/doctor/schedule','My schedule'],
+ ['queue','/doctor/queue','Visit list'],
+ ['patients','/patients','Patient record'],
  ['profile','/patients/p-006','Võ Thanh Tùng'],
- ['encounter','/encounters/a-033','KHÁM LÂM SÀNG'],
- ['results','/results','Kết quả cận lâm sàng'],
- ['orders','/clinical/orders','Chỉ định cận lâm sàng'],
- ['prescription','/clinical/prescription','Đơn thuốc'],
- ['review','/clinical/review','Rà soát hồ sơ khám'],
- ['followups','/doctor/followups','Theo dõi sau khám'],
- ['visit','/visits/a-033','Thông tin lượt khám']
+ ['encounter','/encounters/a-033','CLINICAL EXAM'],
+ ['results','/results','Diagnostic results'],
+ ['orders','/clinical/orders','Diagnostic orders'],
+ ['prescription','/clinical/prescription','Prescription'],
+ ['review','/clinical/review','Review visit record'],
+ ['followups','/doctor/followups','Post-visit follow-up'],
+ ['visit','/visits/a-033','Visit information']
 ];
 for(const group of [0,1,2]){
  test('doctor-only 12-screen visual snapshots — cohort '+(group+1),async({page},testInfo)=>{
@@ -20,7 +20,7 @@ for(const group of [0,1,2]){
    await page.goto('/staff-prototype/index.html#'+path);
    await expect(page.locator('main')).toContainText(title);
    await expect(page.locator('.doctor-sidebar')).toBeVisible();
-   await expect(page.locator('.app-footer')).toContainText('Prototype UI/UX');
+   await expect(page.locator('.app-footer')).toContainText('UI/UX prototype');
    await expect(page.locator('.demo-indicator')).toHaveCount(0);
    await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
    await expect(page.locator('.sidebar [aria-current="page"]')).toHaveCount(1);
@@ -40,7 +40,7 @@ for(const group of [0,1,2]){
 test('site defaults to doctor and rejects all reception and nursing routes',async({page})=>{
  await page.goto('/staff-prototype/');
  await expect(page).toHaveURL(/#\/doctor$/);
- await expect(page.locator('.doctor-heading h1')).toContainText('Tổng quan khám bệnh');
+ await expect(page.locator('.doctor-heading h1')).toContainText('Consultation overview');
  await expect(page.locator('.switch-options')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="reception"]')).toHaveCount(0);
  await expect(page.locator('.sidebar-nav [href*="nursing"]')).toHaveCount(0);
@@ -55,7 +55,7 @@ test('doctor schedule navigation and patient queue',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
  await expect(page.locator('.doctor-today-list')).toContainText('Võ Thanh Tùng');
  await page.locator('[data-action="next-week"]').click();
- await expect(page.locator('.doctor-empty')).toContainText('Không có lịch khám');
+ await expect(page.locator('.doctor-empty')).toContainText('No appointments');
  await page.locator('[data-action="doc-today"]').first().click();
  await expect(page.locator('.doctor-today-list')).toContainText('Võ Thanh Tùng');
  await page.goto('/staff-prototype/index.html#/doctor/queue');
@@ -66,24 +66,24 @@ test('doctor schedule navigation and patient queue',async({page})=>{
 });
 test('doctor clinical draft, signature simulation, state recovery',async({page})=>{
  await page.goto('/staff-prototype/index.html#/encounters/a-033');
- await page.locator('textarea[name="symptom"]').fill('Ghi chú khám minh họa phục vụ portfolio.');
- await page.locator('textarea[name="assessment"]').fill('Đã xem các thông tin liên quan trong kịch bản.');
- await page.locator('textarea[name="plan"]').fill('Tư vấn theo dõi và tái khám theo kế hoạch.')
+ await page.locator('textarea[name="symptom"]').fill('Illustrative consultation note for the portfolio.');
+ await page.locator('textarea[name="assessment"]').fill('Reviewed the relevant information in the scenario.');
+ await page.locator('textarea[name="plan"]').fill('Advise monitoring and a follow-up visit as planned.')
  await page.locator('[data-action="save-draft"]').first().click();
- await expect(page.locator('.toast')).toContainText('Đã lưu ghi nhận thăm khám');
+ await expect(page.locator('.toast')).toContainText('Consultation notes saved');
  await page.reload();
- await expect(page.locator('textarea[name="symptom"]')).toHaveValue('Ghi chú khám minh họa phục vụ portfolio.');
+ await expect(page.locator('textarea[name="symptom"]')).toHaveValue('Illustrative consultation note for the portfolio.');
  await page.locator('[data-action="review-sign"]').first().click();
- await expect(page.locator('.dialog-card')).toContainText('không tạo chữ ký');
+ await expect(page.locator('.dialog-card')).toContainText('does not create a signature');
  await page.locator('[data-action="confirm-sign"]').click();
- await expect(page.locator('.consult-top')).toContainText('Hoàn tất buổi khám');
+ await expect(page.locator('.consult-top')).toContainText('Visit complete');
  await expect(page.locator('[data-action="review-sign"]')).toBeDisabled();
 });
 test('doctor result review, patient roster and profile tabs',async({page})=>{
  await page.goto('/staff-prototype/index.html#/results');
- await expect(page.locator('.doctor-lab-list')).toContainText('Công thức máu');
+ await expect(page.locator('.doctor-lab-list')).toContainText('Full blood count');
  await page.locator('[data-action="review-result"][data-id="r-01"]').click();
- await expect(page.locator('.doctor-result-preview')).toContainText('Bác sĩ đã xem');
+ await expect(page.locator('.doctor-result-preview')).toContainText('Reviewed by doctor');
  await page.goto('/staff-prototype/index.html#/patients');
  await page.locator('#doctor-search').fill('Thanh Tùng');
  await expect(page.locator('.doctor-directory-row')).toHaveCount(1);
@@ -93,7 +93,7 @@ test('doctor result review, patient roster and profile tabs',async({page})=>{
  await expect(page.locator('.profile-body')).toContainText('PK-1015-033');
  await page.locator('[data-action="open-appointment"][data-id="a-033"]').click();
  await expect(page).toHaveURL(/#\/visits\/a-033$/);
- await expect(page.locator('main')).toContainText('Đang khám');
+ await expect(page.locator('main')).toContainText('In consultation');
 });
 test('follow-up internal task change persists without contacting patients',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/followups');
@@ -108,11 +108,11 @@ test('task-first overview preserves priority, brand and visible primary action',
  expect(await page.locator('.doctor-priority-grid > [data-priority]').evaluateAll(nodes=>nodes.map(n=>n.dataset.priority))).toEqual(['current','decisions','results','schedule']);
  const current=page.locator('[data-priority="current"]');
  await expect(current).toContainText('Võ Thanh Tùng');
- const primary=current.getByRole('button',{name:'Tiếp tục khám'});
+ const primary=current.getByRole('button',{name:'Continue consultation'});
  await expect(primary).toBeInViewport();
  await primary.focus();await expect(primary).toHaveCSS('outline-style','solid');
  await expect(primary).toHaveCSS('background-color','rgb(11, 18, 32)');
- await expect(page.locator('.doctor-current-facts')).toContainText('Người phụ trách');
+ await expect(page.locator('.doctor-current-facts')).toContainText('Assigned to');
  await page.screenshot({path:testInfo.outputPath('doctor-priorities.png'),fullPage:true,animations:'disabled'});
 });
 
@@ -122,11 +122,11 @@ test('doctor icon registry and supporting workflows remain available',async({pag
  expect(icons).toContain('stethoscope');expect(icons).toContain('pill');
  await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
  await page.goto('/staff-prototype/index.html#/doctor/schedule');
- await expect(page.locator('.doctor-next-visit')).toContainText('LƯỢT KHÁM TIẾP THEO');
+ await expect(page.locator('.doctor-next-visit')).toContainText('NEXT VISIT');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
- await expect(page.locator('.doctor-followups-summary')).toContainText('Bác sĩ phụ trách');
+ await expect(page.locator('.doctor-followups-summary')).toContainText('Doctor’s tasks');
  await page.goto('/staff-prototype/index.html#/clinical/prescription');
- await expect(page.locator('.support-rx-metadata')).toContainText('Lượt khám');
+ await expect(page.locator('.support-rx-metadata')).toContainText('Visit');
 });
 
 test('sidebar fills the vertical rail with evenly distributed doctor links',async({page},testInfo)=>{
@@ -289,7 +289,7 @@ test('same patient action has the same label, type and named size across screens
  const sizes=[];
  for(const route of ['/doctor','/results','/encounters/a-033','/visits/a-033']){
   await page.goto('/staff-prototype/index.html#'+route);
-  const action=page.locator('main [data-action="open-patient"]').filter({hasText:'Xem hồ sơ bệnh nhân'}).first();
+  const action=page.locator('main [data-action="open-patient"]').filter({hasText:'View patient record'}).first();
   await expect(action).toBeVisible();
   sizes.push(await action.evaluate(el=>{const s=getComputedStyle(el);return {font:s.fontSize,minHeight:s.minHeight,radius:s.borderRadius,variant:el.dataset.cfVariant}}));
  }
@@ -325,17 +325,17 @@ test('scenario: pre-visit physician review to coordinator handoff',async({page})
  await expect(page.locator('.doctor-decision-card [data-value="mine"]')).toContainText('1');
  await page.locator('.doctor-decision-card [data-to="/doctor/review/a-021"]').click();
  await expect(page).toHaveURL(/#\/doctor\/review\/a-021$/);
- await expect(page.locator('.journey-facts')).toContainText('Bác sĩ');
- await page.locator('#journey-triage-decision').selectOption('Đề nghị điều phối khám trực tiếp');
- await page.locator('#journey-triage-note').fill('Cần bộ phận tiếp đón xác minh tình trạng và hướng dẫn tiếp nhận.');
+ await expect(page.locator('.journey-facts')).toContainText('Doctor');
+ await page.locator('#journey-triage-decision').selectOption('Ask coordinator to arrange an in-person visit');
+ await page.locator('#journey-triage-note').fill('Reception to verify the condition and guide the patient through check-in.');
  await page.locator('[data-action="doc-triage-handoff"]').click();
- await expect(page.locator('.journey-confirm')).toContainText('Đang chờ điều phối');
- await expect(page.locator('.journey-page-grid>.journey-panel').last()).toContainText('Điều phối');
+ await expect(page.locator('.journey-confirm')).toContainText('Awaiting coordinator');
+ await expect(page.locator('.journey-page-grid>.journey-panel').last()).toContainText('Coordinator');
  await page.goto('/staff-prototype/index.html#/doctor');
  await expect(page.locator('.doctor-decision-card [data-value="mine"]')).toContainText('0');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
- await expect(page.locator('.journey-task-list')).toContainText('Tiếp nhận đề xuất trước khám');
- await expect(page.locator('.journey-task-list')).toContainText('Điều phối');
+ await expect(page.locator('.journey-task-list')).toContainText('Pick up pre-visit recommendation');
+ await expect(page.locator('.journey-task-list')).toContainText('Coordinator');
  await expect(page.locator('[data-action="doc-task-toggle"][data-id="review-a-021"]')).toHaveCount(0);
 });
 
@@ -344,7 +344,7 @@ test('scenario: online connection confirmed before doctor starts consultation',a
  await expect(page.locator('main')).toContainText('Hoàng Nhật Nam');
  await expect(page.locator('[data-action="start-consult"]')).toHaveCount(0);
  await page.locator('[data-action="doc-online-connect"]').click();
- await expect(page.locator('main')).toContainText('Đã xác nhận kết nối');
+ await expect(page.locator('main')).toContainText('Connection confirmed');
  await page.locator('[data-action="start-consult"][data-id="a-040"]').click();
  await expect(page).toHaveURL(/#\/encounters\/a-040$/);
  await expect(page.locator('.consult-top')).toContainText('Hoàng Nhật Nam');
@@ -352,42 +352,42 @@ test('scenario: online connection confirmed before doctor starts consultation',a
 
 test('scenario: online unreachable hands off callback without changing booking',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/online/a-041');
- await expect(page.locator('main')).toContainText('Chưa liên hệ được');
- await page.locator('#journey-online-choice').selectOption('Đề nghị chuyển khám trực tiếp');
+ await expect(page.locator('main')).toContainText('Not yet reached');
+ await page.locator('#journey-online-choice').selectOption('Propose switching to in person');
  await page.locator('[data-action="doc-online-handoff"]').click();
- await expect(page.locator('.journey-confirm')).toContainText('Đề nghị chuyển khám trực tiếp');
- await expect(page.locator('main')).toContainText('Điều phối');
+ await expect(page.locator('.journey-confirm')).toContainText('Propose switching to in person');
+ await expect(page.locator('main')).toContainText('Coordinator');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
- await expect(page.locator('.journey-task-list')).toContainText('Hỗ trợ lịch khám trực tuyến');
- await expect(page.locator('.journey-task-list')).toContainText('Đề nghị chuyển khám trực tiếp');
+ await expect(page.locator('.journey-task-list')).toContainText('Online appointment support');
+ await expect(page.locator('.journey-task-list')).toContainText('Propose switching to in person');
 });
 
 test('end-to-end: reception handoff -> ready -> examination -> lab review -> completion -> aftercare',async({page})=>{
  await page.goto('/staff-prototype/index.html#/doctor/queue');
  const ready=page.locator('.doctor-appointment').filter({hasText:'Phạm Gia Huy'});
- await expect(ready).toContainText('Phụ trách: Bác sĩ');
+ await expect(ready).toContainText('Assigned to: Doctor');
  await ready.locator('[data-action="start-consult"][data-id="a-027"]').click();
  await expect(page).toHaveURL(/#\/encounters\/a-027$/);
- await page.locator('textarea[name="symptom"]').fill('Đau họng nhẹ, không khó thở; khám thực thể đã ghi nhận.');
- await page.locator('textarea[name="assessment"]').fill('Viêm đường hô hấp trên cần theo dõi diễn tiến.');
- await page.locator('textarea[name="plan"]').fill('Theo dõi triệu chứng và hẹn tái khám nếu không cải thiện.');
+ await page.locator('textarea[name="symptom"]').fill('Mild sore throat, no shortness of breath; physical exam recorded.');
+ await page.locator('textarea[name="assessment"]').fill('Upper respiratory tract infection; monitor progression.');
+ await page.locator('textarea[name="plan"]').fill('Monitor symptoms and book a follow-up visit if not improving.');
  await page.locator('[data-action="save-draft"]').first().click();
  await page.locator('[data-action="review-sign"]').first().click();
- await expect(page.locator('.toast')).toContainText('Vẫn còn kết quả cận lâm sàng');
+ await expect(page.locator('.toast')).toContainText('Some diagnostic results have not yet been reviewed');
  await page.goto('/staff-prototype/index.html#/results');
  await page.locator('[data-action="select-result"][data-id="r-04"]').click();
  await expect(page.locator('[data-action="doc-result-next"]')).toBeDisabled();
  await page.locator('[data-action="review-result"][data-id="r-04"]').click();
  await page.locator('#journey-result-choice').selectOption('follow');
  await page.locator('[data-action="doc-result-next"][data-id="r-04"]').click();
- await expect(page.locator('.journey-result-next')).toContainText('Đã bàn giao');
+ await expect(page.locator('.journey-result-next')).toContainText('Handed over');
  await page.locator('a[href="#/encounters/a-027"]').click();
  await page.locator('[data-action="review-sign"]').first().click();
- await expect(page.locator('.dialog-card')).toContainText('Hoàn tất');
+ await expect(page.locator('.dialog-card')).toContainText('Complete consultation');
  await page.locator('[data-action="confirm-sign"]').click();
- await expect(page.locator('.consult-top')).toContainText('Hoàn tất buổi khám');
+ await expect(page.locator('.consult-top')).toContainText('Visit complete');
  await page.goto('/staff-prototype/index.html#/doctor/followups');
- await expect(page.locator('.journey-task-list')).toContainText('Theo dõi triệu chứng');
+ await expect(page.locator('.journey-task-list')).toContainText('Monitor symptoms');
  await expect(page.locator('.journey-task-list')).toContainText('Phạm Gia Huy');
  await page.reload();
  await expect(page.locator('.journey-task-list')).toContainText('Phạm Gia Huy');
@@ -396,16 +396,16 @@ test('end-to-end: reception handoff -> ready -> examination -> lab review -> com
 test('doctor cannot bypass arrival/handoff and cannot finish empty encounter',async({page})=>{
  await page.goto('/staff-prototype/index.html#/encounters/a-033');
  await page.locator('[data-action="review-sign"]').first().click();
- await expect(page.locator('.toast')).toContainText('Cần hoàn thiện triệu chứng');
+ await expect(page.locator('.toast')).toContainText('Complete the symptoms');
  await expect(page.locator('.dialog-card')).toHaveCount(0);
  await page.goto('/staff-prototype/index.html#/doctor/queue');
- await expect(page.locator('.doctor-appointment').filter({hasText:'Nguyễn Minh Anh'})).not.toContainText('Bắt đầu khám');
+ await expect(page.locator('.doctor-appointment').filter({hasText:'Nguyễn Minh Anh'})).not.toContainText('Start consultation');
  await page.evaluate(()=>{
   const b=document.createElement('button');
   b.dataset.action='start-consult';b.dataset.id='a-018';
   document.body.appendChild(b);b.click();b.remove();
  });
- await expect(page.locator('.toast')).toContainText('Chỉ bắt đầu khám');
+ await expect(page.locator('.toast')).toContainText('Start only after');
  await expect(page).toHaveURL(/#\/doctor\/queue$/);
 });
 

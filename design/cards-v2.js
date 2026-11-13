@@ -14,14 +14,14 @@ function ensureState(value) {
 }
 function count(value) {
   const integer = Number(value);
-  return Number.isFinite(integer) ? new Intl.NumberFormat('vi-VN',{maximumFractionDigits:0}).format(integer) : '—';
+  return Number.isFinite(integer) ? new Intl.NumberFormat('en-GB',{maximumFractionDigits:0}).format(integer) : '—';
 }
 function dateTime(date,time) {
-  if(typeof date!=='string'||! /^\d{4}-\d{2}-\d{2}$/.test(date)) return 'Chưa xác định';
+  if(typeof date!=='string'||! /^\d{4}-\d{2}-\d{2}$/.test(date)) return 'Not set';
   const value = new Date(date+'T12:00:00+07:00');
-  if(Number.isNaN(value.getTime())) return 'Chưa xác định';
+  if(Number.isNaN(value.getTime())) return 'Not set';
   const d = value.getUTCDay();
-  const weekday = d===0 ? 'CN' : 'T'+(d+1);
+  const weekday = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d];
   return weekday+', '+date.slice(8,10)+'/'+date.slice(5,7) +
     (time && /^\d{2}:\d{2}$/.test(time) ? ' · '+time:'');
 }
@@ -37,11 +37,11 @@ function section(title,content,{id='',linkHtml=''}={}){
     '<h2 class="cf2-section-title">'+safe(title)+'</h2>'+linkHtml+'</header>'+
     '<div class="cf2-section-container">'+content+'</div></section>';
 }
-function stateView(state,{title='',detail='',retryAction='',retryLabel='Thử lại'}={}){
+function stateView(state,{title='',detail='',retryAction='',retryLabel='Try again'}={}){
   ensureState(state);
   if(state==='data'||state==='pressed') return '';
-  if(state==='loading')return '<div class="cf2-state" data-cf2-state="loading" role="status" aria-label="Đang tải"><span class="cf2-skeleton" aria-hidden="true"></span></div>';
-  const fallback={empty:['Chưa có dữ liệu','Thông tin sẽ xuất hiện khi được cập nhật.'],error:['Không thể tải thông tin','Bạn có thể thử lại.'],zero:['Chưa có mục nào','Thông tin sẽ hiển thị tại đây khi có dữ liệu.'],unread:['Có cập nhật mới','Xem thông tin mới nhất.']};
+  if(state==='loading')return '<div class="cf2-state" data-cf2-state="loading" role="status" aria-label="Loading"><span class="cf2-skeleton" aria-hidden="true"></span></div>';
+  const fallback={empty:['No data yet','Information will appear here once it is updated.'],error:['Couldn’t load information','You can try again.'],zero:['No items yet','Information will be shown here when available.'],unread:['New updates','See the latest information.']};
   const messages=fallback[state];
   return '<div class="cf2-state" data-cf2-state="'+state+'" role="status"><strong>'+
     safe(title||messages[0])+'</strong><p>'+safe(detail||messages[1])+'</p>'+

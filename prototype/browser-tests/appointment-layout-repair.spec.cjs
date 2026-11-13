@@ -5,17 +5,17 @@ test('center booking icon has no visible caption but retains accessible name', a
   const nav = page.locator('#bottom-nav');
   await expect(nav).toBeVisible();
   await expect(nav.locator('a,button')).toHaveCount(5);
-  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label', 'Đặt lịch');
+  await expect(nav.locator('.nav-book')).toHaveAttribute('aria-label', 'Book an appointment');
   await expect(nav.locator('.nav-book .nav-caption')).toHaveCount(0);
 });
 
 test('empty appointment tab uses one concise booking action, not two competing buttons', async ({ page }) => {
   await page.goto('/prototype/index.html?scenario=empty#/appointments');
   const content = page.locator('#phone-content[data-screen="D1"]');
-  await expect(content.locator('.rich-empty')).toContainText('Chưa có lịch sắp tới');
+  await expect(content.locator('.rich-empty')).toContainText('No upcoming appointments');
   await expect(content.locator('.rich-empty [data-action="book-nav"]')).toHaveCount(1);
   await expect(content.locator('.rich-new-booking')).toHaveCount(0);
-  await expect(content.locator('.rich-empty')).toContainText('Chọn khung giờ phù hợp');
+  await expect(content.locator('.rich-empty')).toContainText('Choose a suitable time');
   const metrics = await content.evaluate(node => ({
     scrollWidth: node.scrollWidth, width: node.clientWidth,
     count: [...node.querySelectorAll('.rich-appt-tabs .btn')].length
@@ -62,7 +62,7 @@ test('C8 booking review facts keep readable labels at 390px', async ({ page }) =
   await screen('C1');
   await submit();
   await screen('C2');
-  await page.locator('#reason').fill('Đau đầu hai ngày, ngủ không ngon.');
+  await page.locator('#reason').fill('Headache for two days, not sleeping well.');
   await submit();
   await screen('C3');
   await content.locator('input[value=normal]').check();

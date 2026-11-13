@@ -1,7 +1,7 @@
 /* Patient-journey progressive enhancements. Real forms, model guards and routes remain in app.js. */
 (function () {
   'use strict';
-  const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLocaleLowerCase('vi-VN');
+  const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLocaleLowerCase('en-GB');
   function remember(detail) {
     document.dispatchEvent(new CustomEvent('careflow:collection',{detail}));
   }
@@ -16,7 +16,7 @@
     collection.querySelectorAll('[data-collection-filter]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.collectionFilter === filter)));
     const visible = items.filter(item => !item.hidden).length;
     const count = collection.querySelector('[data-collection-count]');
-    count.textContent = `Hiển thị ${visible} / ${items.length}`;
+    count.textContent = `Showing ${visible} / ${items.length}`;
     collection.querySelector('.cf-collection-empty').hidden = visible > 0;
     collection.querySelector('.cf-collection-meta [data-collection-reset]').hidden = filter === 'all' && !query;
     if (persist) remember({key:collection.dataset.collection,filter,query});
@@ -37,7 +37,7 @@
     const empty = root.querySelector('.rich-filter-empty');
     if (empty) empty.hidden = cards.some(card => !card.hidden) || !cards.length;
     const count = root.querySelector('[data-appointment-count]');
-    if(count) count.textContent = `${cards.filter(card=>!card.hidden).length} lịch hẹn`;
+    if(count) count.textContent = `${cards.filter(card=>!card.hidden).length} ${cards.filter(card=>!card.hidden).length===1?'appointment':'appointments'}`;
     root.querySelectorAll('[data-appointment-reset]').forEach(button=>{
       if(!button.closest('.rich-filter-empty')) button.hidden=mode==='all'&&person==='all'&&!query&&!date;
     });
@@ -72,7 +72,7 @@
       const picker=root.querySelector('.rich-person-picker');
       picker.dataset.person='all';
       picker.querySelectorAll('[data-appointment-person]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.appointmentPerson==='all')));
-      picker.querySelector('summary span').textContent='Tất cả hồ sơ';
+      picker.querySelector('summary span').textContent='All profiles';
       const search=root.querySelector('[data-appointment-search]');
       if(search) search.value='';
       filterAppointments(root);
@@ -115,7 +115,7 @@
       picker.querySelectorAll('[data-appointment-person]').forEach(button=>button.setAttribute('aria-pressed',String(button===person)));
       filterAppointments(picker.closest('#phone-content'));
       const selected=picker.querySelector('summary span');
-      if(selected)selected.textContent=id==='all'?'Tất cả hồ sơ':person.textContent.trim();
+      if(selected)selected.textContent=id==='all'?'All profiles':person.textContent.trim();
       picker.open=false;
       return;
     }
@@ -125,8 +125,8 @@
     if (!field || field.disabled) return;
     const term = chip.dataset.symptom.trim();
     const existing = field.value.trim();
-    const parts = existing.split(/[,;\n]/).map(x => x.trim().toLocaleLowerCase('vi-VN'));
-    if (!parts.includes(term.toLocaleLowerCase('vi-VN'))) {
+    const parts = existing.split(/[,;\n]/).map(x => x.trim().toLocaleLowerCase('en-GB'));
+    if (!parts.includes(term.toLocaleLowerCase('en-GB'))) {
       field.value = existing ? existing.replace(/[\s,;]+$/, '') + ', ' + term : term;
       field.dispatchEvent(new Event('input', { bubbles: true }));
     }
@@ -140,14 +140,14 @@
   function refreshCountdown() {
     document.querySelectorAll('[data-appointment-countdown]').forEach(node => {
       const target = Date.parse(node.getAttribute('data-appointment-countdown'));
-      if (!Number.isFinite(target)) { node.textContent = 'Xem thời gian trên phiếu khám'; return; }
+      if (!Number.isFinite(target)) { node.textContent = 'See the time in your appointment details'; return; }
       const difference = target - Date.now();
-      if (difference <= 0) { node.textContent = 'Đã đến giờ hẹn'; return; }
+      if (difference <= 0) { node.textContent = 'It’s time for your appointment'; return; }
       const minutes = Math.ceil(difference / 60000);
       const days = Math.floor(minutes / 1440);
       const hours = Math.floor((minutes % 1440) / 60);
       const remaining = minutes % 60;
-      node.textContent = days > 0 ? days + ' ngày ' + hours + ' giờ' : hours > 0 ? hours + ' giờ ' + remaining + ' phút' : remaining + ' phút';
+      node.textContent = days > 0 ? days + (days === 1 ? ' day ' : ' days ') + hours + (hours === 1 ? ' hr' : ' hrs') : hours > 0 ? hours + (hours === 1 ? ' hr ' : ' hrs ') + remaining + ' min' : remaining + ' min';
     });
   }
   window.addEventListener('hashchange', () => queueMicrotask(refreshCountdown));

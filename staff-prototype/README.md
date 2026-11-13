@@ -46,7 +46,7 @@ Use UIUX Factory from https://github.com/Ngh1aa/uiux-ai-workspace, respecting it
 - Fonts: Plus Jakarta Sans, bundled local fonts and a shared token family; no Google Fonts request. System fallback always available; no font binaries committed.
 - Icon system: curated 35 Lucide SVG icons bundled as `doctor-icons.js`, under the Lucide ISC license (`LUCIDE-LICENSE.txt`). Use icons for navigation, actions and operational metrics; no icons attached to page/section headings.
 - Density: compact overview heading, visible current encounter action, condensed clinical forms, compact schedule and an upcoming-visit subcard; follow-up shows actual results/tasks counts.
-- Terminology: bệnh nhân, lượt khám, khám lâm sàng, cận lâm sàng, nhận định lâm sàng, kế hoạch xử trí, hoàn tất hồ sơ. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.
+- Terminology: patient, visit, clinical examination, diagnostics, clinical assessment, management plan, complete the record. Global header is free of demo badges; a discreet footer makes the portfolio nature explicit.
 - Preserve clinical boundaries: no real prescriptions, results release, medical recommendations or EHR integration. 
 
 

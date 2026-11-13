@@ -275,6 +275,7 @@ body { background: var(--cf-surface-page); color:var(--ink); font-size:calc(var(
 .phone .rich-appt-tabs .btn { font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); min-height:37px; padding:8px 4px; border:0; }
 .phone .rich-appt-tabs .btn.selected { color: var(--cf-surface); background:var(--primary); }
 .cf-appointment-section-head,.rich-appt-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.cf-appointment-section-head { flex-wrap:wrap; }
 .cf-appointment-section-head { margin-bottom:10px; }
 .cf-appointment-section-head h2 { font-size:calc(var(--cf-body-font) * var(--font-scale,1)); margin:0; }
 .cf-appointment-section-head>button { display:flex; align-items:center; gap:3px; border:0; background:transparent; color:var(--muted); font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); min-height:44px; padding:0; }
@@ -320,7 +321,7 @@ body { background: var(--cf-surface-page); color:var(--ink); font-size:calc(var(
 .cf-collection-search label { font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); font-weight:600; }
 .cf-collection-search input { width:100%; min-width:0; min-height:46px; border: 1px solid var(--cf-line); border-radius:14px; background: var(--cf-surface); color:var(--ink); padding:11px 14px; font:inherit; font-size:calc(var(--cf-body-font) * var(--font-scale,1)); }
 .phone .cf-collection-filters { display:flex; flex-wrap:wrap; gap:7px; margin:0; padding:0; }
-.phone .cf-collection-filters>button { min-height:44px; padding:9px 12px; border-radius:22px; font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); border: 1px solid var(--cf-line); color: var(--cf-text-muted); background: var(--cf-surface); }
+.phone .cf-collection-filters>button { min-height:44px; min-width:44px; padding:9px 12px; border-radius:22px; font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); border: 1px solid var(--cf-line); color: var(--cf-text-muted); background: var(--cf-surface); }
 .phone .cf-collection-filters>button[aria-pressed=true] { color: var(--cf-surface); background:var(--primary); border-color:var(--primary); }
 .cf-collection-meta,.cf-appointment-filter-summary { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:8px 0 12px; min-height:44px; color:var(--muted); font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); }
 .cf-collection-meta>button,.cf-appointment-filter-summary>button { border:0; background:transparent; color:var(--primary); min-height:44px; padding:8px 0; font-size:calc(var(--cf-caption-font) * var(--font-scale,1)); text-decoration:underline; text-underline-offset:3px; }

@@ -24,7 +24,7 @@ for(const width of [360,390,1440])test(`approved artwork stays in its card witho
 test('illustrated mode choices keep the selected mode and safety flow',async({page})=>{
   await page.goto('/prototype/?scenario=empty#/home');
   await page.locator('#bottom-nav .nav-book').click();await submit(page);
-  await page.locator('#reason').fill('Tôi muốn trao đổi với phòng khám.');await submit(page);
+  await page.locator('#reason').fill('I would like to talk with the clinic.');await submit(page);
   await page.locator('input[value=normal]').check();await submit(page);
   await expect(main(page)).toHaveAttribute('data-screen','C6');
   await expect(page.locator('.cf-mode-choice .cf-illustration')).toHaveCount(2);
@@ -38,12 +38,12 @@ test('detail icon shortcuts and image result arrows retain the exact visit and l
   const before=await page.evaluate(()=>{const s=JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state;return {visit:s.activeVisitId,lab:s.visits.find(v=>v.id===s.activeVisitId).labs[0].id,status:s.visits.find(v=>v.id===s.activeVisitId).status}});
   await page.locator('.cf-home-appointment-button').click();
   await expect(page.locator('.ticket')).toBeVisible();
-  await page.locator('.cf-detail-shortcuts').getByRole('button',{name:'Chỉ định',exact:true}).click();
+  await page.locator('.cf-detail-shortcuts').getByRole('button',{name:'Tests',exact:true}).click();
   await expect(main(page)).toHaveAttribute('data-screen','F1');
-  await page.getByRole('button',{name:'Xem chỉ định',exact:true}).click();
+  await page.getByRole('button',{name:'View order',exact:true}).click();
   await expect(main(page)).toHaveAttribute('data-screen','F2');
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('careflow.browser.v3')).ui.labId)).toBe(before.lab);
-  await page.locator('.cf-detail-shortcuts').getByRole('button',{name:'Hỗ trợ',exact:true}).click();
+  await page.locator('.cf-detail-shortcuts').getByRole('button',{name:'Support',exact:true}).click();
   await expect(main(page)).toHaveAttribute('data-screen','K5');
   const after=await page.evaluate(()=>{const s=JSON.parse(sessionStorage.getItem('careflow.browser.v3')).state;return {visit:s.activeVisitId,status:s.visits.find(v=>v.id===s.activeVisitId).status}});
   expect(after).toEqual({visit:before.visit,status:before.status});

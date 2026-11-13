@@ -23,7 +23,7 @@ for(const width of [320,360,390,1440])test(`reviewed headers use actual state an
       await expect(page.locator('.cf-hdr-id-card')).toContainText('15/08/1994');
       await page.locator('.cf-hdr-family-dock').click();await expect(page.locator('#dialog-body')).toContainText('Trần Thị Mai');await page.keyboard.press('Escape');
     }
-    if(screen==='K5')await expect(page.getByRole('link',{name:'Gọi 115',exact:true})).toHaveAttribute('href','tel:115');
+    if(screen==='K5')await expect(page.getByRole('link',{name:'Call 115',exact:true})).toHaveAttribute('href','tel:115');
     await page.locator('#phone-main').evaluate(el=>el.scrollTop=0);
     await page.locator('.phone').screenshot({path:info.outputPath(`${screen}-${width}.png`)});
   }
@@ -34,7 +34,7 @@ test('appointment date composes with mode, person and search; resets and survive
   await page.goto('/prototype/?scenario=appointments#/appointments');
   await page.locator('[data-appointment-date="2026-10-27"]').click();
   await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(1);
-  await page.getByRole('button',{name:'Lọc lịch hẹn',exact:true}).click();
+  await page.getByRole('button',{name:'Filter appointments',exact:true}).click();
   await page.locator('[data-visit-filter=online]').click();await expect(page.locator('.rich-filter-empty')).toBeVisible();
   await page.reload();await expect(page.locator('[data-appointment-date="2026-10-27"]')).toHaveAttribute('aria-pressed','true');await expect(page.locator('.rich-filter-empty')).toBeVisible();
   await page.locator('.rich-filter-empty [data-appointment-reset]').click();await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(5);
@@ -46,7 +46,7 @@ test('appointment date composes with mode, person and search; resets and survive
   await page.locator('[data-appointment-date="2026-10-24"]').click();
   await page.locator('.rich-appt-tabs [data-action=filter][data-filter=past]').click();
   await expect(page.locator('[data-appointment-date=""]')).toHaveAttribute('aria-pressed','true');await expect(content(page).locator('.rich-filterable:visible')).toHaveCount(2);
-  await page.locator('[data-action=filter][data-filter=cancelled]').click();await expect(page.locator('.cf-hdr-date-rail')).toHaveCount(0);await expect(content(page)).toContainText('Chưa có lịch đã hủy');
+  await page.locator('[data-action=filter][data-filter=cancelled]').click();await expect(page.locator('.cf-hdr-date-rail')).toHaveCount(0);await expect(content(page)).toContainText('No cancelled appointments');
 });
 
 test('a visit update clears a date that no longer belongs to the current status group',async({page})=>{
@@ -60,14 +60,14 @@ test('account progress follows real OTP and preserves profile draft through back
   await page.goto('/prototype/?scenario=new#/login');
   await expect(page.locator('#back')).toBeDisabled();await expect(page.locator('#auth-jump')).toBeHidden();
   expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
-  await page.locator('#phone').fill('0900000000');await submit(page);await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Xác thực');
+  await page.locator('#phone').fill('0900000000');await submit(page);await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Verify');
   expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.locator('#otp').fill('123456');await page.locator('#consent').check();await submit(page);
   await expect(content(page)).toHaveAttribute('data-screen','A3');await page.locator('#name').fill('Lê Minh Khang');
   await expect(page.locator('[data-identity-preview]')).toHaveText('Lê Minh Khang');
   expect((await new AxeBuilder({page}).include('#phone-content').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.locator('#dob').fill('1995-02-15');await page.locator('.phone').screenshot({path:info.outputPath('A3.png')});
-  await page.locator('#back').click();await expect(content(page)).toHaveAttribute('data-screen','A1');await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Xác thực');
+  await page.locator('#back').click();await expect(content(page)).toHaveAttribute('data-screen','A1');await expect(page.locator('.cf-hdr-auth-progress [aria-current=step]')).toContainText('Verify');
   await page.locator('#otp').fill('123456');await page.locator('#consent').check();await submit(page);
   await expect(page.locator('#name')).toHaveValue('Lê Minh Khang');await expect(page.locator('[data-identity-preview]')).toHaveText('Lê Minh Khang');await submit(page);
   await expect(content(page)).toHaveAttribute('data-screen','B1');
