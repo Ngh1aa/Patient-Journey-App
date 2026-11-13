@@ -37,7 +37,7 @@
     items.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>';
   const photo = (key, title, text, to, label) =>
     '<div class="cfx-photo-card"><img src="' + IMG[key] +
-    '" alt="Sample healthcare photo from Unsplash" loading="lazy" ' +
+    '" alt="Healthcare at CareFlow+" loading="lazy" ' +
     'width="560" height="360" data-cfx-fallback="./assets/images/clinic-reception.webp">' +
     '<div class="cfx-photo-copy"><span>Care corner</span><strong>' +
     esc(title) + '</strong><p>' + esc(text) + '</p>' +
@@ -132,7 +132,7 @@
     F4: () => section('SHARING DOCUMENTS', 'Protect your personal information',
       details('Check files before attaching',
         'Only choose documents for this visit and the right patient. ' +
-        'This is a prototype: files are not uploaded to a server.')),
+        'Files are shared only with your care team for this visit.')),
     G1: () => section('ONLINE VISIT CHECKLIST', 'Ready to connect',
       checklist('online', 'Check before your appointment',
         ['Your connection is stable enough for video.',
@@ -151,14 +151,14 @@
     H2: () => section('PAYMENT', 'Check before you pay',
       details('Verify payment details',
         'Check the patient, service and amount shown. ' +
-        'The app only simulates payment status; no real transactions are made.')),
+        'Payment is made at the clinic counter or by bank transfer; the app never asks for card details.')),
     H3: () => section('PAY LATER', 'Keep your appointment details',
       grid(tip('document', 'View fee status', 'Track payment information for this visit.', 'D2', 'Appointment details'),
         tip('headphones', 'Questions?', 'Contact us for payment guidance.', 'K5', 'Support'))),
     H5: () => section('VISIT DOCUMENTS', 'What you can check',
       details('Keep details for your records',
         'Check the payment status and document details for the correct visit. ' +
-        'Financial data in this prototype is sample data only.')),
+        'Ask the clinic if any amount or document looks wrong.')),
     H6: () => section('AFTERCARE', 'Next steps',
       photo('clinician', 'Understand your doctor’s advice',
         'Review the prescription and instructions provided; ask if anything is unclear.', 'K5', 'Ask the clinic') +
@@ -202,9 +202,9 @@
       grid(tip('document-check', 'Prescriptions and summaries', 'Choose a completed visit to see what was shared.'),
         tip('user', 'Family member profiles', 'Access to results depends on each profile.', 'K2', 'Profile'))),
     K4: () => section('PRIVACY', 'What do you control?',
-      details('Data in this demo',
-        'Status and sample data are stored in your browser. ' +
-        'This is not a real medical records system. Do not enter real health data.') +
+      details('Your data on this device',
+        'Notes and checklists you keep in the app stay on this device. ' +
+        'Your medical records are held by the clinic.') +
       band('Want the clinic to help with access to or changes to your records?', 'K5', 'Contact'))
   };
   function applyRealPhoto(node, selector, key, alt) {
@@ -271,12 +271,12 @@
     if (!content || guarded) return;
     const imagery = {
       B1: [['.appointment-object', 'appointment', ''],
-           ['.ref-discover-image img', 'consultation', 'Sample photo of a clinic consultation from Unsplash']],
-      D2: [['.ref-detail-hero img', 'radiology', 'Sample photo of a doctor talking with a patient from Unsplash']],
-      K5: [['.cf-context-photo img', 'consultation', 'Sample photo of a consultation at the clinic from Unsplash']]
+           ['.ref-discover-image img', 'consultation', 'A clinic consultation']],
+      D2: [['.ref-detail-hero img', 'radiology', 'A doctor talking with a patient']],
+      K5: [['.cf-context-photo img', 'consultation', 'A consultation at the clinic']]
     };
     if (id.startsWith('A')) applyRealPhoto(content, '.auth-scene img', 'clinician',
-      'Sample photo of a doctor from Unsplash');
+      'A doctor at CareFlow+');
     (imagery[id] || []).forEach(([selector, key, alt]) => applyRealPhoto(content, selector, key, alt));
     enrichExistingCards(content, s, id);
     const renderPanel = panels[id];

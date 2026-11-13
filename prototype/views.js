@@ -166,6 +166,7 @@
             u.otpSent ? T.verify : T.getCode,
           ) +
             (u.otpSent ? btn(T.resend, 'resend', {}, 'text') : '') +
+            (!u.otpSent && s.seeded && M.accountProfile(s) ? btn('Continue as ' + M.accountProfile(s).name.split(/\s+/).slice(-2).join(' '), 'continue-as', {}, 'secondary') : '') +
             nav(C.support, 'K5', 'text'),
           u.otpSent ? 'auth-otp' : 'auth-start',
         );
@@ -377,7 +378,7 @@
         break;
       case 'E2':
         body =
-          `<section class="checkin-qr-panel" ${UI.cardAttrs('surface')} aria-label="Check-in code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="Test QR code identifying your appointment"></div><strong>${esc(v.id)}</strong><p>Show this code at reception to help with check-in. This is a sample code; reception still confirms your check-in.</p></section>` +
+          `<section class="checkin-qr-panel" ${UI.cardAttrs('surface')} aria-label="Check-in code"><div id="visit-qr" data-payload="CAREFLOW-DEMO:${esc(v.id)}" role="img" aria-label="QR code identifying your appointment"></div><strong>${esc(v.id)}</strong><p>Show this code at reception to help with check-in. Reception confirms your check-in.</p></section>` +
           card(details(s, v)) +
           note(T.note) +
           btn(T.cta, 'arrive', {}, 'primary');
@@ -717,8 +718,8 @@
             C.save,
           ) +
           section(T.privacy, `<p>${esc(T.privacyLead)}</p>`) +
-          section('Demo data', `<p>Restore appointments, profiles and requests to the original data. This only affects the current browser session.</p>${btn('Reset demo data', 'reset-demo', {}, 'secondary')}`) +
-          btn(T.logout, 'logout', {}, 'danger');
+          (window.CareFlowDemoTools?.enabled() ? section('Demo tools', `<p>Restore appointments, profiles and requests to the original data for this tab.</p>${btn('Reset demo data', 'reset-demo', {}, 'secondary')}`) : '') +
+          btn(T.logout, 'logout', {}, 'danger') + `<p class="cf-concept-credit cf-concept-credit--screen">Concept product designed by Đỗ Anh Nghĩa.</p>`;
         break;
       case 'K5':
         intro = R.supportHeader(s,richH);

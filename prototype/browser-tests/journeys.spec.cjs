@@ -31,7 +31,7 @@ const current = async (page) => {
   return s.visits.find((v) => v.id === s.activeVisitId);
 };
 async function load(page, name = 'upcoming') {
-  await page.goto('/prototype/index.html?scenario=' + name);
+  await page.goto('/prototype/index.html?demo=1&scenario=' + name);
   await expect(content(page)).toHaveAttribute(
     'data-screen',
     name === 'new' || name === 'returning' ? 'A1' : 'B1',
@@ -275,10 +275,10 @@ test('F3a warning → emergency contact sheet, native phone link and no booking'
   await expect(page.locator('#dialog-body')).toContainText('Phone app');
   await expect(page.locator('#dialog-actions a[href="tel:115"]')).toBeVisible();
   await page.locator('#dialog [data-action=directions]').click();
-  await expect(page.locator('#dialog-body')).toContainText('Bệnh viện Nhân dân 115');
-  await expect(page.locator('#dialog-body')).toContainText('527 Sư Vạn Hạnh');
+  await expect(page.locator('#dialog-body')).toContainText('CareFlow+ Riverside Clinic');
+  await expect(page.locator('#dialog-body')).toContainText('48 Riverside Avenue');
   await expect(page.locator('#dialog-actions a').first()).toHaveAttribute('href', /google\.com\/maps\/dir\//);
-  await expect(page.locator('#dialog-actions a').nth(1)).toHaveAttribute('href', 'https://benhviennhandan115.com/pages/lien-he');
+  await expect(page.locator('#dialog-actions a').nth(1)).toHaveAttribute('href', 'tel:02873004848');
   expect((await state(page)).draft.safety).toBe('warning');
   await page.locator('#dialog [data-action=close-dialog]').click();
   await action(page, 'emergency').click();

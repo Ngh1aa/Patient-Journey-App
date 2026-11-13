@@ -27,7 +27,7 @@
     { id: 'T2', title: 'Ticket details', route: '/support/tickets/:ticketId', tab: 'K5' },
   ];
   const byId = Object.fromEntries(SCREENS.map((x) => [x.id, x]));
-  for (const x of SCREENS) if (!M.SCREENS.some((y) => y.id === x.id)) M.SCREENS.push({ id: x.id, title: x.title, route: x.route, phase: 'Demo' });
+  for (const x of SCREENS) if (!M.SCREENS.some((y) => y.id === x.id)) M.SCREENS.push({ id: x.id, title: x.title, route: x.route, phase: 'Account' });
   const has = (id) => !!byId[id];
   const tabFor = (id) => byId[id]?.tab;
 
@@ -128,7 +128,7 @@
     if (gate.state === 'ready') return null;
     const title = byId[id]?.title || M.SCREENS.find((x) => x.id === id)?.title || 'CareFlow';
     const intro = `<div class="screen-intro"><h1 id="screen-title" tabindex="-1">${esc(title)}</h1><p></p></div>`;
-    if (gate.state === 'error') return `<div class="screen-masthead">${intro}</div><div class="cf-load-error" data-cf-state="error" role="alert">${I('warning', 28)}<h2>Couldn’t load data</h2><p>The connection to the demo server was interrupted. Your data is still safe in this session.</p>${button('Try again', 'p-retry-load', {}, 'primary', 'refresh')}</div>`;
+    if (gate.state === 'error') return `<div class="screen-masthead">${intro}</div><div class="cf-load-error" data-cf-state="error" role="alert">${I('warning', 28)}<h2>Couldn’t load data</h2><p>The connection was interrupted. Your data is safe; please try again.</p>${button('Try again', 'p-retry-load', {}, 'primary', 'refresh')}</div>`;
     return `<div class="screen-masthead">${intro}</div><div class="cf-skeleton" data-cf-state="loading" aria-busy="true" aria-label="Loading"><span class="sr-only">Loading data…</span>${'<div class="cf-skeleton-card"><span></span><span></span><span></span></div>'.repeat(3)}</div>`;
   }
 
@@ -162,7 +162,7 @@
       heading: 'Prescriptions', lead: 'Medications prescribed at your visits and at visits of family members you can view.',
       body: segmented('rxFilter', filter, [['active', 'Active', active.length], ['ended', 'Ended', ended.length]]) +
         (list.length ? `<div class="cf-rx-list">${list.map(card).join('')}</div>` : empty(filter === 'active' ? 'No active medications' : 'No ended prescriptions yet', filter === 'active' ? 'Prescriptions appear here when the clinic shares them after a visit.' : 'Prescriptions that have ended are kept here.', nav('View appointments', 'D1'))) +
-        note('Sample information in this demo. Don’t change how you take your medication on your own; ask your doctor or pharmacist if needed.'),
+        note('Don’t change how you take your medication on your own; ask your doctor or pharmacist if needed.'),
     };
   }
   function medDetail(s, u) {
@@ -172,7 +172,7 @@
     const left = Math.max(0, (r.refillsAllowed || 0) - refillsUsed(r));
     let refill = '';
     if (r.refill?.status === 'requested') refill = `<div class="cf-refill-status">${pill(REFILL_STATUS.requested[0], 'warning')}<p>Sent ${esc(stamp(r.refill.at))}. The clinic will review it and contact you ${esc(r.refill.pickup === 'call' ? 'by phone' : 'via the clinic pharmacy')}.</p>${r.refill.note ? `<p class="cf-quote">“${esc(r.refill.note)}”</p>` : ''}${button('Cancel refill request', 'rx-cancel-refill', { 'data-id': r.id }, 'text danger-text', 'cross')}</div>`;
-    else if (r.refill?.status === 'reviewed') refill = `<div class="cf-refill-status">${pill(REFILL_STATUS.reviewed[0], 'success')}<p>The clinic reviewed your request on ${esc(stamp(r.refill.reviewedAt))}. This is a simulation; no new prescription has been issued.</p></div>`;
+    else if (r.refill?.status === 'reviewed') refill = `<div class="cf-refill-status">${pill(REFILL_STATUS.reviewed[0], 'success')}<p>The clinic reviewed your request on ${esc(stamp(r.refill.reviewedAt))}. Your doctor will contact you if a new prescription is needed.</p></div>`;
     if (!rxEnded(r) && r.refill?.status !== 'requested') refill += left ? nav('Request a refill', 'M3', { 'rx-id': r.id }, 'primary', 'refresh') + `<p class="hint">${left} ${left === 1 ? 'refill' : 'refills'} left on this prescription.</p>` : note('No refills left on this prescription. Book a follow-up so your doctor can review it.');
     if (rxEnded(r)) refill += note('This prescription has ended. If you need to continue, ask the clinic or book a follow-up.') + nav('Ask the clinic about this', 'T3', { topic: 'Prescription', rx: r.id });
     return {
@@ -181,7 +181,7 @@
         section('Prescription details', facts([['Patient', person?.name], ['Prescriber', r.prescriber], ['Duration', dmy(r.startDate) + ' – ' + dmy(r.endDate)], ['Directions', r.instructions]]) + (visit ? prow('Visit ' + visit.id, dmy(visit.date) + ', ' + (visit.clinician?.name || ''), 'D2', { 'visit-id': visit.id }, 'calendar') : ''), 'pill') +
         section('Refills', refill, 'refresh') +
         (r.refillHistory?.length ? section('Request history', `<ol class="timeline">${r.refillHistory.slice().reverse().map((h) => `<li><span class="timeline-dot"></span><div><strong>${esc(REFILL_STATUS[h.status]?.[0] || h.status)}</strong><small>${esc(stamp(h.at))}</small></div></li>`).join('')}</ol>`, 'clock') : '') +
-        note('Sample information. Don’t use it to start, stop or change a dose on your own.', 'warning'),
+        note('Don’t start, stop or change a dose on your own; ask your doctor or pharmacist if you are unsure.', 'warning'),
     };
   }
   function refillForm(s, u) {
@@ -262,7 +262,7 @@
       body: `<section class="card cf-insurance-card" ${UI.cardAttrs('tonal')}><span class="eyebrow">${esc(INSURANCE_TYPES.find(([k]) => k === ins.type)?.[1] || 'Insurance')}</span><strong class="cf-insurance-number">${esc(ins.number)}</strong><span>${esc(ins.holder)}</span>${expired ? pill('Expired', 'danger') : soon ? pill('Expiring soon', 'warning') : pill('Valid', 'success')}</section>` +
         section('Details', facts([['Primary care facility', ins.facility || 'Not applicable'], ['Valid from', dmy(ins.validFrom)], ['Expires', dmy(ins.validTo)], ['Last updated', stamp(ins.updatedAt)]]), 'shield') +
         `<div class="cf-action-row">${nav('Edit insurance details', 'K12', {}, 'primary', 'document')}${button('Remove insurance details', 'insurance-remove', {}, 'text danger-text', 'cross')}</div>` +
-        note('The demo does not verify cards with the insurer.'),
+        note('The clinic confirms your insurance card at reception.'),
     };
   }
   function insuranceForm(s, u) {
@@ -310,7 +310,7 @@
   }
   function ticketDetail(s, u) {
     const t = ticket(s, param('ticketId'));
-    if (!t) return notFound('Ticket not found', 'This ticket doesn’t exist or was removed from the demo session.', 'T1', 'Back to tickets');
+    if (!t) return notFound('Ticket not found', 'This ticket doesn’t exist or has been removed.', 'T1', 'Back to tickets');
     const me = account(s);
     const thread = `<div class="conversation cf-thread">${t.thread.map((m) => `<div class="message ${m.from === 'patient' ? 'sent' : 'received'}"><span>${esc(m.from === 'patient' ? (me?.name || 'You') : (m.author || 'Clinic'))}, ${esc(stamp(m.at))}</span><p>${esc(m.text)}</p></div>`).join('')}</div>`;
     const visit = t.visitId && s.visits.find((v) => v.id === t.visitId);
@@ -465,7 +465,7 @@
       if (!p) return;
       const visits = s.visits.filter((v) => v.patientId === p.id);
       if (visits.length) return App().dialog('This profile can’t be deleted yet', `${p.name} has ${visits.length} ${visits.length === 1 ? 'appointment or visit' : 'appointments or visits'}. Profiles with a visit history must be kept by the clinic. You can edit the details or send a support ticket.`, button('Close', 'close-dialog', {}, 'primary'));
-      App().dialog('Delete profile for ' + p.name + '?', 'The profile will be removed from your account in this demo session.', button('Keep profile', 'close-dialog', {}, 'secondary') + button('Delete profile', 'family-delete-confirm', { 'data-id': p.id }, 'danger'));
+      App().dialog('Delete profile for ' + p.name + '?', 'The profile will be removed from your account.', button('Keep profile', 'close-dialog', {}, 'secondary') + button('Delete profile', 'family-delete-confirm', { 'data-id': p.id }, 'danger'));
     },
     'family-delete-confirm'(el) {
       commit(el, (s) => {
@@ -509,12 +509,12 @@
     'demo-fail-toggle'(el) {
       Store.failNext.set(!Store.failNext.get());
       syncFailToggle();
-      App().demo(Store.failNext.get() ? 'The next save or load will hit a simulated connection error.' : 'Simulated error turned off.');
+      App().demo(Store.failNext.get() ? 'The next save or load will fail once.' : 'Failed request disarmed.');
     },
   };
   function syncFailToggle() {
     const on = Store.failNext.get();
-    document.querySelectorAll('[data-action="demo-fail-toggle"]').forEach((b) => { b.setAttribute('aria-pressed', String(on)); b.querySelector('span') && (b.querySelector('span').textContent = on ? 'Simulated error: on' : 'Simulate connection error'); });
+    document.querySelectorAll('[data-action="demo-fail-toggle"]').forEach((b) => { b.setAttribute('aria-pressed', String(on)); b.querySelector('span') && (b.querySelector('span').textContent = on ? 'Failed request: armed' : 'Simulate a failed request'); });
   }
 
   /* ---------- live behaviour ---------- */

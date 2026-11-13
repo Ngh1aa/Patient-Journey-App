@@ -20,7 +20,7 @@ for(const group of [0,1,2]){
    await page.goto('/staff-prototype/index.html#'+path);
    await expect(page.locator('main')).toContainText(title);
    await expect(page.locator('.doctor-sidebar')).toBeVisible();
-   await expect(page.locator('.app-footer')).toContainText('UI/UX prototype');
+   await expect(page.locator('.app-footer')).toContainText('Concept product designed by');
    await expect(page.locator('.demo-indicator')).toHaveCount(0);
    await expect(page.locator('main h1 svg, main h2 svg')).toHaveCount(0);
    await expect(page.locator('.sidebar [aria-current="page"]')).toHaveCount(1);
@@ -74,7 +74,7 @@ test('doctor clinical draft, signature simulation, state recovery',async({page})
  await page.reload();
  await expect(page.locator('textarea[name="symptom"]')).toHaveValue('Illustrative consultation note for the portfolio.');
  await page.locator('[data-action="review-sign"]').first().click();
- await expect(page.locator('.dialog-card')).toContainText('does not create a signature');
+ await expect(page.locator('.dialog-card')).toContainText('Completing locks the consultation notes');
  await page.locator('[data-action="confirm-sign"]').click();
  await expect(page.locator('.consult-top')).toContainText('Visit complete');
  await expect(page.locator('[data-action="review-sign"]')).toBeDisabled();

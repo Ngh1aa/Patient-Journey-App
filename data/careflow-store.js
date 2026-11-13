@@ -57,7 +57,7 @@
     set(on) { try { on ? sessionStorage.setItem(FAIL_KEY, '1') : sessionStorage.removeItem(FAIL_KEY); } catch { /* ignore */ } },
   };
   class DemoError extends Error {
-    constructor() { super('Could not reach the demo server. Your data has not changed.'); this.code = 'SIMULATED'; }
+    constructor() { super('We couldn’t reach CareFlow+. Your data has not changed.'); this.code = 'SIMULATED'; }
   }
   /** Simulate a server round-trip. fn runs only on success; a failure leaves data untouched. */
   function request(fn, { delay = 450 } = {}) {

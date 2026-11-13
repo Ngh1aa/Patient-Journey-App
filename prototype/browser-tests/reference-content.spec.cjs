@@ -148,7 +148,7 @@ for(const width of [360,390,1440]) {
     await page.setViewportSize({width,height:900});
     const errors=[];page.on('pageerror',e=>errors.push(e.message));
     for(const [name,route] of [['home','/home'],['appointments','/appointments'],['profile','/profile'],['support','/support']]) {
-      await page.goto('/prototype/?scenario=upcoming#'+route);
+      await page.goto('/prototype/?demo=1&scenario=upcoming#'+route);
       for(const large of [false,true]) {
         if(large) {await page.locator('#review-toggle').click();await page.locator('[data-action="large-text"]').click();await page.locator('#review-toggle').click();await page.evaluate(()=>scrollTo(0,0));}
         await expect(page.locator('#bottom-nav')).toBeVisible();

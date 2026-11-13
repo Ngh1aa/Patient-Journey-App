@@ -1,8 +1,8 @@
-/* CareFlow demo seed — the single source of starting data for the patient app
+/* CareFlow seed — the single source of starting data for the patient app
  * (prototype/) and the clinic workspace (staff-prototype/).
  *
  * Every person, clinician, code and document here is fictional. Medication
- * entries are illustrative placeholders, not treatment advice. Dates are
+ * entries are common generics shown for illustration, not treatment advice. Dates are
  * offsets from "today" (Asia/Ho_Chi_Minh) so the demo always has a visit
  * today, upcoming visits and past visits.
  *
@@ -30,12 +30,12 @@
     ],
     // Patient account (the person who signs in to the patient app) and dependents.
     profiles: [
-      { id: 'p1', name: 'Nguyễn Minh Anh', dob: '1994-08-15', relation: 'self', phone: '0900000000', email: 'minhanh.demo@example.com', address: '12 Sample Street, Demo Ward, Ho Chi Minh City', allergies: 'No allergies recorded', medicalHistory: 'No additional notes.', canBook: true, canViewResults: true },
+      { id: 'p1', name: 'Nguyễn Minh Anh', dob: '1994-08-15', relation: 'self', phone: '0900000000', email: 'minhanh.nguyen@careflowplus.vn', address: '18 Hoa Sen Lane, Tân Định Ward, Ho Chi Minh City', allergies: 'No allergies recorded', medicalHistory: 'No additional notes.', canBook: true, canViewResults: true },
       { id: 'p2', name: 'Trần Thị Mai', dob: '1965-05-12', relation: 'mother', phone: '', email: '', address: '', allergies: '', medicalHistory: '', canBook: true, canViewResults: false },
       { id: 'p3', name: 'Nguyễn Gia Bảo', dob: '2019-03-02', relation: 'child', phone: '', email: '', address: '', allergies: '', medicalHistory: '', canBook: true, canViewResults: true },
     ],
     insurance: {
-      p1: { type: 'bhyt', number: 'DN4797900000128', holder: 'Nguyễn Minh Anh', facility: 'Sample General Clinic, District 1', validFromOffset: -200, validToOffset: 165, updatedOffset: -30 },
+      p1: { type: 'bhyt', number: 'DN4797900000128', holder: 'Nguyễn Minh Anh', facility: 'CareFlow+ Riverside Clinic', validFromOffset: -200, validToOffset: 165, updatedOffset: -30 },
     },
     // Account visits. status follows prototype/model.js TRANSITIONS.
     visits: [
@@ -45,18 +45,18 @@
       { id: 'CF-2031', patientId: 'p1', clinicianId: 'dr-ha', offset: -21, slot: '10:30', mode: 'onsite', status: 'completed', reason: 'Cough and mild fever', createdOffset: -25,
         summary: 'The doctor has recorded the notes from this visit. The full conclusion is kept in the clinic’s records; you can ask the clinic if you need it explained.',
         labs: [
-          { id: 'lab-1', name: 'Complete blood count (sample)', status: 'reviewed', note: 'The doctor reviewed the results and discussed them during the visit.' },
-          { id: 'lab-2', name: 'Chest X-ray (sample)', status: 'reviewed', note: 'The doctor reviewed the images and noted them in the record.' },
+          { id: 'lab-1', name: 'Complete blood count', status: 'reviewed', note: 'The doctor reviewed the results and discussed them during the visit.' },
+          { id: 'lab-2', name: 'Chest X-ray', status: 'reviewed', note: 'The doctor reviewed the images and noted them in the record.' },
         ] },
       { id: 'CF-2018', patientId: 'p3', clinicianId: 'dr-linh', offset: -48, slot: '14:00', mode: 'onsite', status: 'completed', reason: 'Routine check-up for my child', createdOffset: -52,
         summary: 'The clinic has recorded the routine check-up. Ask the clinic if you need more guidance.', labs: [] },
       { id: 'CF-2009', patientId: 'p1', clinicianId: 'dr-khoa', offset: -70, slot: '09:00', mode: 'onsite', status: 'cancelled', reason: 'Persistent nasal congestion', createdOffset: -75, cancelReason: 'Something urgent came up' },
     ],
-    // Illustrative only: names are placeholders and instructions point back to the clinic.
+    // Common generics only; instructions always point back to the prescriber or pharmacist.
     prescriptions: [
-      { id: 'RX-3101', visitId: 'CF-2031', patientId: 'p1', name: 'Sample medication A 500 mg', form: 'Tablet', quantity: '10 tablets', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Thu Hà', startOffset: -21, endOffset: 9, refillsAllowed: 1, status: 'active' },
-      { id: 'RX-3102', visitId: 'CF-2031', patientId: 'p1', name: 'Sample medication B 1000 IU', form: 'Capsule', quantity: '30 capsules', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Thu Hà', startOffset: -21, endOffset: 40, refillsAllowed: 2, status: 'active' },
-      { id: 'RX-2950', visitId: 'CF-2018', patientId: 'p3', name: 'Sample syrup C 60 ml', form: 'Syrup', quantity: '1 bottle', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Phương Linh', startOffset: -48, endOffset: -41, refillsAllowed: 0, status: 'completed' },
+      { id: 'RX-3101', visitId: 'CF-2031', patientId: 'p1', name: 'Paracetamol 500 mg', form: 'Tablet', quantity: '10 tablets', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Thu Hà', startOffset: -21, endOffset: 9, refillsAllowed: 1, status: 'active' },
+      { id: 'RX-3102', visitId: 'CF-2031', patientId: 'p1', name: 'Vitamin D3 1000 IU', form: 'Capsule', quantity: '30 capsules', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Thu Hà', startOffset: -21, endOffset: 40, refillsAllowed: 2, status: 'active' },
+      { id: 'RX-2950', visitId: 'CF-2018', patientId: 'p3', name: 'Paracetamol oral suspension 120 mg/5 ml', form: 'Syrup', quantity: '1 bottle (60 ml)', instructions: 'Take as directed on your doctor’s prescription.', prescriber: 'Dr. Trần Phương Linh', startOffset: -48, endOffset: -41, refillsAllowed: 0, status: 'completed' },
     ],
     tickets: [
       { id: 'HT-1007', topic: 'Payment', subject: 'Receipt for visit CF-2031', status: 'answered', createdOffset: -3, visitId: 'CF-2031',

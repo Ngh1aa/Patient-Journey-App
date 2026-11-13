@@ -22,16 +22,13 @@
     >
     <div id="presentation-bar">
     <div class="presentation-actions">
-      <button id="reset-demo" type="button" class="reset-demo" data-action="reset-demo">
-        Reset demo data
-      </button>
       <button
         id="review-toggle"
         type="button"
         aria-expanded="false"
         aria-controls="review-tools"
       >
-        Options
+        Demo tools
       </button>
     </div>
     <div
@@ -60,7 +57,10 @@
             ><small>Patient care journey</small>
           </div>
         </div>
-        <h2>Experience options</h2>
+        <h2>Demo tools</h2>
+        <button id="reset-demo" type="button" class="btn secondary reset-demo" data-action="reset-demo">
+          Reset demo data
+        </button>
         <label for="scenario">Scenario</label
         ><select id="scenario">
           <option value="demo">Full demo: sign in from the start</option>
@@ -93,7 +93,7 @@
           <option value="unknown">Outcome unknown</option>
         </select>
         <button class="btn secondary" type="button" data-action="demo-fail-toggle" aria-pressed="false">
-          <span>Simulate connection error</span></button
+          <span>Simulate a failed request</span></button
         ><button class="btn secondary" type="button" data-action="offline">
           Toggle offline</button
         ><button class="btn secondary" type="button" data-action="large-text">
@@ -162,6 +162,7 @@
         <p class="stage-caption">
           Healthcare, connected from appointment to after your visit.
         </p>
+        <p class="cf-concept-credit">Concept product designed by Đỗ Anh Nghĩa.</p>
       </main>
       <aside class="presentation-note" aria-label="About CareFlow">
         <span class="eyebrow">CARE, CONNECTED.</span>
@@ -186,6 +187,7 @@
       <div id="dialog-actions"></div>
     </dialog>
     <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+    <script src="../data/careflow-demo-tools.js"></script>
     <script src="../data/careflow-seed.js"></script>
     <script src="../data/careflow-store.js"></script>
     <script src="./model.js"></script>

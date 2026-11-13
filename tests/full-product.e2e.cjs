@@ -73,7 +73,7 @@ const P = (page) => ({
 });
 
 async function login(page, p) {
-  await page.goto(PATIENT + '?scenario=demo#/login');
+  await page.goto(PATIENT + '?demo=1&scenario=demo#/login');
   await page.fill('#phone', '0900000000');
   await p.submit('otp');
   await page.fill('#otp', '123456');
@@ -82,6 +82,12 @@ async function login(page, p) {
   await p.screen('A2');
   await p.submit('match');
   await p.screen('B1');
+}
+
+/** Staff demo tools live in a collapsed floating menu (only with ?demo=1). */
+async function openStaffDemoTools(page) {
+  await page.waitForSelector('.cf-demo-tools');
+  if (!(await page.locator('.cf-demo-tools').evaluate((d) => d.open))) await page.click('.cf-demo-tools > summary');
 }
 
 async function patientSuite(page) {
@@ -181,9 +187,9 @@ async function patientSuite(page) {
   await step('Visit summary and results detail', async () => {
     await p.open('#/appointments/CF-2031/summary', 'H6');
     await p.text('The doctor has recorded the notes from this visit');
-    await p.text('Sample medication A');
+    await p.text('Paracetamol 500 mg');
     await p.open('#/appointments/CF-2031/results', 'H7');
-    await p.text('Complete blood count (sample)');
+    await p.text('Complete blood count');
     await page.locator('[data-action="go"][data-to="F2"][data-lab="lab-1"]').first().click();
     await p.screen('F2');
     await p.text('Doctor’s comments');
@@ -191,9 +197,9 @@ async function patientSuite(page) {
 
   await step('Medications: list filters, detail, not-found', async () => {
     await p.open('#/medications', 'M1');
-    await p.text('Sample medication B');
+    await p.text('Vitamin D3 1000 IU');
     await page.click('[data-action="p-filter"][data-value="ended"]');
-    await p.text('Sample syrup C');
+    await p.text('Paracetamol oral suspension');
     await page.click('[data-action="p-filter"][data-value="active"]');
     await page.click('[data-p-rx-id="RX-3101"]');
     await p.screen('M2');
@@ -218,7 +224,7 @@ async function patientSuite(page) {
     await page.click('#review-toggle');
     await p.submit('refill');
     await page.waitForSelector('form[data-form="refill"] [data-cf-state="error"]');
-    await p.text('Could not reach the demo server');
+    await p.text('We couldn’t reach CareFlow+');
     assert(!(await p.state()).prescriptions.find((r) => r.id === 'RX-3101').refill, 'failed save leaves data unchanged');
     await page.click('form[data-form="refill"] [data-action="p-resubmit"]');
     await p.screen('M2');
@@ -563,11 +569,12 @@ async function staffSuite(page) {
 
   await step('Staff: simulated failure shows a recoverable error; retry succeeds', async () => {
     await s.open('/ops/queue', 'Today’s queue');
+    await openStaffDemoTools(page);
     await page.click('[data-action="ops-fail-toggle"]');
     await page.waitForSelector('[data-action="ops-fail-toggle"][aria-pressed="true"]');
     await s.row('PK-0804').locator('[data-action="ops-checkin"]').click();
     await page.waitForSelector('.ops-banner[data-cf-state="error"]');
-    await page.locator('.ops-banner', { hasText: 'Could not reach the demo server' }).waitFor();
+    await page.locator('.ops-banner', { hasText: 'We couldn’t reach CareFlow+' }).waitFor();
     await page.click('.ops-banner [data-action="ops-retry"]');
     await s.toast('Patient checked in');
     await s.row('PK-0804').locator('[data-action="ops-start"]').waitFor();
@@ -586,6 +593,7 @@ async function resetSuite(page) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(PATIENT + '#/home');
     await p.screen('B1');
+    await page.click('#review-toggle');
     await page.click('#reset-demo');
     await page.waitForSelector('#dialog[open]');
     await Promise.all([page.waitForEvent('load'), p.dialogClick('Reset')]);
@@ -600,7 +608,8 @@ async function resetSuite(page) {
     await S(page).open('/ops/queue', 'Today’s queue');
     await S(page).row('CF-2041').locator('[data-action="ops-checkin"]').waitFor();
     await S(page).row('PK-0804').locator('[data-action="ops-checkin"]').waitFor();
-    await page.click('.footer-reset');
+    await openStaffDemoTools(page);
+    await page.click('.cf-demo-tools .footer-reset');
     await page.click('[data-action="confirm-reset"]');
     await S(page).toast('Session reset');
   });
@@ -627,6 +636,104 @@ async function emptySuite(page) {
   });
 }
 
+const SIGNALS = /prototype|demo|sandbox|simulat|fictional|state lab|portfolio|showcase|\bsample\b|\bmock\b|example data/i;
+const PATIENT_ROUTES = ['/home', '/appointments', '/appointments/CF-2041', '/appointments/CF-2031/summary', '/profile', '/profile/history', '/settings', '/support', '/notifications', '/medications', '/medications/RX-3101', '/profile/family', '/profile/insurance', '/support/tickets'];
+const STAFF_ROUTES = ['/doctor', '/doctor/schedule', '/doctor/queue', '/doctor/followups', '/patients', '/results', '/encounters/a-033', '/clinical/orders', '/clinical/prescription', '/clinical/review', '/ops/queue', '/ops/tasks', '/ops/tickets'];
+
+async function cleanSuite(browser) {
+  await step('Plain URLs: signed-in entry, no prototype wording, demo tools hidden', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    attach(page, 'clean');
+    const p = P(page);
+    await page.goto(PATIENT);
+    await p.screen('B1');
+    assert(/#\/home$/.test(page.url()), 'plain patient URL lands on #/home, got ' + page.url());
+    await p.text('Minh Anh');
+    assert(await page.locator('.journey-panel').isHidden(), 'guided showcase panel hidden');
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
+      for (const r of PATIENT_ROUTES) {
+        await page.evaluate((x) => { location.hash = x; }, '#' + r);
+        await page.waitForSelector('#phone-content:not(:has([data-cf-state="loading"]))');
+        await page.waitForTimeout(50);
+        const text = await page.locator('body').innerText();
+        const hit = text.match(SIGNALS);
+        assert(!hit, `patient ${r} @${width}px shows "${hit && hit[0]}"`);
+        assert(!(await page.locator('#review-toggle, #reset-demo, [data-action="demo-fail-toggle"], [data-action="reset-demo"]').filter({ visible: true }).count()), `patient ${r} @${width}px hides demo tools`);
+      }
+    }
+    await page.goto(STAFF);
+    await page.waitForSelector('main#content');
+    assert(/#\/doctor$/.test(page.url()), 'plain clinic URL lands on #/doctor, got ' + page.url());
+    for (const r of STAFF_ROUTES) {
+      await page.goto(STAFF + '#' + r);
+      await page.waitForSelector('main#content');
+      await page.waitForSelector('main#content:not(:has([data-cf-state="loading"]))');
+      const text = await page.locator('body').innerText();
+      const hit = text.match(SIGNALS);
+      assert(!hit, `clinic ${r} shows "${hit && hit[0]}"`);
+      assert(await page.locator('.cf-demo-tools, [data-action="ops-fail-toggle"], [data-action="reset-demo"]').count() === 0, `clinic ${r} hides demo tools`);
+      assert((await page.locator('.app-footer').innerText()).includes('Concept product designed by Đỗ Anh Nghĩa.'), `clinic ${r} footer credit`);
+    }
+    await ctx.close();
+  });
+
+  await step('?demo=1 reveals demo tools in both apps; ?demo=0 hides them again', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    attach(page, 'demo-flag');
+    const p = P(page);
+    await page.goto(PATIENT + '?demo=1#/home');
+    await p.screen('B1');
+    await page.locator('#review-toggle', { hasText: 'Demo tools' }).waitFor();
+    await page.click('#review-toggle');
+    await page.locator('#reset-demo').waitFor();
+    await page.locator('#review-tools [data-action="demo-fail-toggle"]').waitFor();
+    await page.goto(PATIENT + '#/settings');
+    await p.screen('K4');
+    await page.locator('#phone-content [data-action="reset-demo"]').waitFor();
+    await page.goto(STAFF + '#/ops/queue');
+    await page.locator('.cf-demo-tools > summary', { hasText: 'Demo tools' }).waitFor();
+    await openStaffDemoTools(page);
+    await page.locator('.cf-demo-tools [data-action="ops-fail-toggle"]').waitFor();
+    await page.locator('.cf-demo-tools [data-action="reset-demo"]').waitFor();
+    await page.goto(STAFF + '?demo=0#/ops/queue');
+    await page.waitForSelector('main#content');
+    assert(await page.locator('.cf-demo-tools').count() === 0, 'clinic demo tools off after ?demo=0');
+    await page.goto(PATIENT + '#/home');
+    await p.screen('B1');
+    assert(await page.locator('#review-toggle').isHidden(), 'patient demo tools off after ?demo=0');
+    await ctx.close();
+  });
+
+  await step('Sign out shows the login screen; "Continue as" signs back in', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    attach(page, 'signout');
+    const p = P(page);
+    await page.goto(PATIENT + '#/settings');
+    await p.screen('K4');
+    await page.click('#phone-content [data-action="logout"]');
+    await p.screen('A1');
+    await page.locator('#phone').waitFor();
+    await page.click('#phone-content [data-action="continue-as"]');
+    await p.screen('B1');
+    await p.text('Minh Anh');
+    await ctx.close();
+  });
+
+  await step('Guided showcase stays reachable through ?scenario=guided', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    attach(page, 'guided');
+    await page.goto(PATIENT + '?scenario=guided');
+    await page.locator('.journey-panel').waitFor();
+    assert(await page.locator('.journey-item > button').count() === 12, '12 guided journeys');
+    await ctx.close();
+  });
+}
+
 (async () => {
   const browser = await chromium.launch();
   const started = Date.now();
@@ -644,6 +751,8 @@ async function emptySuite(page) {
     console.log('Empty states (same tab, cleared session)');
     await emptySuite(page);
     await ctx.close();
+    console.log('Clean product URLs and demo tools');
+    await cleanSuite(browser);
   } catch { failed = true; }
   await browser.close();
   console.log('\nConsole errors:', consoleErrors.length ? '\n  ' + consoleErrors.join('\n  ') : 'none');

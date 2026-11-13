@@ -61,7 +61,7 @@ test('visit and result statuses keep different meanings and consistent tones acr
 });
 
 test('booking exposes loading, preserves the draft on slot error and allows recovery',async({page})=>{
-  await page.goto('/prototype/index.html?scenario=empty#/home');
+  await page.goto('/prototype/index.html?demo=1&scenario=empty#/home');
   await page.locator('#bottom-nav .nav-book').click();await submit(page);
   await page.locator('#reason').fill('Details to keep when the time slot is no longer available');await submit(page);
   await page.locator('input[value="normal"]').check();await submit(page);

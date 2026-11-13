@@ -2,6 +2,13 @@
    Composition only; colours, radii and type come from design/tokens.css. */
 body:not(.product-mode) #reset-demo { display: none; }
 .presentation-actions { display: flex; gap: 8px; align-items: center; }
+/* Demo tools (reset, failed-request simulation, QA scenario pickers) only appear with ?demo=1. */
+html:not(.cf-demo-on) body:not(.guided) .presentation-actions,
+html:not(.cf-demo-on) body:not(.guided) #review-tools { display: none !important; }
+.review-tools .reset-demo { width: 100%; margin: 4px 0 12px; }
+.cf-concept-credit { margin: 0; padding: 10px 16px 14px; text-align: center; color: var(--cf-text-muted); font-size: 12px; line-height: 1.4; }
+.cf-concept-credit--screen { padding: 20px 4px 8px; }
+@media (max-width: 760px) { .stage > .cf-concept-credit { display: none; } }
 
 /* Inline validation */
 .field-message { margin: 6px 0 0; color: var(--cf-danger); font-size: calc(var(--cf-caption-font) * var(--font-scale, 1)); line-height: 1.4; font-weight: 600; }

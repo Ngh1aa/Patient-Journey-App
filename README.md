@@ -15,14 +15,20 @@ File14/15, the original 11/12 and the Deep Research UX Writing material were not
 
 The interface is in English (dates use the `en-GB` format). Supporting documents in `docs/`, `research/`, `design/` and `hifi/` are still in Vietnamese.
 
-## Full demo (everything except a backend)
+## Entry URLs and demo tools
 
-Open `prototype/?scenario=demo#/login` (sign in with any phone number and the code `123456`) or `?scenario=demo-member#/home` to go straight in. Starting data comes from a single file, [data/careflow-seed.js](data/careflow-seed.js); every change is kept in the tab's sessionStorage ([data/careflow-store.js](data/careflow-store.js)), so it survives moving between screens and reloading. The **Reset demo data** button (top bar or Settings) reloads the starting data.
+- **Patient app:** https://ngh1aa.github.io/Patient-Journey-App/prototype/ opens straight on the signed-in home of the seeded member (Nguyễn Minh Anh). Signing out shows the real login screen, which offers **Continue as Minh Anh** and still accepts any phone number with the code `123456`.
+- **Clinic app:** https://ngh1aa.github.io/Patient-Journey-App/staff-prototype/ opens the doctor overview (`#/doctor`); clinic operations are at `staff-prototype/#/ops/queue`.
+- **Demo tools** (Reset demo data, Simulate a failed request, and the QA scenario/screen pickers) are hidden from normal visitors. Add `?demo=1` to either URL (for example `prototype/?demo=1#/home`) to show a small **Demo tools** menu; the choice is kept for that tab, and `?demo=0` turns it off.
+- The older **guided-journey showcase** is only reachable explicitly: `prototype/?scenario=guided` (or a `?journey=F1..F12` link). QA fixtures still load with `?scenario=new|returning|empty|upcoming|appointments|online|pre-lab|completed|no-show|demo|demo-member`.
+- The clinic shown in the app, CareFlow+ Riverside Clinic, and every person in the data are fictional; the footer carries one line: “Concept product designed by Đỗ Anh Nghĩa.”
+
+Starting data comes from a single file, [data/careflow-seed.js](data/careflow-seed.js); every change is kept in the tab's sessionStorage ([data/careflow-store.js](data/careflow-store.js)), so it survives moving between screens and reloading.
 
 - Patients: book by specialty/doctor, time and reason; appointment details; reschedule; cancel with a reason; upcoming/past/cancelled lists; visit summary and results; prescriptions (`#/medications`) with refill requests; profile editing with per-field validation (`#/profile/edit`); family members — add, view, edit, remove (`#/profile/family`); insurance (`#/profile/insurance`); support tickets with a message thread, replies and close/reopen (`#/support/tickets`); notifications that can be marked as read.
 - Clinic: `staff-prototype/#/ops/queue` (today's queue, check-in, start and complete visits, internal notes, create a task or a follow-up appointment), `#/ops/tasks` (create, edit, complete and delete tasks), `#/ops/tickets` (reply to patients). Both apps share data when opened in the same tab.
-- Every list has an empty state; an unknown ID shows “Not found”; loading and saving have simulated latency. **Options → Simulate connection error** (or “Simulate error” in the clinic) makes the next load/save fail, with a Try again button; data is unchanged when it fails.
-- Medications, results and notes are all sample content with fictional patients; no real medical action is performed.
+- Every list has an empty state; an unknown ID shows “Not found”; loading and saving have simulated latency. **Demo tools → Simulate a failed request** (with `?demo=1`, in either app) makes the next load/save fail, with a Try again button; data is unchanged when it fails.
+- Patients, clinicians and the clinic are fictional; medications are common generics (Paracetamol, Vitamin D3) and every medication screen keeps the “ask your doctor or pharmacist” line. No real medical action is performed.
 - A tab that still holds data from the earlier Vietnamese build is reseeded once with the English data (flag `careflow.locale` in sessionStorage).
 
 ```sh

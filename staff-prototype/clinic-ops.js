@@ -104,7 +104,7 @@
   function gateView(path, x) {
     if (ops.gate.path !== path) { ops.gate.path = path; load(x); }
     if (ops.gate.state === 'loading') return `<section class="screen doctor-screen ops-screen">${heading('CLINIC OPERATIONS', title(path), '')}<div class="ops-skeleton" aria-busy="true" data-cf-state="loading"><span class="sr-only">Loading data…</span>${'<div class="ops-skeleton-row"><span></span><span></span><span></span></div>'.repeat(4)}</div></section>`;
-    if (ops.gate.state === 'error') return `<section class="screen doctor-screen ops-screen">${heading('CLINIC OPERATIONS', title(path), '')}<div class="ops-load-error doctor-surface" role="alert" data-cf-state="error"><h2>Couldn’t load data</h2><p>The connection to the demo server was interrupted. Data in this session is unchanged.</p>${x.btn('Try again', 'ops-retry-load', 'btn-primary')}</div></section>`;
+    if (ops.gate.state === 'error') return `<section class="screen doctor-screen ops-screen">${heading('CLINIC OPERATIONS', title(path), '')}<div class="ops-load-error doctor-surface" role="alert" data-cf-state="error"><h2>Couldn’t load data</h2><p>The connection was interrupted. No data was changed.</p>${x.btn('Try again', 'ops-retry-load', 'btn-primary')}</div></section>`;
     return null;
   }
   function load(x) {
@@ -142,8 +142,7 @@
   function subnav(path) {
     const items = [['/ops/queue', 'Today’s queue'], ['/ops/tasks', 'Tasks'], ['/ops/tickets', 'Support tickets']];
     const open = { '/ops/tasks': st.clinic.tasks.filter((t) => t.status === 'open').length, '/ops/tickets': (st.tickets || []).filter((t) => t.status === 'open').length };
-    const on = Store.failNext.get();
-    return `<div class="ops-toolbar"><nav class="ops-subnav" aria-label="Clinic operations">${items.map(([p, l]) => `<a href="#${p}" class="${path.startsWith(p) ? 'active' : ''}"${path.startsWith(p) ? ' aria-current="page"' : ''}>${e(l)}${open[p] ? `<span>${open[p]}</span>` : ''}</a>`).join('')}</nav><button type="button" class="ops-fail-toggle" data-action="ops-fail-toggle" aria-pressed="${on}">${on ? 'Simulated error: on' : 'Simulate connection error'}</button></div>`;
+    return `<div class="ops-toolbar"><nav class="ops-subnav" aria-label="Clinic operations">${items.map(([p, l]) => `<a href="#${p}" class="${path.startsWith(p) ? 'active' : ''}"${path.startsWith(p) ? ' aria-current="page"' : ''}>${e(l)}${open[p] ? `<span>${open[p]}</span>` : ''}</a>`).join('')}</nav></div>`;
   }
   function banner(x) {
     if (!ops.error) return '';
@@ -153,9 +152,9 @@
     const m = ops.modal;
     if (!m) return '';
     const map = {
-      complete: ['Complete this visit?', 'The visit will move to Completed and the patient will be notified. This is a simulated action; it creates no real signature or medical record.', 'Complete visit', 'ops-complete-confirm'],
+      complete: ['Complete this visit?', 'The visit will move to Completed and the patient will be notified. The consultation notes will be locked.', 'Complete visit', 'ops-complete-confirm'],
       noshow: ['Record no-show?', 'The patient will see the appointment as a no-show and can rebook.', 'Record no-show', 'ops-noshow-confirm'],
-      'delete-task': ['Delete this task?', 'The task will be removed from the clinic’s list in this demo session.', 'Delete task', 'ops-task-delete-confirm'],
+      'delete-task': ['Delete this task?', 'The task will be removed from the clinic’s list.', 'Delete task', 'ops-task-delete-confirm'],
       'delete-note': ['Delete note?', 'The internal note will be removed from the visit.', 'Delete note', 'ops-note-delete-confirm'],
       'close-ticket': ['Close support ticket?', 'The patient can still reopen the ticket if needed.', 'Close ticket', 'ops-ticket-close-confirm'],
     };
@@ -168,7 +167,7 @@
   const areaC = (name, value = '', extra = '') => `<textarea name="${name}" id="ops-${name}" rows="3" ${extra}>${e(value)}</textarea>`;
   const formWrap = (name, html, cta, x, extra = '') => `<form class="ops-form" data-ops-form="${name}" novalidate>${html}<div class="ops-form-alert" data-form-alert></div><div class="ops-form-actions">${extra}<button type="submit" class="btn btn-primary" ${UI.buttonAttrs('btn-primary')}>${e(cta)}</button></div></form>`;
   const emptyBox = (t, d, action = '') => `<div class="ops-empty" data-cf-state="empty"><strong>${e(t)}</strong><p>${e(d)}</p>${action}</div>`;
-  const notFound = (x, t, back, label) => `<section class="screen doctor-screen ops-screen" data-cf-state="not-found">${heading('CLINIC OPERATIONS', 'Not found', '')}${emptyBox(t, 'This ID doesn’t exist or was deleted in this demo session.', `<a class="btn btn-primary" ${UI.buttonAttrs('btn-primary')} href="#${back}">${e(label)}</a>`)}</section>`;
+  const notFound = (x, t, back, label) => `<section class="screen doctor-screen ops-screen" data-cf-state="not-found">${heading('CLINIC OPERATIONS', 'Not found', '')}${emptyBox(t, 'This ID doesn’t exist or was deleted.', `<a class="btn btn-primary" ${UI.buttonAttrs('btn-primary')} href="#${back}">${e(label)}</a>`)}</section>`;
   const link = (href, label) => `<a class="text-link" href="#${href}">${e(label)}</a>`;
 
   /* ---------- pages ---------- */
@@ -183,7 +182,7 @@
       return `<tr data-visit="${e(v.id)}"><td class="mono">${e(v.slot)}</td><td><a class="text-link" href="#/ops/patients/${e(v.patientId)}">${e(p?.name || 'Unknown')}</a><small class="ops-sub">${e(v.id)}, ${isOnline(v) ? 'Online' : 'In person'}</small></td><td>${e(v.reason)}</td><td>${e(v.clinician?.name || '')}</td><td>${statusPill(x, v)}</td><td><div class="ops-row-actions">${step ? x.btn(step[0], step[1], 'btn-primary', `data-id="${e(v.id)}"`) : ''}<a class="btn btn-secondary" ${UI.buttonAttrs('btn-secondary')} href="#/ops/visits/${e(v.id)}">Details</a></div></td></tr>`;
     }).join('');
     const filters = [['all', 'All', all.length], ['waiting', 'Expected', count('waiting')], ['inclinic', 'In clinic', count('inclinic')], ['done', 'Done', count('done')]];
-    return `<section class="screen doctor-screen ops-screen">${heading('CLINIC OPERATIONS', 'Today’s queue', 'Check in, start and complete visits. Patients see updates in the app straight away in the same session.')}${subnav(path)}${banner(x)}
+    return `<section class="screen doctor-screen ops-screen">${heading('CLINIC OPERATIONS', 'Today’s queue', 'Check in, start and complete visits. Patients see updates in their app straight away.')}${subnav(path)}${banner(x)}
       <section class="doctor-surface ops-panel" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">${e(dmy(today()))}</span><h2>${all.length} ${all.length === 1 ? 'visit' : 'visits'} today</h2></div></div>
       <div class="ops-filters" role="group" aria-label="Filter queue">${filters.map(([k, l, n]) => `<button type="button" data-action="ops-queue-filter" data-value="${k}" aria-pressed="${f === k}">${e(l)} <span>${n}</span></button>`).join('')}</div>
       ${list.length ? `<div class="table-scroll"><table class="data-table ops-table"><thead><tr><th>Time</th><th>Patient</th><th>Reason for visit</th><th>Doctor</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody>${rows}</tbody></table></div>`
@@ -205,7 +204,7 @@
           <h3 class="ops-h3">Progress</h3><ol class="ops-timeline">${v.history.map((h) => `<li><strong>${e(UI.status(h.status).label)}</strong><small>${e(stamp(h.at))}, ${h.actor === 'staff' ? 'Clinic' : 'Patient'}</small></li>`).join('')}</ol>
         </section>
         <section class="doctor-surface ops-panel" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">INTERNAL NOTES</span><h2>${notes.length} ${notes.length === 1 ? 'note' : 'notes'}</h2></div></div>
-          <p class="ops-muted">Visible to clinic staff only. Don’t record diagnoses or treatment orders in the demo.</p>
+          <p class="ops-muted">Visible to clinic staff only. Record diagnoses and treatment orders in the visit record, not here.</p>
           ${formWrap('note', `<input type="hidden" name="visitId" value="${e(v.id)}">` + field('note', 'Add a note', areaC('note', f.note?.note || '', 'maxlength="1000"')), 'Save note', x)}
           ${notes.length ? `<ul class="ops-notes">${notes.map((n) => `<li><p>${e(n.text)}</p><small>${e(n.author)}, ${e(stamp(n.at))}</small>${x.btn('Delete', 'ops-note-delete', 'btn-outline ops-small', `data-id="${e(v.id)}" data-note="${e(n.id)}"`)}</li>`).join('')}</ul>` : emptyBox('No notes yet', 'Record operational details such as missing paperwork or support needs.')}
         </section>
@@ -237,7 +236,7 @@
       <div class="ops-grid">
         <section class="doctor-surface ops-panel" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">ADMINISTRATIVE DETAILS</span><h2>Contact</h2></div></div>
           <dl class="ops-facts"><div><dt>Phone number</dt><dd>${e(p.phone ? p.phone.slice(0, 3) + ' ••• ' + p.phone.slice(-3) : 'Not provided')}</dd></div><div><dt>Insurance</dt><dd>${ins ? e(ins.number + ', expires ' + dmy(ins.validTo)) : 'Not provided'}</dd></div><div><dt>Record source</dt><dd>${p.scope === 'account' ? 'Patient’s CareFlow+ account' : 'Clinic record'}</dd></div></dl>
-          ${rx.length ? `<h3 class="ops-h3">Sample prescriptions</h3><ul class="ops-mini-list">${rx.map((r) => `<li>${e(r.name)} ${r.refill?.status === 'requested' ? x.pill('Refill awaiting review', 'warning') : ''}</li>`).join('')}</ul>` : ''}
+          ${rx.length ? `<h3 class="ops-h3">Prescriptions</h3><ul class="ops-mini-list">${rx.map((r) => `<li>${e(r.name)} ${r.refill?.status === 'requested' ? x.pill('Refill awaiting review', 'warning') : ''}</li>`).join('')}</ul>` : ''}
         </section>
         <section class="doctor-surface ops-panel" ${UI.cardAttrs('surface')}><div class="doctor-section-head"><div><span class="doctor-overline">RELATED TASKS</span><h2>${tasks.filter((t) => t.status === 'open').length} open ${tasks.filter((t) => t.status === 'open').length === 1 ? 'task' : 'tasks'}</h2></div><a class="btn btn-secondary" ${UI.buttonAttrs('btn-secondary')} href="#/ops/tasks/new?patient=${e(id)}">Create task</a></div>
           ${tasks.length ? `<ul class="ops-mini-list">${tasks.map((t) => `<li><a class="text-link" href="#/ops/tasks/${e(t.id)}">${e(t.title)}</a> ${x.pill(t.status === 'done' ? 'Done' : 'Due ' + dmy(t.due), t.status === 'done' ? 'success' : 'warning')}</li>`).join('')}</ul>` : emptyBox('No related tasks', 'Create a task to remind reception or a nurse to contact the patient.')}
@@ -371,7 +370,7 @@
     if (r?.refill?.status === 'requested') {
       r.refill = { ...r.refill, status: 'reviewed', reviewedAt: t.completedAt };
       (r.refillHistory ??= []).push({ status: 'reviewed', at: t.completedAt });
-      notifyPatient({ rxId: r.id, screen: 'M2', title: 'The clinic reviewed your refill request', body: r.name + '. This is a simulation; no new prescription has been issued.' });
+      notifyPatient({ rxId: r.id, screen: 'M2', title: 'The clinic reviewed your refill request', body: r.name + '. Your doctor will contact you if a new prescription is needed.' });
     }
   }
 
@@ -402,7 +401,7 @@
     if (a === 'ops-note-delete-confirm') { run(x, b, () => { const f = findVisit(id); const i = f?.v.staffNotes?.findIndex((n) => n.id === b.dataset.note) ?? -1; if (i < 0) return { ok: false, message: 'This note no longer exists.' }; f.v.staffNotes.splice(i, 1); }, { done: 'Note deleted' }); return true; }
     if (a === 'ops-ticket-close') { ops.modal = { type: 'close-ticket', id }; x.render(); return true; }
     if (a === 'ops-ticket-close-confirm') { run(x, b, () => { const t = (st.tickets || []).find((k) => k.id === id); if (!t) return { ok: false, message: 'This ticket no longer exists.' }; t.status = 'closed'; t.closeReason = 'Closed by the clinic'; }, { done: 'Ticket closed' }); return true; }
-    if (a === 'ops-fail-toggle') { Store.failNext.set(!Store.failNext.get()); x.notify(Store.failNext.get() ? 'The next save or load will hit a simulated connection error' : 'Simulated error turned off'); return true; }
+    if (a === 'ops-fail-toggle') { Store.failNext.set(!Store.failNext.get()); x.notify(Store.failNext.get() ? 'The next save or load will fail once' : 'Failed request disarmed'); return true; }
     if (a === 'confirm-reset') { st = Store.reset(); ops.forms = {}; ops.error = null; ops.gate.path = null; return false; }
     return false;
   }

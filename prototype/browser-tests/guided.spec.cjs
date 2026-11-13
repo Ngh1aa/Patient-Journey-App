@@ -11,7 +11,7 @@ for(const entered of [false,true])test(`legacy booking deep link restores guide 
   sessionStorage.setItem('careflow.browser.v3',JSON.stringify({state:s,ui:{screen:'C2',forms:{reason:{reason:entered?'Draft in progress that must be kept':'',medicalHistory:entered?'Entered details that must be kept':''}}}}));
  },entered);
  await page.goto('about:blank');
- await page.goto('/prototype/index.html#/book/reason');
+ await page.goto('/prototype/index.html?scenario=guided#/book/reason');
  await expect(page.locator('.journey-panel')).toBeVisible();
  await expect(page.locator('.journey-item > button')).toHaveCount(12);
  await expect(page.locator('#phone-content')).toHaveAttribute('data-screen','C2');
@@ -98,7 +98,7 @@ for(const [flow,branches] of Object.entries(cases))for(const branch of branches)
 }
 test('guided shell is accessible, responsive, persistent and uses prefilled fields',async({page},info)=>{
  await page.setViewportSize({width:1440,height:1000});
- await page.goto('/prototype/index.html');
+ await page.goto('/prototype/index.html?scenario=guided');
  await expect(page.locator('.demo-bar, #demo-warning')).toHaveCount(0);
  await expect(page.locator('body')).not.toContainText('Sample experience');
  await expect(page.locator('#phone')).toHaveValue('0900000000');

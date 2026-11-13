@@ -441,7 +441,7 @@
     for (const el of form.elements) {
       if (el.type==='file' && !el.files.length) {
         const transfer = new DataTransfer();
-        transfer.items.add(new File(['%PDF-1.4\n% CareFlow portfolio attachment - no clinical data\n%%EOF'], 'Ket-qua-da-nhan.pdf', {type:'application/pdf'}));
+        transfer.items.add(new File(['%PDF-1.4\n% CareFlow attachment\n%%EOF'], 'Ket-qua-da-nhan.pdf', {type:'application/pdf'}));
         el.files = transfer.files;
       } else if (el.type==='checkbox' && (['consent','ack'].includes(el.name) || (el.name==='urgent' && branch==='urgent'))) el.checked=true;
       else if (el.type!=='radio' && !el.value && values[el.name]) {
@@ -1190,7 +1190,7 @@
       go('A1', {}, true);
     },
     'confirm-logout'() {
-      dialog('Sign out of CareFlow+?', 'You’ll need to sign in again to keep using the demo.', V.btn('Stay', 'close-dialog', {}, 'secondary') + V.btn('Sign out', 'logout', {}, 'danger'));
+      dialog('Sign out of CareFlow+?', 'You’ll need to sign in again to see your appointments.', V.btn('Stay', 'close-dialog', {}, 'secondary') + V.btn('Sign out', 'logout', {}, 'danger'));
     },
     logout() {
       if ($('dialog').open) $('dialog').close();
@@ -1204,6 +1204,14 @@
     },
     'close-dialog'() {
       $('dialog').close();
+    },
+    'continue-as'() {
+      if (!s.seeded || !M.accountProfile(s)) return;
+      s.authenticated = true;
+      u.forms = {};
+      u.otpSent = false;
+      demo();
+      go('B1');
     },
     'confirm-cancel'() {
       const reason = u.cancelReason;
@@ -1637,7 +1645,16 @@
     u = {...u, inspection:true, appointmentShowcase:true, journey:null, filter:'upcoming', appointmentGroup:null, appointmentFilters:false, preparation:{}, visitNotes:{}, forms:{}, otpSent:false, phone:'', deviceReady:false, labId:null, urgentAftercare:false};
   }
   if(params.has('inspect'))u.inspection=true;
-  guideEnabled = !appointmentShowcaseLink && !appointmentShowcaseSession && !params.has('scenario') && !params.has('inspect') && (params.has('journey') || !location.hash || !!u.journey || !u.inspection);
+  // The guided-journey showcase is only reachable through ?scenario=guided (or an explicit ?journey=
+  // link). A plain URL opens the product signed in as the seeded member.
+  const scenarioParam = params.get('scenario');
+  const fixtureScenario = !!scenarioParam && scenarioParam !== 'guided';
+  const guidedParam = scenarioParam === 'guided' || params.has('journey');
+  guideEnabled = !appointmentShowcaseLink && !appointmentShowcaseSession && !fixtureScenario && !params.has('inspect') && (guidedParam || (restoredSession && (u.inspection === false || !!u.journey)));
+  if (!guideEnabled && !restoredSession && !fixtureScenario && !appointmentShowcaseLink) {
+    s = Object.assign(window.CareFlowSeed.build(), { authenticated: true });
+    u = {...u, inspection:true, appointmentShowcase:false, journey:null, filter:'upcoming', appointmentGroup:null, appointmentFilters:false, forms:{}};
+  }
   if(guideEnabled && u.journey?.index===1 && ['F1','F2'].includes(u.journey.id) && !s.authenticated) u.otpSent=true;
   if (
     [

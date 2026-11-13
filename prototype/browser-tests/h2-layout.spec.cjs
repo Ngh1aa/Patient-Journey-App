@@ -46,7 +46,7 @@ test('large-text booking deliberately collapses its header after scrolling',asyn
 });
 
 test('lab time and file controls retain the lab booking and upload contracts',async({page})=>{
-  await page.goto('/prototype/?scenario=pre-lab');await review(page,'F3');
+  await page.goto('/prototype/?demo=1&scenario=pre-lab');await review(page,'F3');
   await page.locator('[data-cf-control=labTime]').click();await page.locator('[data-hour="10"]').click();await page.locator('[data-minute="15"]').click();await page.locator('[data-time-done]').click();await expect(page.locator('#labTime')).toHaveValue('10:15');
   await submit(page);await review(page,'F4');await page.locator('#file').setInputFiles({name:'ket-qua.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4\nresult')});
   await expect(page.locator('[data-cf-control=file]')).toContainText('ket-qua.pdf');

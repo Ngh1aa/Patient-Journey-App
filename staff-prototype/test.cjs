@@ -26,5 +26,5 @@ test('consistent brand, responsive constraints and accessibility contracts',()=>
  assert.match(html,/doctor-polish\.css/);
  assert.match(icons,/stethoscope/);
  assert.match(polish,/doctor-now-details/);
- assert.match(app,/UI\/UX prototype/);
+ assert.match(app,/Concept product designed by/);
 });

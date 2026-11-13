@@ -44,14 +44,15 @@
       authLead: 'From your first appointment to care after your visit.',
     },
     facility: {
-      name: 'Bệnh viện Nhân dân 115',
-      address: '527 Sư Vạn Hạnh, Hòa Hưng Ward, Ho Chi Minh City',
-      entrance: 'Emergency entrance · Gate 4',
-      source: 'https://benhviennhandan115.com/pages/lien-he',
-      maps: 'https://www.google.com/maps/dir/?api=1&destination=Cong%20cap%20cuu%20Benh%20vien%20Nhan%20dan%20115%20527%20Su%20Van%20Hanh%20Ho%20Chi%20Minh',
+      name: 'CareFlow+ Riverside Clinic',
+      address: '48 Riverside Avenue, An Phú Ward, Ho Chi Minh City',
+      entrance: 'Urgent care entrance · Gate 2',
+      phone: '028 7300 4848',
+      source: 'tel:02873004848',
+      maps: 'https://www.google.com/maps/dir/?api=1&destination=48%20Riverside%20Avenue%2C%20An%20Phu%2C%20Ho%20Chi%20Minh%20City',
       emergencyPhone: '115',
       directions: 'Open directions in Google Maps',
-      details: 'Information from the hospital',
+      details: 'Call the clinic: 028 7300 4848',
       emergencyTitle: 'Call emergency services on 115',
       emergencyLead: 'Open the Phone app to call the emergency line.',
     },
@@ -625,7 +626,7 @@
         reminders: 'Appointment reminders',
         privacy: 'Privacy',
         privacyLead:
-          'You can restart the experience from Options.',
+          'Your health information is shared only with your care team at CareFlow+ Riverside Clinic.',
         logout: 'Sign out',
       },
       K5: {
@@ -665,16 +666,16 @@
     demo: {
       title: 'Information',
       warning: '',
-      otp: 'A verification code has been prepared: 123456.',
+      otp: 'We’ve sent a 6-digit code by SMS. For this account the code is 123456.',
       notice:
-        'Information is stored in this experience in this browser.',
+        '',
       payment:
         'Your transfer notice is awaiting clinic confirmation.',
       video:
         'You can turn your camera and microphone on or off during the call.',
-      stored: 'The session is stored only in this browser. Reset to clear the sample data.',
+      stored: 'Your session is saved on this device.',
       reset: 'Reset',
-      controls: 'Experience options',
+      controls: 'Demo tools',
       update: 'View clinic update',
       reviewer: 'Clinic update',
       current: 'Current screen',
